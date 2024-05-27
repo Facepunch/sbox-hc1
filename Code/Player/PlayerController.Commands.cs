@@ -1,4 +1,4 @@
-namespace Gunfight;
+namespace Facepunch;
 
 public partial class PlayerController
 {

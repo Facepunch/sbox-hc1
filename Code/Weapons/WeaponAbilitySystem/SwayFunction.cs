@@ -1,4 +1,4 @@
-namespace Gunfight;
+namespace Facepunch;
 
 /// <summary>
 /// Implements a very basic weapon sway mechanic, when aiming down the sights.

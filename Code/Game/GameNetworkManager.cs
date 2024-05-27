@@ -1,6 +1,6 @@
 using Sandbox.Network;
 
-namespace Gunfight;
+namespace Facepunch;
 
 public sealed class GameNetworkManager : Component, Component.INetworkListener
 {

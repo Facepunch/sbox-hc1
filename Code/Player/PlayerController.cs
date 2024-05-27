@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 
-namespace Gunfight;
+namespace Facepunch;
 
 public partial class PlayerController : Component, IPawn, IRespawnable
 {

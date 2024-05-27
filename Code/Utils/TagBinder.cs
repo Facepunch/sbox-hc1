@@ -1,4 +1,4 @@
-namespace Gunfight;
+namespace Facepunch;
 
 /// <summary>
 /// A utility component that lets you have tags update based on conditions,

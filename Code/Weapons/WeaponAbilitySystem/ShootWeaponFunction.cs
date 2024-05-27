@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace Gunfight;
+namespace Facepunch;
 
 [Icon( "track_changes" )]
 public partial class ShootWeaponFunction : InputActionWeaponFunction
@@ -80,18 +80,13 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	}
 
 	/// <summary>
-	/// Gets a surface from a trace. Trying to find a SurfaceComponent before using the one from the model.
+	/// Gets a surface from a trace.
 	/// </summary>
 	/// <param name="tr"></param>
 	/// <returns></returns>
 	private Surface GetSurfaceFromTrace( SceneTraceResult tr )
 	{
-		if ( tr.GameObject?.GetSurface() is Surface surface )
-		{
-			return surface;
-		}
-
-		return tr.Surface;
+		return tr.Surface;	
 	}
 
 	private LegacyParticleSystem CreateParticleSystem( string particle, Vector3 pos, Rotation rot, float decay = 5f )

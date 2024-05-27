@@ -1,4 +1,4 @@
-namespace Gunfight;
+namespace Facepunch;
 
 /// <summary>
 /// A list of game utilities that'll help us achieve common goals with less code... I guess?

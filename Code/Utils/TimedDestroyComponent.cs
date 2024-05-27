@@ -1,4 +1,4 @@
-namespace Gunfight;
+namespace Facepunch;
 
 /// <summary>
 /// A simple component that destroys its GameObject.

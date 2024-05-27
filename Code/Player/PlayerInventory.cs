@@ -1,4 +1,4 @@
-namespace Gunfight;
+namespace Facepunch;
 
 /// <summary>
 /// The player's inventory.

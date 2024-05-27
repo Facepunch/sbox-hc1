@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace Gunfight;
+namespace Facepunch;
 
 /// <summary>
 /// A damage info struct. When inflicting damage on GameObjects, this is what we'll pass around.

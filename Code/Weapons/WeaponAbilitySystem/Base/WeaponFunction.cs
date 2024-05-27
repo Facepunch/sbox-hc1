@@ -1,4 +1,4 @@
-namespace Gunfight;
+namespace Facepunch;
 
 /// <summary>
 /// A weapon function. This can be anything that controls a weapon. Aiming, recoil, sway, shooting..

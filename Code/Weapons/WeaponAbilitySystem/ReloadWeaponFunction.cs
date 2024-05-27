@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Gunfight;
+namespace Facepunch;
 
 public partial class ReloadWeaponFunction : InputActionWeaponFunction
 {

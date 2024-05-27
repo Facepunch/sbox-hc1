@@ -1,6 +1,6 @@
 using System.Collections.Immutable;
 
-namespace Gunfight;
+namespace Facepunch;
 
 /// <summary>
 /// We hold a separate list of tags for the player.

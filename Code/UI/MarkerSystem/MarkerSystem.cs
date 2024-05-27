@@ -1,4 +1,4 @@
-namespace Gunfight.UI;
+namespace Facepunch.UI;
 
 public partial class MarkerSystem
 {

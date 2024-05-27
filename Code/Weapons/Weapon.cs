@@ -1,4 +1,4 @@
-namespace Gunfight;
+namespace Facepunch;
 
 /// <summary>
 /// A weapon component.
@@ -50,7 +50,7 @@ public partial class Weapon : Component
 	private ViewModel viewModel;
 
 	/// <summary>
-	/// A reference to the weapon's <see cref="Gunfight.ViewModel"/> if it has one.
+	/// A reference to the weapon's <see cref="Facepunch.ViewModel"/> if it has one.
 	/// </summary>
 	public ViewModel ViewModel
 	{

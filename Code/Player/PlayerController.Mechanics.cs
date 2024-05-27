@@ -1,6 +1,6 @@
 using System.Collections.Immutable;
 
-namespace Gunfight;
+namespace Facepunch;
 
 public partial class PlayerController
 {

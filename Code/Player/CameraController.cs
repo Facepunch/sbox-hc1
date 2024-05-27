@@ -1,6 +1,6 @@
 using Sandbox;
 
-namespace Gunfight;
+namespace Facepunch;
 
 public sealed class CameraController : Component
 {

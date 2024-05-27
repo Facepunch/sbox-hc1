@@ -1,4 +1,4 @@
-namespace Gunfight;
+namespace Facepunch;
 
 /// <summary>
 /// A weapon's viewmodel. It's responsibility is to listen to events from a weapon.

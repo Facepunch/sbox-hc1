@@ -1,5 +1,5 @@
 
-using Gunfight;
+using Facepunch;
 
 [GameResource( "Gunfight/Weapon Data", "weapon", "A resource containing basic information about a weapon.", IconBgColor = "#5877E0", Icon = "track_changes" )]
 public partial class WeaponDataResource : GameResource

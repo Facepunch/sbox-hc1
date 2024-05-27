@@ -1,7 +1,7 @@
 using Sandbox.Html;
 using Sandbox.UI;
 
-namespace Gunfight;
+namespace Facepunch;
 
 public class WeaponViewer : ScenePanel
 {
