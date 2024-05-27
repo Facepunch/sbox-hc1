@@ -25,7 +25,8 @@ public partial class PlayerController
 		// Kill player inventory
 
 		SetBodyVisible( false );
-		HealthComponent.State = LifeState.Respawning;
+
+		HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
 	}
 
 	public void SetBodyVisible( bool visible )

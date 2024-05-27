@@ -109,6 +109,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 	/// </summary>
 	public bool IsFrozen => GameMode.Instance.State is GameState.PreRound;
 
+	/// <summary>
+	/// If true, we can automatically respawn.
+	/// </summary>
+	public bool CanRespawn => GameMode.Instance.State is GameState.PreGame;
+
 	private Weapon currentWeapon;
 	/// <summary>
 	/// What weapon are we using?
