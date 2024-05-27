@@ -28,7 +28,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 	/// <summary>
 	/// The current gravity. Make this a gamerule thing later?
 	/// </summary>
-	[Property] public Vector3 Gravity { get; set; } = new Vector3( 0, 0, 800 );
+	[Property, Group( "Config" )] public Vector3 Gravity { get; set; } = new Vector3( 0, 0, 800 );
 
 	/// <summary>
 	/// The current character controller for this player.
@@ -79,9 +79,24 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 	[Property] public Action OnJump { get; set; }
 
 	/// <summary>
-	/// A shorthand accessor to say if we're controlling this player.
+	/// How quickly does the player move by default?
 	/// </summary>
-	public bool IsLocallyControlled
+	[Property, Group( "Config" )] public float WalkSpeed { get; set; } = 125f;
+
+	/// <summary>
+	/// How powerful is the player's jump?
+	/// </summary>
+	[Property, Group( "Config" )] public float JumpPower { get; set; } = 320f;
+
+	/// <summary>
+	/// How much friction does the player have?
+	/// </summary>
+	[Property, Group( "Config" )] public float BaseFriction { get; set; } = 4.0f;
+
+    /// <summary>
+    /// A shorthand accessor to say if we're controlling this player.
+    /// </summary>
+    public bool IsLocallyControlled
 	{
 		get
 		{
@@ -270,7 +285,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 		if ( !CharacterController.IsOnGround ) return 0.1f;
 		if ( CurrentFrictionOverride is not null ) return CurrentFrictionOverride.Value;
 
-		return 4.0f;
+		return BaseFriction;
 	}
 
 	private float baseAcceleration = 10;
@@ -306,9 +321,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 		if ( cc.IsOnGround && IsLocallyControlled && Input.Down( "Jump" ) )
 		{
 			float flGroundFactor = 1.0f;
-			float flMul = 268.3281572999747f * 1.2f;
 
-			cc.Punch( Vector3.Up * flMul * flGroundFactor );
+			cc.Punch( Vector3.Up * JumpPower * flGroundFactor );
 
 			BroadcastPlayerJumped();
 		}
@@ -344,7 +358,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 		if ( CurrentSpeedOverride is not null ) return CurrentSpeedOverride.Value;
 
 		// Default speed
-		return 110.0f;
+		return WalkSpeed;
 	}
 
 	public Vector3 WishMove;
