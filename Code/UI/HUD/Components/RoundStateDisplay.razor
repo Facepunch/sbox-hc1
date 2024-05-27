@@ -1,0 +1,19 @@
+@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root class="hud with-deadzone top-middle">
+    <div class="status">@Status</div>
+    <div class="timer">@(Time?.ToString( @"m\:ss" ))</div>
+</root>
+
+@code
+{
+    public string Status { get; set; }
+    public TimeSpan? Time { get; set; }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( Status, Time?.Seconds, Time?.Minutes );
+    }
+}

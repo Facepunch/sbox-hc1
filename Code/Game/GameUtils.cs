@@ -1,3 +1,5 @@
+using Facepunch.UI;
+
 namespace Facepunch;
 
 /// <summary>
@@ -5,6 +7,11 @@ namespace Facepunch;
 /// </summary>
 public partial class GameUtils
 {
+	/// <summary>
+	/// The locally-controlled <see cref="PlayerController"/>, if there is one.
+	/// </summary>
+	public static PlayerController LocalPlayer => Game.ActiveScene.GetSystem<PawnSystem>().Viewer as PlayerController;
+
 	/// <summary>
 	/// All players, both assigned to a team and spectating.
 	/// </summary>
@@ -19,4 +26,14 @@ public partial class GameUtils
 	/// Players not assigned to a team, or spectating.
 	/// </summary>
 	public static IEnumerable<PlayerController> InactivePlayers => AllPlayers.Where( x => x.TeamComponent.Team == Team.Unassigned );
+
+	public static T GetHudPanel<T>()
+		where T : Panel
+	{
+		return LocalPlayer?.HUDGameObject
+			.Components.Get<ScreenPanel>()
+			.GetPanel()
+			.Descendants.OfType<T>()
+			.FirstOrDefault();
+	}
 }

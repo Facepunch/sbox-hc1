@@ -41,75 +41,64 @@ public sealed class GameMode : SingletonComponent<GameMode>
 			return;
 		}
 
-		_ = StartGame();
+		_ = RunGame();
 	}
 
-	public async Task StartGame()
+	public async Task RunGame()
 	{
-		Log.Info( $"{GameObject.Name}: {nameof(StartGame)}" );
-
 		State = GameState.PreGame;
 
+		await StartGame();
+
+		while ( !ShouldGameEnd() )
+		{
+			State = GameState.PreRound;
+
+			await StartRound();
+
+			State = GameState.DuringRound;
+
+			while ( !ShouldRoundEnd() )
+			{
+				await Task.FixedUpdate();
+			}
+
+			State = GameState.PostRound;
+
+			await EndRound();
+		}
+
+		State = GameState.PostGame;
+
+		await EndGame();
+	}
+
+	private async Task StartGame()
+	{
 		await Dispatch<IGameStartListener>(
 			x => x.PreGameStart(),
 			x => x.OnGameStart(),
 			x => x.PostGameStart() );
-
-		await StartRound();
 	}
 
-	public async Task StartRound()
+	private async Task StartRound()
 	{
-		Log.Info( $"{GameObject.Name}: {nameof( StartRound )}" );
-
-		State = GameState.PreRound;
-
 		await Dispatch<IRoundStartListener>(
 			x => x.PreRoundStart(),
 			x => x.OnRoundStart(),
 			x => x.PostRoundStart() );
-
-		State = GameState.DuringRound;
 	}
 
-	protected override void OnUpdate()
+	private async Task EndRound()
 	{
-		if ( State == GameState.DuringRound )
-		{
-			if ( ShouldRoundEnd() )
-			{
-				_ = EndRound();
-			}
-		}
-	}
-
-	public async Task EndRound()
-	{
-		Log.Info( $"{GameObject.Name}: {nameof( EndRound )}" );
-
-		State = GameState.PostRound;
-
 		await Dispatch<IRoundEndListener>(
 			x => x.PreRoundEnd(),
 			x => x.OnRoundEnd(),
 			x => x.PostRoundEnd() );
-
-		if ( ShouldGameEnd() )
-		{
-			await EndGame();
-		}
-		else
-		{
-			await StartRound();
-		}
 	}
 
-	public async Task EndGame()
+	private async Task EndGame()
 	{
-		Log.Info( $"{GameObject.Name}: {nameof( EndGame )}" );
-
-		State = GameState.PostGame;
-
 		await Dispatch<IGameEndListener>(
 			x => x.PreGameEnd(),
 			x => x.OnGameEnd(),

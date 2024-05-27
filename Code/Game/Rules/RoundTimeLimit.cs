@@ -1,4 +1,7 @@
-﻿public sealed class RoundTimeLimit : Component, IRoundEndCondition
+﻿using Facepunch;
+using Facepunch.UI;
+
+public sealed class RoundTimeLimit : Component, IRoundEndCondition
 {
 	[RequireComponent] public RoundTimer RoundTimer { get; private set; }
 
@@ -6,7 +9,18 @@
 
 	public bool ShouldRoundEnd()
 	{
-		return RoundTimer.SinceRoundStart >= TimeLimitSeconds;
+		return RoundTimer.TimeSeconds >= TimeLimitSeconds;
+	}
+
+	protected override void OnUpdate()
+	{
+		if ( GameMode.Instance.State != GameState.DuringRound ) return;
+
+		if ( GameUtils.GetHudPanel<RoundStateDisplay>() is { } display )
+		{
+			display.Status = null;
+			display.Time = TimeSpan.FromSeconds( TimeLimitSeconds - RoundTimer.TimeSeconds );
+		}
 	}
 }
 
