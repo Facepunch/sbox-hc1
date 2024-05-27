@@ -23,6 +23,11 @@ public partial class PlayerInventory : Component
 	[Property] public List<WeaponDataResource> DefaultWeapons { get; set; }
 
 	/// <summary>
+	/// Can we unequip the current weapon so we have no weapons out?
+	/// </summary>
+	[Property] public bool CanUnequipCurrentWeapon { get; set; } = false;
+
+	/// <summary>
 	/// Gets the player's current weapon.
 	/// </summary>
 	public Weapon CurrentWeapon => Player.CurrentWeapon;
@@ -75,7 +80,7 @@ public partial class PlayerInventory : Component
 		{
 			SwitchWeapon( weapon );
 		}
-		else
+		else if ( CanUnequipCurrentWeapon )
 		{
 			HolsterCurrent();
 		}
