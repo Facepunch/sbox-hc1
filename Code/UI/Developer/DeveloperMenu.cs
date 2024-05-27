@@ -12,7 +12,7 @@ public partial class Developer
 	{
 		var connection = Connection.Local;
 
-		foreach ( var player in Game.ActiveScene.GetAllComponents<PlayerController>() )
+		foreach ( var player in GameUtils.AllPlayers )
 		{
 			if ( player.Network.OwnerConnection is null ) continue;
 			// Found our guy

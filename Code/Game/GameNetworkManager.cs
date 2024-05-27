@@ -2,20 +2,12 @@ using Sandbox.Network;
 
 namespace Facepunch;
 
-public sealed class GameNetworkManager : Component, Component.INetworkListener
+public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>, Component.INetworkListener
 {
-	public static GameNetworkManager Instance { get; private set; }
-
 	/// <summary>
 	/// Which player prefab should we spawn?
 	/// </summary>
 	[Property] public GameObject PlayerPrefab { get; set; }
-
-	/// <summary>
-	/// Where should we put the player?
-	/// TODO: gamemode / game state should control this
-	/// </summary>
-	[Property] public GameObject SpawnPoint { get; set; }
 
 	/// <summary>
 	/// Is this game multiplayer? If not, we won't create a lobby.
@@ -24,7 +16,7 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 
 	protected override void OnStart()
 	{
-		Instance = this;
+		base.OnStart();
 
 		if ( !IsMultiplayer ) return;
 
@@ -40,7 +32,7 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 	[DeveloperCommand( "Add Bot" )]
 	private static void Command_Add_Bot()
 	{
-		var player = Instance.PlayerPrefab.Clone( Instance.SpawnPoint.Transform.World );
+		var player = Instance.PlayerPrefab.Clone();
 		player.NetworkSpawn();
 	}
 
@@ -54,10 +46,11 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 
 		Log.Info( $"Player '{channel.DisplayName}' is becoming active" );
 
-		var player = PlayerPrefab.Clone( SpawnPoint.Transform.World );
+		var player = PlayerPrefab.Clone( GameMode.Instance.GetSpawnTransform( Team.Unassigned ) );
 		player.NetworkSpawn( channel );
 
 		var playerComponent = player.Components.Get<PlayerController>();
+
 		if ( playerComponent.IsValid() )
 		{
 			playerComponent.NetPossess();

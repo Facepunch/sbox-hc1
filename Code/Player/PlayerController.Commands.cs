@@ -26,7 +26,7 @@ public partial class PlayerController
 	[DeveloperCommand( "Possess Pawn" )]
 	private static void Command_PossessSomething()
 	{
-		foreach ( var player in Game.ActiveScene.GetAllComponents<PlayerController>() )
+		foreach ( var player in GameUtils.AllPlayers )
 		{
 			if ( ( player as IPawn ).IsPossessed ) continue;
 

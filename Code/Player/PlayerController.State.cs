@@ -12,7 +12,12 @@ public partial class PlayerController
 	/// </summary>
 	[RequireComponent] public PlayerInventory Inventory { get; private set; }
 
-	public void Kill()
+    /// <summary>
+    /// Component describing which team the player is on.
+    /// </summary>
+    [RequireComponent] public TeamComponent TeamComponent { get; private set; }
+
+    public void Kill()
 	{
 		NetDePossess();
 
@@ -30,6 +35,7 @@ public partial class PlayerController
 
 	public void Respawn()
 	{
+		HealthComponent.State = LifeState.Alive;
 		HealthComponent.Health = 100;
 
 		Inventory.Clear();
@@ -37,12 +43,6 @@ public partial class PlayerController
 
 		SetBodyVisible( true );
 
-		var spawn = GameUtils.GetSpawnPoints()
-			.FirstOrDefault();
-
-		if ( spawn.IsValid() )
-		{
-			Transform.Position = spawn.Transform.Position;
-		}
+		Transform.World = GameMode.Instance.GetSpawnTransform( Team.Unassigned );
 	}
 }

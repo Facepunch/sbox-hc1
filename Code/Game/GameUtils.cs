@@ -5,8 +5,18 @@ namespace Facepunch;
 /// </summary>
 public partial class GameUtils
 {
-	public static IEnumerable<SpawnPoint> GetSpawnPoints()
-	{
-		return Game.ActiveScene.GetAllComponents<SpawnPoint>();
-	}
+	/// <summary>
+	/// All players, both assigned to a team and spectating.
+	/// </summary>
+	public static IEnumerable<PlayerController> AllPlayers => Game.ActiveScene.GetAllComponents<PlayerController>();
+
+	/// <summary>
+	/// Players assigned to a team, so not spectating.
+	/// </summary>
+	public static IEnumerable<PlayerController> ActivePlayers => AllPlayers.Where( x => x.TeamComponent.Team != Team.Unassigned );
+
+	/// <summary>
+	/// Players not assigned to a team, or spectating.
+	/// </summary>
+	public static IEnumerable<PlayerController> InactivePlayers => AllPlayers.Where( x => x.TeamComponent.Team == Team.Unassigned );
 }
