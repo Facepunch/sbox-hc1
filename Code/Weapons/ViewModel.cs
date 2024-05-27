@@ -106,6 +106,8 @@ public partial class ViewModel : Component
 		var wishLook = PlayerController.WishMove.Normal * 1f;
 		if ( Weapon?.Tags.Has( "aiming" ) ?? false ) wishLook = 0;
 
+		if ( PlayerController.HasTag( "slow_walk" ) ) moveLen *= 0.2f;
+
 		lerpedWishLook = lerpedWishLook.LerpTo( wishLook, Time.Delta * 5.0f );
 
 		localRotation *= Rotation.From( 0, -lerpedWishLook.y * 3f, 0 );
