@@ -15,7 +15,9 @@
       {
         "__type": "WaitForPlayers",
         "__guid": "69052530-e63b-4687-b3c8-c8c168894886",
-        "DurationSeconds": 60
+        "DurationSeconds": 60,
+        "MinDurationSeconds": 5,
+        "MinPlayerCount": 2
       },
       {
         "__type": "TeamAssigner",
@@ -49,9 +51,18 @@
         "TimeLimitSeconds": 120
       },
       {
+        "__type": "TeamEliminated",
+        "__guid": "1e4faafe-e71a-4c9c-bbf7-e1ba5e355962"
+      },
+      {
         "__type": "RoundLimit",
         "__guid": "92d17add-8380-48f8-92ca-40eb2164f871",
         "MaxRounds": 30
+      },
+      {
+        "__type": "NextRoundDelay",
+        "__guid": "f5c03ea5-a010-4368-a383-2ca25c0f0b2b",
+        "DurationSeconds": 5
       }
     ],
     "Children": []
