@@ -137,7 +137,7 @@ public partial class ViewModel : Component
 		{
 			var shootFn = Weapon.GetFunction<ShootWeaponFunction>();
 
-			if ( PlayerController.HasTag( "crouch" ) && shootFn.TimeSinceShoot > 0.25f )
+			if ( shootFn.IsValid() && PlayerController.HasTag( "crouch" ) && shootFn.TimeSinceShoot > 0.25f )
 			{
 				localPosition += Vector3.Right * -2f;
 				localPosition += Vector3.Up * -1f;
