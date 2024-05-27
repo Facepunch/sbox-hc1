@@ -104,6 +104,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 		}
 	}
 
+	/// <summary>
+	/// If true, we're not allowed to move.
+	/// </summary>
+	public bool IsFrozen => GameMode.Instance.State is GameState.PreRound;
+
 	private Weapon currentWeapon;
 	/// <summary>
 	/// What weapon are we using?
@@ -312,19 +317,19 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 			BuildWishInput();
 			OnUpdateMechanics();
 			BuildWishVelocity();
+
+			if ( cc.IsOnGround && !IsFrozen && Input.Down( "Jump" ) )
+			{
+				float flGroundFactor = 1.0f;
+
+				cc.Punch( Vector3.Up * JumpPower * flGroundFactor );
+
+				BroadcastPlayerJumped();
+			}
 		}
 		else
 		{
 			ProxyUpdateMechanics();
-		}
-
-		if ( cc.IsOnGround && IsLocallyControlled && Input.Down( "Jump" ) )
-		{
-			float flGroundFactor = 1.0f;
-
-			cc.Punch( Vector3.Up * JumpPower * flGroundFactor );
-
-			BroadcastPlayerJumped();
 		}
 
 		ApplyAccceleration();
@@ -367,7 +372,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 	{
 		WishMove = 0;
 
-		if ( !IsLocallyControlled ) return;
+		if ( !IsLocallyControlled || IsFrozen ) return;
 
 		WishMove += Input.AnalogMove;
 	}

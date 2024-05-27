@@ -354,7 +354,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	public bool CanShoot()
 	{
 		// Player
-		if ( Weapon.PlayerController.HasTag( "sprint" )  )
+		if ( Weapon.PlayerController.HasTag( "sprint" ) || Weapon.PlayerController.IsFrozen )
 			return false;
 
 		// Weapon
