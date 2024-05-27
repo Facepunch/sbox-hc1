@@ -14,7 +14,6 @@
     public Panel Hitmarker { get; set; }
 
     Weapon Weapon => Player.CurrentWeapon;
-    Vector2 lerpedPosition = new( 0.5f, 0.5f );
 
     private TimeUntil TimeUntilHitmarkerRemove = 0f;
     private float HitMarkerDuration => 0.1f;
@@ -67,21 +66,14 @@
         const float lerpSpeed = 10f;
         if ( currentTrace.Hit )
         {
-            var screenPos = camera.PointToScreenNormal( currentTrace.HitPosition, out bool isBehind );
-            lerpedPosition = lerpedPosition.LerpTo( screenPos, Time.Delta * lerpSpeed );
-
             var player = currentTrace.GameObject.Root.Components.Get<PlayerController>();
             Reticle.SetClass( "enemy", player.IsValid() );
 
         }
         else
         {
-            lerpedPosition = lerpedPosition.LerpTo( 0.5f, Time.Delta * lerpSpeed );
             Reticle.SetClass( "enemy", false );
         }
-
-        Style.Left = Length.Fraction( lerpedPosition.x );
-        Style.Top = Length.Fraction( lerpedPosition.y );
     }
 
     protected override int BuildHash()
