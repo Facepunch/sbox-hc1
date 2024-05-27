@@ -378,7 +378,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 		
 		var rot = EyeAngles.WithPitch( 0f ).ToRotation();
 
-		var wishDirection = WishMove * rot;
+		var wishDirection = WishMove.Normal * rot;
 		wishDirection = wishDirection.WithZ( 0 );
 
 		WishVelocity = wishDirection * GetWishSpeed();
