@@ -2,7 +2,10 @@
 using Facepunch;
 using System.Threading.Tasks;
 
-internal class WaitForPlayers : Component, IGameStartListener
+/// <summary>
+/// Wait for enough players to connect before starting, or start anyway if we waited too long.
+/// </summary>
+public sealed class WaitForPlayers : Component, IGameStartListener
 {
 	[Property, Sync]
 	public float DurationSeconds { get; set; } = 60f;

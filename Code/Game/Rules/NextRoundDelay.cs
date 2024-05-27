@@ -1,8 +1,10 @@
-﻿
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Facepunch;
 using Facepunch.UI;
 
+/// <summary>
+/// Wait a bit before starting the next round.
+/// </summary>
 public class NextRoundDelay : Component, IRoundEndListener
 {
 	[Property, Sync]

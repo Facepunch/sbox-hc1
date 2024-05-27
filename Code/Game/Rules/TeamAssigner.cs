@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
-using Facepunch;
+﻿using Facepunch;
 
-public sealed class TeamAssigner : Component, IGameStartListener, IRoundStartListener
+/// <summary>
+/// Split players into two balanced teams.
+/// </summary>
+public sealed class TeamAssigner : Component, IGameStartListener
 {
 	[Property]
 	public int MaxTeamSize { get; set; } = 5;

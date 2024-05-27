@@ -1,4 +1,8 @@
-﻿public sealed class RoundTimer : Component, IRoundStartListener, IRoundEndListener
+﻿
+/// <summary>
+/// Keep track of how much time has passed since the round started.
+/// </summary>
+public sealed class RoundTimer : Component, IRoundStartListener, IRoundEndListener
 {
 	[Sync]
 	public float StartTime { get; private set; }

@@ -1,6 +1,10 @@
 ﻿using Facepunch;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Handles the main game loop, using components that listen to state change
+/// events to handle game logic.
+/// </summary>
 public sealed class GameMode : SingletonComponent<GameMode>
 {
 	/// <summary>
@@ -8,29 +12,6 @@ public sealed class GameMode : SingletonComponent<GameMode>
 	/// </summary>
 	[Property, Sync]
 	public GameState State { get; private set; }
-
-	private async Task Dispatch<T>( Action<T> pre, Func<T, Task> on, Action<T> post )
-	{
-		var components = Components.GetAll<T>().ToArray();
-
-		foreach ( var comp in components )
-		{
-			pre( comp );
-		}
-
-		await Task.WhenAll( Components.GetAll<T>().Select( on ) );
-
-		foreach ( var comp in components )
-		{
-			post( comp );
-		}
-	}
-
-	private T GetSingleOrThrow<T>()
-	{
-		return Components.GetInDescendantsOrSelf<T>()
-			?? throw new Exception( $"Missing required component {typeof(T).Name}." );
-	}
 
 	protected override void OnStart()
 	{
@@ -44,6 +25,9 @@ public sealed class GameMode : SingletonComponent<GameMode>
 		_ = RunGame();
 	}
 
+	/// <summary>
+	/// Main game loop.
+	/// </summary>
 	public async Task RunGame()
 	{
 		State = GameState.PreGame;
@@ -121,5 +105,28 @@ public sealed class GameMode : SingletonComponent<GameMode>
 	{
 		return GetSingleOrThrow<ISpawnPointAssigner>()
 			.GetSpawnTransform( team );
+	}
+
+	private async Task Dispatch<T>( Action<T> pre, Func<T, Task> on, Action<T> post )
+	{
+		var components = Components.GetAll<T>().ToArray();
+
+		foreach (var comp in components)
+		{
+			pre( comp );
+		}
+
+		await Task.WhenAll( Components.GetAll<T>().Select( on ) );
+
+		foreach (var comp in components)
+		{
+			post( comp );
+		}
+	}
+
+	private T GetSingleOrThrow<T>()
+	{
+		return Components.GetInDescendantsOrSelf<T>()
+		       ?? throw new Exception( $"Missing required component {typeof( T ).Name}." );
 	}
 }

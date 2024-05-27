@@ -1,5 +1,8 @@
 ﻿using Facepunch;
 
+/// <summary>
+/// Place players at spawn points matching their teams.
+/// </summary>
 public sealed class TeamSpawnAssigner : Component, ISpawnPointAssigner
 {
 	private readonly Dictionary<Team, int> _nextSpawnIndex = new();

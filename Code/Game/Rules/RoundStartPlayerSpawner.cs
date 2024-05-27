@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Facepunch;
+﻿using Facepunch;
 
 /// <summary>
 /// Respawn all players at the start of each round.
