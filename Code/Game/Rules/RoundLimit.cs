@@ -1,4 +1,7 @@
-﻿public sealed class RoundLimit : Component, IGameEndCondition
+﻿/// <summary>
+/// End the game after a fixed number of rounds.
+/// </summary>
+public sealed class RoundLimit : Component, IGameEndCondition
 {
 	[RequireComponent]
 	public RoundCounter RoundCounter { get; private set; }

@@ -2,6 +2,9 @@
 using Facepunch;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Keep the players frozen for a few seconds at the start of each round.
+/// </summary>
 public sealed class FreezeTime : Component, IRoundStartListener
 {
 	[Property, Sync]

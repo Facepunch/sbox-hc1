@@ -1,6 +1,7 @@
 ﻿
-using System.Threading.Tasks;
-
+/// <summary>
+/// Keep track of how many rounds have been played;
+/// </summary>
 public sealed class RoundCounter : Component, IGameStartListener, IRoundStartListener
 {
 	/// <summary>
