@@ -1,58 +1,57 @@
 {
   "RootObject": {
-    "__guid": "715c374f-b60e-4fb9-9aeb-dfea5366f417",
+    "__guid": "0c97f2e7-79d4-4412-af94-874b10010b37",
     "Flags": 0,
-    "Name": "testing",
+    "Name": "round_based_test",
     "Enabled": true,
     "NetworkMode": 1,
     "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "GameMode",
-        "__guid": "debecc52-af00-4bec-9d16-babaee52e0c4",
+        "__guid": "54b40c5f-26e2-424f-8699-55e63aced8b7",
         "State": "PreGame"
       },
       {
-        "__type": "RoundTimer",
-        "__guid": "91f93eb2-23bc-48dd-a972-e260cb17d6e3"
-      },
-      {
-        "__type": "RoundTimeLimit",
-        "__guid": "77b4e654-4ec0-4138-b8fb-4e609e8db389",
-        "TimeLimitSeconds": 120
-      },
-      {
-        "__type": "RoundCounter",
-        "__guid": "f1598751-284e-48a9-b17b-1894fee4a898",
-        "Round": 0
+        "__type": "WaitForPlayers",
+        "__guid": "69052530-e63b-4687-b3c8-c8c168894886",
+        "DurationSeconds": 60
       },
       {
         "__type": "TeamAssigner",
-        "__guid": "37cffcf2-8299-4d3e-b9e1-3dcde264b960",
+        "__guid": "945b3970-cad1-41b4-ae69-480dab1c7450",
         "MaxTeamSize": 5
       },
       {
         "__type": "TeamSpawnAssigner",
-        "__guid": "9702b575-d4c1-4a69-bd1d-8c162cb9f032"
-      },
-      {
-        "__type": "RoundLimit",
-        "__guid": "5b18c1d4-7482-49ab-af96-3f9725cd2b51",
-        "MaxRounds": 30
+        "__guid": "93be57d4-9c65-4af0-b6ca-c9ba80262151"
       },
       {
         "__type": "RoundStartPlayerSpawner",
-        "__guid": "6efed182-46b9-4dcc-8e3d-5d590eb20d95"
-      },
-      {
-        "__type": "WarmUp",
-        "__guid": "dcadf18d-7ce7-41c8-9e8d-aefe8c8d7a91",
-        "DurationSeconds": 5
+        "__guid": "30fd4079-9723-4688-836c-5767b0568f30"
       },
       {
         "__type": "FreezeTime",
-        "__guid": "83e76ffa-a9e2-4509-9219-7b8b7891528e",
+        "__guid": "2239aa09-c6da-49e4-9af7-f6cea865354f",
         "DurationSeconds": 5
+      },
+      {
+        "__type": "RoundTimer",
+        "__guid": "ac34fe1b-2b48-47f7-8299-5cbf555cd5db"
+      },
+      {
+        "__type": "RoundCounter",
+        "__guid": "6330d1ca-716c-4c2c-9352-50638e437431"
+      },
+      {
+        "__type": "RoundTimeLimit",
+        "__guid": "58220538-f19e-48b5-97af-bda4df780978",
+        "TimeLimitSeconds": 120
+      },
+      {
+        "__type": "RoundLimit",
+        "__guid": "92d17add-8380-48f8-92ca-40eb2164f871",
+        "MaxRounds": 30
       }
     ],
     "Children": []

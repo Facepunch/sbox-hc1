@@ -6,7 +6,7 @@ public sealed class RoundCounter : Component, IGameStartListener, IRoundStartLis
 	/// <summary>
 	/// Current round number, starting at 1.
 	/// </summary>
-	[Property, Sync]
+	[Sync]
 	public int Round { get; set; }
 
 	void IGameStartListener.PreGameStart()
