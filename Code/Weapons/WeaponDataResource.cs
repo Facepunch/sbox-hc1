@@ -1,6 +1,3 @@
-
-using Facepunch;
-
 [GameResource( "Gunfight/Weapon Data", "weapon", "A resource containing basic information about a weapon.", IconBgColor = "#5877E0", Icon = "track_changes" )]
 public partial class WeaponDataResource : GameResource
 {
@@ -11,6 +8,11 @@ public partial class WeaponDataResource : GameResource
 	
 	[Category( "Base" )]
 	public string Description { get; set; } = "";
+
+	/// <summary>
+	/// How much is this weapon to buy in the buy menu?
+	/// </summary>
+	[Category( "Economy" )] public int Price { get; set; } = 0;
 
 	/// <summary>
 	/// The prefab to create and attach to the player when spawning it in.
