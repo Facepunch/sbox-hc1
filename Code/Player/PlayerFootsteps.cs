@@ -31,8 +31,8 @@ public sealed class PlayerFootsteps : Component
 		if ( timeSinceStep < 0.2f )
 			return;
 
-		// Don't make footsteps if we're sliding
-		if ( Player.HasTag( "crouch" ) ) 
+		// Don't make footsteps sometimes
+		if ( Player.HasAnyTag( "crouch", "slow_walk" ) ) 
 			return;
 
 		var tr = Scene.Trace
