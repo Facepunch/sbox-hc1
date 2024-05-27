@@ -1,21 +1,26 @@
 ﻿public sealed class RoundTimer : Component, IRoundStartListener, IRoundEndListener
 {
-	private TimeSince _sinceStart;
-	private float _endTime;
-	private bool _counting;
+	[Sync]
+	public float StartTime { get; private set; }
 
-	public float TimeSeconds => _counting ? _sinceStart : _endTime;
+	[Sync]
+	public float FinalTime { get; private set; }
+
+	[Sync]
+	public bool IsCounting { get; private set; }
+
+	public float TimeSeconds => IsCounting ? Time.Now - StartTime : FinalTime;
 
 	void IRoundStartListener.PostRoundStart()
 	{
-		_sinceStart = 0f;
-		_endTime = 0f;
-		_counting = true;
+		StartTime = Time.Now;
+		FinalTime = 0f;
+		IsCounting = true;
 	}
 
 	void IRoundEndListener.PreRoundEnd()
 	{
-		_endTime = _sinceStart;
-		_counting = false;
+		FinalTime = TimeSeconds;
+		IsCounting = false;
 	}
 }
