@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "9d6c29ca-50b7-42bc-a025-6fa2b905c1b6",
+    "__guid": "67bf937c-e81a-41ed-bd1e-322a616af938",
     "Flags": 0,
     "Name": "w_knife",
     "Tags": "player",
@@ -10,24 +10,24 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "f8fd11df-0680-458f-82c6-26640e44c19c",
+        "__guid": "b7ae8e2d-d934-46d7-88bf-cc74b15885cb",
         "HoldType": "Swing",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "5991a134-81cc-43df-b51a-5f71d418cd0c",
-          "go": "0e760470-11ed-48b8-868a-633d3b3b5bea",
+          "component_id": "543b73e5-ba8a-40a1-a1ac-740e27f4f778",
+          "go": "f2c7c0c3-63e4-4f90-8093-b2641b127e77",
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "weapons/knife/knife.weapon"
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "cd85620b-ecd0-4db3-9a7d-288f2cbbcc69"
+        "__guid": "3ce3aae9-7d37-4ed1-a1ec-72d58f83d1b2"
       }
     ],
     "Children": [
       {
-        "__guid": "0e760470-11ed-48b8-868a-633d3b3b5bea",
+        "__guid": "f2c7c0c3-63e4-4f90-8093-b2641b127e77",
         "Flags": 0,
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
@@ -37,7 +37,7 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "5991a134-81cc-43df-b51a-5f71d418cd0c",
+            "__guid": "543b73e5-ba8a-40a1-a1ac-740e27f4f778",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_melee_trenchknife/w_trenchknife.vmdl",
@@ -47,12 +47,27 @@
         ]
       },
       {
-        "__guid": "51717ab6-7d6a-4343-993e-ce7b480b7bde",
+        "__guid": "85543295-3a08-429f-b29b-e1d2eed4d627",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
         "NetworkMode": 2,
-        "NetworkInterpolation": true
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.MeleeFunction",
+            "__guid": "e0b7b47c-6ce1-4e91-acc8-8fcbd2ab98b8",
+            "BaseDamage": 25,
+            "FireRate": 1,
+            "InputActions": [
+              "Attack1"
+            ],
+            "InputType": "Down",
+            "MaxRange": 64,
+            "RequiresAllInputActions": false,
+            "Size": 1
+          }
+        ]
       }
     ]
   },
