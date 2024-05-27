@@ -1,0 +1,59 @@
+@namespace Gunfight.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root class="@(IsActive ? "is-active" : "")">
+    <div class="background" />
+    <div class="grow" />
+
+    @if ( Weapon.IsValid() )
+    {
+        @if ( IsActive )
+        {
+            <InputHint Action="Attack1" class="small" />
+            <InputHint Action="Attack2" class="small" />
+        }
+
+        <div class="weapon-viewer">
+            <WeaponViewer WeaponResource=@Weapon.Resource />
+        </div>
+
+        <div class="info">
+            @if ( AmmoContainer.IsValid() && IsActive )
+            {
+                <div class="row">
+                    <label class="currentammo">@AmmoContainer.Ammo</label>
+                    <label class="inventory">@AmmoContainer.MaxAmmo</label>
+                </div>
+            }
+
+            <div class="row">
+                <label class="gunname">@Weapon.Resource.Name</label>
+            </div>
+        </div>
+
+        <InputHint Action="Slot@(Slot + 1)" />
+    }
+</root>
+
+@code
+{
+    /// <summary>
+    ///  The weapon's slot
+    /// </summary>
+    public int Slot { get; set; }
+
+    /// <summary>
+    /// The player's weapon.
+    /// </summary>
+    public Weapon Weapon { get; set; }
+
+    private AmmoContainer AmmoContainer => Weapon?.Components.Get<AmmoContainer>( FindMode.EverythingInSelfAndDescendants );
+    public PlayerController Player => Weapon?.PlayerController;
+    public bool IsActive => Player?.CurrentWeapon == Weapon;
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( IsActive, Weapon, AmmoContainer?.Ammo );
+    }   
+}

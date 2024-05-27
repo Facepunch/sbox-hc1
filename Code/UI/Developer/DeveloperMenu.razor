@@ -1,0 +1,45 @@
+@using Sandbox;
+@using Sandbox.UI;
+
+@namespace Gunfight.UI
+@inherits PanelComponent
+
+<root>
+	<div class="title">Developer Menu</div>
+
+    <div class="options">
+        @foreach ( var data in TypeLibrary.GetMethodsWithAttribute<DeveloperCommandAttribute>() )
+        {
+            <div class="button" onclick=@(() => InvokeMethod( data.Method ))>@data.Attribute.Name</div>
+        }
+    </div>
+</root>
+
+@code
+{
+    protected bool IsActive { get; set; }
+
+    protected override void OnTreeFirstBuilt()
+    {
+        BindClass( "active", () => IsActive );
+    }
+
+    protected void InvokeMethod( MethodDescription method )
+    {
+        Developer.InvokeMethod( method );
+    }
+
+    [ConVar( "gunfight_developer" )]
+    public static bool IsDeveloper { get; set; } = false;
+
+    protected override void OnUpdate()
+    {
+        if ( IsDeveloper || Game.IsEditor )
+        {
+            if ( Input.Pressed( "DeveloperMenu" ) )
+            {
+                IsActive ^= true;
+            }
+        }
+    }
+}

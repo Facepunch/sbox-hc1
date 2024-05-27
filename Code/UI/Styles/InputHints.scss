@@ -1,0 +1,40 @@
+InputHint
+{
+    justify-content: center;
+    align-items: center;
+
+    img
+    {
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 48px;
+        height: 48px;
+    }
+
+    transition: all 0.1s ease;
+    transform: scale(1);
+
+    img
+    {
+        background-tint: $theme-color;
+    }
+
+    &.is-down
+    {
+        transform: scale(1.15);
+
+        img
+        {
+            background-tint: white;
+        }
+    }
+
+    &.small
+    {
+        img
+        {
+            height: 32px;
+            width: 32px;
+        }
+    }
+}

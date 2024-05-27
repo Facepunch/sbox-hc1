@@ -1,0 +1,73 @@
+{
+  "RootObject": {
+    "__guid": "c4a3373a-75b1-4ea0-9075-4994d8998f1a",
+    "Flags": 0,
+    "Name": "vm_m4a1",
+    "Tags": "player,viewmodel",
+    "Enabled": true,
+    "NetworkMode": 0,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Gunfight.ViewModel",
+        "__guid": "41850748-2e5a-4a11-bd7c-c8e4b18f809c",
+        "Arms": {
+          "_type": "component",
+          "component_id": "9af8d22d-1d5a-45a0-8e6a-81c6710dd81b",
+          "go": "130c1d5e-750d-450b-82c4-cbac517ffcba",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "ce48992d-ecde-49c6-aa82-72f5796a0a5e",
+          "go": "c4a3373a-75b1-4ea0-9075-4994d8998f1a",
+          "component_type": "SkinnedModelRenderer"
+        }
+      },
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "ce48992d-ecde-49c6-aa82-72f5796a0a5e",
+        "BodyGroups": 5203,
+        "CreateBoneObjects": false,
+        "Model": "models/weapons/sbox_assault_m4a1/v_m4a1.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "130c1d5e-750d-450b-82c4-cbac517ffcba",
+        "Flags": 0,
+        "Name": "Object",
+        "Enabled": true,
+        "NetworkMode": 0,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "9af8d22d-1d5a-45a0-8e6a-81c6710dd81b",
+            "BodyGroups": 18446744073709551511,
+            "BoneMergeTarget": {
+              "_type": "component",
+              "component_id": "ce48992d-ecde-49c6-aa82-72f5796a0a5e",
+              "go": "c4a3373a-75b1-4ea0-9075-4994d8998f1a",
+              "component_type": "SkinnedModelRenderer"
+            },
+            "CreateBoneObjects": false,
+            "Model": "models/first_person/first_person_arms.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.v_m4a1"
+  ],
+  "__version": 1
+}

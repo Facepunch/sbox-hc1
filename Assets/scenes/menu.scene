@@ -1,0 +1,116 @@
+{
+  "__guid": "e21f2d41-e41c-4299-ba4d-547eaee6a6c6",
+  "GameObjects": [
+    {
+      "__guid": "bfc59c12-1ed2-4f91-8956-a95a315eac3c",
+      "Name": "Sun",
+      "Position": "445.0681,1144.973,1044.812",
+      "Rotation": "0.3464704,0.2151882,-0.7756222,0.4817287",
+      "Tags": "light,light_directional",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "6d443b95-806b-4355-8689-9f2a6d2626be",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "1.36634,0.9402,1.10213,1",
+          "Shadows": true,
+          "SkyColor": "0.18317,0.18317,0.18317,1"
+        }
+      ]
+    },
+    {
+      "__guid": "00344a8c-fa5e-45ae-b12a-10bb781a1dc3",
+      "Name": "2D Skybox",
+      "Tags": "skybox",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "Components": [
+        {
+          "__type": "Sandbox.SkyBox2D",
+          "__guid": "d841ed13-1ec2-4754-9a94-47a69c031c94",
+          "SkyMaterial": "materials/skybox/light_test_sky_sunset.vmat",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "adb42f1f-2599-449a-a6fa-407e0c9029bd",
+      "Name": "Camera",
+      "Position": "-952.3967,-928.0466,1561.85",
+      "Rotation": "0,-0.3826836,0,0.9238794",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "671c99aa-6ff4-4a70-9f80-83ea3c55992b",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 60,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        }
+      ]
+    },
+    {
+      "__guid": "ff590321-7fa0-4089-8421-33cc01854ce0",
+      "Name": "Main Menu",
+      "Position": "-955.678,-1009.678,1463.084",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "Components": [
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "dfc70fd4-d3d6-4808-9db1-1b6457b8144b",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1.25,
+          "ZIndex": 100
+        },
+        {
+          "__type": "Gunfight.UI.MainMenuPanel",
+          "__guid": "520f73ed-1abc-403f-bfa3-be4160caa365",
+          "PlayScene": "scenes/gunfight_fps_testing.scene"
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "Lerping": true,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 60,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "minimal",
+  "Description": "",
+  "LastSaved": "2024-04-18T20:46:48.2029894\u002B01:00",
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": []
+}

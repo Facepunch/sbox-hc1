@@ -1,0 +1,135 @@
+{
+  "RootObject": {
+    "__guid": "17a37f58-37f7-42d6-9e45-ed6b62b743bf",
+    "Flags": 0,
+    "Name": "w_usp",
+    "Tags": "player",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Gunfight.Weapon",
+        "__guid": "90d47009-eec4-410f-8e92-9707f0426f86",
+        "HoldType": "Pistol",
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "b5bb1259-08c1-4ddf-90ac-96a386ac22c6",
+          "go": "531a69e2-0ad2-417b-8ffb-233c45c6b6f8",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "Resource": "weapons/usp/usp.weapon"
+      },
+      {
+        "__type": "Gunfight.TagBinder",
+        "__guid": "80ca9cdd-61fa-4280-8a35-d9eaf77ba0f2"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "531a69e2-0ad2-417b-8ffb-233c45c6b6f8",
+        "Flags": 0,
+        "Name": "Model",
+        "Position": "3.535849,0,-5.571055",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "b5bb1259-08c1-4ddf-90ac-96a386ac22c6",
+            "BodyGroups": 9493,
+            "CreateBoneObjects": false,
+            "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "35366c45-c3f3-416e-be22-682da72c36f7",
+        "Flags": 0,
+        "Name": "Functions",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Gunfight.AmmoContainer",
+            "__guid": "bf6ca47e-6f5d-445b-a300-a73ba4366151",
+            "Ammo": 13,
+            "HasAmmo": true,
+            "MaxAmmo": 13
+          },
+          {
+            "__type": "Gunfight.ShootWeaponFunction",
+            "__guid": "cd1082ef-eff9-43b2-bbea-e0ef8dc72f73",
+            "AmmoContainer": {
+              "_type": "component",
+              "component_id": "bf6ca47e-6f5d-445b-a300-a73ba4366151",
+              "go": "35366c45-c3f3-416e-be22-682da72c36f7",
+              "component_type": "AmmoContainer"
+            },
+            "BaseDamage": 25,
+            "BaseDamageFalloff": [
+              {
+                "y": 1
+              },
+              {
+                "x": 1
+              }
+            ],
+            "BulletSize": 1,
+            "DryFireDelay": 1,
+            "DryFireSound": "sounds/guns/gun_dryfire.sound",
+            "FireRate": 300,
+            "InputActions": [
+              "Attack1"
+            ],
+            "InputType": "Pressed",
+            "MaxRange": 1024000,
+            "RequiresAllInputActions": false,
+            "RequiresAmmoContainer": true,
+            "ShootSound": "sounds/guns/m1911/pistol_shoot.sound"
+          },
+          {
+            "__type": "Gunfight.ReloadWeaponFunction",
+            "__guid": "893972d2-61d4-4873-8aed-e82bf9967920",
+            "AmmoContainer": {
+              "_type": "component",
+              "component_id": "bf6ca47e-6f5d-445b-a300-a73ba4366151",
+              "go": "35366c45-c3f3-416e-be22-682da72c36f7",
+              "component_type": "AmmoContainer"
+            },
+            "EmptyReloadSounds": {},
+            "EmptyReloadTime": 2,
+            "InputActions": [
+              "Reload"
+            ],
+            "InputType": "Down",
+            "ReloadTime": 2,
+            "RequiresAllInputActions": false,
+            "TimedReloadSounds": {}
+          },
+          {
+            "__type": "Gunfight.RecoilFunction",
+            "__guid": "3b042f3e-0040-4a3e-8bbf-179a964664ad",
+            "HorizontalSpread": "4.00,-4.00,1",
+            "PlayerVelocityLimit": 200,
+            "RecoilResetTime": 0.3,
+            "VelocitySpreadScale": 0.25,
+            "VerticalSpread": "8.00,0.00,0"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.w_usp"
+  ],
+  "__version": 1
+}

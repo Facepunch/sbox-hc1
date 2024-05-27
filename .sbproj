@@ -1,0 +1,334 @@
+{
+  "Title": "HC1",
+  "Type": "game",
+  "Org": "facepunch",
+  "Ident": "hc1",
+  "Tags": "",
+  "Schema": 1,
+  "Resources": null,
+  "PackageReferences": [
+    "facepunch.w_mp5",
+    "facepunch.v_mp5",
+    "facepunch.w_usp",
+    "facepunch.v_usp"
+  ],
+  "EditorReferences": null,
+  "Metadata": {
+    "MaxPlayers": 16,
+    "MinPlayers": 1,
+    "GameNetworkType": "Multiplayer",
+    "MapSelect": "Official",
+    "MapList": [
+      "gvar.metro",
+      "baks.training_arena",
+      "facepunch.prison",
+      "gvar.stalkyard"
+    ],
+    "RankType": "None",
+    "PerMapRanking": false,
+    "LeaderboardType": "None",
+    "Physics": {
+      "SubSteps": 2,
+      "TimeScale": 1,
+      "Gravity": "0,0,-800",
+      "AirDensity": 1.2,
+      "SleepingEnabled": true,
+      "SimulationMode": "Continuous",
+      "PositionIterations": 2,
+      "VelocityIterations": 8,
+      "SoftBodyIterations": 1,
+      "SoftBodySubsteps": 1
+    },
+    "Compiler": {
+      "RootNamespace": "Gunfight",
+      "DefineConstants": "SANDBOX;ADDON;DEBUG",
+      "NoWarn": "1701;1702;1591;",
+      "WarningsAsErrors": "",
+      "ReleaseMode": "Release",
+      "AssemblyReferences": [],
+      "IgnoreFolders": [],
+      "DistinctAssemblyReferences": []
+    },
+    "GameCategory": "Shooter",
+    "ControlModes": {
+      "Keyboard": true,
+      "Gamepad": true
+    },
+    "ParentPackage": "",
+    "PackageSettings": [
+      {
+        "DisplayType": "Choice",
+        "Choices": [
+          {
+            "Value": "KillConfirmedGamemode",
+            "Name": "Kill Confirmed"
+          },
+          {
+            "Value": "",
+            "Name": "No Gamemode (good for testing)"
+          },
+          {
+            "Value": "FFAGamemode",
+            "Name": "Free For All"
+          },
+          {
+            "Value": "WarGamemode",
+            "Name": "Conquest"
+          }
+        ],
+        "ConVarName": "gunfight_gamemode",
+        "DisplayName": "Active Mode",
+        "DefaultValue": "KillConfirmedGamemode",
+        "Description": "The current gamemode.",
+        "Group": "Important"
+      },
+      {
+        "DisplayType": "Boolean",
+        "Choices": [],
+        "ConVarName": "gunfight_friendly_fire_override",
+        "DisplayName": "Friendly Fire (Override)",
+        "DefaultValue": "false",
+        "Description": "If set on, friendly fire will always be active.",
+        "Group": "Game Rules"
+      },
+      {
+        "DisplayType": "Boolean",
+        "Choices": [],
+        "ConVarName": "gunfight_thirdperson",
+        "DisplayName": "Third Person (Override)",
+        "DefaultValue": "false",
+        "Description": "Should third person be available to use?",
+        "Group": "Game Rules"
+      },
+      {
+        "DisplayType": "Integer",
+        "Choices": [],
+        "ConVarName": "gunfight_kc_minimum_players",
+        "DisplayName": "Minimum Players",
+        "DefaultValue": "2",
+        "Description": "The minimum amount of required players to start a Kill Confirmed game.",
+        "Group": "Kill Confirmed",
+        "Minimum": 1,
+        "Maximum": 16
+      },
+      {
+        "DisplayType": "Float",
+        "Choices": [],
+        "ConVarName": "gunfight_kc_round_countdown",
+        "DisplayName": "Round Countdown",
+        "DefaultValue": "10",
+        "Description": "The time (in seconds) it takes to start a match in Kill Confirmed.",
+        "Group": "Kill Confirmed",
+        "Maximum": 30
+      },
+      {
+        "DisplayType": "Float",
+        "Choices": [],
+        "ConVarName": "gunfight_kc_round_duration",
+        "DisplayName": "Round Duration",
+        "DefaultValue": "600",
+        "Description": "The round duration (in seconds) in Kill Confirmed.",
+        "Group": "Kill Confirmed",
+        "Minimum": 60,
+        "Maximum": 3600,
+        "Step": 1
+      },
+      {
+        "DisplayType": "Integer",
+        "Choices": [],
+        "ConVarName": "gunfight_kc_max_score",
+        "DisplayName": "Maximum Score",
+        "DefaultValue": "75",
+        "Description": "The score required to win a match in Kill Confirmed.",
+        "Group": "Kill Confirmed",
+        "Minimum": 1,
+        "Maximum": 300
+      }
+    ],
+    "DefaultLeaderboards": [],
+    "GeneralExtensions": false,
+    "TargettedExtensions": true,
+    "ExtensionApiVersion": 1001,
+    "Summary": "A fast paced first-person shooter game with a bunch of different gamemodes.",
+    "Description": "",
+    "ReplaceTags": "firstperson thirdperson action fps shooter",
+    "Public": true,
+    "CsProjName": "",
+    "HttpAllowList": null,
+    "InputSettings": {
+      "Actions": [
+        {
+          "Name": "Forward",
+          "KeyboardCode": "W",
+          "GamepadCode": "None",
+          "GroupName": "Movement"
+        },
+        {
+          "Name": "Backward",
+          "KeyboardCode": "S",
+          "GamepadCode": "None",
+          "GroupName": "Movement"
+        },
+        {
+          "Name": "Left",
+          "KeyboardCode": "A",
+          "GamepadCode": "None",
+          "GroupName": "Movement"
+        },
+        {
+          "Name": "Right",
+          "KeyboardCode": "D",
+          "GamepadCode": "None",
+          "GroupName": "Movement"
+        },
+        {
+          "Name": "Jump",
+          "KeyboardCode": "space",
+          "GamepadCode": "None",
+          "GroupName": "Movement"
+        },
+        {
+          "Name": "Run",
+          "KeyboardCode": "shift",
+          "GamepadCode": "LeftJoystickButton",
+          "GroupName": "Movement"
+        },
+        {
+          "Name": "Walk",
+          "KeyboardCode": "alt",
+          "GamepadCode": "None",
+          "GroupName": "Movement"
+        },
+        {
+          "Name": "Duck",
+          "KeyboardCode": "Ctrl",
+          "GamepadCode": "B",
+          "GroupName": "Movement"
+        },
+        {
+          "Name": "attack1",
+          "KeyboardCode": "mouse1",
+          "GamepadCode": "RightTrigger",
+          "GroupName": "Weapon Handling"
+        },
+        {
+          "Name": "attack2",
+          "KeyboardCode": "mouse2",
+          "GamepadCode": "LeftTrigger",
+          "GroupName": "Weapon Handling"
+        },
+        {
+          "Name": "reload",
+          "KeyboardCode": "r",
+          "GamepadCode": "X",
+          "GroupName": "Weapon Handling"
+        },
+        {
+          "Name": "Interact",
+          "KeyboardCode": "f",
+          "GamepadCode": "Y",
+          "GroupName": "Actions"
+        },
+        {
+          "Name": "View",
+          "KeyboardCode": "z",
+          "GamepadCode": "None",
+          "GroupName": "Other"
+        },
+        {
+          "Name": "Voice",
+          "KeyboardCode": "v",
+          "GamepadCode": "RightJoystickButton",
+          "GroupName": "Other"
+        },
+        {
+          "Name": "Drop",
+          "KeyboardCode": "g",
+          "GamepadCode": "None",
+          "GroupName": "Other"
+        },
+        {
+          "Name": "Score",
+          "KeyboardCode": "tab",
+          "GamepadCode": "SwitchLeftMenu",
+          "GroupName": "Other"
+        },
+        {
+          "Name": "Chat",
+          "KeyboardCode": "enter",
+          "GamepadCode": "None",
+          "GroupName": "Other"
+        },
+        {
+          "Name": "Mount",
+          "KeyboardCode": "T",
+          "GamepadCode": "RightJoystickButton",
+          "GroupName": "Weapon Handling"
+        },
+        {
+          "Name": "SwitchWeapon",
+          "KeyboardCode": "2",
+          "GamepadCode": "DpadSouth",
+          "GroupName": "Weapon Handling"
+        },
+        {
+          "Name": "Slide",
+          "KeyboardCode": "C",
+          "GamepadCode": "B",
+          "GroupName": "Movement"
+        },
+        {
+          "Name": "FireMode",
+          "KeyboardCode": "B",
+          "GamepadCode": "DpadNorth",
+          "GroupName": "Weapon Handling"
+        },
+        {
+          "Name": "Noclip",
+          "KeyboardCode": "MOUSE4",
+          "GamepadCode": "None",
+          "GroupName": "Development"
+        },
+        {
+          "Name": "SpectatorNext",
+          "KeyboardCode": "E",
+          "GamepadCode": "DpadWest",
+          "GroupName": "Spectator"
+        },
+        {
+          "Name": "SpectatorPrev",
+          "KeyboardCode": "Q",
+          "GamepadCode": "DpadEast",
+          "GroupName": "Spectator"
+        },
+        {
+          "Name": "Slot1",
+          "KeyboardCode": "1",
+          "GamepadCode": "None",
+          "GroupName": "Inventory"
+        },
+        {
+          "Name": "Slot2",
+          "KeyboardCode": "2",
+          "GamepadCode": "None",
+          "GroupName": "Inventory"
+        },
+        {
+          "Name": "DeveloperMenu",
+          "KeyboardCode": "Q",
+          "GamepadCode": "None",
+          "GroupName": "Development"
+        },
+        {
+          "Name": "Slot3",
+          "KeyboardCode": "3",
+          "GamepadCode": "None",
+          "GroupName": "Other"
+        }
+      ],
+      "__guid": "bcccc875-ac58-4719-a08e-4d5b3875734a"
+    },
+    "TickRate": 30,
+    "StartupScene": "assets/scenes/fps_testing.scene"
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "RootObject": {
+    "Id": "cbfd9dd1-a25c-46a8-8b14-5dccd490fd20",
+    "Name": "pistol_muzzleflash",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "TimedDestroyComponent",
+        "__enabled": true,
+        "Time": 1,
+        "TimeUntilDestroy": {
+          "Relative": -1829.6537,
+          "Passed": 1829.6537,
+          "Fraction": 1
+        }
+      }
+    ],
+    "Children": [
+      {
+        "Id": "531e5e47-68d9-4d6a-9d9c-b723e0668334",
+        "Name": "Layer One",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "ParticleEffect",
+            "__enabled": true,
+            "Alpha": {
+              "Type": "Range",
+              "Constants": "1,0,0,0"
+            },
+            "ApplyColor": true,
+            "ApplyRotation": true,
+            "ApplyShape": false,
+            "Bounce": {
+              "Constants": "1,0,0,0"
+            },
+            "Brightness": {
+              "Constants": "1,0,0,0"
+            },
+            "Bumpiness": {},
+            "Collision": false,
+            "CollisionIgnore": null,
+            "CollisionRadius": 1,
+            "Damping": {},
+            "DieOnCollisionChance": {},
+            "Force": false,
+            "ForceDirection": "0,0,0",
+            "ForceScale": {
+              "Constants": "1,0,0,0"
+            },
+            "Friction": {
+              "Constants": "1,0,0,0"
+            },
+            "Gradient": {
+              "Evaluation": "Particle",
+              "GradientA": {
+                "color": [
+                  {
+                    "t": 0.5,
+                    "c": "1,1,1,1"
+                  }
+                ],
+                "alpha": []
+              },
+              "GradientB": {
+                "color": [
+                  {
+                    "t": 0.5,
+                    "c": "1,1,1,1"
+                  }
+                ],
+                "alpha": []
+              },
+              "ConstantA": "1,1,1,1",
+              "ConstantB": "1,1,1,1"
+            },
+            "Lifetime": {
+              "Constants": "1,0,0,0"
+            },
+            "MaxParticles": 1,
+            "PerParticleTimeScale": {
+              "Constants": "3,0,0,0"
+            },
+            "PreWarm": 0,
+            "PushStrength": {},
+            "Roll": {
+              "Type": "Range"
+            },
+            "Scale": {
+              "Constants": "2,0,0,0"
+            },
+            "SequenceId": {},
+            "SequenceSpeed": {
+              "Constants": "1,0,0,0"
+            },
+            "SequenceTime": {
+              "Constants": "1,0,0,0"
+            },
+            "SheetSequence": false,
+            "Space": "World",
+            "StartVelocity": {},
+            "Stretch": {
+              "Type": "Range",
+              "Evaluation": "Frame",
+              "Constants": "5,5,0,0"
+            },
+            "TimeScale": 1,
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "ParticleBoxEmitter",
+            "__enabled": true,
+            "Burst": 1,
+            "Delay": 0,
+            "Duration": 0.1,
+            "Loop": false,
+            "OnEdge": false,
+            "Rate": 796.51,
+            "Size": "0,0,0"
+          },
+          {
+            "__type": "ParticleSpriteRenderer",
+            "__enabled": true,
+            "Additive": false,
+            "BlurAmount": 0.5,
+            "BlurOpacity": 0.5,
+            "BlurSpacing": 0.5,
+            "DepthFeather": 0,
+            "FaceVelocity": false,
+            "FogStrength": 1,
+            "LeadingTrail": true,
+            "MotionBlur": false,
+            "Opaque": false,
+            "RotationOffset": 0,
+            "Scale": 2,
+            "Shadows": false,
+            "SortMode": "Unsorted",
+            "Texture": "materials/particle/muzzleflashcloud.vtex"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "__references": []
+}

@@ -1,0 +1,99 @@
+@import "/UI/Styles/Theme.scss";
+
+WeaponInfoComponent
+{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    gap: 32px;
+    flex-direction: column-reverse;
+    justify-content: center;
+
+    WeaponViewer
+    {
+        opacity: 0.75;
+    }
+}
+
+WeaponViewer
+{
+    width: 128px;
+    height: 64px;
+    filter: saturate(0);
+    filter: invert(1);
+}
+
+WeaponRow
+{
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.5;
+    transform: scale( 0.9 );
+    min-height: 80px;
+
+    .grow
+    {
+        flex-grow: 1;
+        background-color: red;
+    }
+
+    > .background
+    {
+        position: absolute;
+        width: 1024px;
+        height: 160px;
+        background-image: radial-gradient( rgba( black, 0.8 ), rgba( black, 0.5 ), rgba( black, 0 ), rgba( black, 0 ), rgba( black, 0 ) );
+        opacity: 0;
+    }
+
+    &.is-active
+    {
+        opacity: 1;
+        transform: scale( 1 );
+
+        > .background
+        {
+            opacity: 1;
+        }
+    }
+
+    .info
+    {
+        font-weight: bold;
+        color: $main-color;
+        flex-direction: column;
+        justify-content: center;
+
+        .row
+        {
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+        .inventory
+        {
+            font-family: $main-font;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.70);
+        }
+
+        .currentammo
+        {
+            font-family: $main-font;
+            font-size: 38px;
+            color: white;
+            height: 41px;
+            padding-right: 10px;
+        }
+
+        .gunname
+        {
+            font-family: $main-font;
+            font-size: 20px;
+            color: white;
+            opacity: 1;
+            min-width: 55px;
+        }
+    }
+}

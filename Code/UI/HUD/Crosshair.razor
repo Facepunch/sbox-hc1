@@ -1,0 +1,91 @@
+@namespace Gunfight.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root>
+    <div @ref="Reticle" class="reticle" />
+    <div @ref="Hitmarker" class="hitmarker @HitmarkerClasses" />
+</root>
+
+@code
+{
+    public PlayerController Player { get; set; }
+    public Panel Reticle { get; set; }
+    public Panel Hitmarker { get; set; }
+
+    Weapon Weapon => Player.CurrentWeapon;
+    Vector2 lerpedPosition = new( 0.5f, 0.5f );
+
+    private TimeUntil TimeUntilHitmarkerRemove = 0f;
+    private float HitMarkerDuration => 0.1f;
+
+    protected override void OnAfterTreeRender( bool firstTime )
+    {
+        if ( firstTime )
+        {
+            var sys = Scene.GetSystem<GameEventSystem>();
+            sys.OnDamageGivenEvent += OnDamageGiven;
+        }
+    }
+
+    string HitmarkerClasses
+    {
+        get
+        {
+            var str = "";
+            if ( !TimeUntilHitmarkerRemove ) return "is-visible";
+            return str;
+        }
+    }
+
+    private DamageInfo LastDamage = null;
+
+    private void OnDamageGiven( GameObject go, DamageInfo damage )
+    {
+        if (go.Components.Get<IPawn>( FindMode.EverythingInSelfAndAncestors ) is null) return;
+
+        var isKill = damage.Damage <= 0f;
+        TimeUntilHitmarkerRemove = isKill ? 0.5f : 0.2f;
+        Hitmarker.SetClass( "is-kill", isKill );
+    }
+
+    public override void Tick()
+    {
+        var camera = Player.CameraController.Camera;
+        var range = 100000;
+
+        var muzzle = Weapon?.ViewModel?.ModelRenderer.GetAttachment( "muzzle" );
+        var origin = muzzle.HasValue ? muzzle.Value.Position : camera.Transform.Position;
+
+        var currentTrace = Player.Scene.Trace.Ray( origin, camera.Transform.Rotation.Forward * range )
+            .IgnoreGameObjectHierarchy( Player.GameObject )
+            .UseHitboxes()
+            .Run();
+
+        Reticle.SetClass( "aiming", Weapon?.GetFunction<AimWeaponFunction>()?.IsAiming ?? false );
+
+        const float lerpSpeed = 10f;
+        if ( currentTrace.Hit )
+        {
+            var screenPos = camera.PointToScreenNormal( currentTrace.HitPosition, out bool isBehind );
+            lerpedPosition = lerpedPosition.LerpTo( screenPos, Time.Delta * lerpSpeed );
+
+            var player = currentTrace.GameObject.Root.Components.Get<PlayerController>();
+            Reticle.SetClass( "enemy", player.IsValid() );
+
+        }
+        else
+        {
+            lerpedPosition = lerpedPosition.LerpTo( 0.5f, Time.Delta * lerpSpeed );
+            Reticle.SetClass( "enemy", false );
+        }
+
+        Style.Left = Length.Fraction( lerpedPosition.x );
+        Style.Top = Length.Fraction( lerpedPosition.y );
+    }
+
+    protected override int BuildHash()
+    {
+        return System.HashCode.Combine( Time.Now );
+    }
+}

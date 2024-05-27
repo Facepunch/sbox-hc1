@@ -1,0 +1,25 @@
+@import "/UI/Styles/Theme.scss";
+
+MainMenuPanel
+{
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: all;
+    background-color: darken( $main-color, 0.1 );
+
+    > .background
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: url( https://files.facepunch.com/tony/1b2211b1/0H4JV4T4W9.jpg );
+        opacity: 0.5;
+        filter: blur(20px);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}

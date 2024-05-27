@@ -1,0 +1,32 @@
+@namespace Gunfight.UI
+@attribute [StyleSheet]
+@inherits PanelComponent
+
+<root class="gunfight">
+    <div class="background" />
+
+    <div class="layout padding-insane column">
+        <label class="text header">Gunfight</label>
+        <div class="layout flex-grow" />
+
+        <div class="layout column gap">
+            <button class="button standard" onclick=@Play>Play</button>
+            <button class="button standard" onclick=@Quit>Quit</button>
+        </div>
+    </div>
+</root>
+
+@code
+{
+    [Property] public SceneFile PlayScene { get; set; }
+
+    void Play()
+    {
+        Game.ActiveScene.Load( PlayScene );
+    }
+
+    void Quit()
+    {
+        Game.Close();
+    }
+}

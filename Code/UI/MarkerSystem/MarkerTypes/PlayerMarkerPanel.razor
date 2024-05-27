@@ -1,0 +1,65 @@
+@inherits BaseMarkerPanel
+@namespace Gunfight.UI
+
+<style>
+    PlayerMarkerPanel
+    {
+        justify-content: flex-end;
+        align-items: center;
+        flex-direction: column-reverse;
+
+        text-shadow: 1px 1px 1px rgba( black, 1 );
+       
+        .dot
+        {
+            width: 8px;
+            height: 8px;
+            border-radius: 100px;
+            background-color: white;
+            box-shadow: 2px 2px 2px rgba( black, 0.5 );
+        }
+
+        .chevron 
+        {
+            font-size: 30px;
+            font-weight: 900;
+        }
+    }
+</style>
+
+<root>
+    @if ( !Player.IsValid() )
+        return;
+
+    @if ( Player.HealthComponent.State != LifeState.Alive )
+        return;
+
+    @if ( Marker.IsBehind ) return;
+
+    @if ( Marker.IsOffScreen )
+    {
+        <label class="chevron" style="transform: rotateZ(@(ChevronAngle)deg);">></label>
+    }
+    else
+    {
+        <div class="dot" />
+        <label>@MarkerFrame.DisplayText</label>
+    }
+</root>
+
+@code
+{
+    public PlayerController Player => Object?.GameObject?.Components?.Get<PlayerController>();
+
+    private float ChevronAngle => Scene.Camera.PointToScreenNormal(MarkerFrame.Position).Angle(new(0.5f, 0.5f)) - 180f; 
+
+    protected override void OnAfterTreeRender( bool firstTime )
+    {
+        Marker.ClampToScreen = true;
+    }
+
+    protected override int BuildHash()
+    {
+        return System.HashCode.Combine( Time.Now );
+    }
+}

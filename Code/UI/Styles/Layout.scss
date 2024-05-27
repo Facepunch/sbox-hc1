@@ -1,0 +1,50 @@
+
+$layout-standard-padding: 8px;
+$layout-extra-padding: 16px;
+$layout-insane-padding: 64px;
+
+$hud-deadzone-x: 32px;
+$hud-deadzone-y: 16px;
+
+.layout
+{
+    &.padding
+    {
+        padding: $layout-standard-padding;
+    }
+
+    &.padding-extra
+    {
+        padding: $layout-extra-padding;
+    }
+    
+    &.padding-insane
+    {
+        padding: $layout-insane-padding;
+    }
+
+    &.gap
+    {
+        gap: 8px;
+    }
+
+    &.flex-grow
+    {
+        flex-grow: 1;
+    }
+
+    &.row
+    {
+        flex-direction: row;
+    }
+
+    &.column
+    {
+        flex-direction: column;
+    }
+
+    &.pointer-events
+    {
+        pointer-events: all;
+    }
+}

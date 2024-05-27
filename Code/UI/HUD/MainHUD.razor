@@ -1,0 +1,16 @@
+@namespace Gunfight.UI
+@inherits PanelComponent
+
+<root>
+    <WeaponInfoComponent Inventory=@Inventory />
+    <Crosshair Player=@Player />
+
+    <ControlHints />
+    <MarkerSystem />
+</root>
+
+@code
+{
+    [Property] public PlayerController Player { get; set; }
+    [Property] public PlayerInventory Inventory { get; set; }
+}

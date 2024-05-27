@@ -1,0 +1,37 @@
+@namespace Gunfight.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root class="hud with-deadzone column">
+    @if ( CurrentWeapon.IsValid() )
+    {
+        <WeaponRow Weapon=@CurrentWeapon Slot=@GetSlot( CurrentWeapon ) />
+    }
+
+    @for ( int i = 0; i < Inventory.Weapons.Count; i++ )
+    {
+        @if (Inventory.Weapons[i] == CurrentWeapon) continue;
+
+        <WeaponRow Weapon=@Inventory.Weapons[i] Slot=@i />
+    }
+</root>
+
+@code
+{
+    /// <summary>
+    /// The player's inventory
+    /// </summary>
+    public PlayerInventory Inventory { get; set; }
+
+    /// The player
+    public PlayerController Player => Inventory.Components.Get<PlayerController>();
+
+    public Weapon CurrentWeapon => Player?.CurrentWeapon;
+
+    public int GetSlot( Weapon weapon ) => Inventory.Weapons.IndexOf( weapon );
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( Inventory.Weapons.Count, CurrentWeapon );
+    }
+}

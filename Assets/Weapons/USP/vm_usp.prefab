@@ -1,0 +1,69 @@
+{
+  "RootObject": {
+    "__guid": "c42e2eb1-a764-4819-b33b-4405b9f988ae",
+    "Name": "vm_usp",
+    "Tags": "player,viewmodel",
+    "Enabled": true,
+    "NetworkMode": 0,
+    "Components": [
+      {
+        "__type": "Gunfight.ViewModel",
+        "__guid": "b1e2884d-fdff-4ba7-b53f-cf930e53180c",
+        "Arms": {
+          "_type": "component",
+          "component_id": "ba2eed1e-8b7f-4d6b-a8f8-71e42d6048fb",
+          "go": "52a0e4b9-e634-4531-910b-a212fe3917a5",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "4ffe8d7e-4352-4354-b54f-d0ebdd10bcd2",
+          "go": "c42e2eb1-a764-4819-b33b-4405b9f988ae",
+          "component_type": "SkinnedModelRenderer"
+        }
+      },
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "4ffe8d7e-4352-4354-b54f-d0ebdd10bcd2",
+        "BodyGroups": 18725,
+        "CreateBoneObjects": false,
+        "Model": "models/weapons/sbox_pistol_usp/v_usp.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "52a0e4b9-e634-4531-910b-a212fe3917a5",
+        "Name": "Object",
+        "Enabled": true,
+        "NetworkMode": 0,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "ba2eed1e-8b7f-4d6b-a8f8-71e42d6048fb",
+            "BodyGroups": 18446744073709551511,
+            "BoneMergeTarget": {
+              "_type": "component",
+              "component_id": "4ffe8d7e-4352-4354-b54f-d0ebdd10bcd2",
+              "go": "c42e2eb1-a764-4819-b33b-4405b9f988ae",
+              "component_type": "SkinnedModelRenderer"
+            },
+            "CreateBoneObjects": false,
+            "Model": "models/first_person/first_person_arms.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": [
+    "facepunch.v_usp"
+  ]
+}
