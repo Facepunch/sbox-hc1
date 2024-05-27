@@ -16,8 +16,6 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 
 	protected override void OnStart()
 	{
-		base.OnStart();
-
 		if ( !IsMultiplayer ) return;
 
 		//

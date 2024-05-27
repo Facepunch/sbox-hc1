@@ -6,8 +6,11 @@ public sealed class TeamSpawnAssigner : Component, ISpawnPointAssigner
 
 	public Transform GetSpawnTransform( Team team )
 	{
-		var spawns = Game.ActiveScene.GetAllComponents<SpawnPoint>()
+		var spawns = Game.ActiveScene.GetAllComponents<TeamSpawnPoint>()
 			.Where( x => x.Team == team )
+			.Select( x => x.Transform.World )
+			.Union( Game.ActiveScene.GetAllComponents<SpawnPoint>()
+				.Select( x => x.Transform.World ) )
 			.ToArray();
 
 		var spawnIndex = _nextSpawnIndex.GetValueOrDefault( team );
@@ -19,6 +22,6 @@ public sealed class TeamSpawnAssigner : Component, ISpawnPointAssigner
 			throw new Exception( $"No valid spawns for team {team}!" );
 		}
 
-		return spawns[spawnIndex % spawns.Length].Transform.World;
+		return spawns[spawnIndex % spawns.Length];
 	}
 }

@@ -19,6 +19,13 @@ public sealed class GameMode : SingletonComponent<GameMode>
 			?? throw new Exception( $"Missing required component {typeof(T).Name}." );
 	}
 
+	protected override void OnStart()
+	{
+		base.OnStart();
+
+		_ = StartGame();
+	}
+
 	public async Task StartGame()
 	{
 		State = GameState.PreGame;

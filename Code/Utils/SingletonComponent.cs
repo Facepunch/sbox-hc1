@@ -4,7 +4,7 @@ public abstract class SingletonComponent<T> : Component
 {
 	public static T Instance { get; private set; }
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
 		Instance = (T) this;
 	}
