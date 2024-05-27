@@ -1,46 +1,56 @@
 {
   "RootObject": {
-    "__guid": "f068c8aa-4b85-4667-85c7-526c224f0a1a",
+    "__guid": "715c374f-b60e-4fb9-9aeb-dfea5366f417",
     "Flags": 0,
     "Name": "testing",
     "Enabled": true,
-    "NetworkMode": 2,
+    "NetworkMode": 1,
     "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "GameMode",
-        "__guid": "3fe886e0-3139-48cb-afeb-56ecf8d273ab"
+        "__guid": "debecc52-af00-4bec-9d16-babaee52e0c4",
+        "State": "PreGame"
       },
       {
         "__type": "RoundTimer",
-        "__guid": "78155ed4-53c2-43d9-9215-aa62b1c53a0f"
+        "__guid": "91f93eb2-23bc-48dd-a972-e260cb17d6e3",
+        "SinceRoundStart": {
+          "Relative": 7513.3374
+        }
       },
       {
         "__type": "RoundTimeLimit",
-        "__guid": "2e79355a-58c4-4a57-9e42-87ae9c6090e0",
+        "__guid": "77b4e654-4ec0-4138-b8fb-4e609e8db389",
         "TimeLimitSeconds": 120
       },
       {
         "__type": "RoundCounter",
-        "__guid": "fc4bc4a9-1aea-4a7b-913e-6ca5517927f7"
+        "__guid": "f1598751-284e-48a9-b17b-1894fee4a898",
+        "Round": 0
       },
       {
         "__type": "TeamAssigner",
-        "__guid": "8429e794-080a-4a48-803e-9814cdda2cea",
+        "__guid": "37cffcf2-8299-4d3e-b9e1-3dcde264b960",
         "MaxTeamSize": 5
       },
       {
         "__type": "TeamSpawnAssigner",
-        "__guid": "98eb53c9-fbb2-4452-8ec8-660100b2e462"
+        "__guid": "9702b575-d4c1-4a69-bd1d-8c162cb9f032"
       },
       {
         "__type": "RoundLimit",
-        "__guid": "0e164575-c042-41ab-8206-8daa705d4abc",
+        "__guid": "5b18c1d4-7482-49ab-af96-3f9725cd2b51",
         "MaxRounds": 30
       },
       {
         "__type": "RoundStartPlayerSpawner",
-        "__guid": "fc8a20ca-a5b8-4111-b3f5-89305c7c1606"
+        "__guid": "6efed182-46b9-4dcc-8e3d-5d590eb20d95"
+      },
+      {
+        "__type": "WarmUp",
+        "__guid": "dcadf18d-7ce7-41c8-9e8d-aefe8c8d7a91",
+        "TotalTimeSeconds": 5
       }
     ],
     "Children": []

@@ -3,7 +3,7 @@
 	[RequireComponent]
 	public RoundCounter RoundCounter { get; private set; }
 
-	[Property] public int MaxRounds { get; set; } = 30;
+	[Property, Sync] public int MaxRounds { get; set; } = 30;
 
 	public bool ShouldGameEnd()
 	{

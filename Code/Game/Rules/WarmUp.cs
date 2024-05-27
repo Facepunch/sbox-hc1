@@ -1,8 +1,13 @@
 ﻿
-internal class WarmUp : Component
+using System.Threading.Tasks;
+
+internal class WarmUp : Component, IGameStartListener
 {
-	[Property]
+	[Property, Sync]
 	public float TotalTimeSeconds { get; set; }
 
-
+	public Task OnGameStart()
+	{
+		return Task.DelaySeconds( TotalTimeSeconds );
+	}
 }

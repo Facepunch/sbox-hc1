@@ -43,6 +43,6 @@ public partial class PlayerController
 
 		SetBodyVisible( true );
 
-		Transform.World = GameMode.Instance.GetSpawnTransform( Team.Unassigned );
+		Transform.World = GameMode.Instance.GetSpawnTransform( TeamComponent.Team );
 	}
 }

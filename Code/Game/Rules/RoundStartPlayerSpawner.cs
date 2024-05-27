@@ -3,13 +3,11 @@ using Facepunch;
 
 public sealed class RoundStartPlayerSpawner : Component, IRoundStartListener
 {
-	public Task OnRoundStart()
+	void IRoundStartListener.PreRoundStart()
 	{
-		foreach ( var player in GameUtils.ActivePlayers )
+		foreach (var player in GameUtils.ActivePlayers)
 		{
 			player.Respawn();
 		}
-
-		return Task.CompletedTask;
 	}
 }

@@ -20,22 +20,30 @@ public interface IRoundEndCondition
 
 public interface IGameStartListener
 {
-	Task OnGameStart();
+	public void PreGameStart() { }
+	public Task OnGameStart() => Task.CompletedTask;
+	public void PostGameStart() { }
 }
 
 public interface IGameEndListener
 {
-	Task OnGameEnd();
+	public void PreGameEnd() { }
+	public Task OnGameEnd() => Task.CompletedTask;
+	public void PostGameEnd() { }
 }
 
 public interface IRoundStartListener
 {
-	Task OnRoundStart();
+	public void PreRoundStart() { }
+	public Task OnRoundStart() => Task.CompletedTask;
+	public void PostRoundStart() { }
 }
 
 public interface IRoundEndListener
 {
-	Task OnRoundEnd();
+	public void PreRoundEnd() { }
+	public Task OnRoundEnd() => Task.CompletedTask;
+	public void PostRoundEnd() { }
 }
 
 public interface ISpawnPointAssigner

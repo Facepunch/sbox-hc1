@@ -1,14 +1,10 @@
-﻿
-using System.Threading.Tasks;
-
-public sealed class RoundTimer : Component, IRoundStartListener
+﻿public sealed class RoundTimer : Component, IRoundStartListener
 {
+	[Property]
 	public TimeSince SinceRoundStart { get; private set; }
 
-	public Task OnRoundStart()
+	void IRoundStartListener.PostRoundStart()
 	{
 		SinceRoundStart = 0f;
-
-		return Task.CompletedTask;
 	}
 }

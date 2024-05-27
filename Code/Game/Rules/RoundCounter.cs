@@ -6,19 +6,16 @@ public sealed class RoundCounter : Component, IGameStartListener, IRoundStartLis
 	/// <summary>
 	/// Current round number, starting at 1.
 	/// </summary>
+	[Property, Sync]
 	public int Round { get; set; }
 
-	public Task OnGameStart()
+	void IGameStartListener.PreGameStart()
 	{
-		Round = 1;
-
-		return Task.CompletedTask;
+		Round = 0;
 	}
 
-	public Task OnRoundStart()
+	void IRoundStartListener.PreRoundStart()
 	{
 		Round += 1;
-
-		return Task.CompletedTask;
 	}
 }

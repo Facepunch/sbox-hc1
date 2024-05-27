@@ -6,11 +6,24 @@ public sealed class GameMode : SingletonComponent<GameMode>
 	/// <summary>
 	/// Current game state.
 	/// </summary>
-	public GameState State { get; set; }
+	[Property, Sync]
+	public GameState State { get; private set; }
 
-	private Task Dispatch<T>( Func<T, Task> handler )
+	private async Task Dispatch<T>( Action<T> pre, Func<T, Task> on, Action<T> post )
 	{
-		return Task.WhenAll( Components.GetAll<T>().Select( handler ) );
+		var components = Components.GetAll<T>().ToArray();
+
+		foreach ( var comp in components )
+		{
+			pre( comp );
+		}
+
+		await Task.WhenAll( Components.GetAll<T>().Select( on ) );
+
+		foreach ( var comp in components )
+		{
+			post( comp );
+		}
 	}
 
 	private T GetSingleOrThrow<T>()
@@ -23,23 +36,38 @@ public sealed class GameMode : SingletonComponent<GameMode>
 	{
 		base.OnStart();
 
+		if ( IsProxy )
+		{
+			return;
+		}
+
 		_ = StartGame();
 	}
 
 	public async Task StartGame()
 	{
+		Log.Info( $"{GameObject.Name}: {nameof(StartGame)}" );
+
 		State = GameState.PreGame;
 
-		await Dispatch<IGameStartListener>( x => x.OnGameStart() );
+		await Dispatch<IGameStartListener>(
+			x => x.PreGameStart(),
+			x => x.OnGameStart(),
+			x => x.PostGameStart() );
 
 		await StartRound();
 	}
 
 	public async Task StartRound()
 	{
+		Log.Info( $"{GameObject.Name}: {nameof( StartRound )}" );
+
 		State = GameState.PreRound;
 
-		await Dispatch<IRoundStartListener>( x => x.OnRoundStart() );
+		await Dispatch<IRoundStartListener>(
+			x => x.PreRoundStart(),
+			x => x.OnRoundStart(),
+			x => x.PostRoundStart() );
 
 		State = GameState.DuringRound;
 	}
@@ -57,9 +85,14 @@ public sealed class GameMode : SingletonComponent<GameMode>
 
 	public async Task EndRound()
 	{
+		Log.Info( $"{GameObject.Name}: {nameof( EndRound )}" );
+
 		State = GameState.PostRound;
 
-		await Dispatch<IRoundEndListener>( x => x.OnRoundEnd() );
+		await Dispatch<IRoundEndListener>(
+			x => x.PreRoundEnd(),
+			x => x.OnRoundEnd(),
+			x => x.PostRoundEnd() );
 
 		if ( ShouldGameEnd() )
 		{
@@ -73,9 +106,14 @@ public sealed class GameMode : SingletonComponent<GameMode>
 
 	public async Task EndGame()
 	{
+		Log.Info( $"{GameObject.Name}: {nameof( EndGame )}" );
+
 		State = GameState.PostGame;
 
-		await Dispatch<IGameEndListener>( x => x.OnGameEnd() );
+		await Dispatch<IGameEndListener>(
+			x => x.PreGameEnd(),
+			x => x.OnGameEnd(),
+			x => x.PostGameEnd() );
 	}
 
 	private bool ShouldGameEnd()
