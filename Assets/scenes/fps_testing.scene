@@ -19,6 +19,16 @@
       ]
     },
     {
+      "__guid": "715c374f-b60e-4fb9-9aeb-dfea5366f417",
+      "Flags": 0,
+      "Name": "GameMode",
+      "Position": "-166.7509,63.09192,97.99996",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/game_modes/testing.prefab"
+    },
+    {
       "__guid": "0f04ee6a-6956-44a5-851e-aa6b5151fa34",
       "Flags": 0,
       "Name": "GameNetworkManager",
@@ -34,10 +44,6 @@
           "PlayerPrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/player/player.prefab"
-          },
-          "SpawnPoint": {
-            "_type": "gameobject",
-            "go": "0f04ee6a-6956-44a5-851e-aa6b5151fa34"
           }
         },
         {
@@ -1769,18 +1775,51 @@
       ]
     },
     {
+      "__guid": "7d175a49-e17c-4844-9962-5c609039a793",
+      "Flags": 0,
+      "Name": "Unassigned Spawn",
+      "Position": "-76.35555,116.2194,0",
+      "Rotation": "0,0,1,-0.00000004371139",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "TeamSpawnPoint",
+          "__guid": "550f4e12-7891-4bc6-a37d-9f3156081009",
+          "Team": "Unassigned"
+        }
+      ]
+    },
+    {
+      "__guid": "c9cda73a-ff08-4f64-a745-aedaa40c4d4b",
+      "Flags": 0,
+      "Name": "T Spawn",
+      "Position": "249.2451,-160,95.99998",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "TeamSpawnPoint",
+          "__guid": "e7124ff5-3ad7-4b42-8220-911bb5aafb2d",
+          "Team": "Terrorist"
+        }
+      ]
+    },
+    {
       "__guid": "d05c7ee7-4b25-4b65-b26f-5e1a341250a4",
       "Flags": 0,
-      "Name": "Spawn Point",
+      "Name": "CT Spawn",
       "Position": "-256,-160,95.99998",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "Components": [
         {
-          "__type": "Sandbox.SpawnPoint",
-          "__guid": "1d0abdc6-b824-40ad-b9c9-ee9d6fb458f2",
-          "Color": "0.8902,0.31765,0.05098,1"
+          "__type": "TeamSpawnPoint",
+          "__guid": "6643c1d7-d65f-4714-96d2-242e3e11e0af",
+          "Team": "CounterTerrorist"
         }
       ]
     },
@@ -1944,7 +1983,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-05-26T11:16:23.6414175\u002B01:00",
+  "LastSaved": "2024-05-27T13:54:29.1396863\u002B02:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
