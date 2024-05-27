@@ -34,16 +34,29 @@ public partial class PlayerController
 		Body.GameObject.Enabled = visible;
 	}
 
-	public void Respawn()
+	void IRespawnable.Respawn()
 	{
-		HealthComponent.State = LifeState.Alive;
 		HealthComponent.Health = 100;
 
 		Inventory.Clear();
 		Inventory.Setup();
 
 		SetBodyVisible( true );
+	}
 
-		Transform.World = GameMode.Instance.GetSpawnTransform( TeamComponent.Team );
+	[Authority( NetPermission.HostOnly )]
+	private void MoveToSpawnPoint( Vector3 position, Rotation rotation )
+	{
+		Transform.World = new Transform( position, rotation );
+	}
+
+	public void Respawn()
+	{
+		HealthComponent.State = LifeState.Alive;
+
+		var spawn = GameMode.Instance.GetSpawnTransform( TeamComponent.Team );
+
+		MoveToSpawnPoint( spawn.Position, spawn.Rotation );
+		NetPossess();
 	}
 }
