@@ -1,10 +1,12 @@
 {
   "RootObject": {
     "__guid": "c42e2eb1-a764-4819-b33b-4405b9f988ae",
+    "Flags": 0,
     "Name": "vm_mp5",
     "Tags": "player,viewmodel",
     "Enabled": true,
     "NetworkMode": 0,
+    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Facepunch.ViewModel",
@@ -28,16 +30,18 @@
         "BodyGroups": 18446744073709551615,
         "CreateBoneObjects": false,
         "Model": "models/weapons/sbox_smg_mp5/v_mp5.vmdl",
-        "RenderType": "On",
+        "RenderType": "Off",
         "Tint": "1,1,1,1"
       }
     ],
     "Children": [
       {
         "__guid": "52a0e4b9-e634-4531-910b-a212fe3917a5",
+        "Flags": 0,
         "Name": "Object",
         "Enabled": true,
         "NetworkMode": 0,
+        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
@@ -51,7 +55,7 @@
             },
             "CreateBoneObjects": false,
             "Model": "models/first_person/first_person_arms.vmdl",
-            "RenderType": "On",
+            "RenderType": "Off",
             "Tint": "1,1,1,1"
           }
         ]
@@ -62,8 +66,8 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
   "__references": [
     "facepunch.v_mp5"
-  ]
+  ],
+  "__version": 1
 }

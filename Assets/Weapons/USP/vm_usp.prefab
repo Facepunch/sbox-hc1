@@ -1,30 +1,32 @@
 {
   "RootObject": {
-    "__guid": "c42e2eb1-a764-4819-b33b-4405b9f988ae",
+    "__guid": "af017037-721e-485d-9b04-54b178d5a988",
+    "Flags": 0,
     "Name": "vm_usp",
     "Tags": "player,viewmodel",
     "Enabled": true,
     "NetworkMode": 0,
+    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Facepunch.ViewModel",
-        "__guid": "b1e2884d-fdff-4ba7-b53f-cf930e53180c",
+        "__guid": "a48713f4-cc61-4db9-b94a-d239ed4c4de1",
         "Arms": {
           "_type": "component",
-          "component_id": "ba2eed1e-8b7f-4d6b-a8f8-71e42d6048fb",
-          "go": "52a0e4b9-e634-4531-910b-a212fe3917a5",
+          "component_id": "9d9b596b-a22a-4c98-9b6b-a3f3068b4b02",
+          "go": "afeab171-a7f6-44da-beb5-574866efc867",
           "component_type": "SkinnedModelRenderer"
         },
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "4ffe8d7e-4352-4354-b54f-d0ebdd10bcd2",
-          "go": "c42e2eb1-a764-4819-b33b-4405b9f988ae",
+          "component_id": "ab7a7035-c35e-4741-ae3e-5fa27d5dd678",
+          "go": "af017037-721e-485d-9b04-54b178d5a988",
           "component_type": "SkinnedModelRenderer"
         }
       },
       {
         "__type": "Sandbox.SkinnedModelRenderer",
-        "__guid": "4ffe8d7e-4352-4354-b54f-d0ebdd10bcd2",
+        "__guid": "ab7a7035-c35e-4741-ae3e-5fa27d5dd678",
         "BodyGroups": 18725,
         "CreateBoneObjects": false,
         "Model": "models/weapons/sbox_pistol_usp/v_usp.vmdl",
@@ -34,24 +36,26 @@
     ],
     "Children": [
       {
-        "__guid": "52a0e4b9-e634-4531-910b-a212fe3917a5",
+        "__guid": "afeab171-a7f6-44da-beb5-574866efc867",
+        "Flags": 0,
         "Name": "Object",
         "Enabled": true,
         "NetworkMode": 0,
+        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "ba2eed1e-8b7f-4d6b-a8f8-71e42d6048fb",
+            "__guid": "9d9b596b-a22a-4c98-9b6b-a3f3068b4b02",
             "BodyGroups": 18446744073709551511,
             "BoneMergeTarget": {
               "_type": "component",
-              "component_id": "4ffe8d7e-4352-4354-b54f-d0ebdd10bcd2",
-              "go": "c42e2eb1-a764-4819-b33b-4405b9f988ae",
+              "component_id": "ab7a7035-c35e-4741-ae3e-5fa27d5dd678",
+              "go": "af017037-721e-485d-9b04-54b178d5a988",
               "component_type": "SkinnedModelRenderer"
             },
             "CreateBoneObjects": false,
             "Model": "models/first_person/first_person_arms.vmdl",
-            "RenderType": "On",
+            "RenderType": "Off",
             "Tint": "1,1,1,1"
           }
         ]
@@ -62,8 +66,8 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
   "__references": [
     "facepunch.v_usp"
-  ]
+  ],
+  "__version": 1
 }
