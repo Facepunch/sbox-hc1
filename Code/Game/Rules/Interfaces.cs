@@ -96,3 +96,21 @@ public interface ISpawnPointAssigner
 	/// </summary>
 	Transform GetSpawnTransform( Team team );
 }
+
+public interface IPlayerSpawnListener
+{
+	/// <summary>
+	/// Called on the host before <see cref="OnPlayerSpawn"/>.
+	/// </summary>
+	public void PrePlayerSpawn( PlayerController player ) { }
+
+	/// <summary>
+	/// Called on the host when <paramref name="player"/> respawns.
+	/// </summary>
+	public Task OnPlayerSpawn( PlayerController player ) => Task.CompletedTask;
+
+	/// <summary>
+	/// Called on the host after <see cref="OnPlayerSpawn"/>.
+	/// </summary>
+	public void PostPlayerSpawn( PlayerController player ) { }
+}

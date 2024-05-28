@@ -18,11 +18,6 @@ public partial class PlayerInventory : Component
 	[Property] public GameObject WeaponGameObject { get; set; }
 
 	/// <summary>
-	/// Temporary: A weapon set that we'll give the player by default.
-	/// </summary>
-	[Property] public List<WeaponDataResource> DefaultWeapons { get; set; }
-
-	/// <summary>
 	/// Can we unequip the current weapon so we have no weapons out?
 	/// </summary>
 	[Property] public bool CanUnequipCurrentWeapon { get; set; } = false;
@@ -32,6 +27,7 @@ public partial class PlayerInventory : Component
 	/// </summary>
 	public Weapon CurrentWeapon => Player.CurrentWeapon;
 
+	[Authority( NetPermission.HostOnly )]
 	public void Clear()
 	{
 		foreach ( var wpn in Weapons )
@@ -40,14 +36,6 @@ public partial class PlayerInventory : Component
 		}
 
 		Weapons.Clear();
-	}
-
-	public void Setup()
-	{
-		for ( int i = 0; i < DefaultWeapons.Count; i++ )
-		{
-			GiveWeapon( DefaultWeapons[i], i == 0 );
-		}
 	}
 
 	protected override void OnUpdate()
@@ -97,8 +85,23 @@ public partial class PlayerInventory : Component
 		Player.CurrentWeapon = weapon;
 	}
 
+	[Authority( NetPermission.HostOnly )]
+	private void GiveWeapon( int resourceId, bool makeActive )
+	{
+		var resource = ResourceLibrary.Get<WeaponDataResource>( resourceId )
+			?? throw new Exception( $"Unable to find {nameof(WeaponDataResource)} with id {resourceId}." );
+
+		GiveWeapon( resource, makeActive );
+	}
+
 	public void GiveWeapon( WeaponDataResource resource, bool makeActive = true )
 	{
+		if ( IsProxy )
+		{
+			GiveWeapon( resource.ResourceId, makeActive );
+			return;
+		}
+
 		// If we're in charge, let's make some weapons.
 		if ( resource == null )
 		{
@@ -127,10 +130,5 @@ public partial class PlayerInventory : Component
 		Weapons.Add( weaponComponent );
 
 		if ( makeActive ) Player.CurrentWeapon = weaponComponent;
-	}
-
-	protected override void OnStart()
-	{
-		Setup();
 	}
 }

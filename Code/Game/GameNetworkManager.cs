@@ -52,6 +52,11 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		if ( playerComponent.IsValid() )
 		{
 			playerComponent.NetPossess();
+
+			if ( playerComponent.CanRespawn )
+			{
+				playerComponent.Respawn();
+			}
 		}
 	}
 }

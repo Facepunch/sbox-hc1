@@ -39,7 +39,6 @@ public partial class PlayerController
 		HealthComponent.Health = 100;
 
 		Inventory.Clear();
-		Inventory.Setup();
 
 		SetBodyVisible( true );
 	}
@@ -58,5 +57,7 @@ public partial class PlayerController
 
 		MoveToSpawnPoint( spawn.Position, spawn.Rotation );
 		NetPossess();
+
+		_ = GameMode.Instance?.HandlePlayerSpawn( this );
 	}
 }

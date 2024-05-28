@@ -13,6 +13,18 @@ public sealed class GameMode : SingletonComponent<GameMode>
 	[Property, Sync]
 	public GameState State { get; private set; }
 
+	protected override void OnAwake()
+	{
+		base.OnAwake();
+
+		// Add essential components for required interfaces
+
+		if ( Components.Get<ISpawnPointAssigner>() is null )
+		{
+			Components.Create<AnySpawnAssigner>();
+		}
+	}
+
 	protected override void OnStart()
 	{
 		base.OnStart();
@@ -57,33 +69,33 @@ public sealed class GameMode : SingletonComponent<GameMode>
 		await EndGame();
 	}
 
-	private async Task StartGame()
+	private Task StartGame()
 	{
-		await Dispatch<IGameStartListener>(
+		return Dispatch<IGameStartListener>(
 			x => x.PreGameStart(),
 			x => x.OnGameStart(),
 			x => x.PostGameStart() );
 	}
 
-	private async Task StartRound()
+	private Task StartRound()
 	{
-		await Dispatch<IRoundStartListener>(
+		return Dispatch<IRoundStartListener>(
 			x => x.PreRoundStart(),
 			x => x.OnRoundStart(),
 			x => x.PostRoundStart() );
 	}
 
-	private async Task EndRound()
+	private Task EndRound()
 	{
-		await Dispatch<IRoundEndListener>(
+		return Dispatch<IRoundEndListener>(
 			x => x.PreRoundEnd(),
 			x => x.OnRoundEnd(),
 			x => x.PostRoundEnd() );
 	}
 
-	private async Task EndGame()
+	private Task EndGame()
 	{
-		await Dispatch<IGameEndListener>(
+		return Dispatch<IGameEndListener>(
 			x => x.PreGameEnd(),
 			x => x.OnGameEnd(),
 			x => x.PostGameEnd() );
@@ -105,6 +117,14 @@ public sealed class GameMode : SingletonComponent<GameMode>
 	{
 		return GetSingleOrThrow<ISpawnPointAssigner>()
 			.GetSpawnTransform( team );
+	}
+
+	public Task HandlePlayerSpawn( PlayerController player )
+	{
+		return Dispatch<IPlayerSpawnListener>(
+			x => x.PrePlayerSpawn( player ),
+			x => x.OnPlayerSpawn( player ),
+			x => x.PostPlayerSpawn( player ) );
 	}
 
 	private async Task Dispatch<T>( Action<T> pre, Func<T, Task> on, Action<T> post )
