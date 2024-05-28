@@ -1,4 +1,5 @@
 using Sandbox.Network;
+using System.Threading.Tasks;
 
 namespace Facepunch;
 
@@ -57,6 +58,53 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 			{
 				playerComponent.Respawn();
 			}
+		}
+	}
+
+	[ConCmd( "_lobby_list" )]
+	public static void LobbyList()
+	{
+		QueryLobbies();
+	}
+
+	[ConCmd( "_lobby_join" )]
+	public static void JoinAnyLobby()
+	{
+		AsyncJoinAnyLobby();
+	}
+
+	private static void QueryLobbies()
+	{
+		_ = AsyncGetLobbies();
+	}
+
+	static async Task<List<LobbyInformation>> AsyncGetLobbies()
+	{
+		var lobbies = await Networking.QueryLobbies( Game.Ident );
+
+		foreach ( var lob in lobbies )
+		{
+			Log.Info( $"{lob.Name}'s lobby ({lob.Members}/{lob.MaxMembers})" );
+		}
+
+		return lobbies;
+	}
+
+	static async void AsyncJoinAnyLobby()
+	{
+		var lobbies = await AsyncGetLobbies();
+
+		try
+		{
+			var lobby = lobbies.First( x => !x.IsFull );
+			if ( await GameNetworkSystem.TryConnectSteamId( lobby.LobbyId ) )
+			{
+				Log.Info("joined lobby!");
+			}
+		}
+		catch
+		{
+			Log.Warning( "No available lobbies" );
 		}
 	}
 }
