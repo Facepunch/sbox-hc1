@@ -68,7 +68,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		{
 			if ( Sound.Play( ShootSound, Weapon.Transform.Position ) is SoundHandle snd )
 			{
-				snd.ListenLocal = !IsProxy;
+				snd.ListenLocal = Weapon.PlayerController.IsLocallyControlled;
 				Log.Trace( $"ShootWeaponFunction: ShootSound {ShootSound.ResourceName}" );
 			}
 		}
