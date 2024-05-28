@@ -170,6 +170,9 @@ public partial class ViewModel : Component
 		localRotation = Rotation.Identity;
 		localPosition = Vector3.Zero;
 
+		if ( !PlayerController.IsValid() || !PlayerController.CharacterController.IsValid() )
+			return;
+
 		ApplyVelocity();
 		ApplyStates();
 		ApplyAnimationParameters();
