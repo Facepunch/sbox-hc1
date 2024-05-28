@@ -2,11 +2,37 @@
   "RootObject": {
     "__guid": "4b716979-16cf-418b-a4ab-819bfaf6d650",
     "Flags": 0,
-    "Name": "BombSite_A",
-    "Position": "-832,0,176",
+    "Name": "bombsite_a",
     "Enabled": true,
     "NetworkMode": 2,
-    "NetworkInterpolation": true
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "BombSite",
+        "__guid": "25c7b830-3b97-45c1-9cb4-4e550994eb3c"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "30ce3260-69c8-4256-a32d-092721edf563",
+        "Flags": 0,
+        "Name": "Trigger",
+        "Position": "8,-17,-126",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.BoxCollider",
+            "__guid": "4c055dbe-71e2-496d-9f3d-b8751aebbcaa",
+            "Center": "0,0,0",
+            "IsTrigger": true,
+            "Scale": "400,350,100",
+            "Static": false
+          }
+        ]
+      }
+    ]
   },
   "ShowInMenu": false,
   "MenuPath": null,
