@@ -7,10 +7,14 @@
         @foreach ( var grouping in PlayerList.GroupBy( x => x.GameObject.GetTeam() ) )
         {
             <div class="team">
-                @foreach ( var values in grouping )
-                {
-                    <PlayerAvatar @Player=@values />
-                }
+                <label class="teamname">@GetTeamName(grouping.Key)</label>
+
+                <div class="avatars">
+                    @foreach ( var values in grouping )
+                    {
+                        <PlayerAvatar @Player=@values />
+                    }
+                </div>
             </div>
         }
     </div>
@@ -23,6 +27,12 @@
 {
     public string Status { get; set; }
     public TimeSpan? Time { get; set; }
+
+    private string GetTeamName( Team team )
+    {
+        // TODO: get title
+        return team.ToString();
+    }
 
     public IEnumerable<PlayerController> PlayerList => Scene.GetAllComponents<PlayerController>();
 

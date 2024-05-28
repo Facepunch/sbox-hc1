@@ -2,8 +2,13 @@ namespace Facepunch;
 
 public enum Team
 {
+	[Title( "Spectators" )]
 	Unassigned = 0,
+
+	[Title( "Terrorists" )]
 	Terrorist,
+
+	[Title( "Counter Terrorists" )]
 	CounterTerrorist
 }
 
