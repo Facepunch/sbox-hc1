@@ -36,7 +36,7 @@ public partial class HealthComponent : Component, Component.IDamageable, IRespaw
 	/// <summary>
 	/// What's our health?
 	/// </summary>
-	[Property, ReadOnly]
+	[Sync( Query = true ), Property, ReadOnly]
 	public float Health
 	{
 		get => health;
@@ -95,6 +95,12 @@ public partial class HealthComponent : Component, Component.IDamageable, IRespaw
 			Respawnables.ToList()
 				.ForEach( x => x.Kill() );
 		}
+	}
+
+	[Broadcast]
+	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId )
+	{
+		OnDamage( DamageInfo.Bullet( damage, Scene.Directory.FindByGuid( attackerId ), null ) );
 	}
 
 	/// <summary>

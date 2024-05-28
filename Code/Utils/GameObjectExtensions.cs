@@ -3,15 +3,15 @@ namespace Facepunch;
 public static partial class GameObjectExtensions
 {
 	/// <summary>
-	/// Inflict damage on a GameObject.
+	/// Take damage.
 	/// </summary>
 	/// <param name="go"></param>
 	/// <param name="info"></param>
 	public static void TakeDamage( this GameObject go, ref DamageInfo info )
 	{
-		foreach ( var damageable in go.Root.Components.GetAll<Component.IDamageable>( FindMode.EnabledInSelfAndDescendants ) )
+		foreach ( var damageable in go.Root.Components.GetAll<HealthComponent>( FindMode.EnabledInSelfAndDescendants ) )
 		{
-			damageable.OnDamage( info );
+			damageable.TakeDamage( info.Damage, info.Position, default, info.Attacker.Id );
 		}
 
 		go.Scene.GetSystem<GameEventSystem>().OnDamageGivenEvent?.Invoke( go, info );

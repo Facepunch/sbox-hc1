@@ -50,6 +50,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	/// <summary>
 	/// Do shoot effects
 	/// </summary>
+	[Broadcast]
 	protected void DoShootEffects()
 	{
 		if ( !EffectsRenderer.IsValid() )
@@ -107,7 +108,8 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		return p;
 	}
 
-	private void CreateImpactEffects( GameObject hitObject, Surface surface, Vector3 pos, Vector3 normal )
+	[Broadcast]
+	private void CreateImpactEffects( Surface surface, Vector3 pos, Vector3 normal )
 	{
 		var decalPath = Game.Random.FromList( surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
 		if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalResource ) )
@@ -134,7 +136,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 
 		if ( !string.IsNullOrEmpty( surface.Sounds.Bullet ) )
 		{
-			hitObject.PlaySound( surface.Sounds.Bullet );
+			Sound.Play( surface.Sounds.Bullet, pos );
 		}
 	}
 
@@ -164,13 +166,12 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 			}
 
 			DoShootEffects();
-			CreateImpactEffects( tr.GameObject, GetSurfaceFromTrace( tr ), tr.EndPosition, tr.Normal );
+			CreateImpactEffects( GetSurfaceFromTrace( tr ), tr.EndPosition, tr.Normal );
 			DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
 
 			// Inflict damage on whatever we find.
 			var damageInfo = DamageInfo.Bullet( BaseDamage, Weapon.PlayerController.GameObject, Weapon.GameObject );
 			tr.GameObject.TakeDamage( ref damageInfo );
-			Log.Trace( $"ShootWeaponFunction: We hit {tr.GameObject}!" );
 			count++;
 		}
 	}
@@ -201,7 +202,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 
 			if ( tr.Hit )
 			{
-				CreateImpactEffects( tr.GameObject, GetSurfaceFromTrace( tr ), tr.StartPosition, dir );
+				CreateImpactEffects( GetSurfaceFromTrace( tr ), tr.StartPosition, dir );
 			}
 		}
 
