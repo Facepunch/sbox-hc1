@@ -28,8 +28,8 @@ public partial class ViewModel : Component
 
 	[Property] public SkinnedModelRenderer ModelRenderer { get; set; }
 
-	private float YawInertiaScale => 750f;
-	private float PitchInertiaScale => 1500f;
+	private float YawInertiaScale => 2f;
+	private float PitchInertiaScale => 2f;
 	private bool activateInertia = false;
 	private float lastPitch;
 	private float lastYaw;
@@ -86,8 +86,8 @@ public partial class ViewModel : Component
 		lastPitch = newPitch;
 		lastYaw = newYaw;
 
-		ModelRenderer.Set( "aim_yaw_inertia", YawInertia * YawInertiaScale * Time.Delta );
-		ModelRenderer.Set( "aim_pitch_inertia", PitchInertia * PitchInertiaScale * Time.Delta );
+		ModelRenderer.Set( "aim_yaw_inertia", YawInertia * YawInertiaScale );
+		ModelRenderer.Set( "aim_pitch_inertia", PitchInertia * PitchInertiaScale );
 	}
 
 	private Vector3 lerpedWishLook;
