@@ -6,4 +6,22 @@ Chat {
     .message, .input label {
         text-transform: none;
     }
+
+    .when-open {
+        display: none;
+    }
+
+    .when-not-open {
+        display: flex;
+    }
+
+    &.open {
+        .when-open {
+            display: flex;
+        }
+
+        .when-not-open {
+            display: none;
+        }
+    }
 }
