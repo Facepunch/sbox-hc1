@@ -61,13 +61,13 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		}
 	}
 
-	[ConCmd( "_lobby_list" )]
+	[ConCmd( "lobby_list" )]
 	public static void LobbyList()
 	{
 		QueryLobbies();
 	}
 
-	[ConCmd( "_lobby_join" )]
+	[ConCmd( "lobby_join" )]
 	public static void JoinAnyLobby()
 	{
 		AsyncJoinAnyLobby();
@@ -96,7 +96,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 
 		try
 		{
-			var lobby = lobbies.First( x => !x.IsFull );
+			var lobby = lobbies.OrderByDescending( x => x.Members ).First( x => !x.IsFull );
 			if ( await GameNetworkSystem.TryConnectSteamId( lobby.LobbyId ) )
 			{
 				Log.Info("joined lobby!");
