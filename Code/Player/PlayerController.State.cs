@@ -55,8 +55,6 @@ public partial class PlayerController
 
 		Transform.World = new Transform( spawn.Position, spawn.Rotation );
 
-		NetPossess();
-
 		GameMode.Instance?.HandlePlayerSpawn();
 	}
 }
