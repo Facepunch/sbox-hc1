@@ -2,14 +2,32 @@ namespace Facepunch;
 
 public enum Team
 {
-	[Title( "Spectators" )]
 	Unassigned = 0,
-
-	[Title( "Terrorists" )]
 	Terrorist,
-
-	[Title( "Counter Terrorists" )]
 	CounterTerrorist
+}
+
+public static class TeamExtensionMethods
+{
+	public static string GetName( this Team team )
+	{
+		return team switch
+		{
+			Team.Terrorist => "Terrorists",
+			Team.CounterTerrorist => "Counter-Terrorists",
+			_ => "",
+		};
+	}
+
+	public static Color GetColor( this Team team )
+	{
+		return team switch
+		{
+			Team.CounterTerrorist => Color.Parse( "#08B2E3" ) ?? default,
+			Team.Terrorist => Color.Parse( "#D71920" ) ?? default,
+			_ => Color.Parse( "#808080" ) ?? default
+		};
+	}
 }
 
 /// <summary>

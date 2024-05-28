@@ -7,7 +7,7 @@
         @foreach ( var grouping in PlayerList.GroupBy( x => x.GameObject.GetTeam() ) )
         {
             <div class="team">
-                <label class="teamname">@GetTeamName(grouping.Key)</label>
+                <label class="teamname" style="color: @grouping.Key.GetColor().Hex">@GetTeamName(grouping.Key)</label>
 
                 <div class="avatars">
                     @foreach ( var values in grouping )
@@ -30,8 +30,7 @@
 
     private string GetTeamName( Team team )
     {
-        // TODO: get title
-        return team.ToString();
+        return team.GetName();
     }
 
     public IEnumerable<PlayerController> PlayerList => Scene.GetAllComponents<PlayerController>();

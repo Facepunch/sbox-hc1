@@ -4,24 +4,27 @@
 @attribute [StyleSheet]
 
 <root>
-
-    <label class="emphasis hud with-padding">@TeamName()</label>
-
+    <label class="emphasis hud with-padding" style="color:@TeamColor">@TeamName</label>
 </root>
 
 @code
 {
     public PlayerController Player => GameUtils.LocalPlayer;
 
-    public TeamComponent Team => Player.Components.Get<TeamComponent>();
+    public TeamComponent TeamComponent => Player.Components.Get<TeamComponent>();
+
+    private string TeamColor 
+    {
+        get => TeamComponent.Team.GetColor().Hex;
+    }
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Team);
+        return HashCode.Combine( TeamComponent, TeamComponent.Team );
     }
 
-    private string TeamName()
+    private string TeamName
     {
-        return Team?.Team.ToString() ?? "";
+        get => TeamComponent.Team.GetName();
     }
 }
