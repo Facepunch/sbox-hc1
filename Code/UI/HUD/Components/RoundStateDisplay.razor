@@ -3,6 +3,18 @@
 @attribute [StyleSheet]
 
 <root class="hud with-deadzone top-middle">
+    <div class="players">
+        @foreach ( var grouping in PlayerList.GroupBy( x => x.GameObject.GetTeam() ) )
+        {
+            <div class="team">
+                @foreach ( var values in grouping )
+                {
+                    <PlayerAvatar @Player=@values />
+                }
+            </div>
+        }
+    </div>
+
     <div class="status">@Status</div>
     <div class="timer">@(Time?.ToString( @"m\:ss" ))</div>
 </root>
@@ -12,8 +24,10 @@
     public string Status { get; set; }
     public TimeSpan? Time { get; set; }
 
+    public IEnumerable<PlayerController> PlayerList => Scene.GetAllComponents<PlayerController>();
+
     protected override int BuildHash()
     {
-        return HashCode.Combine( Status, Time?.Seconds, Time?.Minutes );
+        return HashCode.Combine( Status, Time?.Seconds, Time?.Minutes, PlayerList.Count() );
     }
 }

@@ -10,11 +10,47 @@ RoundStateDisplay
     .status
     {
         font-size: 24px;
-        color: rgba(255, 255, 255, 0.75);
+        color: rgba( 255, 255, 255, 0.75 );
     }
 
     .timer
     {
         font-size: 32px;
+    }
+
+    .players
+    {
+        gap: 16px;
+
+        .team
+        {
+            gap: 4px;
+        }
+    }
+}
+
+PlayerAvatar
+{
+    width: 64px;
+    height: 64px;
+    background-color: black;
+
+    .avatar
+    {
+        border: 1px solid black;
+    }
+
+    .health 
+    {
+        bottom: 0;
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background-color: black;
+        
+        .health-inner 
+        {
+            background-color: green;
+        }
     }
 }
