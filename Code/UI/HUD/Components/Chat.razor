@@ -1,8 +1,10 @@
 ﻿@using Sandbox;
 @using Sandbox.UI;
+@using Facepunch.UI;
+@using Facepunch;
+
 @inherits PanelComponent
 @implements Component.INetworkListener
-@namespace Facepunch.UI
 
 <root class="hud flex column-reverse with-deadzone top-right gap-sm">
 
@@ -17,25 +19,47 @@
                 }
 
                 <span class="flex column">
+                    <span class="flex row gap-sm">
+                    @if ( entry.chatMode == ChatModes.Team )
+                    {
+                        <label class="emphasis">[TEAM]</label>
+                    }
                     <label class="emphasis">@entry.author</label>
+                    </span>
                     <label class="message">@entry.message</label>
                 </span>
             </div>
         }
     </div>
 
-    <div class="hud with-background with-padding">
-        <TextEntry class="input" @ref="InputBox" onsubmit="@ChatFinished" placeholder="Press ENTER to chat"></TextEntry>
+    <div class="hud with-background with-padding flex align-center gap-sm">
+        <label class="emphasis">
+            @ChatMode
+        </label>
+
+        <ChatBox class="input" @ref="InputBox" OnTabPressed="@ChangeChatMode" onsubmit="@ChatFinished" placeholder="Press ENTER to chat"></ChatBox>
     </div>
 
 </root>
 
 @code
 {
+    public enum ChatModes
+    {
+        Team,
+        All,
+    }
+
+    ChatModes ChatMode = ChatModes.All;
     TextEntry InputBox;
 
-    public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded);
+    public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded, ChatModes chatMode);
     List<Entry> Entries = new();
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(ChatMode);
+    }
 
     protected override void OnUpdate()
     {
@@ -57,6 +81,13 @@
         SetClass("open", InputBox.HasFocus);
     }
 
+    void ChangeChatMode()
+    {
+        ChatMode = ChatMode == ChatModes.All ? ChatModes.Team : ChatModes.All;
+
+        Log.Info($"Chat mode changed to {ChatMode}");
+    }
+
     void ChatFinished()
     {
         var text = InputBox.Text;
@@ -65,11 +96,28 @@
         if (string.IsNullOrWhiteSpace(text))
             return;
 
-        AddText(text);
+        if (ChatMode == ChatModes.Team)
+        {
+            var localPlayer = GameUtils.LocalPlayer;
+            bool IsFriendly(PlayerController x) => localPlayer.GameObject.IsFriendly(x.GameObject) || localPlayer.GameObject == x.GameObject;
+
+            var players = GameUtils.AllPlayers;
+            var friendlyGameObjects = players.Where(IsFriendly);
+            var friendlyConnections = friendlyGameObjects.Select(x => x.Network.OwnerConnection);
+
+            using (var _ = Rpc.FilterInclude(friendlyConnections))
+            {
+                AddText(text, ChatMode);
+            }
+        }
+        else
+        {
+            AddText(text, ChatMode);
+        }
     }
 
     [Broadcast]
-    public void AddText(string message)
+    public void AddText(string message, ChatModes chatMode)
     {
         message = message.Truncate(300);
 
@@ -79,9 +127,7 @@
         var author = Rpc.Caller.DisplayName;
         var steamid = Rpc.Caller.SteamId;
 
-        Log.Info($"{author}: {message}");
-
-        Entries.Add(new Entry(steamid, author, message, 0.0f));
+        Entries.Add(new Entry(steamid, author, message, 0.0f, chatMode));
         StateHasChanged();
     }
 
@@ -93,7 +139,7 @@
         if (string.IsNullOrWhiteSpace(message))
             return;
 
-        Entries.Add(new Entry(0, "ℹ️", message, 0.0f));
+        Entries.Add(new Entry(0, "ℹ️", message, 0.0f, ChatModes.All));
         StateHasChanged();
     }
 
