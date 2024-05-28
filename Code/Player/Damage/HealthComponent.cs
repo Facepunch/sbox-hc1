@@ -97,6 +97,8 @@ public partial class HealthComponent : Component, IRespawnable
 		}
 		if ( ( newValue == LifeState.Dead || newValue == LifeState.Respawning ) && oldValue == LifeState.Alive )
 		{
+			health = 0;
+
 			Respawnables.ToList()
 				.ForEach( x => x.Kill() );
 		}
