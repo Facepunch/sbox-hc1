@@ -11,14 +11,8 @@
 
 @code
 {
-    /// <summary>
-    /// The player's inventory
-    /// </summary>
-    public PlayerInventory Inventory { get; set; }
-
-    /// The player
-    public PlayerController Player => Inventory.Components.Get<PlayerController>();
-
+    public PlayerController Player => GameUtils.LocalPlayer;
+    public PlayerInventory Inventory => Player.Inventory;
     public Weapon CurrentWeapon => Player?.CurrentWeapon;
 
     public int GetSlot( Weapon weapon ) => Inventory.Weapons.IndexOf( weapon );

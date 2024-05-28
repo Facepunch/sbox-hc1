@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using Facepunch.UI;
 using System.Text.Json.Serialization;
 
 namespace Facepunch;
@@ -113,10 +113,10 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// </summary>
 	[Property] public BoxCollider PlayerBoxCollider { get; set; }
 
-    /// <summary>
-    /// A shorthand accessor to say if we're controlling this player.
-    /// </summary>
-    public bool IsLocallyControlled
+	/// <summary>
+	/// A shorthand accessor to say if we're controlling this player.
+	/// </summary>
+	public bool IsLocallyControlled
 	{
 		get
 		{
@@ -460,7 +460,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <param name="target"></param>
 	void IDamageListener.OnDamageGiven( float damage, Vector3 position, Vector3 force, Component target )
 	{
-		Log.Info($"{this} damaged {target} for {damage}");
+		Log.Info( $"{this} damaged {target} for {damage}" );
+		Crosshair.Instance?.Trigger( damage, target, position );
 	}
 
 	/// <summary>
@@ -472,6 +473,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <param name="attacker"></param>
 	void IDamageListener.OnDamageTaken( float damage, Vector3 position, Vector3 force, Component attacker )
 	{
-		Log.Info($"{this} took {damage} damage!");
+		Log.Info( $"{this} took {damage} damage!" );
 	}
 }

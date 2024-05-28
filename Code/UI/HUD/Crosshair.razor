@@ -9,20 +9,22 @@
 
 @code
 {
-    public PlayerController Player { get; set; }
     public Panel Reticle { get; set; }
     public Panel Hitmarker { get; set; }
 
+    PlayerController Player => GameUtils.LocalPlayer;
     Weapon Weapon => Player.CurrentWeapon;
 
     private TimeUntil TimeUntilHitmarkerRemove = 0f;
     private float HitMarkerDuration => 0.1f;
 
+    public static Crosshair Instance { get; set; }
+
     protected override void OnAfterTreeRender( bool firstTime )
     {
         if ( firstTime )
         {
-            // 
+            Instance = this;
         }
     }
 
@@ -36,13 +38,8 @@
         }
     }
 
-    private DamageInfo LastDamage = null;
-
-    private void OnDamageGiven( GameObject go, float damage )
+    public void Trigger( float damage, Component component, Vector3 position )
     {
-        var player = go.Root.Components.Get<PlayerController>( FindMode.EverythingInSelfAndAncestors );
-        if ( !player.IsValid() ) return;
-
         var isKill = damage <= 0f;
         TimeUntilHitmarkerRemove = isKill ? 0.5f : 0.2f;
         Hitmarker.SetClass( "is-kill", isKill );

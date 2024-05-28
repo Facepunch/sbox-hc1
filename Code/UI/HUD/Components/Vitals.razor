@@ -25,8 +25,7 @@
 
 @code
 {
-    public PlayerController Player { get; set; }
-
+    public PlayerController Player => GameUtils.LocalPlayer;
     public int Health => Player.Components.Get<HealthComponent>().Health.CeilToInt();
 
     protected override int BuildHash()

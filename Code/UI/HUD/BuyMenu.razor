@@ -20,8 +20,8 @@
 
 @code
 {
-    [Property] public PlayerInventory Inventory { get; set; }
-    [Property] public PlayerController Player { get; set; }
+    public PlayerInventory Inventory => Player.Inventory;
+    public PlayerController Player => GameUtils.LocalPlayer;
 
     private void BuyWeapon(WeaponDataResource WeaponData)
     {
