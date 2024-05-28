@@ -2,9 +2,9 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-<root>
-    <div style="@BuildStyle()" class="backing"></div>
-    <div style="@BuildStyle()" class="inner"></div>
+<root style="@BuildOuterStyle()">
+    <div style="@BuildInnerStyle()" class="backing"></div>
+    <div style="@BuildInnerStyle()" class="inner"></div>
 </root>
 
 @code
@@ -14,13 +14,20 @@
     /// </summary>
     public float Value { get; set; } = 100f;
 
+    public float Width { get; set; } = 128f;
+
     protected override int BuildHash()
     {
-        return HashCode.Combine(Value);
+        return HashCode.Combine(Value, Width);
     }
 
-    private string BuildStyle()
+    private string BuildInnerStyle()
     {
         return $"width: {Value}%;";
+    }
+
+    private string BuildOuterStyle()
+    {
+        return $"width: {Width}px;";
     }
 }
