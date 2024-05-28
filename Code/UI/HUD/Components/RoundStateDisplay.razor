@@ -3,8 +3,8 @@
 @attribute [StyleSheet]
 
 <root class="hud with-deadzone top-middle">
-    <div class="status">@Status</div>
-    <div class="timer">@(Time?.ToString( @"m\:ss" ))</div>
+    <label class="emphasis">@(Time?.ToString( @"m\:ss" ))</label>
+    <label class="status">@Status</label>
 </root>
 
 @code
