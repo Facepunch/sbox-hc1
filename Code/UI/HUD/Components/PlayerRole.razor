@@ -1,0 +1,27 @@
+﻿@using System.Text;
+@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root>
+
+    <label class="emphasis hud with-padding">@TeamName()</label>
+
+</root>
+
+@code
+{
+    public PlayerController Player { get; set; }
+
+    public TeamComponent Team => Player.Components.Get<TeamComponent>();
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Team);
+    }
+
+    private string TeamName()
+    {
+        return Team?.Team.ToString() ?? "";
+    }
+}
