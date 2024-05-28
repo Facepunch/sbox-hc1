@@ -139,6 +139,10 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 	/// </summary>
 	public bool CanRespawn => GameMode.Instance.State is GameState.PreGame;
 
+	public bool InBuyMenu { get; set; }
+
+	public bool InMenu => InBuyMenu;
+
 	private Weapon currentWeapon;
 	/// <summary>
 	/// What weapon are we using?
@@ -335,6 +339,9 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 
 	protected void BuildInput()
 	{
+		if (InMenu)
+			return;
+
 		IsSlowWalking = Input.Down( "Run" );
 		IsCrouching = Input.Down( "Duck" );
 		
@@ -355,11 +362,13 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 
 		if ( IsLocallyControlled )
 		{
+			UIUpdate();
 			BuildInput();
+
 			BuildWishInput();
 			BuildWishVelocity();
 
-			if ( cc.IsOnGround && !IsFrozen && Input.Down( "Jump" ) )
+			if ( cc.IsOnGround && !IsFrozen && !InMenu && Input.Down( "Jump" ) )
 			{
 				float flGroundFactor = 1.0f;
 
@@ -407,6 +416,21 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 			cc.Velocity = WishMove.Normal * EyeAngles.ToRotation() * NoclipSpeed;
 		}
 	}
+	private void UIUpdate()
+	{
+		if ( InBuyMenu )
+		{
+			if ( Input.EscapePressed || Input.Pressed("BuyMenu") )
+			{
+				InBuyMenu = false;
+			}
+		}
+		else if (Input.Pressed("BuyMenu"))
+		{
+			InBuyMenu = true;
+		}
+	}
+
 	protected float GetWishSpeed()
 	{
 		if ( IsSlowWalking ) return 100f;
@@ -422,7 +446,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 	{
 		WishMove = 0;
 
-		if ( !IsLocallyControlled || IsFrozen ) return;
+		if ( !IsLocallyControlled || IsFrozen || InMenu )
+			return;
 
 		WishMove += Input.AnalogMove;
 	}

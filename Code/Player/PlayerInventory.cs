@@ -148,4 +148,17 @@ public partial class PlayerInventory : Component
 
 		if ( makeActive ) Player.CurrentWeapon = weaponComponent;
 	}
+
+	public bool OwnsWeapon(WeaponDataResource resource) => OwnsWeapon(resource.ResourceId);
+
+	public bool OwnsWeapon(int resourceId)
+	{
+		foreach ( Weapon weapon in Weapons )
+		{
+			if (weapon.Resource.ResourceId == resourceId)
+				return true;
+		}
+
+		return false;
+	}
 }

@@ -1,0 +1,36 @@
+@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root class="hud with-deadzone @(Player.InBuyMenu ? "active" : "")">
+    <div class="title">Buy</div>
+    <div class="options">
+        @foreach (WeaponDataResource WeaponData in WeaponDataResource.All)
+        {
+        <div class="button standard @(@Inventory.OwnsWeapon(WeaponData) ? "owned" : "unowned")" onclick=@(() => BuyWeapon(WeaponData))>
+            <div class="weapon-viewer">
+                <WeaponViewer WeaponResource=@WeaponData />
+            </div>
+            <label>@WeaponData.Name</label>
+            <br />
+            <label class="price">$@WeaponData.Price</label>
+        </div>
+        }
+    </div>
+</root>
+
+@code
+{
+    [Property] public PlayerInventory Inventory { get; set; }
+    [Property] public PlayerController Player { get; set; }
+
+    private void BuyWeapon(WeaponDataResource WeaponData)
+    {
+        Inventory.GiveWeapon(WeaponData);
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( Inventory.Weapons.Count, Player.InBuyMenu );
+    }
+}

@@ -22,6 +22,8 @@ public partial class PlayerController
 		Inventory.Clear();
 		SetBodyVisible( false );
 
+		InBuyMenu = false;
+
 		HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
 	}
 
