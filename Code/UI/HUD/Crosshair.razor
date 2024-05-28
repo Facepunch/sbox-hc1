@@ -38,12 +38,12 @@
 
     private DamageInfo LastDamage = null;
 
-    private void OnDamageGiven( GameObject go, DamageInfo damage )
+    private void OnDamageGiven( GameObject go, float damage )
     {
         var player = go.Root.Components.Get<PlayerController>( FindMode.EverythingInSelfAndAncestors );
         if ( !player.IsValid() ) return;
 
-        var isKill = damage.Damage <= 0f;
+        var isKill = damage <= 0f;
         TimeUntilHitmarkerRemove = isKill ? 0.5f : 0.2f;
         Hitmarker.SetClass( "is-kill", isKill );
     }

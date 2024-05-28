@@ -8,8 +8,11 @@ public sealed class CameraController : Component
 	/// A reference to the camera component we're going to be doing stuff with.
 	/// </summary>
 	[Property] public CameraComponent Camera { get; set; }
+	[Property] public AudioListener AudioListener { get; set; }
 
 	[Property] public PlayerController Player { get; set; }
+
+	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = false;
 
 	/// <summary>
 	/// Constructs a ray using the camera's GameObject
@@ -26,7 +29,9 @@ public sealed class CameraController : Component
 
 	public void SetActive( bool isActive )
 	{
-		Camera.GameObject.Enabled = isActive;
+		Camera.Enabled = isActive;
+		AudioListener.Enabled = isActive;
+
 		ShowBodyParts( !isActive );
 	}
 
@@ -51,7 +56,11 @@ public sealed class CameraController : Component
 	{
 		Camera.Transform.Rotation = Player.EyeAngles.ToRotation();
 		Camera.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
-		// ViewBob();
+
+		if ( ShouldViewBob )
+		{
+			ViewBob();
+		}
 	}
 
 	float walkBob = 0;
