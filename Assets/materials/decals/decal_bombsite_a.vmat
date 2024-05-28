@@ -4,9 +4,6 @@ Layer0
 {
 	shader "shaders/decal.shader"
 
-	//---- Normal ----
-	F_NORMAL_MAP 1
-
 	//---- Ambient Occlusion ----
 	TextureAmbientOcclusion "materials/default/default_ao.tga"
 
@@ -22,15 +19,9 @@ Layer0
 	//---- Metalness ----
 	TextureMetalness "materials/default/default_metal.tga"
 
-	//---- Normal ----
-	TextureNormal "materials/decals/decal_bombsite_a_normal.png"
-
-	//---- Roughness ----
-	TextureRoughness "materials/decals/decal_bombsite_a_rough.png"
-
 	SystemAttributes
 	{
-		WorldMappingWidth "96"
-		WorldMappingHeight "96"
+		WorldMappingWidth "64"
+		WorldMappingHeight "64"
 	}
 }
