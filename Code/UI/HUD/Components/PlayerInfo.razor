@@ -1,0 +1,19 @@
+@namespace Facepunch.UI
+@inherits Panel
+
+<root class="hud bottom-left with-deadzone layout column">
+    <div class="health container with-small-gap">
+        <label class="text header">@Player.HealthComponent.Health</label>
+        <label class="text">HP</label>
+    </div>
+</root>
+
+@code
+{
+    public PlayerController Player { get; set; }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( Player, Player.HealthComponent.Health );
+    }
+}
