@@ -84,7 +84,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 
 		foreach ( var lob in lobbies )
 		{
-			Log.Info( $"{lob.Name}'s lobby ({lob.Members}/{lob.MaxMembers})" );
+			Log.Info( $"{lob.Name}'s lobby [{lob.LobbyId}] ({lob.Members}/{lob.MaxMembers})" );
 		}
 
 		return lobbies;
