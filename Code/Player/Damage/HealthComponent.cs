@@ -53,7 +53,7 @@ public partial class HealthComponent : Component, Component.IDamageable, IRespaw
 	/// <summary>
 	/// What's our life state?
 	/// </summary>
-	[Property, ReadOnly, Group( "Life State" )]
+	[Sync( Query = true ), Property, ReadOnly, Group( "Life State" )]
 	public LifeState State
 	{
 		get => state;
