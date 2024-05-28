@@ -12,6 +12,16 @@ public partial class PlayerController
 		}
 	}
 
+	[DeveloperCommand( "Heal" )]
+	private static void Command_Heal()
+	{
+		var player = Developer.CurrentPlayer;
+		if ( player.IsValid() )
+		{
+			player.HealthComponent.Health = 100f;
+		}
+	}
+
 	[DeveloperCommand( "Suicide" )]
 	private static void Command_Suicide()
 	{

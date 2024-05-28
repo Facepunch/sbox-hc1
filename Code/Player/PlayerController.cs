@@ -326,7 +326,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		IsSlowWalking = Input.Down( "Run" );
 		IsCrouching = Input.Down( "Duck" );
 		
-		if ( Input.Pressed( "Noclip" ) )
+		if ( Input.Pressed( "Noclip" ) && DeveloperMenu.IsDeveloper )
 		{
 			IsNoclipping = !IsNoclipping;
 		}
@@ -470,5 +470,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		Log.Info( $"{this} took {damage} damage!" );
 
 		AnimationHelper.ProceduralHitReaction( damage / 100f, force );
+
+		// Is this the local player?
+		if ( IsLocallyControlled )
+		{
+			DamageIndicator.Current?.OnHit( position );
+		}
 	}
 }
