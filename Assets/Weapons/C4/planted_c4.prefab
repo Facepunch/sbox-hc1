@@ -1,0 +1,55 @@
+{
+  "RootObject": {
+    "__guid": "681b5d1d-8746-4b26-b122-ff8c7d327c93",
+    "Flags": 0,
+    "Name": "planted_c4",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "TimedExplosive",
+        "__guid": "ad9cd7de-d111-4081-b84e-81fac741070c",
+        "BeepFrequency": [
+          {
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 0.25,
+            "in": 1.7500001,
+            "out": -1.7500001
+          }
+        ],
+        "BeepSound": "sounds/guns/c4/c4_beep.sound",
+        "Duration": 45
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "765a85ac-85c0-4ece-b2d7-701bbc7cd5fc",
+        "Flags": 0,
+        "Name": "Model",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "e4a4387c-f68e-4a8b-8b09-6f201d9c68f8",
+            "BodyGroups": 18446744073709551615,
+            "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

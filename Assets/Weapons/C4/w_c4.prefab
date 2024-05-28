@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "eaca9d7a-e0eb-4fbc-a3c4-a5d6eed7e8b3",
+    "__guid": "b01546b2-21cc-47da-a5b1-da1c8666a2ab",
     "Flags": 0,
     "Name": "w_c4",
     "Tags": "player",
@@ -10,24 +10,24 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "ee1950e2-42f8-41b1-a0be-f269b58b4194",
+        "__guid": "722595b3-f2b1-4224-ad89-6e4f5f9f455f",
         "HoldType": "HoldItem",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "ceed3e7e-0ec4-4a1d-b1a4-fdf17268deff",
-          "go": "06881412-7fa6-4306-879b-b49fcdc207f0",
+          "component_id": "0f1615ab-60bc-4ea4-b006-53a782cd9055",
+          "go": "7fdcdeb3-992b-4216-be88-8077da7467eb",
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "weapons/c4/c4.weapon"
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "2d357e77-bd02-44a8-8087-270d99c4ed17"
+        "__guid": "1c8f3c1e-ad86-4074-b08b-274fa3439e08"
       }
     ],
     "Children": [
       {
-        "__guid": "06881412-7fa6-4306-879b-b49fcdc207f0",
+        "__guid": "7fdcdeb3-992b-4216-be88-8077da7467eb",
         "Flags": 0,
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
@@ -37,7 +37,7 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "ceed3e7e-0ec4-4a1d-b1a4-fdf17268deff",
+            "__guid": "0f1615ab-60bc-4ea4-b006-53a782cd9055",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
             "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
@@ -47,7 +47,7 @@
         ]
       },
       {
-        "__guid": "b79801b5-ce68-4deb-aebd-7b5cfffe181d",
+        "__guid": "49dbb02d-f8ff-44e1-b939-6ff489a7cb12",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -56,11 +56,15 @@
         "Components": [
           {
             "__type": "PlantFunction",
-            "__guid": "0d6841e2-a18c-4026-ac53-0ce31359febc",
+            "__guid": "d2155888-dd45-435e-bda6-d0bc97009215",
             "InputActions": [
               "Attack1"
             ],
             "InputType": "Down",
+            "PlantedObjectPrefab": {
+              "_type": "gameobject",
+              "prefab": "weapons/c4/planted_c4.prefab"
+            },
             "PlantTime": 3.2,
             "RequiresAllInputActions": false,
             "ResetTime": 0.5

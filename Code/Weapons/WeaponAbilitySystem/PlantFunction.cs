@@ -16,6 +16,9 @@ public partial class PlantFunction : InputActionWeaponFunction
 	[Property, Category( "Config" )]
 	public float ResetTime { get; set; } = 0.5f;
 
+	[Property, Category( "Config" )]
+	public GameObject PlantedObjectPrefab { get; set; }
+
 	public bool IsPlanting { get; private set; }
 
 	/// <summary>
@@ -77,6 +80,15 @@ public partial class PlantFunction : InputActionWeaponFunction
 	private void FinishPlant()
 	{
 		Weapon.PlayerController.Inventory.RemoveWeapon( Weapon );
+
+		if ( PlantedObjectPrefab is null )
+		{
+			return;
+		}
+
+		var planted = PlantedObjectPrefab.Clone( Weapon.PlayerController.Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
+
+		planted.NetworkSpawn( Connection.Host );
 	}
 
 	private void CancelPlant()
