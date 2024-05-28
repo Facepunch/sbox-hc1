@@ -29,10 +29,6 @@
           "_type": "gameobject",
           "go": "fe726a00-1310-42dc-875d-77df7aceb91f"
         },
-        "HUDGameObject": {
-          "_type": "gameobject",
-          "go": "c69f211b-b411-49b3-a75c-82a12496bae9"
-        },
         "JumpPower": 320,
         "NoclipSpeed": 1000,
         "ViewModelCamera": {
@@ -125,12 +121,6 @@
         "MorphScale": 3,
         "MorphSmoothTime": 0.1,
         "PushToTalkInput": "voice",
-        "Renderer": {
-          "_type": "component",
-          "component_id": "299f9399-3296-423e-835c-79f69ea4a062",
-          "go": "bb03dfce-0c20-4507-85c4-694dd02fe6d9",
-          "component_type": "SkinnedModelRenderer"
-        },
         "Volume": 1,
         "WorldspacePlayback": true
       }
@@ -1494,41 +1484,6 @@
         "Enabled": true,
         "NetworkMode": 2,
         "NetworkInterpolation": true
-      },
-      {
-        "__guid": "c69f211b-b411-49b3-a75c-82a12496bae9",
-        "Flags": 0,
-        "Name": "HUD",
-        "Position": "300,0,60",
-        "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
-        "Components": [
-          {
-            "__type": "Sandbox.ScreenPanel",
-            "__guid": "ed2a00b2-a102-4b99-bacf-3f54424de27b",
-            "AutoScreenScale": true,
-            "Opacity": 1,
-            "Scale": 1,
-            "ZIndex": 100
-          },
-          {
-            "__type": "Facepunch.UI.MainHUD",
-            "__guid": "516341f7-8772-492f-9be9-c20acd540dfe",
-            "Inventory": {
-              "_type": "component",
-              "component_id": "b06e6cc9-30a2-4078-8084-9758461957be",
-              "go": "6508084b-5118-457e-8b49-2707a2c05a96",
-              "component_type": "PlayerInventory"
-            },
-            "Player": {
-              "_type": "component",
-              "component_id": "4663601e-57c2-48da-9bcf-c8e2e0211ce6",
-              "go": "6508084b-5118-457e-8b49-2707a2c05a96",
-              "component_type": "PlayerController"
-            }
-          }
-        ]
       },
       {
         "__guid": "33303509-5e49-4cd5-81cd-a1303385424b",

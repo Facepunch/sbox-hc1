@@ -8,28 +8,6 @@
     "NetworkInterpolation": true,
     "Children": [
       {
-        "__guid": "72423dfb-5d53-4af9-8da0-3fdd7fa17df6",
-        "Flags": 0,
-        "Name": "Chat",
-        "Enabled": true,
-        "NetworkMode": 1,
-        "NetworkInterpolation": true,
-        "Components": [
-          {
-            "__type": "Sandbox.ScreenPanel",
-            "__guid": "e6207cbf-0eef-4652-b461-8303f5d040f3",
-            "AutoScreenScale": true,
-            "Opacity": 1,
-            "Scale": 1,
-            "ZIndex": 100
-          },
-          {
-            "__type": "Chat",
-            "__guid": "0bc780f8-84d5-4c3c-9151-0a9421490444"
-          }
-        ]
-      },
-      {
         "__guid": "db36f630-582d-43ef-92a1-b7edddf9407b",
         "Flags": 0,
         "Name": "GameMode",
@@ -41,7 +19,7 @@
       {
         "__guid": "69d5003a-44d7-41fe-a620-32f6bf0c4cd0",
         "Flags": 0,
-        "Name": "GameNetworkManager",
+        "Name": "Networking",
         "Position": "0,8,0",
         "Enabled": true,
         "NetworkMode": 2,
@@ -55,14 +33,33 @@
               "_type": "gameobject",
               "prefab": "prefabs/player/player.prefab"
             }
+          }
+        ]
+      },
+      {
+        "__guid": "20c78d91-5ca6-442a-a6b5-ab8b1602e80f",
+        "Flags": 0,
+        "Name": "HUD",
+        "Position": "149.995,149.995,-212.125",
+        "Enabled": true,
+        "NetworkMode": 1,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.UI.MainHUD",
+            "__guid": "d5595acd-b863-410f-8172-dd5551b1e049"
+          },
+          {
+            "__type": "Chat",
+            "__guid": "6a983fb1-0d55-435e-8fcb-732b1ea27724"
           },
           {
             "__type": "Facepunch.UI.DeveloperMenu",
-            "__guid": "bc655c85-b274-401c-b8fc-98c11dee5418"
+            "__guid": "1812ebb9-9d7f-42c7-9a1b-cc7e3cc08b66"
           },
           {
             "__type": "Sandbox.ScreenPanel",
-            "__guid": "0a7c7c24-46b9-41bd-a55c-3316b5430879",
+            "__guid": "58807d92-54d1-46b8-8cb5-b611520f2ede",
             "AutoScreenScale": true,
             "Opacity": 1,
             "Scale": 1,
