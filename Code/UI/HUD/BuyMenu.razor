@@ -2,6 +2,8 @@
 @inherits Panel
 @attribute [StyleSheet]
 
+@if ( !Player.IsValid() ) return;
+
 <root class="hud with-deadzone @(Player.InBuyMenu ? "active" : "")">
     <div class="title">Buy</div>
     <div class="options">
@@ -30,6 +32,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( Inventory.Weapons.Count(), Player.InBuyMenu );
+        return !Player.IsValid() ? 0 : HashCode.Combine( Inventory.Weapons.Count(), Player.InBuyMenu );
     }
 }

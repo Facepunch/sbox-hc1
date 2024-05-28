@@ -2,6 +2,8 @@
 @inherits Panel
 @attribute [StyleSheet]
 
+@if ( !Player.IsValid() ) return;
+
 <root class="hud with-deadzone column middle-right">
     @for ( int i = 0; i < Inventory.Weapons.Count(); i++ )
     {
@@ -19,6 +21,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( Inventory.Weapons.Count(), CurrentWeapon );
+        return !Player.IsValid() ? 0 : HashCode.Combine( Inventory.Weapons.Count(), CurrentWeapon );
     }
 }

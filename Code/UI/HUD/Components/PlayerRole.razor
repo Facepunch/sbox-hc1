@@ -1,7 +1,8 @@
 ﻿@using System.Text;
 @namespace Facepunch.UI
 @inherits Panel
-@attribute [StyleSheet]
+
+@if ( !Player.IsValid() ) return;
 
 <root>
     <label class="emphasis hud with-padding" style="color:@TeamColor">@TeamName</label>
@@ -10,7 +11,6 @@
 @code
 {
     public PlayerController Player => GameUtils.LocalPlayer;
-
     public TeamComponent TeamComponent => Player.Components.Get<TeamComponent>();
 
     private string TeamColor 
@@ -20,11 +20,8 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( TeamComponent, TeamComponent.Team );
+        return !Player.IsValid() ? 0 : HashCode.Combine( TeamComponent, TeamComponent.Team );
     }
 
-    private string TeamName
-    {
-        get => TeamComponent.Team.GetName();
-    }
+    private string TeamName => TeamComponent.Team.GetName();
 }
