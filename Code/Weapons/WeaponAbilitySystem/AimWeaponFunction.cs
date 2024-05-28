@@ -14,9 +14,7 @@ public partial class AimWeaponFunction : InputActionWeaponFunction
 
 	protected virtual bool CanAim()
 	{
-		if ( Tags.Has( "no_aiming" ) ) return false;
 		if ( Tags.Has( "reloading" ) ) return false;
-		if ( Weapon.PlayerController.HasTag( "no_aiming" ) ) return false;
 
 		return true;
 	}

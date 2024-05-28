@@ -106,7 +106,7 @@ public partial class ViewModel : Component
 		var wishLook = PlayerController.WishMove.Normal * 1f;
 		if ( Weapon?.Tags.Has( "aiming" ) ?? false ) wishLook = 0;
 
-		if ( PlayerController.HasTag( "slow_walk" ) ) moveLen *= 0.2f;
+		if ( PlayerController.IsSlowWalking ) moveLen *= 0.2f;
 
 		lerpedWishLook = lerpedWishLook.LerpTo( wishLook, Time.Delta * 5.0f );
 
@@ -139,7 +139,7 @@ public partial class ViewModel : Component
 		{
 			var shootFn = Weapon.GetFunction<ShootWeaponFunction>();
 
-			if ( shootFn.IsValid() && PlayerController.HasTag( "crouch" ) && shootFn.TimeSinceShoot > 0.25f )
+			if ( shootFn.IsValid() && PlayerController.IsCrouching && shootFn.TimeSinceShoot > 0.25f )
 			{
 				localPosition += Vector3.Right * -2f;
 				localPosition += Vector3.Up * -1f;
@@ -150,7 +150,7 @@ public partial class ViewModel : Component
 
 	void ApplyAnimationParameters()
 	{
-		ModelRenderer.Set( "b_sprint", PlayerController.HasTag( "sprint" ) );
+		ModelRenderer.Set( "b_sprint", false );
 		ModelRenderer.Set( "b_grounded", PlayerController.IsGrounded );
 
 		// Ironsights

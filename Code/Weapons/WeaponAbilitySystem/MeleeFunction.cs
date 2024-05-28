@@ -135,10 +135,6 @@ public partial class MeleeFunction : InputActionWeaponFunction
 	/// <returns></returns>
 	public bool CanSwing()
 	{
-		// Player
-		if ( Weapon.PlayerController.HasTag( "sprint" )  )
-			return false;
-
         // Delay checks
         if ( TimeSinceSwing < FireRate )
 		{

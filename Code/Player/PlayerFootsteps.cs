@@ -35,7 +35,7 @@ public sealed class PlayerFootsteps : Component
 			return;
 
 		// Don't make footsteps sometimes
-		if ( Player.HasAnyTag( "crouch", "slow_walk" ) ) 
+		if ( Player.IsCrouching || Player.IsSlowWalking ) 
 			return;
 
 		var tr = Scene.Trace

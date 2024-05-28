@@ -41,10 +41,6 @@ public partial class PlantFunction : InputActionWeaponFunction
 	/// </summary>
 	public bool CanPlant()
 	{
-		// Player
-		if ( Weapon.PlayerController.HasTag( "sprint" ) )
-			return false;
-
 		if ( !Weapon.PlayerController.IsGrounded )
 			return false;
 

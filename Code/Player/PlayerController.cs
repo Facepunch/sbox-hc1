@@ -94,6 +94,16 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 	[Property, Group( "Config" )] public float BaseFriction { get; set; } = 4.0f;
 
 	/// <summary>
+	/// Is the player crouching?
+	/// </summary>
+	[Sync] public bool IsCrouching { get; set; }
+
+	/// <summary>
+	/// Is the player slow walking?
+	/// </summary>
+	[Sync] public bool IsSlowWalking { get; set; }
+
+	/// <summary>
 	/// The player's box collider, so people can jump on other people.
 	/// </summary>
 	[Property] public BoxCollider PlayerBoxCollider { get; set; }
@@ -198,7 +208,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 
 	protected float GetEyeHeightOffset()
 	{
-		if ( CurrentEyeHeightOverride is not null ) return CurrentEyeHeightOverride.Value;
+		if ( IsCrouching ) return -32f;
 		return 0f;
 	}
 
@@ -232,8 +242,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 			if ( PlayerBoxCollider.IsValid() )
 			{
 				// Bit shit, but it works
-				PlayerBoxCollider.Center = new(0, 0, 32 + SmoothEyeHeight);
-				PlayerBoxCollider.Scale = new(32, 32, 64 + SmoothEyeHeight);
+				PlayerBoxCollider.Center = new( 0, 0, 32 + SmoothEyeHeight );
+				PlayerBoxCollider.Scale = new( 32, 32, 64 + SmoothEyeHeight );
 			}
 
 			EyeAngles += Input.AnalogLook;
@@ -276,10 +286,9 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 			AnimationHelper.IsGrounded = IsGrounded;
 			AnimationHelper.FootShuffle = rotateDifference;
 			AnimationHelper.WithLook( EyeAngles.Forward, 1, 1, 1.0f );
-			AnimationHelper.MoveStyle = HasTag( "sprint" ) ? AnimationHelper.MoveStyles.Run : AnimationHelper.MoveStyles.Walk;
-			AnimationHelper.DuckLevel = HasTag( "crouch" ) ? 100 : 0;
+			AnimationHelper.MoveStyle = AnimationHelper.MoveStyles.Run;
+			AnimationHelper.DuckLevel = IsCrouching ? 100 : 0;
 			AnimationHelper.HoldType = CurrentHoldType;
-			AnimationHelper.SkidAmount = HasTag( "slide" ) ? 1 : 0;
 		}
 	}
 
@@ -305,22 +314,19 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 	private float GetFriction()
 	{
 		if ( !CharacterController.IsOnGround ) return 0.1f;
-		if ( CurrentFrictionOverride is not null ) return CurrentFrictionOverride.Value;
-
 		return BaseFriction;
 	}
 
 	private float baseAcceleration = 10;
 	private void ApplyAccceleration()
 	{
-		if ( CurrentAccelerationOverride is not null )
-		{
-			CharacterController.Acceleration = CurrentAccelerationOverride.Value;
-		}
-		else
-		{
-			CharacterController.Acceleration = baseAcceleration;
-		}
+		CharacterController.Acceleration = baseAcceleration;
+	}
+
+	protected void BuildInput()
+	{
+		IsSlowWalking = Input.Down( "Run" );
+		IsCrouching = Input.Down( "Duck" );
 	}
 
 	protected override void OnFixedUpdate()
@@ -334,8 +340,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 
 		if ( IsLocallyControlled )
 		{
+			BuildInput();
 			BuildWishInput();
-			OnUpdateMechanics();
 			BuildWishVelocity();
 
 			if ( cc.IsOnGround && !IsFrozen && Input.Down( "Jump" ) )
@@ -346,10 +352,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 
 				BroadcastPlayerJumped();
 			}
-		}
-		else
-		{
-			ProxyUpdateMechanics();
 		}
 
 		ApplyAccceleration();
@@ -380,7 +382,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 
 	protected float GetWishSpeed()
 	{
-		if ( CurrentSpeedOverride is not null ) return CurrentSpeedOverride.Value;
+		if ( IsSlowWalking ) return 100f;
+		if ( IsCrouching ) return 100f;
 
 		// Default speed
 		return WalkSpeed;
