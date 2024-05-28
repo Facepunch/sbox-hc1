@@ -51,7 +51,7 @@ public sealed class CameraController : Component
 	{
 		Camera.Transform.Rotation = Player.EyeAngles.ToRotation();
 		Camera.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
-		ViewBob();
+		// ViewBob();
 	}
 
 	float walkBob = 0;
