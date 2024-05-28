@@ -253,7 +253,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	{
 		return Scene.Trace.Ray( start, end )
 			.UseHitboxes()
-			.IgnoreGameObject( GameObject.Root )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.WithoutTags( "trigger" )
 			.Size( radius )
 			.Run();

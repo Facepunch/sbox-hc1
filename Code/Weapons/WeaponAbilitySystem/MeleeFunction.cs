@@ -123,7 +123,7 @@ public partial class MeleeFunction : InputActionWeaponFunction
 
         yield return Scene.Trace.Ray( start, end )
 			.UseHitboxes()
-			.IgnoreGameObject( GameObject.Root )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.WithoutTags( "trigger" )
 			.Size( Size )
 			.Run();
