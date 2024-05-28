@@ -85,6 +85,23 @@ public partial class PlayerInventory : Component
 		Player.CurrentWeapon = weapon;
 	}
 
+	/// <summary>
+	/// Removes the given weapon and destroys it.
+	/// </summary>
+	public void RemoveWeapon( Weapon weapon )
+	{
+		if (!Weapons.Contains( weapon )) return;
+
+		Weapons.Remove( weapon );
+
+		if ( CurrentWeapon == weapon )
+		{
+			SwitchWeapon( Weapons.FirstOrDefault() );
+		}
+
+		weapon.GameObject.Destroy();
+	}
+
 	[Authority( NetPermission.HostOnly )]
 	private void GiveWeapon( int resourceId, bool makeActive )
 	{
