@@ -119,7 +119,19 @@ public sealed class GameMode : SingletonComponent<GameMode>
 			.GetSpawnTransform( team );
 	}
 
-	public Task HandlePlayerSpawn( PlayerController player )
+	/// <summary>
+	/// RPC called by a client when they have finished respawning.
+	/// </summary>
+	[Authority]
+	public void HandlePlayerSpawn()
+	{
+		var player = GameUtils.AllPlayers.FirstOrDefault( x => x.Network.OwnerConnection == Rpc.Caller )
+			?? throw new Exception( $"Unable to find {nameof(PlayerController)} owned by {Rpc.Caller.DisplayName}." );
+
+		_ = HandlePlayerSpawn( player );
+	}
+
+	private Task HandlePlayerSpawn( PlayerController player )
 	{
 		return Dispatch<IPlayerSpawnListener>(
 			x => x.PrePlayerSpawn( player ),

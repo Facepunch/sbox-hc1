@@ -112,6 +112,8 @@ public partial class HealthComponent : Component, Component.IDamageable, IRespaw
 		Health -= info.Damage;
 		info.Damage = Health;
 
+		Log.Info( $"{GameObject.Name}.OnDamage( {info.Damage} ): {Health}, {State}" );
+
 		if ( Health <= 0 )
 		{
 			Killed( info );

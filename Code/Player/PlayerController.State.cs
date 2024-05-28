@@ -27,6 +27,7 @@ public partial class PlayerController
 		HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
 	}
 
+	[Broadcast]
 	public void SetBodyVisible( bool visible )
 	{
 		Body.GameObject.Enabled = visible;
@@ -39,24 +40,23 @@ public partial class PlayerController
 	}
 
 	[Authority( NetPermission.HostOnly )]
-	private void MoveToSpawnPoint( Vector3 position, Rotation rotation )
-	{
-		Transform.World = new Transform( position, rotation );
-	}
-
 	public void Respawn()
 	{
+		Log.Info( $"Respawn( {GameObject.Name} ({Network.OwnerConnection?.DisplayName}, {TeamComponent.Team}) )" );
+
+		SetBodyVisible( true );
+
 		Inventory.Clear();
 
+		HealthComponent.Health = 100;
 		HealthComponent.State = LifeState.Alive;
 
 		var spawn = GameMode.Instance.GetSpawnTransform( TeamComponent.Team );
 
-		SetBodyVisible( true );
+		Transform.World = new Transform( spawn.Position, spawn.Rotation );
 
-		MoveToSpawnPoint( spawn.Position, spawn.Rotation );
 		NetPossess();
 
-		_ = GameMode.Instance?.HandlePlayerSpawn( this );
+		GameMode.Instance?.HandlePlayerSpawn();
 	}
 }

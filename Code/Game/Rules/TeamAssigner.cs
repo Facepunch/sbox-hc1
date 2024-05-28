@@ -10,21 +10,21 @@ public sealed class TeamAssigner : Component, IGameStartListener
 
 	void IGameStartListener.PostGameStart()
 	{
+		Log.Info( nameof( TeamAssigner ) );
+
 		var players = GameUtils.AllPlayers.Shuffle();
 
-		var tCount = Math.Min( players.Count / 2, MaxTeamSize );
-		var ctCount = Math.Min( players.Count - tCount, MaxTeamSize );
+		var ctCount = Math.Min( players.Count / 2, MaxTeamSize );
+		var tCount = Math.Min( players.Count - ctCount, MaxTeamSize );
 
 		foreach (var tPlayer in players.Take( tCount ))
 		{
-			Log.Info( $"{tPlayer.Network.OwnerConnection.DisplayName} is a T" );
-			tPlayer.TeamComponent.Team = Team.Terrorist;
+			tPlayer.TeamComponent.AssignTeam( Team.Terrorist );
 		}
 
 		foreach (var ctPlayer in players.Skip( tCount ).Take( ctCount ))
 		{
-			Log.Info( $"{ctPlayer.Network.OwnerConnection.DisplayName} is a CT" );
-			ctPlayer.TeamComponent.Team = Team.CounterTerrorist;
+			ctPlayer.TeamComponent.AssignTeam( Team.CounterTerrorist );
 		}
 	}
 }
