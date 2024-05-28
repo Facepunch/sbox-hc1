@@ -12,12 +12,10 @@ public partial class PlayerInventory : Component
 	///
 	/// TODO: I'd like to [Sync] this, but the game crashes?
 	/// </summary>
-	[Property] public List<Weapon> Weapons { get; private set; }
-
-	/// <summary>
-	/// TODO: Using this in <see cref="DefaultEquipment"/> as a workaround since I can't network <see cref="Weapons"/>.
-	/// </summary>
-	[Sync] public bool WasAssignedWeapons { get; set; }
+	public IEnumerable<Weapon> Weapons
+	{
+		get => WeaponGameObject.Components.GetAll<Weapon>( FindMode.EverythingInSelfAndDescendants );
+	}
 
 	/// <summary>
 	/// A <see cref="GameObject"/> that will hold all of our weapons.
@@ -41,10 +39,6 @@ public partial class PlayerInventory : Component
 		{
 			wpn.GameObject.Destroy();
 		}
-
-		Weapons.Clear();
-
-		WasAssignedWeapons = false;
 	}
 
 	protected override void OnUpdate()
@@ -54,7 +48,7 @@ public partial class PlayerInventory : Component
 			return;
 		}
 
-		for ( int i = 0; i < Weapons.Count; i++ )
+		for ( int i = 0; i < Weapons.Count(); i++ )
 		{
 			if ( Input.Pressed( $"Slot{i + 1}" ) )
 			{
@@ -70,7 +64,7 @@ public partial class PlayerInventory : Component
 
 	public void SwitchToSlot( int slot )
 	{
-		var weapon = Weapons[slot];
+		var weapon = Weapons.ElementAt( slot );
 		if ( !weapon.IsValid() ) return;
 
 		if ( Player.CurrentWeapon != weapon )
@@ -99,13 +93,11 @@ public partial class PlayerInventory : Component
 	/// </summary>
 	public void RemoveWeapon( Weapon weapon )
 	{
-		if (!Weapons.Contains( weapon )) return;
-
-		Weapons.Remove( weapon );
+		if ( !Weapons.Contains( weapon ) ) return;
 
 		if ( CurrentWeapon == weapon )
 		{
-			SwitchWeapon( Weapons.FirstOrDefault() );
+			SwitchWeapon( Weapons.Where( x => x != weapon ).FirstOrDefault() );
 		}
 
 		weapon.GameObject.Destroy();
@@ -118,8 +110,6 @@ public partial class PlayerInventory : Component
 			?? throw new Exception( $"Unable to find {nameof(WeaponDataResource)} with id {resourceId}." );
 
 		GiveWeapon( resource, makeActive );
-
-		WasAssignedWeapons = true;
 	}
 
 	public void GiveWeapon( WeaponDataResource resource, bool makeActive = true )
@@ -152,21 +142,20 @@ public partial class PlayerInventory : Component
 		} );
 		var weaponComponent = weaponGameObject.Components.Get<Weapon>( FindMode.EverythingInSelfAndDescendants );
 		weaponGameObject.NetworkSpawn();
-
 		weaponGameObject.Enabled = false;
 
-		Weapons.Add( weaponComponent );
-
 		if ( makeActive ) Player.CurrentWeapon = weaponComponent;
+
+		Log.Info( $"Spawned weapon {weaponGameObject} for {Player}" );
 	}
 
-	public bool OwnsWeapon(WeaponDataResource resource) => OwnsWeapon(resource.ResourceId);
+	public bool OwnsWeapon( WeaponDataResource resource ) => OwnsWeapon( resource.ResourceId );
 
-	public bool OwnsWeapon(int resourceId)
+	public bool OwnsWeapon( int resourceId )
 	{
 		foreach ( Weapon weapon in Weapons )
 		{
-			if (weapon.Resource.ResourceId == resourceId)
+			if ( weapon.Resource.ResourceId == resourceId )
 				return true;
 		}
 

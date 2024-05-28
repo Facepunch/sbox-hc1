@@ -23,13 +23,13 @@
     public PlayerInventory Inventory => Player.Inventory;
     public PlayerController Player => GameUtils.LocalPlayer;
 
-    private void BuyWeapon(WeaponDataResource WeaponData)
+    private void BuyWeapon( WeaponDataResource WeaponData )
     {
-        Inventory.GiveWeapon(WeaponData);
+        Inventory.GiveWeapon( WeaponData );
     }
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( Inventory.Weapons.Count, Player.InBuyMenu );
+        return HashCode.Combine( Inventory.Weapons.Count(), Player.InBuyMenu );
     }
 }

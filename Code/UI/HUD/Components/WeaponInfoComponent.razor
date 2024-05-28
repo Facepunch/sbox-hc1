@@ -3,9 +3,9 @@
 @attribute [StyleSheet]
 
 <root class="hud with-deadzone column">
-    @for ( int i = 0; i < Inventory.Weapons.Count; i++ )
+    @for ( int i = 0; i < Inventory.Weapons.Count(); i++ )
     {
-        <WeaponRow Weapon=@Inventory.Weapons[i] Slot=@i />
+        <WeaponRow Weapon=@Inventory.Weapons.ElementAt(i) Slot=@i />
     }
 </root>
 
@@ -15,10 +15,10 @@
     public PlayerInventory Inventory => Player.Inventory;
     public Weapon CurrentWeapon => Player?.CurrentWeapon;
 
-    public int GetSlot( Weapon weapon ) => Inventory.Weapons.IndexOf( weapon );
+    public int GetSlot( Weapon weapon ) => Inventory.Weapons.ToList().IndexOf( weapon );
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( Inventory.Weapons.Count, CurrentWeapon );
+        return HashCode.Combine( Inventory.Weapons.Count(), CurrentWeapon );
     }
 }

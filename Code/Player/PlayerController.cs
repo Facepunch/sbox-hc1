@@ -186,12 +186,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		// Set new weapon as active
 		newWeapon.GameObject.Enabled = true;
 
-		if ( newWeapon.IsValid() )
-		{
-			// Move the weapon to the hand
-			Body.MoveWeapon( newWeapon );
-		}
-
 		if ( IsLocallyControlled )
 		{
 			ClearViewModel( oldWeapon );
