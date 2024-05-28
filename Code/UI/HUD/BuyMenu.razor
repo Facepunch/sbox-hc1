@@ -9,7 +9,6 @@
         {
         <div class="button standard @(@Inventory.OwnsWeapon(WeaponData) ? "owned" : "unowned")" onclick=@(() => BuyWeapon(WeaponData))>
             <div class="weapon-viewer">
-                <WeaponViewer WeaponResource=@WeaponData />
             </div>
             <label>@WeaponData.Name</label>
             <br />

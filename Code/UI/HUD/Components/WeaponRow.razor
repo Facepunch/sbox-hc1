@@ -14,7 +14,7 @@
         }
 
         <div class="weapon-viewer">
-            <WeaponViewer WeaponResource=@Weapon.Resource />
+            
         </div>
 
         <div class="info">
@@ -25,6 +25,10 @@
                     <label class="inventory">@AmmoContainer.MaxAmmo</label>
                 </div>
             }
+        </div>
+
+        <div class="row">
+            <label class="gunname">@Weapon.Resource.Name</label>
         </div>
 
         <InputHint Action="Slot@(Slot + 1)" />
