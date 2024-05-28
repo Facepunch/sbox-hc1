@@ -23,6 +23,25 @@
       "__Prefab": "scenes/maps/defusemap_01/enviroment_setup.prefab"
     },
     {
+      "__guid": "4b716979-16cf-418b-a4ab-819bfaf6d650",
+      "Flags": 0,
+      "Name": "BombSite_A",
+      "Position": "-832,0,176",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "scenes/maps/defusemap_01/bombsite_a.prefab"
+    },
+    {
+      "__guid": "19da1d3e-886d-4827-85c3-a2f3b14239f8",
+      "Flags": 0,
+      "Name": "MapMesh",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "scenes/maps/defusemap_01/mapmesh.prefab"
+    },
+    {
       "__guid": "e8f0d111-e2b0-4ea3-b638-95f029f1b57f",
       "Flags": 0,
       "Name": "CT Spawn",
@@ -71,15 +90,6 @@
           "Team": "Unassigned"
         }
       ]
-    },
-    {
-      "__guid": "19da1d3e-886d-4827-85c3-a2f3b14239f8",
-      "Flags": 0,
-      "Name": "MapMesh",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "scenes/maps/defusemap_01/mapmesh.prefab"
     },
     {
       "__guid": "9849a27a-1943-47b8-a15a-50d594998b6f",
@@ -148,6 +158,84 @@
           "Shadows": true
         }
       ]
+    },
+    {
+      "__guid": "da067600-0667-4eb1-a81a-acfcaf4cd3dc",
+      "Flags": 0,
+      "Name": "Envmap Probe",
+      "Position": "-1664,-896,256",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.EnvmapProbe",
+          "__guid": "00130408-83bd-4831-ac91-dcdbebfe445e",
+          "Texture": "textures/cubemaps/default2.vtex",
+          "Bounds": {
+            "Mins": "-5000,-5000,-1000",
+            "Maxs": "5000,5000,1000"
+          },
+          "DelayBetweenUpdates": 0.1,
+          "Feathering": 0.02,
+          "FrameInterval": 5,
+          "MaxDistance": 5000,
+          "Projection": "Box",
+          "RenderDynamically": false,
+          "TintColor": "1,1,1,1",
+          "UpdateStrategy": "OnEnabled",
+          "ZFar": 4096,
+          "ZNear": 16
+        }
+      ]
+    },
+    {
+      "__guid": "cafd09c9-5dd5-45b1-81c5-2a28e108a03c",
+      "Flags": 0,
+      "Name": "Text_BOMBSITE_A",
+      "Position": "-832,-33.6851,128",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "c132fe55-79fa-4d0b-abb5-0637a28eefdf",
+          "Color": "1,0.2,0,1",
+          "FontFamily": "Poppins",
+          "FontSize": 108.75,
+          "FontWeight": 800,
+          "Scale": 0.57,
+          "Text": "A",
+          "Text2": "Hello! \u2764",
+          "TextAlignment": "Center"
+        }
+      ]
+    },
+    {
+      "__guid": "fab6cf73-6a2a-4320-a026-ac2232c20961",
+      "Flags": 0,
+      "Name": "Text_BOMBSITE_A",
+      "Position": "-1120,248,192",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "016d83f4-b785-43b3-b526-13015ac6e2d4",
+          "Color": "1,0.2,0,1",
+          "FontFamily": "Poppins",
+          "FontSize": 108.75,
+          "FontWeight": 800,
+          "Scale": 0.57,
+          "Text": "A",
+          "Text2": "Hello! \u2764",
+          "TextAlignment": "Center"
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -173,7 +261,7 @@
   },
   "Title": "de_garry",
   "Description": "",
-  "LastSaved": "2024-05-28T14:00:03.8203647\u002B01:00",
+  "LastSaved": "2024-05-28T14:31:38.1348539\u002B01:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
