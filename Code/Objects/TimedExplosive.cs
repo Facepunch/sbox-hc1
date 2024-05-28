@@ -18,6 +18,9 @@ public sealed class TimedExplosive : Component
 	[Property, Category( "Effects" )]
 	public GameObject ExplosionPrefab { get; set; }
 
+	[Property, Category( "Effects" )]
+	public GameObject BeepEffectPrefab { get; set; }
+
 	protected override void OnEnabled()
 	{
 		base.OnEnabled();
@@ -63,6 +66,11 @@ public sealed class TimedExplosive : Component
 			if ( BeepSound is not null )
 			{
 				Sound.Play( BeepSound, Transform.Position );
+			}
+
+			if ( BeepEffectPrefab is not null )
+			{
+				BeepEffectPrefab.Clone( Transform.Position + Vector3.Up * 4 );
 			}
 		}
 	}
