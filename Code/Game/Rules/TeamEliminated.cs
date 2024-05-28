@@ -16,7 +16,7 @@ public sealed class TeamEliminated : Component, IRoundStartListener, IRoundEndCo
 
 	public bool ShouldRoundEnd()
 	{
-		if ( !_bothTeamsHadPlayers )
+		if ( !_bothTeamsHadPlayers && !GameUtils.InactivePlayers.Any() )
 		{
 			// Let you test stuff in single player
 			return false;
