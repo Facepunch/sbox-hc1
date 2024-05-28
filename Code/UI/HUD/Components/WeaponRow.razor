@@ -12,12 +12,16 @@
             <InputHint Action="Attack1" class="small" />
         }
 
-        <div class="weapon-viewer">
-        </div>
-
-        <div class="row">
-            <label class="gunname">@Weapon.Resource.Name</label>
-        </div>
+        @if ( !string.IsNullOrEmpty( Weapon.Resource.Icon ) )
+        {
+            <div class="gunicon" style="background-image:url(@Weapon.Resource.Icon);" />
+        }
+        else
+        {
+            <div class="row">
+                <label class="gunname">@Weapon.Resource.Name</label>
+            </div>
+        }
 
         <InputHint Action="Slot@(Slot + 1)" />
     }

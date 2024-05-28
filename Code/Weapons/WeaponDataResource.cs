@@ -10,6 +10,11 @@ public partial class WeaponDataResource : GameResource
 	public string Description { get; set; } = "";
 
 	/// <summary>
+	/// The weapon's icon
+	/// </summary>
+	[Property, Group( "Base" ), ImageAssetPath] public string Icon { get; set; }
+
+	/// <summary>
 	/// How much is this weapon to buy in the buy menu?
 	/// </summary>
 	[Category( "Economy" )] public int Price { get; set; } = 0;
