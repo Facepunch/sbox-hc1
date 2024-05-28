@@ -127,6 +127,6 @@ public sealed class GameMode : SingletonComponent<GameMode>
 	private T GetSingleOrThrow<T>()
 	{
 		return Components.GetInDescendantsOrSelf<T>()
-		       ?? throw new Exception( $"Missing required component {typeof( T ).Name}." );
+			?? throw new Exception( $"Missing required component {typeof( T ).Name}." );
 	}
 }
