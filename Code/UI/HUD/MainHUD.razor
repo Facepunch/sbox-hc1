@@ -2,12 +2,14 @@
 @inherits PanelComponent
 
 <root>
-    <PlayerInfo Player=@Player />
-    <WeaponInfoComponent Inventory=@Inventory />
-    <Crosshair Player=@Player />
     <BuyMenu Player=@Player Inventory=@Inventory />
+    <Crosshair Player=@Player />
+    <WeaponInfoComponent Inventory=@Inventory />
 
-    <ControlHints />
+    <div class="hud with-deadzone bottom-middle">
+        <Vitals Player=@Player />
+    </div>
+
     <MarkerSystem />
     <RoundStateDisplay />
 </root>

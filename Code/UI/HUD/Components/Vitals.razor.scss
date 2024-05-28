@@ -1,0 +1,21 @@
+﻿@import "/UI/Styles/Theme.scss";
+
+Vitals {
+    &.hud.low-health {
+        animation: LowHealth 1s linear infinite;
+    }
+}
+
+@keyframes LowHealth {
+    0% {
+        background-color: red;
+        border: 1px solid rgba( white, 0.1 );
+        box-shadow: 0 0 0 0 rgba( red, 0.5 );
+    }
+
+    100% {
+        background-color: red;
+        border: 1px solid rgba( white, 0.1 );
+        box-shadow: 0 0 0 10px rgba( red, 0 );
+    }
+}

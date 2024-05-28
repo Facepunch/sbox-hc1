@@ -1,0 +1,33 @@
+﻿@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root style="@BuildOuterStyle()">
+    <div style="@BuildInnerStyle()" class="backing"></div>
+    <div style="@BuildInnerStyle()" class="inner"></div>
+</root>
+
+@code
+{
+    /// <summary>
+    /// 0 to 100
+    /// </summary>
+    public float Value { get; set; } = 100f;
+
+    public float Width { get; set; } = 128f;
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Value, Width);
+    }
+
+    private string BuildInnerStyle()
+    {
+        return $"width: {Value}%;";
+    }
+
+    private string BuildOuterStyle()
+    {
+        return $"width: {Width}px;";
+    }
+}
