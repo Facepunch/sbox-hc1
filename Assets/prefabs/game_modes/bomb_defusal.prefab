@@ -1,0 +1,85 @@
+{
+  "RootObject": {
+    "__guid": "f4fe73a9-6aa7-4002-8b52-a120444c3473",
+    "Flags": 0,
+    "Name": "bomb_defusal",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "GameMode",
+        "__guid": "3d316172-22ea-48e3-b3c5-244ef04d8ba8",
+        "State": "PreGame"
+      },
+      {
+        "__type": "WaitForPlayers",
+        "__guid": "17acf21e-6519-464a-99de-9cebf256dd89",
+        "DurationSeconds": 60,
+        "MinDurationSeconds": 5,
+        "MinPlayerCount": 2
+      },
+      {
+        "__type": "TeamAssigner",
+        "__guid": "4b0d1e68-abbe-488d-b6ed-de79d5710911",
+        "MaxTeamSize": 5
+      },
+      {
+        "__type": "TeamSpawnAssigner",
+        "__guid": "d62349f5-1fb4-4984-8893-b7d24469f326"
+      },
+      {
+        "__type": "RoundStartPlayerSpawner",
+        "__guid": "635f68da-8885-4207-90be-61f3cd3ea900"
+      },
+      {
+        "__type": "FreezeTime",
+        "__guid": "ebd72618-c298-4028-859b-53b50fabe382",
+        "DurationSeconds": 5
+      },
+      {
+        "__type": "RoundTimer",
+        "__guid": "1230ab7d-e31e-4684-a1ce-0f760eb307a8"
+      },
+      {
+        "__type": "RoundCounter",
+        "__guid": "d878d02f-675d-4764-bccf-5e29216d5a00"
+      },
+      {
+        "__type": "RoundTimeLimit",
+        "__guid": "e82153f1-ceb3-4fd0-ac74-62e5b08fef72",
+        "TimeLimitSeconds": 120
+      },
+      {
+        "__type": "TeamEliminated",
+        "__guid": "fde0230b-64a7-478f-b95b-1103becbcfd4"
+      },
+      {
+        "__type": "RoundLimit",
+        "__guid": "6fcd3850-98f1-4df6-81b6-ea8d414af107",
+        "MaxRounds": 30
+      },
+      {
+        "__type": "NextRoundDelay",
+        "__guid": "5eaa6b01-45af-4185-b564-48e632ad921f",
+        "DurationSeconds": 5
+      },
+      {
+        "__type": "DefaultEquipment",
+        "__guid": "5a1f9f56-13f2-4c0b-8bbe-0142619e9d5c",
+        "Weapons": [
+          "weapons/knife/knife.weapon",
+          "weapons/usp/usp.weapon",
+          "weapons/c4/c4.weapon"
+        ]
+      }
+    ],
+    "Children": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

@@ -1,0 +1,71 @@
+{
+  "RootObject": {
+    "__guid": "3744e17a-df2b-480e-9f17-7c379c8044d6",
+    "Flags": 0,
+    "Name": "vm_c4",
+    "Tags": "player,viewmodel",
+    "Enabled": true,
+    "NetworkMode": 0,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.ViewModel",
+        "__guid": "dffebb42-b5be-44c3-8938-0b6d77e06d84",
+        "Arms": {
+          "_type": "component",
+          "component_id": "480cf445-ba8f-406a-9e90-2cc2540bad29",
+          "go": "c8b0a423-4d92-4241-a7f7-4a6494c3a6a7",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "ba327a17-e80b-4a40-ac28-38cca91f9ba5",
+          "go": "3744e17a-df2b-480e-9f17-7c379c8044d6",
+          "component_type": "SkinnedModelRenderer"
+        }
+      },
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "ba327a17-e80b-4a40-ac28-38cca91f9ba5",
+        "BodyGroups": 18446744073709551615,
+        "CreateBoneObjects": false,
+        "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
+        "RenderType": "Off",
+        "Tint": "1,1,1,1"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "c8b0a423-4d92-4241-a7f7-4a6494c3a6a7",
+        "Flags": 0,
+        "Name": "Object",
+        "Enabled": true,
+        "NetworkMode": 0,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "480cf445-ba8f-406a-9e90-2cc2540bad29",
+            "BodyGroups": 18446744073709551511,
+            "BoneMergeTarget": {
+              "_type": "component",
+              "component_id": "ba327a17-e80b-4a40-ac28-38cca91f9ba5",
+              "go": "3744e17a-df2b-480e-9f17-7c379c8044d6",
+              "component_type": "SkinnedModelRenderer"
+            },
+            "CreateBoneObjects": false,
+            "Model": "models/first_person/first_person_arms.vmdl",
+            "RenderType": "Off",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
