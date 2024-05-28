@@ -11,7 +11,7 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 	{
 		if ( Weapons is null ) return;
 
-		if ( player.Inventory.Weapons.Count > 0 ) return;
+		if ( player.Inventory.WasAssignedWeapons ) return;
 
 		foreach ( var weapon in Weapons )
 		{

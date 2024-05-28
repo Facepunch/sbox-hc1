@@ -9,8 +9,15 @@ public partial class PlayerInventory : Component
 
 	/// <summary>
 	/// What weapons do we have right now?
+	///
+	/// TODO: I'd like to [Sync] this, but the game crashes?
 	/// </summary>
 	[Property] public List<Weapon> Weapons { get; private set; }
+
+	/// <summary>
+	/// TODO: Using this in <see cref="DefaultEquipment"/> as a workaround since I can't network <see cref="Weapons"/>.
+	/// </summary>
+	[Sync] public bool WasAssignedWeapons { get; set; }
 
 	/// <summary>
 	/// A <see cref="GameObject"/> that will hold all of our weapons.
@@ -36,6 +43,8 @@ public partial class PlayerInventory : Component
 		}
 
 		Weapons.Clear();
+
+		WasAssignedWeapons = false;
 	}
 
 	protected override void OnUpdate()
@@ -109,6 +118,8 @@ public partial class PlayerInventory : Component
 			?? throw new Exception( $"Unable to find {nameof(WeaponDataResource)} with id {resourceId}." );
 
 		GiveWeapon( resource, makeActive );
+
+		WasAssignedWeapons = true;
 	}
 
 	public void GiveWeapon( WeaponDataResource resource, bool makeActive = true )
