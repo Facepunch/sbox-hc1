@@ -31,6 +31,7 @@ public partial class PlayerController
 	public void SetBodyVisible( bool visible )
 	{
 		Body.GameObject.Enabled = visible;
+		PlayerBoxCollider.Enabled = visible;
 	}
 
 	void IRespawnable.Respawn()
