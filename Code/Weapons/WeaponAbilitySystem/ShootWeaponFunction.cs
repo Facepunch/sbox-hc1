@@ -207,17 +207,17 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 
 	protected void DryShoot()
 	{
-		TimeSinceShoot = 0;
+		TimeSinceShoot = 0f;
 		DryShootEffects();
 	}
 
+	[Broadcast]
 	protected void DryShootEffects()
 	{
 		if ( DryFireSound is not null )
 		{
 			var snd = Sound.Play( DryFireSound, Weapon.Transform.Position );
 			snd.ListenLocal = !IsProxy;
-
 			Log.Trace( $"ShootWeaponFunction: ShootSound {DryFireSound.ResourceName}" );
 		}
 
