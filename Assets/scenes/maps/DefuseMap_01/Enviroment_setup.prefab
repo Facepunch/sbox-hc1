@@ -1,0 +1,78 @@
+{
+  "RootObject": {
+    "__guid": "bebe743a-8c55-43e0-96dd-7f301310c49e",
+    "Flags": 0,
+    "Name": "enviroment_setup",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Children": [
+      {
+        "__guid": "dc0d0d39-413f-41ac-beb6-569d4ff6aac8",
+        "Flags": 0,
+        "Name": "Sun",
+        "Rotation": "0.06688958,0.2210995,-0.2817387,0.9312702",
+        "Tags": "light_directional,light",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.DirectionalLight",
+            "__guid": "60fa806e-4ded-4c7e-b0e8-4e68214186a7",
+            "FogMode": "Enabled",
+            "FogStrength": 1,
+            "LightColor": "0.91373,0.98039,1,1",
+            "Shadows": true,
+            "SkyColor": "0.05882,0.07451,0.08235,1"
+          }
+        ]
+      },
+      {
+        "__guid": "e5862c6d-321b-43c9-8e0e-ef149efc6f19",
+        "Flags": 0,
+        "Name": "2D Skybox",
+        "Position": "0,0,8",
+        "Tags": "skybox",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkyBox2D",
+            "__guid": "a12be1e3-c714-4e9e-9adf-f8ceade393ab",
+            "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "50f5d58c-ae59-4166-afae-4a8e48f98970",
+        "Flags": 0,
+        "Name": "Gradient Fog",
+        "Position": "0,0,4",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.GradientFog",
+            "__guid": "916ec176-8208-4e62-a07a-742c7a74278e",
+            "Color": "0.88837,0.71152,0.44625,1",
+            "EndDistance": 2048,
+            "FalloffExponent": 1,
+            "Height": 128,
+            "StartDistance": 1024,
+            "VerticalFalloffExponent": 2
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

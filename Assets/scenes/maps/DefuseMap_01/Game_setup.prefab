@@ -1,0 +1,61 @@
+{
+  "RootObject": {
+    "__guid": "d0c8d522-0524-4dbb-92a9-04b45bf7d1c7",
+    "Flags": 0,
+    "Name": "Game_SetUp",
+    "Position": "0.00001758034,0,64",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Children": [
+      {
+        "__guid": "929bff60-280f-46a4-9c4d-c289d3533abf",
+        "Flags": 0,
+        "Name": "GameMode",
+        "Position": "0,-8,0",
+        "Enabled": true,
+        "NetworkMode": 1,
+        "NetworkInterpolation": true,
+        "__Prefab": "prefabs/game_modes/weapon_test.prefab"
+      },
+      {
+        "__guid": "69d5003a-44d7-41fe-a620-32f6bf0c4cd0",
+        "Flags": 0,
+        "Name": "GameNetworkManager",
+        "Position": "0,8,0",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.GameNetworkManager",
+            "__guid": "49ccfd38-c5e1-45fd-aa44-5efbadaa0577",
+            "IsMultiplayer": true,
+            "PlayerPrefab": {
+              "_type": "gameobject",
+              "prefab": "prefabs/player/player.prefab"
+            }
+          },
+          {
+            "__type": "Facepunch.UI.DeveloperMenu",
+            "__guid": "bc655c85-b274-401c-b8fc-98c11dee5418"
+          },
+          {
+            "__type": "Sandbox.ScreenPanel",
+            "__guid": "0a7c7c24-46b9-41bd-a55c-3316b5430879",
+            "AutoScreenScale": true,
+            "Opacity": 1,
+            "Scale": 1,
+            "ZIndex": 100
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

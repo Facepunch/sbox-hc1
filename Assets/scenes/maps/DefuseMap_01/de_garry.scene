@@ -1,0 +1,111 @@
+{
+  "__guid": "967d661f-376f-430a-b38a-a40dd105878d",
+  "GameObjects": [
+    {
+      "__guid": "d0c8d522-0524-4dbb-92a9-04b45bf7d1c7",
+      "Flags": 0,
+      "Name": "Game_SetUp",
+      "Position": "0.00001758034,0,64",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "scenes/maps/defusemap_01/game_setup.prefab"
+    },
+    {
+      "__guid": "bebe743a-8c55-43e0-96dd-7f301310c49e",
+      "Flags": 0,
+      "Name": "Enviroment_SetUp",
+      "Position": "0,0,32",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "scenes/maps/defusemap_01/enviroment_setup.prefab"
+    },
+    {
+      "__guid": "e8f0d111-e2b0-4ea3-b638-95f029f1b57f",
+      "Flags": 0,
+      "Name": "CT Spawn",
+      "Position": "0.000007596169,64.00001,0",
+      "Rotation": "0,-0,-0.7071068,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "TeamSpawnPoint",
+          "__guid": "d48483e7-79f5-4eb0-a4d5-29e9008d08a2",
+          "Team": "CounterTerrorist"
+        }
+      ]
+    },
+    {
+      "__guid": "25a8f393-435e-4dcb-8bb7-bb0af9dd8130",
+      "Flags": 0,
+      "Name": "T Spawn",
+      "Position": "-0.00002192108,-64.00001,0",
+      "Rotation": "0,0,0.7071067,0.7071069",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "TeamSpawnPoint",
+          "__guid": "eb8a6a5a-bec8-4288-8d1c-02a41be49c14",
+          "Team": "Terrorist"
+        }
+      ]
+    },
+    {
+      "__guid": "a63a2158-88e9-422d-8f04-c686b269ad8f",
+      "Flags": 0,
+      "Name": "Unassigned Spawn",
+      "Position": "-128,0.00001525879,0",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "TeamSpawnPoint",
+          "__guid": "f21b9a8d-80ab-4490-b972-4cb0b3a24173",
+          "Team": "Unassigned"
+        }
+      ]
+    },
+    {
+      "__guid": "19da1d3e-886d-4827-85c3-a2f3b14239f8",
+      "Flags": 0,
+      "Name": "MapMesh",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "scenes/maps/defusemap_01/mapmesh.prefab"
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "de_garry",
+  "Description": "",
+  "LastSaved": "2024-05-28T10:14:07.6112729\u002B01:00",
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
