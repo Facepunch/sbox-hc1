@@ -1,16 +1,37 @@
-﻿namespace Facepunch
+﻿
+
+namespace Facepunch
 {
 	public partial class PlayerBody : Component
 	{
-		[Property] public GameObject RightHand { get; set; }
+		[Property] public SkinnedModelRenderer Renderer { get; set; }
+		[Property] public Rigidbody Rigidbody { get; set; }
+		[Property] public ModelPhysics Physics { get; set; }
 
-		/// <summary>
-		/// Move a weapon to the player's right hand
-		/// </summary>
-		/// <param name="weapon"></param>
-		public void MoveWeapon( Weapon weapon )
+		internal void SetRagdoll( bool ragdoll )
 		{
-			weapon.GameObject.SetParent( RightHand, false );
+			Physics.Enabled = ragdoll;
+			Rigidbody.Enabled = ragdoll;
+
+			if ( !ragdoll )
+			{
+				GameObject.Transform.LocalPosition = Vector3.Zero;
+			}
+
+			ShowBodyParts( ragdoll );
+		}
+
+		public void ShowBodyParts( bool show )
+		{
+			// Disable the player's body so it doesn't render.
+			var skinnedModels = Components.GetAll<SkinnedModelRenderer>( FindMode.EnabledInSelfAndDescendants );
+
+			foreach ( var skinnedModel in skinnedModels )
+			{
+				skinnedModel.RenderType = show ? 
+					ModelRenderer.ShadowRenderType.On : 
+					ModelRenderer.ShadowRenderType.ShadowsOnly;
+			}
 		}
 	}
 }

@@ -32,20 +32,7 @@ public sealed class CameraController : Component
 		Camera.Enabled = isActive;
 		AudioListener.Enabled = isActive;
 
-		ShowBodyParts( !isActive );
-	}
-
-	public void ShowBodyParts( bool show )
-	{
-		// Disable the player's body so it doesn't render.
-		var skinnedModels = Player.Body.Components.GetAll<SkinnedModelRenderer>( FindMode.EnabledInSelfAndDescendants );
-
-		foreach ( var skinnedModel in skinnedModels )
-		{
-			skinnedModel.RenderType = show ? 
-				ModelRenderer.ShadowRenderType.On : 
-				ModelRenderer.ShadowRenderType.ShadowsOnly;
-		}
+		Player.Body.ShowBodyParts( !isActive );
 	}
 
 	/// <summary>

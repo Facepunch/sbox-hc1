@@ -30,7 +30,7 @@ public partial class PlayerController
 	[Broadcast]
 	public void SetBodyVisible( bool visible )
 	{
-		Body.GameObject.Enabled = visible;
+		Body.SetRagdoll( !visible );
 		PlayerBoxCollider.Enabled = visible;
 	}
 
