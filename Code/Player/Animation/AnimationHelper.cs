@@ -15,6 +15,21 @@ public sealed class AnimationHelper : Component
 	[Property] public GameObject IkLeftFoot { get; set; }
 	[Property] public GameObject IkRightFoot { get; set; }
 
+	public void ProceduralHitReaction( float damageScale = 1.0f, Vector3 force = default )
+	{
+		var boneId = 0;
+		var tx = Target.GetBoneObject( boneId );
+
+		var localToBone = tx.Transform.Local.Position;
+		if ( localToBone == Vector3.Zero ) localToBone = Vector3.One;
+
+		Target.Set( "hit", true );
+		Target.Set( "hit_bone", boneId );
+		Target.Set( "hit_offset", localToBone );
+		Target.Set( "hit_direction", force.Normal );
+		Target.Set( "hit_strength", (force.Length / 1000.0f) * damageScale );
+	}
+
 	protected override void OnUpdate()
 	{
 		if ( LookAtObject.IsValid() )

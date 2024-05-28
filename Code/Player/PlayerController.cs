@@ -468,5 +468,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	void IDamageListener.OnDamageTaken( float damage, Vector3 position, Vector3 force, Component attacker )
 	{
 		Log.Info( $"{this} took {damage} damage!" );
+
+		AnimationHelper.ProceduralHitReaction( damage / 100f, force );
 	}
 }
