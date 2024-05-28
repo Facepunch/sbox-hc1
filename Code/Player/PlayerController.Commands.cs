@@ -13,6 +13,16 @@ public partial class PlayerController
 		}
 	}
 
+	[DeveloperCommand( "Suicide" )]
+	private static void Command_Suicide()
+	{
+		var player = Developer.CurrentPlayer;
+		if ( player.IsValid() )
+		{
+			player.Kill();
+		}
+	}
+
 	[DeveloperCommand( "Depossess Pawn" )]
 	private static void Command_Depossess()
 	{

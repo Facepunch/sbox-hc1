@@ -19,11 +19,7 @@ public partial class PlayerController
 
     public void Kill()
 	{
-		NetDePossess();
-
-		// TODO: Turn off the body (or a death anim)
-		// Kill player inventory
-
+		Inventory.Clear();
 		SetBodyVisible( false );
 
 		HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
@@ -37,10 +33,7 @@ public partial class PlayerController
 	void IRespawnable.Respawn()
 	{
 		HealthComponent.Health = 100;
-
-		Inventory.Clear();
-
-		SetBodyVisible( true );
+		Respawn();
 	}
 
 	[Authority( NetPermission.HostOnly )]
@@ -51,9 +44,13 @@ public partial class PlayerController
 
 	public void Respawn()
 	{
+		Inventory.Clear();
+
 		HealthComponent.State = LifeState.Alive;
 
 		var spawn = GameMode.Instance.GetSpawnTransform( TeamComponent.Team );
+
+		SetBodyVisible( true );
 
 		MoveToSpawnPoint( spawn.Position, spawn.Rotation );
 		NetPossess();

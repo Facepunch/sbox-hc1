@@ -186,4 +186,12 @@ public partial class Weapon : Component
 			ViewModel = viewModelComponent;
 		}
 	}
+
+	protected override void OnDestroy()
+	{
+		if ( ViewModel.IsValid() )
+		{
+			ViewModel.GameObject.Destroy();
+		}
+	}
 }

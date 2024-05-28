@@ -329,6 +329,9 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 		if ( cc == null )
 			return;
 
+		if ( HealthComponent.State != LifeState.Alive )
+			return;
+
 		if ( IsLocallyControlled )
 		{
 			BuildWishInput();
