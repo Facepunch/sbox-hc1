@@ -12,8 +12,12 @@ public partial class MinimapRenderer : Component, Component.ExecuteInEditor
 	{
 		Gizmo.Draw.Color = Color.Blue.WithAlpha( 0.8f );
 		Gizmo.Draw.LineBBox( BBox.FromPositionAndSize( Vector3.Zero, Size ) );
-		Gizmo.Draw.Color = Color.Blue.WithAlpha( 0.3f );
-		Gizmo.Draw.SolidBox( BBox.FromPositionAndSize( Vector3.Zero, Size ) );
+
+		if ( Gizmo.IsSelected )
+		{
+			Gizmo.Draw.Color = Color.Blue.WithAlpha( 0.3f );
+			Gizmo.Draw.SolidBox( BBox.FromPositionAndSize( Vector3.Zero, Size ) );
+		}
     }
 
 	void GetOrCreateCamera()
