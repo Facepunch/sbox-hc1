@@ -1,0 +1,29 @@
+@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+@if (AmmoContainer.IsValid())
+{
+    <root class="hud with-deadzone with-padding flex row gap align-center justify-center" style="width: 100px;">
+        <label class="important">@AmmoContainer.Ammo</label>
+        <label>@AmmoContainer.MaxAmmo</label>
+    </root>
+}
+
+@code
+{
+    /// <summary>
+    /// The player's inventory
+    /// </summary>
+    public PlayerInventory Inventory { get; set; }
+
+    /// The player
+    public PlayerController Player => Inventory.Components.Get<PlayerController>();
+
+    private AmmoContainer AmmoContainer => Player?.CurrentWeapon?.Components.Get<AmmoContainer>(FindMode.EverythingInSelfAndDescendants);
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Player, AmmoContainer?.Ammo);
+    }
+}

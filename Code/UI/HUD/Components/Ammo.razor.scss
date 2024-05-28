@@ -3,6 +3,8 @@
 WeaponInfoComponent
 {
     position: absolute;
+    right: 0;
+    bottom: 0;
     gap: 32px;
     flex-direction: column-reverse;
     justify-content: center;
@@ -40,10 +42,10 @@ WeaponRow
     > .background
     {
         position: absolute;
-        width: 150%;
-        height: 150%;
+        width: 1024px;
+        height: 160px;
+        background-image: radial-gradient( rgba( black, 0.8 ), rgba( black, 0.5 ), rgba( black, 0 ), rgba( black, 0 ), rgba( black, 0 ) );
         opacity: 0;
-        background: linear-gradient( to right, rgba( black, 0.0 ), black );
     }
 
     &.is-active
