@@ -41,6 +41,10 @@ public sealed class CameraController : Component
 	/// <param name="eyeHeight"></param>
 	internal void UpdateFromEyes( float eyeHeight )
 	{
+		// Don't move eyes if we're dead
+		if ( Player.HealthComponent.State != LifeState.Alive )
+			return;
+
 		Camera.Transform.Rotation = Player.EyeAngles.ToRotation();
 		Camera.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
 
