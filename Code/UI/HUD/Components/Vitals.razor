@@ -1,0 +1,35 @@
+﻿@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root class="hud with-deadzone bottom-left with-background flex row gap with-padding">
+
+    <div class="flex column gap-xs">
+    <span class="flex row align-center gap-sm">
+        <Icon file="/ui/health.png" size="32" />
+        <label class="emphasis">@Health</label>
+    </span>
+    <ProgressBar Value="@(Health)" />
+    </div>
+
+    <div class="flex column gap-xs">
+    <span class="flex row align-center gap-sm">
+        <Icon file="/ui/armor.png" size="32" />
+        <label class="emphasis">0</label>
+    </span>
+    <ProgressBar />
+    </div>
+
+</root>
+
+@code
+{
+    public PlayerController Player { get; set; }
+
+    public int Health => Player.Components.Get<HealthComponent>().Health.CeilToInt();
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Health);
+    }
+}

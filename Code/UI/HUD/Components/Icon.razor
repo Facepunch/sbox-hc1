@@ -1,0 +1,22 @@
+﻿@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root style="@BuildStyle()">
+</root>
+
+@code
+{
+    public string File { get; set; }
+    public int Size { get; set; }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(File, Size);
+    }
+
+    private string BuildStyle()
+    {
+        return $"width: {Size}px; height: {Size}px; background-image: url( {File} );";
+    }
+}
