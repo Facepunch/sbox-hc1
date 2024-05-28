@@ -28,7 +28,7 @@ public sealed class PlayerFootsteps : Component
 
 	private void OnEvent( SceneModel.FootstepEvent e )
 	{
-		if ( timeSinceStep < 0.4f )
+		if ( timeSinceStep < 0.2f )
 			return;
 
 		if ( Player.CharacterController.Velocity.Length < 20f ) 
