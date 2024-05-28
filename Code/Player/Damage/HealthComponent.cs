@@ -5,6 +5,7 @@ namespace Facepunch;
 /// </summary>
 public partial class HealthComponent : Component, IRespawnable
 {
+	private float armor = 0f;
 	private float health = 100f;
 	private LifeState state = LifeState.Alive;
 
@@ -42,6 +43,19 @@ public partial class HealthComponent : Component, IRespawnable
 
 			health = value;
 			HealthChanged( old, health );
+		}
+	}
+
+	[Sync( Query = true ), Property, ReadOnly]
+	public float Armor
+	{
+		get => armor;
+		set
+		{
+			var old = armor;
+			if ( old == value ) return;
+
+			armor = value;
 		}
 	}
 
@@ -88,12 +102,31 @@ public partial class HealthComponent : Component, IRespawnable
 		}
 	}
 
+	float ArmorReduction { get; set; } = 0.775f;
+
+	/// <summary>
+	/// Calculate how much damage we soak in from armor, and remove armor
+	/// </summary>
+	/// <param name="damage"></param>
+	/// <returns></returns>
+	public float CalculateArmorDamage( float damage )
+	{
+		if ( Armor <= 0 ) return damage;
+		Armor -= damage;
+		// Clamp armor
+		Armor = Armor.Clamp( 0, 100 );
+
+		return damage * ArmorReduction;
+	}
+
 	[Broadcast]
 	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId )
 	{
 		// Only the person in charge should be inflicting damage here
 		if ( !IsProxy )
 		{
+			// Let armor try its hand
+			damage = CalculateArmorDamage( damage );
 			Health -= damage;
 
 			// Did we die?

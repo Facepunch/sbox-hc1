@@ -16,9 +16,9 @@
     <div class="flex column gap-xs">
         <span class="flex row align-center gap-sm">
             <Icon file="/ui/armor.png" size="32" />
-            <label class="emphasis">0</label>
+            <label class="emphasis">@Armor</label>
         </span>
-        <ProgressBar Value="@(0f)" width="64" />
+        <ProgressBar Value="@(Armor)" width="64" />
     </div>
 
 </root>
@@ -27,6 +27,7 @@
 {
     public PlayerController Player => GameUtils.LocalPlayer;
     public int Health => Player.Components.Get<HealthComponent>().Health.CeilToInt();
+    public int Armor => Player.Components.Get<HealthComponent>().Armor.CeilToInt();
 
     protected override int BuildHash()
     {
