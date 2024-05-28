@@ -80,11 +80,35 @@ $hud-deadzone-y: 16px;
         flex-direction: column;
     }
 
+    &.column-reverse {
+        flex-direction: column-reverse;
+    }
+
     &.align-center {
         align-items: center;
     }
 
     &.justify-center {
         justify-content: center;
+    }
+
+    &.align-start {
+        align-items: flex-start;
+    }
+
+    &.justify-start {
+        justify-content: flex-start;
+    }
+}
+
+.square {
+    width: 32px;
+    height: 32px;
+
+    background-position: center;
+    background-size: cover;
+
+    &.rounded {
+        border-radius: 50%;
     }
 }
