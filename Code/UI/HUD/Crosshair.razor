@@ -28,15 +28,7 @@
         }
     }
 
-    string HitmarkerClasses
-    {
-        get
-        {
-            var str = "";
-            if ( !TimeUntilHitmarkerRemove ) return "is-visible";
-            return str;
-        }
-    }
+    string HitmarkerClasses => !TimeUntilHitmarkerRemove ? "is-visible" : string.Empty;
 
     public void Trigger( float damage, Component component, Vector3 position )
     {
@@ -47,25 +39,25 @@
 
     public override void Tick()
     {
-        var camera = Player.CameraController.Camera;
-        var range = 100000;
-
+        var player = Player;
+        if ( !player.IsValid() ) return;
+        
+        var camera = player.CameraController.Camera;
+        var range = 100000f;
         var muzzle = Weapon?.ViewModel?.ModelRenderer.GetAttachment( "muzzle" );
         var origin = muzzle.HasValue ? muzzle.Value.Position : camera.Transform.Position;
 
-        var currentTrace = Player.Scene.Trace.Ray( origin, camera.Transform.Rotation.Forward * range )
-            .IgnoreGameObjectHierarchy( Player.GameObject )
+        var currentTrace = player.Scene.Trace.Ray( origin, camera.Transform.Rotation.Forward * range )
+            .IgnoreGameObjectHierarchy( player.GameObject )
             .UseHitboxes()
             .Run();
 
         Reticle.SetClass( "aiming", Weapon?.GetFunction<AimWeaponFunction>()?.IsAiming ?? false );
-
-        const float lerpSpeed = 10f;
+        
         if ( currentTrace.Hit )
         {
-            var player = currentTrace.GameObject.Root.Components.Get<PlayerController>();
-            Reticle.SetClass( "enemy", player.IsValid() );
-
+            var enemy = currentTrace.GameObject.Root.Components.Get<PlayerController>();
+            Reticle.SetClass( "enemy", enemy.IsValid() );
         }
         else
         {
@@ -75,6 +67,6 @@
 
     protected override int BuildHash()
     {
-        return System.HashCode.Combine( Time.Now );
+        return HashCode.Combine( Time.Now );
     }
 }
