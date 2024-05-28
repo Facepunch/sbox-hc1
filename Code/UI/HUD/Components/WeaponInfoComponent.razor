@@ -2,7 +2,7 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-<root class="hud with-deadzone column">
+<root class="hud with-deadzone column middle-right">
     @for ( int i = 0; i < Inventory.Weapons.Count(); i++ )
     {
         <WeaponRow Weapon=@Inventory.Weapons.ElementAt(i) Slot=@i />

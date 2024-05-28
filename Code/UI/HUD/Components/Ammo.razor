@@ -15,10 +15,10 @@
     /// <summary>
     /// The player's inventory
     /// </summary>
-    public PlayerInventory Inventory { get; set; }
+    public PlayerInventory Inventory => Player.Inventory;
 
     /// The player
-    public PlayerController Player => Inventory.Components.Get<PlayerController>();
+    public PlayerController Player => GameUtils.LocalPlayer;
 
     private AmmoContainer AmmoContainer => Player?.CurrentWeapon?.Components.Get<AmmoContainer>(FindMode.EverythingInSelfAndDescendants);
 

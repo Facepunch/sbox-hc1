@@ -11,7 +11,7 @@
 
 @code
 {
-    public PlayerController Player { get; set; }
+    public PlayerController Player => GameUtils.LocalPlayer;
 
     public TeamComponent Team => Player.Components.Get<TeamComponent>();
 
