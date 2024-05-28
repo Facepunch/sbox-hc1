@@ -19,12 +19,14 @@ public partial class PlayerController
 
     public void Kill()
 	{
-		Inventory.Clear();
+		if ( Networking.IsHost )
+		{
+			HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
+			Inventory.Clear();
+		}
+		
 		SetBodyVisible( false );
-
 		InBuyMenu = false;
-
-		HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
 	}
 
 	[Broadcast]
@@ -36,26 +38,34 @@ public partial class PlayerController
 
 	void IRespawnable.Respawn()
 	{
-		HealthComponent.Health = 100;
-		Respawn();
+		if ( Networking.IsHost )
+		{
+			HealthComponent.Health = 100f;
+			Respawn();
+		}
 	}
 
-	[Authority( NetPermission.HostOnly )]
+	[Broadcast( NetPermission.HostOnly )]
 	public void Respawn()
 	{
 		Log.Info( $"Respawn( {GameObject.Name} ({Network.OwnerConnection?.DisplayName}, {TeamComponent.Team}) )" );
 
 		SetBodyVisible( true );
 
-		Inventory.Clear();
-
-		HealthComponent.Health = 100;
-		HealthComponent.State = LifeState.Alive;
+		if ( Networking.IsHost )
+		{
+			Log.Info( "Respawning: " + GameObject + " Clearing Inventory " );
+			Inventory.Clear();
+			HealthComponent.Health = 100f;
+			HealthComponent.State = LifeState.Alive;
+		}
 
 		var spawn = GameMode.Instance.GetSpawnTransform( TeamComponent.Team );
+		Transform.World = new( spawn.Position, spawn.Rotation );
 
-		Transform.World = new Transform( spawn.Position, spawn.Rotation );
-
-		GameMode.Instance?.HandlePlayerSpawn();
+		if ( !IsProxy )
+		{
+			GameMode.Instance?.HandlePlayerSpawn();
+		}
 	}
 }

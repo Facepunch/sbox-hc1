@@ -99,18 +99,12 @@ public sealed class CameraController : Component
 	void ApplyRecoil()
 	{
 		if ( !Player.IsLocallyControlled )
-		{
 			return;
-		}
 
 		if ( Player.CurrentWeapon.IsValid() && Player.CurrentWeapon?.GetFunction<RecoilFunction>() is { } fn )
-		{
 			Player.EyeAngles += fn.Current;
-		}
 
 		if ( Player.CurrentWeapon.IsValid() && Player.CurrentWeapon?.GetFunction<SwayFunction>() is { } sFn )
-		{
 			Player.EyeAngles += sFn.Current;
-		}
 	}
 }

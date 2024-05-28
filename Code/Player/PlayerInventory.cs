@@ -1,3 +1,5 @@
+using Sandbox.Diagnostics;
+
 namespace Facepunch;
 
 /// <summary>
@@ -9,13 +11,8 @@ public partial class PlayerInventory : Component
 
 	/// <summary>
 	/// What weapons do we have right now?
-	///
-	/// TODO: I'd like to [Sync] this, but the game crashes?
 	/// </summary>
-	public IEnumerable<Weapon> Weapons
-	{
-		get => WeaponGameObject.Components.GetAll<Weapon>( FindMode.EverythingInSelfAndDescendants );
-	}
+	public IEnumerable<Weapon> Weapons => WeaponGameObject.Components.GetAll<Weapon>( FindMode.EverythingInSelfAndDescendants );
 
 	/// <summary>
 	/// A <see cref="GameObject"/> that will hold all of our weapons.
@@ -31,12 +28,16 @@ public partial class PlayerInventory : Component
 	/// Gets the player's current weapon.
 	/// </summary>
 	public Weapon CurrentWeapon => Player.CurrentWeapon;
-
-	[Authority( NetPermission.HostOnly )]
+	
 	public void Clear()
 	{
+		Assert.True( Networking.IsHost );
+		
 		foreach ( var wpn in Weapons )
 		{
+			// Conna: little hack because really I think IsValid() on a GameObject or Component should return false
+			// even if it is _queued_ to be destroyed.
+			wpn.IsDestroyed = true;
 			wpn.GameObject.Destroy();
 		}
 	}
@@ -44,9 +45,7 @@ public partial class PlayerInventory : Component
 	protected override void OnUpdate()
 	{
 		if ( !Player.IsLocallyControlled )
-		{
 			return;
-		}
 
 		for ( int i = 0; i < Weapons.Count(); i++ )
 		{
@@ -64,17 +63,15 @@ public partial class PlayerInventory : Component
 
 	public void SwitchToSlot( int slot )
 	{
+		Assert.False( IsProxy );
+		
 		var weapon = Weapons.ElementAt( slot );
 		if ( !weapon.IsValid() ) return;
 
 		if ( Player.CurrentWeapon != weapon )
-		{
 			SwitchWeapon( weapon );
-		}
 		else if ( CanUnequipCurrentWeapon )
-		{
 			HolsterCurrent();
-		}
 	}
 
 	/// <summary>
@@ -83,8 +80,15 @@ public partial class PlayerInventory : Component
 	/// <param name="weapon"></param>
 	public void SwitchWeapon( Weapon weapon )
 	{
-		if ( !Weapons.Contains( weapon ) ) return;
+		if ( !Weapons.Contains( weapon ) )
+			return;
 
+		if ( Networking.IsHost )
+		{
+			Player.ChangeCurrentWeapon( weapon.Id );
+			return;
+		}
+		
 		Player.CurrentWeapon = weapon;
 	}
 
@@ -93,35 +97,22 @@ public partial class PlayerInventory : Component
 	/// </summary>
 	public void RemoveWeapon( Weapon weapon )
 	{
+		Assert.True( Networking.IsHost );
+		
 		if ( !Weapons.Contains( weapon ) ) return;
 
 		if ( CurrentWeapon == weapon )
-		{
-			SwitchWeapon( Weapons.Where( x => x != weapon ).FirstOrDefault() );
-		}
+			SwitchWeapon( Weapons.FirstOrDefault( x => x != weapon ) );
 
 		weapon.GameObject.Destroy();
 	}
 
-	[Authority( NetPermission.HostOnly )]
-	private void GiveWeapon( int resourceId, bool makeActive )
-	{
-		var resource = ResourceLibrary.Get<WeaponDataResource>( resourceId )
-			?? throw new Exception( $"Unable to find {nameof(WeaponDataResource)} with id {resourceId}." );
-
-		GiveWeapon( resource, makeActive );
-	}
-
 	public void GiveWeapon( WeaponDataResource resource, bool makeActive = true )
 	{
+		Assert.True( Networking.IsHost );
+		
 		// Can't have the same weapon twice
 		if ( HasWeapon( resource ) ) return;
-
-		if ( IsProxy )
-		{
-			GiveWeapon( resource.ResourceId, makeActive );
-			return;
-		}
 
 		// If we're in charge, let's make some weapons.
 		if ( resource == null )
@@ -139,27 +130,24 @@ public partial class PlayerInventory : Component
 		// Create the weapon prefab and put it on the weapon gameobject.
 		var weaponGameObject = resource.MainPrefab.Clone( new CloneConfig()
 		{
-			Transform = new Transform(),
+			Transform = new(),
 			Parent = WeaponGameObject,
 			StartEnabled = false,
 		} );
 		var weaponComponent = weaponGameObject.Components.Get<Weapon>( FindMode.EverythingInSelfAndDescendants );
-		weaponGameObject.NetworkSpawn();
+		weaponGameObject.NetworkSpawn( Player.Network.OwnerConnection );
 		weaponGameObject.Enabled = false;
 
-		if ( makeActive ) Player.CurrentWeapon = weaponComponent;
+		if ( makeActive )
+		{
+			Player.ChangeCurrentWeapon( weaponComponent.Id );
+		}
 
 		Log.Info( $"Spawned weapon {weaponGameObject} for {Player}" );
 	}
 
 	public bool HasWeapon( WeaponDataResource resource )
 	{
-		foreach ( Weapon weapon in Weapons )
-		{
-			if ( weapon.Resource == resource )
-				return true;
-		}
-
-		return false;
+		return Weapons.Any( weapon => !weapon.IsDestroyed && weapon.Resource == resource );
 	}
 }

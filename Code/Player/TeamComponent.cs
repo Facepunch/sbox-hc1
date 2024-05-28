@@ -1,3 +1,5 @@
+using Sandbox.Diagnostics;
+
 namespace Facepunch;
 
 public enum Team
@@ -31,7 +33,7 @@ public static class TeamExtensionMethods
 }
 
 /// <summary>
-/// Designates the team for a player, or an object. Mostly for players.
+/// Designates the team for a player.
 /// </summary>
 public partial class TeamComponent : Component
 {
@@ -40,22 +42,23 @@ public partial class TeamComponent : Component
 	/// </summary>
 	[Property, Group( "Actions" )] public Action<Team, Team> OnTeamChanged { get; set; }
 
-	private Team team;
+	private Team InternalTeam;
 
 	/// <summary>
-	/// The GameObject's team
+	/// The team this player is on.
 	/// </summary>
-	[Property, Sync( Query = true ), Group( "Setup" )]
+	[Property, HostSync( Query = true ), Group( "Setup" )]
 	public Team Team
 	{
-		get => team;
+		get => InternalTeam;
 		private set
 		{
-			if ( team == value ) return;
+			if ( InternalTeam == value )
+				return;
 
-			var before = team;
-			team = value;
-			TeamChanged( before, team );
+			var before = InternalTeam;
+			InternalTeam = value;
+			TeamChanged( before, InternalTeam );
 		}
 	}
 
@@ -71,24 +74,7 @@ public partial class TeamComponent : Component
 
 	public void AssignTeam( Team team )
 	{
-		if ( IsProxy )
-		{
-			// Host wants to immediately use new team assignment when respawning etc,
-			// before the owner receives the RPC.
-
-			// I'm so sorry Conna!
-
-			this.team = team;
-		}
-
-		AssignTeamRpc( team );
-	}
-
-	[Authority( NetPermission.HostOnly )]
-	private void AssignTeamRpc( Team team )
-	{
-		Log.Info( $"I'm now on team {team} (from {Team})" );
-
+		Assert.True( Networking.IsHost );
 		Team = team;
 	}
 }

@@ -5,9 +5,9 @@ namespace Facepunch;
 /// </summary>
 public partial class HealthComponent : Component, IRespawnable
 {
-	private float armor = 0f;
-	private float health = 100f;
-	private LifeState state = LifeState.Alive;
+	private float InternalArmor = 0f;
+	private float InternalHealth = 100f;
+	private LifeState InternalState = LifeState.Alive;
 
 	/// <summary>
 	/// An action (mainly for ActionGraphs) to respond to when a GameObject's health changes.
@@ -22,8 +22,13 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// How long has it been since life state changed?
 	/// </summary>
-	TimeSince TimeSinceLifeStateChanged = 1;
+	private TimeSince TimeSinceLifeStateChanged = 1f;
 
+	/// <summary>
+	/// How much to reduce damage by when we have armor.
+	/// </summary>
+	private float ArmorReduction { get; set; } = 0.775f;
+	
 	/// <summary>
 	/// A list of all Respawnable things on this GameObject
 	/// </summary>
@@ -32,51 +37,49 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// What's our health?
 	/// </summary>
-	[Sync( Query = true ), Property, ReadOnly]
+	[HostSync( Query = true ), Property, ReadOnly]
 	public float Health
 	{
-		get => health;
+		get => InternalHealth;
 		set
 		{
-			var old = health;
+			var old = InternalHealth;
 			if ( old == value ) return;
 
-			health = value;
-			HealthChanged( old, health );
+			InternalHealth = value;
+			HealthChanged( old, InternalHealth );
 		}
 	}
 
-	[Sync( Query = true ), Property, ReadOnly]
+	[HostSync( Query = true ), Property, ReadOnly]
 	public float Armor
 	{
-		get => armor;
+		get => InternalArmor;
 		set
 		{
-			var old = armor;
+			var old = InternalArmor;
 			if ( old == value ) return;
-
-			armor = value;
+			InternalArmor = value;
 		}
 	}
 
 	/// <summary>
 	/// What's our life state?
 	/// </summary>
-	[Sync( Query = true ), Property, ReadOnly, Group( "Life State" )]
+	[HostSync( Query = true ), Property, ReadOnly, Group( "Life State" )]
 	public LifeState State
 	{
-		get => state;
+		get => InternalState;
 		set
 		{
-			var old = state;
+			var old = InternalState;
 			if ( old == value ) return;
 
-			state = value;
+			InternalState = value;
 			TimeSinceLifeStateChanged = 0;
-			LifeStateChanged( old, state );
+			LifeStateChanged( old, InternalState );
 		}
 	}
-
 
 	/// <summary>
 	/// Called when Health is changed.
@@ -90,22 +93,19 @@ public partial class HealthComponent : Component, IRespawnable
 
 	protected void LifeStateChanged( LifeState oldValue, LifeState newValue )
 	{
-		if ( newValue == LifeState.Alive )
+		switch ( newValue )
 		{
-			Respawnables.ToList()
-				.ForEach( x => x.Respawn() );
-		}
-		if ( ( newValue == LifeState.Dead || newValue == LifeState.Respawning ) && oldValue == LifeState.Alive )
-		{
-			health = 0;
-
-			Respawnables.ToList()
-				.ForEach( x => x.Kill() );
+			case LifeState.Alive:
+				Respawnables.ToList().ForEach( x => x.Respawn() );
+				break;
+			case LifeState.Dead or LifeState.Respawning when oldValue == LifeState.Alive:
+				InternalHealth = 0;
+				Respawnables.ToList()
+					.ForEach( x => x.Kill() );
+				break;
 		}
 	}
-
-	float ArmorReduction { get; set; } = 0.775f;
-
+	
 	/// <summary>
 	/// Calculate how much damage we soak in from armor, and remove armor
 	/// </summary>
@@ -113,19 +113,20 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <returns></returns>
 	public float CalculateArmorDamage( float damage )
 	{
-		if ( Armor <= 0 ) return damage;
+		if ( Armor <= 0 )
+			return damage;
+		
 		Armor -= damage;
-		// Clamp armor
 		Armor = Armor.Clamp( 0, 100 );
-
+		
 		return damage * ArmorReduction;
 	}
 
 	[Broadcast]
 	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId )
 	{
-		// Only the person in charge should be inflicting damage here
-		if ( !IsProxy )
+		// Only the host should control the damage state
+		if ( Networking.IsHost )
 		{
 			// Let armor try its hand
 			damage = CalculateArmorDamage( damage );
@@ -133,14 +134,12 @@ public partial class HealthComponent : Component, IRespawnable
 
 			// Did we die?
 			if ( Health <= 0 )
-			{
 				State = LifeState.Dead;
-			}
 		}
 
-		Log.Info($"{GameObject.Name}.OnDamage( {damage} ): {Health}, {State}");
+		Log.Info( $"{GameObject.Name}.OnDamage( {damage} ): {Health}, {State}" );
 
-		var attackingComponent = Scene.Directory.FindComponentByGuid(attackerId);
+		var attackingComponent = Scene.Directory.FindComponentByGuid( attackerId );
 		var receivers = GameObject.Root.Components.GetAll<IDamageListener>();
 		foreach ( var x in receivers )
 		{
@@ -159,6 +158,8 @@ public partial class HealthComponent : Component, IRespawnable
 
 	protected override void OnUpdate()
 	{
+		if ( !Networking.IsHost ) return;
+		
 		if ( State == LifeState.Respawning && TimeSinceLifeStateChanged > RespawnTime )
 		{
 			State = LifeState.Alive;

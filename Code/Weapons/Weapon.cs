@@ -46,6 +46,8 @@ public partial class Weapon : Component
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
 		}
 	}
+	
+	internal bool IsDestroyed { get; set; }
 
 	private ViewModel viewModel;
 

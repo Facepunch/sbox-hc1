@@ -1,5 +1,6 @@
 using Facepunch.UI;
 using System.Text.Json.Serialization;
+using Sandbox.Diagnostics;
 
 namespace Facepunch;
 
@@ -138,20 +139,27 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 	public bool InMenu => InBuyMenu;
 
-	private Weapon currentWeapon;
+	[Sync] private Guid CurrentWeaponId { get; set; }
+	
 	/// <summary>
 	/// What weapon are we using?
 	/// </summary>
-	[Property, JsonIgnore, ReadOnly] public Weapon CurrentWeapon
+	public Weapon CurrentWeapon
 	{
-		get => currentWeapon;
+		get => Scene.Directory.FindComponentByGuid( CurrentWeaponId ) as Weapon;
 		set
 		{
-			var prev = currentWeapon;
-
-			currentWeapon = value;
-			WeaponChanged( prev, currentWeapon );
+			Assert.False( IsProxy );
+			var previousWeaponId = CurrentWeaponId;
+			CurrentWeaponId = value.Id;
+			WeaponChanged( previousWeaponId, value.Id );
 		}
+	}
+
+	[Authority( NetPermission.HostOnly )]
+	public void ChangeCurrentWeapon( Guid weaponId )
+	{
+		CurrentWeapon = Scene.Directory.FindComponentByGuid( weaponId ) as Weapon;
 	}
 
 	private void ClearViewModel( Weapon weapon = null )
@@ -170,13 +178,16 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		}
 	}
 
-	public void WeaponChanged( Weapon oldWeapon, Weapon newWeapon )
+	[Broadcast( NetPermission.OwnerOnly )]
+	private void WeaponChanged( Guid oldWeaponId, Guid newWeaponId )
 	{
+		var oldWeapon = Scene.Directory.FindComponentByGuid( oldWeaponId ) as Weapon;
+		var newWeapon = Scene.Directory.FindComponentByGuid( newWeaponId ) as Weapon;
+		
 		if ( oldWeapon.IsValid() )
 		{
 			// Set old weapon as inactive
 			oldWeapon.GameObject.Enabled = false;
-
 			ClearViewModel( oldWeapon );
 		}
 
@@ -186,13 +197,13 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		// Set new weapon as active
 		newWeapon.GameObject.Enabled = true;
 
-		if ( IsLocallyControlled )
-		{
-			ClearViewModel( oldWeapon );
+		if ( !IsLocallyControlled )
+			return;
+		
+		ClearViewModel( oldWeapon );
 
-			if ( newWeapon.IsValid() )
-				CreateViewModel( newWeapon );
-		}
+		if ( newWeapon.IsValid() )
+			CreateViewModel( newWeapon );
 	}
 
 	// Properties used only in this component.
@@ -219,13 +230,9 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		var cc = CharacterController;
 
 		if ( CurrentWeapon.IsValid() )
-		{
 			CurrentHoldType = CurrentWeapon.GetHoldType();
-		}
 		else
-		{
 			CurrentHoldType = AnimationHelper.HoldTypes.None;
-		}
 
 		// Eye input
 		if ( IsLocallyControlled && cc != null )

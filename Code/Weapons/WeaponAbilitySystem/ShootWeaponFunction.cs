@@ -48,15 +48,13 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	public TimeSince TimeSinceShoot { get; private set; }
 
 	/// <summary>
-	/// Do shoot effects
+	/// Play any particle effects such as muzzle flashes.
 	/// </summary>
 	[Broadcast]
 	protected void DoShootEffects()
 	{
 		if ( !EffectsRenderer.IsValid() )
-		{
 			return;
-		}
 
 		// Create a muzzle flash from a GameObject / prefab
 		if ( MuzzleFlash.IsValid() )
@@ -177,12 +175,8 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 
 	/// <summary>
 	/// Makes some tracers using legacy particle effects.
-	/// TODO: replace these with our new cool particle system.
 	/// </summary>
-	/// <param name="startPosition"></param>
-	/// <param name="endPosition"></param>
-	/// <param name="distance"></param>
-	/// <param name="count"></param>
+	[Broadcast]
 	protected void DoTracer( Vector3 startPosition, Vector3 endPosition, float distance, int count )
 	{
 		var effectPath = "particles/gameplay/guns/trail/trail_smoke.vpcf";
@@ -191,9 +185,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		if ( count > 0 )
 		{
 			effectPath = "particles/gameplay/guns/trail/rico_trail_smoke.vpcf";
-
-			// Project backward
-			Vector3 dir = (startPosition - endPosition).Normal;
+			var dir = (startPosition - endPosition).Normal;
 			var tr = Scene.Trace.Ray( endPosition, startPosition + (dir * 50f) )
 				.Radius( 1f )
 				.WithoutTags( "weapon" )

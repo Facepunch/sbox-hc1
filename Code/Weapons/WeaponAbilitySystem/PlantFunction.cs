@@ -28,20 +28,17 @@ public partial class PlantFunction : InputActionWeaponFunction
 	[Property, Category( "Effects" )]
 	public Curve PlantingBeepFrequency { get; set; } = new Curve( new Curve.Frame( 0f, 1f ), new Curve.Frame( 1f, 0.25f ) );
 
-	[Sync]
-	public bool IsPlanting { get; private set; }
+	[HostSync] public bool IsPlanting { get; private set; }
 
 	/// <summary>
 	/// Hold long since we started planting.
 	/// </summary>
-	[Sync]
-	private TimeSince TimeSincePlantStart { get; set; }
+	[HostSync] private TimeSince TimeSincePlantStart { get; set; }
 
 	/// <summary>
 	/// Hold long since we aborted planting.
 	/// </summary>
-	[Sync]
-	private TimeSince TimeSincePlantCancel { get; set; }
+	[HostSync] private TimeSince TimeSincePlantCancel { get; set; }
 
 	private TimeSince TimeSinceBeep { get; set; }
 
@@ -69,50 +66,70 @@ public partial class PlantFunction : InputActionWeaponFunction
 		return true;
 	}
 
+	[Broadcast]
 	private void StartPlant()
 	{
-		IsPlanting = true;
-		TimeSincePlantStart = 0f;
-	}
-
-	private void Plant()
-	{
-		if ( TimeSincePlantStart > PlantTime )
+		if ( Networking.IsHost )
 		{
-			FinishPlant();
+			TimeSincePlantStart = 0f;
+			IsPlanting = true;
 		}
 	}
 
 	private void FinishPlant()
 	{
-		Weapon.PlayerController.Inventory.RemoveWeapon( Weapon );
-
-		if ( PlantedObjectPrefab is null )
-		{
-			return;
-		}
-
-		var planted = PlantedObjectPrefab.Clone( Weapon.PlayerController.Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
-
-		planted.NetworkSpawn( Connection.Host );
+		PlantBombOnHost( Weapon.PlayerController.Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
 	}
 
+	[Broadcast]
+	private void PlantBombOnHost( Vector3 position, Rotation rotation )
+	{
+		if ( !Networking.IsHost ) return;
+		
+		Weapon.PlayerController.Inventory.RemoveWeapon( Weapon );
+		
+		if ( PlantedObjectPrefab is null ) return;
+		
+		var planted = PlantedObjectPrefab.Clone( position, rotation );
+		
+		// If the host leaves, we want to make the new host have authority over the bomb.
+		planted.Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
+		planted.NetworkSpawn();
+	}
+	
+	[Broadcast]
 	private void CancelPlant()
 	{
-		IsPlanting = false;
-		TimeSincePlantCancel = 0f;
+		if ( Networking.IsHost )
+		{
+			IsPlanting = false;
+			TimeSincePlantCancel = 0f;
+		}
+	}
+
+	protected override void OnFixedUpdate()
+	{
+		if ( Networking.IsHost )
+		{
+			if ( IsPlanting && CanPlant() )
+			{
+				if ( TimeSincePlantStart > PlantTime )
+				{
+					FinishPlant();
+				}
+			}
+			else if ( IsPlanting )
+			{
+				CancelPlant();
+			}
+		}
+		
+		base.OnFixedUpdate();
 	}
 
 	protected override void OnFunctionExecute()
 	{
-		if ( IsPlanting && CanPlant() )
-		{
-			Plant();
-		}
-		else if ( IsPlanting )
-		{
-			CancelPlant();
-		}
+		
 	}
 
 	protected override void OnFunctionDown()
