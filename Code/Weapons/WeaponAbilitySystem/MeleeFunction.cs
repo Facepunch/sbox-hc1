@@ -104,8 +104,7 @@ public partial class MeleeFunction : InputActionWeaponFunction
 			CreateImpactEffects( tr.GameObject, GetSurfaceFromTrace( tr ), tr.EndPosition, tr.Normal );
 
 			// Inflict damage on whatever we find.
-			var damageInfo = DamageInfo.Sharp( BaseDamage, Weapon.PlayerController.GameObject, Weapon.GameObject );
-			tr.GameObject.TakeDamage( ref damageInfo );
+			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.Id );
 			count++;
 		}
 	}

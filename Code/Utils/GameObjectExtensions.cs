@@ -6,14 +6,15 @@ public static partial class GameObjectExtensions
 	/// Take damage.
 	/// </summary>
 	/// <param name="go"></param>
-	/// <param name="info"></param>
-	public static void TakeDamage( this GameObject go, ref DamageInfo info )
+	/// <param name="damage"></param>
+	/// <param name="position"></param>
+	/// <param name="force"></param>
+	/// <param name="attackerId"></param>
+	public static void TakeDamage( this GameObject go, float damage, Vector3 position, Vector3 force, Guid attackerId )
 	{
 		foreach ( var damageable in go.Root.Components.GetAll<HealthComponent>( FindMode.EnabledInSelfAndDescendants ) )
 		{
-			damageable.TakeDamage( info.Damage, info.Position, default, info.Attacker?.Id ?? default );
+			damageable.TakeDamage( damage, position, force, attackerId );
 		}
-
-		go.Scene.GetSystem<GameEventSystem>().OnDamageGivenEvent?.Invoke( go, info );
 	}
 }

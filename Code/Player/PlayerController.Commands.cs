@@ -8,8 +8,7 @@ public partial class PlayerController
 		var player = Developer.CurrentPlayer;
 		if ( player.IsValid() )
 		{
-			var dmg = DamageInfo.Generic( 50 );
-			player.GameObject.TakeDamage( ref dmg );
+			player.HealthComponent.TakeDamage( 50, Vector3.Zero, Vector3.Zero, player.Id );
 		}
 	}
 
