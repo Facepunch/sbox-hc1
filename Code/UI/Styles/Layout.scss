@@ -48,3 +48,67 @@ $hud-deadzone-y: 16px;
         pointer-events: all;
     }
 }
+
+.flex {
+    display: flex;
+
+    &.gap-xs {
+        gap: 4px;
+    }
+
+    &.gap-sm {
+        gap: 8px;
+    }
+
+    &.gap {
+        gap: 16px;
+    }
+
+    &.gap-lg {
+        gap: 32px;
+    }
+
+    &.flex-grow {
+        flex-grow: 1;
+    }
+
+    &.row {
+        flex-direction: row;
+    }
+
+    &.column {
+        flex-direction: column;
+    }
+
+    &.column-reverse {
+        flex-direction: column-reverse;
+    }
+
+    &.align-center {
+        align-items: center;
+    }
+
+    &.justify-center {
+        justify-content: center;
+    }
+
+    &.align-start {
+        align-items: flex-start;
+    }
+
+    &.justify-start {
+        justify-content: flex-start;
+    }
+}
+
+.square {
+    width: 32px;
+    height: 32px;
+
+    background-position: center;
+    background-size: cover;
+
+    &.rounded {
+        border-radius: 50%;
+    }
+}

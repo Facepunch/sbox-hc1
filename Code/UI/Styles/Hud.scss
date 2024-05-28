@@ -38,6 +38,12 @@ $hud-deadzone-y: 16px;
         align-items: center;
     }
 
+    &.top-right {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
     &.bottom-right
     {
         position: absolute;
@@ -52,5 +58,17 @@ $hud-deadzone-y: 16px;
         width: 100%;
         justify-content: center;
         align-items: center;
+    }
+
+    &.with-background
+    {
+        background-color: $background;
+        backdrop-filter: blur( 5px );
+        border-radius: 4px;
+    }
+
+    &.with-padding
+    {
+        padding: 8px;
     }
 }
