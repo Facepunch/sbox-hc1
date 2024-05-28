@@ -114,6 +114,9 @@ public partial class PlayerInventory : Component
 
 	public void GiveWeapon( WeaponDataResource resource, bool makeActive = true )
 	{
+		// Can't have the same weapon twice
+		if ( HasWeapon( resource ) ) return;
+
 		if ( IsProxy )
 		{
 			GiveWeapon( resource.ResourceId, makeActive );
@@ -149,13 +152,11 @@ public partial class PlayerInventory : Component
 		Log.Info( $"Spawned weapon {weaponGameObject} for {Player}" );
 	}
 
-	public bool OwnsWeapon( WeaponDataResource resource ) => OwnsWeapon( resource.ResourceId );
-
-	public bool OwnsWeapon( int resourceId )
+	public bool HasWeapon( WeaponDataResource resource )
 	{
 		foreach ( Weapon weapon in Weapons )
 		{
-			if ( weapon.Resource.ResourceId == resourceId )
+			if ( weapon.Resource == resource )
 				return true;
 		}
 

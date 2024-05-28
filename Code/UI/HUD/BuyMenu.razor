@@ -7,7 +7,7 @@
     <div class="options">
         @foreach (WeaponDataResource WeaponData in WeaponDataResource.All)
         {
-        <div class="button standard @(@Inventory.OwnsWeapon(WeaponData) ? "owned" : "unowned")" onclick=@(() => BuyWeapon(WeaponData))>
+        <div class="button standard @(@Inventory.HasWeapon(WeaponData) ? "owned" : "unowned")" onclick=@(() => BuyWeapon(WeaponData))>
             <div class="weapon-viewer">
             </div>
             <label>@WeaponData.Name</label>
