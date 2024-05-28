@@ -1,6 +1,9 @@
 @namespace Facepunch.UI
 @inherits PanelComponent
 
+@if ( !Player.IsValid() || !Inventory.IsValid() )
+    return;
+
 <root>
     <BuyMenu Player=@Player Inventory=@Inventory />
     <Crosshair Player=@Player />
@@ -16,6 +19,30 @@
 
 @code
 {
-    [Property] public PlayerController Player { get; set; }
-    [Property] public PlayerInventory Inventory { get; set; }
+    private PlayerController Player { get; set; }
+    private PlayerInventory Inventory { get; set; }
+
+    protected override void OnFixedUpdate()
+    {
+        base.OnFixedUpdate();
+        
+        var pawnSystem = Scene.GetSystem<PawnSystem>();
+
+        // Maybe we can listen for some event when the currently possessed pawn changes?
+        if ( pawnSystem.Viewer is PlayerController controller && controller.IsValid() )
+        {
+            Player = controller;
+            Inventory = controller.Inventory;
+        }
+        else
+        {
+            Player = null;
+            Inventory = null;
+        }
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( Player, Inventory );
+    }
 }

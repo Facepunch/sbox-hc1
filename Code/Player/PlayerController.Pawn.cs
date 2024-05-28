@@ -6,8 +6,6 @@ public partial class PlayerController
 	{
 		CreateViewModel();
 		SetupCamera();
-
-		HUDGameObject.Enabled = true;
 	}
 
 	[Broadcast]
@@ -35,7 +33,6 @@ public partial class PlayerController
 
 	public void OnDePossess()
 	{
-		HUDGameObject.Enabled = false;
 		CameraController.SetActive( false );
 		ClearViewModel();
 	}

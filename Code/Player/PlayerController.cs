@@ -69,11 +69,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 	[Sync] AnimationHelper.HoldTypes CurrentHoldType { get; set; } = AnimationHelper.HoldTypes.None;
 
 	/// <summary>
-	/// GameObject with the player's HUD. We'll only turn it on if we're the local connection.
-	/// </summary>
-	[Property] public GameObject HUDGameObject { get; set; }
-
-	/// <summary>
 	/// Called when the player jumps.
 	/// </summary>
 	[Property] public Action OnJump { get; set; }
@@ -204,14 +199,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 			if ( newWeapon.IsValid() )
 				CreateViewModel( newWeapon );
 		}
-	}
-
-	protected override void OnEnabled()
-	{
-		base.OnEnabled();
-
-		// Turn off the HUD by default, we'll opt in
-		HUDGameObject.Enabled = false;
 	}
 
 	// Properties used only in this component.

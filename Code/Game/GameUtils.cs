@@ -35,10 +35,15 @@ public partial class GameUtils
 	public static T GetHudPanel<T>()
 		where T : Panel
 	{
-		return LocalPlayer?.HUDGameObject
-			.Components.Get<ScreenPanel>()
-			.GetPanel()
-			.Descendants.OfType<T>()
+		var hudPanel = Game.ActiveScene?.GetAllComponents<MainHUD>()
 			.FirstOrDefault();
+
+		if ( hudPanel.IsValid() )
+		{
+			return hudPanel.Panel.Descendants.OfType<T>()
+				.FirstOrDefault();
+		}
+
+		return null;
 	}
 }
