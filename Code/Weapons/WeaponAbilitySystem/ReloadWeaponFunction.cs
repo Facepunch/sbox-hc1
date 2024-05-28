@@ -47,7 +47,7 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction
 
 	bool CanReload()
 	{
-		return !IsReloading && AmmoContainer.IsValid();
+		return !IsReloading && AmmoContainer.IsValid() && !AmmoContainer.IsFull;
 	}
 
 	float GetReloadTime()

@@ -25,4 +25,9 @@ public partial class AmmoContainer : Component
 	/// Do we have any ammo?
 	/// </summary>
 	[Property] public bool HasAmmo => Ammo > 0;
+
+	/// <summary>
+	/// Is this container full?
+	/// </summary>
+	public bool IsFull => Ammo == MaxAmmo;
 }
