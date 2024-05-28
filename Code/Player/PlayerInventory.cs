@@ -35,10 +35,8 @@ public partial class PlayerInventory : Component
 		
 		foreach ( var wpn in Weapons )
 		{
-			// Conna: little hack because really I think IsValid() on a GameObject or Component should return false
-			// even if it is _queued_ to be destroyed.
-			wpn.IsDestroyed = true;
 			wpn.GameObject.Destroy();
+			wpn.Enabled = false;
 		}
 	}
 
@@ -148,6 +146,6 @@ public partial class PlayerInventory : Component
 
 	public bool HasWeapon( WeaponDataResource resource )
 	{
-		return Weapons.Any( weapon => !weapon.IsDestroyed && weapon.Resource == resource );
+		return Weapons.Any( weapon => weapon.Enabled && weapon.Resource == resource );
 	}
 }
