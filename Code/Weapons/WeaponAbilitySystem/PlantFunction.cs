@@ -19,17 +19,31 @@ public partial class PlantFunction : InputActionWeaponFunction
 	[Property, Category( "Config" )]
 	public GameObject PlantedObjectPrefab { get; set; }
 
+	/// <summary>
+	/// TODO: this will get tied into an animation.
+	/// </summary>
+	[Property, Category( "Effects" )]
+	public SoundEvent PlantingBeepSound { get; set; }
+
+	[Property, Category( "Effects" )]
+	public Curve PlantingBeepFrequency { get; set; } = new Curve( new Curve.Frame( 0f, 1f ), new Curve.Frame( 1f, 0.25f ) );
+
+	[Sync]
 	public bool IsPlanting { get; private set; }
 
 	/// <summary>
 	/// Hold long since we started planting.
 	/// </summary>
+	[Sync]
 	private TimeSince TimeSincePlantStart { get; set; }
 
 	/// <summary>
 	/// Hold long since we aborted planting.
 	/// </summary>
+	[Sync]
 	private TimeSince TimeSincePlantCancel { get; set; }
+
+	private TimeSince TimeSinceBeep { get; set; }
 
 	protected override void OnEnabled()
 	{
@@ -57,16 +71,12 @@ public partial class PlantFunction : InputActionWeaponFunction
 
 	private void StartPlant()
 	{
-		Log.Info( $"StartPlant" );
-
 		IsPlanting = true;
 		TimeSincePlantStart = 0f;
 	}
 
 	private void Plant()
 	{
-		Log.Info( $"Plant" );
-
 		if ( TimeSincePlantStart > PlantTime )
 		{
 			FinishPlant();
@@ -89,8 +99,6 @@ public partial class PlantFunction : InputActionWeaponFunction
 
 	private void CancelPlant()
 	{
-		Log.Info( $"CancelPlant" );
-
 		IsPlanting = false;
 		TimeSincePlantCancel = 0f;
 	}
@@ -109,8 +117,6 @@ public partial class PlantFunction : InputActionWeaponFunction
 
 	protected override void OnFunctionDown()
 	{
-		Log.Info( $"OnFunctionDown" );
-
 		if ( CanPlant() )
 		{
 			StartPlant();
@@ -119,8 +125,33 @@ public partial class PlantFunction : InputActionWeaponFunction
 
 	protected override void OnFunctionUp()
 	{
-		Log.Info( $"OnFunctionUp" );
-
 		CancelPlant();
+	}
+
+	protected override void OnUpdate()
+	{
+		base.OnUpdate();
+
+		if ( !IsPlanting )
+		{
+			TimeSinceBeep = 0f;
+			return;
+		}
+
+		// TODO: this will get tied into an animation
+
+		var t = Math.Clamp( TimeSincePlantStart / PlantTime, 0f, 1f );
+
+		if ( TimeSinceBeep > PlantingBeepFrequency.Evaluate( t ) )
+		{
+			TimeSinceBeep = 0f;
+
+			Log.Info( $"Beep {PlantingBeepSound}" );
+
+			if ( PlantingBeepSound is not null )
+			{
+				Sound.Play( PlantingBeepSound, Weapon.GameObject.Transform.Position );
+			}
+		}
 	}
 }

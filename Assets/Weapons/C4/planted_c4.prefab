@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "681b5d1d-8746-4b26-b122-ff8c7d327c93",
+    "__guid": "f635a379-ce86-4ba1-a5e8-650e35a73614",
     "Flags": 0,
     "Name": "planted_c4",
     "Enabled": true,
@@ -9,7 +9,7 @@
     "Components": [
       {
         "__type": "TimedExplosive",
-        "__guid": "ad9cd7de-d111-4081-b84e-81fac741070c",
+        "__guid": "6bec09e3-a708-48dd-aa43-d7989f2b60b6",
         "BeepFrequency": [
           {
             "y": 1
@@ -22,12 +22,16 @@
           }
         ],
         "BeepSound": "sounds/guns/c4/c4_beep.sound",
-        "Duration": 45
+        "Duration": 10,
+        "ExplosionPrefab": {
+          "_type": "gameobject",
+          "prefab": "weapons/c4/c4_explosion.prefab"
+        }
       }
     ],
     "Children": [
       {
-        "__guid": "765a85ac-85c0-4ece-b2d7-701bbc7cd5fc",
+        "__guid": "eb9b92c3-7f16-498b-a6af-920405022e6f",
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
@@ -36,7 +40,7 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "e4a4387c-f68e-4a8b-8b09-6f201d9c68f8",
+            "__guid": "9dc97e3c-6b67-4343-bd04-63c8430b030c",
             "BodyGroups": 18446744073709551615,
             "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
             "RenderType": "On",

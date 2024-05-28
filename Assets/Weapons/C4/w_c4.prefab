@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "b01546b2-21cc-47da-a5b1-da1c8666a2ab",
+    "__guid": "669c839f-aec2-4534-ab6e-6d923dbb30a6",
     "Flags": 0,
     "Name": "w_c4",
     "Tags": "player",
@@ -10,24 +10,24 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "722595b3-f2b1-4224-ad89-6e4f5f9f455f",
+        "__guid": "6a6b10f4-96bc-489c-9d7b-b9a97a725025",
         "HoldType": "HoldItem",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "0f1615ab-60bc-4ea4-b006-53a782cd9055",
-          "go": "7fdcdeb3-992b-4216-be88-8077da7467eb",
+          "component_id": "a7588883-3043-4a68-9860-9c7f4d05b9b2",
+          "go": "c77c10df-ae7f-40d0-b6a3-df5eb54f0533",
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "weapons/c4/c4.weapon"
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "1c8f3c1e-ad86-4074-b08b-274fa3439e08"
+        "__guid": "c208ec52-5a9a-442b-a3c2-ab4954cb9e22"
       }
     ],
     "Children": [
       {
-        "__guid": "7fdcdeb3-992b-4216-be88-8077da7467eb",
+        "__guid": "c77c10df-ae7f-40d0-b6a3-df5eb54f0533",
         "Flags": 0,
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
@@ -37,7 +37,7 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "0f1615ab-60bc-4ea4-b006-53a782cd9055",
+            "__guid": "a7588883-3043-4a68-9860-9c7f4d05b9b2",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
             "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
@@ -47,7 +47,7 @@
         ]
       },
       {
-        "__guid": "49dbb02d-f8ff-44e1-b939-6ff489a7cb12",
+        "__guid": "ba2d3ed5-de59-4e60-be4e-ce5278c9db3e",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -56,7 +56,7 @@
         "Components": [
           {
             "__type": "PlantFunction",
-            "__guid": "d2155888-dd45-435e-bda6-d0bc97009215",
+            "__guid": "d28a1f31-03ca-4003-8629-9ce85da9a3e9",
             "InputActions": [
               "Attack1"
             ],
@@ -65,6 +65,28 @@
               "_type": "gameobject",
               "prefab": "weapons/c4/planted_c4.prefab"
             },
+            "PlantingBeepFrequency": [
+              {
+                "y": 0.34574467,
+                "in": 2.0425532,
+                "out": -2.0425532
+              },
+              {
+                "x": 0.3690476,
+                "y": 0.43707633
+              },
+              {
+                "x": 0.7202381,
+                "y": 0.13017386
+              },
+              {
+                "x": 1,
+                "y": 0.25,
+                "in": 1.6842108,
+                "out": -1.6842108
+              }
+            ],
+            "PlantingBeepSound": "sounds/guns/c4/c4_planting_beep.sound",
             "PlantTime": 3.2,
             "RequiresAllInputActions": false,
             "ResetTime": 0.5
