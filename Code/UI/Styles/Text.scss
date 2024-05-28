@@ -6,6 +6,15 @@ label, text, textentry {
     font-size: 20px;
     font-weight: bold;
     text-transform: uppercase;
+    text-shadow: 0 4px 4px rgba( black, 0.25 );
+
+    &.no-shadow {
+        text-shadow: none;
+    }
+
+    &.small {
+        font-size: 16px;
+    }
 
     &.emphasis {
         font-size: 24px;
@@ -16,4 +25,10 @@ label, text, textentry {
         font-size: 28px;
         font-weight: bold;
     }
+
+    &.blue { color: $blue; }
+    &.red { color: $red; }
+    &.green { color: $green; }
+    &.yellow { color: $yellow; }
+    &.grey { opacity: 0.5; }
 }
