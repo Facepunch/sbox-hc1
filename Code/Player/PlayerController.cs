@@ -229,9 +229,12 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 			var eyeHeightOffset = GetEyeHeightOffset();
 			SmoothEyeHeight = SmoothEyeHeight.LerpTo( eyeHeightOffset, Time.Delta * 10f );
 
-			// Bit shit, but it works
-			PlayerBoxCollider.Center = new( 0, 0, 32 + SmoothEyeHeight );
-			PlayerBoxCollider.Scale = new( 32, 32, 64 + SmoothEyeHeight );
+			if ( PlayerBoxCollider.IsValid() )
+			{
+				// Bit shit, but it works
+				PlayerBoxCollider.Center = new(0, 0, 32 + SmoothEyeHeight);
+				PlayerBoxCollider.Scale = new(32, 32, 64 + SmoothEyeHeight);
+			}
 
 			EyeAngles += Input.AnalogLook;
 			EyeAngles = EyeAngles.WithPitch( EyeAngles.pitch.Clamp( -90, 90 ) );
