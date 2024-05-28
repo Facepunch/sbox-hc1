@@ -104,6 +104,16 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 	[Sync] public bool IsSlowWalking { get; set; }
 
 	/// <summary>
+	/// Is the player noclipping?
+	/// </summary>
+	[Sync] public bool IsNoclipping { get; set; }
+
+	/// <summary>
+	/// Noclip movement speed
+	/// </summary>
+	[Property] public float NoclipSpeed { get; set; } = 1000f;
+
+	/// <summary>
 	/// The player's box collider, so people can jump on other people.
 	/// </summary>
 	[Property] public BoxCollider PlayerBoxCollider { get; set; }
@@ -327,6 +337,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 	{
 		IsSlowWalking = Input.Down( "Run" );
 		IsCrouching = Input.Down( "Duck" );
+		
+		if ( Input.Pressed( "Noclip" ) )
+		{
+			IsNoclipping = !IsNoclipping;
+		}
 	}
 
 	protected override void OnFixedUpdate()
@@ -363,7 +378,10 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 		}
 		else
 		{
-			cc.Velocity -= Gravity * Time.Delta * 0.5f;
+			if ( !IsNoclipping )
+			{
+				cc.Velocity -= Gravity * Time.Delta * 0.5f;
+			}
 			cc.Accelerate( WishVelocity.ClampLength( 50 ) );
 		}
 
@@ -372,14 +390,23 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 
 		if ( !cc.IsOnGround )
 		{
-			cc.Velocity -= Gravity * Time.Delta * 0.5f;
+			if ( !IsNoclipping )
+			{
+				cc.Velocity -= Gravity * Time.Delta * 0.5f;
+			}
 		}
 		else
 		{
 			cc.Velocity = cc.Velocity.WithZ( 0 );
 		}
+		
+		// Noclip
+		if ( IsNoclipping )
+		{
+			cc.IsOnGround = false;
+			cc.Velocity = WishMove.Normal * EyeAngles.ToRotation() * NoclipSpeed;
+		}
 	}
-
 	protected float GetWishSpeed()
 	{
 		if ( IsSlowWalking ) return 100f;
