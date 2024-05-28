@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Facepunch;
 
-public partial class PlayerController : Component, IPawn, IRespawnable
+public partial class PlayerController : Component, IPawn, IRespawnable, IDamageListener
 {
 	/// <summary>
 	/// Sync the player's steamid
@@ -449,5 +449,29 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 		wishDirection = wishDirection.WithZ( 0 );
 
 		WishVelocity = wishDirection * GetWishSpeed();
+	}
+
+	/// <summary>
+	/// Called when YOU inflict damage on something
+	/// </summary>
+	/// <param name="damage"></param>
+	/// <param name="position"></param>
+	/// <param name="force"></param>
+	/// <param name="target"></param>
+	void IDamageListener.OnDamageGiven( float damage, Vector3 position, Vector3 force, Component target )
+	{
+		Log.Info($"{this} damaged {target} for {damage}");
+	}
+
+	/// <summary>
+	/// Called when YOU take damage from something
+	/// </summary>
+	/// <param name="damage"></param>
+	/// <param name="position"></param>
+	/// <param name="force"></param>
+	/// <param name="attacker"></param>
+	void IDamageListener.OnDamageTaken( float damage, Vector3 position, Vector3 force, Component attacker )
+	{
+		Log.Info($"{this} took {damage} damage!");
 	}
 }

@@ -170,7 +170,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 			DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
 
 			// Inflict damage on whatever we find.
-			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.Id );
+			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id );
 			count++;
 		}
 	}

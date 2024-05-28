@@ -8,7 +8,7 @@ public partial class PlayerController
 		var player = Developer.CurrentPlayer;
 		if ( player.IsValid() )
 		{
-			player.HealthComponent.TakeDamage( 50, Vector3.Zero, Vector3.Zero, player.Id );
+			player.HealthComponent.TakeDamage( 50, Vector3.Zero, Vector3.Zero, player.HealthComponent.Id );
 		}
 	}
 

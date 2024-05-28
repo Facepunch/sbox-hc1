@@ -24,6 +24,11 @@ public partial class HealthComponent : Component, IRespawnable
 	TimeSince TimeSinceLifeStateChanged = 1;
 
 	/// <summary>
+	/// A list of all Respawnable things on this GameObject
+	/// </summary>
+	protected IEnumerable<IRespawnable> Respawnables => GameObject.Root.Components.GetAll<IRespawnable>(FindMode.EnabledInSelfAndDescendants);
+
+	/// <summary>
 	/// What's our health?
 	/// </summary>
 	[Sync( Query = true ), Property, ReadOnly]
@@ -69,8 +74,6 @@ public partial class HealthComponent : Component, IRespawnable
 		OnHealthChanged?.Invoke( oldValue, newValue );
 	}
 
-	protected IEnumerable<IRespawnable> Respawnables => GameObject.Root.Components.GetAll<IRespawnable>( FindMode.EnabledInSelfAndDescendants );
-
 	protected void LifeStateChanged( LifeState oldValue, LifeState newValue )
 	{
 		if ( newValue == LifeState.Alive )
@@ -88,20 +91,35 @@ public partial class HealthComponent : Component, IRespawnable
 	[Broadcast]
 	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId )
 	{
-		Health -= damage;
+		// Only the person in charge should be inflicting damage here
+		if ( !IsProxy )
+		{
+			Health -= damage;
+
+			// Did we die?
+			if ( Health <= 0 )
+			{
+				State = LifeState.Dead;
+			}
+		}
 
 		Log.Info($"{GameObject.Name}.OnDamage( {damage} ): {Health}, {State}");
 
-		if ( Health <= 0 )
+		var attackingComponent = Scene.Directory.FindComponentByGuid(attackerId);
+		var receivers = GameObject.Root.Components.GetAll<IDamageListener>();
+		foreach ( var x in receivers )
 		{
-			Killed( damage, position, force, attackerId );
+			x.OnDamageTaken( damage, position, force, attackingComponent );
 		}
-	}
 
-	protected void Killed(float damage, Vector3 position, Vector3 force, Guid attackerId)
-	{
-		LifeState newState = LifeState.Dead;
-		State = newState;
+		if ( attackingComponent.IsValid() )
+		{
+			var givers = attackingComponent.GameObject.Root.Components.GetAll<IDamageListener>();
+			foreach ( var x in givers )
+			{
+				x.OnDamageGiven( damage, position, force, this );
+			}
+		}
 	}
 
 	protected override void OnUpdate()
