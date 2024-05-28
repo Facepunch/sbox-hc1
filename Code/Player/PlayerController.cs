@@ -93,6 +93,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 	/// </summary>
 	[Property, Group( "Config" )] public float BaseFriction { get; set; } = 4.0f;
 
+	/// <summary>
+	/// The player's box collider, so people can jump on other people.
+	/// </summary>
+	[Property] public BoxCollider PlayerBoxCollider { get; set; }
+
     /// <summary>
     /// A shorthand accessor to say if we're controlling this player.
     /// </summary>
@@ -223,6 +228,10 @@ public partial class PlayerController : Component, IPawn, IRespawnable
 			// TODO: Move this eye height stuff to the camera? Not sure.
 			var eyeHeightOffset = GetEyeHeightOffset();
 			SmoothEyeHeight = SmoothEyeHeight.LerpTo( eyeHeightOffset, Time.Delta * 10f );
+
+			// Bit shit, but it works
+			PlayerBoxCollider.Center = new( 0, 0, 32 + SmoothEyeHeight );
+			PlayerBoxCollider.Scale = new( 32, 32, 64 + SmoothEyeHeight );
 
 			EyeAngles += Input.AnalogLook;
 			EyeAngles = EyeAngles.WithPitch( EyeAngles.pitch.Clamp( -90, 90 ) );

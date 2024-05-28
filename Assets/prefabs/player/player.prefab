@@ -34,6 +34,12 @@
           "go": "113f8a24-aff8-4ac9-870c-ef56901fd698"
         },
         "JumpPower": 350,
+        "PlayerBoxCollider": {
+          "_type": "component",
+          "component_id": "56ead35b-1b61-414f-b016-5da1fb7f07d3",
+          "go": "39530ae1-7333-45be-ba3d-27583049d920",
+          "component_type": "BoxCollider"
+        },
         "ViewModelCamera": {
           "_type": "component",
           "component_id": "4a7e2823-3ce1-4694-82ff-76c4433577b7",
@@ -1496,7 +1502,7 @@
             },
             "Priority": 0,
             "TimeSinceActiveChanged": {
-              "Relative": 139.39653
+              "Relative": 1644.7773
             }
           },
           {
@@ -1505,7 +1511,7 @@
             "Priority": 0,
             "SlowWalkSpeed": 100,
             "TimeSinceActiveChanged": {
-              "Relative": 139.39653
+              "Relative": 1644.7773
             }
           }
         ]
@@ -1542,6 +1548,25 @@
               "go": "460b2503-4d7a-4b5e-a834-20f751c1b513",
               "component_type": "PlayerController"
             }
+          }
+        ]
+      },
+      {
+        "__guid": "39530ae1-7333-45be-ba3d-27583049d920",
+        "Flags": 0,
+        "Name": "Collider",
+        "Tags": "movement",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.BoxCollider",
+            "__guid": "56ead35b-1b61-414f-b016-5da1fb7f07d3",
+            "Center": "0,0,0",
+            "IsTrigger": false,
+            "Scale": "50,50,50",
+            "Static": false
           }
         ]
       }
