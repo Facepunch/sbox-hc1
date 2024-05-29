@@ -2,36 +2,26 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-<root class="hud with-deadzone top-middle">
-    <div class="players">
-        @foreach ( var grouping in PlayerList.GroupBy( x => x.GameObject.GetTeam() ) )
-        {
-            <div class="team">
-                <label class="teamname" style="color: @grouping.Key.GetColor().Hex">@GetTeamName(grouping.Key)</label>
+<root class="hud with-deadzone top-middle flex row">
+    @if ( GroupedPlayers.Count >= 1 )
+        <RoundStateTeam Grouping="@GroupedPlayers[0]" iconPosition="Right" />
 
-                <div class="avatars">
-                    @foreach ( var values in grouping )
-                    {
-                        <PlayerAvatar @Player=@values />
-                    }
-                </div>
-            </div>
-        }
+    <div class="flex column with-background with-padding with-px-lg h-full align-center justify-center">
+        <label>@Status</label>
+        <label class="emphasis">@(Time?.ToString(@"m\:ss"))</label>
     </div>
 
-    <label class="emphasis">@Status</label>
-    <label class="important">@(Time?.ToString(@"m\:ss"))</label>
+    @if ( GroupedPlayers.Count >= 2 )
+        <RoundStateTeam Grouping="@GroupedPlayers[1]" iconPosition="Left" />
 </root>
 
 @code
 {
+
+    private List<IGrouping<Team, PlayerController>> GroupedPlayers => PlayerList.GroupBy(x => x.GameObject.GetTeam()).ToList();
+
     public string Status => GameMode.Instance?.DisplayedStatus;
     public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
-
-    private string GetTeamName( Team team )
-    {
-        return team.GetName();
-    }
 
     public IEnumerable<PlayerController> PlayerList => Scene.GetAllComponents<PlayerController>();
 
