@@ -157,6 +157,12 @@ public partial class PlayerInventory : Component
 		if ( !CanTakeWeapon( resource ) )
 			return;
 
+		Weapon slotCurrent = Weapons.FirstOrDefault(weapon => weapon.Resource.Slot == resource.Slot );
+		if ( slotCurrent is not null )
+		{
+			DropWeapon(slotCurrent);
+		}
+
 		if ( !resource.MainPrefab.IsValid() )
 		{
 			Log.Error( $"Weapon doesn't have a prefab? {resource}, {resource.MainPrefab}, {resource.ViewModelPrefab}" );
@@ -197,7 +203,7 @@ public partial class PlayerInventory : Component
 				return true;
 
 			default:
-				return !HasWeapon( resource.Slot );
+				return true;
 		}
 	}
 	

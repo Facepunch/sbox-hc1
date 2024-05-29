@@ -38,7 +38,7 @@
 
     private void BuyWeapon( WeaponData weaponData )
     {
-        if (!CanAfford(weaponData) || !Inventory.CanTakeWeapon(weaponData))
+        if ( !CanAfford( weaponData ) )
             return;
 
         Inventory.BuyWeapon( weaponData.ResourceId );
