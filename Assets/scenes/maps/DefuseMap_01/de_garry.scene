@@ -1081,6 +1081,49 @@
       ]
     },
     {
+      "__guid": "d09f6e1b-a330-4b6b-a2fa-3abb580fbc83",
+      "Flags": 0,
+      "Name": "Door (1)",
+      "Position": "-4600,937,96.00002",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Facepunch.Door",
+          "__guid": "edd39353-31c9-4b87-b62e-218f11c73b05",
+          "AnimationCurve": [
+            {},
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "CloseSound": "sound/hl2_door_soft_close.sound",
+          "OpenAwayFromPlayer": true,
+          "OpenSound": "sound/hl2_door_open.sound",
+          "OpenTime": 0.35,
+          "TargetAngle": 90
+        },
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "03eff367-58fc-41b6-a071-a499730f9680",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/props/trim_sheets/doors/wooden_doors/wooden_door_01d.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "3c09a031-7930-4148-8708-a8b7c6778daf",
+          "IsTrigger": false,
+          "Model": "models/props/trim_sheets/doors/wooden_doors/wooden_door_01d.vmdl",
+          "Static": true
+        }
+      ]
+    },
+    {
       "__guid": "e1ef9109-5782-4d95-a82e-e1a29dec9864",
       "Flags": 0,
       "Name": "bombsite_b",
@@ -1421,6 +1464,98 @@
           "TriPlanar": false
         }
       ]
+    },
+    {
+      "__guid": "8dc5f9db-8442-4cde-b983-a850ac6b6492",
+      "Flags": 0,
+      "Name": "decal_bombsite_b",
+      "Position": "-4096,-976,1216",
+      "Rotation": "0.7071068,-0.7071066,-0.0000001376788,0.0000001376788",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "7d618bf0-6e88-408e-bacd-514261ff61a1",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_bombsite_b.vmat",
+          "Mod2XBlending": false,
+          "Size": "256,255,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "1c558476-2038-4b54-8a19-f59f47619974",
+      "Flags": 0,
+      "Name": "decal_bombsite_b (5)",
+      "Position": "-3872,-1216,1216",
+      "Rotation": "0.0000002384186,-0.9999999,-0.0000001947072,0.00000000000002131628",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "0cfcb6ec-2720-4e8c-ae88-04de0cc3ec68",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_bombsite_b.vmat",
+          "Mod2XBlending": false,
+          "Size": "256,255,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "43da332c-4849-4b13-a8f1-1247de6ae8f7",
+      "Flags": 0,
+      "Name": "decal_bombsite_b (3)",
+      "Position": "-1696,832,864",
+      "Rotation": "0.9999999,0.00000005960464,-0.00000000000002131628,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "c2139613-cfaa-4cd7-a1eb-ff1e8c36359e",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_bombsite_a.vmat",
+          "Mod2XBlending": false,
+          "Size": "256,255,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "83275943-0f0b-43d0-a008-e3196bfafd38",
+      "Flags": 0,
+      "Name": "decal_bombsite_b (4)",
+      "Position": "-1440,608,864",
+      "Rotation": "0.7071067,0.7071067,0.0000001376788,0.0000001376788",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "e479ad6b-eefa-4657-b5c9-1d16ba900152",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_bombsite_a.vmat",
+          "Mod2XBlending": false,
+          "Size": "256,255,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -1446,7 +1581,7 @@
   },
   "Title": "de_garry",
   "Description": "",
-  "LastSaved": "2024-05-29T15:47:53.9610099\u002B01:00",
+  "LastSaved": "2024-05-29T16:00:44.2179023\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "facepunch.wooden_door_01d",
