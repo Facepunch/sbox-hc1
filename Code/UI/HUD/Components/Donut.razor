@@ -1,0 +1,43 @@
+﻿@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root style="@BuildStyle()">
+    <div style="@BuildOuterStyle()" class="container">
+        <div style="@BuildInnerStyle()" class="inner"></div>
+    </div>
+    <Icon file="@Icon" size="24" />
+    <!-- <label class="vital">@Value.CeilToInt()</label> -->
+</root>
+
+@code
+{
+    /// <summary>
+    /// 0 to 100
+    /// </summary>
+    public float Value { get; set; } = 100f;
+
+    public float Size { get; set; } = 128f;
+
+    public string Icon { get; set; } = "";
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Value, Size, Icon);
+    }
+
+    private string BuildInnerStyle()
+    {
+        return $"mask-image: conic-gradient(white 0%, white {Value}%, black {Value+1}%);";
+    }
+
+    private string BuildOuterStyle()
+    {
+        return $"mask-image: radial-gradient(black 0%, black 40%, white 41%, white 100%); width: {Size}px; height: {Size}px;";
+    }
+
+    private string BuildStyle()
+    {
+        return $"width: {Size}px; height: {Size}px;";
+    }
+}
