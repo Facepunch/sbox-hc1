@@ -8,7 +8,7 @@
 	<div class="title">Developer Menu</div>
 
     <div class="options">
-        @foreach ( var data in TypeLibrary.GetMethodsWithAttribute<DeveloperCommandAttribute>() )
+        @foreach ( var data in TypeLibrary.GetMethodsWithAttribute<DeveloperCommandAttribute>().OrderBy( x => x.Attribute.Name ) )
         {
             <div class="button" onclick=@(() => InvokeMethod( data.Method ))>@data.Attribute.Name</div>
         }
