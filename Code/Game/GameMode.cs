@@ -13,6 +13,8 @@ public sealed class GameMode : SingletonComponent<GameMode>
 	[Property, Sync]
 	public GameState State { get; private set; }
 
+	private Task _gameLoopTask;
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -39,7 +41,7 @@ public sealed class GameMode : SingletonComponent<GameMode>
 
 	public Task ResumeGame()
 	{
-		return GameLoop();
+		return _gameLoopTask ??= GameLoop();
 	}
 
 	private async Task GameLoop()
