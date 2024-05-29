@@ -4,7 +4,7 @@
 @namespace Facepunch.UI
 @inherits Panel
 
-<root class="row @(IsLocal ? "local" : "") @(IsDead ? "dead" : "")">
+<root class="row @(IsLocal ? "local" : "") @(IsDead ? "dead" : "") with-px-lg with-py">
     <label class="col stat-small">@(Connection.Ping.CeilToInt())ms</label>
 
     <span class="col playername">
