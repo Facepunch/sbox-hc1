@@ -87,22 +87,21 @@ public sealed class Door : Component, IUse
 		if ( State == DoorState.Closed )
 		{
 			State = DoorState.Opening;
-			if ( OpenSound is not null ) Sound.Play( OpenSound, Transform.Position );
+			if ( OpenSound is not null ) Sound.Play( OpenSound, Transform.Position ).Occlusion = false;
 
-			// Do we need to open away from the player?
+			if ( OpenAwayFromPlayer )
+			{
+				var playerPosition = player.GameObject.Transform.Position;
+				var doorToPlayer = (playerPosition - PivotPosition).Normal;
+				var doorForward = Transform.Local.Rotation.Forward;
 
-			// Shit assumption
-			var pos1 = StartTransform.Right * 64.0f;
-			var pos2 = StartTransform.Right * -64.0f;
-
-			var plypos = Transform.World.PointToLocal( player.GameObject.Transform.Position );
-
-			ReverseDirection = plypos.Distance( pos1 ) < plypos.Distance( pos2 );
+				ReverseDirection = Vector3.Dot( doorToPlayer, doorForward ) > 0;
+			}
 		}
 		else if ( State == DoorState.Open )
 		{
 			State = DoorState.Closing;
-			if ( CloseSound is not null ) Sound.Play( CloseSound, Transform.Position );
+			if ( CloseSound is not null ) Sound.Play( CloseSound, Transform.Position ).Occlusion = false;
 		}
 
 		return true;
@@ -134,8 +133,8 @@ public sealed class Door : Component, IUse
 		{
 			State = State == DoorState.Opening ? DoorState.Open : DoorState.Closed;
 
-			if ( State == DoorState.Open && OpenFinishedSound is not null ) Sound.Play( OpenFinishedSound, Transform.Position );
-			if ( State == DoorState.Closed && CloseFinishedSound is not null ) Sound.Play( CloseFinishedSound, Transform.Position );
+			if ( State == DoorState.Open && OpenFinishedSound is not null ) Sound.Play( OpenFinishedSound, Transform.Position ).Occlusion = false;
+			if ( State == DoorState.Closed && CloseFinishedSound is not null ) Sound.Play( CloseFinishedSound, Transform.Position ).Occlusion = false;
 
 			return;
 		}
