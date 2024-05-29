@@ -80,7 +80,7 @@ public sealed class Door : Component, IUse
 		return State == DoorState.Open || State == DoorState.Closed;
 	}
 
-	public bool OnUse( PlayerController player )
+	public void OnUse( PlayerController player )
 	{
 		LastUse = 0.0f;
 
@@ -103,8 +103,6 @@ public sealed class Door : Component, IUse
 			State = DoorState.Closing;
 			if ( CloseSound is not null ) Sound.Play( CloseSound, Transform.Position ).Occlusion = false;
 		}
-
-		return true;
 	}
 
 	protected override void OnFixedUpdate()

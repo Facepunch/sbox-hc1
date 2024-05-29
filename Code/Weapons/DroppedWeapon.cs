@@ -34,22 +34,8 @@ public partial class DroppedWeapon : Component, IUse
 		return !player.Inventory.HasWeapon( Resource );
 	}
 
-	public bool OnUse( PlayerController player )
+	public void OnUse( PlayerController player )
 	{
-		TryPickup( player.Id );
-		return false;
-	}
-
-	[Broadcast]
-	private void TryPickup( Guid pickerId )
-	{
-		if ( !Networking.IsHost )
-			return;
-
-		var player = Scene.Directory.FindComponentByGuid( pickerId ) as PlayerController;
-		if ( !player.IsValid() )
-			return;
-		
 		player.Inventory.GiveWeapon( Resource );
 		GameObject.Destroy();
 	}

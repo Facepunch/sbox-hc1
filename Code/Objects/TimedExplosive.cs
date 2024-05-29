@@ -220,14 +220,12 @@ public sealed class TimedExplosive : Component, IUse
 		return !IsDefused && !DefusingPlayer.IsValid() && player.TeamComponent.Team == Team.CounterTerrorist;
 	}
 
-	public bool OnUse( PlayerController player )
+	public void OnUse( PlayerController player )
 	{
 		TimeSinceDefuseStart = 0f;
 
 		StartDefusing( player.Id );
 
 		player.IsFrozen = true;
-
-		return true;
 	}
 }
