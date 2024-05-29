@@ -5,22 +5,30 @@
 @if ( !Player.IsValid() ) return;
 
 <root class="hud with-deadzone @(Player.InBuyMenu ? "active" : "")">
-    <div class="title">Buy</div>
-    <div class="options">
-        @foreach (WeaponData weaponData in WeaponData.All.Where(W => W.IsPurchasable))
-        {
-            <div class="button @(@Inventory.HasWeapon( weaponData ) ? "owned" : "unowned") @(@CanAfford( weaponData ) ? "" : "unaffordable" )" onclick=@(() => BuyWeapon( weaponData ))>
-                @if ( !string.IsNullOrEmpty( weaponData.Icon ) )
-                {
-                    <div class="gunicon" style="background-image:url(@weaponData.Icon);" />
-                }
-                <label>@weaponData.Name</label>
-                <br />
-                <label class="price">$@weaponData.Price</label>
+    @foreach (WeaponSlot slot in Enum.GetValues(typeof(WeaponSlot)))
+    {
+        var weapons = WeaponData.All.Where(W => W.IsPurchasable && W.Slot == slot);
+        if (weapons.Count() < 1)
+            continue;
+
+        <div class="section">
+            <label class="title">@slot</label>
+            <div class="options">
+            @foreach (WeaponData weaponData in weapons)
+            {
+                <div class="button @(@Inventory.HasWeapon( weaponData ) ? "owned" : "unowned") @(@CanAfford( weaponData ) ? "" : "unaffordable" )" onclick=@(() => BuyWeapon( weaponData ))>
+                    @if ( !string.IsNullOrEmpty( weaponData.Icon ) )
+                    {
+                        <div class="gunicon" style="background-image:url(@weaponData.Icon);" />
+                    }
+
+                    <label>@weaponData.Name</label>
+                    <label class="price">$@weaponData.Price.ToString("N0")</label>
+                </div>
+            }
             </div>
         </div>
-        }
-    </div>
+    }
 </root>
 
 @code

@@ -10,13 +10,18 @@ BuyMenu
     width: 75%;
     max-width: 1900px;
     padding: 64px;
-    font-weight: bold;
     background-color: rgba( black, 0.5 );
     border-radius: 20px;
     flex-direction: column;
-    gap: 16px;
+    gap: 32px;
     opacity: 0;
     pointer-events: none;
+
+    .section
+    {        
+        flex-direction: column;
+        gap: 16px;
+    }
 
     .options
     {
@@ -36,7 +41,6 @@ BuyMenu
         font-size: 25px;
         font-family: $main-font;
         color: #fff;
-        text-shadow: 2px 2px 2px rgba( black, 0.5 );
     }
 
     .button
@@ -45,25 +49,16 @@ BuyMenu
         font-family: $main-font;
         color: #fff;
         background-color: rgba( black, 0.5 );
-        height: 128px;
-        width: 256px;
+        height: 150px;
+        width: 300px;
         padding: 16px;
         display: flex;
         flex-direction: column;
         border: 3px solid;
         border-color: transparent;
         transition: all 0.075s ease;
-        justify-content: center;
-        align-items: center;
-
-        .info
-        {
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            height: 100%;
-            padding: 8px;
-        }
+        justify-content: flex-end;
+        align-items: flex-start;
 
         label
         {
@@ -91,10 +86,12 @@ BuyMenu
         }
     }
 
-    .gunicon {
+    .gunicon
+    {
         position: absolute;
-        width: 128px;
-        height: 64px;
+        align-self: center;
+        width: 60%;
+        height: 100%;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
