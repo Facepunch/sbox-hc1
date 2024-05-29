@@ -39,6 +39,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// The current camera controller for this player.
 	/// </summary>
 	[RequireComponent] public CameraController CameraController { get; set; }
+	
+	/// <summary>
+	/// The outline effect for this player.
+	/// </summary>
+	[RequireComponent] public HighlightOutline Outline { get; set; }
 
 	/// <summary>
 	/// A reference to the View Model's camera. This will be disabled by the View Model.
@@ -139,9 +144,13 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// </summary>
 	public bool CanRespawn => GameMode.Instance.State is GameState.PreGame;
 
-	public bool InBuyMenu { get; set; }
-
+	private Vector3 WishVelocity { get; set; }
+	public bool IsGrounded { get; set; }
+	public Vector3 WishMove { get; private set; }
+	public bool InBuyMenu { get; private set; }
 	public bool InMenu => InBuyMenu;
+	
+	private float _smoothEyeHeight;
 
 	[Sync] private Guid CurrentWeaponId { get; set; }
 	
@@ -209,12 +218,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		if ( newWeapon.IsValid() )
 			CreateViewModel( newWeapon );
 	}
-
-	// Properties used only in this component.
-	Vector3 WishVelocity;
+	
 	[Sync] public Angles EyeAngles { get; set; }
-
-	public bool IsGrounded { get; set; }
 
 	protected float GetEyeHeightOffset()
 	{
@@ -222,50 +227,44 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		return 0f;
 	}
 
-	float SmoothEyeHeight = 0f;
-
 	protected override void OnAwake()
 	{
-		baseAcceleration = CharacterController.Acceleration;
+		_baseAcceleration = CharacterController.Acceleration;
 	}
 
 	protected override void OnUpdate()
 	{
 		var cc = CharacterController;
 
-		if ( CurrentWeapon.IsValid() )
-			CurrentHoldType = CurrentWeapon.GetHoldType();
-		else
-			CurrentHoldType = AnimationHelper.HoldTypes.None;
+		CurrentHoldType = CurrentWeapon.IsValid() ? CurrentWeapon.GetHoldType() : AnimationHelper.HoldTypes.None;
 
 		// Eye input
-		if ( IsLocallyControlled && cc != null )
+		if ( IsLocallyControlled && cc.IsValid() )
 		{
 			// TODO: Move this eye height stuff to the camera? Not sure.
 			var eyeHeightOffset = GetEyeHeightOffset();
-			SmoothEyeHeight = SmoothEyeHeight.LerpTo( eyeHeightOffset, Time.Delta * 10f );
+			_smoothEyeHeight = _smoothEyeHeight.LerpTo( eyeHeightOffset, Time.Delta * 10f );
 
 			if ( PlayerBoxCollider.IsValid() )
 			{
 				// Bit shit, but it works
-				PlayerBoxCollider.Center = new( 0, 0, 32 + SmoothEyeHeight );
-				PlayerBoxCollider.Scale = new( 32, 32, 64 + SmoothEyeHeight );
+				PlayerBoxCollider.Center = new( 0, 0, 32 + _smoothEyeHeight );
+				PlayerBoxCollider.Scale = new( 32, 32, 64 + _smoothEyeHeight );
 			}
 
 			EyeAngles += Input.AnalogLook;
 			EyeAngles = EyeAngles.WithPitch( EyeAngles.pitch.Clamp( -90, 90 ) );
 
-			CameraController.UpdateFromEyes( SmoothEyeHeight );
+			CameraController.UpdateFromEyes( _smoothEyeHeight );
 		}
 		else
 		{
 			CameraController.SetActive( false );
 		}
 
-		float rotateDifference = 0;
-
-		// rotate body to look angles
-		if ( Body is not null )
+		var rotateDifference = 0f;
+		
+		if ( Body.IsValid() )
 		{
 			var targetAngle = new Angles( 0, EyeAngles.yaw, 0 ).ToRotation();
 
@@ -276,16 +275,10 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 				Body.Transform.Rotation = Rotation.Lerp( Body.Transform.Rotation, targetAngle, Time.Delta * 10.0f );
 			}
 		}
-
-		var wasGrounded = IsGrounded;
+		
 		IsGrounded = cc.IsOnGround;
 
-		if ( wasGrounded != IsGrounded )
-		{
-			GroundedChanged();
-		}
-
-		if ( AnimationHelper is not null && cc is not null )
+		if ( AnimationHelper.IsValid() )
 		{
 			AnimationHelper.WithVelocity( cc.Velocity );
 			AnimationHelper.WithWishVelocity( WishVelocity );
@@ -296,11 +289,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 			AnimationHelper.DuckLevel = IsCrouching ? 100 : 0;
 			AnimationHelper.HoldType = CurrentHoldType;
 		}
-	}
-
-	private void GroundedChanged()
-	{
-		var nowOffGround = IsGrounded == false;
 	}
 
 	/// <summary>
@@ -319,26 +307,21 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <returns></returns>
 	private float GetFriction()
 	{
-		if ( !CharacterController.IsOnGround ) return 0.1f;
-		return BaseFriction;
+		return !CharacterController.IsOnGround ? 0.1f : BaseFriction;
 	}
 
-	private float baseAcceleration = 10;
+	private float _baseAcceleration = 10;
 	private void ApplyAccceleration()
 	{
 		if ( !IsGrounded )
-		{
 			CharacterController.Acceleration = AirAcceleration;
-		}
 		else
-		{
-			CharacterController.Acceleration = baseAcceleration;
-		}
+			CharacterController.Acceleration = _baseAcceleration;
 	}
 
-	protected void BuildInput()
+	private void BuildInput()
 	{
-		if (InMenu)
+		if ( InMenu )
 			return;
 
 		IsSlowWalking = Input.Down( "Run" );
@@ -350,13 +333,43 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		}
 	}
 
+	private bool IsOutlineVisible()
+	{
+		var localPlayer = GameUtils.LocalPlayer;
+		if ( !localPlayer.IsValid() )
+			return false;
+
+		if ( localPlayer == this )
+			return false;
+
+		if ( TeamComponent.Team == Team.Unassigned )
+			return false;
+		
+		return HealthComponent.State == LifeState.Alive && TeamComponent.Team == localPlayer.TeamComponent.Team;
+	}
+
+	private void UpdateOutline()
+	{
+		if ( !IsOutlineVisible() )
+		{
+			Outline.Enabled = false;
+			return;
+		}
+
+		Outline.Enabled = true;
+		Outline.Width = 0.2f;
+		Outline.Color = Color.Transparent;
+		Outline.InsideColor = Color.Transparent;
+		Outline.InsideObscuredColor = TeamComponent.Team.GetColor();
+	}
+
 	protected override void OnFixedUpdate()
 	{
 		var cc = CharacterController;
-		if ( cc == null )
-			return;
+		if ( !cc.IsValid() ) return;
 
 		UpdateZones();
+		UpdateOutline();
 
 		if ( HealthComponent.State != LifeState.Alive )
 			return;
@@ -410,23 +423,23 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 			cc.Velocity = cc.Velocity.WithZ( 0 );
 		}
 		
-		// Noclip
-		if ( IsNoclipping )
-		{
-			cc.IsOnGround = false;
-			cc.Velocity = WishMove.Normal * EyeAngles.ToRotation() * NoclipSpeed;
-		}
+		if ( !IsNoclipping )
+			return;
+		
+		cc.IsOnGround = false;
+		cc.Velocity = WishMove.Normal * EyeAngles.ToRotation() * NoclipSpeed;
 	}
+	
 	private void UIUpdate()
 	{
 		if ( InBuyMenu )
 		{
-			if ( Input.EscapePressed || Input.Pressed("BuyMenu") )
+			if ( Input.EscapePressed || Input.Pressed( "BuyMenu" ) )
 			{
 				InBuyMenu = false;
 			}
 		}
-		else if (Input.Pressed("BuyMenu"))
+		else if ( Input.Pressed( "BuyMenu" ) )
 		{
 			InBuyMenu = true;
 		}
@@ -436,16 +449,12 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	{
 		if ( IsSlowWalking ) return 100f;
 		if ( IsCrouching ) return 100f;
-
-		// Default speed
 		return WalkSpeed;
 	}
 
-	public Vector3 WishMove;
-
 	public void BuildWishInput()
 	{
-		WishMove = 0;
+		WishMove = 0f;
 
 		if ( !IsLocallyControlled || IsFrozen || InMenu )
 			return;
@@ -455,7 +464,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 	public void BuildWishVelocity()
 	{
-		WishVelocity = 0;
+		WishVelocity = 0f;
 		
 		var rot = EyeAngles.WithPitch( 0f ).ToRotation();
 

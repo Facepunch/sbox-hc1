@@ -9,7 +9,6 @@ public sealed class CameraController : Component
 	/// </summary>
 	[Property] public CameraComponent Camera { get; set; }
 	[Property] public AudioListener AudioListener { get; set; }
-
 	[Property] public PlayerController Player { get; set; }
 
 	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = false;
@@ -17,7 +16,7 @@ public sealed class CameraController : Component
 	/// <summary>
 	/// Constructs a ray using the camera's GameObject
 	/// </summary>
-	public Ray AimRay => new Ray( Camera.Transform.Position + Camera.Transform.Rotation.Forward * 25f, Camera.Transform.Rotation.Forward );
+	public Ray AimRay => new( Camera.Transform.Position + Camera.Transform.Rotation.Forward * 25f, Camera.Transform.Rotation.Forward );
 
 	private float FieldOfViewOffset = 0f;
 	private float TargetFieldOfView = 90f;
@@ -83,6 +82,13 @@ public sealed class CameraController : Component
 
 		Camera.Transform.LocalRotation *= lerpedRotation;
 		Camera.Transform.LocalPosition += lerpedPosition;
+	}
+
+	protected override void OnStart()
+	{
+		// Create a highlight component if it doesn't exist on the camera.
+		Camera.Components.GetOrCreate<Highlight>();
+		base.OnStart();
 	}
 
 	protected override void OnUpdate()
