@@ -1,5 +1,4 @@
 using Facepunch.UI;
-using System.Text.Json.Serialization;
 using Sandbox.Diagnostics;
 
 namespace Facepunch;
@@ -88,6 +87,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// How much friction does the player have?
 	/// </summary>
 	[Property, Group( "Config" )] public float BaseFriction { get; set; } = 4.0f;
+
+	/// <summary>
+	/// Can we control our movement in the air?
+	/// </summary>
+	[Property, Group( "Config" )] public float AirAcceleration { get; set; } = 40f;
 
 	/// <summary>
 	/// Is the player crouching?
@@ -322,7 +326,14 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	private float baseAcceleration = 10;
 	private void ApplyAccceleration()
 	{
-		CharacterController.Acceleration = baseAcceleration;
+		if ( !IsGrounded )
+		{
+			CharacterController.Acceleration = AirAcceleration;
+		}
+		else
+		{
+			CharacterController.Acceleration = baseAcceleration;
+		}
 	}
 
 	protected void BuildInput()
@@ -356,7 +367,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 			BuildWishInput();
 			BuildWishVelocity();
 
-			if ( cc.IsOnGround && !IsFrozen && !InMenu && Input.Down( "Jump" ) )
+			if ( cc.IsOnGround && !IsFrozen && !InMenu && Input.Pressed( "Jump" ) )
 			{
 				float flGroundFactor = 1.0f;
 
