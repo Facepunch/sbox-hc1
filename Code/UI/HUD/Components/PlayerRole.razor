@@ -2,10 +2,12 @@
 @namespace Facepunch.UI
 @inherits Panel
 
+@attribute [StyleSheet]
+
 @if ( !Player.IsValid() ) return;
 
 <root>
-    <label class="emphasis hud with-padding" style="color:@TeamColor">@TeamName</label>
+    <img class="hud with-padding" style="background-image-tint:@TeamColor" src="@TeamIcon" />
 </root>
 
 @code
@@ -23,5 +25,5 @@
         return !Player.IsValid() ? 0 : HashCode.Combine( TeamComponent, TeamComponent.Team );
     }
 
-    private string TeamName => TeamComponent.Team.GetName();
+    private string TeamIcon => TeamComponent.Team.GetIconPath();
 }

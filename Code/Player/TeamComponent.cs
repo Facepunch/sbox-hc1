@@ -30,6 +30,16 @@ public static class TeamExtensionMethods
 			_ => Color.Parse( "white" ) ?? default
 		};
 	}
+
+	public static string GetIconPath( this Team team )
+	{
+		return team switch
+		{
+			Team.CounterTerrorist => "/ui/teams/counterterrorists.png",
+			Team.Terrorist => "/ui/teams/terrorists.png",
+			_ => "/ui/teams/spectator.png"
+		};
+	}
 }
 
 /// <summary>
