@@ -93,6 +93,9 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 	private Task StartGame()
 	{
+		ShowStatusText( "Preparing..." );
+		HideTimer();
+
 		return Dispatch<IGameStartListener>(
 			x => x.PreGameStart(),
 			x => x.OnGameStart(),
@@ -101,6 +104,9 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 	private Task StartRound()
 	{
+		ShowStatusText( "Starting Round..." );
+		HideTimer();
+
 		return Dispatch<IRoundStartListener>(
 			x => x.PreRoundStart(),
 			x => x.OnRoundStart(),
@@ -109,6 +115,9 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 	private Task EndRound()
 	{
+		ShowStatusText( "Ending Round..." );
+		HideTimer();
+
 		return Dispatch<IRoundEndListener>(
 			x => x.PreRoundEnd(),
 			x => x.OnRoundEnd(),
@@ -117,6 +126,9 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 	private Task EndGame()
 	{
+		ShowStatusText( "Ending Game..." );
+		HideTimer();
+
 		return Dispatch<IGameEndListener>(
 			x => x.PreGameEnd(),
 			x => x.OnGameEnd(),
