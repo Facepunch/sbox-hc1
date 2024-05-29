@@ -1,6 +1,8 @@
 @namespace Facepunch.UI
 @inherits PanelComponent
 
+@implements IKillListener
+
 <root>
     <BuyMenu />
     <Crosshair />
@@ -13,3 +15,10 @@
 
     <DamageIndicator />
 </root>
+
+@code {
+    public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force )
+    {
+        Log.Info($"{victim} died to {killer}, {damage}, {position} ");
+    }
+}

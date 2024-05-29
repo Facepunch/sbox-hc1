@@ -123,6 +123,20 @@ public partial class HealthComponent : Component, IRespawnable
 	}
 
 	[Broadcast]
+	private void BroadcastKill( Guid killerComponent, Guid victimComponent, float damage, Vector3 position, Vector3 force = default )
+	{
+		foreach ( var listener in Scene.GetAllComponents<IKillListener>() )
+		{
+			listener.OnPlayerKilled(
+				Scene.Directory.FindComponentByGuid( killerComponent ),
+				Scene.Directory.FindComponentByGuid( victimComponent ),
+				damage, 
+				position,
+				force );
+		}
+	}
+
+	[Broadcast]
 	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId )
 	{
 		// Only the host should control the damage state
@@ -134,7 +148,12 @@ public partial class HealthComponent : Component, IRespawnable
 
 			// Did we die?
 			if ( Health <= 0 )
+			{
 				State = LifeState.Dead;
+
+				// Broadcast this kill (for feed)
+				BroadcastKill( attackerId, this.Id, damage, position, force );
+			}
 		}
 
 		Log.Info( $"{GameObject.Name}.OnDamage( {damage} ): {Health}, {State}" );
