@@ -33,6 +33,11 @@ public partial class Weapon : Component
 	[Property] protected AnimationHelper.HoldTypes HoldType { get; set; } = AnimationHelper.HoldTypes.Rifle;
 
 	/// <summary>
+	/// What sound should we play when taking this gun out?
+	/// </summary>
+	[Property, Group( "Sounds" )] public SoundEvent DeploySound { get; set; }
+
+	/// <summary>
 	/// Updates the render mode, if we're locally controlling a player, we want to hide the world model.
 	/// </summary>
 	protected void UpdateRenderMode()
@@ -184,6 +189,12 @@ public partial class Weapon : Component
 
 			// Weapon needs to know about the ViewModel
 			ViewModel = viewModelComponent;
+		}
+
+		if ( DeploySound is not null )
+		{
+			var snd = Sound.Play( DeploySound, Transform.Position );
+			snd.ListenLocal = !IsProxy;
 		}
 	}
 
