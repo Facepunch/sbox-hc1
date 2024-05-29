@@ -13,6 +13,22 @@ public sealed class FreezeTime : Component, IRoundStartListener
 	[Sync]
 	public float StartTime { get; set; }
 
+	void IRoundStartListener.PreRoundStart()
+	{
+		foreach ( var player in GameUtils.ActivePlayers )
+		{
+			player.IsFrozen = true;
+		}
+	}
+
+	void IRoundStartListener.PostRoundStart()
+	{
+		foreach ( var player in GameUtils.ActivePlayers )
+		{
+			player.IsFrozen = false;
+		}
+	}
+
 	async Task IRoundStartListener.OnRoundStart()
 	{
 		StartTime = Time.Now;
