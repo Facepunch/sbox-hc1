@@ -181,9 +181,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 	public void SetCurrentWeapon( Weapon weapon )
 	{
-		if ( Networking.IsHost )
+		if ( IsProxy )
 		{
-			SetCurrentWeapon( weapon.Id );
+			if ( Networking.IsHost )
+				SetCurrentWeapon( weapon.Id );
+
 			return;
 		}
 		
@@ -191,7 +193,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		{
 			w.IsDeployed = false;
 		}
-		
+	
 		weapon.IsDeployed = true;
 	}
 
