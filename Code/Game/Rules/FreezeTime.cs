@@ -13,11 +13,14 @@ public sealed class FreezeTime : Component, IRoundStartListener
 	[Sync]
 	public float StartTime { get; set; }
 
-	Task IRoundStartListener.OnRoundStart()
+	async Task IRoundStartListener.OnRoundStart()
 	{
 		StartTime = Time.Now;
 
-		return Task.DelaySeconds( DurationSeconds );
+		while ( Time.Now < StartTime + DurationSeconds )
+		{
+			await Task.FixedUpdate();
+		}
 	}
 
 	protected override void OnUpdate()

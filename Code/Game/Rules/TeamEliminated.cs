@@ -8,10 +8,21 @@ public sealed class TeamEliminated : Component, IRoundStartListener, IRoundEndCo
 {
 	private bool _bothTeamsHadPlayers;
 
+	/// <summary>
+	/// Don't end the round if this team is eliminated.
+	/// </summary>
+	[Property, HostSync]
+	public Team IgnoreTeam { get; set; }
+
 	void IRoundStartListener.PostRoundStart()
 	{
 		_bothTeamsHadPlayers = GameUtils.GetPlayers( Team.CounterTerrorist ).Any()
 			&& GameUtils.GetPlayers( Team.Terrorist ).Any();
+	}
+
+	private bool IsTeamEliminated( Team team )
+	{
+		return GameUtils.GetPlayers( team ).All( x => x.HealthComponent.State == LifeState.Dead );
 	}
 
 	public bool ShouldRoundEnd()
@@ -22,7 +33,7 @@ public sealed class TeamEliminated : Component, IRoundStartListener, IRoundEndCo
 			return false;
 		}
 
-		return GameUtils.GetPlayers( Team.CounterTerrorist ).All( x => x.HealthComponent.State == LifeState.Dead )
-			|| GameUtils.GetPlayers( Team.Terrorist ).All( x => x.HealthComponent.State == LifeState.Dead );
+		return IgnoreTeam != Team.CounterTerrorist && IsTeamEliminated( Team.CounterTerrorist )
+			|| IgnoreTeam != Team.Terrorist && IsTeamEliminated( Team.Terrorist );
 	}
 }
