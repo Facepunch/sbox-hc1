@@ -158,8 +158,8 @@ public partial class PlayerInventory : Component
 
 		if ( !CanTakeWeapon( resource ) )
 			return;
-
-		var slotCurrent = Weapons.FirstOrDefault( weapon => weapon.Resource.Slot == resource.Slot );
+		
+		var slotCurrent = Weapons.FirstOrDefault( weapon => weapon.Enabled && weapon.Resource.Slot == resource.Slot );
 		if ( slotCurrent.IsValid() )
 			DropWeapon( slotCurrent.Id );
 
