@@ -34,7 +34,12 @@ public sealed class SpecialWeaponAllocator : Component, IRoundStartListener, IPl
 
 		Log.Info( $"Trying to spawn {Weapon} on {players[0]}" );
 
-		players[0].Inventory.GiveWeapon( Weapon, false );
+		var weapon = players[0].Inventory.GiveWeapon( Weapon, false );
+
+		if ( weapon is not null )
+		{
+			weapon.Components.GetOrCreate<DestroyBetweenRounds>();
+		}
 
 		return Task.CompletedTask;
 	}

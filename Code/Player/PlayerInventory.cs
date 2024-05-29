@@ -198,23 +198,23 @@ public partial class PlayerInventory : Component
 		weapon.GameObject.Destroy();
 	}
 
-	public void GiveWeapon( WeaponData resource, bool makeActive = true )
+	public Weapon GiveWeapon( WeaponData resource, bool makeActive = true )
 	{
 		if ( !Networking.IsHost )
 		{
 			Log.Warning( "Tried to give weapon while not host" );
-			return;
+			return null;
 		}
 
 		// If we're in charge, let's make some weapons.
 		if ( resource == null )
 		{
 			Log.Warning( "A player loadout without a weapon? Nonsense." );
-			return;
+			return null;
 		}
 
 		if ( !CanTakeWeapon( resource ) )
-			return;
+			return null;
 		
 		var slotCurrent = Weapons.FirstOrDefault( weapon => weapon.Enabled && weapon.Resource.Slot == resource.Slot );
 		if ( slotCurrent.IsValid() )
@@ -223,7 +223,7 @@ public partial class PlayerInventory : Component
 		if ( !resource.MainPrefab.IsValid() )
 		{
 			Log.Error( $"Weapon doesn't have a prefab? {resource}, {resource.MainPrefab}, {resource.ViewModelPrefab}" );
-			return;
+			return null;
 		}
 
 		// Create the weapon prefab and put it on the weapon GameObject.
@@ -239,6 +239,8 @@ public partial class PlayerInventory : Component
 			Player.SetCurrentWeapon( weaponComponent );
 		
 		Log.Info( $"Spawned weapon {weaponGameObject} for {Player}" );
+
+		return weaponComponent;
 	}
 
 	public bool HasWeapon( WeaponData resource )
