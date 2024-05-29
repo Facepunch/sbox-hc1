@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public partial class DroppedWeapon : Component, IUse, IRoundEndListener
+public partial class DroppedWeapon : Component, IUse, IRoundEndListener, IRoundStartListener
 {
 	[Property] public WeaponData Resource { get; set; }
 
@@ -51,14 +51,14 @@ public partial class DroppedWeapon : Component, IUse, IRoundEndListener
 		player.Inventory.GiveWeapon( Resource );
 		GameObject.Destroy();
 	}
+	
+	void IRoundStartListener.PreRoundStart()
+	{
+		GameObject.Destroy();
+	}
 
 	void IRoundEndListener.PostRoundEnd()
 	{
-		// Make sure we destroy all dropped weapon objects when the round ends.
-		var droppedWeapons = Scene.GetAllComponents<DroppedWeapon>();
-		foreach ( var weapon in droppedWeapons )
-		{
-			weapon.GameObject.Destroy();
-		}
+		GameObject.Destroy();
 	}
 }
