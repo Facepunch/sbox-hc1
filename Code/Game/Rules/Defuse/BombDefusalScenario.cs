@@ -1,5 +1,4 @@
-﻿
-using Facepunch;
+﻿using Facepunch;
 
 public sealed class BombDefusalScenario : Component,
 	IGameStartListener,
@@ -30,22 +29,36 @@ public sealed class BombDefusalScenario : Component,
 	[Property, HostSync, Category( "Economy" )]
 	public int BaseLossTeamIncome { get; set; } = 1400;
 
+	/// <summary>
+	/// How much each team's loss income increases per loss streak level.
+	/// </summary>
 	[Property, HostSync, Category( "Economy" )]
-	public int LossStreakBonus { get; set; } = 500;
+	public int LossBonusIncrement { get; set; } = 500;
 
 	[Property, HostSync, Category( "Economy" )]
-	public int MaxLossStreakBonus { get; set; } = 2000;
+	public int MaxLossStreakLevel { get; set; } = 4;
 
-	private int GetLossStreakBonus( Team team )
-	{
-		var roundsLost = 2; // TODO
-
-		return BaseLossTeamIncome + Math.Min( (roundsLost - 1) * LossStreakBonus, MaxLossStreakBonus );
-	}
+	[HostSync]
+	public NetDictionary<Team, int> LossStreakLevel { get; private set; } = new();
 
 	[HostSync] public bool IsBombPlanted { get; private set; }
 	[HostSync] public bool BombHasDetonated { get; private set; }
 	[HostSync] public bool BombWasDefused { get; private set; }
+
+	private int GetLossStreakBonus( Team team )
+	{
+		if ( !LossStreakLevel.TryGetValue( team, out var level ) )
+		{
+			level = 0;
+		}
+
+		return BaseLossTeamIncome + level * LossBonusIncrement;
+	}
+
+	private void IncrementLossStreak( Team team, int sign )
+	{
+		LossStreakLevel[team] = Math.Clamp( LossStreakLevel.GetValueOrDefault( team ) + sign, 0, MaxLossStreakLevel );
+	}
 
 	void ITeamAssignedListener.OnTeamAssigned( PlayerController player, Team team )
 	{
@@ -86,11 +99,17 @@ public sealed class BombDefusalScenario : Component,
 	{
 		if ( TeamScoring.RoundWinner == Team.Terrorist )
 		{
+			IncrementLossStreak( Team.Terrorist, -1 );
+			IncrementLossStreak( Team.CounterTerrorist, 1 );
+
 			GameUtils.GiveTeamIncome( Team.Terrorist, IsBombPlanted ? BombDetonatedTeamIncome : DefaultWinTeamIncome );
 			GameUtils.GiveTeamIncome( Team.CounterTerrorist, GetLossStreakBonus( Team.CounterTerrorist ) );
 		}
 		else if ( TeamScoring.RoundWinner == Team.CounterTerrorist )
 		{
+			IncrementLossStreak( Team.Terrorist, 1 );
+			IncrementLossStreak( Team.CounterTerrorist, -1 );
+
 			GameUtils.GiveTeamIncome( Team.Terrorist, GetLossStreakBonus( Team.Terrorist ) );
 			GameUtils.GiveTeamIncome( Team.CounterTerrorist, BombWasDefused ? BombDefusedTeamIncome : DefaultWinTeamIncome );
 		}
