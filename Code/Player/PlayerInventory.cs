@@ -117,13 +117,15 @@ public partial class PlayerInventory : Component
 			return;
 		}
 
-		// Can't have the same weapon twice
-		if ( HasWeapon( resource ) ) return;
-
 		// If we're in charge, let's make some weapons.
 		if ( resource == null )
 		{
 			Log.Warning( "A player loadout without a weapon? Nonsense." );
+			return;
+		}
+
+		if ( !CanTakeWeapon( resource ) )
+		{
 			return;
 		}
 
@@ -155,5 +157,23 @@ public partial class PlayerInventory : Component
 	public bool HasWeapon( WeaponData resource )
 	{
 		return Weapons.Any( weapon => weapon.Enabled && weapon.Resource == resource );
+	}
+
+	public bool HasWeapon( WeaponSlot slot )
+	{
+		return Weapons.Any( weapon => weapon.Enabled && weapon.Resource.Slot == slot );
+	}
+
+	public bool CanTakeWeapon( WeaponData resource )
+	{
+		switch ( resource.Slot )
+		{
+			case WeaponSlot.Utility:
+				// TODO: grenade limits
+				return true;
+
+			default:
+				return !HasWeapon( resource.Slot );
+		}
 	}
 }
