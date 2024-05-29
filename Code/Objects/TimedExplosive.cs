@@ -179,6 +179,11 @@ public sealed class TimedExplosive : Component, IUse
 		if ( Networking.IsHost )
 		{
 			DefusingPlayer.IsFrozen = false;
+
+			foreach ( var listener in Scene.GetAllComponents<IBombDefusedListener>() )
+			{
+				listener.OnBombDefused( DefusingPlayer, GameObject, BombSite );
+			}
 		}
 
 		DefusingPlayer = null;
