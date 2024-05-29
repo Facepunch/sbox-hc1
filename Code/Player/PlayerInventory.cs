@@ -44,14 +44,24 @@ public partial class PlayerInventory : Component
 			wpn.Enabled = false;
 		}
 	}
-
-	private void DropWeapon( Weapon weapon )
+	
+	[Broadcast]
+	private void DropWeapon( Guid weaponId )
 	{
-		if ( weapon.Resource.Slot == WeaponSlot.Melee ) return;
-		var droppedWeapon = DroppedWeapon.Create( weapon.Resource, Player.AimRay.Position + Player.AimRay.Forward * 32f, Rotation.From( 0, Player.EyeAngles.yaw + 90, 90 ) ); 
+		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Weapon;
+		if ( !weapon.IsValid() )
+			return;
+		
+		if ( weapon.Resource.Slot == WeaponSlot.Melee )
+			return;
 
+		if ( !Networking.IsHost )
+			return;
+		
+		var droppedWeapon = DroppedWeapon.Create( weapon.Resource, Player.AimRay.Position + Player.AimRay.Forward * 32f, Rotation.From( 0, Player.EyeAngles.yaw + 90, 90 ) );
 		droppedWeapon.Rigidbody.ApplyForce( Player.AimRay.Forward * 0.5f );
-
+		droppedWeapon.GameObject.NetworkSpawn();
+		
 		RemoveWeapon( weapon );
 	}
 
@@ -62,7 +72,7 @@ public partial class PlayerInventory : Component
 
 		if ( Input.Pressed( "Drop" ) )
 		{
-			DropWeapon( CurrentWeapon );
+			DropWeapon( CurrentWeapon.Id );
 		}
 
 		for ( int i = 0; i < Weapons.Count(); i++ )
@@ -164,7 +174,7 @@ public partial class PlayerInventory : Component
 
 		var slotCurrent = Weapons.FirstOrDefault( weapon => weapon.Resource.Slot == resource.Slot );
 		if ( slotCurrent.IsValid() )
-			DropWeapon( slotCurrent );
+			DropWeapon( slotCurrent.Id );
 
 		if ( !resource.MainPrefab.IsValid() )
 		{

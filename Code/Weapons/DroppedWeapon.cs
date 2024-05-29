@@ -11,6 +11,7 @@ public partial class DroppedWeapon : Component, IUse
 		var go = new GameObject();
 		go.Transform.Position = positon;
 		go.Transform.Rotation = rotation;
+		go.Name = resource.Name;
 
 		var droppedWeapon = go.Components.Create<DroppedWeapon>();
 		droppedWeapon.Resource = resource;
@@ -33,9 +34,21 @@ public partial class DroppedWeapon : Component, IUse
 
 	public bool OnUse( PlayerController player )
 	{
+		TryPickup( player.Id );
+		return false;
+	}
+
+	[Broadcast]
+	private void TryPickup( Guid pickerId )
+	{
+		if ( !Networking.IsHost )
+			return;
+
+		var player = Scene.Directory.FindComponentByGuid( pickerId ) as PlayerController;
+		if ( !player.IsValid() )
+			return;
+		
 		player.Inventory.GiveWeapon( Resource );
 		GameObject.Destroy();
-
-		return false;
 	}
 }
