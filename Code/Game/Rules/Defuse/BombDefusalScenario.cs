@@ -27,6 +27,21 @@ public sealed class BombDefusalScenario : Component,
 	[Property, HostSync, Category( "Economy" )]
 	public int BombDetonatedTeamIncome { get; set; } = 3500;
 
+	/// <summary>
+	/// Give the bomb planter this bonus.
+	/// </summary>
+	public int BombPlantedPlayerBonus { get; set; } = 300;
+
+	/// <summary>
+	/// Give the bomb defuser this bonus.
+	/// </summary>
+	public int BombDefusedPlayerBonus { get; set; } = 300;
+
+	/// <summary>
+	/// If the terrorists plant, but lose the round, give them this bonus.
+	/// </summary>
+	public int BombPlantedTeamBonus { get; set; } = 800;
+
 	[Property, HostSync, Category( "Economy" )]
 	public int BaseLossTeamIncome { get; set; } = 1400;
 
@@ -92,6 +107,8 @@ public sealed class BombDefusalScenario : Component,
 		RoundTimeLimit.Enabled = false;
 		TeamEliminated.IgnoreTeam = Team.Terrorist;
 
+		planter?.Inventory.GiveCash( BombPlantedPlayerBonus );
+
 		GameMode.Instance.ShowStatusText( Team.Terrorist, "Defend" );
 		GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "Defuse the Bomb" );
 		GameMode.Instance.HideTimer();
@@ -105,6 +122,8 @@ public sealed class BombDefusalScenario : Component,
 	void IBombDefusedListener.OnBombDefused( PlayerController defuser, GameObject bomb, BombSite bombSite )
 	{
 		BombWasDefused = true;
+
+		defuser?.Inventory.GiveCash( BombDefusedPlayerBonus );
 	}
 
 	void IRoundEndListener.PreRoundEnd()
