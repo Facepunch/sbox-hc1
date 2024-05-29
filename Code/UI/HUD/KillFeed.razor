@@ -7,7 +7,16 @@
     {
         <div class="entry">
             <label class="killer">@entry.Killer.Network.OwnerConnection?.DisplayName</label>
-            <label class="method">@GetWeapon( entry.Inflictor )</label>
+            <div class="method">
+                @if ( GetWeapon( entry.Inflictor ) is Weapon weapon )
+                {
+                    <div class="icon" style="background-image: url( @weapon.Resource.Icon );" />
+                }
+                else
+                {
+                    <label>killed</label>
+                }
+            </div>
             <label class="victim">@entry.Victim.Network.OwnerConnection?.DisplayName</label>
         </div>
     }
@@ -21,14 +30,14 @@
 
     private float Lifetime => 10f;
 
-    private string GetWeapon( Component inflictor )
+    private Weapon GetWeapon( Component inflictor )
     {
         if ( inflictor is Weapon weapon )
         {
-            return weapon.Resource.Name;
+            return weapon;
         }
 
-        return "killed";
+        return null;
     }
 
     public void OnPlayerKilled( Component killer, Component victim, Component inflictor )
