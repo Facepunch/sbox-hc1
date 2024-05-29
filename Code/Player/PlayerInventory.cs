@@ -30,6 +30,11 @@ public partial class PlayerInventory : Component
 	[HostSync] public int Balance { get; private set; } = 999999;
 
 	/// <summary>
+	/// Does this player have a defuse kit?
+	/// </summary>
+	[HostSync] public bool HasDefuseKit { get; private set; }
+
+	/// <summary>
 	/// Gets the player's current weapon.
 	/// </summary>
 	public Weapon CurrentWeapon => Player.CurrentWeapon;
