@@ -5,8 +5,9 @@
 @if (AmmoContainer.IsValid())
 {
     <root class="hud with-padding flex row gap align-center justify-end" style="width: 100px;">
-        <label class="important">@AmmoContainer.Ammo</label>
-        <label>@AmmoContainer.MaxAmmo</label>
+        <label class="vital">@AmmoContainer.Ammo</label>
+        <separator />
+        <label class="important">@AmmoContainer.MaxAmmo</label>
     </root>
 }
 
