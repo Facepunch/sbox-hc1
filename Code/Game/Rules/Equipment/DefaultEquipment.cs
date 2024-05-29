@@ -20,10 +20,7 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 				player.Inventory.GiveWeapon( weapon, false );
 		}
 
-		if ( player.Inventory.Weapons.Any() )
-		{
-			player.Inventory.SwitchToSlot( player.Inventory.Weapons.Count() - 1 );
-		}
+		player.Inventory.SwitchToBestWeapon();
 
 		return Task.CompletedTask;
 	}

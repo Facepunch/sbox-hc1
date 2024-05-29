@@ -23,7 +23,7 @@
             </div>
         }
 
-        <InputHint Action="Slot@(Slot + 1)" />
+        <InputHint Action="Slot@((int) Slot)" />
     }
 </root>
 
@@ -32,7 +32,7 @@
     /// <summary>
     ///  The weapon's slot
     /// </summary>
-    public int Slot { get; set; }
+    public WeaponSlot Slot => Weapon?.Resource.Slot ?? default;
 
     /// <summary>
     /// The player's weapon.

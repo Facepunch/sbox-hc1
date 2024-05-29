@@ -5,9 +5,9 @@
 @if ( !Player.IsValid() ) return;
 
 <root class="hud with-deadzone column middle-right">
-    @for ( int i = 0; i < Inventory.Weapons.Count(); i++ )
+    @foreach ( var weapon in Inventory.Weapons.OrderByDescending( x => x.Resource.Slot ) )
     {
-        <WeaponRow Weapon=@Inventory.Weapons.ElementAt(i) Slot=@i />
+        <WeaponRow Weapon=@weapon/>
     }
 </root>
 

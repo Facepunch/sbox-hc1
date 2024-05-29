@@ -98,13 +98,41 @@ public partial class PlayerInventory : Component
 			DropWeapon( CurrentWeapon.Id );
 		}
 
-		for ( int i = 0; i < Weapons.Count(); i++ )
+		foreach ( var slot in Enum.GetValues<WeaponSlot>() )
 		{
-			if ( Input.Pressed( $"Slot{i + 1}" ) )
+			if ( Input.Pressed( $"Slot{(int)slot}" ) )
 			{
-				SwitchToSlot( i );
+				SwitchToSlot( slot );
 			}
 		}
+	}
+
+	public void SwitchToBestWeapon()
+	{
+		if ( !Weapons.Any() )
+		{
+			return;
+		}
+
+		if ( HasWeapon( WeaponSlot.Primary ) )
+		{
+			SwitchToSlot( WeaponSlot.Primary );
+			return;
+		}
+
+		if ( HasWeapon( WeaponSlot.Secondary ) )
+		{
+			SwitchToSlot( WeaponSlot.Secondary );
+			return;
+		}
+
+		if ( HasWeapon( WeaponSlot.Melee ) )
+		{
+			SwitchToSlot( WeaponSlot.Melee );
+			return;
+		}
+
+		SwitchWeapon( Weapons.FirstOrDefault() );
 	}
 
 	public void HolsterCurrent()
@@ -113,17 +141,28 @@ public partial class PlayerInventory : Component
 		Player.SetCurrentWeapon( null );
 	}
 
-	public void SwitchToSlot( int slot )
+	public void SwitchToSlot( WeaponSlot slot )
 	{
 		Assert.True( !IsProxy || Networking.IsHost );
-		
-		var weapon = Weapons.ElementAt( slot );
-		if ( !weapon.IsValid() ) return;
 
-		if ( Player.CurrentWeapon != weapon )
-			SwitchWeapon( weapon );
-		else if ( CanUnequipCurrentWeapon )
+		var weapons = Weapons
+			.Where( x => x.Resource.Slot == slot )
+			.ToArray();
+
+		if ( weapons.Length == 0 )
+		{
+			return;
+		}
+
+		if ( weapons.Length == 1 && CurrentWeapon == weapons[0] && CanUnequipCurrentWeapon )
+		{
 			HolsterCurrent();
+			return;
+		}
+
+		var index = Array.IndexOf( weapons, CurrentWeapon );
+
+		SwitchWeapon( weapons[(index + 1) % weapons.Length] );
 	}
 
 	/// <summary>
