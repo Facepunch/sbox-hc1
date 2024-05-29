@@ -9,6 +9,7 @@ Scoreboard {
     &.active {
         display: flex;
         opacity: 1;
+        pointer-events: all;
     }
 
     table {
@@ -46,10 +47,6 @@ Scoreboard {
                 filter: saturate( 0.2 );
             }
 
-            &.header {
-                font-weight: bold;
-            }
-
             .col {
                 align-items: center;
             }
@@ -62,6 +59,7 @@ Scoreboard {
             .stat {
                 flex-basis: 50px;
                 flex-grow: 1;
+                text-align: right;
             }
 
             .stat-small {
