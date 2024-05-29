@@ -14,7 +14,7 @@
         </label>
     </span>
 
-    <label class="col stat">@(Score.Experience)</label>
+    <label class="col stat">@(Score.Score)</label>
     <label class="col stat">@(Score.Kills)</label>
     <label class="col stat">@(Score.Deaths)</label>
 
@@ -32,6 +32,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(KillDeathRatio, Score.Experience, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead);
+        return HashCode.Combine(KillDeathRatio, Score.Score, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead);
     }
 }
