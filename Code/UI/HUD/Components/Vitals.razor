@@ -5,10 +5,10 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="@BuildClass() hud flex row gap with-padding">
+<root class="@BuildClass() hud flex row gap with-padding justify-start">
 
     <div class="flex column gap-xs">
-        <ProgressBar Value="@(Health)" width="128" />
+        <ProgressBar Value="@(Health)" width="96" />
         <span class="flex row align-center gap-sm">
             <Icon file="/ui/health.png" size="16" />
             <label>@Health</label>
