@@ -59,25 +59,10 @@ public partial class PlayerInventory : Component
 		Player.CurrentWeapon = null;
 	}
 
-	private bool noSwitching = false;
-
-	public IDisposable SuspendSwitching()
-	{
-		if (Player.IsLocallyControlled) return null;
-
-		noSwitching = true;
-		return new Sandbox.Utility.DisposeAction( () =>
-		{
-			noSwitching = false;
-			// Switch to first slot if we can
-			SwitchToSlot( Weapons.Count() - 1 );
-		});
-	}
-
 	public void SwitchToSlot( int slot )
 	{
-		Assert.False( IsProxy );
-		
+		if ( IsProxy ) return;
+
 		var weapon = Weapons.ElementAt( slot );
 		if ( !weapon.IsValid() ) return;
 
@@ -110,7 +95,11 @@ public partial class PlayerInventory : Component
 	/// </summary>
 	public void RemoveWeapon( Weapon weapon )
 	{
-		Assert.True( Networking.IsHost );
+		if ( !Networking.IsHost )
+		{
+			Log.Warning( "Tried to remove weapon while not host" );
+			return;
+		}
 		
 		if ( !Weapons.Contains( weapon ) ) return;
 
@@ -122,8 +111,12 @@ public partial class PlayerInventory : Component
 
 	public void GiveWeapon( WeaponDataResource resource, bool makeActive = true )
 	{
-		Assert.True( Networking.IsHost );
-		
+		if ( !Networking.IsHost )
+		{
+			Log.Warning( "Tried to give weapon while not host" );
+			return;
+		}
+
 		// Can't have the same weapon twice
 		if ( HasWeapon( resource ) ) return;
 
@@ -151,7 +144,7 @@ public partial class PlayerInventory : Component
 		weaponGameObject.NetworkSpawn( Player.Network.OwnerConnection );
 		weaponGameObject.Enabled = false;
 
-		if ( makeActive && !noSwitching )
+		if ( makeActive )
 		{
 			Player.ChangeCurrentWeapon( weaponComponent.Id );
 		}

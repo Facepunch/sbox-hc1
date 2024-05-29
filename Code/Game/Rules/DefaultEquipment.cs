@@ -13,13 +13,11 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 
 		Log.Info( $"PrePlayerSpawn for {player}" );
 
-		// Defer weapon switching until we're done
-		using ( player.Inventory.SuspendSwitching() )
+		foreach ( var weapon in Weapons )
 		{
-			foreach ( var weapon in Weapons )
-			{
-				player.Inventory.GiveWeapon( weapon );
-			}
+			player.Inventory.GiveWeapon( weapon, false );
 		}
+
+		player.Inventory.SwitchToSlot( player.Inventory.Weapons.Count() - 1 );
 	}
 }
