@@ -15,10 +15,11 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 
 		foreach ( var weapon in Weapons )
 		{
-			player.Inventory.GiveWeapon( weapon, false );
+			if ( !player.Inventory.HasWeaponInSlot( weapon.Slot ) )
+				player.Inventory.GiveWeapon( weapon, false );
 		}
 
-		if ( player.Inventory.Weapons.Count() > 0 )
+		if ( player.Inventory.Weapons.Any() )
 		{
 			player.Inventory.SwitchToSlot( player.Inventory.Weapons.Count() - 1 );
 		}

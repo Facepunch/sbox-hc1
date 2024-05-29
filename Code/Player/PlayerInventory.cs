@@ -139,6 +139,11 @@ public partial class PlayerInventory : Component
 		weapon.GameObject.Destroy();
 	}
 
+	public bool HasWeaponInSlot( WeaponSlot slot )
+	{
+		return Weapons.FirstOrDefault( weapon => weapon.Resource.Slot == slot ).IsValid();
+	}
+
 	public void GiveWeapon( WeaponData resource, bool makeActive = true )
 	{
 		if ( !Networking.IsHost )
@@ -157,11 +162,9 @@ public partial class PlayerInventory : Component
 		if ( !CanTakeWeapon( resource ) )
 			return;
 
-		Weapon slotCurrent = Weapons.FirstOrDefault(weapon => weapon.Resource.Slot == resource.Slot );
-		if ( slotCurrent is not null )
-		{
-			DropWeapon(slotCurrent);
-		}
+		var slotCurrent = Weapons.FirstOrDefault( weapon => weapon.Resource.Slot == resource.Slot );
+		if ( slotCurrent.IsValid() )
+			DropWeapon( slotCurrent );
 
 		if ( !resource.MainPrefab.IsValid() )
 		{
