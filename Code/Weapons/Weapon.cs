@@ -40,7 +40,8 @@ public partial class Weapon : Component
 	/// <summary>
 	/// Is this weapon currently deployed by the player?
 	/// </summary>
-	public bool IsDeployed { get; private set; }
+	[Sync] public bool IsDeployed { get; set; }
+	private bool _wasDeployed { get; set; }
 
 	/// <summary>
 	/// Updates the render mode, if we're locally controlling a player, we want to hide the world model.
@@ -64,10 +65,12 @@ public partial class Weapon : Component
 		set
 		{
 			viewModel = value;
-			// Let the ViewModel know about our weapon
-			viewModel.Weapon = this;
-			// Risky
-			viewModel.ViewModelCamera = PlayerController.ViewModelCamera;
+
+			if ( viewModel.IsValid() )
+			{
+				viewModel.Weapon = this;
+				viewModel.ViewModelCamera = PlayerController.ViewModelCamera;
+			}
 		}
 	}
 
@@ -105,32 +108,6 @@ public partial class Weapon : Component
 	/// How long it's been since we used this attack.
 	/// </summary>
 	protected TimeSince TimeSinceSecondaryAttack { get; set; }
-	
-	/// <summary>
-	/// Deploy this weapon (become active.)
-	/// </summary>
-	[Broadcast( NetPermission.OwnerOnly )]
-	public void Deploy()
-	{
-		if ( !IsDeployed )
-		{
-			IsDeployed = true;
-			OnDeployed();
-		}
-	}
-
-	/// <summary>
-	/// Holster this weapon (make inactive.)
-	/// </summary>
-	[Broadcast( NetPermission.OwnerOnly )]
-	public void Holster()
-	{
-		if ( IsDeployed )
-		{
-			OnHolstered();
-			IsDeployed = false;
-		}
-	}
 
 	/// <summary>
 	/// Allow weapons to override holdtypes at any notice.
@@ -179,38 +156,53 @@ public partial class Weapon : Component
 
 	protected override void OnUpdate()
 	{
+		UpdateDeployedState();
 	}
 
-	public void ClearViewModel( PlayerController player )
+	private void UpdateDeployedState()
 	{
-		if ( !player.IsValid() )
+		if ( IsDeployed == _wasDeployed )
 			return;
 
-		if ( !player.ViewModelGameObject.IsValid() )
-			return;
-		
-		var children = new List<GameObject>( player.ViewModelGameObject.Children );
-		foreach ( var child in children )
+		switch ( _wasDeployed )
 		{
-			child.DestroyImmediate();
+			case false when IsDeployed:
+				OnDeployed();
+				break;
+			case true when !IsDeployed:
+				OnHolstered();
+				break;
 		}
+
+		_wasDeployed = IsDeployed;
+	}
+
+	public void ClearViewModel()
+	{
+		if ( !ViewModel.IsValid() )
+			return;
+
+		ViewModel.GameObject.Destroy();
+		ViewModel = null;
 	}
 	
 	/// <summary>
 	/// Creates a viewmodel for the player to use.
 	/// </summary>
-	/// <param name="player"></param>
-	public void CreateViewModel( PlayerController player )
+	public void CreateViewModel()
 	{
-		var res = Resource;
+		var player = PlayerController;
+		if ( !player.IsValid() ) return;
+		
+		var resource = Resource;
 
-		ClearViewModel( player );
+		ClearViewModel();
 		UpdateRenderMode();
 
-		if ( res.ViewModelPrefab != null )
+		if ( resource.ViewModelPrefab != null )
 		{
 			// Create the weapon prefab and put it on the weapon gameobject.
-			var viewModelGameObject = res.ViewModelPrefab.Clone( new CloneConfig()
+			var viewModelGameObject = resource.ViewModelPrefab.Clone( new CloneConfig()
 			{
 				Transform = new(),
 				Parent = player.ViewModelGameObject,
@@ -223,15 +215,17 @@ public partial class Weapon : Component
 			ViewModel = viewModelComponent;
 		}
 
-		if ( DeploySound is not null )
-		{
-			var snd = Sound.Play( DeploySound, Transform.Position );
-			snd.ListenLocal = !IsProxy;
-		}
+		if ( DeploySound is null )
+			return;
+
+		var snd = Sound.Play( DeploySound, Transform.Position );
+		snd.ListenLocal = !IsProxy;
 	}
 
 	protected override void OnStart()
 	{
+		_wasDeployed = IsDeployed;
+		
 		if ( IsDeployed )
 			OnDeployed();
 		else
@@ -243,7 +237,7 @@ public partial class Weapon : Component
 	protected virtual void OnDeployed()
 	{
 		if ( !IsProxy )
-			CreateViewModel( PlayerController );
+			CreateViewModel();
 		
 		ModelRenderer.Enabled = true;
 	}
@@ -251,7 +245,7 @@ public partial class Weapon : Component
 	protected virtual void OnHolstered()
 	{
 		ModelRenderer.Enabled = false;
-		ClearViewModel( PlayerController );
+		ClearViewModel();
 	}
 
 	protected override void OnDestroy()

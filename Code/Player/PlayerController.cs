@@ -170,45 +170,44 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <summary>
 	/// What weapon are we using?
 	/// </summary>
-	public Weapon CurrentWeapon
+	public Weapon CurrentWeapon => Components.GetAll<Weapon>( FindMode.EverythingInSelfAndDescendants ).FirstOrDefault( c => c.IsDeployed );
+
+	[Authority]
+	private void SetCurrentWeapon( Guid weaponId )
 	{
-		get => Scene.Directory.FindComponentByGuid( CurrentWeaponId ) as Weapon;
-		set
+		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Weapon;
+		SetCurrentWeapon( weapon );
+	}
+
+	public void SetCurrentWeapon( Weapon weapon )
+	{
+		if ( Networking.IsHost )
 		{
-			Assert.False( IsProxy );
-			
-			if ( CurrentWeapon == value )
-				return;
-			
-			var oldWeapon = CurrentWeapon;
-			if ( oldWeapon.IsValid() )
-				oldWeapon.Holster();
-			
-			CurrentWeaponId = value.Id;
-			value.Deploy();
+			SetCurrentWeapon( weapon.Id );
+			return;
+		}
+		
+		foreach ( var w in Inventory.Weapons )
+		{
+			w.IsDeployed = false;
+		}
+		
+		weapon.IsDeployed = true;
+	}
+
+	private void ClearViewModel()
+	{
+		foreach ( var weapon in Inventory.Weapons )
+		{
+			weapon.ClearViewModel();
 		}
 	}
 
-	/// <summary>
-	/// Set the current weapon for this player from the host.
-	/// </summary>
-	/// <param name="weaponId"></param>
-	[Authority( NetPermission.HostOnly )]
-	public void SetCurrentWeapon( Guid weaponId )
+	private void CreateViewModel()
 	{
-		CurrentWeapon = Scene.Directory.FindComponentByGuid( weaponId ) as Weapon;
-	}
-
-	private void ClearViewModel( Weapon weapon = null )
-	{
+		var weapon = CurrentWeapon;
 		if ( weapon.IsValid() )
-			weapon?.ClearViewModel( this );
-	}
-
-	private void CreateViewModel( Weapon weapon = null )
-	{
-		if ( weapon.IsValid() )
-			weapon.CreateViewModel( this );
+			weapon.CreateViewModel();
 	}
 	
 	protected float GetEyeHeightOffset()

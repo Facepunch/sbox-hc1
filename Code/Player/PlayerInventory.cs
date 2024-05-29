@@ -92,14 +92,7 @@ public partial class PlayerInventory : Component
 	public void HolsterCurrent()
 	{
 		Assert.True( !IsProxy || Networking.IsHost );
-		
-		if ( Networking.IsHost )
-		{
-			Player.SetCurrentWeapon( Guid.Empty );
-			return;
-		}
-		
-		Player.CurrentWeapon = null;
+		Player.SetCurrentWeapon( null );
 	}
 
 	public void SwitchToSlot( int slot )
@@ -125,14 +118,8 @@ public partial class PlayerInventory : Component
 		
 		if ( !Weapons.Contains( weapon ) )
 			return;
-
-		if ( Networking.IsHost )
-		{
-			Player.SetCurrentWeapon( weapon.Id );
-			return;
-		}
 		
-		Player.CurrentWeapon = weapon;
+		Player.SetCurrentWeapon( weapon );
 	}
 
 	/// <summary>
@@ -152,11 +139,6 @@ public partial class PlayerInventory : Component
 			SwitchWeapon( Weapons.FirstOrDefault( x => x != weapon ) );
 
 		weapon.GameObject.Destroy();
-	}
-
-	public bool HasWeaponInSlot( WeaponSlot slot )
-	{
-		return Weapons.FirstOrDefault( weapon => weapon.Resource.Slot == slot ).IsValid();
 	}
 
 	public void GiveWeapon( WeaponData resource, bool makeActive = true )
@@ -197,7 +179,7 @@ public partial class PlayerInventory : Component
 		weaponGameObject.NetworkSpawn( Player.Network.OwnerConnection );
 
 		if ( makeActive )
-			Player.SetCurrentWeapon( weaponComponent.Id );
+			Player.SetCurrentWeapon( weaponComponent );
 		
 		Log.Info( $"Spawned weapon {weaponGameObject} for {Player}" );
 	}

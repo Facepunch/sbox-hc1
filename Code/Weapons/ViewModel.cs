@@ -56,7 +56,7 @@ public partial class ViewModel : Component
 
 	void ApplyAnimationTransform()
 	{
-		var bone = Weapon.ViewModel.ModelRenderer.SceneModel.GetBoneLocalTransform( "camera" );
+		var bone = ModelRenderer.SceneModel.GetBoneLocalTransform( "camera" );
 		var camera = Weapon.PlayerController.CameraGameObject;
 		camera.Transform.LocalPosition += bone.Position;
 		camera.Transform.LocalRotation *= bone.Rotation;
