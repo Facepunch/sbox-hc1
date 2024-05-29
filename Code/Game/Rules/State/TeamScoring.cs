@@ -3,14 +3,21 @@ using Facepunch;
 
 public sealed class TeamScoring : Component, IGameStartListener, IRoundStartListener, IRoundEndListener
 {
-	[Property, HostSync] public int TerroristScore { get; private set; }
-	[Property, HostSync] public int CounterTerroristScore { get; private set; }
-	[Property, HostSync] public Team RoundWinner { get; set; }
+	[Property] public int TerroristScore => GetTeamScore( Team.Terrorist );
+	[Property] public int CounterTerroristScore => GetTeamScore( Team.CounterTerrorist );
+
+	[HostSync] public Team RoundWinner { get; set; }
+
+	[HostSync] public NetList<Team> RoundWinHistory { get; private set; } = new();
+
+	public int GetTeamScore( Team team )
+	{
+		return RoundWinHistory.Count( x => x == team );
+	}
 
 	void IGameStartListener.PreGameStart()
 	{
-		TerroristScore = 0;
-		CounterTerroristScore = 0;
+		RoundWinHistory.Clear();
 	}
 
 	void IRoundStartListener.PreRoundStart()
@@ -18,22 +25,10 @@ public sealed class TeamScoring : Component, IGameStartListener, IRoundStartList
 		RoundWinner = Team.Unassigned;
 	}
 
-	void IRoundEndListener.PreRoundEnd()
-	{
-		switch ( RoundWinner )
-		{
-			case Team.Terrorist:
-				TerroristScore += 1;
-				break;
-
-			case Team.CounterTerrorist:
-				CounterTerroristScore += 1;
-				break;
-		}
-	}
-
 	async Task IRoundEndListener.OnRoundEnd()
 	{
+		RoundWinHistory.Add( RoundWinner );
+
 		await Task.DelaySeconds( 1f );
 
 		switch ( RoundWinner )
