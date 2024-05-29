@@ -8,7 +8,8 @@ public sealed class BombDefusalScenario : Component,
 	IBombDefusedListener,
 	IRoundEndListener,
 	IRoundEndCondition,
-	ITeamAssignedListener
+	ITeamAssignedListener,
+	ITeamSwapListener
 {
 	[RequireComponent] public RoundTimeLimit RoundTimeLimit { get; private set; }
 	[RequireComponent] public TeamEliminated TeamEliminated { get; private set; }
@@ -60,8 +61,19 @@ public sealed class BombDefusalScenario : Component,
 		LossStreakLevel[team] = Math.Clamp( LossStreakLevel.GetValueOrDefault( team ) + sign, 0, MaxLossStreakLevel );
 	}
 
+	void IGameStartListener.PostGameStart()
+	{
+		LossStreakLevel.Clear();
+	}
+
+	void ITeamSwapListener.OnTeamSwap()
+	{
+		LossStreakLevel.Clear();
+	}
+
 	void ITeamAssignedListener.OnTeamAssigned( PlayerController player, Team team )
 	{
+		player.Inventory.Clear();
 		player.Inventory.SetCash( StartMoney );
 	}
 

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Facepunch;
 
-public sealed class TeamScoring : Component, IGameStartListener, IRoundStartListener, IRoundEndListener
+public sealed class TeamScoring : Component, IGameStartListener, IRoundStartListener, IRoundEndListener, ITeamSwapListener
 {
 	[Property, JsonIgnore] public int TerroristScore => GetTeamScore( Team.Terrorist );
 	[Property, JsonIgnore] public int CounterTerroristScore => GetTeamScore( Team.CounterTerrorist );
@@ -45,6 +45,16 @@ public sealed class TeamScoring : Component, IGameStartListener, IRoundStartList
 				RadioSounds.Play( Team.CounterTerrorist, RadioSound.RoundWon );
 				RadioSounds.Play( Team.Terrorist, RadioSound.RoundLost );
 				break;
+		}
+	}
+
+	void ITeamSwapListener.OnTeamSwap()
+	{
+		// Maybe there's a nicer way of handling this...
+
+		for ( var i = 0; i < RoundWinHistory.Count; ++i )
+		{
+			RoundWinHistory[i] = RoundWinHistory[i].GetOpponents();
 		}
 	}
 }

@@ -40,6 +40,16 @@ public static class TeamExtensionMethods
 			_ => "/ui/teams/spectator.png"
 		};
 	}
+
+	public static Team GetOpponents( this Team team )
+	{
+		return team switch
+		{
+			Team.CounterTerrorist => Team.Terrorist,
+			Team.Terrorist => Team.CounterTerrorist,
+			_ => Team.Unassigned
+		};
+	}
 }
 
 /// <summary>

@@ -117,5 +117,16 @@ public interface IPlayerSpawnListener
 
 public interface ITeamAssignedListener
 {
+	/// <summary>
+	/// Called on the host when a player is assigned to a team.
+	/// </summary>
 	public void OnTeamAssigned( PlayerController player, Team team ) { }
+}
+
+public interface ITeamSwapListener
+{
+	/// <summary>
+	/// Called on the host when both teams swap.
+	/// </summary>
+	public void OnTeamSwap() { }
 }
