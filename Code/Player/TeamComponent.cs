@@ -17,7 +17,7 @@ public static class TeamExtensionMethods
 		{
 			Team.Terrorist => "Terrorists",
 			Team.CounterTerrorist => "Counter-Terrorists",
-			_ => "",
+			_ => "Spectators",
 		};
 	}
 
