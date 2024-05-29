@@ -1,7 +1,7 @@
-[GameResource( "Gunfight/Weapon Data", "weapon", "A resource containing basic information about a weapon.", IconBgColor = "#5877E0", Icon = "track_changes" )]
-public partial class WeaponDataResource : GameResource
+[GameResource( "Gunfight/Weapon Data", "wpn", "A resource containing basic information about a weapon.", IconBgColor = "#5877E0", Icon = "track_changes" )]
+public partial class WeaponData : GameResource
 {
-	public static HashSet<WeaponDataResource> All { get; set; } = new();
+	public static HashSet<WeaponData> All { get; set; } = new();
 
 	[Category( "Base" )]
 	public string Name { get; set; } = "My Weapon";
@@ -12,7 +12,7 @@ public partial class WeaponDataResource : GameResource
 	/// <summary>
 	/// The weapon's icon
 	/// </summary>
-	[Property, Group( "Base" ), ImageAssetPath] public string Icon { get; set; }
+	[Group( "Base" ), ImageAssetPath] public string Icon { get; set; }
 
 	/// <summary>
 	/// How much is this weapon to buy in the buy menu?
@@ -22,19 +22,19 @@ public partial class WeaponDataResource : GameResource
 	/// <summary>
 	/// The prefab to create and attach to the player when spawning it in.
 	/// </summary>
-	[Property, Category( "Prefabs" )]
+	[Category( "Prefabs" )]
 	public GameObject MainPrefab { get; set; }
 
 	/// <summary>
 	/// The prefab to create when making a viewmodel for this weapon.
 	/// </summary>
-	[Property, Category( "Prefabs" )]
+	[Category( "Prefabs" )]
 	public GameObject ViewModelPrefab { get; set; }
 
 	/// <summary>
 	/// The weapon's model
 	/// </summary>
-	[Property, Category( "Information" )]
+	[Category( "Information" )]
 	public Model WorldModel { get; set; }
 
 	protected override void PostLoad()

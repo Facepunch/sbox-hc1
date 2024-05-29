@@ -109,7 +109,7 @@ public partial class PlayerInventory : Component
 		weapon.GameObject.Destroy();
 	}
 
-	public void GiveWeapon( WeaponDataResource resource, bool makeActive = true )
+	public void GiveWeapon( WeaponData resource, bool makeActive = true )
 	{
 		if ( !Networking.IsHost )
 		{
@@ -152,7 +152,7 @@ public partial class PlayerInventory : Component
 		Log.Info( $"Spawned weapon {weaponGameObject} for {Player}" );
 	}
 
-	public bool HasWeapon( WeaponDataResource resource )
+	public bool HasWeapon( WeaponData resource )
 	{
 		return Weapons.Any( weapon => weapon.Enabled && weapon.Resource == resource );
 	}

@@ -7,17 +7,17 @@
 <root class="hud with-deadzone @(Player.InBuyMenu ? "active" : "")">
     <div class="title">Buy</div>
     <div class="options">
-        @foreach (WeaponDataResource WeaponData in WeaponDataResource.All)
+        @foreach (WeaponData weapon in WeaponData.All)
         {
-        <div class="button standard @(@Inventory.HasWeapon(WeaponData) ? "owned" : "unowned")" onclick=@(() => BuyWeapon(WeaponData))>
-            @if ( !string.IsNullOrEmpty( WeaponData.Icon ) )
+        <div class="button standard @(@Inventory.HasWeapon(weapon) ? "owned" : "unowned")" onclick=@(() => BuyWeapon(weapon))>
+            @if ( !string.IsNullOrEmpty( weapon.Icon ) )
             {
-                <div class="gunicon" style="background-image:url(@WeaponData.Icon);" />
+                <div class="gunicon" style="background-image:url(@weapon.Icon);" />
             }
             <div class="info layout column">
-                <label>@WeaponData.Name</label>
+                <label>@weapon.Name</label>
                 <div class="layout grow"/>
-                <label class="price">$@WeaponData.Price</label>
+                <label class="price">$@weapon.Price</label>
             </div>
         </div>
         }
@@ -29,9 +29,9 @@
     public PlayerInventory Inventory => Player.Inventory;
     public PlayerController Player => GameUtils.LocalPlayer;
 
-    private void BuyWeapon( WeaponDataResource WeaponData )
+    private void BuyWeapon( WeaponData weapon )
     {
-        Inventory.GiveWeapon( WeaponData );
+        Inventory.GiveWeapon( weapon );
     }
 
     protected override int BuildHash()

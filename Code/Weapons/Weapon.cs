@@ -6,9 +6,9 @@ namespace Facepunch;
 public partial class Weapon : Component
 {
 	/// <summary>
-	/// A reference to the weapon's <see cref="WeaponDataResource"/>.
+	/// A reference to the weapon's <see cref="WeaponData"/>.
 	/// </summary>
-	[Property] public WeaponDataResource Resource { get; set; }
+	[Property] public WeaponData Resource { get; set; }
 
 	/// <summary>
 	/// A tag binder for this weapon.
