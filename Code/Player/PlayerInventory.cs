@@ -255,6 +255,13 @@ public partial class PlayerInventory : Component
 
 	public bool CanTakeWeapon( WeaponData resource )
 	{
+		if ( resource.Team != Team.Unassigned
+			&& resource.Team != Player.TeamComponent.Team
+			&& !resource.CanOtherTeamPickUp )
+		{
+			return false;
+		}
+
 		switch ( resource.Slot )
 		{
 			case WeaponSlot.Utility:

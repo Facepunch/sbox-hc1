@@ -1,4 +1,6 @@
 
+using Facepunch;
+
 public enum WeaponSlot
 {
 	Undefined = 0,
@@ -44,6 +46,18 @@ public partial class WeaponData : GameResource
 	public WeaponSlot Slot { get; set; }
 
 	/// <summary>
+	/// If set, only this team can buy the weapon.
+	/// </summary>
+	[Category( "Base" )]
+	public Team Team { get; set; }
+
+	/// <summary>
+	/// If false, only <see cref="Team"/> can pick up this weapon.
+	/// </summary>
+	[Category( "Base" ), HideIf( nameof(Team), Team.Unassigned )]
+	public bool CanOtherTeamPickUp { get; set; } = true;
+
+	/// <summary>
 	/// The weapon's icon
 	/// </summary>
 	[Group( "Base" ), ImageAssetPath] public string Icon { get; set; }
@@ -80,6 +94,11 @@ public partial class WeaponData : GameResource
 	/// </summary>
 	[Category( "Information" )]
 	public Model WorldModel { get; set; }
+
+	public bool IsPurchasableForTeam( Team team )
+	{
+		return Team == Team.Unassigned || Team == team;
+	}
 
 	protected override void PostLoad()
 	{

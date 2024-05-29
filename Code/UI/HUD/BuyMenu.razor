@@ -7,7 +7,7 @@
 <root class="hud with-deadzone @(Player.InBuyMenu ? "active" : "")">
     @foreach (WeaponSlot slot in Enum.GetValues(typeof(WeaponSlot)))
     {
-        var weapons = WeaponData.All.Where(W => W.IsPurchasable && W.Slot == slot);
+        var weapons = WeaponData.All.Where( W => W.IsPurchasableForTeam( Player.TeamComponent.Team ) && W.Slot == slot );
         if (weapons.Count() < 1)
             continue;
 

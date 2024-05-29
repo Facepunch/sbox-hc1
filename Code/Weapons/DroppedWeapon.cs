@@ -31,7 +31,7 @@ public partial class DroppedWeapon : Component, IUse
 
 	public bool CanUse( PlayerController player )
 	{
-		return !player.Inventory.HasWeapon( Resource );
+		return player.Inventory.CanTakeWeapon( Resource );
 	}
 
 	public void OnUse( PlayerController player )
