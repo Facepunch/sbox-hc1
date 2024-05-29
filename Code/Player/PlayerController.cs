@@ -352,8 +352,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	[Broadcast( NetPermission.OwnerOnly )]
 	private void TryUse( Ray ray )
 	{
-		Log.Info( $"Hello!" );
-
 		var hits = Scene.Trace.Ray( ray, UseDistance )
 			.Size( 5f )
 			.IgnoreGameObjectHierarchy( GameObject )
