@@ -15,7 +15,10 @@
 
         @foreach ( var group in GroupedPlayers )
         {
-            <label class="with-py">@group.Key.GetName()</label>
+            <span class="flex align-center gap-sm">
+                <img class="icon" src="@group.Key.GetIconPath()" style="background-image-tint: @group.Key.GetColor().Hex" />
+                <label class="with-py" style="color: @group.Key.GetColor().Hex">@group.Key.GetName()</label>
+            </span>
 
             <div class="row header with-px-lg with-py-sm">
                 <icon class="col stat-small"></icon>
