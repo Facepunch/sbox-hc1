@@ -19,7 +19,7 @@ public partial class DroppedWeapon : Component
 		renderer.Model = resource.WorldModel;
 
 		var collider = go.Components.Create<BoxCollider>();
-		collider.Scale = new( 4, 4 );
+		collider.Scale = new( 8, 2, 8 );
 
 		droppedWeapon.Rigidbody = go.Components.Create<Rigidbody>();
 
