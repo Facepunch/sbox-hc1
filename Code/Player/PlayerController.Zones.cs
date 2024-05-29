@@ -18,4 +18,9 @@ partial class PlayerController
 		_zones.Clear();
 		_zones.AddRange( Zone.GetAt( Transform.Position ) );
 	}
+
+	public T GetZone<T>()
+	{
+		return Zones.Select( x => x.Components.Get<T>() ).FirstOrDefault( x => x is not null );
+	}
 }

@@ -47,9 +47,7 @@ public partial class PlantFunction : InputActionWeaponFunction
 		BindTag( "planting", () => IsPlanting );
 	}
 
-	private BombSite CurrentBombSite => Weapon.PlayerController.Zones
-		.Select( x => x.Components.Get<BombSite>() )
-		.FirstOrDefault( x => x is not null );
+	private BombSite CurrentBombSite => Weapon.PlayerController.GetZone<BombSite>();
 
 	/// <summary>
 	/// Can we plant right now?

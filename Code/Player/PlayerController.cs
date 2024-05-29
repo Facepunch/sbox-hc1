@@ -439,15 +439,33 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	{
 		if ( InBuyMenu )
 		{
-			if ( Input.EscapePressed || Input.Pressed( "BuyMenu" ) )
+			if ( Input.EscapePressed || Input.Pressed( "BuyMenu" ) || !IsInBuyzone() )
 			{
 				InBuyMenu = false;
 			}
 		}
 		else if ( Input.Pressed( "BuyMenu" ) )
 		{
-			InBuyMenu = true;
+			if ( IsInBuyzone() )
+			{
+				InBuyMenu = true;
+			}
 		}
+	}
+
+	public bool IsInBuyzone()
+	{
+		if ( GameMode.Instance.BuyAnywhere )
+			return true;
+
+		BuyZone zone = GetZone<BuyZone>();
+		if ( zone is null )
+			return false;
+
+		if ( zone.Team == Team.Unassigned )
+			return true;
+
+		return zone.Team == TeamComponent.Team;
 	}
 
 	protected float GetWishSpeed()

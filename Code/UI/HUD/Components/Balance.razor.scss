@@ -1,12 +1,22 @@
 @import "/UI/Styles/Theme.scss";
 
-Balance
-{
+Balance {
     position: absolute;
     gap: 8px;
 
-    .label
+    InputHint
     {
+        transform: scale( 1 );
+        max-width: 120px;
+
+        &.hidden
+        {
+            transform: scale( 0 );
+            max-width: 0;
+        }
+    }
+
+    .label {
         align-self: center;
         font-size: 20px;
     }
