@@ -10,11 +10,15 @@
         @foreach (WeaponDataResource WeaponData in WeaponDataResource.All)
         {
         <div class="button standard @(@Inventory.HasWeapon(WeaponData) ? "owned" : "unowned")" onclick=@(() => BuyWeapon(WeaponData))>
-            <div class="weapon-viewer">
+            @if ( !string.IsNullOrEmpty( WeaponData.Icon ) )
+            {
+                <div class="gunicon" style="background-image:url(@WeaponData.Icon);" />
+            }
+            <div class="info layout column">
+                <label>@WeaponData.Name</label>
+                <div class="layout grow"/>
+                <label class="price">$@WeaponData.Price</label>
             </div>
-            <label>@WeaponData.Name</label>
-            <br />
-            <label class="price">$@WeaponData.Price</label>
         </div>
         }
     </div>
