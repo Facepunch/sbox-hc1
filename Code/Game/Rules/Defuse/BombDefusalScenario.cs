@@ -36,8 +36,10 @@ public sealed class BombDefusalScenario : Component,
 	[Property, HostSync, Category( "Economy" )]
 	public int MaxLossStreakBonus { get; set; } = 2000;
 
-	public int GetLossStreakBonus( int roundsLost )
+	private int GetLossStreakBonus( Team team )
 	{
+		var roundsLost = 2; // TODO
+
 		return BaseLossTeamIncome + Math.Min( (roundsLost - 1) * LossStreakBonus, MaxLossStreakBonus );
 	}
 
@@ -73,15 +75,35 @@ public sealed class BombDefusalScenario : Component,
 	void IBombDetonatedListener.OnBombDetonated( GameObject bomb, BombSite bombSite )
 	{
 		BombHasDetonated = true;
+
+		GameUtils.GiveTeamIncome( Team.Terrorist, BombDetonatedTeamIncome );
+		GameUtils.GiveTeamIncome( Team.CounterTerrorist, GetLossStreakBonus( Team.CounterTerrorist ) );
 	}
 
 	void IBombDefusedListener.OnBombDefused( PlayerController defuser, GameObject bomb, BombSite bombSite )
 	{
 		BombWasDefused = true;
+
+		GameUtils.GiveTeamIncome( Team.Terrorist, GetLossStreakBonus( Team.Terrorist ) );
+		GameUtils.GiveTeamIncome( Team.CounterTerrorist, BombDefusedTeamIncome );
 	}
 
 	void IRoundEndListener.PreRoundEnd()
 	{
+		if ( !IsBombPlanted )
+		{
+			if ( TeamScoring.RoundWinner == Team.Terrorist )
+			{
+				GameUtils.GiveTeamIncome( Team.Terrorist, DefaultWinTeamIncome );
+				GameUtils.GiveTeamIncome( Team.CounterTerrorist, GetLossStreakBonus( Team.CounterTerrorist ) );
+			}
+			else if ( TeamScoring.RoundWinner == Team.CounterTerrorist )
+			{
+				GameUtils.GiveTeamIncome( Team.Terrorist, GetLossStreakBonus( Team.Terrorist ) );
+				GameUtils.GiveTeamIncome( Team.CounterTerrorist, DefaultWinTeamIncome );
+			}
+		}
+
 		IsBombPlanted = false;
 
 		RoundTimeLimit.Enabled = true;
