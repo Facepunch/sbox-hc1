@@ -43,6 +43,37 @@
       "__Prefab": "scenes/maps/defusemap_01/mapmesh.prefab"
     },
     {
+      "__guid": "1b31c5c2-0857-47e8-99de-94eab0b63ae5",
+      "Flags": 0,
+      "Name": "buyzone_t",
+      "Position": "-3168,1888,111.9999",
+      "Tags": "bombsite,zone",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Facepunch.BuyZone",
+          "__guid": "ec1288f8-3cd3-4e88-adef-28190362dd21",
+          "Team": "Terrorist"
+        },
+        {
+          "__type": "Zone",
+          "__guid": "c3637f3f-f3e9-42c6-991a-801e5d0f74ce",
+          "Color": "0,0.41667,1,1",
+          "DisplayName": "Terrorist Buyzone"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "59a25db7-9fd6-482c-afb0-87d397d7a89f",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "506.334,381.8,266.3997",
+          "Static": false
+        }
+      ]
+    },
+    {
       "__guid": "fe1eb2d5-443e-4eaa-9e02-f2a75ce659bb",
       "Flags": 0,
       "Name": "BuyZone-SetUp",
@@ -55,8 +86,8 @@
       "__guid": "e8f0d111-e2b0-4ea3-b638-95f029f1b57f",
       "Flags": 0,
       "Name": "CT Spawn",
-      "Position": "-1538.831,-1513.333,31.99996",
-      "Rotation": "0,0,0.4999999,0.8660256",
+      "Position": "-1664,-1536,32.0114",
+      "Rotation": "0,0,0.7071067,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -72,8 +103,8 @@
       "__guid": "d031137f-fd6d-4cd7-b335-324dd1269c02",
       "Flags": 0,
       "Name": "CT Spawn (1)",
-      "Position": "-1483.405,-1545.333,31.99996",
-      "Rotation": "0,0,0.4999999,0.8660256",
+      "Position": "-1664,-1664,32.01139",
+      "Rotation": "0,0,0.7071068,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -89,8 +120,8 @@
       "__guid": "d51370e3-0047-4633-938d-d28c210daa6b",
       "Flags": 0,
       "Name": "CT Spawn (5)",
-      "Position": "-1558.865,-1560.526,32.00006",
-      "Rotation": "0,0,0.4999999,0.8660256",
+      "Position": "-1536,-1536,32.01139",
+      "Rotation": "0,0,0.7071067,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -106,8 +137,8 @@
       "__guid": "e2f647b9-4c72-4d31-ab78-1d723412a0e0",
       "Flags": 0,
       "Name": "CT Spawn (6)",
-      "Position": "-1437.076,-1636.99,32.00009",
-      "Rotation": "0,0,0.4999999,0.8660256",
+      "Position": "-1792,-1536,32.01141",
+      "Rotation": "0,0,0.7071067,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -123,8 +154,8 @@
       "__guid": "2e2ba9c5-5ad5-4bf2-b5a5-b619d1cd3a14",
       "Flags": 0,
       "Name": "CT Spawn (7)",
-      "Position": "-1418.241,-1512.359,31.99984",
-      "Rotation": "0,0,0.4999999,0.8660256",
+      "Position": "-1792,-1664,32.01138",
+      "Rotation": "0,0,0.7071067,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -140,8 +171,8 @@
       "__guid": "b9276818-9427-40aa-b8a2-744430aadb89",
       "Flags": 0,
       "Name": "CT Spawn (2)",
-      "Position": "-1433.662,-1574.052,31.99996",
-      "Rotation": "0,0,0.4999999,0.8660256",
+      "Position": "-1408,-1536,32.0114",
+      "Rotation": "0,0,0.7071067,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -157,8 +188,8 @@
       "__guid": "88d761ea-fa73-4c12-a86c-26de2d4fe40e",
       "Flags": 0,
       "Name": "CT Spawn (3)",
-      "Position": "-1381.034,-1604.437,31.99996",
-      "Rotation": "0,0,0.4999999,0.8660256",
+      "Position": "-1408,-1664,32.0114",
+      "Rotation": "0,0,0.7071068,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -174,8 +205,8 @@
       "__guid": "25b185f8-39a9-4776-b88d-4b6b17d262da",
       "Flags": 0,
       "Name": "CT Spawn (4)",
-      "Position": "-1492.094,-1602.357,31.99993",
-      "Rotation": "0,0,0.4999999,0.8660256",
+      "Position": "-1536,-1664,32.0114",
+      "Rotation": "0,0,0.7071068,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -191,7 +222,7 @@
       "__guid": "25a8f393-435e-4dcb-8bb7-bb0af9dd8130",
       "Flags": 0,
       "Name": "T Spawn",
-      "Position": "-1792,320,-0.000168047",
+      "Position": "-3040,1888,-0.0001184036",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
@@ -208,7 +239,7 @@
       "__guid": "505a582d-2eb6-47c4-9514-eb769a8bb930",
       "Flags": 0,
       "Name": "T Spawn (1)",
-      "Position": "-1792,256,-0",
+      "Position": "-3040,1824,0.00004964338",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
@@ -225,7 +256,7 @@
       "__guid": "202960c9-db0d-4605-bfcf-0033eb4a3eb7",
       "Flags": 0,
       "Name": "T Spawn (6)",
-      "Position": "-1856,320,-0.000188949",
+      "Position": "-3104,1888,-0.0001393056",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
@@ -242,7 +273,7 @@
       "__guid": "1e50c413-5917-4c31-86a8-040d60fc731a",
       "Flags": 0,
       "Name": "T Spawn (2)",
-      "Position": "-1856,256,0",
+      "Position": "-3104,1824,0.00004964338",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
       "NetworkMode": 2,
@@ -259,7 +290,7 @@
       "__guid": "5023f841-a54f-4158-b31a-9f1a4c674699",
       "Flags": 0,
       "Name": "T Spawn (3)",
-      "Position": "-1984,320,96",
+      "Position": "-3232,1888,0.00000005232141",
       "Rotation": "0,0,0.7071071,-0.7071066",
       "Enabled": true,
       "NetworkMode": 2,
@@ -276,7 +307,7 @@
       "__guid": "145ca5b4-d703-442d-b873-e59e7146c15f",
       "Flags": 0,
       "Name": "T Spawn (4)",
-      "Position": "-2048,320,96",
+      "Position": "-3296,1888,0.00000005232141",
       "Rotation": "0,0,-0.7933533,0.6087615",
       "Enabled": true,
       "NetworkMode": 2,
@@ -293,7 +324,7 @@
       "__guid": "852a626e-f8dd-4dcb-adb9-8327a8ac5c51",
       "Flags": 0,
       "Name": "T Spawn (7)",
-      "Position": "-1984,256,96",
+      "Position": "-3232,1824,0.00000005232141",
       "Rotation": "0,0,0.7071071,-0.7071066",
       "Enabled": true,
       "NetworkMode": 2,
@@ -310,7 +341,7 @@
       "__guid": "39508f9b-ff29-412f-af86-fb84a41af8ad",
       "Flags": 0,
       "Name": "T Spawn (5)",
-      "Position": "-2048,256,96.00002",
+      "Position": "-3296,1824,0.00000005232141",
       "Rotation": "0,0,0.7071071,-0.7071066",
       "Enabled": true,
       "NetworkMode": 2,
@@ -555,7 +586,7 @@
       "__guid": "da067600-0667-4eb1-a81a-acfcaf4cd3dc",
       "Flags": 0,
       "Name": "Envmap Probe",
-      "Position": "-1664,-896,256",
+      "Position": "-2816,-896,256",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -565,8 +596,8 @@
           "__guid": "00130408-83bd-4831-ac91-dcdbebfe445e",
           "Texture": "textures/cubemaps/default2.vtex",
           "Bounds": {
-            "Mins": "-5000,-5000,-1000",
-            "Maxs": "5000,5000,1000"
+            "Mins": "-2761.594,-1523.665,-1000",
+            "Maxs": "3004.938,3088.534,1000"
           },
           "DelayBetweenUpdates": 0.1,
           "Feathering": 0.02,
@@ -815,6 +846,31 @@
       ]
     },
     {
+      "__guid": "b3626598-9de8-40ec-bc38-4c095d7862b3",
+      "Flags": 0,
+      "Name": "Spot Light (6)",
+      "Position": "-4752.635,58.69842,533.6973",
+      "Rotation": "-0.7761888,-0.1432631,0.5747606,0.2160015",
+      "Tags": "light_spot,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpotLight",
+          "__guid": "c8d61794-b1df-4322-b46b-f1781501ae05",
+          "Attenuation": 0.16,
+          "ConeInner": 15,
+          "ConeOuter": 83.57,
+          "FogMode": "Disabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 800,
+          "Shadows": false
+        }
+      ]
+    },
+    {
       "__guid": "d8ecb5b7-01a7-4f64-8c22-e14da31ab80a",
       "Flags": 0,
       "Name": "Spot Light (3)",
@@ -862,6 +918,509 @@
           "TextAlignment": "Center"
         }
       ]
+    },
+    {
+      "__guid": "1f8529ec-4ca4-463a-86a5-de72d1a39459",
+      "Flags": 0,
+      "Name": "Spot Light",
+      "Position": "-4384,960,224",
+      "Rotation": "0,0.7071067,0,0.7071068",
+      "Tags": "light_spot,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpotLight",
+          "__guid": "e12c08e8-761c-4b8d-b2b0-be53cb6bdcc9",
+          "Attenuation": 1,
+          "ConeInner": 72.28,
+          "ConeOuter": 78.24,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 500,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "c4c7c23b-4feb-4af4-b6f8-6949882b29f7",
+      "Flags": 0,
+      "Name": "Spot Light (4)",
+      "Position": "-4128,864,224",
+      "Rotation": "0,0.7071067,0,0.7071068",
+      "Tags": "light_spot,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpotLight",
+          "__guid": "d18213e2-2384-489a-a51f-3b64fd3f7aa6",
+          "Attenuation": 1,
+          "ConeInner": 72.28,
+          "ConeOuter": 78.24,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 500,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "c2b251a4-8c10-4648-bf7a-6bd2b57709c7",
+      "Flags": 0,
+      "Name": "Spot Light (5)",
+      "Position": "-4032,416,288",
+      "Rotation": "0,0.7071067,0,0.7071068",
+      "Tags": "light_spot,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpotLight",
+          "__guid": "353aaefe-c68f-4891-a246-e8f045f94b43",
+          "Attenuation": 1,
+          "ConeInner": 72.28,
+          "ConeOuter": 78.24,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 500,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "06c40250-1e5a-44ee-818f-ef139d0cf6f4",
+      "Flags": 0,
+      "Name": "Door",
+      "Position": "-183,-1032,32",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Facepunch.Door",
+          "__guid": "92f66c14-2ad3-4db7-a4d3-f154296045fe",
+          "AnimationCurve": [
+            {},
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "CloseSound": "sound/hl2_door_soft_close.sound",
+          "OpenAwayFromPlayer": true,
+          "OpenSound": "sound/hl2_door_open.sound",
+          "OpenTime": 0.35,
+          "TargetAngle": 90
+        },
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "cb88b133-2d16-4209-b014-24bbf27fb8d0",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/props/trim_sheets/doors/wooden_doors/wooden_door_01d.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "5f4fcae3-9810-493c-bd5f-2d9d3a4fb20a",
+          "IsTrigger": false,
+          "Model": "models/props/trim_sheets/doors/wooden_doors/wooden_door_01d.vmdl",
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "65e30d8c-3a9d-4968-97aa-cd0fd1798aed",
+      "Flags": 0,
+      "Name": "Door",
+      "Position": "-4055,328,160",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Facepunch.Door",
+          "__guid": "078f55fd-d6f5-458f-814c-d9ae156e742f",
+          "AnimationCurve": [
+            {},
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "CloseSound": "sound/hl2_door_soft_close.sound",
+          "OpenAwayFromPlayer": true,
+          "OpenSound": "sound/hl2_door_open.sound",
+          "OpenTime": 0.35,
+          "TargetAngle": 90
+        },
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "c08347a8-4197-4685-a74d-029404cf73e0",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/props/trim_sheets/doors/wooden_doors/wooden_door_01d.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "51f69aab-05cb-4e16-9a68-40c656ab2a47",
+          "IsTrigger": false,
+          "Model": "models/props/trim_sheets/doors/wooden_doors/wooden_door_01d.vmdl",
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "e1ef9109-5782-4d95-a82e-e1a29dec9864",
+      "Flags": 0,
+      "Name": "bombsite_b",
+      "Position": "-4679.569,-1072,288",
+      "Tags": "bombsite,zone",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "scenes/maps/defusemap_01/bombsite_b.prefab"
+    },
+    {
+      "__guid": "d681c6db-ffaa-48e9-afcc-4d720b7a7aa9",
+      "Flags": 0,
+      "Name": "Mid",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "scenes/maps/defusemap_01/mapmesh_mid.prefab"
+    },
+    {
+      "__guid": "848fb04f-4388-41fb-af6d-0653ca335057",
+      "Flags": 0,
+      "Name": "decal_bombsite_a",
+      "Position": "-3040,1440,128",
+      "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "46c26132-b88d-4b15-9b13-989ad9aaf787",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_bombsite_a.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,64,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "299a05ae-74c4-49ec-986b-52a267a872bf",
+      "Flags": 0,
+      "Name": "decal_bombsite_a (6)",
+      "Position": "-1504,-1296,184",
+      "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "8b56a3de-006c-4ebd-a198-551321110291",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_bombsite_a.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,64,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "8475930d-054f-434b-96a4-bda2af7360ca",
+      "Flags": 0,
+      "Name": "decal_bombsite_a (4)",
+      "Position": "-3040,1440,80",
+      "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "f5f97428-b2d6-4f31-8562-afbfc16e1efa",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_arrow.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,32,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "61b22507-3018-429e-82e8-36555c63884f",
+      "Flags": 0,
+      "Name": "decal_bombsite_a (7)",
+      "Position": "-1760,-1296,136",
+      "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "f8fcb79d-6623-4b27-87be-7cf82b33fa44",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_arrow.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,32,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "87a3b0c8-8176-4194-a69f-88ed7e180817",
+      "Flags": 0,
+      "Name": "decal_bombsite_a (5)",
+      "Position": "-3296,1440,80",
+      "Rotation": "0.0000002753576,-0.0000002753576,0.7071068,-0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "2a920f0a-7e0e-4f6d-9c1a-136ba22fc631",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_arrow.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,32,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "7fc1f261-bcba-4036-ae95-43ad34fb51b8",
+      "Flags": 0,
+      "Name": "decal_bombsite_a (8)",
+      "Position": "-1504,-1296,136",
+      "Rotation": "0.0000002753576,0.0000002753575,-0.7071067,-0.7071069",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "ee454371-a812-491c-97ba-66f9ec2c3143",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_arrow.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,32,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "5f44e9c4-953d-40d7-834b-49b66a2691d4",
+      "Flags": 0,
+      "Name": "decal_bombsite_a (3)",
+      "Position": "-3296,1440,128",
+      "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "5eaed8d7-c696-46e9-a644-8f5b93f813f5",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_bombsite_b.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,64,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "b1c8bcd4-10a6-4206-9496-9c2c0a62710a",
+      "Flags": 0,
+      "Name": "decal_bombsite_a (9)",
+      "Position": "-1760,-1296,184",
+      "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "70e37f4b-b971-4ec5-a20b-76f05c04fe9c",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_bombsite_b.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,64,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "a13c9e8a-231e-4c48-b800-632b9b3dd235",
+      "Flags": 0,
+      "Name": "decal_bombsite_b",
+      "Position": "-4496,-1088,224",
+      "Rotation": "0.7071067,-0.7071068,-0.0000001376788,0.0000001376788",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "f5fd6e99-f172-4a1b-a75f-eb763fe6d764",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_bombsite_b.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,64,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "9f7c36f6-bb28-4ef7-b56b-0ac56b9aa294",
+      "Flags": 0,
+      "Name": "decal_bombsite_b (1)",
+      "Position": "-4256,-928,288",
+      "Rotation": "0.7071067,-0.7071068,-0.0000001376788,0.0000001376788",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "a3c74e79-54ea-4d83-ada4-a63c8c9f40f6",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_bombsite_b.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,64,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "d623faf4-c147-4b7e-bbbd-eaa037e32b98",
+      "Flags": 0,
+      "Name": "decal_bombsite_b (2)",
+      "Position": "-4256,-928,240",
+      "Rotation": "0.0000002753575,-0.0000002753576,0.7071067,-0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "6f2dbacf-e07b-4f03-93af-7a8bbe586cc5",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_arrow.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,32,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "252ddb30-2f5d-47b3-87bd-f8608b6ca2c4",
+      "Flags": 0,
+      "Name": "decal_cross",
+      "Position": "-4672,-1072,176",
+      "Rotation": "-0.5,0.5,0.5,0.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "4fc1549d-5696-4436-9c73-ab659f75c993",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_cross.vmat",
+          "Mod2XBlending": false,
+          "Size": "128,128,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "75994d0c-c676-4889-bb4c-d7b74b236eea",
+      "Flags": 0,
+      "Name": "decal_bombsite_b",
+      "Position": "-3360,96,160",
+      "Rotation": "-0.0000001947072,1,0.0000001947072,0.00000000000003791089",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "11012247-3efb-4411-a506-825762a687a7",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_bombsite_b.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,64,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
+    },
+    {
+      "__guid": "c3cabca4-7200-4340-ae9e-3fc10780db2b",
+      "Flags": 0,
+      "Name": "decal_arrow",
+      "Position": "-3344,96,112",
+      "Rotation": "-0.0000001947072,-1,-0.0000001947072,0.00000000000003791089",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DecalRenderer",
+          "__guid": "7767cfd4-019e-4038-90d4-033ca9e0c0b9",
+          "CutoffAngle": 60,
+          "CutoffAngleSoftness": 5,
+          "Material": "materials/decals/decal_arrow.vmat",
+          "Mod2XBlending": false,
+          "Size": "64,32,256",
+          "TintColor": "1,1,1,1",
+          "TriPlanar": false
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -887,8 +1446,12 @@
   },
   "Title": "de_garry",
   "Description": "",
-  "LastSaved": "2024-05-29T13:02:42.2379752\u002B01:00",
+  "LastSaved": "2024-05-29T15:47:53.9610099\u002B01:00",
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.wooden_door_01d",
+    "viasoundcorner.hl2_door_open",
+    "viasoundcorner.hl2_door_soft_close"
+  ],
   "__version": 1
 }
