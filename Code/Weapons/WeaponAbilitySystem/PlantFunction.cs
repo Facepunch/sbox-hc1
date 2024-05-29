@@ -10,12 +10,6 @@ public partial class PlantFunction : InputActionWeaponFunction
 	[Property, Category( "Config" )]
 	public float PlantTime { get; set; } = 3.2f;
 
-	/// <summary>
-	/// If you cancel planting, how long until you can plant again.
-	/// </summary>
-	[Property, Category( "Config" )]
-	public float ResetTime { get; set; } = 0.5f;
-
 	[Property, Category( "Config" )]
 	public GameObject PlantedObjectPrefab { get; set; }
 
@@ -55,10 +49,6 @@ public partial class PlantFunction : InputActionWeaponFunction
 	public bool CanPlant()
 	{
 		if ( !Weapon.PlayerController.IsGrounded )
-			return false;
-
-		// Delay checks
-		if ( TimeSincePlantCancel < ResetTime )
 			return false;
 
 		if ( CurrentBombSite is null )
