@@ -6,7 +6,7 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="hud with-deadzone flex justify-end align-center column">
+<root class="flex justify-end align-center column">
     @if (LocalPlayer.IsSpectating)
     {
         <label>@(Player.IsLocallyControlled ? "FREECAM" : $"SPECTATING: {Player.Network.OwnerConnection.DisplayName}")</label>

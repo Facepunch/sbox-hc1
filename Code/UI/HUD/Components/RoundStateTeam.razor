@@ -2,22 +2,25 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-<root class="team flex row gap-sm align-center with-padding" style="@BuildStyle()">
+<root class="team flex @(IconPosition == IconPositions.Right ? "justify-end" : "")">
+    <div class="inner flex row gap-sm align-center with-padding">
+        <div class="background" style="@BuildStyle()"></div>
 
-    @if (IconPosition == IconPositions.Left)
-    {
-        <img class="hud with-padding icon" src="@TeamIcon" />
-    }
+        @if (IconPosition == IconPositions.Left)
+        {
+            <img class="hud with-padding icon" src="@TeamIcon" />
+        }
 
-    @foreach (var values in Grouping)
-    {
-        <PlayerAvatar @Player=@values />
-    }
+        @foreach (var values in Grouping)
+        {
+            <PlayerAvatar @Player=@values />
+        }
 
-    @if (IconPosition == IconPositions.Right)
-    {
-        <img class="hud with-padding icon" src="@TeamIcon" />
-    }
+        @if (IconPosition == IconPositions.Right)
+        {
+            <img class="hud with-padding icon" src="@TeamIcon" />
+        }
+    </div>
 </root>
 
 @code

@@ -1,7 +1,20 @@
 ﻿@import "/UI/Styles/Theme.scss";
 
 RoundStateTeam {
-    backdrop-filter: $blur;
+    width: 100%;
+
+    .inner {
+        position: relative;
+    }
+
+    .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: $blur;
+    }
 
     img.icon {
         width: 32px;
