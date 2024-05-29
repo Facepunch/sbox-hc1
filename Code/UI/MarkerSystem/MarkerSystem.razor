@@ -14,6 +14,6 @@
 
     protected override int BuildHash()
     {
-        return System.HashCode.Combine( MarkedObjects.Count() );
+        return MarkedObjects.Aggregate( 0, ( current, marker ) => HashCode.Combine( current, marker, marker.ShouldShowMarker ) );
     }
 }

@@ -33,21 +33,18 @@
 
     protected override void OnAfterTreeRender( bool firstTime )
     {
-        if ( firstTime )
-        {
-            if ( Object.MarkerPanelTypeOverride is not null )
-            {
-                var desc = TypeLibrary.GetType( Object.MarkerPanelTypeOverride );
-
-                if ( desc is not null )
-                {
-                    var inst = desc.Create<BaseMarkerPanel>();
-                    inst.Marker = this;
-                    CustomPanel = inst;
-                    CustomPanel.Parent = this;
-                }
-            }
-        }
+        if ( !firstTime ) return;
+        if ( !Object.IsValid() ) return;
+        if ( Object.MarkerPanelTypeOverride is null ) return;
+        
+        var desc = TypeLibrary.GetType( Object.MarkerPanelTypeOverride );
+        if ( desc is null ) return;
+        
+        var inst = desc.Create<BaseMarkerPanel>();
+        inst.Marker = this;
+        
+        CustomPanel = inst;
+        CustomPanel.Parent = this;
     }
 
     private static Vector2 ScreenSafezone = new( 0.05f, 0.95f );
@@ -73,6 +70,6 @@
 
     protected override int BuildHash()
     {
-        return System.HashCode.Combine( CustomPanel );
+        return HashCode.Combine( CustomPanel );
     }
 }

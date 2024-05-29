@@ -35,11 +35,11 @@ public partial class GameUtils
 	/// <summary>
 	/// Get a player from a component that belongs to a player or their descendants.
 	/// </summary>
-	public static PlayerController GetPlayerFromComponent(Component component)
+	public static PlayerController GetPlayerFromComponent( Component component )
 	{
 		if ( component is PlayerController player ) return player;
 
-		if ( component.GameObject.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is PlayerController foundPlayer )
+		if ( component?.GameObject?.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } foundPlayer )
 		{
 			return foundPlayer;
 		}

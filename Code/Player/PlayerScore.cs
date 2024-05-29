@@ -2,13 +2,13 @@
 
 public sealed class PlayerScore : Component, IKillListener
 {
-	[HostSync( Query = true ), Property, ReadOnly] 
+	[HostSync, Property, ReadOnly] 
 	public int Kills { get; set; } = 0;
 
-	[HostSync( Query = true ), Property, ReadOnly] 
+	[HostSync, Property, ReadOnly] 
 	public int Deaths { get; set; } = 0;
 
-	[HostSync( Query = true ), Property, ReadOnly] 
+	[HostSync, Property, ReadOnly] 
 	public int Experience { get; set; } = 0;
 
 	private const int FriendlyKillScore = -200;

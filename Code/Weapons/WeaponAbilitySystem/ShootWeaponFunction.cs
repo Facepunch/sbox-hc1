@@ -353,6 +353,10 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	/// <returns></returns>
 	public bool CanShoot()
 	{
+		// Do we still have a weapon?
+		if ( !Weapon.IsValid() ) return false;
+		if ( !Weapon.PlayerController.IsValid() ) return false;
+		
 		// Player
 		if ( Weapon.PlayerController.IsFrozen )
 			return false;
@@ -363,15 +367,11 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 
 		// Delay checks
 		if ( TimeSinceShoot < RPMToSeconds() )
-		{
 			return false;
-		}
 
 		// Ammo checks
 		if ( RequiresAmmoContainer && ( AmmoContainer == null || !AmmoContainer.HasAmmo ) )
-		{
 			return false;
-		}
 
 		return true;
 	}

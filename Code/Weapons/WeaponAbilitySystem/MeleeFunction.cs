@@ -88,10 +88,8 @@ public partial class MeleeFunction : InputActionWeaponFunction
 
 	public void Swing()
 	{
-		TimeSinceSwing = 0;
-
-		int count = 0;
-
+		TimeSinceSwing = 0f;
+		
 		foreach ( var tr in GetTrace() )
 		{
 			if ( !tr.Hit )
@@ -105,7 +103,6 @@ public partial class MeleeFunction : InputActionWeaponFunction
 
 			// Inflict damage on whatever we find.
 			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id );
-			count++;
 		}
 	}
 
@@ -131,16 +128,10 @@ public partial class MeleeFunction : InputActionWeaponFunction
 	/// <summary>
 	/// Can we shoot this gun right now?
 	/// </summary>
-	/// <returns></returns>
 	public bool CanSwing()
 	{
-        // Delay checks
-        if ( TimeSinceSwing < FireRate )
-		{
-			return false;
-		}
-
-        return true;
+		// Delay checks
+		return TimeSinceSwing >= FireRate;
 	}
 
     protected override void OnFunctionExecute()
