@@ -1,5 +1,4 @@
-﻿using Facepunch.UI;
-using Facepunch;
+﻿using Facepunch;
 using System.Threading.Tasks;
 
 /// <summary>
@@ -8,21 +7,18 @@ using System.Threading.Tasks;
 public sealed class WaitForPlayers : Component, IGameStartListener
 {
 	[DeveloperCommand( "Pause Game Start", "Pause / resume timer before game starts." )]
-	public static void Toggle()
+	public static void DevToggle()
 	{
-		var inst = GameMode.Instance?.Components.GetInDescendantsOrSelf<WaitForPlayers>();
-
-		if ( inst != null )
-		{
-			inst.IsPostponed = !inst.IsPostponed;
-		}
+		GameMode.Instance
+			?.Components.GetInDescendantsOrSelf<WaitForPlayers>()
+			?.Toggle();
 	}
 
 	[Property, HostSync]
 	public float DurationSeconds { get; set; } = 60f;
 
 	[Property, HostSync]
-	public float MinDurationSeconds { get; set; } = 5f;
+	public float GameStartDelaySeconds { get; set; } = 5f;
 
 	[Property, HostSync]
 	public int MinPlayerCount { get; set; } = 2;
@@ -37,40 +33,39 @@ public sealed class WaitForPlayers : Component, IGameStartListener
 
 	async Task IGameStartListener.OnGameStart()
 	{
-		StartTime = Time.Now;
+		Restart();
 
-		while ( GameUtils.AllPlayers.Count() < MinPlayerCount && Remaining > 0f )
+		while ( IsPostponed || GameUtils.AllPlayers.Count() < MinPlayerCount && Remaining > 0f )
 		{
-			if ( IsPostponed )
-			{
-				StartTime = Time.Now;
-			}
-
 			await Task.DelaySeconds( 1f );
 		}
 
-		if ( Remaining > MinDurationSeconds )
-		{
-			StartTime = Time.Now - DurationSeconds + MinDurationSeconds;
-		}
+		GameMode.Instance.ShowStatusText( "Starting game..." );
+		GameMode.Instance.ShowCountDownTimer( Time.Now, GameStartDelaySeconds );
 
-		if ( Remaining > 0f )
-		{
-			await Task.DelaySeconds( Remaining );
-		}
+		await Task.DelaySeconds( GameStartDelaySeconds );
 	}
 
-	protected override void OnUpdate()
+	private void Toggle()
 	{
-		if ( GameMode.Instance.State != GameState.PreGame )
-		{
-			return;
-		}
+		if ( IsPostponed ) Restart();
+		else Postpone();
+	}
 
-		if ( GameUtils.GetHudPanel<RoundStateDisplay>() is { } display )
-		{
-			display.Status = "Waiting for players...";
-			display.Time = TimeSpan.FromSeconds( Remaining + 1f );
-		}
+	private void Postpone()
+	{
+		IsPostponed = true;
+
+		GameMode.Instance.ShowStatusText( "Game Start Paused" );
+		GameMode.Instance.HideTimer();
+	}
+
+	private void Restart()
+	{
+		StartTime = Time.Now;
+		IsPostponed = false;
+
+		GameMode.Instance.ShowStatusText( "Waiting for players..." );
+		GameMode.Instance.ShowCountDownTimer( StartTime, DurationSeconds );
 	}
 }

@@ -31,19 +31,4 @@ public partial class GameUtils
 	/// Players assigned to a particular team.
 	/// </summary>
 	public static IEnumerable<PlayerController> GetPlayers( Team team ) => AllPlayers.Where( x => x.TeamComponent.Team == team );
-
-	public static T GetHudPanel<T>()
-		where T : Panel
-	{
-		var hudPanel = Game.ActiveScene?.GetAllComponents<MainHUD>()
-			.FirstOrDefault();
-
-		if ( hudPanel.IsValid() )
-		{
-			return hudPanel.Panel.Descendants.OfType<T>()
-				.FirstOrDefault();
-		}
-
-		return null;
-	}
 }

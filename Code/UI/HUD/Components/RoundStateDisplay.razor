@@ -25,8 +25,8 @@
 
 @code
 {
-    public string Status { get; set; }
-    public TimeSpan? Time { get; set; }
+    public string Status => GameMode.Instance?.DisplayedStatus;
+    public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
 
     private string GetTeamName( Team team )
     {
