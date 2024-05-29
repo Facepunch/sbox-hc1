@@ -9,10 +9,9 @@ public sealed class BombDefusalScenario : Component,
 	IRoundEndListener,
 	IRoundEndCondition
 {
-	[RequireComponent]
-	public RoundTimeLimit RoundTimeLimit { get; private set; }
-	[RequireComponent]
-	public TeamEliminated TeamEliminated { get; private set; }
+	[RequireComponent] public RoundTimeLimit RoundTimeLimit { get; private set; }
+	[RequireComponent] public TeamEliminated TeamEliminated { get; private set; }
+	[RequireComponent] public TeamScoring TeamScoring { get; private set; }
 
 	[HostSync] public bool IsBombPlanted { get; private set; }
 	[HostSync] public bool BombHasDetonated { get; private set; }
@@ -58,6 +57,23 @@ public sealed class BombDefusalScenario : Component,
 
 	public bool ShouldRoundEnd()
 	{
-		return IsBombPlanted && (BombWasDefused || BombHasDetonated);
+		if ( !IsBombPlanted )
+		{
+			return false;
+		}
+
+		if ( BombWasDefused )
+		{
+			TeamScoring.RoundWinner = Team.CounterTerrorist;
+			return true;
+		}
+
+		if ( BombHasDetonated )
+		{
+			TeamScoring.RoundWinner = Team.Terrorist;
+			return true;
+		}
+
+		return false;
 	}
 }
