@@ -7,17 +7,16 @@
 <root class="hud with-deadzone @(Player.InBuyMenu ? "active" : "")">
     <div class="title">Buy</div>
     <div class="options">
-        @foreach (WeaponData weapon in WeaponData.All)
+        @foreach (WeaponData weaponData in WeaponData.All)
         {
-        <div class="button standard @(@Inventory.HasWeapon(weapon) ? "owned" : "unowned")" onclick=@(() => BuyWeapon(weapon))>
-            @if ( !string.IsNullOrEmpty( weapon.Icon ) )
-            {
-                <div class="gunicon" style="background-image:url(@weapon.Icon);" />
-            }
-            <div class="info layout column">
-                <label>@weapon.Name</label>
-                <div class="layout grow"/>
-                <label class="price">$@weapon.Price</label>
+            <div class="button @(@Inventory.HasWeapon( weaponData ) ? "owned" : "unowned") @(@CanAfford( weaponData ) ? "" : "unaffordable" )" onclick=@(() => BuyWeapon( weaponData ))>
+                @if ( !string.IsNullOrEmpty( weaponData.Icon ) )
+                {
+                    <div class="gunicon" style="background-image:url(@weaponData.Icon);" />
+                }
+                <label>@weaponData.Name</label>
+                <br />
+                <label class="price">$@weaponData.Price</label>
             </div>
         </div>
         }
@@ -29,9 +28,17 @@
     public PlayerInventory Inventory => Player.Inventory;
     public PlayerController Player => GameUtils.LocalPlayer;
 
-    private void BuyWeapon( WeaponData weapon )
+    private void BuyWeapon( WeaponData weaponData )
     {
-        Inventory.GiveWeapon( weapon );
+        if (!CanAfford(weaponData) || !Inventory.CanTakeWeapon(weaponData))
+            return;
+
+        Inventory.BuyWeapon( weaponData.ResourceId );
+    }
+
+    private bool CanAfford( WeaponData weaponData )
+    {
+        return Inventory.Balance >= weaponData.Price;
     }
 
     protected override int BuildHash()

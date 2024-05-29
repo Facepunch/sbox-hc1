@@ -53,4 +53,14 @@ public partial class PlayerController
 			return;
 		}
 	}
+
+	[DeveloperCommand("Give $1k")]
+	private static void Command_GiveGrand()
+	{
+		var player = Developer.CurrentPlayer;
+		if ( player.IsValid() )
+		{
+			player.Inventory.GiveCash(1000);
+		}
+	}
 }

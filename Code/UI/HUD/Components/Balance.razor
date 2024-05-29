@@ -1,0 +1,26 @@
+@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+@if (!Player.IsValid()) return;
+
+<root class="hud with-deadzone row middle-left">
+    <InputHint Action="BuyMenu" />
+    <label>$@Inventory.Balance.ToString("N0")</label>
+</root>
+
+@code
+{
+    /// <summary>
+    /// The player's inventory
+    /// </summary>
+    public PlayerInventory Inventory => Player.Inventory;
+
+    /// The player
+    public PlayerController Player => GameUtils.LocalPlayer;
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( Inventory.Balance );
+    }   
+}

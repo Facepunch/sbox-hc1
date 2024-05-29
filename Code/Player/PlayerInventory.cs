@@ -25,6 +25,11 @@ public partial class PlayerInventory : Component
 	[Property] public bool CanUnequipCurrentWeapon { get; set; } = false;
 
 	/// <summary>
+	/// Players current cash balance
+	/// </summary>
+	[HostSync] public int Balance { get; private set; } = 999999;
+
+	/// <summary>
 	/// Gets the player's current weapon.
 	/// </summary>
 	public Weapon CurrentWeapon => Player.CurrentWeapon;
@@ -175,5 +180,39 @@ public partial class PlayerInventory : Component
 			default:
 				return !HasWeapon( resource.Slot );
 		}
+	}
+
+	[Authority( NetPermission.HostOnly )]
+	public void GiveCash( int amount )
+	{
+		Balance += amount;
+	}
+
+	public void BuyWeapon(int resourceId)
+	{
+		using (var _ = Rpc.FilterInclude(Connection.Host))
+		{
+			BuyWeaponHost(resourceId);
+		}
+	}
+
+	[Broadcast]
+	private void BuyWeaponHost( int resourceId )
+	{
+		Assert.True(Networking.IsHost);
+
+		var weaponData = ResourceLibrary.Get<WeaponData>(resourceId);
+
+		if (weaponData == null)
+		{
+			Log.Warning($"Attempted purchase but WeaponData (Id: {weaponData}) not known!");
+			return;
+		}
+
+		if (Balance < weaponData.Price)
+			return;
+
+		Balance -= weaponData.Price;
+		GiveWeapon(weaponData, true );
 	}
 }

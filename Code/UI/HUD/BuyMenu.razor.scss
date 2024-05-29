@@ -70,6 +70,11 @@ BuyMenu
             text-shadow: 2px 1px 0px rgba( black, 0.5 );
         }
 
+        &.unaffordable
+        {
+            background-color: rgba( red, 0.5 );
+        }
+
         &.owned
         {
             background-color: rgba( $main-color, 0.5 );
@@ -78,13 +83,15 @@ BuyMenu
 
         &:hover
         {
-            cursor: pointer;
-            border-color: $main-color;
+            &:not(.unaffordable)
+            {
+                cursor: pointer;
+                border-color: $main-color;
+            }
         }
     }
 
-    .gunicon
-    {
+    .gunicon {
         position: absolute;
         width: 128px;
         height: 64px;
