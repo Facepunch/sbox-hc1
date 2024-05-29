@@ -115,11 +115,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	[Sync] public bool IsNoclipping { get; set; }
 
 	/// <summary>
-	/// Is the player holding use?
-	/// </summary>
-	[Sync] public bool IsUsing { get; set; }
-
-	/// <summary>
 	/// Noclip movement speed
 	/// </summary>
 	[Property] public float NoclipSpeed { get; set; } = 1000f;
@@ -339,36 +334,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		return HealthComponent.State == LifeState.Alive && TeamComponent.Team == localPlayer.TeamComponent.Team;
 	}
 
-	private void UpdateUse()
-	{
-		if ( Input.Pressed( "Use" ) )
-		{
-			using ( Rpc.FilterInclude( Connection.Host ) )
-			{
-				TryUse( AimRay );
-			}
-		}
-	}
-
-	[Broadcast( NetPermission.OwnerOnly )]
-	private void TryUse( Ray ray )
-	{
-		var hits = Scene.Trace.Ray( ray, UseDistance )
-			.Size( 5f )
-			.IgnoreGameObjectHierarchy( GameObject )
-			.HitTriggers()
-			.RunAll() ?? Array.Empty<SceneTraceResult>();
-
-		var usable = hits
-			.Select( x => x.GameObject.Components.Get<IUse>( FindMode.EnabledInSelf | FindMode.InAncestors ) )
-			.FirstOrDefault( x => x is not null );
-
-		if ( usable.IsValid() && usable.CanUse( this ) )
-		{
-			usable.OnUse( this );
-		}
-	}
-
 	private void UpdateOutline()
 	{
 		if ( !IsOutlineVisible() )
@@ -398,7 +363,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		if ( IsLocallyControlled )
 		{
 			UIUpdate();
-			BuildInput();
 			BuildWishInput();
 			BuildWishVelocity();
 			UpdateUse();
