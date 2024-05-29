@@ -1,4 +1,5 @@
-﻿using Facepunch;
+﻿using System.Threading.Tasks;
+using Facepunch;
 
 public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 {
@@ -7,9 +8,9 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 	/// </summary>
 	[Property] public List<WeaponData> Weapons { get; set; }
 
-	void IPlayerSpawnListener.PrePlayerSpawn( PlayerController player )
+	Task IPlayerSpawnListener.OnPlayerSpawn( PlayerController player )
 	{
-		if ( Weapons is null ) return;
+		if ( Weapons is null ) return Task.CompletedTask;
 
 		Log.Info( $"PrePlayerSpawn for {player}" );
 
@@ -23,5 +24,7 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 		{
 			player.Inventory.SwitchToSlot( player.Inventory.Weapons.Count() - 1 );
 		}
+
+		return Task.CompletedTask;
 	}
 }

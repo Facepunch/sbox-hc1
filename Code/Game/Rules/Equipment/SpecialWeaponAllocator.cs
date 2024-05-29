@@ -1,4 +1,5 @@
-﻿using Facepunch;
+﻿using System.Threading.Tasks;
+using Facepunch;
 
 /// <summary>
 /// Gives a special weapon to one player on the specified team.
@@ -17,20 +18,24 @@ public sealed class SpecialWeaponAllocator : Component, IRoundStartListener, IPl
 	[Property]
 	public Team Team { get; set; }
 
-	void IRoundStartListener.PreRoundStart()
+	Task IRoundStartListener.OnRoundStart()
 	{
 		if ( Weapon is null )
 		{
-			return;
+			return Task.CompletedTask;
 		}
 
 		var players = GameUtils.GetPlayers( Team ).Shuffle();
 
 		if ( players.Count == 0 )
 		{
-			return;
+			return Task.CompletedTask;
 		}
 
+		Log.Info( $"Trying to spawn {Weapon} on {players[0]}" );
+
 		players[0].Inventory.GiveWeapon( Weapon, false );
+
+		return Task.CompletedTask;
 	}
 }
