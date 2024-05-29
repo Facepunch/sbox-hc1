@@ -59,6 +59,19 @@ public partial class PlayerInventory : Component
 		Player.CurrentWeapon = null;
 	}
 
+	private bool noSwitching = false;
+
+	public IDisposable SuspendSwitching()
+	{
+		noSwitching = true;
+		return new Sandbox.Utility.DisposeAction( () =>
+		{
+			noSwitching = false;
+			// Switch to first slot if we can
+			SwitchToSlot( Weapons.Count() - 1 );
+		});
+	}
+
 	public void SwitchToSlot( int slot )
 	{
 		Assert.False( IsProxy );
@@ -136,7 +149,7 @@ public partial class PlayerInventory : Component
 		weaponGameObject.NetworkSpawn( Player.Network.OwnerConnection );
 		weaponGameObject.Enabled = false;
 
-		if ( makeActive )
+		if ( makeActive && !noSwitching )
 		{
 			Player.ChangeCurrentWeapon( weaponComponent.Id );
 		}
