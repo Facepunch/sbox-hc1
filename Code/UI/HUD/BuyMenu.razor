@@ -7,7 +7,7 @@
 <root class="hud with-deadzone @(Player.InBuyMenu ? "active" : "")">
     <div class="title">Buy</div>
     <div class="options">
-        @foreach (WeaponData weaponData in WeaponData.All)
+        @foreach (WeaponData weaponData in WeaponData.All.Where(W => W.IsPurchasable))
         {
             <div class="button @(@Inventory.HasWeapon( weaponData ) ? "owned" : "unowned") @(@CanAfford( weaponData ) ? "" : "unaffordable" )" onclick=@(() => BuyWeapon( weaponData ))>
                 @if ( !string.IsNullOrEmpty( weaponData.Icon ) )

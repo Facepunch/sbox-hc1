@@ -49,6 +49,11 @@ public partial class WeaponData : GameResource
 	[Group( "Base" ), ImageAssetPath] public string Icon { get; set; }
 
 	/// <summary>
+	/// Is this weapon shown in the buy menu
+	/// </summary>
+	[Category("Economy")] public bool IsPurchasable { get; set; } = true;
+
+	/// <summary>
 	/// How much is this weapon to buy in the buy menu?
 	/// </summary>
 	[Category( "Economy" )] public int Price { get; set; } = 0;
