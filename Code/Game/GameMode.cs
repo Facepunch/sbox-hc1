@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 /// Handles the main game loop, using components that listen to state change
 /// events to handle game logic.
 /// </summary>
-public sealed class GameMode : SingletonComponent<GameMode>
+public sealed class GameMode : SingletonComponent<GameMode>, Component.INetworkListener
 {
 	/// <summary>
-	/// Current game state.
+	/// Current game state (controlled by the host.)
 	/// </summary>
-	[Property, Sync]
+	[Property, HostSync]
 	public GameState State { get; private set; }
 
 	private Task _gameLoopTask;
@@ -32,14 +32,18 @@ public sealed class GameMode : SingletonComponent<GameMode>
 		base.OnStart();
 
 		if ( IsProxy )
-		{
 			return;
-		}
 
 		_ = ResumeGame();
 	}
+	
+	void INetworkListener.OnBecameHost( Connection previousHost )
+	{
+		Log.Info( "We became the host, taking over the game loop..." );
+		_ = ResumeGame();
+	}
 
-	public Task ResumeGame()
+	private Task ResumeGame()
 	{
 		return _gameLoopTask ??= GameLoop();
 	}
