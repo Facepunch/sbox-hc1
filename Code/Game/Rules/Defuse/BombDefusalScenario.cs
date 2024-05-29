@@ -35,7 +35,7 @@ public sealed class BombDefusalScenario : Component,
 
 		GameMode.Instance.ShowStatusText( Team.Terrorist, "Defend" );
 		GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "Defuse the Bomb" );
-		GameMode.Instance.HideStatusText();
+		GameMode.Instance.HideTimer();
 	}
 
 	void IBombDetonatedListener.OnBombDetonated( GameObject bomb, BombSite bombSite )
