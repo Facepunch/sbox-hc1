@@ -24,6 +24,8 @@ public partial class DroppedWeapon : Component, IUse, IRoundEndListener, IRoundS
 
 		droppedWeapon.Rigidbody = go.Components.Create<Rigidbody>();
 
+		go.Components.Create<DestroyBetweenRounds>();
+
 		return droppedWeapon;
 	}
 

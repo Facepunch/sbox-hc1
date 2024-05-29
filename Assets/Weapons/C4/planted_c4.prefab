@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "e490be37-96fc-4e90-848c-8df8f0a226c3",
+    "__guid": "be0b8ea4-5728-4bd3-873b-2747eca878ff",
     "Flags": 0,
     "Name": "planted_c4",
     "Enabled": true,
@@ -9,7 +9,8 @@
     "Components": [
       {
         "__type": "TimedExplosive",
-        "__guid": "35cc04b3-2389-474a-b768-a4d703206733",
+        "__guid": "3243926d-7509-4b0a-8601-7b552e8ecc32",
+        "BaseDefuseTime": 10,
         "BeepEffectPrefab": {
           "_type": "gameobject",
           "prefab": "weapons/c4/c4_beep_light.prefab"
@@ -30,20 +31,25 @@
         "ExplosionPrefab": {
           "_type": "gameobject",
           "prefab": "weapons/c4/c4_explosion.prefab"
-        }
+        },
+        "FastDefuseTime": 5
       },
       {
         "__type": "Sandbox.BoxCollider",
-        "__guid": "936b1b12-2957-4818-ab09-b61732cb6911",
+        "__guid": "8e430c27-d3e0-41f2-9563-b69534078448",
         "Center": "0,0,2",
         "IsTrigger": true,
         "Scale": "15,10,5",
         "Static": false
+      },
+      {
+        "__type": "DestroyBetweenRounds",
+        "__guid": "89c77bf8-0a7f-4c68-ac55-cc633a46d4f9"
       }
     ],
     "Children": [
       {
-        "__guid": "90fcbf1e-7838-4142-934b-e77eef8052be",
+        "__guid": "d5dddbe7-1e51-4b7b-8211-dc5ef501e648",
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
@@ -52,7 +58,7 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "faf45b73-87c4-4461-8698-d04dfccfdec2",
+            "__guid": "0048f491-ac28-4b7a-b885-3ee506ed428d",
             "BodyGroups": 18446744073709551615,
             "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
             "RenderType": "On",
