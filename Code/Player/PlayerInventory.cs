@@ -32,8 +32,8 @@ public partial class PlayerInventory : Component
 	/// <summary>
 	/// Does this player have a defuse kit?
 	/// </summary>
-	// [HostSync] TODO
-	public bool HasDefuseKit => true;
+	[HostSync]
+	public bool HasDefuseKit { get; set; }
 
 	/// <summary>
 	/// Gets the player's current weapon.
@@ -43,6 +43,8 @@ public partial class PlayerInventory : Component
 	public void Clear()
 	{
 		Assert.True( Networking.IsHost );
+
+		HasDefuseKit = false;
 		
 		foreach ( var wpn in Weapons )
 		{
