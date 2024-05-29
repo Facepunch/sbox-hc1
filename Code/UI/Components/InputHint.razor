@@ -37,6 +37,6 @@
     protected override int BuildHash()
     {
         // If we switch input device, rebuild the tree.
-        return HashCode.Combine( Action, Input.UsingController );
+        return HashCode.Combine( Action, Size, Input.UsingController );
     }
 }
