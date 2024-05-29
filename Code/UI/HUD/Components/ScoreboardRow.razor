@@ -1,0 +1,33 @@
+﻿@using System;
+@using Sandbox.UI;
+
+@namespace Facepunch.UI
+@inherits Panel
+
+<root class="row @(IsLocal ? "local" : "") @(IsDead ? "dead" : "")">
+    <label class="col stat-small">@(Connection.Ping.CeilToInt())ms</label>
+
+    <span class="col playername">
+        <img class="avatar" src="avatar:@(Connection.SteamId)" />
+        <label>
+            @(Connection.DisplayName)
+        </label>
+    </span>
+
+    <label class="col stat">@(Score.Experience)</label>
+    <label class="col stat">@(Score.Kills)</label>
+    <label class="col stat">@(Score.Deaths)</label>
+</root>
+
+@code {
+    public PlayerController Player { get; set; }
+    private Connection Connection => Player.Network.OwnerConnection;
+    private PlayerScore Score => Player.Components.Get<PlayerScore>();
+    private bool IsLocal => Player.IsLocallyControlled;
+    private bool IsDead => Player.HealthComponent.State != LifeState.Alive;
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Score, Connection, IsLocal, IsDead);
+    }
+}

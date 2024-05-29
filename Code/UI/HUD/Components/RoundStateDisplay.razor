@@ -17,7 +17,6 @@
 
 @code
 {
-
     private List<IGrouping<Team, PlayerController>> GroupedPlayers => PlayerList.GroupBy(x => x.GameObject.GetTeam()).ToList();
 
     public string Status => GameMode.Instance?.DisplayedStatus;

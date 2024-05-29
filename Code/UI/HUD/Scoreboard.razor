@@ -1,0 +1,54 @@
+﻿@using System;
+@using Sandbox.UI;
+
+@namespace Facepunch.UI
+@inherits Panel
+
+@attribute [StyleSheet]
+
+<root class="center with-background">
+    <table>
+        <div class="title">
+            <label class="emphasis">@Status</label>
+            <label class="emphasis">@(Time?.ToString(@"m\:ss"))</label>
+        </div>
+
+        @foreach ( var group in GroupedPlayers )
+        {
+            <label class="with-py">@group.Key.GetName()</label>
+
+            <div class="row header">
+                <icon class="col stat-small"></icon>
+                <label class="col playername"></label>
+                <label class="col stat">XP</label>
+                <label class="col stat">Kills</label>
+                <label class="col stat">Deaths</label>
+            </div>
+
+            @foreach ( var player in group )
+            {
+                <ScoreboardRow Player="@player" />
+            }
+        }
+    </table>
+</root>
+
+@code
+{
+    public string Status => GameMode.Instance?.DisplayedStatus;
+    public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
+
+    public IEnumerable<PlayerController> PlayerList => Scene.GetAllComponents<PlayerController>();
+    private List<IGrouping<Team, PlayerController>> GroupedPlayers => PlayerList.GroupBy(x => x.GameObject.GetTeam()).ToList();
+    public bool IsActive => Input.Down("score");
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Status, Time, GameUtils.AllPlayers, IsActive);
+    }
+
+    public override void Tick()
+    {
+        SetClass( "active", IsActive );
+    }
+}

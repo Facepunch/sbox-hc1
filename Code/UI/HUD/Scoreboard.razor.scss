@@ -1,0 +1,75 @@
+﻿@import "/UI/Styles/Theme.scss";
+
+Scoreboard {
+    z-index: 100;
+    opacity: 0;
+    display: none;
+    transition: opacity 150ms ease;
+
+    &.active {
+        display: flex;
+        opacity: 1;
+    }
+
+    table {
+        width: 960px;
+        padding: 16px;
+        flex-direction: column;
+        gap: 2px;
+        color: white;
+
+        .title {
+            justify-content: space-between;
+            text-shadow: 0 0 4px rgba( black, 0.5 );
+        }
+
+        .row {
+            background-color: rgba( black, 0.75 );
+            width: 100%;
+            padding: 8px 16px;
+            align-items: center;
+
+            .avatar {
+                width: 32px;
+                height: 32px;
+                aspect-ratio: 1;
+            }
+
+            &.local {
+                background-color: rgba( white, 0.75 );
+
+                text, label {
+                    color: black;
+                }
+            }
+
+            &.dead {
+                opacity: 0.5;
+                filter: saturate( 0.2 );
+            }
+
+            &.header {
+                font-weight: bold;
+            }
+
+            .col {
+                align-items: center;
+            }
+
+            .playername {
+                flex-basis: 600px;
+                gap: 8px;
+            }
+
+            .stat {
+                flex-basis: 50px;
+                flex-grow: 1;
+            }
+
+            .stat-small {
+                flex-basis: 50px;
+                align-items: center;
+            }
+        }
+    }
+}
