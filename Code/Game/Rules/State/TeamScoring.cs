@@ -1,6 +1,5 @@
-﻿
+﻿using System.Threading.Tasks;
 using Facepunch;
-using Sandbox.Utility;
 
 public sealed class TeamScoring : Component, IGameStartListener, IRoundStartListener, IRoundEndListener
 {
@@ -29,6 +28,22 @@ public sealed class TeamScoring : Component, IGameStartListener, IRoundStartList
 
 			case Team.CounterTerrorist:
 				CounterTerroristScore += 1;
+				break;
+		}
+	}
+
+	async Task IRoundEndListener.OnRoundEnd()
+	{
+		await Task.DelaySeconds( 1f );
+
+		switch ( RoundWinner )
+		{
+			case Team.Terrorist:
+				GameMode.Instance.ShowStatusText( "Terrorists Win!" );
+				break;
+
+			case Team.CounterTerrorist:
+				GameMode.Instance.ShowStatusText( "Counter-Terrorists Win!" );
 				break;
 		}
 	}
