@@ -6,7 +6,7 @@
         <img class="image" src="avatar:@Player.Network.OwnerConnection.SteamId" />
     </div>
 
-    @if ( Player.HealthComponent.State == LifeState.Alive )
+    @if ( Player.HealthComponent.State == LifeState.Alive && IsFriendly )
     {
         <div class="health">
             <div class="health-inner" style="width:@(Player.HealthComponent.Health)%" />
@@ -17,6 +17,7 @@
 @code
 {
     public PlayerController Player { get; set; }
+    public bool IsFriendly => GameUtils.LocalPlayer.GameObject.IsFriendly(Player.GameObject);
 
     private string AvatarClasses
     {
@@ -29,6 +30,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Player, Player.HealthComponent.Health, Player.HealthComponent.State);
+        return HashCode.Combine(Player, IsFriendly, Player.HealthComponent.Health, Player.HealthComponent.State);
     }
 }

@@ -6,7 +6,7 @@
     @if ( GroupedPlayers.Count >= 1 )
         <RoundStateTeam Grouping="@GroupedPlayers[0]" iconPosition="Right" />
 
-    <div class="flex column with-background with-padding with-px-lg h-full align-center justify-center">
+    <div class="flex column with-background with-padding h-full align-center justify-center" style="min-width: 175px">
         <label>@Status</label>
         <label class="emphasis">@(Time?.ToString(@"m\:ss"))</label>
     </div>
