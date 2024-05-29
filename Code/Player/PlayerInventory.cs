@@ -50,6 +50,8 @@ public partial class PlayerInventory : Component
 		if ( weapon.Resource.Slot == WeaponSlot.Melee ) return;
 		var droppedWeapon = DroppedWeapon.Create( weapon.Resource, Player.AimRay.Position + Player.AimRay.Forward * 32f, Rotation.From( 0, Player.EyeAngles.yaw + 90, 90 ) ); 
 
+		droppedWeapon.Rigidbody.ApplyForce( Player.AimRay.Forward * 0.5f );
+
 		RemoveWeapon( weapon );
 	}
 

@@ -4,6 +4,8 @@ public partial class DroppedWeapon : Component
 {
 	[Property] public WeaponData Resource { get; set; }
 
+	public Rigidbody Rigidbody { get; private set; }
+
 	public static DroppedWeapon Create( WeaponData resource, Vector3 positon, Rotation rotation = default )
 	{
 		var go = new GameObject();
@@ -19,7 +21,7 @@ public partial class DroppedWeapon : Component
 		var collider = go.Components.Create<BoxCollider>();
 		collider.Scale = new( 4, 4 );
 
-		var rigidbody = go.Components.Create<Rigidbody>();
+		droppedWeapon.Rigidbody = go.Components.Create<Rigidbody>();
 
 		return droppedWeapon;
 	}
