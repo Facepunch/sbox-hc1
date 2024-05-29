@@ -2,12 +2,14 @@
 using Facepunch;
 
 public sealed class BombDefusalScenario : Component,
+	IGameStartListener,
 	IRoundStartListener,
 	IBombPlantedListener,
 	IBombDetonatedListener,
 	IBombDefusedListener,
 	IRoundEndListener,
-	IRoundEndCondition
+	IRoundEndCondition,
+	ITeamAssignedListener
 {
 	[RequireComponent] public RoundTimeLimit RoundTimeLimit { get; private set; }
 	[RequireComponent] public TeamEliminated TeamEliminated { get; private set; }
@@ -42,6 +44,11 @@ public sealed class BombDefusalScenario : Component,
 	[HostSync] public bool IsBombPlanted { get; private set; }
 	[HostSync] public bool BombHasDetonated { get; private set; }
 	[HostSync] public bool BombWasDefused { get; private set; }
+
+	void ITeamAssignedListener.OnTeamAssigned( PlayerController player, Team team )
+	{
+		player.Inventory.SetCash( StartMoney );
+	}
 
 	void IRoundStartListener.PostRoundStart()
 	{

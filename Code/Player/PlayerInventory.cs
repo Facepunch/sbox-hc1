@@ -221,7 +221,20 @@ public partial class PlayerInventory : Component
 				return true;
 		}
 	}
-	
+
+	public void SetCash( int amount )
+	{
+		using var _ = Rpc.FilterInclude( Connection.Host );
+		Balance = amount;
+	}
+
+	[Broadcast]
+	private void SetCashHost( int amount )
+	{
+		Assert.True( Networking.IsHost );
+		Balance = amount;
+	}
+
 	public void GiveCash( int amount )
 	{
 		using var _ = Rpc.FilterInclude( Connection.Host );

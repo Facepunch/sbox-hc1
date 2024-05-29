@@ -61,7 +61,7 @@ public partial class TeamComponent : Component
 	public Team Team
 	{
 		get => InternalTeam;
-		private set
+		set
 		{
 			if ( InternalTeam == value )
 				return;
@@ -80,12 +80,6 @@ public partial class TeamComponent : Component
 	private void TeamChanged( Team before, Team after )
 	{
 		OnTeamChanged?.Invoke( before, after );
-	}
-
-	public void AssignTeam( Team team )
-	{
-		Assert.True( Networking.IsHost );
-		Team = team;
 	}
 }
 

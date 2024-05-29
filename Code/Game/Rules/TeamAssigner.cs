@@ -19,12 +19,12 @@ public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListe
 
 		foreach (var tPlayer in players.Take( tCount ))
 		{
-			tPlayer.TeamComponent.AssignTeam( Team.Terrorist );
+			tPlayer.AssignTeam( Team.Terrorist );
 		}
 
 		foreach (var ctPlayer in players.Skip( tCount ).Take( ctCount ))
 		{
-			ctPlayer.TeamComponent.AssignTeam( Team.CounterTerrorist );
+			ctPlayer.AssignTeam( Team.CounterTerrorist );
 		}
 	}
 
@@ -49,12 +49,12 @@ public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListe
 			if ( ts.Count <= cts.Count )
 			{
 				ts.Add( player );
-				player.TeamComponent.AssignTeam( Team.Terrorist );
+				player.AssignTeam( Team.Terrorist );
 			}
 			else
 			{
 				cts.Add( player );
-				player.TeamComponent.AssignTeam( Team.CounterTerrorist );
+				player.AssignTeam( Team.CounterTerrorist );
 			}
 		}
 	}

@@ -513,6 +513,17 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		WishVelocity = wishDirection * GetWishSpeed();
 	}
 
+	public void AssignTeam( Team team )
+	{
+		Assert.True( Networking.IsHost );
+		TeamComponent.Team = team;
+
+		foreach ( var listener in Scene.GetAllComponents<ITeamAssignedListener>() )
+		{
+			listener.OnTeamAssigned( this, team );
+		}
+	}
+
 	/// <summary>
 	/// Called when YOU inflict damage on something
 	/// </summary>
