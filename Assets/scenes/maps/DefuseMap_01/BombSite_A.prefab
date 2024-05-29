@@ -3,36 +3,34 @@
     "__guid": "4b716979-16cf-418b-a4ab-819bfaf6d650",
     "Flags": 0,
     "Name": "bombsite_a",
+    "Tags": "bombsite,zone",
     "Enabled": true,
     "NetworkMode": 2,
     "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "BombSite",
-        "__guid": "25c7b830-3b97-45c1-9cb4-4e550994eb3c"
+        "__guid": "25c7b830-3b97-45c1-9cb4-4e550994eb3c",
+        "DamageFalloffDistance": 1750,
+        "Index": 0,
+        "MaxBombDamage": 500
+      },
+      {
+        "__type": "Zone",
+        "__guid": "67e9df4c-dca0-45c3-8f8e-77d3bfecfec7",
+        "Color": "1,0,0,1",
+        "DisplayName": "Bomb Site A"
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "ccc2b29b-d0b6-40a7-bb7c-64efbddc0fb6",
+        "Center": "8,-17,-126",
+        "IsTrigger": true,
+        "Scale": "400,350,100",
+        "Static": false
       }
     ],
-    "Children": [
-      {
-        "__guid": "30ce3260-69c8-4256-a32d-092721edf563",
-        "Flags": 0,
-        "Name": "Trigger",
-        "Position": "8,-17,-126",
-        "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
-        "Components": [
-          {
-            "__type": "Sandbox.BoxCollider",
-            "__guid": "4c055dbe-71e2-496d-9f3d-b8751aebbcaa",
-            "Center": "0,0,0",
-            "IsTrigger": true,
-            "Scale": "400,350,100",
-            "Static": false
-          }
-        ]
-      }
-    ]
+    "Children": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

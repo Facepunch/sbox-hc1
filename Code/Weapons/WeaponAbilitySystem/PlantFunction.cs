@@ -55,13 +55,12 @@ public partial class PlantFunction : InputActionWeaponFunction
 		if ( !Weapon.PlayerController.IsGrounded )
 			return false;
 
-		// TODO: bomb site
-
 		// Delay checks
 		if ( TimeSincePlantCancel < ResetTime )
-		{
 			return false;
-		}
+
+		if ( !Weapon.PlayerController.Zones.Any( x => x.Components.Get<BombSite>() is not null ) )
+			return false;
 
 		return true;
 	}
@@ -162,8 +161,6 @@ public partial class PlantFunction : InputActionWeaponFunction
 		if ( TimeSinceBeep > PlantingBeepFrequency.Evaluate( t ) )
 		{
 			TimeSinceBeep = 0f;
-
-			Log.Info( $"Beep {PlantingBeepSound}" );
 
 			if ( PlantingBeepSound is not null )
 			{

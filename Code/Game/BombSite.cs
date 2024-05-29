@@ -1,9 +1,16 @@
-﻿
+﻿using System.Diagnostics.CodeAnalysis;
+
 /// <summary>
 /// C4 can be planted anywhere within colliders inside this object.
 /// </summary>
 public sealed class BombSite : Component
 {
+	/// <summary>
+	/// The zone defining the bounds of this bomb site.
+	/// </summary>
+	[RequireComponent]
+	public Zone Zone { get; private set; }
+
 	/// <summary>
 	/// Which bomb site is this (A: 0, B: 1, maybe more!).
 	/// </summary>
@@ -21,6 +28,14 @@ public sealed class BombSite : Component
 	/// </summary>
 	[Property]
 	public float DamageFalloffDistance { get; set; } = 1750f;
+
+	protected override void OnValidate()
+	{
+		base.OnValidate();
+
+		Zone.Color = Color.Red;
+		Zone.DisplayName = $"Bomb Site {(char)('A' + Index)}";
+	}
 
 	/// <summary>
 	/// How much damage does a bomb planted here do at a given distance?
@@ -55,15 +70,6 @@ public sealed class BombSite : Component
 
 	protected override void DrawGizmos()
 	{
-		Gizmo.Draw.Color = Gizmo.Colors.Red.WithAlpha( Gizmo.IsSelected ? 0.5f : 0.25f );
-
-		foreach ( var collider in Components.GetAll<BoxCollider>() )
-		{
-			Gizmo.Transform = collider.Transform.World;
-
-			Gizmo.Draw.SolidBox( BBox.FromPositionAndSize( collider.Center, collider.Scale ) );
-		}
-
 		if ( !Gizmo.IsSelected )
 		{
 			return;

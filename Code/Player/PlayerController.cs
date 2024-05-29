@@ -356,6 +356,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		if ( cc == null )
 			return;
 
+		UpdateZones();
+
 		if ( HealthComponent.State != LifeState.Alive )
 			return;
 
