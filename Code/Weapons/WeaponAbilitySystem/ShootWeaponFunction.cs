@@ -105,7 +105,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalResource ) )
 		{
 			var ps = CreateParticleSystem( Game.Random.FromList( surface.ImpactEffects.Bullet ), pos, Rotation.LookAt( -normal ) );
-			ps.SceneObject.SetControlPoint( 0, pos );
+			ps.SceneObject.SetControlPoint( 0, new Transform( pos, Rotation.LookAt( normal ) ) );
 
 			var decal = Game.Random.FromList( decalResource.Decals );
 
