@@ -7,7 +7,7 @@
     {
         <div class="entry">
             <label class="killer">@entry.Killer.Network.OwnerConnection?.DisplayName</label>
-            <label class="method">killed</label>
+            <label class="method">@GetWeapon( entry.Inflictor )</label>
             <label class="victim">@entry.Victim.Network.OwnerConnection?.DisplayName</label>
         </div>
     }
@@ -15,15 +15,25 @@
 
 @code
 {
-    public record Entry( Component Killer, Component Victim, RealTimeSince TimeSinceAdded );
-    
+    public record Entry( Component Killer, Component Victim, Component Inflictor, RealTimeSince TimeSinceAdded );
+
     private List<Entry> Entries { get; set; } = new();
-    
+
     private float Lifetime => 10f;
 
-    public void OnPlayerKilled( Component killer, Component victim )
+    private string GetWeapon( Component inflictor )
     {
-        var entry = new Entry( killer, victim, 0 );
+        if ( inflictor is Weapon weapon )
+        {
+            return weapon.Resource.Name;
+        }
+
+        return "killed";
+    }
+
+    public void OnPlayerKilled( Component killer, Component victim, Component inflictor )
+    {
+        var entry = new Entry( killer, victim, inflictor, 0 );
         Entries.Add( entry );
         StateHasChanged();
     }

@@ -123,7 +123,7 @@ public partial class HealthComponent : Component, IRespawnable
 	}
 
 	[Broadcast]
-	private void BroadcastKill( Guid killerComponent, Guid victimComponent, float damage, Vector3 position, Vector3 force = default )
+	private void BroadcastKill( Guid killerComponent, Guid victimComponent, float damage, Vector3 position, Vector3 force = default, Guid inflictorComponent = default )
 	{
 		foreach ( var listener in Scene.GetAllComponents<IKillListener>() )
 		{
@@ -132,12 +132,13 @@ public partial class HealthComponent : Component, IRespawnable
 				Scene.Directory.FindComponentByGuid( victimComponent ),
 				damage, 
 				position,
-				force );
+				force,
+				Scene.Directory.FindComponentByGuid( inflictorComponent ) );
 		}
 	}
 
 	[Broadcast]
-	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId )
+	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default )
 	{
 		// Only the host should control the damage state
 		if ( Networking.IsHost )
@@ -152,7 +153,7 @@ public partial class HealthComponent : Component, IRespawnable
 				State = LifeState.Dead;
 
 				// Broadcast this kill (for feed)
-				BroadcastKill( attackerId, this.Id, damage, position, force );
+				BroadcastKill( attackerId, this.Id, damage, position, force, inflictorId );
 			}
 		}
 
