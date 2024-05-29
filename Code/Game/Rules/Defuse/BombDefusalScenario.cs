@@ -130,19 +130,19 @@ public sealed class BombDefusalScenario : Component,
 	{
 		if ( TeamScoring.RoundWinner == Team.Terrorist )
 		{
-			IncrementLossStreak( Team.Terrorist, -1 );
-			IncrementLossStreak( Team.CounterTerrorist, 1 );
-
 			GameUtils.GiveTeamIncome( Team.Terrorist, IsBombPlanted ? BombDetonatedTeamIncome : DefaultWinTeamIncome );
 			GameUtils.GiveTeamIncome( Team.CounterTerrorist, GetLossStreakBonus( Team.CounterTerrorist ) );
+
+			IncrementLossStreak( Team.Terrorist, -1 );
+			IncrementLossStreak( Team.CounterTerrorist, 1 );
 		}
 		else if ( TeamScoring.RoundWinner == Team.CounterTerrorist )
 		{
+			GameUtils.GiveTeamIncome( Team.Terrorist, GetLossStreakBonus( Team.Terrorist ) + (BombWasDefused ? BombPlantedTeamBonus : 0) );
+			GameUtils.GiveTeamIncome( Team.CounterTerrorist, BombWasDefused ? BombDefusedTeamIncome : DefaultWinTeamIncome );
+
 			IncrementLossStreak( Team.Terrorist, 1 );
 			IncrementLossStreak( Team.CounterTerrorist, -1 );
-
-			GameUtils.GiveTeamIncome( Team.Terrorist, GetLossStreakBonus( Team.Terrorist ) );
-			GameUtils.GiveTeamIncome( Team.CounterTerrorist, BombWasDefused ? BombDefusedTeamIncome : DefaultWinTeamIncome );
 		}
 
 		IsBombPlanted = false;
