@@ -6,51 +6,55 @@
 @inherits PanelComponent
 @implements Component.INetworkListener
 
-<root class="hud flex column with-deadzone bottom-left gap-sm">
+@attribute [StyleSheet]
 
-    <div class="hud flex column justify-start gap-sm">
-        @foreach (var entry in Entries)
-        {
-            <div class="hud with-padding flex row gap">
-
-                @if (entry.steamid > 0)
+<root class="absolute inset-0">
+    <canvas>
+        <div class="chat-container hud flex column with-deadzone bottom-left with-px">
+            <div class="hud flex column justify-start gap-sm">
+                @foreach (var entry in Entries)
                 {
-                    <div class="square rounded" style="background-image: url( avatar:@entry.steamid )"></div>
-                }
+                    <div class="hud with-padding flex row gap">
 
-                <span class="flex column w-full">
-                    <span class="flex row gap-sm w-full align-center">
-                        <label class="emphasis no-shadow grey">@entry.author</label>
-
-                        @if (entry.chatMode != ChatModes.All)
+                        @if (entry.steamid > 0)
                         {
-                            <label class="small no-shadow green">(@entry.chatMode)</label>
+                            <div class="square rounded" style="background-image: url( avatar:@entry.steamid )"></div>
                         }
-                    </span>
-                    <label class="message no-shadow">@entry.message</label>
-                </span>
+
+                        <span class="flex column w-full">
+                            <span class="flex row gap-sm w-full align-center">
+                                <label class="emphasis no-shadow grey">@entry.author</label>
+
+                                @if (entry.chatMode != ChatModes.All)
+                                {
+                                    <label class="small no-shadow green">(@entry.chatMode)</label>
+                                }
+                            </span>
+                            <label class="message no-shadow">@entry.message</label>
+                        </span>
+                    </div>
+                }
             </div>
-        }
-    </div>
 
-    <div>
-        <div class="when-open flex align-center gap-sm">
-            <InputHint Action="Score" class="small" />
-            <label>
-                @ChatMode
-            </label>
+            <div>
+                <div class="when-open flex align-center gap-sm">
+                    <InputHint Action="Score" class="small" />
+                    <label>
+                        @ChatMode
+                    </label>
+                </div>
+
+                <div class="when-not-open flex align-center gap-sm">
+                    <label>
+                        Chat
+                    </label>
+                    <InputHint Action="Chat" class="small" />
+                </div>
+
+                <ChatBox class="input" @ref="InputBox" OnTabPressed="@ChangeChatMode" onsubmit="@ChatFinished"></ChatBox>
+            </div>
         </div>
-
-        <div class="when-not-open flex align-center gap-sm">
-            <label>
-                Chat
-            </label>
-            <InputHint Action="Chat" class="small" />
-        </div>
-
-        <ChatBox class="input" @ref="InputBox" OnTabPressed="@ChangeChatMode" onsubmit="@ChatFinished"></ChatBox>
-    </div>
-
+    </canvas>
 </root>
 
 @code
