@@ -32,7 +32,8 @@ public partial class PlayerInventory : Component
 	/// <summary>
 	/// Does this player have a defuse kit?
 	/// </summary>
-	[HostSync] public bool HasDefuseKit { get; private set; }
+	// [HostSync] TODO
+	public bool HasDefuseKit => true;
 
 	/// <summary>
 	/// Gets the player's current weapon.
