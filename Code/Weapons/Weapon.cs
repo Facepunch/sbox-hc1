@@ -36,6 +36,11 @@ public partial class Weapon : Component
 	/// What sound should we play when taking this gun out?
 	/// </summary>
 	[Property, Group( "Sounds" )] public SoundEvent DeploySound { get; set; }
+	
+	/// <summary>
+	/// Is this weapon currently deployed by the player?
+	/// </summary>
+	public bool IsDeployed { get; private set; }
 
 	/// <summary>
 	/// Updates the render mode, if we're locally controlling a player, we want to hide the world model.
@@ -43,13 +48,9 @@ public partial class Weapon : Component
 	protected void UpdateRenderMode()
 	{
 		if ( PlayerController.IsLocallyControlled )
-		{
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
-		}
 		else
-		{
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
-		}
 	}
 
 	private ViewModel viewModel;
@@ -104,6 +105,32 @@ public partial class Weapon : Component
 	/// How long it's been since we used this attack.
 	/// </summary>
 	protected TimeSince TimeSinceSecondaryAttack { get; set; }
+	
+	/// <summary>
+	/// Deploy this weapon (become active.)
+	/// </summary>
+	[Broadcast( NetPermission.OwnerOnly )]
+	public void Deploy()
+	{
+		if ( !IsDeployed )
+		{
+			IsDeployed = true;
+			OnDeployed();
+		}
+	}
+
+	/// <summary>
+	/// Holster this weapon (make inactive.)
+	/// </summary>
+	[Broadcast( NetPermission.OwnerOnly )]
+	public void Holster()
+	{
+		if ( IsDeployed )
+		{
+			OnHolstered();
+			IsDeployed = false;
+		}
+	}
 
 	/// <summary>
 	/// Allow weapons to override holdtypes at any notice.
@@ -156,7 +183,13 @@ public partial class Weapon : Component
 
 	public void ClearViewModel( PlayerController player )
 	{
-		var children = new List<GameObject>( player?.ViewModelGameObject?.Children );
+		if ( !player.IsValid() )
+			return;
+
+		if ( !player.ViewModelGameObject.IsValid() )
+			return;
+		
+		var children = new List<GameObject>( player.ViewModelGameObject.Children );
 		foreach ( var child in children )
 		{
 			child.DestroyImmediate();
@@ -172,7 +205,6 @@ public partial class Weapon : Component
 		var res = Resource;
 
 		ClearViewModel( player );
-
 		UpdateRenderMode();
 
 		if ( res.ViewModelPrefab != null )
@@ -180,7 +212,7 @@ public partial class Weapon : Component
 			// Create the weapon prefab and put it on the weapon gameobject.
 			var viewModelGameObject = res.ViewModelPrefab.Clone( new CloneConfig()
 			{
-				Transform = new Transform(),
+				Transform = new(),
 				Parent = player.ViewModelGameObject,
 				StartEnabled = true,
 			} );
@@ -198,11 +230,33 @@ public partial class Weapon : Component
 		}
 	}
 
+	protected override void OnStart()
+	{
+		if ( IsDeployed )
+			OnDeployed();
+		else
+			OnHolstered();
+		
+		base.OnStart();
+	}
+	
+	protected virtual void OnDeployed()
+	{
+		if ( !IsProxy )
+			CreateViewModel( PlayerController );
+		
+		ModelRenderer.Enabled = true;
+	}
+
+	protected virtual void OnHolstered()
+	{
+		ModelRenderer.Enabled = false;
+		ClearViewModel( PlayerController );
+	}
+
 	protected override void OnDestroy()
 	{
 		if ( ViewModel.IsValid() )
-		{
 			ViewModel.GameObject.Destroy();
-		}
 	}
 }

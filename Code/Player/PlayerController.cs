@@ -159,6 +159,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	private float _smoothEyeHeight;
 
 	[Sync] private Guid CurrentWeaponId { get; set; }
+	[Sync] public Angles EyeAngles { get; set; }
 	
 	/// <summary>
 	/// What weapon are we using?
@@ -169,14 +170,25 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		set
 		{
 			Assert.False( IsProxy );
-			var previousWeaponId = CurrentWeaponId;
+			
+			if ( CurrentWeapon == value )
+				return;
+			
+			var oldWeapon = CurrentWeapon;
+			if ( oldWeapon.IsValid() )
+				oldWeapon.Holster();
+			
 			CurrentWeaponId = value.Id;
-			WeaponChanged( previousWeaponId, value.Id );
+			value.Deploy();
 		}
 	}
 
+	/// <summary>
+	/// Set the current weapon for this player from the host.
+	/// </summary>
+	/// <param name="weaponId"></param>
 	[Authority( NetPermission.HostOnly )]
-	public void ChangeCurrentWeapon( Guid weaponId )
+	public void SetCurrentWeapon( Guid weaponId )
 	{
 		CurrentWeapon = Scene.Directory.FindComponentByGuid( weaponId ) as Weapon;
 	}
@@ -184,49 +196,15 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	private void ClearViewModel( Weapon weapon = null )
 	{
 		if ( weapon.IsValid() )
-		{
 			weapon?.ClearViewModel( this );
-		}
 	}
 
 	private void CreateViewModel( Weapon weapon = null )
 	{
 		if ( weapon.IsValid() )
-		{
 			weapon.CreateViewModel( this );
-		}
-	}
-
-	[Broadcast( NetPermission.OwnerOnly )]
-	private void WeaponChanged( Guid oldWeaponId, Guid newWeaponId )
-	{
-		var oldWeapon = Scene.Directory.FindComponentByGuid( oldWeaponId ) as Weapon;
-		var newWeapon = Scene.Directory.FindComponentByGuid( newWeaponId ) as Weapon;
-		
-		if ( oldWeapon.IsValid() )
-		{
-			// Set old weapon as inactive
-			oldWeapon.GameObject.Enabled = false;
-			ClearViewModel( oldWeapon );
-		}
-
-		if ( !newWeapon.IsValid() )
-			return;
-
-		// Set new weapon as active
-		newWeapon.GameObject.Enabled = true;
-
-		if ( !IsLocallyControlled )
-			return;
-		
-		ClearViewModel( oldWeapon );
-
-		if ( newWeapon.IsValid() )
-			CreateViewModel( newWeapon );
 	}
 	
-	[Sync] public Angles EyeAngles { get; set; }
-
 	protected float GetEyeHeightOffset()
 	{
 		if ( IsCrouching ) return -32f;
@@ -241,7 +219,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	protected override void OnUpdate()
 	{
 		var cc = CharacterController;
-
 		CurrentHoldType = CurrentWeapon.IsValid() ? CurrentWeapon.GetHoldType() : AnimationHelper.HoldTypes.None;
 
 		// Eye input

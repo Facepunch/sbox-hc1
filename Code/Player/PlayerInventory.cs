@@ -76,13 +76,21 @@ public partial class PlayerInventory : Component
 
 	public void HolsterCurrent()
 	{
+		Assert.True( !IsProxy || Networking.IsHost );
+		
+		if ( Networking.IsHost )
+		{
+			Player.SetCurrentWeapon( Guid.Empty );
+			return;
+		}
+		
 		Player.CurrentWeapon = null;
 	}
 
 	public void SwitchToSlot( int slot )
 	{
-		if ( IsProxy ) return;
-
+		Assert.True( !IsProxy || Networking.IsHost );
+		
 		var weapon = Weapons.ElementAt( slot );
 		if ( !weapon.IsValid() ) return;
 
@@ -98,12 +106,14 @@ public partial class PlayerInventory : Component
 	/// <param name="weapon"></param>
 	public void SwitchWeapon( Weapon weapon )
 	{
+		Assert.True( !IsProxy || Networking.IsHost );
+		
 		if ( !Weapons.Contains( weapon ) )
 			return;
 
 		if ( Networking.IsHost )
 		{
-			Player.ChangeCurrentWeapon( weapon.Id );
+			Player.SetCurrentWeapon( weapon.Id );
 			return;
 		}
 		
@@ -145,9 +155,7 @@ public partial class PlayerInventory : Component
 		}
 
 		if ( !CanTakeWeapon( resource ) )
-		{
 			return;
-		}
 
 		if ( !resource.MainPrefab.IsValid() )
 		{
@@ -155,22 +163,18 @@ public partial class PlayerInventory : Component
 			return;
 		}
 
-		// Create the weapon prefab and put it on the weapon gameobject.
+		// Create the weapon prefab and put it on the weapon GameObject.
 		var weaponGameObject = resource.MainPrefab.Clone( new CloneConfig()
 		{
 			Transform = new(),
-			Parent = WeaponGameObject,
-			StartEnabled = false,
+			Parent = WeaponGameObject
 		} );
 		var weaponComponent = weaponGameObject.Components.Get<Weapon>( FindMode.EverythingInSelfAndDescendants );
 		weaponGameObject.NetworkSpawn( Player.Network.OwnerConnection );
-		weaponGameObject.Enabled = false;
 
 		if ( makeActive )
-		{
-			Player.ChangeCurrentWeapon( weaponComponent.Id );
-		}
-
+			Player.SetCurrentWeapon( weaponComponent.Id );
+		
 		Log.Info( $"Spawned weapon {weaponGameObject} for {Player}" );
 	}
 
@@ -196,38 +200,43 @@ public partial class PlayerInventory : Component
 				return !HasWeapon( resource.Slot );
 		}
 	}
-
-	[Authority( NetPermission.HostOnly )]
+	
 	public void GiveCash( int amount )
 	{
+		using var _ = Rpc.FilterInclude( Connection.Host );
+		GiveCashHost( amount );
+	}
+
+	[Broadcast]
+	private void GiveCashHost( int amount )
+	{
+		Assert.True( Networking.IsHost );
 		Balance += amount;
 	}
 
-	public void BuyWeapon(int resourceId)
+	public void BuyWeapon( int resourceId )
 	{
-		using (var _ = Rpc.FilterInclude(Connection.Host))
-		{
-			BuyWeaponHost(resourceId);
-		}
+		using var _ = Rpc.FilterInclude( Connection.Host );
+		BuyWeaponHost( resourceId );
 	}
 
 	[Broadcast]
 	private void BuyWeaponHost( int resourceId )
 	{
-		Assert.True(Networking.IsHost);
+		Assert.True( Networking.IsHost );
 
 		var weaponData = ResourceLibrary.Get<WeaponData>(resourceId);
 
-		if (weaponData == null)
+		if ( weaponData == null )
 		{
-			Log.Warning($"Attempted purchase but WeaponData (Id: {weaponData}) not known!");
+			Log.Warning( $"Attempted purchase but WeaponData (Id: {weaponData}) not known!" );
 			return;
 		}
 
-		if (Balance < weaponData.Price)
+		if ( Balance < weaponData.Price )
 			return;
 
 		Balance -= weaponData.Price;
-		GiveWeapon(weaponData, true );
+		GiveWeapon( weaponData );
 	}
 }

@@ -84,6 +84,10 @@ public abstract class InputActionWeaponFunction : WeaponFunction
 		// We only care about input actions coming from the owning object.
 		if ( !Weapon?.PlayerController?.IsLocallyControlled ?? false )
 			return;
+		
+		// Don't execute weapon functions on weapons that aren't deployed.
+		if ( !Weapon.IsDeployed )
+			return;
 
 		bool matched = false;
 

@@ -22,7 +22,6 @@ public partial class PlayerController
 	public void NetDePossess()
 	{
 		if ( !IsLocallyControlled ) return;
-
 		(this as IPawn).DePossess();
 	}
 
