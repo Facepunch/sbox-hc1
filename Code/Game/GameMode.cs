@@ -163,16 +163,16 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 	private async Task Dispatch<T>( Action<T> pre, Func<T, Task> on, Action<T> post )
 	{
-		var components = Components.GetAll<T>().ToArray();
+		var components = Scene.GetAllComponents<T>().ToArray();
 
-		foreach (var comp in components)
+		foreach ( var comp in components )
 		{
 			pre( comp );
 		}
 
-		await Task.WhenAll( Components.GetAll<T>().Select( on ) );
+		await Task.WhenAll( components.Select( on ) );
 
-		foreach (var comp in components)
+		foreach ( var comp in components )
 		{
 			post( comp );
 		}
