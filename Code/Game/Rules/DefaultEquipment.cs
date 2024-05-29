@@ -18,6 +18,9 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 			player.Inventory.GiveWeapon( weapon, false );
 		}
 
-		player.Inventory.SwitchToSlot( player.Inventory.Weapons.Count() - 1 );
+		if ( player.Inventory.Weapons.Count() > 0 )
+		{
+			player.Inventory.SwitchToSlot( player.Inventory.Weapons.Count() - 1 );
+		}
 	}
 }

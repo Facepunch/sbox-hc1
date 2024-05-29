@@ -22,19 +22,19 @@ public partial class WeaponDataResource : GameResource
 	/// <summary>
 	/// The prefab to create and attach to the player when spawning it in.
 	/// </summary>
-	[Category( "Prefabs" )]
+	[Property, Category( "Prefabs" )]
 	public GameObject MainPrefab { get; set; }
 
 	/// <summary>
 	/// The prefab to create when making a viewmodel for this weapon.
 	/// </summary>
-	[Category( "Prefabs" )]
+	[Property, Category( "Prefabs" )]
 	public GameObject ViewModelPrefab { get; set; }
 
 	/// <summary>
 	/// The weapon's model
 	/// </summary>
-	[Category( "Information" )]
+	[Property, Category( "Information" )]
 	public Model WorldModel { get; set; }
 
 	protected override void PostLoad()

@@ -129,7 +129,7 @@ public partial class PlayerInventory : Component
 
 		if ( !resource.MainPrefab.IsValid() )
 		{
-			Log.Error( "Weapon doesn't have a prefab?" );
+			Log.Error( $"Weapon doesn't have a prefab? {resource}, {resource.MainPrefab}, {resource.ViewModelPrefab}" );
 			return;
 		}
 
