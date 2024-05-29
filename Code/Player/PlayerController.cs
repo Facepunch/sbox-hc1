@@ -127,7 +127,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <summary>
 	/// How far can we use stuff?
 	/// </summary>
-	[Property, Group( "Interaction" )] public float UseDistance { get; set; } = 50f;
+	[Property, Group( "Interaction" )] public float UseDistance { get; set; } = 72f;
 
 	/// <summary>
 	/// A shorthand accessor to say if we're controlling this player.
@@ -333,7 +333,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 	private void UpdateUse()
 	{
-		if ( Input.Down( "Use" ) )
+		if ( Input.Pressed( "Use" ) )
 		{
 			var tr = Scene.Trace.Ray( AimRay, UseDistance )
 				.Size( 5f )
