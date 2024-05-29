@@ -12,6 +12,8 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	[Property, Category( "Bullet" )] public float MaxRange { get; set; } = 1024000;
 	[Property, Category( "Bullet" )] public Curve BaseDamageFalloff { get; set; } = new( new List<Curve.Frame>() { new( 0, 1 ), new( 1, 0 ) } );
 	[Property, Category( "Bullet" )] public float BulletSize { get; set; } = 1.0f;
+	[Property, Group( "Bullet" )] public int BulletCount { get; set; } = 1;
+	[Property, Group( "Bullet" )] public float BulletSpread { get; set; } = 0;
 
 	// Effects
 	[Property, Category( "Effects" )] public GameObject MuzzleFlash { get; set; }
@@ -59,7 +61,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		// Create a muzzle flash from a GameObject / prefab
 		if ( MuzzleFlash.IsValid() )
 		{
-			// SceneUtility.Instantiate( MuzzleFlash, EffectsRenderer.GetAttachment( "muzzle" ) ?? Weapon.Transform.World );
+			MuzzleFlash.Clone( EffectsRenderer.GetAttachment( "muzzle" ) ?? Weapon.Transform.World );
 		}
 
 		if ( ShootSound is not null )
@@ -76,16 +78,6 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 
 		// First person
 		Weapon.ViewModel?.ModelRenderer.Set( "b_attack", true );
-	}
-
-	/// <summary>
-	/// Gets a surface from a trace.
-	/// </summary>
-	/// <param name="tr"></param>
-	/// <returns></returns>
-	private Surface GetSurfaceFromTrace( SceneTraceResult tr )
-	{
-		return tr.Surface;	
 	}
 
 	private LegacyParticleSystem CreateParticleSystem( string particle, Vector3 pos, Rotation rot, float decay = 5f )
@@ -112,8 +104,8 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		var decalPath = Game.Random.FromList( surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
 		if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalResource ) )
 		{
-			//var ps = CreateParticleSystem( Game.Random.FromList( surface.ImpactEffects.Bullet ), pos, Rotation.LookAt( -normal ) );
-			//ps.SceneObject.SetControlPoint( 0, pos );
+			var ps = CreateParticleSystem( Game.Random.FromList( surface.ImpactEffects.Bullet ), pos, Rotation.LookAt( -normal ) );
+			ps.SceneObject.SetControlPoint( 0, pos );
 
 			var decal = Game.Random.FromList( decalResource.Decals );
 
@@ -138,6 +130,28 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		}
 	}
 
+	private void ShootBullet()
+	{
+		int count = 0;
+
+		foreach ( var tr in GetShootTrace() )
+		{
+			if ( !tr.Hit )
+			{
+				DoShootEffects();
+				continue;
+			}
+
+			DoShootEffects();
+			CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
+			DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
+
+			// Inflict damage on whatever we find.
+			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id );
+			count++;
+		}
+	}
+
 	/// <summary>
 	/// Shoot the gun!
 	/// </summary>
@@ -150,26 +164,12 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 			AmmoContainer.Ammo--;
 		}
 
-		int count = 0;
-
 		// If we have a recoil function, let it know.
 		Weapon.GetFunction<RecoilFunction>()?.Shoot();
 
-		foreach ( var tr in GetShootTrace() )
+		for ( int i = 0; i < BulletCount; i++ )
 		{
-			if ( !tr.Hit )
-			{
-				DoShootEffects();
-				return;
-			}
-
-			DoShootEffects();
-			CreateImpactEffects( GetSurfaceFromTrace( tr ), tr.EndPosition, tr.Normal );
-			DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
-
-			// Inflict damage on whatever we find.
-			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id );
-			count++;
+			ShootBullet();
 		}
 	}
 
@@ -188,12 +188,13 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 			var dir = (startPosition - endPosition).Normal;
 			var tr = Scene.Trace.Ray( endPosition, startPosition + (dir * 50f) )
 				.Radius( 1f )
+				.IgnoreGameObjectHierarchy( Weapon.GameObject.Root )
 				.WithoutTags( "weapon" )
 				.Run();
 
 			if ( tr.Hit )
 			{
-				CreateImpactEffects( GetSurfaceFromTrace( tr ), tr.StartPosition, dir );
+				CreateImpactEffects( tr.Surface, tr.StartPosition, dir );
 			}
 		}
 
@@ -272,7 +273,14 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		var hits = new List<SceneTraceResult>();
 
 		var start = WeaponRay.Position;
-		var end = WeaponRay.Position + WeaponRay.Forward * MaxRange;
+
+		var rot = Rotation.LookAt( WeaponRay.Forward );
+
+		var forward = rot.Forward;
+		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * 0.1f * 0.25f;
+		forward = forward.Normal;
+
+		var end = WeaponRay.Position + forward * MaxRange;
 
 		while ( curHits < MaxAmtOfHits )
 		{

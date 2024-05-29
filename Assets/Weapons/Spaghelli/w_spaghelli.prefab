@@ -1,0 +1,140 @@
+{
+  "RootObject": {
+    "__guid": "dbec90e6-d8ee-4e8c-a50f-ccd4adae1c7f",
+    "Flags": 0,
+    "Name": "w_spaghelli",
+    "Tags": "player",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.Weapon",
+        "__guid": "31d3dc75-80e7-4838-a85f-fb88cfc5d07f",
+        "HoldType": "Shotgun",
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "592b4dbf-3c44-4e80-a8b1-0b12c3cf7811",
+          "go": "be9cd30c-850a-47b4-9c5b-1ce96d4469e9",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "Resource": "weapons/spaghelli/spaghelli.weapon"
+      },
+      {
+        "__type": "Facepunch.TagBinder",
+        "__guid": "2b6a8c75-ff0b-4f81-90cd-2a8631ea15bb"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "be9cd30c-850a-47b4-9c5b-1ce96d4469e9",
+        "Flags": 0,
+        "Name": "Model",
+        "Position": "3.535849,0,-5.571055",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "592b4dbf-3c44-4e80-a8b1-0b12c3cf7811",
+            "BodyGroups": 3,
+            "CreateBoneObjects": false,
+            "Model": "models/weapons/sbox_shotgun_spaghellim4/w_spaghellim4.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "bd785b2d-3289-4eea-930c-802218a48e0c",
+        "Flags": 0,
+        "Name": "Functions",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.AmmoContainer",
+            "__guid": "31b163f6-ef60-407c-a89a-7b1097d32456",
+            "Ammo": 6,
+            "HasAmmo": true,
+            "MaxAmmo": 6
+          },
+          {
+            "__type": "Facepunch.ShootWeaponFunction",
+            "__guid": "0797d782-ca14-4c76-ac9c-1c978e244faf",
+            "AmmoContainer": {
+              "_type": "component",
+              "component_id": "31b163f6-ef60-407c-a89a-7b1097d32456",
+              "go": "bd785b2d-3289-4eea-930c-802218a48e0c",
+              "component_type": "AmmoContainer"
+            },
+            "BaseDamage": 6,
+            "BaseDamageFalloff": [
+              {
+                "y": 1
+              },
+              {
+                "x": 1
+              }
+            ],
+            "BulletCount": 8,
+            "BulletSize": 1,
+            "BulletSpread": 5,
+            "DryFireDelay": 1,
+            "DryFireSound": "sounds/guns/gun_dryfire.sound",
+            "FireRate": 300,
+            "InputActions": [
+              "Attack1"
+            ],
+            "InputType": "Pressed",
+            "MaxRange": 1024000,
+            "RequiresAllInputActions": false,
+            "RequiresAmmoContainer": true,
+            "ShootSound": "sounds/guns/r870/shotgun1_shoot.sound"
+          },
+          {
+            "__type": "Facepunch.ReloadWeaponFunction",
+            "__guid": "0699811f-763c-404b-87e2-bab8ea4f8171",
+            "AmmoContainer": {
+              "_type": "component",
+              "component_id": "31b163f6-ef60-407c-a89a-7b1097d32456",
+              "go": "bd785b2d-3289-4eea-930c-802218a48e0c",
+              "component_type": "AmmoContainer"
+            },
+            "EmptyReloadSounds": {},
+            "EmptyReloadTime": 0.5,
+            "InputActions": [
+              "Reload"
+            ],
+            "InputType": "Pressed",
+            "ReloadTime": 0.5,
+            "RequiresAllInputActions": false,
+            "SingleReload": true,
+            "TimedReloadSounds": {
+              "0.2": "sounds/guns/r870/shotgun_load.sound"
+            }
+          },
+          {
+            "__type": "Facepunch.RecoilFunction",
+            "__guid": "40df50b9-aafc-465e-8fb4-b43605d166a0",
+            "HorizontalSpread": "8.00,-8.00,1",
+            "PlayerVelocityLimit": 200,
+            "RecoilResetTime": 0.3,
+            "VelocitySpreadScale": 0.25,
+            "VerticalSpread": "16.00,0.00,0"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.w_spaghellim4"
+  ],
+  "__version": 1
+}

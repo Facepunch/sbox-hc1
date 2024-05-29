@@ -14,6 +14,9 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction
 	/// </summary>
 	[Property] public float EmptyReloadTime { get; set; } = 2.0f;
 
+
+	[Property] public bool SingleReload { get; set; } = false;
+
 	/// <summary>
 	/// This is really just the magazine for the weapon. 
 	/// </summary>
@@ -78,10 +81,23 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction
 
 	void EndReload()
 	{
-		IsReloading = false;
-
-		// Refill the ammo container.
-		AmmoContainer.Ammo = AmmoContainer.MaxAmmo;
+		if ( SingleReload )
+		{
+			AmmoContainer.Ammo++;
+			AmmoContainer.Ammo = AmmoContainer.Ammo.Clamp( 0, AmmoContainer.MaxAmmo );
+			
+			// Reload more!
+			if ( AmmoContainer.Ammo < AmmoContainer.MaxAmmo )
+				StartReload();
+			else
+				IsReloading = false;
+		}
+		else
+		{
+			IsReloading = false;
+			// Refill the ammo container.
+			AmmoContainer.Ammo = AmmoContainer.MaxAmmo;
+		}
 
 		// Tags will be better so we can just react to stimuli.
 		Weapon.ViewModel?.ModelRenderer.Set( "b_reload", false );
