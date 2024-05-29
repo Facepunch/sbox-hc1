@@ -1,3 +1,34 @@
+
+public enum WeaponSlot
+{
+	Undefined = 0,
+	
+	/// <summary>
+	/// Non-pistol guns.
+	/// </summary>
+	Primary = 1,
+
+	/// <summary>
+	/// Pistols.
+	/// </summary>
+	Secondary = 2,
+
+	/// <summary>
+	/// Knives etc.
+	/// </summary>
+	Melee = 3,
+
+	/// <summary>
+	/// Grenades etc.
+	/// </summary>
+	Utility = 4,
+
+	/// <summary>
+	/// C4 etc.
+	/// </summary>
+	Special = 5
+}
+
 [GameResource( "Gunfight/Weapon Data", "wpn", "A resource containing basic information about a weapon.", IconBgColor = "#5877E0", Icon = "track_changes" )]
 public partial class WeaponData : GameResource
 {
@@ -8,6 +39,9 @@ public partial class WeaponData : GameResource
 	
 	[Category( "Base" )]
 	public string Description { get; set; } = "";
+
+	[Category( "Base" )]
+	public WeaponSlot Slot { get; set; }
 
 	/// <summary>
 	/// The weapon's icon
