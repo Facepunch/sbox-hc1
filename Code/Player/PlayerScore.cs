@@ -11,6 +11,9 @@ public sealed class PlayerScore : Component, IKillListener
 	[HostSync( Query = true ), Property, ReadOnly] 
 	public int Experience { get; set; } = 0;
 
+	private const int FriendlyKillScore = -200;
+	private const int KillScore = 100;
+
 	public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null )
 	{
 		Log.Info( $"{killer} killed {victim} with {inflictor} for {damage} damage at {position} with {force} force" );
@@ -19,14 +22,29 @@ public sealed class PlayerScore : Component, IKillListener
 		var killerPlayer = GameUtils.GetPlayerFromComponent( killer );
 		var victimPlayer = GameUtils.GetPlayerFromComponent( victim );
 
-		if ( killerPlayer == thisPlayer )
+		bool isFriendly = killerPlayer.TeamComponent.Team == victimPlayer.TeamComponent.Team;
+		bool isSuicide = killerPlayer == victimPlayer;
+
+		if ( isFriendly || isSuicide )
 		{
-			Kills++;
-			Experience += 100;
+			if ( killerPlayer == thisPlayer )
+			{
+				Kills--;
+				Experience += FriendlyKillScore;
+			}
 		}
-		else if ( victimPlayer == thisPlayer )
+		else
 		{
-			Deaths++;
+			// Valid kill, add score
+			if ( killerPlayer == thisPlayer )
+			{
+				Kills++;
+				Experience += KillScore;
+			}
+			else if ( victimPlayer == thisPlayer )
+			{
+				Deaths++;
+			}
 		}
 	}
 }
