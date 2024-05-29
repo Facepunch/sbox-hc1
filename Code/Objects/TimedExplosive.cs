@@ -1,18 +1,33 @@
 ﻿
 using Facepunch;
 
-public sealed class TimedExplosive : Component
+public sealed class TimedExplosive : Component, IUse
 {
 	[Property, Category( "Config" )]
 	public float Duration { get; set; } = 45f;
 
-	[Sync]
+	[Property, Category( "Config" )]
+	public float BaseDefuseTime { get; set; } = 10f;
+
+	[Property, Category( "Config" )]
+	public float FastDefuseTime { get; set; } = 5f;
+
+	[HostSync]
 	public TimeSince TimeSincePlanted { get; private set; }
+
+	[HostSync]
+	public bool IsDefused { get; private set; }
 
 	public TimeSince TimeSinceLastBeep { get; private set; }
 
 	[Property, Category( "Effects" )]
 	public SoundEvent BeepSound { get; set; }
+
+	[Property, Category( "Effects" )]
+	public SoundEvent DefuseStartSound { get; set; }
+
+	[Property, Category( "Effects" )]
+	public SoundEvent DefuseEndSound { get; set; }
 
 	[Property, Category( "Effects" )]
 	public Curve BeepFrequency { get; set; } = new Curve( new Curve.Frame( 0f, 1f ), new Curve.Frame( 1f, 0.25f ) );
@@ -27,6 +42,10 @@ public sealed class TimedExplosive : Component
 	/// Bomb site this bomb was planted at.
 	/// </summary>
 	public BombSite BombSite { get; private set; }
+
+	public PlayerController DefusingPlayer { get; private set; }
+
+	public TimeSince TimeSinceDefuseStart { get; private set; }
 
 	protected override void OnEnabled()
 	{
@@ -49,9 +68,30 @@ public sealed class TimedExplosive : Component
 	{
 		base.OnUpdate();
 
+		if ( IsDefused )
+		{
+			return;
+		}
+
 		BeepEffects();
 
 		if ( !Networking.IsHost ) return;
+
+		if ( DefusingPlayer is not null )
+		{
+			var defuseTime = DefusingPlayer.Inventory.HasDefuseKit
+				? FastDefuseTime
+				: BaseDefuseTime;
+
+			if ( TimeSinceDefuseStart >= defuseTime )
+			{
+				FinishDefusing();
+			}
+			else if ( !DefusingPlayer.IsValid() || !DefusingPlayer.IsUsing || DefusingPlayer.HealthComponent.State != LifeState.Alive )
+			{
+				CancelDefusing();
+			}
+		}
 
 		if ( TimeSincePlanted > Duration )
 		{
@@ -112,5 +152,67 @@ public sealed class TimedExplosive : Component
 				BeepEffectPrefab.Clone( Transform.Position + Vector3.Up * 4 );
 			}
 		}
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	public void StartDefusing( Guid playerId )
+	{
+		var player = Scene.Directory.FindComponentByGuid( playerId ) as PlayerController;
+
+		if ( player is null )
+		{
+			Log.Warning( $"Unknown defuser {playerId}!" );
+			return;
+		}
+
+		DefusingPlayer = player;
+
+		if ( DefuseStartSound is not null )
+		{
+			Sound.Play( DefuseStartSound, Transform.Position );
+		}
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	public void FinishDefusing()
+	{
+		if ( Networking.IsHost )
+		{
+			DefusingPlayer.IsFrozen = false;
+		}
+
+		DefusingPlayer = null;
+
+		if ( DefuseEndSound is not null )
+		{
+			Sound.Play( DefuseEndSound, Transform.Position );
+		}
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	public void CancelDefusing()
+	{
+		if ( Networking.IsHost )
+		{
+			DefusingPlayer.IsFrozen = false;
+		}
+
+		DefusingPlayer = null;
+	}
+
+	public bool CanUse( PlayerController player )
+	{
+		return !IsDefused && !DefusingPlayer.IsValid() && player.TeamComponent.Team == Team.CounterTerrorist;
+	}
+
+	public bool OnUse( PlayerController player )
+	{
+		TimeSinceDefuseStart = 0f;
+
+		StartDefusing( player.Id );
+
+		player.IsFrozen = true;
+
+		return true;
 	}
 }

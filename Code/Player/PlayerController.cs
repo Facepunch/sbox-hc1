@@ -115,6 +115,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	[Sync] public bool IsNoclipping { get; set; }
 
 	/// <summary>
+	/// Is the player holding use?
+	/// </summary>
+	[Sync] public bool IsUsing { get; set; }
+
+	/// <summary>
 	/// Noclip movement speed
 	/// </summary>
 	[Property] public float NoclipSpeed { get; set; } = 1000f;
@@ -310,7 +315,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 		IsSlowWalking = Input.Down( "Run" );
 		IsCrouching = Input.Down( "Duck" );
-		
+		IsUsing = Input.Down( "Use" );
+
 		if ( Input.Pressed( "Noclip" ) && Game.IsEditor )
 		{
 			IsNoclipping = !IsNoclipping;
@@ -336,21 +342,31 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	{
 		if ( Input.Pressed( "Use" ) )
 		{
-			var tr = Scene.Trace.Ray( AimRay, UseDistance )
-				.Size( 5f )
-				.IgnoreGameObjectHierarchy( GameObject )
-				.Run();
-
-			if ( !tr.Hit )
+			using ( Rpc.FilterInclude( Connection.Host ) )
 			{
-				return;
+				TryUse( AimRay );
 			}
+		}
+	}
 
-			var usable = tr.GameObject.Components.Get<IUse>();
-			if ( usable.IsValid() && usable.CanUse( this ) )
-			{
-				usable.OnUse( this ) ;
-			}
+	[Broadcast( NetPermission.OwnerOnly )]
+	private void TryUse( Ray ray )
+	{
+		Log.Info( $"Hello!" );
+
+		var hits = Scene.Trace.Ray( ray, UseDistance )
+			.Size( 5f )
+			.IgnoreGameObjectHierarchy( GameObject )
+			.HitTriggers()
+			.RunAll() ?? Array.Empty<SceneTraceResult>();
+
+		var usable = hits
+			.Select( x => x.GameObject.Components.Get<IUse>( FindMode.EnabledInSelf | FindMode.InAncestors ) )
+			.FirstOrDefault( x => x is not null );
+
+		if ( usable.IsValid() && usable.CanUse( this ) )
+		{
+			usable.OnUse( this );
 		}
 	}
 
@@ -384,9 +400,9 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		{
 			UIUpdate();
 			BuildInput();
-			UpdateUse();
 			BuildWishInput();
 			BuildWishVelocity();
+			UpdateUse();
 
 			if ( cc.IsOnGround && !IsFrozen && !InMenu && Input.Pressed( "Jump" ) )
 			{
