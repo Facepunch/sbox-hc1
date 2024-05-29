@@ -59,6 +59,11 @@ public partial class WeaponData : GameResource
 	[Category( "Economy" )] public int Price { get; set; } = 0;
 
 	/// <summary>
+	/// How much money do you get per kill with this weapon?
+	/// </summary>
+	[Category( "Economy" )] public int KillReward { get; set; } = 300;
+
+	/// <summary>
 	/// The prefab to create and attach to the player when spawning it in.
 	/// </summary>
 	[Category( "Prefabs" )]
