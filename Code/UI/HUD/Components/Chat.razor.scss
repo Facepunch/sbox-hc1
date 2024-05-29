@@ -10,7 +10,6 @@ Chat {
 
 .chat-container {
     width: 400px;
-    transition: all 150ms ease;
 
     .message, .input label {
         text-transform: none;
@@ -28,8 +27,8 @@ Chat {
 Chat.open {
     .chat-container {
         background-color: $background;
-        backdrop-filter: $blur;
         border-radius: $rounding;
+        backdrop-filter: $blur;
 
         .when-open {
             display: flex;

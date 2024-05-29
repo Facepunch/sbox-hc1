@@ -38,7 +38,7 @@
 
             <div>
                 <div class="when-open flex align-center gap-sm">
-                    <InputHint Action="Score" class="small" />
+                    <InputHint Action="Score" class="small" Size="@InputGlyphSize.Small" />
                     <label>
                         @ChatMode
                     </label>
@@ -48,7 +48,7 @@
                     <label>
                         Chat
                     </label>
-                    <InputHint Action="Chat" class="small" />
+                    <InputHint Action="Chat" class="small" Size="@InputGlyphSize.Small" />
                 </div>
 
                 <ChatBox class="input" @ref="InputBox" OnTabPressed="@ChangeChatMode" onsubmit="@ChatFinished"></ChatBox>
