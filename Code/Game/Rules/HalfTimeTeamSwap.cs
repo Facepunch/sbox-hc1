@@ -5,9 +5,11 @@ public class HalfTimeTeamSwap : Component, IRoundEndListener
 	[RequireComponent] public RoundCounter RoundCounter { get; private set; }
 	[RequireComponent] public RoundLimit RoundLimit { get; private set; }
 
+	public int FirstHalfRoundCount => RoundLimit.MaxRounds / 2;
+
 	void IRoundEndListener.PostRoundEnd()
 	{
-		if ( RoundCounter.Round != RoundLimit.MaxRounds / 2 )
+		if ( RoundCounter.Round != FirstHalfRoundCount )
 		{
 			return;
 		}

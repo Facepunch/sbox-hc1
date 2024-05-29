@@ -40,8 +40,8 @@
     public override void Tick()
     {
         var player = Player;
-        if ( !player.IsValid() ) return;
-        
+        if (!player.IsValid()) return;
+
         var camera = player.CameraController.Camera;
         var range = 100000f;
         var muzzle = Weapon?.ViewModel?.ModelRenderer.GetAttachment( "muzzle" );

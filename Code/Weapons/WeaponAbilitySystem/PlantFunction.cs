@@ -33,12 +33,12 @@ public partial class PlantFunction : InputActionWeaponFunction
 	/// <summary>
 	/// Hold long since we started planting.
 	/// </summary>
-	[HostSync] private TimeSince TimeSincePlantStart { get; set; }
+	[HostSync] public TimeSince TimeSincePlantStart { get; private set; }
 
 	/// <summary>
 	/// Hold long since we aborted planting.
 	/// </summary>
-	[HostSync] private TimeSince TimeSincePlantCancel { get; set; }
+	[HostSync] public TimeSince TimeSincePlantCancel { get; private set; }
 
 	private TimeSince TimeSinceBeep { get; set; }
 
