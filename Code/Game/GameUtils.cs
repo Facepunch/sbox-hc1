@@ -46,4 +46,12 @@ public partial class GameUtils
 
 		return null;
 	}
+
+	public static void GiveTeamIncome( Team team, int amount )
+	{
+		foreach ( var player in GetPlayers( team ) )
+		{
+			player.Inventory.GiveCash( amount );
+		}
+	}
 }

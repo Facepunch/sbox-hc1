@@ -15,13 +15,12 @@
         </span>
     </div>
 
-    <div class="flex column">
-        <ProgressBar Value="@(Armor)" width="96" />
-        <span class="flex row align-center gap-sm">
-            <Icon file="/ui/armor.png" size="24" />
-            <label class="vital">@Armor</label>
-        </span>
-    </div>
+    @if ( Armor > 0 )
+    {
+        <div class="flex column">
+            <Donut Value="@(Armor)" size="48" icon="/ui/armor.png" />
+        </div>
+    }
 </root>
 
 @code

@@ -32,7 +32,8 @@ public partial class PlayerInventory : Component
 	/// <summary>
 	/// Does this player have a defuse kit?
 	/// </summary>
-	[HostSync] public bool HasDefuseKit { get; private set; }
+	// [HostSync] TODO
+	public bool HasDefuseKit => true;
 
 	/// <summary>
 	/// Gets the player's current weapon.
@@ -221,7 +222,20 @@ public partial class PlayerInventory : Component
 				return true;
 		}
 	}
-	
+
+	public void SetCash( int amount )
+	{
+		using var _ = Rpc.FilterInclude( Connection.Host );
+		Balance = amount;
+	}
+
+	[Broadcast]
+	private void SetCashHost( int amount )
+	{
+		Assert.True( Networking.IsHost );
+		Balance = amount;
+	}
+
 	public void GiveCash( int amount )
 	{
 		using var _ = Rpc.FilterInclude( Connection.Host );

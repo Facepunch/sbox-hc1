@@ -114,3 +114,8 @@ public interface IPlayerSpawnListener
 	/// </summary>
 	public void PostPlayerSpawn( PlayerController player ) { }
 }
+
+public interface ITeamAssignedListener
+{
+	public void OnTeamAssigned( PlayerController player, Team team ) { }
+}

@@ -2,13 +2,13 @@
 
 ProgressBar {
     width: 160px;
-    height: 4px;
+    height: 8px;
     background-color: rgba( black, 0.5 );
     border-radius: 1px;
     overflow: hidden;
     position: relative;
 
-    .inner, .backing {
+    .inner {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -17,11 +17,5 @@ ProgressBar {
 
     .inner {
         background-color: white;
-        transition: width 0.25s ease;
-    }
-
-    .backing {
-        background-color: $red;
-        transition: width 0.5s ease;
     }
 }
