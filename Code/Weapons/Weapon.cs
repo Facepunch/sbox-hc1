@@ -179,11 +179,8 @@ public partial class Weapon : Component
 
 	public void ClearViewModel()
 	{
-		if ( !ViewModel.IsValid() )
-			return;
-
-		ViewModel.GameObject.Destroy();
-		ViewModel = null;
+		if ( ViewModel.IsValid() )
+			ViewModel.GameObject.Destroy();
 	}
 	
 	/// <summary>
@@ -250,7 +247,6 @@ public partial class Weapon : Component
 
 	protected override void OnDestroy()
 	{
-		if ( ViewModel.IsValid() )
-			ViewModel.GameObject.Destroy();
+		ClearViewModel();
 	}
 }
