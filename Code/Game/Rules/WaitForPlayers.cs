@@ -7,16 +7,30 @@ using System.Threading.Tasks;
 /// </summary>
 public sealed class WaitForPlayers : Component, IGameStartListener
 {
-	[Property, Sync]
+	[DeveloperCommand( "Pause Game Start", "Pause / resume timer before game starts." )]
+	public static void Toggle()
+	{
+		var inst = GameMode.Instance?.Components.GetInDescendantsOrSelf<WaitForPlayers>();
+
+		if ( inst != null )
+		{
+			inst.IsPostponed = !inst.IsPostponed;
+		}
+	}
+
+	[Property, HostSync]
 	public float DurationSeconds { get; set; } = 60f;
 
-	[Property, Sync]
+	[Property, HostSync]
 	public float MinDurationSeconds { get; set; } = 5f;
 
-	[Property, Sync]
+	[Property, HostSync]
 	public int MinPlayerCount { get; set; } = 2;
 
-	[Sync]
+	[HostSync]
+	public bool IsPostponed { get; set; }
+
+	[HostSync]
 	public float StartTime { get; set; }
 
 	public float Remaining => DurationSeconds - Time.Now + StartTime;
@@ -25,8 +39,13 @@ public sealed class WaitForPlayers : Component, IGameStartListener
 	{
 		StartTime = Time.Now;
 
-		while ( GameUtils.AllPlayers.Count() < MinPlayerCount && Remaining > 0f)
+		while ( GameUtils.AllPlayers.Count() < MinPlayerCount && Remaining > 0f )
 		{
+			if ( IsPostponed )
+			{
+				StartTime = Time.Now;
+			}
+
 			await Task.DelaySeconds( 1f );
 		}
 
