@@ -3,7 +3,7 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-@if ( !Player.IsValid() ) return;
+@if ( !Player.IsValid() || Player.IsSpectating ) return;
 
 <root class="@BuildClass() hud flex row gap with-padding justify-start">
 
@@ -25,13 +25,13 @@
 
 @code
 {
-    public PlayerController Player => GameUtils.LocalPlayer;
+    public PlayerController Player => GameUtils.Viewer;
     public int Health => Player.Components.Get<HealthComponent>().Health.CeilToInt();
     public int Armor => Player.Components.Get<HealthComponent>().Armor.CeilToInt();
 
     protected override int BuildHash()
     {
-        return !Player.IsValid() ? 0 : HashCode.Combine( Health );
+        return !Player.IsValid() ? 0 : HashCode.Combine( Player.IsSpectating, Health );
     }
 
     private string BuildClass()

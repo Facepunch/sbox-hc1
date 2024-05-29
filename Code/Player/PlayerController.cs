@@ -132,13 +132,17 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <summary>
 	/// A shorthand accessor to say if we're controlling this player.
 	/// </summary>
-	public bool IsLocallyControlled
-	{
-		get
-		{
-			return ( this as IPawn ).IsPossessed && !IsProxy;
-		}
-	}
+	public bool IsLocallyControlled => IsViewer && !IsProxy && !IsBot;
+
+	/// <summary>
+	/// Is this player the currently possessed controller
+	/// </summary>
+	public bool IsViewer => (this as IPawn).IsPossessed;
+
+	/// <summary>
+	/// Is this a player or a bot
+	/// </summary>
+	[HostSync] public bool IsBot { get; set; } = false;
 
 	/// <summary>
 	/// If true, we're not allowed to move.
@@ -218,13 +222,22 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		_baseAcceleration = CharacterController.Acceleration;
 	}
 
+	protected override void OnStart()
+	{
+		if ( !IsProxy && !IsBot )
+			GameUtils.LocalPlayer = this;
+
+		if ( IsBot )
+			GameObject.Name += " (Bot)";
+	}
+
 	protected override void OnUpdate()
 	{
 		var cc = CharacterController;
 		CurrentHoldType = CurrentWeapon.IsValid() ? CurrentWeapon.GetHoldType() : AnimationHelper.HoldTypes.None;
 
 		// Eye input
-		if ( IsLocallyControlled && cc.IsValid() )
+		if ( (this as IPawn).IsPossessed && cc.IsValid() )
 		{
 			// TODO: Move this eye height stuff to the camera? Not sure.
 			var eyeHeightOffset = GetEyeHeightOffset();
@@ -237,8 +250,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 				PlayerBoxCollider.Scale = new( 32, 32, 64 + _smoothEyeHeight );
 			}
 
-			EyeAngles += Input.AnalogLook;
-			EyeAngles = EyeAngles.WithPitch( EyeAngles.pitch.Clamp( -90, 90 ) );
+			if ( IsLocallyControlled )
+			{
+				EyeAngles += Input.AnalogLook;
+				EyeAngles = EyeAngles.WithPitch( EyeAngles.pitch.Clamp( -90, 90 ) );
+			}
 
 			CameraController.UpdateFromEyes( _smoothEyeHeight );
 		}
@@ -321,7 +337,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 	private bool IsOutlineVisible()
 	{
-		var localPlayer = GameUtils.LocalPlayer;
+		var localPlayer = GameUtils.Viewer;
 		if ( !localPlayer.IsValid() )
 			return false;
 
@@ -351,6 +367,12 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 	protected override void OnFixedUpdate()
 	{
+		if ( IsSpectating && !IsProxy && !IsBot )
+		{
+			SpectateUpdate();
+			return;
+		}
+
 		var cc = CharacterController;
 		if ( !cc.IsValid() ) return;
 
@@ -515,7 +537,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		AnimationHelper.ProceduralHitReaction( damage / 100f, force );
 
 		// Is this the local player?
-		if ( IsLocallyControlled )
+		if ( IsViewer )
 		{
 			DamageIndicator.Current?.OnHit( position );
 		}

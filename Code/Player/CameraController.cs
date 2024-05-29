@@ -31,7 +31,7 @@ public sealed class CameraController : Component
 		Camera.Enabled = isActive;
 		AudioListener.Enabled = isActive;
 
-		Player.Body.ShowBodyParts( !isActive );
+		Player.Body.ShowBodyParts( !isActive ? BodyRenderMode.Show : BodyRenderMode.ShadowsOnly );
 	}
 
 	/// <summary>
@@ -41,7 +41,7 @@ public sealed class CameraController : Component
 	internal void UpdateFromEyes( float eyeHeight )
 	{
 		// Don't move eyes if we're dead
-		if ( Player.HealthComponent.State != LifeState.Alive )
+		if ( Player.HealthComponent.State != LifeState.Alive && !Player.IsSpectating )
 			return;
 
 		Camera.Transform.Rotation = Player.EyeAngles.ToRotation();
@@ -104,7 +104,7 @@ public sealed class CameraController : Component
 
 	void ApplyRecoil()
 	{
-		if ( !Player.IsLocallyControlled )
+		if ( !Player.IsViewer )
 			return;
 
 		if ( Player.CurrentWeapon.IsValid() && Player.CurrentWeapon?.GetFunction<RecoilFunction>() is { } fn )

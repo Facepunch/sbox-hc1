@@ -55,7 +55,7 @@ partial class GameMode
 	[Broadcast( NetPermission.HostOnly )]
 	public void ShowStatusText( Team team, string value )
 	{
-		if ( (GameUtils.LocalPlayer?.TeamComponent.Team ?? Team.Unassigned) != team )
+		if ( (GameUtils.Viewer?.TeamComponent.Team ?? Team.Unassigned) != team )
 		{
 			return;
 		}

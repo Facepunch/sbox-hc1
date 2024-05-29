@@ -12,7 +12,7 @@
     public Panel Reticle { get; set; }
     public Panel Hitmarker { get; set; }
 
-    PlayerController Player => GameUtils.LocalPlayer;
+    PlayerController Player => GameUtils.Viewer;
     Weapon Weapon => Player.CurrentWeapon;
 
     private TimeUntil TimeUntilHitmarkerRemove = 0f;

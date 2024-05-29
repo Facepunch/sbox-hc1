@@ -6,14 +6,20 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="flex justify-center align-center">
-    <img style="background-image-tint:@TeamColor" src="@TeamIcon" />
+<root class="hud with-deadzone flex justify-end align-center column">
+    @if (LocalPlayer.IsSpectating)
+    {
+        <label>@(Player.IsLocallyControlled ? "FREECAM" : $"SPECTATING: {Player.Network.OwnerConnection.DisplayName}")</label>
+    }
+    <img class="hud with-padding" style="background-image-tint:@TeamColor" src="@TeamIcon" />
 </root>
 
 @code
 {
-    public PlayerController Player => GameUtils.LocalPlayer;
+    public PlayerController Player => GameUtils.Viewer;
     public TeamComponent TeamComponent => Player.Components.Get<TeamComponent>();
+
+    public PlayerController LocalPlayer => GameUtils.LocalPlayer;
 
     private string TeamColor 
     {
@@ -22,7 +28,7 @@
 
     protected override int BuildHash()
     {
-        return !Player.IsValid() ? 0 : HashCode.Combine( TeamComponent, TeamComponent.Team );
+        return !Player.IsValid() ? 0 : HashCode.Combine( TeamComponent, TeamComponent.Team, LocalPlayer.IsSpectating );
     }
 
     private string TeamIcon => TeamComponent.Team.GetIconPath();

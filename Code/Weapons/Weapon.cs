@@ -48,7 +48,7 @@ public partial class Weapon : Component
 	/// </summary>
 	protected void UpdateRenderMode()
 	{
-		if ( PlayerController.IsLocallyControlled )
+		if ( PlayerController.IsViewer )
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
 		else
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;

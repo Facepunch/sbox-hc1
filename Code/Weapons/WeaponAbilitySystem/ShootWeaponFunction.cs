@@ -68,7 +68,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		{
 			if ( Sound.Play( ShootSound, Weapon.Transform.Position ) is SoundHandle snd )
 			{
-				snd.ListenLocal = Weapon.PlayerController.IsLocallyControlled;
+				snd.ListenLocal = Weapon.PlayerController.IsViewer;
 				Log.Trace( $"ShootWeaponFunction: ShootSound {ShootSound.ResourceName}" );
 			}
 		}

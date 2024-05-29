@@ -24,16 +24,23 @@ public partial class PlayerController
 			HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
 			Inventory.Clear();
 		}
-		
-		SetBodyVisible( false );
+
+		SetRagdoll();
 		InBuyMenu = false;
 	}
 
 	[Broadcast]
-	public void SetBodyVisible( bool visible )
+	public void SetRagdoll()
 	{
-		Body.SetRagdoll( !visible );
-		PlayerBoxCollider.Enabled = visible;
+		Body.SetRagdoll( true );
+		PlayerBoxCollider.Enabled = false;
+	}
+
+	[Broadcast]
+	public void ResetBody()
+	{
+		Body.SetRagdoll( false );
+		PlayerBoxCollider.Enabled = true;
 	}
 
 	void IRespawnable.Respawn()
@@ -50,7 +57,8 @@ public partial class PlayerController
 	{
 		Log.Info( $"Respawn( {GameObject.Name} ({Network.OwnerConnection?.DisplayName}, {TeamComponent.Team}) )" );
 
-		SetBodyVisible( true );
+		if ( !IsSpectating )
+			ResetBody();
 
 		if ( Networking.IsHost )
 		{
@@ -64,9 +72,10 @@ public partial class PlayerController
 			HealthComponent.State = LifeState.Alive;
 		}
 
-		if ( !IsProxy )
+		if ( !IsProxy && !IsBot )
 		{
 			GameMode.Instance?.HandlePlayerSpawn();
+			(this as IPawn).Possess();
 		}
 	}
 

@@ -32,7 +32,8 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	private static void Command_Add_Bot()
 	{
 		var player = Instance.PlayerPrefab.Clone();
-		player.NetworkSpawn();
+		player.Components.Get<PlayerController>().IsBot = true;
+		player.NetworkSpawn( Connection.Host );
 	}
 
 	/// <summary>
