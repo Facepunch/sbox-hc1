@@ -54,18 +54,30 @@ public partial class PlayerController
 
 		if ( Networking.IsHost )
 		{
-			Log.Info( "Respawning: " + GameObject + " Clearing Inventory " );
-			Inventory.Clear();
+			if ( HealthComponent.State != LifeState.Alive )
+			{
+				Inventory.Clear();
+				HealthComponent.Armor = 0f;
+			}
+
 			HealthComponent.Health = 100f;
 			HealthComponent.State = LifeState.Alive;
 		}
-
-		var spawn = GameMode.Instance.GetSpawnTransform( TeamComponent.Team );
-		Transform.World = new( spawn.Position, spawn.Rotation );
 
 		if ( !IsProxy )
 		{
 			GameMode.Instance?.HandlePlayerSpawn();
 		}
+	}
+
+	public void Teleport( Transform transform )
+	{
+		Teleport( transform.Position, transform.Rotation );
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	public void Teleport( Vector3 position, Rotation rotation )
+	{
+		Transform.World = new( position, rotation );
 	}
 }

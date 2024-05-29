@@ -15,18 +15,6 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 	private Task _gameLoopTask;
 
-	protected override void OnAwake()
-	{
-		base.OnAwake();
-
-		// Add essential components for required interfaces
-
-		if ( Components.Get<ISpawnPointAssigner>() is null )
-		{
-			Components.Create<AnySpawnAssigner>();
-		}
-	}
-
 	protected override void OnStart()
 	{
 		base.OnStart();
@@ -145,12 +133,6 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	{
 		return Components.GetAll<IRoundEndCondition>()
 			.Any( x => x.ShouldRoundEnd() );
-	}
-
-	public Transform GetSpawnTransform( Team team )
-	{
-		return GetSingleOrThrow<ISpawnPointAssigner>()
-			.GetSpawnTransform( team );
 	}
 
 	/// <summary>

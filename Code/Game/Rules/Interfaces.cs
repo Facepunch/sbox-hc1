@@ -89,14 +89,6 @@ public interface IRoundEndListener
 	public void PostRoundEnd() { }
 }
 
-public interface ISpawnPointAssigner
-{
-	/// <summary>
-	/// Select a spawn point for a player on the given team.
-	/// </summary>
-	Transform GetSpawnTransform( Team team );
-}
-
 public interface IPlayerSpawnListener
 {
 	/// <summary>

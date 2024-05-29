@@ -45,19 +45,25 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 
 		Log.Info( $"Player '{channel.DisplayName}' is becoming active" );
 
-		var player = PlayerPrefab.Clone( GameMode.Instance.GetSpawnTransform( Team.Unassigned ) );
+		var player = PlayerPrefab.Clone( GameUtils.GetRandomSpawnPoint( Team.Unassigned ) );
 		player.NetworkSpawn( channel );
 
 		var playerComponent = player.Components.Get<PlayerController>();
 
-		if ( playerComponent.IsValid() )
+		if ( !playerComponent.IsValid() )
 		{
-			playerComponent.NetPossess();
+			return;
+		}
 
-			if ( playerComponent.CanRespawn )
-			{
-				playerComponent.Respawn();
-			}
+		playerComponent.NetPossess();
+
+		if ( playerComponent.CanRespawn )
+		{
+			playerComponent.Respawn();
+		}
+		else
+		{
+			playerComponent.Kill();
 		}
 	}
 

@@ -33,6 +33,29 @@ public partial class GameUtils
 	public static IEnumerable<PlayerController> GetPlayers( Team team ) => AllPlayers.Where( x => x.TeamComponent.Team == team );
 
 	/// <summary>
+	/// Get all spawn point transforms for the given team.
+	/// </summary>
+	public static IEnumerable<Transform> GetSpawnPoints( Team team ) => Game.ActiveScene
+		.GetAllComponents<TeamSpawnPoint>()
+		.Where( x => x.Team == team )
+		.Select( x => x.Transform.World )
+		.Concat( Game.ActiveScene.GetAllComponents<SpawnPoint>()
+			.Select( x => x.Transform.World ) );
+
+	/// <summary>
+	/// Pick a random spawn point for the given team.
+	/// </summary>
+	public static Transform GetRandomSpawnPoint( Team team )
+	{
+		return Random.Shared.FromArray( GetSpawnPoints( team ).ToArray(), Transform.Zero );
+	}
+
+	/// <summary>
+	/// Helper list of the two teams.
+	/// </summary>
+	public static IReadOnlyList<Team> Teams { get; } = new[] { Team.Terrorist, Team.CounterTerrorist };
+
+	/// <summary>
 	/// Get a player from a component that belongs to a player or their descendants.
 	/// </summary>
 	public static PlayerController GetPlayerFromComponent( Component component )
