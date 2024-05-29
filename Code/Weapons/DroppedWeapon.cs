@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public partial class DroppedWeapon : Component, IUse, IRoundEndListener, IRoundStartListener
+public partial class DroppedWeapon : Component, IUse
 {
 	[Property] public WeaponData Resource { get; set; }
 
@@ -51,16 +51,6 @@ public partial class DroppedWeapon : Component, IUse, IRoundEndListener, IRoundS
 			return;
 		
 		player.Inventory.GiveWeapon( Resource );
-		GameObject.Destroy();
-	}
-	
-	void IRoundStartListener.PreRoundStart()
-	{
-		GameObject.Destroy();
-	}
-
-	void IRoundEndListener.PostRoundEnd()
-	{
 		GameObject.Destroy();
 	}
 }
