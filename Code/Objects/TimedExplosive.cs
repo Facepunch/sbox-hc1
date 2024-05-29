@@ -6,11 +6,24 @@ public sealed class TimedExplosive : Component, IUse
 	[Property, Category( "Config" )]
 	public float Duration { get; set; } = 45f;
 
+	/// <summary>
+	/// How long the defuse will take without a defuse kit.
+	/// </summary>
 	[Property, Category( "Config" )]
 	public float BaseDefuseTime { get; set; } = 10f;
 
+	/// <summary>
+	/// How long the defuse will take with a defuse kit.
+	/// </summary>
 	[Property, Category( "Config" )]
 	public float FastDefuseTime { get; set; } = 5f;
+
+	/// <summary>
+	/// How long the defuse will take, based on if the defuser has a defuse kit.
+	/// </summary>
+	public float DefuseTime => DefusingPlayer?.Inventory.HasDefuseKit ?? false
+		? FastDefuseTime
+		: BaseDefuseTime;
 
 	[HostSync]
 	public TimeSince TimeSincePlanted { get; private set; }
@@ -79,11 +92,7 @@ public sealed class TimedExplosive : Component, IUse
 
 		if ( DefusingPlayer is not null )
 		{
-			var defuseTime = DefusingPlayer.Inventory.HasDefuseKit
-				? FastDefuseTime
-				: BaseDefuseTime;
-
-			if ( TimeSinceDefuseStart >= defuseTime )
+			if ( TimeSinceDefuseStart >= DefuseTime )
 			{
 				FinishDefusing();
 			}

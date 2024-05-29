@@ -7,15 +7,23 @@ partial class PlayerController
 	/// </summary>
 	[Sync] public bool IsUsing { get; set; }
 
+	/// <summary>
+	/// Which object did the player last press use on?
+	/// </summary>
+	public GameObject LastUsedObject { get; private set; }
+
 	private void UpdateUse()
 	{
-		IsUsing = Input.Down( "Use" );
-
-		if ( Input.Pressed( "Use" ) )
+		if ( IsLocallyControlled )
 		{
-			using ( Rpc.FilterInclude( Connection.Host ) )
+			IsUsing = Input.Down( "Use" );
+
+			if ( Input.Pressed( "Use" ) )
 			{
-				TryUse( AimRay );
+				using ( Rpc.FilterInclude( Connection.Host ) )
+				{
+					TryUse( AimRay );
+				}
 			}
 		}
 	}
@@ -35,8 +43,15 @@ partial class PlayerController
 
 		if ( usable.IsValid() && usable.CanUse( this ) )
 		{
+			UpdateLastUsedObject( (usable as Component)?.GameObject.Id ?? Guid.Empty );
 			usable.OnUse( this );
 		}
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	private void UpdateLastUsedObject( Guid id )
+	{
+		LastUsedObject = Scene.Directory.FindByGuid( id );
 	}
 }
 

@@ -382,12 +382,13 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		if ( HealthComponent.State != LifeState.Alive )
 			return;
 
+		UpdateUse();
+
 		if ( IsLocallyControlled )
 		{
 			UIUpdate();
 			BuildWishInput();
 			BuildWishVelocity();
-			UpdateUse();
 
 			if ( cc.IsOnGround && !IsFrozen && !InMenu && Input.Pressed( "Jump" ) )
 			{
