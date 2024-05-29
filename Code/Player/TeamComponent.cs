@@ -134,4 +134,12 @@ public static class TeamExtensions
 	{
 		return IsFriendly( self.GetTeam(), other.GetTeam() );
 	}
+
+	/// <summary>
+	/// Are these two <see cref="PlayerController"/>s friends with each other?
+	/// </summary>
+	public static bool IsFriendly( this PlayerController self, PlayerController other )
+	{
+		return IsFriendly( self.TeamComponent.Team, other.TeamComponent.Team );
+	}
 }

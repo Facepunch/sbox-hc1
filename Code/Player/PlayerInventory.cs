@@ -228,14 +228,14 @@ public partial class PlayerInventory : Component
 	public void SetCash( int amount )
 	{
 		using var _ = Rpc.FilterInclude( Connection.Host );
-		Balance = amount;
+		SetCashHost( amount );
 	}
 
 	[Broadcast]
 	private void SetCashHost( int amount )
 	{
 		Assert.True( Networking.IsHost );
-		Balance = amount;
+		Balance = Math.Clamp( amount, 0, GameMode.Instance.MaxBalance );
 	}
 
 	public void GiveCash( int amount )
@@ -248,7 +248,7 @@ public partial class PlayerInventory : Component
 	private void GiveCashHost( int amount )
 	{
 		Assert.True( Networking.IsHost );
-		Balance += amount;
+		Balance = Math.Clamp( Balance + amount, 0, GameMode.Instance.MaxBalance );
 	}
 
 	public void BuyWeapon( int resourceId )

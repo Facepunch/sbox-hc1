@@ -9,7 +9,7 @@
             <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.Killer ) />
 
             <div class="method">
-                @if ( GetWeapon( entry.Inflictor ) is Weapon weapon )
+                @if ( GameUtils.GetWeaponFromComponent( entry.Inflictor ) is {} weapon )
                 {
                     <div class="icon" style="background-image: url( @weapon.Resource.Icon );" />
                 }
@@ -30,16 +30,6 @@
     private List<Entry> Entries { get; set; } = new();
 
     private float Lifetime => 10f;
-
-    private Weapon GetWeapon( Component inflictor )
-    {
-        if ( inflictor is Weapon weapon )
-        {
-            return weapon;
-        }
-
-        return null;
-    }
 
     public void OnPlayerKilled( Component killer, Component victim, Component inflictor )
     {

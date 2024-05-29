@@ -70,6 +70,16 @@ public partial class GameUtils
 		return null;
 	}
 
+	public static Weapon GetWeaponFromComponent( Component inflictor )
+	{
+		if ( inflictor is Weapon weapon )
+		{
+			return weapon;
+		}
+
+		return null;
+	}
+
 	public static void GiveTeamIncome( Team team, int amount )
 	{
 		foreach ( var player in GetPlayers( team ) )
