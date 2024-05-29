@@ -40,10 +40,14 @@ public sealed class TeamScoring : Component, IGameStartListener, IRoundStartList
 		{
 			case Team.Terrorist:
 				GameMode.Instance.ShowStatusText( "Terrorists Win!" );
+				RadioSounds.Play( Team.CounterTerrorist, RadioSound.RoundLost );
+				RadioSounds.Play( Team.Terrorist, RadioSound.RoundWon );
 				break;
 
 			case Team.CounterTerrorist:
 				GameMode.Instance.ShowStatusText( "Counter-Terrorists Win!" );
+				RadioSounds.Play( Team.CounterTerrorist, RadioSound.RoundWon );
+				RadioSounds.Play( Team.Terrorist, RadioSound.RoundLost );
 				break;
 		}
 	}
