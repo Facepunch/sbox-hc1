@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Facepunch;
 
 public sealed class TeamScoring : Component, IGameStartListener, IRoundStartListener, IRoundEndListener
 {
-	[Property] public int TerroristScore => GetTeamScore( Team.Terrorist );
-	[Property] public int CounterTerroristScore => GetTeamScore( Team.CounterTerrorist );
+	[Property, JsonIgnore] public int TerroristScore => GetTeamScore( Team.Terrorist );
+	[Property, JsonIgnore] public int CounterTerroristScore => GetTeamScore( Team.CounterTerrorist );
 
 	[HostSync] public Team RoundWinner { get; set; }
 
