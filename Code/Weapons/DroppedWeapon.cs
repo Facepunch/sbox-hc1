@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public partial class DroppedWeapon : Component
+public partial class DroppedWeapon : Component, IUse
 {
 	[Property] public WeaponData Resource { get; set; }
 
@@ -24,5 +24,18 @@ public partial class DroppedWeapon : Component
 		droppedWeapon.Rigidbody = go.Components.Create<Rigidbody>();
 
 		return droppedWeapon;
+	}
+
+	public bool CanUse( PlayerController player )
+	{
+		return !player.Inventory.HasWeapon( Resource );
+	}
+
+	public bool OnUse( PlayerController player )
+	{
+		player.Inventory.GiveWeapon( Resource );
+		GameObject.Destroy();
+
+		return false;
 	}
 }

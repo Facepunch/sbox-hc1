@@ -1,5 +1,6 @@
 using Facepunch.UI;
 using Sandbox.Diagnostics;
+using System.Diagnostics;
 
 namespace Facepunch;
 
@@ -122,6 +123,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// The player's box collider, so people can jump on other people.
 	/// </summary>
 	[Property] public BoxCollider PlayerBoxCollider { get; set; }
+
+	/// <summary>
+	/// How far can we use stuff?
+	/// </summary>
+	[Property, Group( "Interaction" )] public float UseDistance { get; set; } = 50f;
 
 	/// <summary>
 	/// A shorthand accessor to say if we're controlling this player.
@@ -348,6 +354,28 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		return HealthComponent.State == LifeState.Alive && TeamComponent.Team == localPlayer.TeamComponent.Team;
 	}
 
+	private void UpdateUse()
+	{
+		if ( Input.Down( "Use" ) )
+		{
+			var tr = Scene.Trace.Ray( AimRay, UseDistance )
+				.Size( 5f )
+				.IgnoreGameObjectHierarchy( GameObject )
+				.Run();
+
+			if ( !tr.Hit )
+			{
+				return;
+			}
+
+			var usable = tr.GameObject.Components.Get<IUse>();
+			if ( usable.IsValid() && usable.CanUse( this ) )
+			{
+				usable.OnUse( this ) ;
+			}
+		}
+	}
+
 	private void UpdateOutline()
 	{
 		if ( !IsOutlineVisible() )
@@ -378,7 +406,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		{
 			UIUpdate();
 			BuildInput();
-
+			UpdateUse();
 			BuildWishInput();
 			BuildWishVelocity();
 
