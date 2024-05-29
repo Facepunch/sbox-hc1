@@ -47,6 +47,10 @@ public partial class PlantFunction : InputActionWeaponFunction
 		BindTag( "planting", () => IsPlanting );
 	}
 
+	private BombSite CurrentBombSite => Weapon.PlayerController.Zones
+		.Select( x => x.Components.Get<BombSite>() )
+		.FirstOrDefault( x => x is not null );
+
 	/// <summary>
 	/// Can we plant right now?
 	/// </summary>
@@ -59,7 +63,7 @@ public partial class PlantFunction : InputActionWeaponFunction
 		if ( TimeSincePlantCancel < ResetTime )
 			return false;
 
-		if ( !Weapon.PlayerController.Zones.Any( x => x.Components.Get<BombSite>() is not null ) )
+		if ( CurrentBombSite is null )
 			return false;
 
 		return true;
@@ -84,8 +88,10 @@ public partial class PlantFunction : InputActionWeaponFunction
 	private void PlantBombOnHost( Vector3 position, Rotation rotation )
 	{
 		if ( !Networking.IsHost ) return;
-		
-		Weapon.PlayerController.Inventory.RemoveWeapon( Weapon );
+
+		var player = Weapon.PlayerController;
+
+		player.Inventory.RemoveWeapon( Weapon );
 		
 		if ( PlantedObjectPrefab is null ) return;
 		
@@ -94,6 +100,11 @@ public partial class PlantFunction : InputActionWeaponFunction
 		// If the host leaves, we want to make the new host have authority over the bomb.
 		planted.Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
 		planted.NetworkSpawn();
+
+		foreach ( var listener in Scene.GetAllComponents<IBombPlantedListener>())
+		{
+			listener.OnBombPlanted( player, planted, CurrentBombSite );
+		}
 	}
 	
 	[Broadcast]

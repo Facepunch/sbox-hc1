@@ -1,4 +1,6 @@
 ﻿
+using Facepunch;
+
 public sealed class TimedExplosive : Component
 {
 	[Property, Category( "Config" )]
@@ -21,12 +23,26 @@ public sealed class TimedExplosive : Component
 	[Property, Category( "Effects" )]
 	public GameObject BeepEffectPrefab { get; set; }
 
+	/// <summary>
+	/// Bomb site this bomb was planted at.
+	/// </summary>
+	public BombSite BombSite { get; private set; }
+
 	protected override void OnEnabled()
 	{
 		base.OnEnabled();
 
 		TimeSincePlanted = 0f;
 		TimeSinceLastBeep = 0f;
+
+		BombSite = Zone.GetAt( Transform.Position )
+			.Select( x => x.Components.Get<BombSite>() )
+			.FirstOrDefault( x => x is not null );
+
+		if ( BombSite is null )
+		{
+			Log.Warning( $"Bomb site is null!" );
+		}
 	}
 
 	protected override void OnUpdate()
@@ -35,7 +51,7 @@ public sealed class TimedExplosive : Component
 
 		BeepEffects();
 
-		if ( IsProxy ) return;
+		if ( !Networking.IsHost ) return;
 
 		if ( TimeSincePlanted > Duration )
 		{
@@ -51,6 +67,29 @@ public sealed class TimedExplosive : Component
 		var explosion = ExplosionPrefab.Clone( Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
 
 		explosion.NetworkSpawn();
+
+		foreach ( var listener in Scene.GetAllComponents<IBombDetonatedListener>() )
+		{
+			listener.OnBombDetonated( GameObject, BombSite );
+		}
+
+		if ( BombSite is not null )
+		{
+			// Bomb site determines damage, so safe radius can be tuned by the mapper
+
+			foreach ( var health in Scene.GetAllComponents<HealthComponent>() )
+			{
+				var diff = health.Transform.Position - Transform.Position;
+				var damage = BombSite.GetExplosionDamage( diff.Length );
+
+				if ( damage <= 0f )
+				{
+					continue;
+				}
+
+				health.TakeDamage( damage, Transform.Position, diff.Normal * damage * 100f, Guid.Empty, Id );
+			}
+		}
 
 		GameObject.Destroy();
 	}
