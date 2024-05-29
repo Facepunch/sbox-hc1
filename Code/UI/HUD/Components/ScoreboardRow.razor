@@ -28,6 +28,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Score, Connection, IsLocal, IsDead);
+        return HashCode.Combine(Score.Experience, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead);
     }
 }

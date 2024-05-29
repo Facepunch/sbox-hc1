@@ -31,4 +31,19 @@ public partial class GameUtils
 	/// Players assigned to a particular team.
 	/// </summary>
 	public static IEnumerable<PlayerController> GetPlayers( Team team ) => AllPlayers.Where( x => x.TeamComponent.Team == team );
+
+	/// <summary>
+	/// Get a player from a component that belongs to a player or their descendants.
+	/// </summary>
+	public static PlayerController GetPlayerFromComponent(Component component)
+	{
+		if ( component is PlayerController player ) return player;
+
+		if ( component.GameObject.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is PlayerController foundPlayer )
+		{
+			return foundPlayer;
+		}
+
+		return null;
+	}
 }

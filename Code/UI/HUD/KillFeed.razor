@@ -6,7 +6,7 @@
     @foreach ( var entry in Entries )
     {
         <div class="entry">
-            <PlayerPanel Player=@GetPlayer( entry.Killer ) />
+            <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.Killer ) />
 
             <div class="method">
                 @if ( GetWeapon( entry.Inflictor ) is Weapon weapon )
@@ -18,7 +18,7 @@
                     <label>killed</label>
                 }
             </div>
-            <PlayerPanel Player=@GetPlayer( entry.Victim ) />
+            <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.Victim ) />
         </div>
     }
 </root>
@@ -30,18 +30,6 @@
     private List<Entry> Entries { get; set; } = new();
 
     private float Lifetime => 10f;
-
-    private PlayerController GetPlayer( Component component )
-    {
-        if ( component is PlayerController player ) return player;
-
-        if ( component.GameObject.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is PlayerController foundPlayer )
-        {
-            return foundPlayer;
-        }
-
-        return null;
-    }
 
     private Weapon GetWeapon( Component inflictor )
     {
