@@ -5,5 +5,6 @@ public enum GameState
 	PreRound,
 	DuringRound,
 	PostRound,
-	PostGame
+	PostGame,
+	Ended
 }

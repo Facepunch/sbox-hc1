@@ -34,39 +34,55 @@ public sealed class GameMode : SingletonComponent<GameMode>
 			return;
 		}
 
-		_ = RunGame();
+		_ = ResumeGame();
 	}
 
-	/// <summary>
-	/// Main game loop.
-	/// </summary>
-	public async Task RunGame()
+	public Task ResumeGame()
 	{
-		State = GameState.PreGame;
+		return GameLoop();
+	}
 
-		await StartGame();
-
-		while ( !ShouldGameEnd() )
+	private async Task GameLoop()
+	{
+		while ( State != GameState.Ended )
 		{
-			State = GameState.PreRound;
-
-			await StartRound();
-
-			State = GameState.DuringRound;
-
-			while ( !ShouldRoundEnd() )
+			switch ( State )
 			{
-				await Task.FixedUpdate();
+				case GameState.PreGame:
+					await StartGame();
+
+					State = GameState.PreRound;
+					break;
+
+				case GameState.PreRound:
+					await StartRound();
+
+					State = GameState.DuringRound;
+					break;
+
+				case GameState.DuringRound:
+					await Task.FixedUpdate();
+
+					State = ShouldRoundEnd()
+						? GameState.PostRound
+						: GameState.DuringRound;
+					break;
+
+				case GameState.PostRound:
+					await EndRound();
+
+					State = ShouldGameEnd()
+						? GameState.PostGame
+						: GameState.PreRound;
+					break;
+
+				case GameState.PostGame:
+					await EndGame();
+
+					State = GameState.Ended;
+					break;
 			}
-
-			State = GameState.PostRound;
-
-			await EndRound();
 		}
-
-		State = GameState.PostGame;
-
-		await EndGame();
 	}
 
 	private Task StartGame()
