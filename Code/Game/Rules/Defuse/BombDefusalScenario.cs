@@ -75,33 +75,24 @@ public sealed class BombDefusalScenario : Component,
 	void IBombDetonatedListener.OnBombDetonated( GameObject bomb, BombSite bombSite )
 	{
 		BombHasDetonated = true;
-
-		GameUtils.GiveTeamIncome( Team.Terrorist, BombDetonatedTeamIncome );
-		GameUtils.GiveTeamIncome( Team.CounterTerrorist, GetLossStreakBonus( Team.CounterTerrorist ) );
 	}
 
 	void IBombDefusedListener.OnBombDefused( PlayerController defuser, GameObject bomb, BombSite bombSite )
 	{
 		BombWasDefused = true;
-
-		GameUtils.GiveTeamIncome( Team.Terrorist, GetLossStreakBonus( Team.Terrorist ) );
-		GameUtils.GiveTeamIncome( Team.CounterTerrorist, BombDefusedTeamIncome );
 	}
 
 	void IRoundEndListener.PreRoundEnd()
 	{
-		if ( !IsBombPlanted )
+		if ( TeamScoring.RoundWinner == Team.Terrorist )
 		{
-			if ( TeamScoring.RoundWinner == Team.Terrorist )
-			{
-				GameUtils.GiveTeamIncome( Team.Terrorist, DefaultWinTeamIncome );
-				GameUtils.GiveTeamIncome( Team.CounterTerrorist, GetLossStreakBonus( Team.CounterTerrorist ) );
-			}
-			else if ( TeamScoring.RoundWinner == Team.CounterTerrorist )
-			{
-				GameUtils.GiveTeamIncome( Team.Terrorist, GetLossStreakBonus( Team.Terrorist ) );
-				GameUtils.GiveTeamIncome( Team.CounterTerrorist, DefaultWinTeamIncome );
-			}
+			GameUtils.GiveTeamIncome( Team.Terrorist, IsBombPlanted ? BombDetonatedTeamIncome : DefaultWinTeamIncome );
+			GameUtils.GiveTeamIncome( Team.CounterTerrorist, GetLossStreakBonus( Team.CounterTerrorist ) );
+		}
+		else if ( TeamScoring.RoundWinner == Team.CounterTerrorist )
+		{
+			GameUtils.GiveTeamIncome( Team.Terrorist, GetLossStreakBonus( Team.Terrorist ) );
+			GameUtils.GiveTeamIncome( Team.CounterTerrorist, BombWasDefused ? BombDefusedTeamIncome : DefaultWinTeamIncome );
 		}
 
 		IsBombPlanted = false;
