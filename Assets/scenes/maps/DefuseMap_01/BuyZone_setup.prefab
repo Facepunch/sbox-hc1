@@ -2,10 +2,74 @@
   "RootObject": {
     "__guid": "fe1eb2d5-443e-4eaa-9e02-f2a75ce659bb",
     "Flags": 0,
-    "Name": "BuyZone-SetUp",
+    "Name": "buyzone_setup",
     "Enabled": true,
     "NetworkMode": 2,
-    "NetworkInterpolation": true
+    "NetworkInterpolation": true,
+    "Children": [
+      {
+        "__guid": "c031f610-9737-4a76-af42-19a98049b6ba",
+        "Flags": 0,
+        "Name": "buyzone_ct",
+        "Position": "-1496,-1544,112.0009",
+        "Tags": "bombsite,zone",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.BuyZone",
+            "__guid": "a2635ede-e4c2-4b6f-babc-37031c9c9301",
+            "Team": "CounterTerrorist"
+          },
+          {
+            "__type": "Zone",
+            "__guid": "fe228af9-a50d-48ba-971c-c9ff66a379ce",
+            "Color": "1,0,0,1",
+            "DisplayName": "Counter Terrorist Buyzone"
+          },
+          {
+            "__type": "Sandbox.BoxCollider",
+            "__guid": "01b3e313-4d93-4dc1-ab2d-7d98fa05c8c2",
+            "Center": "0,0,0",
+            "IsTrigger": true,
+            "Scale": "443.0669,427.2667,266.3997",
+            "Static": false
+          }
+        ]
+      },
+      {
+        "__guid": "2c554e87-023e-4e2e-bd55-dbb81387c430",
+        "Flags": 0,
+        "Name": "buyzone_t",
+        "Position": "-1896,280,112",
+        "Tags": "bombsite,zone",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.BuyZone",
+            "__guid": "409450a3-f8c8-4055-8237-740cae2d78cb",
+            "Team": "Terrorist"
+          },
+          {
+            "__type": "Zone",
+            "__guid": "0d706a78-ca2a-4c91-84ed-694ff7aa500a",
+            "Color": "0,0.41667,1,1",
+            "DisplayName": "Terrorist Buyzone"
+          },
+          {
+            "__type": "Sandbox.BoxCollider",
+            "__guid": "96195fcf-739c-436a-b306-a27073f1ebba",
+            "Center": "0,0,0",
+            "IsTrigger": true,
+            "Scale": "443.0669,254.3331,266.3997",
+            "Static": false
+          }
+        ]
+      }
+    ]
   },
   "ShowInMenu": false,
   "MenuPath": null,

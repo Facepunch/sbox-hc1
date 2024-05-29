@@ -66,6 +66,25 @@
             "VerticalFalloffExponent": 2
           }
         ]
+      },
+      {
+        "__guid": "c39c3d5a-10e2-4667-88f1-63abf31a4ea8",
+        "Flags": 0,
+        "Name": "Object",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SoundscapeTrigger",
+            "__guid": "76bda0f1-6fc9-423f-9ca4-492cfd1fe186",
+            "BoxSize": "50,50,50",
+            "Radius": 10000,
+            "Soundscape": "sounds/ambience_birds.sndscape",
+            "StayActiveOnExit": true,
+            "Type": "Sphere"
+          }
+        ]
       }
     ]
   },
@@ -73,6 +92,8 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "garfieldscontent.ambience_birds"
+  ],
   "__version": 1
 }
