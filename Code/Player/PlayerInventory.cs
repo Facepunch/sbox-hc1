@@ -63,6 +63,8 @@ public partial class PlayerInventory : Component
 
 	public IDisposable SuspendSwitching()
 	{
+		if (Player.IsLocallyControlled) return null;
+
 		noSwitching = true;
 		return new Sandbox.Utility.DisposeAction( () =>
 		{
