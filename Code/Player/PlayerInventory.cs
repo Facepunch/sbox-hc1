@@ -49,24 +49,39 @@ public partial class PlayerInventory : Component
 			wpn.Enabled = false;
 		}
 	}
-	
+
 	[Broadcast]
 	private void DropWeapon( Guid weaponId )
 	{
 		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Weapon;
 		if ( !weapon.IsValid() )
 			return;
-		
+
 		if ( weapon.Resource.Slot == WeaponSlot.Melee )
 			return;
 
 		if ( !Networking.IsHost )
 			return;
-		
-		var droppedWeapon = DroppedWeapon.Create( weapon.Resource, Player.AimRay.Position + Player.AimRay.Forward * 32f, Rotation.From( 0, Player.EyeAngles.yaw + 90, 90 ) );
-		droppedWeapon.Rigidbody.ApplyForce( Player.AimRay.Forward * 0.5f );
+
+		var tr = Scene.Trace.Ray( new Ray( Player.AimRay.Position, Player.AimRay.Forward ), 128 )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.WithoutTags( "trigger" )
+			.Run();
+
+		var position = tr.Hit ? tr.HitPosition + tr.Normal * weapon.Resource.WorldModel.Bounds.Size.Length : Player.AimRay.Position + Player.AimRay.Forward * 32f;
+		var rotation = Rotation.From( 0, Player.EyeAngles.yaw + 90, 90 );
+
+		var baseVelocity = Player.CharacterController.Velocity;
+		var droppedWeapon = DroppedWeapon.Create( weapon.Resource, position, rotation );
+
+		if ( !tr.Hit )
+		{
+			droppedWeapon.Rigidbody.Velocity = baseVelocity + Player.AimRay.Forward * 200.0f + Vector3.Up * 50;
+			droppedWeapon.Rigidbody.AngularVelocity = Vector3.Random * 8.0f;
+		}
+
 		droppedWeapon.GameObject.NetworkSpawn();
-		
+
 		RemoveWeapon( weapon );
 	}
 
