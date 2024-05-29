@@ -45,10 +45,23 @@ public partial class PlayerInventory : Component
 		}
 	}
 
+	private void DropWeapon( Weapon weapon )
+	{
+		if ( weapon.Resource.Slot == WeaponSlot.Melee ) return;
+		var droppedWeapon = DroppedWeapon.Create( weapon.Resource, Player.AimRay.Position + Player.AimRay.Forward * 32f, Rotation.From( 0, Player.EyeAngles.yaw + 90, 90 ) ); 
+
+		RemoveWeapon( weapon );
+	}
+
 	protected override void OnUpdate()
 	{
 		if ( !Player.IsLocallyControlled )
 			return;
+
+		if ( Input.Pressed( "Drop" ) )
+		{
+			DropWeapon( CurrentWeapon );
+		}
 
 		for ( int i = 0; i < Weapons.Count(); i++ )
 		{
