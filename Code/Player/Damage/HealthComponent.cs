@@ -147,7 +147,7 @@ public partial class HealthComponent : Component, IRespawnable
 			Health -= damage;
 
 			// Did we die?
-			if ( Health <= 0 )
+			if ( Health <= 0 && State == LifeState.Alive )
 			{
 				State = LifeState.Dead;
 
