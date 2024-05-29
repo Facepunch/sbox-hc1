@@ -12,13 +12,17 @@
 
     <MarkerSystem />
     <RoundStateDisplay />
-
     <DamageIndicator />
+    <KillFeed @ref="KillFeed" />
 </root>
 
-@code {
+@code 
+{
+    public KillFeed KillFeed { get; set; }
+
+
     public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force )
     {
-        Log.Info($"{victim} died to {killer}, {damage}, {position} ");
+        KillFeed.OnPlayerKilled( killer, victim );
     }
 }

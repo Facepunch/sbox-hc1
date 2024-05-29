@@ -1,0 +1,42 @@
+@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root class="hud with-deadzone top-left">
+    @foreach ( var entry in Entries )
+    {
+        <div class="entry">
+            <label class="killer">@entry.Killer.Network.OwnerConnection?.DisplayName</label>
+            <label class="method">killed</label>
+            <label class="victim">@entry.Victim.Network.OwnerConnection?.DisplayName</label>
+        </div>
+    }
+</root>
+
+@code
+{
+    public record Entry( Component Killer, Component Victim, RealTimeSince TimeSinceAdded );
+    
+    private List<Entry> Entries { get; set; } = new();
+    
+    private float Lifetime => 10f;
+
+    public void OnPlayerKilled( Component killer, Component victim )
+    {
+        var entry = new Entry( killer, victim, 0 );
+        Entries.Add( entry );
+        StateHasChanged();
+    }
+
+    public override void Tick()
+    {
+        // Limit entries so we don't get too busy
+        Entries = Entries.TakeLast( 5 ).ToList();
+
+        // Did we remove something?
+        if ( Entries.RemoveAll( x => x.TimeSinceAdded > Lifetime ) > 0 )
+        {
+            StateHasChanged();
+        }
+    }
+}

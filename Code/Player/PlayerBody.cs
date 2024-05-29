@@ -16,6 +16,7 @@ namespace Facepunch
 			if ( !ragdoll )
 			{
 				GameObject.Transform.LocalPosition = Vector3.Zero;
+				GameObject.Transform.LocalRotation = Rotation.Identity;
 			}
 
 			ShowBodyParts( ragdoll );
