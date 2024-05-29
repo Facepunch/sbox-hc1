@@ -1,0 +1,15 @@
+@namespace Facepunch.UI
+@inherits Panel
+
+<root>
+    <label class="name" style="color:@TeamColor">
+        @Player.Network.OwnerConnection.DisplayName
+    </label>
+</root>
+
+@code
+{
+    public PlayerController Player { get; set; }
+
+    private string TeamColor => Player.GameObject.GetTeam().GetColor().Hex;
+}
