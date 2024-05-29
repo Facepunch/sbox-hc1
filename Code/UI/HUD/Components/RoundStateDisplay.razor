@@ -3,21 +3,28 @@
 @attribute [StyleSheet]
 
 <root class="hud with-deadzone top-middle flex row">
-    @if ( GroupedPlayers.Count >= 1 )
-        <RoundStateTeam Grouping="@GroupedPlayers[0]" iconPosition="Right" />
+    @if (CounterTerroristPlayers is not null && CounterTerroristPlayers.Count() > 0)
+    {
+        <RoundStateTeam Grouping="@CounterTerroristPlayers" iconPosition="Right" />
+    }
 
     <div class="flex column with-background with-padding h-full align-center justify-center" style="min-width: 175px">
         <label>@Status</label>
         <label class="emphasis">@(Time?.ToString(@"m\:ss"))</label>
     </div>
 
-    @if ( GroupedPlayers.Count >= 2 )
-        <RoundStateTeam Grouping="@GroupedPlayers[1]" iconPosition="Left" />
+    @if (TerroristPlayers is not null && TerroristPlayers.Count() > 0)
+    {
+        <RoundStateTeam Grouping="@TerroristPlayers" iconPosition="Left" /> 
+    }
 </root>
 
 @code
 {
     private List<IGrouping<Team, PlayerController>> GroupedPlayers => PlayerList.GroupBy(x => x.GameObject.GetTeam()).ToList();
+
+    private IGrouping<Team, PlayerController> TerroristPlayers => GroupedPlayers.FirstOrDefault(x => x.Key == Team.Terrorist);
+    private IGrouping<Team, PlayerController> CounterTerroristPlayers => GroupedPlayers.FirstOrDefault(x => x.Key == Team.CounterTerrorist);
 
     public string Status => GameMode.Instance?.DisplayedStatus;
     public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
