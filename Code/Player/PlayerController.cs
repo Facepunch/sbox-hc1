@@ -374,12 +374,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 	protected override void OnFixedUpdate()
 	{
-		if ( IsSpectating && !IsProxy && !IsBot )
-		{
-			SpectateUpdate();
-			return;
-		}
-
 		var cc = CharacterController;
 		if ( !cc.IsValid() ) return;
 

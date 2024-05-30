@@ -4,14 +4,14 @@
 
 @attribute [StyleSheet]
 
-@if (!Player.IsValid() || !LocalPlayer.IsSpectating ) return;
+@if ( !SpectateSystem.IsSpectating ) return;
 
 <root class="hud with-deadzone flex column">
     <div class="flex row">
         <InputHint Action="SpectatorPrev" />
         <div class="flex column with-background with-padding h-full align-center justify-center" style="min-width: 275px; height: 75px;">
             <label class="text small upper">SPECTATING</label>
-            @if (Player.IsLocallyControlled)
+            @if ( SpectateSystem.IsFreecam )
             {
                 <label>FREECAM</label>
             }
@@ -29,10 +29,10 @@
 {
     public PlayerController Player => GameUtils.Viewer;
 
-    public PlayerController LocalPlayer => GameUtils.LocalPlayer;
+    public SpectateSystem SpectateSystem => SpectateSystem.Instance;
 
     protected override int BuildHash()
     {
-        return !Player.IsValid() ? 0 : HashCode.Combine( LocalPlayer.IsSpectating, Player );
+        return !Player.IsValid() ? 0 : HashCode.Combine( SpectateSystem.IsSpectating, Player);
     }
 }

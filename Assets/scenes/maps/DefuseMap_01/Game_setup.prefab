@@ -66,6 +66,39 @@
             "ZIndex": 100
           }
         ]
+      },
+      {
+        "__guid": "1fbe1885-c54f-4870-916f-05a56271e8fd",
+        "Flags": 0,
+        "Name": "Spectating",
+        "Position": "128.4907,128.4908,-181.7134",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.SpectateSystem",
+            "__guid": "843ab22f-5541-4fb8-bc8c-759f41e35140",
+            "FreecamController": {
+              "_type": "component",
+              "component_id": "9fcf58b3-4fc7-4934-9e41-21ab72f384f7",
+              "go": "89e9bfbf-5479-448a-be07-24914e1c82c3",
+              "component_type": "SpectateController"
+            }
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "89e9bfbf-5479-448a-be07-24914e1c82c3",
+            "Flags": 0,
+            "Name": "SpectatePawn",
+            "Position": "0,0,0",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true,
+            "__Prefab": "prefabs/player/spectate.prefab"
+          }
+        ]
       }
     ]
   },

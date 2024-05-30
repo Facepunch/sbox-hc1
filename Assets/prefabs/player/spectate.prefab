@@ -1,0 +1,66 @@
+{
+  "RootObject": {
+    "__guid": "89e9bfbf-5479-448a-be07-24914e1c82c3",
+    "Flags": 0,
+    "Name": "spectate",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.SpectateController",
+        "__guid": "c15c1afb-5c6e-44d9-a62f-d7765b010457",
+        "Camera": {
+          "_type": "gameobject",
+          "go": "09073447-a8d0-4ef0-8ece-539590462bab"
+        },
+        "FlySpeed": 1000
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "09073447-a8d0-4ef0-8ece-539590462bab",
+        "Flags": 0,
+        "Name": "Player Camera",
+        "Position": "0,0,60",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.CameraComponent",
+            "__guid": "9d4bfe1d-7c1d-4012-bb8d-3ad51eabaea8",
+            "BackgroundColor": "0.75478,0.83828,0.87624,1",
+            "ClearFlags": "All",
+            "FieldOfView": 90,
+            "IsMainCamera": true,
+            "Orthographic": false,
+            "OrthographicHeight": 1204,
+            "Priority": 8,
+            "RenderExcludeTags": "",
+            "RenderTags": "",
+            "TargetEye": "None",
+            "Viewport": "0,0,1,1",
+            "ZFar": 10000,
+            "ZNear": 0.5
+          },
+          {
+            "__type": "Sandbox.AudioListener",
+            "__guid": "8d2cfe39-e141-4008-bee0-0ae82297c5ad",
+            "UseCameraDirection": true
+          },
+          {
+            "__type": "Sandbox.Highlight",
+            "__guid": "bc011e43-e4f0-400b-9140-294882ebf443"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

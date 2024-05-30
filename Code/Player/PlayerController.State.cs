@@ -17,7 +17,12 @@ public partial class PlayerController
     /// </summary>
     [RequireComponent] public TeamComponent TeamComponent { get; private set; }
 
-    public void Kill()
+	/// <summary>
+	/// Is this player in spectate mode
+	/// </summary>
+	public bool IsSpectating => HealthComponent.State == LifeState.Dead;
+
+	public void Kill()
 	{
 		if ( Networking.IsHost )
 		{
