@@ -4,7 +4,7 @@
 
 @attribute [StyleSheet]
 
-@if ( !SpectateSystem.IsSpectating ) return;
+@if ( !SpectateSystem.IsValid() || !SpectateSystem.IsSpectating ) return;
 
 <root class="hud with-deadzone flex column">
     <div class="flex row">
