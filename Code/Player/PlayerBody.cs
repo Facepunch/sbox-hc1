@@ -13,14 +13,6 @@ namespace Facepunch
 		public Vector3 DamageTakenPosition { get; set; }
 		public Vector3 DamageTakenForce { get; set; }
 
-		private List<SkinnedModelRenderer> renderers;
-
-		protected override void OnAwake()
-		{
-			renderers = new List<SkinnedModelRenderer>();
-			renderers.AddRange( Components.GetAll<SkinnedModelRenderer>( FindMode.EverythingInSelfAndDescendants ));
-		}
-
 		internal void SetRagdoll( bool ragdoll )
 		{
 			Physics.Enabled = ragdoll;
