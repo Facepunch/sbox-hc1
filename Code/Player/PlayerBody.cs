@@ -25,6 +25,8 @@ namespace Facepunch
 			Physics.Enabled = ragdoll;
 			Rigidbody.Enabled = ragdoll;
 
+			GameObject.Tags.Set( "ragdoll", ragdoll );
+
 			if ( !ragdoll )
 			{
 				GameObject.Transform.LocalPosition = Vector3.Zero;
