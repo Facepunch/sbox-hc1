@@ -49,7 +49,7 @@ public partial class PlayerInventory : Component
 	{
 		Assert.True( Networking.IsHost );
 
-		HasDefuseKit = false;
+		HasDefuseKit = true;
 		
 		foreach ( var wpn in Weapons )
 		{
