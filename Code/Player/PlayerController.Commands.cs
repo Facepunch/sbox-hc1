@@ -38,18 +38,17 @@ public partial class PlayerController
 		var player = Developer.CurrentPlayer;
 		if ( player.IsValid() )
 		{
-			player.NetDePossess();
+			player.TryDePossess();
 		}
 	}
 
 	[DeveloperCommand( "Possess Pawn" )]
 	private static void Command_PossessSomething()
 	{
-		foreach ( var player in GameUtils.AllPlayers )
+		foreach ( var player in GameUtils.AllPlayers.OrderBy( x => x.Network.OwnerId ) )
 		{
-			if ( ( player as IPawn ).IsPossessed ) continue;
-
-			player.NetPossess();
+			if ( player == GameUtils.Viewer ) continue;
+			player.TryPossess();
 			return;
 		}
 	}
