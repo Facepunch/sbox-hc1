@@ -2,7 +2,7 @@
 @attribute [StyleSheet]
 
 <root>
-    @if ( Renderer.IsValid() )
+    @if (Renderer.IsValid())
     {
         <div class="background">
             <div class="minimap" style="background-image: url( @Renderer.CurrentMinimapPath );" />
@@ -10,7 +10,30 @@
             <div class="markers">
                 @foreach (var marker in MarkedObjects)
                 {
-                    <div class="marker" style="@WorldToMap(marker) @RotationToMap(marker)"/>
+                    if (!TeamCheck(marker))
+                    {
+                        continue;
+                    }
+                    if (IsDead(marker))
+                    {
+                        <div class="marker dead" style="@WorldToMap(marker) @RotationToMap(marker)" />
+                    }
+                    else
+                    {
+                        <div class="marker @(ViewingPlayer(marker))" style="@WorldToMap(marker) @RotationToMap(marker)" />
+                    }
+                }
+                @foreach (var bombZone in Game.ActiveScene.GetAllComponents<BombSite>())
+                {
+                    <div class="bombsite" style="@WorldToMap(bombZone.GameObject)">
+                        <div class="bombzone" style="@GetBox(bombZone)" />
+                    </div>
+                }
+                @foreach (var buyZone in Game.ActiveScene.GetAllComponents<BuyZone>())
+                {
+                    <div class="buysite" style="@WorldToMap(buyZone.GameObject)">
+                        <div class="buyzone" style="@GetBox(buyZone)" />
+                    </div>
                 }
             </div>
         </div>
@@ -28,11 +51,52 @@
         base.Tick();
     }
 
+    bool TeamCheck(IMarkerObject obj)
+    {
+        var ply = obj.GameObject.Components.Get<TeamComponent>();
+
+        return ply.Team == GameUtils.Viewer?.TeamComponent.Team;
+    }
+
+    bool IsDead(IMarkerObject obj)
+    {
+        var controller = obj.GameObject.Components.Get<HealthComponent>();
+        return controller.State == LifeState.Dead;
+    }
+
+    string ViewingPlayer(IMarkerObject obj)
+    {
+        var ply = obj.GameObject.Components.Get<PlayerController>();
+
+        return ply == GameUtils.Viewer ? "viewer" : "";
+    }
+
     string WorldToMap(IMarkerObject obj)
     {
-        var toScreen = Renderer.RemapCoords(obj.GameObject.Transform.Position);
+        var toScreen = Renderer.RemapCoords(obj.GameObject.Transform.LocalPosition);
 
         return $"left: {Length.Fraction(toScreen.x)}; top: {Length.Fraction(toScreen.y)};";
+    }
+
+    string WorldToMap(GameObject obj)
+    {
+        var toScreen = Renderer.RemapCoords(obj.Transform.LocalPosition);
+
+        return $"left: {Length.Fraction(toScreen.x)}; top: {Length.Fraction(toScreen.y)};";
+    }
+
+    string GetBox(BombSite site)
+    {
+        //This poop but do for now.
+        var size = site.GameObject.Components.Get<BoxCollider>();
+        return $"width:{size.Scale.y / 20}px; height:{size.Scale.x / 20}px;";
+    }
+
+    string GetBox(BuyZone site)
+    {
+        //This poop but do for now.
+        var size = site.GameObject.Components.Get<BoxCollider>();
+        return $"width:{size.Scale.y / 20}px; height:{size.Scale.x / 20}px;";
     }
 
     string RotationToMap(IMarkerObject obj)

@@ -8,7 +8,7 @@
     .background {
         width: 100%;
         height: 100%;
-        border: 1px solid rgba( black, 0.0 );
+        border: 1px solid rgba( black, 0.5 );
         box-shadow: 0px 0px 15px rgba( black, 0.5 );
         overflow: hidden;
     }
@@ -27,6 +27,7 @@
         z-index: 99;
 
         .marker {
+            position: absolute;
             width: 18px;
             height: 18px;
             background-image: url('ui/minimaps/player_icon.png');
@@ -35,6 +36,66 @@
             transform: translateX(-50%) translateY(-50%);
             background-size: contain;
             background-position: center;
+        }
+
+        .dead {
+            background-image: url('ui/minimaps/icon-map_skull.png');
+            background-image-tint: rgba( 255, 255, 255, 1 );
+            width: 20px;
+            height: 20px;
+        }
+
+        .viewer {
+            background-image-tint: rgba( 0, 255, 255, 1 );
+            width: 22px;
+            height: 22px;
+            z-index: 200;
+        }
+
+        .bombsite {
+            position: absolute;
+            background-image: url('ui/minimaps/icon-map_bomb.png');
+            background-image-tint: rgb(255, 255, 255);
+            width: 24px;
+            height: 24px;
+            background-size: contain;
+            background-position: center;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: 20;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+
+            .bombzone {
+                position: absolute;
+                background-color: rgb(255, 106, 0,0.25);
+                background-size: contain;
+                background-position: center;
+                z-index: 15;
+            }
+        }
+
+        .buysite {
+            position: absolute;
+            background-image: url('ui/minimaps/icon-map_dollar.png');
+            background-image-tint: rgb(255, 255, 255);
+            width: 24px;
+            height: 24px;
+            background-size: contain;
+            background-position: center;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: 20;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+
+            .buyzone {
+                position: absolute;
+                background-color: rgb(89, 161, 112, 0.50);
+                background-size: contain;
+                background-position: center;
+                z-index: 15;
+            }
         }
     }
 }
