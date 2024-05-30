@@ -545,5 +545,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		{
 			DamageIndicator.Current?.OnHit( position );
 		}
+
+		Body.DamageTakenPosition = position;
+		Body.DamageTakenForce = force.Normal * damage * Game.Random.Float(5f, 20f);
 	}
 }
