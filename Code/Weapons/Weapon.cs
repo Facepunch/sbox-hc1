@@ -233,7 +233,7 @@ public partial class Weapon : Component
 	
 	protected virtual void OnDeployed()
 	{
-		if ( PlayerController.IsViewer )
+		if ( PlayerController?.IsViewer ?? false )
 			CreateViewModel();
 		
 		ModelRenderer.Enabled = true;
