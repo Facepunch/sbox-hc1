@@ -39,8 +39,6 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		{
 			ResourceLibrary.TryGet<SoundEvent>( "sounds/impacts/bullets/impact-bullet-flesh.sound", out BloodImpactSound );
 		}
-		Log.Info( BloodImpactSound );
-
 	}
 
 	/// <summary>
