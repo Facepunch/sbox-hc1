@@ -8,7 +8,7 @@
 
 <root class="hud with-deadzone flex column">
     <div class="flex row">
-        <InputHint Action="SpectatorPrev" Size="@InputGlyphSize.Small" />
+        <InputHint Action="SpectatorPrev" />
         <div class="flex column with-background with-padding h-full align-center justify-center" style="min-width: 275px; height: 75px;">
             <label class="text small upper">SPECTATING</label>
             @if (Player.IsLocallyControlled)
@@ -20,9 +20,9 @@
                 <label>@Player.GetPlayerName()</label>
             }  
         </div>
-        <InputHint Action="SpectatorNext" Size="@InputGlyphSize.Small" />  
+        <InputHint Action="SpectatorNext" />  
     </div>
-    <InputHint Action="SpectatorFreeCam" Size="@InputGlyphSize.Small" />  
+    <InputHint Action="SpectatorFreeCam" />  
 </root>
 
 @code
