@@ -1,74 +1,94 @@
 ﻿@import "/UI/Styles/Theme.scss";
 
-Scoreboard {
+Scoreboard
+{
     z-index: 100;
     opacity: 0;
     display: none;
     backdrop-filter: $blur;
     border-radius: $rounding;
 
-    &.active {
+    &.active
+    {
         display: flex;
         opacity: 1;
         pointer-events: all;
     }
 
-    img.icon {
+    img.icon
+    {
         width: 16px;
         height: 16px;
     }
 
-    table {
+    table
+    {
         width: 960px;
         flex-direction: column;
         gap: 2px;
         color: white;
 
-        .title {
+        .title
+        {
             justify-content: space-between;
             text-shadow: 0 0 4px rgba( black, 0.5 );
         }
 
-        .row {
+        .row
+        {
             background-color: rgba( black, 0.75 );
             width: 100%;
             align-items: center;
 
-            .avatar {
+            .avatar
+            {
                 width: 32px;
                 height: 32px;
                 aspect-ratio: 1;
             }
 
-            &.local {
+            &.local
+            {
                 background-color: rgba( white, 0.75 );
 
-                text, label {
+                text, label
+                {
                     color: black;
                 }
             }
 
-            &.dead {
+            &.dead
+            {
                 opacity: 0.5;
                 filter: saturate( 0.2 );
             }
 
-            .col {
+            .col
+            {
                 align-items: center;
             }
 
-            .playername {
+            .playername
+            {
                 flex-basis: 600px;
                 gap: 8px;
             }
 
-            .stat {
-                flex-basis: 50px;
+            .stat
+            {
+                flex-basis: 75px;
                 flex-grow: 1;
                 text-align: right;
             }
 
-            .stat-small {
+            .stat-large
+            {
+                flex-basis: 100px;
+                align-items: center;
+            }
+
+            .stat-small
+            {
                 flex-basis: 50px;
                 align-items: center;
             }
