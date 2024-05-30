@@ -227,7 +227,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	protected override void OnAwake()
 	{
 		_baseAcceleration = CharacterController.Acceleration;
-		Body.ShowBodyParts( BodyRenderMode.Hide );
 	}
 
 	protected override void OnStart()
