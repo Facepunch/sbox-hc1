@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "debffbd9-ed0e-43c1-96f2-8697f03320fa",
+    "__guid": "f9202f36-f054-4b1b-81e9-0585c9471d3b",
     "Flags": 0,
     "Name": "he_explosion",
     "Enabled": true,
@@ -9,18 +9,24 @@
     "Components": [
       {
         "__type": "Facepunch.TimedDestroyComponent",
-        "__guid": "239fc8d2-9acd-481a-bfb5-b10a2bb2c9be",
+        "__guid": "942876b9-56a3-4eed-acb1-06626d99a974",
         "Time": 10,
         "TimeUntilDestroy": {
-          "Relative": -7028.114,
-          "Passed": 7028.114,
+          "Relative": -8360.491,
+          "Passed": 8360.491,
           "Fraction": 1
         }
+      },
+      {
+        "__type": "Facepunch.SoundEmitter",
+        "__guid": "7bf6bc59-95e8-42ee-8b9b-9aa951299c22",
+        "Follow": true,
+        "SoundEvent": "sounds/weapons/grenade/he_grenade_explode.sound"
       }
     ],
     "Children": [
       {
-        "__guid": "a1dbdb50-395a-40f7-a2b6-a74e6abf3335",
+        "__guid": "b6d2c372-67b6-4223-9c1b-6b5a3444052f",
         "Flags": 0,
         "Name": "Smoke",
         "Rotation": "0,-0.7071068,0,0.7071068",
@@ -31,7 +37,7 @@
         "Components": [
           {
             "__type": "Sandbox.ParticleEffect",
-            "__guid": "ebc3b81b-30cd-455c-84d7-9ee79364c68b",
+            "__guid": "00f1e20f-ec7b-48c1-bcb9-7e6affce287b",
             "Alpha": {
               "Type": "Curve",
               "CurveA": [
@@ -140,7 +146,7 @@
           },
           {
             "__type": "Sandbox.ParticleSpriteRenderer",
-            "__guid": "ead0dc4a-7731-4d67-8f3d-90eeb0536b18",
+            "__guid": "d8970990-c4ec-4371-aa47-c987a1a23cdc",
             "Additive": false,
             "BlurAmount": 0.5,
             "BlurOpacity": 0.91,
@@ -159,7 +165,7 @@
           },
           {
             "__type": "Sandbox.ParticleConeEmitter",
-            "__guid": "9efa61c5-c4ce-4e28-af4c-17806046d18c",
+            "__guid": "e2291aa0-c1dc-4185-8297-9d667449a33b",
             "Burst": 100,
             "ConeAngle": 30,
             "ConeFar": 50,
