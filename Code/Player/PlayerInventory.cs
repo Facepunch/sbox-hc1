@@ -54,7 +54,7 @@ public partial class PlayerInventory : Component
 	}
 
 	[Broadcast]
-	private void DropWeapon( Guid weaponId )
+	public void DropWeapon( Guid weaponId )
 	{
 		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Weapon;
 		if ( !weapon.IsValid() )
