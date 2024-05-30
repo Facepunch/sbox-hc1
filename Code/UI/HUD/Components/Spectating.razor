@@ -33,6 +33,6 @@
 
     protected override int BuildHash()
     {
-        return !Player.IsValid() ? 0 : HashCode.Combine( SpectateSystem.IsSpectating, Player);
+        return !Player.IsValid() ? 0 : HashCode.Combine( SpectateSystem?.IsSpectating, Player );
     }
 }

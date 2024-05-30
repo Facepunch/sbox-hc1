@@ -20,6 +20,8 @@ public sealed class AnimationHelper : Component
 		var boneId = 0;
 		var tx = Target.GetBoneObject( boneId );
 
+		if ( !tx.IsValid() ) return;
+
 		var localToBone = tx.Transform.Local.Position;
 		if ( localToBone == Vector3.Zero ) localToBone = Vector3.One;
 

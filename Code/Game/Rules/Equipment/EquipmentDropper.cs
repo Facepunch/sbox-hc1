@@ -17,7 +17,7 @@ public partial class EquippmentDropper : Component, IKillListener
 
 		var currentWeapon = player.Inventory.CurrentWeapon;
 
-		if ( currentWeapon.Resource.Slot != WeaponSlot.Melee )
+		if ( currentWeapon.IsValid() && currentWeapon.Resource.Slot != WeaponSlot.Melee )
 		{
 			player.Inventory.DropWeapon( currentWeapon.Id );
 		}
