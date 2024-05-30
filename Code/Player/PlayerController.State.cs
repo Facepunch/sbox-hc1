@@ -25,7 +25,15 @@ public partial class PlayerController
 			Inventory.Clear();
 		}
 
-		SetRagdoll();
+		if ( TeamComponent.Team == Team.Terrorist || TeamComponent.Team == Team.CounterTerrorist )
+		{
+			SetRagdoll();
+		}
+		else
+		{
+			Body.ShowBodyParts( BodyRenderMode.Hide );
+		}
+
 		InBuyMenu = false;
 	}
 

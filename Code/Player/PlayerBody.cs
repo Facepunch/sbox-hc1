@@ -20,6 +20,14 @@ namespace Facepunch
 		public Vector3 DamageTakenPosition { get; set; }
 		public Vector3 DamageTakenForce { get; set; }
 
+		private List<SkinnedModelRenderer> renderers;
+
+		protected override void OnAwake()
+		{
+			renderers = new List<SkinnedModelRenderer>();
+			renderers.AddRange( Components.GetAll<SkinnedModelRenderer>( FindMode.EverythingInSelfAndDescendants ));
+		}
+
 		internal void SetRagdoll( bool ragdoll )
 		{
 			Physics.Enabled = ragdoll;
@@ -52,18 +60,18 @@ namespace Facepunch
 
 		public void ShowBodyParts( BodyRenderMode renderMode )
 		{
-			// Disable the player's body so it doesn't render.
-			var skinnedModels = Components.GetAll<SkinnedModelRenderer>( FindMode.EnabledInSelfAndDescendants );
-
-			foreach ( var skinnedModel in skinnedModels )
+			foreach ( var renderer in renderers )
 			{
-				skinnedModel.Enabled = renderMode != BodyRenderMode.Hide;
+				if ( renderer is null )
+					continue;
 
-				if ( skinnedModel.Enabled )
+				renderer.Enabled = renderMode != BodyRenderMode.Hide;
+
+				if ( renderer.Enabled )
 				{
-					skinnedModel.RenderType = renderMode == BodyRenderMode.Show ?
-						ModelRenderer.ShadowRenderType.On :
-						ModelRenderer.ShadowRenderType.ShadowsOnly;
+					renderer.RenderType = renderMode == BodyRenderMode.Show ?
+					ModelRenderer.ShadowRenderType.On :
+					ModelRenderer.ShadowRenderType.ShadowsOnly;
 				}
 			}
 		}

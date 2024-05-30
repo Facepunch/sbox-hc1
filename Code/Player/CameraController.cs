@@ -31,7 +31,10 @@ public sealed class CameraController : Component
 		Camera.Enabled = isActive;
 		AudioListener.Enabled = isActive;
 
-		Player.Body.ShowBodyParts( !isActive ? BodyRenderMode.Show : BodyRenderMode.ShadowsOnly );
+		if ( !Player.IsSpectating )
+		{
+			Player.Body.ShowBodyParts( !isActive ? BodyRenderMode.Show : BodyRenderMode.ShadowsOnly );
+		}
 
 		Camera.Transform.Rotation = Player.EyeAngles.ToRotation();
 	}
