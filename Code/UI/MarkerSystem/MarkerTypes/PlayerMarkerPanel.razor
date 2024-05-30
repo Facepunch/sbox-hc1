@@ -1,6 +1,8 @@
 @inherits BaseMarkerPanel
 @namespace Facepunch.UI
 
+@if ( !Player.IsValid() ) return;
+
 <style>
     PlayerMarkerPanel
     {
@@ -38,9 +40,6 @@
 </style>
 
 <root>
-    @if ( !Player.IsValid() )
-        return;
-
     @if ( !LocalPlayer.IsValid() )
         return;
 
