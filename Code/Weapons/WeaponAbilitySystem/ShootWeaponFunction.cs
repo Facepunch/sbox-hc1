@@ -146,11 +146,14 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		if ( !IsNearby( pos ) )
 			return;
 
+		if ( BloodImpactSound is null )
+			return;
+
 		var particlePath = "particles/impact.flesh.bloodpuff.vpcf";
 		CreateParticleSystem( particlePath, pos, Rotation.LookAt( -normal ), 0.5f );
 
 		var snd = Sound.Play( BloodImpactSound, pos );
-		snd.ListenLocal = Weapon.PlayerController.IsViewer;
+		snd.ListenLocal = Weapon?.PlayerController?.IsViewer ?? false;
 	}
 
 	private void ShootBullet()

@@ -57,8 +57,11 @@ public partial class ViewModel : Component
 			ModelRenderer.Set( "b_deploy", true );
 		}
 
-		// Register an event.
-		PlayerController.OnJump += OnPlayerJumped;
+		// Somehow?
+		if ( PlayerController.IsValid() )
+		{
+			PlayerController.OnJump += OnPlayerJumped;
+		}
 	}
 
 	void OnPlayerJumped()
