@@ -55,6 +55,7 @@
     bool TeamCheck(IMarkerObject obj)
     {
         var ply = obj.GameObject.Components.Get<TeamComponent>();
+        if (!ply.IsValid()) return false;
 
         return ply.Team == GameUtils.Viewer?.TeamComponent.Team;
     }
