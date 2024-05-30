@@ -5,7 +5,21 @@
 @inherits Panel
 
 <root class="row @(IsLocal ? "local" : "") @(IsDead ? "dead" : "") with-px-lg with-py">
-    <label class="col stat-small">@(Connection.Ping.CeilToInt())ms</label>
+    <span class="col stat-small">
+        <label class="small">@(Connection.Ping.CeilToInt())</label>
+    </span>
+
+    <span class="col stat-small">
+        @if( Player.Inventory.HasBomb && Player.IsFriendly( GameUtils.LocalPlayer ) )
+        {
+            <Icon File="/ui/bomb.png" size="24"></Icon>
+        }
+
+        @if( Player.Inventory.HasDefuseKit && Player.IsFriendly( GameUtils.LocalPlayer ) )
+        {
+            <Icon File="/ui/defusekit.png" size="24"></Icon>
+        }
+    </span>
 
     <span class="col playername">
         <img class="avatar" src="avatar:@(Connection.SteamId)" />

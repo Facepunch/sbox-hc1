@@ -15,6 +15,11 @@ public partial class PlayerInventory : Component
 	public IEnumerable<Weapon> Weapons => WeaponGameObject.Components.GetAll<Weapon>( FindMode.EverythingInSelfAndDescendants );
 
 	/// <summary>
+	/// Does this player have a bomb on them?
+	/// </summary>
+	public bool HasBomb => Weapons.Any( x => x.GetFunction<PlantFunction>() != null );
+
+	/// <summary>
 	/// A <see cref="GameObject"/> that will hold all of our weapons.
 	/// </summary>
 	[Property] public GameObject WeaponGameObject { get; set; }
