@@ -6,10 +6,6 @@
 
 <root class="row @(IsLocal ? "local" : "") @(IsDead ? "dead" : "") with-px-lg with-py">
     <span class="col stat-small">
-        <label class="small">@(Connection.Ping.CeilToInt())</label>
-    </span>
-
-    <span class="col stat-small">
         @if( Player.Inventory.HasBomb && Player.IsFriendly( GameUtils.LocalPlayer ) )
         {
             <Icon File="/ui/bomb.png" size="24"></Icon>
@@ -19,6 +15,10 @@
         {
             <Icon File="/ui/defusekit.png" size="24"></Icon>
         }
+    </span>
+
+    <span class="col stat-small">
+        <label class="small">@(Connection.Ping.CeilToInt())</label>
     </span>
 
     <span class="col playername">
