@@ -203,7 +203,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		weapon.IsDeployed = true;
 	}
 
-	private void ClearViewModel()
+	public void ClearViewModel()
 	{
 		foreach ( var weapon in Inventory.Weapons )
 		{
@@ -211,8 +211,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		}
 	}
 
-	private void CreateViewModel()
+	public void CreateViewModel()
 	{
+		if ( CameraController.Mode != CameraMode.FirstPerson )
+			return;
+
 		var weapon = CurrentWeapon;
 		if ( weapon.IsValid() )
 			weapon.CreateViewModel();
@@ -221,6 +224,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	protected float GetEyeHeightOffset()
 	{
 		if ( IsCrouching ) return -32f;
+		if ( HealthComponent.State == LifeState.Dead ) return -48f;
 		return 0f;
 	}
 

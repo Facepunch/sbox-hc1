@@ -8,6 +8,8 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 {
 	private PlayerController LocalPlayer => GameUtils.LocalPlayer;
 
+	public CameraMode CameraMode { get; set; } = CameraMode.FirstPerson;
+
 	public bool IsSpectating => LocalPlayer.IsSpectating;
 	public bool IsFreecam => (FreecamController as IPawn).IsPossessed;
 
@@ -29,6 +31,16 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 		else if ( Input.Pressed( "SpectatorFreeCam" ) )
 		{
 			SpectateFreecam();
+		}
+		else if ( Input.Pressed( "SpectatorMode" ) )
+		{
+			if ( !IsFreecam && GameUtils.Viewer != GameUtils.LocalPlayer )
+			{
+				int max = (int)CameraMode.ThirdPerson + 1;
+				CameraMode = (CameraMode)((((int)CameraMode) + 1) % max);
+
+				GameUtils.Viewer.CameraController.Mode = CameraMode;
+			}
 		}
 	}
 

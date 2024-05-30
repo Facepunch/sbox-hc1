@@ -6,6 +6,8 @@
 
 @if ( !SpectateSystem.IsValid() || !SpectateSystem.IsSpectating ) return;
 
+@if (GameUtils.Viewer == GameUtils.LocalPlayer) return;
+
 <root class="hud with-deadzone flex column">
     <div class="flex row">
         <InputHint Action="SpectatorPrev" />
@@ -22,7 +24,19 @@
         </div>
         <InputHint Action="SpectatorNext" />  
     </div>
-    <InputHint Action="SpectatorFreeCam" />  
+    <div class="flex row justify-center gap">
+        <span>
+            <InputHint Action="SpectatorFreeCam" /> 
+            <label>Freecam</label>
+        </span>
+        @if (!SpectateSystem.IsFreecam )
+        {
+            <span>
+                <InputHint Action="SpectatorMode" Size="@InputGlyphSize.Small" />
+                <label>Mode</label>
+             </span>
+        }
+    </div>
 </root>
 
 @code

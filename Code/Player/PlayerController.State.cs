@@ -36,6 +36,7 @@ public partial class PlayerController
 			GameObject.Tags.Set( "invis", true );
 
 		InBuyMenu = false;
+		CameraController.Mode = CameraMode.ThirdPerson;
 	}
 
 	void IRespawnable.Respawn()

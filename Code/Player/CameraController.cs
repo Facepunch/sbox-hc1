@@ -2,16 +2,35 @@ using Sandbox;
 
 namespace Facepunch;
 
+public enum CameraMode
+{
+	FirstPerson,
+	ThirdPerson
+}
+
 public sealed class CameraController : Component
 {
 	/// <summary>
 	/// A reference to the camera component we're going to be doing stuff with.
 	/// </summary>
 	[Property] public CameraComponent Camera { get; set; }
+	[Property] public GameObject Boom { get; set; }
 	[Property] public AudioListener AudioListener { get; set; }
 	[Property] public PlayerController Player { get; set; }
 
 	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = false;
+
+	private CameraMode _mode;
+	public CameraMode Mode
+	{
+		get => _mode;
+		set
+		{
+			_mode = value;
+			OnModeChanged();
+		}
+	}
+	public float MaxBoomLength { get; set; }
 
 	/// <summary>
 	/// Constructs a ray using the camera's GameObject
@@ -31,17 +50,9 @@ public sealed class CameraController : Component
 		Camera.Enabled = isActive;
 		AudioListener.Enabled = isActive;
 
-		if ( !Player.IsSpectating )
-		{
-			Player.Body.ShowBodyParts( !isActive );
-		}
+		OnModeChanged();
 
-		Camera.Transform.Rotation = Player.EyeAngles.ToRotation();
-	}
-
-	void DeathMovement()
-	{
-		Camera.Transform.Position = Player.Transform.Position + Player.Transform.Rotation.Backward * 64 + Vector3.Up * 64;
+		Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
 	}
 
 	/// <summary>
@@ -50,24 +61,17 @@ public sealed class CameraController : Component
 	/// <param name="eyeHeight"></param>
 	internal void UpdateFromEyes( float eyeHeight )
 	{
-		// Don't move eyes if we're dead
-		if ( Player.HealthComponent.State != LifeState.Alive )
-		{
-			DeathMovement();
-			return;
-		}
-
 		if ( Player.IsLocallyControlled )
 		{
-			Camera.Transform.Rotation = Player.EyeAngles.ToRotation();
+			Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
 		}
 		else
 		{
-			Camera.Transform.Rotation = Rotation.Lerp( Camera.Transform.Rotation,
+			Boom.Transform.Rotation = Rotation.Lerp( Boom.Transform.Rotation,
 				Player.EyeAngles.ToRotation(), Time.Delta / Scene.NetworkRate );
 		}
 
-		Camera.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
+		Boom.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
 
 		if ( ShouldViewBob )
 		{
@@ -78,7 +82,6 @@ public sealed class CameraController : Component
 	float walkBob = 0;
 
 	Rotation lerpedRotation = Rotation.Identity;
-	Vector3 lerpedPosition = Vector3.Zero;
 
 	/// <summary>
 	/// Bob the view!
@@ -86,8 +89,8 @@ public sealed class CameraController : Component
 	/// </summary>
 	void ViewBob()
 	{
-		var targetRotation = Rotation.Identity;
-		var targetPosition = Vector3.Zero;
+		if ( Mode != CameraMode.FirstPerson )
+			return;
 
 		var bobSpeed = Player.CharacterController.Velocity.Length.LerpInverse( 0, 300 );
 		if ( !Player.IsGrounded ) bobSpeed *= 0.1f;
@@ -96,14 +99,8 @@ public sealed class CameraController : Component
 		var yaw = MathF.Sin( walkBob ) * 0.5f;
 		var pitch = MathF.Cos( -walkBob * 2f ) * 0.5f;
 
-		Camera.Transform.LocalRotation *= Rotation.FromYaw( -yaw * bobSpeed );
-		Camera.Transform.LocalRotation *= Rotation.FromPitch( -pitch * bobSpeed * 0.5f );
-
-		lerpedRotation = Rotation.Lerp( lerpedRotation, targetRotation, Time.Delta * 5f );
-		lerpedPosition = lerpedPosition.LerpTo( targetPosition, Time.Delta * 5f );
-
-		Camera.Transform.LocalRotation *= lerpedRotation;
-		Camera.Transform.LocalPosition += lerpedPosition;
+		Boom.Transform.LocalRotation *= Rotation.FromYaw( -yaw * bobSpeed );
+		Boom.Transform.LocalRotation *= Rotation.FromPitch( -pitch * bobSpeed * 0.5f );
 	}
 
 	protected override void OnStart()
@@ -122,6 +119,21 @@ public sealed class CameraController : Component
 		Camera.FieldOfView = TargetFieldOfView;
 
 		ApplyRecoil();
+
+		if (MaxBoomLength > 0)
+		{
+			var tr = Scene.Trace.Ray( new Ray( Boom.Transform.Position, Boom.Transform.Rotation.Backward ), MaxBoomLength )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.WithoutTags( "trigger", "player" )
+			.Run();
+
+			Camera.Transform.LocalPosition = Vector3.Backward * (tr.Hit ? tr.Distance - 5.0f : MaxBoomLength);
+		}
+		else
+		{
+			Camera.Transform.LocalPosition = Vector3.Backward * 0.0f;
+		}
+		Camera.Transform.LocalRotation = Rotation.Identity;	
 	}
 
 	void ApplyRecoil()
@@ -134,5 +146,27 @@ public sealed class CameraController : Component
 
 		if ( Player.CurrentWeapon.IsValid() && Player.CurrentWeapon?.GetFunction<SwayFunction>() is { } sFn )
 			Player.EyeAngles += sFn.Current;
+	}
+
+	void OnModeChanged()
+	{
+		SetBoomLength( Mode == CameraMode.FirstPerson ? 0.0f : 256.0f );
+
+		bool firstPersonPOV = Mode == CameraMode.FirstPerson && Player.IsViewer;
+		Player.Body.ShowBodyParts( !firstPersonPOV );
+
+		if ( firstPersonPOV )
+		{
+			Player.CreateViewModel();
+		}
+		else
+		{
+			Player.ClearViewModel();
+		}
+	}
+
+	private void SetBoomLength(float length)
+	{
+		MaxBoomLength = length;
 	}
 }

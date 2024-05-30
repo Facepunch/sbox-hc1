@@ -233,7 +233,7 @@ public partial class Weapon : Component
 	
 	protected virtual void OnDeployed()
 	{
-		if ( PlayerController?.IsViewer ?? false )
+		if ( PlayerController is not null && PlayerController.IsViewer && PlayerController.CameraController.Mode != CameraMode.ThirdPerson )
 			CreateViewModel();
 		
 		ModelRenderer.Enabled = true;

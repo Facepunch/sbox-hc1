@@ -66,6 +66,10 @@
           "go": "6cf523d6-ba74-4ae8-83f2-16dd1420b91c",
           "component_type": "AudioListener"
         },
+        "Boom": {
+          "_type": "gameobject",
+          "go": "e7ee43ed-7978-4449-acae-6fbe600ec96e"
+        },
         "Camera": {
           "_type": "component",
           "component_id": "ae64c259-313a-47eb-888a-283ac62bef65",
@@ -172,47 +176,18 @@
         "NetworkInterpolation": true,
         "Children": [
           {
-            "__guid": "6cf523d6-ba74-4ae8-83f2-16dd1420b91c",
+            "__guid": "e7ee43ed-7978-4449-acae-6fbe600ec96e",
             "Flags": 0,
-            "Name": "Player Camera",
+            "Name": "Boom",
             "Position": "0,0,0",
             "Enabled": true,
             "NetworkMode": 2,
             "NetworkInterpolation": true,
-            "Components": [
-              {
-                "__type": "Sandbox.CameraComponent",
-                "__guid": "ae64c259-313a-47eb-888a-283ac62bef65",
-                "__enabled": false,
-                "BackgroundColor": "0.75478,0.83828,0.87624,1",
-                "ClearFlags": "All",
-                "FieldOfView": 90,
-                "IsMainCamera": true,
-                "Orthographic": false,
-                "OrthographicHeight": 1204,
-                "Priority": 8,
-                "RenderExcludeTags": "invis",
-                "RenderTags": "",
-                "TargetEye": "None",
-                "Viewport": "0,0,1,1",
-                "ZFar": 10000,
-                "ZNear": 0.5
-              },
-              {
-                "__type": "Sandbox.AudioListener",
-                "__guid": "f82ff386-ea20-4f9d-b36c-500e09bc2ab5",
-                "UseCameraDirection": true
-              },
-              {
-                "__type": "Sandbox.Highlight",
-                "__guid": "5be6805e-c32d-4a94-b593-7b8fde126e99"
-              }
-            ],
             "Children": [
               {
-                "__guid": "7d054346-f393-49a6-8457-0b97e733cbb2",
+                "__guid": "6cf523d6-ba74-4ae8-83f2-16dd1420b91c",
                 "Flags": 0,
-                "Name": "ViewModel Camera",
+                "Name": "Player Camera",
                 "Position": "0,0,0",
                 "Enabled": true,
                 "NetworkMode": 2,
@@ -220,21 +195,61 @@
                 "Components": [
                   {
                     "__type": "Sandbox.CameraComponent",
-                    "__guid": "6cf84f94-b514-4b6f-8e7e-10bcefc7468f",
+                    "__guid": "ae64c259-313a-47eb-888a-283ac62bef65",
                     "__enabled": false,
-                    "BackgroundColor": "1,1,1,0",
-                    "ClearFlags": "Depth, Stencil",
-                    "FieldOfView": 93.23,
-                    "IsMainCamera": false,
+                    "BackgroundColor": "0.75478,0.83828,0.87624,1",
+                    "ClearFlags": "All",
+                    "FieldOfView": 90,
+                    "IsMainCamera": true,
                     "Orthographic": false,
                     "OrthographicHeight": 1204,
-                    "Priority": 10,
-                    "RenderExcludeTags": "",
-                    "RenderTags": "light,viewmodel",
+                    "Priority": 8,
+                    "RenderExcludeTags": "invis",
+                    "RenderTags": "",
                     "TargetEye": "None",
                     "Viewport": "0,0,1,1",
                     "ZFar": 10000,
-                    "ZNear": 0.1
+                    "ZNear": 0.5
+                  },
+                  {
+                    "__type": "Sandbox.AudioListener",
+                    "__guid": "f82ff386-ea20-4f9d-b36c-500e09bc2ab5",
+                    "UseCameraDirection": true
+                  },
+                  {
+                    "__type": "Sandbox.Highlight",
+                    "__guid": "5be6805e-c32d-4a94-b593-7b8fde126e99"
+                  }
+                ],
+                "Children": [
+                  {
+                    "__guid": "7d054346-f393-49a6-8457-0b97e733cbb2",
+                    "Flags": 0,
+                    "Name": "ViewModel Camera",
+                    "Position": "0,0,0",
+                    "Enabled": true,
+                    "NetworkMode": 2,
+                    "NetworkInterpolation": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.CameraComponent",
+                        "__guid": "6cf84f94-b514-4b6f-8e7e-10bcefc7468f",
+                        "__enabled": false,
+                        "BackgroundColor": "1,1,1,0",
+                        "ClearFlags": "Depth, Stencil",
+                        "FieldOfView": 93.23,
+                        "IsMainCamera": false,
+                        "Orthographic": false,
+                        "OrthographicHeight": 1204,
+                        "Priority": 10,
+                        "RenderExcludeTags": "",
+                        "RenderTags": "light,viewmodel",
+                        "TargetEye": "None",
+                        "Viewport": "0,0,1,1",
+                        "ZFar": 10000,
+                        "ZNear": 0.1
+                      }
+                    ]
                   }
                 ]
               }
