@@ -36,6 +36,18 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		player.NetworkSpawn( Connection.Host );
 	}
 
+
+	[DeveloperCommand( "Add 9 Bots" )]
+	private static void Command_Add_Bots_Filled()
+	{
+		for ( int i = 0; i < 9; i++ )
+		{
+			var player = Instance.PlayerPrefab.Clone();
+			player.Components.Get<PlayerController>().IsBot = true;
+			player.NetworkSpawn( Connection.Host );
+		}
+	}
+
 	/// <summary>
 	/// Called when a network connection becomes active
 	/// </summary>
