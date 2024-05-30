@@ -201,6 +201,28 @@ public partial class PlayerInventory : Component
 			SwitchWeapon( Weapons.FirstOrDefault( x => x != weapon ) );
 
 		weapon.GameObject.Destroy();
+		weapon.Enabled = false;
+	}
+	
+	/// <summary>
+	/// Removes the given weapon and destroys it.
+	/// </summary>
+	public void RemoveWeapon( WeaponData resource )
+	{
+		if ( !Networking.IsHost )
+		{
+			Log.Warning( "Tried to remove weapon while not host" );
+			return;
+		}
+
+		var weapon = Weapons.FirstOrDefault( w => w.Resource == resource );
+		if ( !weapon.IsValid() ) return;
+
+		if ( CurrentWeapon == weapon )
+			SwitchWeapon( Weapons.FirstOrDefault( x => x != weapon ) );
+
+		weapon.GameObject.Destroy();
+		weapon.Enabled = false;
 	}
 
 	public Weapon GiveWeapon( WeaponData resource, bool makeActive = true )

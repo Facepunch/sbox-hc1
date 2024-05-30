@@ -25,22 +25,28 @@ public sealed class SpecialWeaponAllocator : Component, IRoundStartListener, IPl
 			return Task.CompletedTask;
 		}
 
-		var players = GameUtils.GetPlayers( Team ).Shuffle();
+		var playersOnTeam = GameUtils.GetPlayers( Team ).Shuffle();
 
-		if ( players.Count == 0 )
-		{
+		if ( playersOnTeam.Count == 0 )
 			return Task.CompletedTask;
+
+		Log.Info( $"Trying to spawn {Weapon} on {playersOnTeam[0]}" );
+
+		var playerToGiveTo = playersOnTeam[0];
+
+		// Conna: this is a special weapon for a specific team. Remove it for everyone.
+		foreach ( var player in GameUtils.AllPlayers )
+		{
+			player.Inventory.RemoveWeapon( Weapon );
 		}
 
-		Log.Info( $"Trying to spawn {Weapon} on {players[0]}" );
-
-		var weapon = players[0].Inventory.GiveWeapon( Weapon, false );
-
-		if ( weapon is not null )
+		// Conna: now give it to that specific player only.
+		var weapon = playerToGiveTo.Inventory.GiveWeapon( Weapon, false );
+		if ( weapon.IsValid() )
 		{
 			weapon.Components.GetOrCreate<DestroyBetweenRounds>();
 		}
-
+		
 		return Task.CompletedTask;
 	}
 }
