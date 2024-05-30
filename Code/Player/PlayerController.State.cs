@@ -52,7 +52,7 @@ public partial class PlayerController
 	{
 		Log.Info( $"Respawn( {GameObject.Name} ({GetPlayerName()}, {TeamComponent.Team}) )" );
 
-		if ( !IsSpectating )
+		if ( TeamComponent.Team is Team.Terrorist or Team.CounterTerrorist )
 			ResetBody();
 
 		if ( Networking.IsHost )
