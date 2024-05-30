@@ -27,12 +27,13 @@
                 @foreach (var bombZone in Game.ActiveScene.GetAllComponents<BombSite>())
                 {
                     <div class="bombsite" style="@WorldToMap(bombZone.GameObject)">
+                        @BombSiteIntToAlphabet(bombZone.Index)
                         <div class="bombzone" style="@GetBox(bombZone)" />
                     </div>
                 }
                 @foreach (var buyZone in Game.ActiveScene.GetAllComponents<BuyZone>())
                 {
-                    <div class="buysite" style="@WorldToMap(buyZone.GameObject)">
+                    <div class="buysite" style="@WorldToMap(buyZone.GameObject) @GetTeamIcon(buyZone) @TeamColor(buyZone)">
                         <div class="buyzone" style="@GetBox(buyZone)" />
                     </div>
                 }
@@ -71,22 +72,39 @@
     }
 
     bool IsSpectating()
-	{
-		return GameUtils.LocalPlayer.IsSpectating;
-	}
+    {
+        return GameUtils.LocalPlayer.IsSpectating;
+    }
+
+    string GetTeamIcon(BuyZone obj)
+    {
+        return $"background-image: url( '{obj.Team.GetIconPath()}' ); background-image-tint: {obj.Team.GetColor().Hex};";
+    }
+
+    string BombSiteIntToAlphabet(int i)
+    {
+        return ((char)(i + 65)).ToString();
+    }
 
     string TeamColor (IMarkerObject obj)
     {
         var ctl = obj.GameObject.Components.Get<PlayerController>();
         if(ctl == GameUtils.Viewer)
-		{
+        {
             return "background-image-tint: rgba( 0, 255, 255, 1 )";
-		}
+        }
 
-		var ply = obj.GameObject.Components.Get<TeamComponent>();
+        var ply = obj.GameObject.Components.Get<TeamComponent>();
 
         return $"background-image-tint: {ply.Team.GetColor().Hex}";
-	}
+    }
+
+    string TeamColor(BuyZone obj)
+    {
+        var ply = obj.Team;
+
+        return $"background-image-tint: {ply.GetColor().Hex}";
+    }
 
     bool IsDead(IMarkerObject obj)
     {
