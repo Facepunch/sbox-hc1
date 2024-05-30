@@ -55,7 +55,17 @@
     public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
 
     public IEnumerable<PlayerController> PlayerList => Scene.GetAllComponents<PlayerController>();
-    private List<IGrouping<Team, PlayerController>> GroupedPlayers => PlayerList.GroupBy(x => x.GameObject.GetTeam()).ToList();
+
+    private List<IGrouping<Team, PlayerController>> GroupedPlayers
+    {
+        get
+        {
+            var sortedPlayers = PlayerList.OrderByDescending(x => x.Components.Get<PlayerScore>().Score);
+            var groupedPlayers = sortedPlayers.GroupBy(x => x.TeamComponent.Team);
+            return groupedPlayers.ToList();
+        }
+    }
+
     public bool IsActive => Input.Down("score");
 
     protected override int BuildHash()
