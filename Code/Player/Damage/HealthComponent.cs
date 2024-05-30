@@ -167,7 +167,7 @@ public partial class HealthComponent : Component, IRespawnable
 		var receivers = GameObject.Root.Components.GetAll<IDamageListener>();
 		foreach ( var x in receivers )
 		{
-			x.OnDamageTaken( damage, position, force, attackingComponent );
+			x.OnDamageTaken( damage, position, force, attackingComponent, isHeadshot );
 		}
 
 		if ( attackingComponent.IsValid() )
@@ -175,7 +175,7 @@ public partial class HealthComponent : Component, IRespawnable
 			var givers = attackingComponent.GameObject.Root.Components.GetAll<IDamageListener>();
 			foreach ( var x in givers )
 			{
-				x.OnDamageGiven( damage, position, force, this );
+				x.OnDamageGiven( damage, position, force, this, isHeadshot );
 			}
 		}
 	}

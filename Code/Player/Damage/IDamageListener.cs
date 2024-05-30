@@ -12,7 +12,8 @@ public interface IDamageListener
 	/// <param name="position"></param>
 	/// <param name="force"></param>
 	/// <param name="target"></param>
-	public void OnDamageGiven( float damage, Vector3 position, Vector3 force, Component target );
+	/// <param name="isHeadshot"></param>
+	public void OnDamageGiven( float damage, Vector3 position, Vector3 force, Component target, bool isHeadshot );
 
 	/// <summary>
 	/// Called when YOU take damage from something
@@ -21,5 +22,6 @@ public interface IDamageListener
 	/// <param name="position"></param>
 	/// <param name="force"></param>
 	/// <param name="attacker"></param>
-	public void OnDamageTaken( float damage, Vector3 position, Vector3 force, Component attacker );
+	/// <param name="isHeadshot"></param>
+	public void OnDamageTaken( float damage, Vector3 position, Vector3 force, Component attacker, bool isHeadshot );
 }

@@ -30,11 +30,15 @@
 
     string HitmarkerClasses => !TimeUntilHitmarkerRemove ? "is-visible" : string.Empty;
 
-    public void Trigger( float damage, Component component, Vector3 position )
+    public void Trigger( float damage, Component component, Vector3 position, bool isHeadshot )
     {
-        var isKill = damage <= 0f;
-        TimeUntilHitmarkerRemove = isKill ? 0.5f : 0.2f;
-        Hitmarker.SetClass( "is-kill", isKill );
+        if ( component is HealthComponent hc )
+        {
+            var isKill = hc.Health <= 0f;
+            TimeUntilHitmarkerRemove = isKill ? 0.5f : 0.2f;
+            Hitmarker.SetClass( "is-kill", isKill );
+            Hitmarker.SetClass( "is-headshot", isHeadshot );
+        }
     }
 
     public override void Tick()
