@@ -30,35 +30,12 @@ public partial class PlayerController
 			Inventory.Clear();
 		}
 
-		if ( TeamComponent.Team == Team.Terrorist || TeamComponent.Team == Team.CounterTerrorist )
-		{
-			SetRagdoll();
-		}
+		if ( TeamComponent.Team is Team.Terrorist or Team.CounterTerrorist )
+			EnableRagdoll();
 		else
-		{
 			GameObject.Tags.Set( "invis", true );
-		}
 
 		InBuyMenu = false;
-	}
-
-	[Broadcast]
-	public void SetRagdoll()
-	{
-		Body.SetRagdoll( true );
-		PlayerBoxCollider.Enabled = false;
-	}
-
-	[Broadcast]
-	public void ResetBody()
-	{
-		Body.SetRagdoll( false );
-		PlayerBoxCollider.Enabled = true;
-		Body.DamageTakenForce = Vector3.Zero;
-
-		Outfitter.OnResetState( this );
-
-		GameObject.Tags.Set( "invis", false );
 	}
 
 	void IRespawnable.Respawn()
@@ -90,11 +67,11 @@ public partial class PlayerController
 			HealthComponent.State = LifeState.Alive;
 		}
 
-		if ( !IsProxy && !IsBot )
-		{
-			GameMode.Instance?.HandlePlayerSpawn();
-			(this as IPawn).Possess();
-		}
+		if ( IsProxy || IsBot )
+			return;
+
+		GameMode.Instance?.HandlePlayerSpawn();
+		(this as IPawn).Possess();
 	}
 
 	public void Teleport( Transform transform )
@@ -106,5 +83,22 @@ public partial class PlayerController
 	public void Teleport( Vector3 position, Rotation rotation )
 	{
 		Transform.World = new( position, rotation );
+	}
+	
+	private void EnableRagdoll()
+	{
+		Body.SetRagdoll( true );
+		PlayerBoxCollider.Enabled = false;
+	}
+	
+	private void ResetBody()
+	{
+		Body.SetRagdoll( false );
+		Body.DamageTakenForce = Vector3.Zero;
+		PlayerBoxCollider.Enabled = true;
+
+		Outfitter.OnResetState( this );
+
+		GameObject.Tags.Set( "invis", false );
 	}
 }
