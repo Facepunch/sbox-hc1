@@ -1,6 +1,8 @@
 @namespace Facepunch.UI
 @inherits Panel
 
+@attribute [StyleSheet]
+
 <root class="@AvatarClasses">
     @if ( !Player.IsValid() ) return;
 
@@ -13,6 +15,11 @@
         <div class="health">
             <div class="health-inner" style="width:@(Player.HealthComponent.Health)%" />
         </div>
+    }
+
+    @if( Player.Inventory.HasBomb && Player.IsFriendly( GameUtils.LocalPlayer ) )
+    {
+        <Icon File="/ui/bomb.png" size="24" class="bomb-indicator"></Icon>
     }
 </root>
 

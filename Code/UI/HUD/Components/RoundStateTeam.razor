@@ -11,7 +11,7 @@
             <img class="hud with-padding icon" src="@TeamIcon" />
         }
 
-        @foreach (var values in Grouping)
+        @foreach (var values in Players)
         {
             <PlayerAvatar @Player=@values />
         }
@@ -31,15 +31,16 @@
         Right
     }
 
-    public IGrouping<Team, PlayerController> Grouping { get; set; }
+    public Team Team { get; set; }
+    public IEnumerable<PlayerController> Players { get; set; }
     public IconPositions IconPosition { get; set; } = IconPositions.Left;
 
-    private string TeamColor => Grouping.Key.GetColor().Hex;
-    private string TeamIcon => Grouping.Key.GetIconPath();
+    private string TeamColor => Team.GetColor().Hex;
+    private string TeamIcon => Team.GetIconPath();
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(IconPosition, TeamColor, TeamIcon, Grouping);
+        return HashCode.Combine(Team, Players, IconPosition, TeamColor, TeamIcon);
     }
 
     private string BuildStyle()

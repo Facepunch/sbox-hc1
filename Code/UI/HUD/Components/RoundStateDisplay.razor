@@ -5,7 +5,7 @@
 <root class="hud with-deadzone top-middle flex justify-center row">
     @if (MyTeamPlayers is not null && MyTeamPlayers.Count() > 0)
     {
-        <RoundStateTeam Grouping="@MyTeamPlayers" iconPosition="Right" />
+        <RoundStateTeam Team="@MyTeam" Players="@MyTeamPlayers" iconPosition="Right" />
     }
 
     <div class="flex column with-background with-padding h-full align-center justify-center" style="min-width: 175px; height: 75px;">
@@ -15,27 +15,41 @@
 
     @if (EnemyTeamPlayers is not null && EnemyTeamPlayers.Count() > 0)
     {
-        <RoundStateTeam Grouping="@EnemyTeamPlayers" iconPosition="Left" /> 
+        <RoundStateTeam Team="@EnemyTeam" Players="@EnemyTeamPlayers" iconPosition="Left" />
     }
 </root>
 
 @code
 {
-    private List<IGrouping<Team, PlayerController>> GroupedPlayers => PlayerList.GroupBy(x => x.GameObject.GetTeam()).ToList();
-
     private Team MyTeam => GameUtils.LocalPlayer.TeamComponent.Team;
     private Team EnemyTeam => MyTeam.GetOpponents();
 
-    private IGrouping<Team, PlayerController> MyTeamPlayers => GroupedPlayers.FirstOrDefault(x => x.Key == MyTeam);
-    private IGrouping<Team, PlayerController> EnemyTeamPlayers => GroupedPlayers.FirstOrDefault(x => x.Key == EnemyTeam);
+    private IEnumerable<PlayerController> MyTeamPlayers { get; set; }
+    private IEnumerable<PlayerController> EnemyTeamPlayers { get; set; }
 
     public string Status => GameMode.Instance?.DisplayedStatus;
     public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
 
     public IEnumerable<PlayerController> PlayerList => Scene.GetAllComponents<PlayerController>();
 
+    public override void Tick()
+    {
+        if ( MyTeam == Team.Unassigned || EnemyTeam == Team.Unassigned )
+        {
+            MyTeamPlayers = null;
+            EnemyTeamPlayers = null;
+            return;
+        }
+
+        MyTeamPlayers = GameUtils.GetPlayers(MyTeam);
+        EnemyTeamPlayers = GameUtils.GetPlayers(EnemyTeam);
+    }
+
     protected override int BuildHash()
     {
-        return HashCode.Combine( MyTeam, EnemyTeam, Status, Time?.Seconds, Time?.Minutes, PlayerList.Count() );
+        var a = HashCode.Combine(MyTeamPlayers, EnemyTeamPlayers, MyTeam, EnemyTeam);
+        var b = HashCode.Combine(Status, Time?.Seconds, Time?.Minutes, PlayerList.Count());
+
+        return HashCode.Combine(a, b);
     }
 }
