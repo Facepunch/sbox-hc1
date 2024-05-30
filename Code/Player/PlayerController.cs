@@ -145,11 +145,16 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	public bool IsViewer => (this as IPawn).IsPossessed;
 
 	/// <summary>
+	/// Unique ID of this Bot
+	/// </summary>
+	[HostSync] public int BotId { get; set; } = -1;
+
+	/// <summary>
 	/// Is this a player or a bot
 	/// </summary>
-	[HostSync] public bool IsBot { get; set; } = false;
+	public bool IsBot => BotId != -1;
 
-	public string GetPlayerName() => IsBot ? "BOT" : Network.OwnerConnection.DisplayName;
+	public string GetPlayerName() => IsBot ? $"BOT {BotManager.Instance.GetName(BotId)}" : Network.OwnerConnection.DisplayName;
 
 	/// <summary>
 	/// If true, we're not allowed to move.

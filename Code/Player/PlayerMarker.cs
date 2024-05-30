@@ -25,7 +25,7 @@ public partial class PlayerMarker : Component, IMarkerObject
 		{
 			Position = Transform.Position + Vector3.Up * 80,
 			Rotation = Transform.Rotation,
-			DisplayText = $"{Connection?.DisplayName ?? "BOT"}"
+			DisplayText = Player.GetPlayerName()
 		};
 	}
 }
