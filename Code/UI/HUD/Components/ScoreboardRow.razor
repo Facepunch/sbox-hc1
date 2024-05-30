@@ -16,7 +16,11 @@
 
     @if ( Player.IsFriendly( GameUtils.LocalPlayer ) )
     {
-        <label class="col stat">$@(Player.Inventory.Balance.ToString( "N0" )</label>
+        <label class="col stat-large">$@(Player.Inventory.Balance.ToString( "N0" )</label>
+    }
+    else
+    {
+        <label class="col stat-large"></label>
     }
 
     <label class="col stat">@(Score.Score)</label>
