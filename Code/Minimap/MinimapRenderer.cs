@@ -54,9 +54,11 @@ public partial class MinimapRenderer : Component, Component.ExecuteInEditor
 		CameraGameObject.Flags = GameObjectFlags.NotSaved | GameObjectFlags.Hidden;
 
 		Camera = CameraGameObject.Components.Create<CameraComponent>();
+		Camera.RenderExcludeTags.Add( "skybox" );
 		Camera.Flags = ComponentFlags.NotSaved;
 		Camera.Orthographic = true;
 		Camera.OrthographicHeight = Size;
+		Camera.BackgroundColor = Color.Transparent;
     }
 
 	protected override void OnUpdate()
