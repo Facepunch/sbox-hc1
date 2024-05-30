@@ -83,14 +83,6 @@ public sealed class Door : Component, IUse
 
 	public void OnUse( PlayerController player )
 	{
-		using var _ = Rpc.FilterInclude( Connection.Host );
-		OnUseHost( player.Transform.Position );
-	}
-
-	[Broadcast]
-	private void OnUseHost( Vector3 useFrom )
-	{
-		Assert.True( Networking.IsHost );
 		LastUse = 0.0f;
 
 		if ( State == DoorState.Closed )
@@ -100,7 +92,7 @@ public sealed class Door : Component, IUse
 
 			if ( OpenAwayFromPlayer )
 			{
-				var doorToPlayer = (useFrom - PivotPosition).Normal;
+				var doorToPlayer = (player.Transform.Position - PivotPosition).Normal;
 				var doorForward = Transform.Local.Rotation.Forward;
 
 				ReverseDirection = Vector3.Dot( doorToPlayer, doorForward ) > 0;
