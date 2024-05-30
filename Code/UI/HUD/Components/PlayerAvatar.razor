@@ -2,6 +2,8 @@
 @inherits Panel
 
 <root class="@AvatarClasses">
+    @if ( !Player.IsValid() ) return;
+
     <div class="avatar">
         <img class="image" src="avatar:@Player.Network.OwnerConnection.SteamId" />
     </div>
@@ -17,13 +19,13 @@
 @code
 {
     public PlayerController Player { get; set; }
-    public bool IsFriendly => GameUtils.LocalPlayer.GameObject.IsFriendly(Player.GameObject);
+    public bool IsFriendly => GameUtils.LocalPlayer?.GameObject?.IsFriendly( Player?.GameObject ) ?? false;
 
     private string AvatarClasses
     {
         get
         {
-            if ( Player.HealthComponent.State != LifeState.Alive ) return "dead";
+            if ( Player?.HealthComponent.State != LifeState.Alive ) return "dead";
             return "";
         }
     }
