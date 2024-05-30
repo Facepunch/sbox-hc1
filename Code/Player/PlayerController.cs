@@ -389,6 +389,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 			UIUpdate();
 			BuildWishInput();
 			BuildWishVelocity();
+			BuildInput();
 
 			if ( cc.IsOnGround && !IsFrozen && !InMenu && Input.Pressed( "Jump" ) )
 			{
