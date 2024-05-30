@@ -36,7 +36,7 @@ public partial class PlayerController
 		}
 		else
 		{
-			Body.ShowBodyParts( BodyRenderMode.Hide );
+			GameObject.Tags.Set( "invis", true );
 		}
 
 		InBuyMenu = false;
@@ -57,6 +57,8 @@ public partial class PlayerController
 		Body.DamageTakenForce = Vector3.Zero;
 
 		Outfitter.OnResetState( this );
+
+		GameObject.Tags.Set( "invis", false );
 	}
 
 	void IRespawnable.Respawn()

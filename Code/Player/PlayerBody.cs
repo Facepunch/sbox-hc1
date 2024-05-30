@@ -2,13 +2,6 @@
 
 namespace Facepunch
 {
-	public enum BodyRenderMode
-	{
-		Show,
-		Hide,
-		ShadowsOnly
-	}
-
 	public partial class PlayerBody : Component
 	{
 		[Property] public SkinnedModelRenderer Renderer { get; set; }
@@ -41,7 +34,7 @@ namespace Facepunch
 				GameObject.Transform.LocalRotation = Rotation.Identity;
 			}
 
-			ShowBodyParts( ragdoll ? BodyRenderMode.Show : BodyRenderMode.ShadowsOnly );
+			ShowBodyParts( ragdoll );
 
 			if ( ragdoll && DamageTakenForce.LengthSquared > 0f )
 				ApplyRagdollImpulses( DamageTakenPosition, DamageTakenForce );
@@ -58,21 +51,16 @@ namespace Facepunch
 			}
 		}
 
-		public void ShowBodyParts( BodyRenderMode renderMode )
+		public void ShowBodyParts( bool show )
 		{
-			foreach ( var renderer in renderers )
+			// Disable the player's body so it doesn't render.
+			var skinnedModels = Components.GetAll<SkinnedModelRenderer>( FindMode.EnabledInSelfAndDescendants );
+
+			foreach ( var skinnedModel in skinnedModels )
 			{
-				if ( renderer is null )
-					continue;
-
-				renderer.Enabled = renderMode != BodyRenderMode.Hide;
-
-				if ( renderer.Enabled )
-				{
-					renderer.RenderType = renderMode == BodyRenderMode.Show ?
+				skinnedModel.RenderType = show ?
 					ModelRenderer.ShadowRenderType.On :
 					ModelRenderer.ShadowRenderType.ShadowsOnly;
-				}
 			}
 		}
 	}

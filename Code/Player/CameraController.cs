@@ -33,7 +33,7 @@ public sealed class CameraController : Component
 
 		if ( !Player.IsSpectating )
 		{
-			Player.Body.ShowBodyParts( !isActive ? BodyRenderMode.Show : BodyRenderMode.ShadowsOnly );
+			Player.Body.ShowBodyParts( !isActive );
 		}
 
 		Camera.Transform.Rotation = Player.EyeAngles.ToRotation();
