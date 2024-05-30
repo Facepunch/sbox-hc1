@@ -12,6 +12,12 @@ public sealed class SpectateController : Component, IPawn
 
 	public Angles ViewAngles { get; set; }
 
+	protected override void OnAwake()
+	{
+		base.OnAwake();
+		Camera.Enabled = false;
+	}
+
 	protected override void OnUpdate()
 	{
 		ViewAngles += Input.AnalogLook;
