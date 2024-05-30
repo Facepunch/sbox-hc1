@@ -42,6 +42,8 @@ public partial class PlayerController
 		Body.SetRagdoll( false );
 		PlayerBoxCollider.Enabled = true;
 		Body.DamageTakenForce = Vector3.Zero;
+
+		Outfitter.OnResetState( this );
 	}
 
 	void IRespawnable.Respawn()

@@ -52,6 +52,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	[Property] public CameraComponent ViewModelCamera { get; set; }
 
 	/// <summary>
+	/// Handles the player's outfit
+	/// </summary>
+	[Property] public PlayerOutfitter Outfitter { get; set; }
+
+	/// <summary>
 	/// A <see cref="GameObject"/> that will hold our ViewModel.
 	/// </summary>
 	[Property] public GameObject ViewModelGameObject { get; set; }
