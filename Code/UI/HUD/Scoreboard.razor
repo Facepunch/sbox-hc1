@@ -60,7 +60,7 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Status, Time, GameUtils.AllPlayers, IsActive);
+        return HashCode.Combine(GroupedPlayers, Status, Time, GameUtils.AllPlayers, IsActive);
     }
 
     public override void Tick()
