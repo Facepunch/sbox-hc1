@@ -1,0 +1,44 @@
+﻿@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root class="hud center with-padding with-background flex justify-center align-center column" style="margin-top: 200px">
+    <label class="emphasis">@Status</label>
+    <label>@Time.ToString("0.00")</label>
+</root>
+
+@code
+{
+    public PlayerController Player => GameUtils.Viewer;
+    public string Status { get; set; } = "";
+    public float Time => 0f;
+
+    private bool IsActive { get; set; }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Status, Time, IsActive);
+    }
+
+    public override void Tick()
+    {
+        IsActive = false;
+
+        if (Player.IsPlanting(out var plantable))
+        {
+            IsActive = true;
+            Status = "Planting the bomb...";
+        }
+
+        if (Player.IsDefusing(out var planted))
+        {
+            IsActive = true;
+            Status = "Defusing the bomb...";
+        }
+    }
+
+    private string BuildClass()
+    {
+        return (IsActive) ? "visible" : "";
+    }
+}
