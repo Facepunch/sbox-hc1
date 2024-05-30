@@ -525,7 +525,12 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	void IDamageListener.OnDamageGiven( float damage, Vector3 position, Vector3 force, Component target )
 	{
 		Log.Info( $"{this} damaged {target} for {damage}" );
-		Crosshair.Instance?.Trigger( damage, target, position );
+
+		// Did we cause this damage?
+		if ( this == GameUtils.Viewer )
+		{
+			Crosshair.Instance?.Trigger( damage, target, position );
+		}
 	}
 
 	/// <summary>
