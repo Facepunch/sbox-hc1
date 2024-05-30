@@ -17,7 +17,7 @@ public static class TeamExtensionMethods
 		{
 			Team.Terrorist => "Anarchists",
 			Team.CounterTerrorist => "Operators",
-			_ => "Spectators",
+			_ => "Unassigned",
 		};
 	}
 
@@ -37,7 +37,7 @@ public static class TeamExtensionMethods
 		{
 			Team.CounterTerrorist => "/ui/teams/operators.png",
 			Team.Terrorist => "/ui/teams/anarchists.png",
-			_ => "/ui/teams/spectator.png"
+			_ => ""
 		};
 	}
 
