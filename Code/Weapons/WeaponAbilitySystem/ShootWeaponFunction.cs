@@ -220,7 +220,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	[Broadcast]
 	protected void DoTracer( Vector3 startPosition, Vector3 endPosition, float distance, int count )
 	{
-		if ( !IsNearby( startPosition ) || IsNearby( endPosition ) ) return;
+		if ( !IsNearby( startPosition ) || !IsNearby( endPosition ) ) return;
 
 		var effectPath = "particles/gameplay/guns/trail/trail_smoke.vpcf";
 
