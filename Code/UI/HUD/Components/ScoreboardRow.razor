@@ -6,12 +6,11 @@
 
 <root class="row @(IsLocal ? "local" : "") @(IsDead ? "dead" : "") with-px-lg with-py">
     <span class="col stat-small">
-        @if( Player.Inventory.HasBomb && Player.IsFriendly( GameUtils.LocalPlayer ) )
+        @if (Player.Inventory.HasBomb && Player.IsFriendly(GameUtils.LocalPlayer) && Team == Team.Terrorist)
         {
             <Icon File="/ui/bomb.png" size="24"></Icon>
         }
-
-        @if( Player.Inventory.HasDefuseKit && Player.IsFriendly( GameUtils.LocalPlayer ) )
+        else if (Player.Inventory.HasDefuseKit && Player.IsFriendly(GameUtils.LocalPlayer) && Team == Team.CounterTerrorist)
         {
             <Icon File="/ui/defusekit.png" size="24"></Icon>
         }
@@ -28,9 +27,9 @@
         </label>
     </span>
 
-    @if ( Player.IsFriendly( GameUtils.LocalPlayer ) )
+    @if (Player.IsFriendly(GameUtils.LocalPlayer))
     {
-        <label class="col stat-large">$@(Player.Inventory.Balance.ToString( "N0" )</label>
+        <label class="col stat-large">$@(Player.Inventory.Balance.ToString("N0")</label>
     }
     else
     {
@@ -51,13 +50,14 @@
 
     private bool IsLocal => Player.IsLocallyControlled;
     private bool IsDead => Player.HealthComponent.State != LifeState.Alive;
-    private float KillDeathRatio => (float)Score.Kills / (float)Score.Deaths.Clamp( 1, int.MaxValue );
+    private float KillDeathRatio => (float)Score.Kills / (float)Score.Deaths.Clamp(1, int.MaxValue);
+    private Team Team => Player.TeamComponent.Team;
 
     protected override int BuildHash()
     {
         var a = HashCode.Combine(KillDeathRatio, Score.Score, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead);
         var b = HashCode.Combine(Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb);
 
-        return HashCode.Combine( a, b );
+        return HashCode.Combine(a, b);
     }
 }
