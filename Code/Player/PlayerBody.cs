@@ -17,6 +17,9 @@ namespace Facepunch
 
 		public bool IsRagdoll => Physics.Enabled;
 
+		public Vector3 DamageTakenPosition { get; set; }
+		public Vector3 DamageTakenForce { get; set; }
+
 		internal void SetRagdoll( bool ragdoll )
 		{
 			Physics.Enabled = ragdoll;
@@ -29,6 +32,20 @@ namespace Facepunch
 			}
 
 			ShowBodyParts( ragdoll ? BodyRenderMode.Show : BodyRenderMode.ShadowsOnly );
+
+			if ( ragdoll && DamageTakenForce.LengthSquared > 0f )
+				ApplyRagdollImpulses( DamageTakenPosition, DamageTakenForce );
+		}
+
+		internal void ApplyRagdollImpulses( Vector3 position, Vector3 force )
+		{
+			if ( Physics == null || Physics.PhysicsGroup == null )
+				return;
+
+			foreach ( var body in Physics.PhysicsGroup.Bodies )
+			{
+				body.ApplyImpulseAt( position, force );
+			}
 		}
 
 		public void ShowBodyParts( BodyRenderMode renderMode )
