@@ -48,10 +48,13 @@
     @if ( Player?.HealthComponent?.State != LifeState.Alive )
         return;
 
-    @*TODO: make the player markers show up for enemies under certain circumstances
-    when aiming at a player that's kinda close to you, spectator mode? *@
-    @if ( !LocalPlayer.GameObject.IsFriendly( Player.GameObject ) )
-        return;
+    @if ( !LocalPlayer.IsSpectating )
+    {
+        @*TODO: make the player markers show up for enemies under certain circumstances
+        when aiming at a player that's kinda close to you? *@
+        @if ( Viewer.IsValid() && !Viewer.GameObject.IsFriendly(Player.GameObject) )
+            return;
+    }
 
     @if ( Marker.IsOffScreen )
     {
@@ -67,7 +70,8 @@
 @code
 {
     public PlayerController Player => Object?.GameObject?.Components?.Get<PlayerController>();
-    private PlayerController LocalPlayer => Scene.GetSystem<PawnSystem>().Viewer as PlayerController;
+    private PlayerController Viewer => GameUtils.Viewer;
+    private PlayerController LocalPlayer => GameUtils.LocalPlayer;
 
     private float ChevronAngle => Scene.Camera.PointToScreenNormal(MarkerFrame.Position).Angle(new(0.5f, 0.5f)) - 180f; 
 
