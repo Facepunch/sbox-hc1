@@ -30,6 +30,10 @@
             font-weight: 900;
             color: @Player.TeamComponent.Team.GetColor().Hex;
         }
+
+        Icon {
+            background-image-tint: @Player.TeamComponent.Team.GetColor().Hex;
+        }
     }
 </style>
 
@@ -64,6 +68,11 @@
     {
         <div class="dot" />
         <label class="name">@MarkerFrame.DisplayText</label>
+
+        @if( Player.Inventory.HasBomb && Player.IsFriendly( GameUtils.LocalPlayer ) )
+        {
+            <Icon File="/ui/bomb.png" size="24"></Icon>
+        }
     }
 </root>
 
