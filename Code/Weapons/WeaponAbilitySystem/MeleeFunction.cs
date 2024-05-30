@@ -43,10 +43,10 @@ public partial class MeleeFunction : InputActionWeaponFunction
 		}
 
 		// Third person
-		Weapon.PlayerController.BodyRenderer.Set( "b_attack", true );
+		Weapon?.PlayerController?.BodyRenderer?.Set( "b_attack", true );
 
 		// First person
-		Weapon.ViewModel?.ModelRenderer.Set( "b_attack", true );
+		Weapon?.ViewModel?.ModelRenderer.Set( "b_attack", true );
 	}
 
 	/// <summary>
