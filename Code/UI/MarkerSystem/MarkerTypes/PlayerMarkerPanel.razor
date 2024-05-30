@@ -37,10 +37,15 @@
     @if ( !Player.IsValid() )
         return;
 
+    @if ( !LocalPlayer.IsValid() )
+        return;
+
+    @if ( !Marker.IsValid() ) return;
+
     @if ( Marker.IsBehind ) 
         return;
 
-    @if ( Player.HealthComponent.State != LifeState.Alive )
+    @if ( Player?.HealthComponent?.State != LifeState.Alive )
         return;
 
     @*TODO: make the player markers show up for enemies under certain circumstances

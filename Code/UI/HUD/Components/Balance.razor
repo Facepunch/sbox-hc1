@@ -2,7 +2,7 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-@if (!Player.IsValid()) return;
+@if ( !Player.IsValid() ) return;
 
 <root class="hud with-deadzone row middle-left">
     <InputHint Action="BuyMenu" class="small @(!Player.IsInBuyzone() ? "hidden" : "")" Size="@InputGlyphSize.Small" />
@@ -14,13 +14,13 @@
     /// <summary>
     /// The player's inventory
     /// </summary>
-    public PlayerInventory Inventory => Player.Inventory;
+    public PlayerInventory Inventory => Player?.Inventory;
 
     /// The player
     public PlayerController Player => GameUtils.Viewer;
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( Inventory.Balance, Player.IsInBuyzone() );
+        return HashCode.Combine( Inventory?.Balance, Player?.IsInBuyzone() );
     }   
 }

@@ -36,13 +36,13 @@
         if ( !firstTime ) return;
         if ( !Object.IsValid() ) return;
         if ( Object.MarkerPanelTypeOverride is null ) return;
-        
+
         var desc = TypeLibrary.GetType( Object.MarkerPanelTypeOverride );
         if ( desc is null ) return;
-        
+
         var inst = desc.Create<BaseMarkerPanel>();
         inst.Marker = this;
-        
+
         CustomPanel = inst;
         CustomPanel.Parent = this;
     }
@@ -51,6 +51,11 @@
 
     public override void Tick()
     {
+        if ( !Scene.Camera.IsValid() )
+        {
+            return;
+        }
+
         var toScreen = Scene.Camera.PointToScreenNormal( Frame.Position, out IsBehind );
 
         SetClass( "is-behind", IsBehind );
