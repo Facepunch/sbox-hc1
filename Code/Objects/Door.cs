@@ -1,4 +1,5 @@
 using Sandbox;
+using Sandbox.Diagnostics;
 
 namespace Facepunch;
 
@@ -60,8 +61,8 @@ public sealed class Door : Component, IUse
 	Transform StartTransform { get; set; }
 	Vector3 PivotPosition { get; set; }
 	bool ReverseDirection { get; set; }
-	[Sync] public TimeSince LastUse { get; set; }
-	[Sync] public DoorState State { get; set; } = DoorState.Closed;
+	[HostSync] public TimeSince LastUse { get; set; }
+	[HostSync] public DoorState State { get; set; } = DoorState.Closed;
 
 	protected override void OnStart()
 	{
@@ -82,6 +83,14 @@ public sealed class Door : Component, IUse
 
 	public void OnUse( PlayerController player )
 	{
+		using var _ = Rpc.FilterInclude( Connection.Host );
+		OnUseHost( player.Transform.Position );
+	}
+
+	[Broadcast]
+	private void OnUseHost( Vector3 useFrom )
+	{
+		Assert.True( Networking.IsHost );
 		LastUse = 0.0f;
 
 		if ( State == DoorState.Closed )
@@ -91,8 +100,7 @@ public sealed class Door : Component, IUse
 
 			if ( OpenAwayFromPlayer )
 			{
-				var playerPosition = player.GameObject.Transform.Position;
-				var doorToPlayer = (playerPosition - PivotPosition).Normal;
+				var doorToPlayer = (useFrom - PivotPosition).Normal;
 				var doorForward = Transform.Local.Rotation.Forward;
 
 				ReverseDirection = Vector3.Dot( doorToPlayer, doorForward ) > 0;
