@@ -21,7 +21,7 @@
                     }
                     else
                     {
-                        <div class="marker @(ViewingPlayer(marker))" style="@WorldToMap(marker) @RotationToMap(marker)" />
+                        <div class="marker @(ViewingPlayer(marker))" style="@WorldToMap(marker) @RotationToMap(marker) @TeamColor(marker)" />
                     }
                 }
                 @foreach (var bombZone in Game.ActiveScene.GetAllComponents<BombSite>())
@@ -35,6 +35,10 @@
                     <div class="buysite" style="@WorldToMap(buyZone.GameObject)">
                         <div class="buyzone" style="@GetBox(buyZone)" />
                     </div>
+                }
+                @if (GameUtils.LocalPlayer.IsSpectating && SpectateSystem.Instance.IsFreecam)
+                {
+                    <div class="marker" style="@WorldToMap(Scene.Components.GetAll<SpectateController>().FirstOrDefault().GameObject) @RotationToMap(Scene.Components.GetAll<SpectateController>().FirstOrDefault().Transform.Rotation.Angles())" />
                 }
             </div>
         </div>
@@ -55,10 +59,34 @@
     bool TeamCheck(IMarkerObject obj)
     {
         var ply = obj.GameObject.Components.Get<TeamComponent>();
+
         if (!ply.IsValid()) return false;
+
+        if (GameUtils.LocalPlayer.IsSpectating)
+        {
+            return true;
+        }
 
         return ply.Team == GameUtils.Viewer?.TeamComponent.Team;
     }
+
+    bool IsSpectating()
+	{
+		return GameUtils.LocalPlayer.IsSpectating;
+	}
+
+    string TeamColor (IMarkerObject obj)
+    {
+        var ctl = obj.GameObject.Components.Get<PlayerController>();
+        if(ctl == GameUtils.Viewer)
+		{
+            return "background-image-tint: rgba( 0, 255, 255, 1 )";
+		}
+
+		var ply = obj.GameObject.Components.Get<TeamComponent>();
+
+        return $"background-image-tint: {ply.Team.GetColor().Hex}";
+	}
 
     bool IsDead(IMarkerObject obj)
     {
@@ -109,6 +137,20 @@
 
         return $"transform: translateX(-50%) translateY(-50%) rotate({-head.yaw}deg);";
     }
+
+    string RotationToMap(GameObject obj)
+    {
+        var ply = obj.Components.Get<PlayerController>();
+
+        var head = ply.EyeAngles;
+
+        return $"transform: translateX(-50%) translateY(-50%) rotate({-head.yaw}deg);";
+    }
+
+    string RotationToMap(Angles rot)
+	{
+		return $"transform: translateX(-50%) translateY(-50%) rotate({-rot.yaw}deg);";
+	}
 
     protected override int BuildHash()
     {
