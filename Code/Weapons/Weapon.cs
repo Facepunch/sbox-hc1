@@ -233,7 +233,7 @@ public partial class Weapon : Component
 	
 	protected virtual void OnDeployed()
 	{
-		if ( !IsProxy )
+		if ( PlayerController.IsViewer )
 			CreateViewModel();
 		
 		ModelRenderer.Enabled = true;

@@ -31,6 +31,7 @@ public partial class MeleeFunction : InputActionWeaponFunction
 	/// <summary>
 	/// Do shoot effects
 	/// </summary>
+	[Broadcast]
 	protected void DoEffects()
 	{
 		if ( SwingSound is not null )

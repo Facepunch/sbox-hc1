@@ -8,18 +8,12 @@ public partial class PlayerController
 		SetupCamera();
 	}
 
-	[Broadcast]
-	public void NetPossess()
+	public void TryPossess()
 	{
-		// Don't own? Go away
-		if ( IsProxy )
-			return;
-
 		(this as IPawn ).Possess();
 	}
 
-	[Broadcast]
-	public void NetDePossess()
+	public void TryDePossess()
 	{
 		if ( !IsLocallyControlled ) return;
 		(this as IPawn).DePossess();

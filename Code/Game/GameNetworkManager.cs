@@ -56,7 +56,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 			return;
 		}
 
-		playerComponent.NetPossess();
+		playerComponent.TryPossess();
 
 		if ( playerComponent.CanRespawn )
 		{
