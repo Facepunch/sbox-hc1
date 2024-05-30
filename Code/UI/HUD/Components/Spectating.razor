@@ -1,0 +1,38 @@
+﻿@using System.Text;
+@namespace Facepunch.UI
+@inherits Panel
+
+@attribute [StyleSheet]
+
+@if (!Player.IsValid() || !LocalPlayer.IsSpectating ) return;
+
+<root class="hud with-deadzone flex column">
+    <div class="flex row">
+        <InputHint Action="SpectatorPrev" Size="@InputGlyphSize.Small" />
+        <div class="flex column with-background with-padding h-full align-center justify-center" style="min-width: 275px; height: 75px;">
+            <label class="text small upper">SPECTATING</label>
+            @if (Player.IsLocallyControlled)
+            {
+                <label>FREECAM</label>
+            }
+            else
+            {
+                <label>@Player.Network.OwnerConnection.DisplayName</label>
+            }  
+        </div>
+        <InputHint Action="SpectatorNext" Size="@InputGlyphSize.Small" />  
+    </div>
+    <InputHint Action="SpectatorFreeCam" Size="@InputGlyphSize.Small" />  
+</root>
+
+@code
+{
+    public PlayerController Player => GameUtils.Viewer;
+
+    public PlayerController LocalPlayer => GameUtils.LocalPlayer;
+
+    protected override int BuildHash()
+    {
+        return !Player.IsValid() ? 0 : HashCode.Combine( LocalPlayer.IsSpectating, Player );
+    }
+}

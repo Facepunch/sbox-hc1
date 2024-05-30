@@ -7,10 +7,6 @@
 @if ( !Player.IsValid() ) return;
 
 <root class="flex justify-end align-center column">
-    @if (LocalPlayer.IsSpectating)
-    {
-        <label>@(Player.IsLocallyControlled ? "FREECAM" : $"SPECTATING: {Player.Network.OwnerConnection.DisplayName}")</label>
-    }
     <img class="hud with-padding" style="background-image-tint:@TeamColor" src="@TeamIcon" />
 </root>
 
