@@ -8,7 +8,31 @@ public partial class MinimapRenderer : Component, Component.ExecuteInEditor
 	private GameObject CameraGameObject;
 	public CameraComponent Camera { get; set; }
 
-    protected override void DrawGizmos()
+	public Vector2 RemapCoords( Vector3 worldPos )
+	{
+		// Define the center position and half size of the minimap area
+		var origin = Transform.Position;
+		var halfSize = Size * 0.5f;
+
+		// Calculate the bounding box min and max coordinates
+		var minX = origin.x - halfSize;
+		var maxX = origin.x + halfSize;
+		var minY = origin.y - halfSize;
+		var maxY = origin.y + halfSize;
+
+		// Normalize the world position within the bounding box
+		var normalizedX = (worldPos.x - minX) / (maxX - minX);
+		var normalizedY = (worldPos.y - minY) / (maxY - minY);
+
+		// Map normalized coordinates to the minimap image resolution
+		var minimapX = 1 - normalizedX;
+		var minimapY = 1 - normalizedY; // Invert Y to match top-left origin
+
+		// Return the mapped coordinates
+		return new Vector2(minimapY, minimapX);
+	}
+
+	protected override void DrawGizmos()
 	{
 		Gizmo.Draw.Color = Color.Blue.WithAlpha( 0.8f );
 		Gizmo.Draw.LineBBox( BBox.FromPositionAndSize( Vector3.Zero, Size ) );

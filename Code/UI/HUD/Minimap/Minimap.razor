@@ -1,0 +1,51 @@
+﻿@namespace Facepunch
+@attribute [StyleSheet]
+
+<root>
+    @if ( Renderer.IsValid() )
+    {
+        <div class="background">
+            <div class="minimap" style="background-image: url( @Renderer.CurrentMinimapPath );" />
+
+            <div class="markers">
+                @foreach (var marker in MarkedObjects)
+                {
+                    <div class="marker" style="@WorldToMap(marker) @RotationToMap(marker)"/>
+                }
+            </div>
+        </div>
+    }
+</root>
+
+@code
+{
+    public MinimapRenderer Renderer => Game.ActiveScene.GetAllComponents<MinimapRenderer>().FirstOrDefault();
+
+    public IEnumerable<IMarkerObject> MarkedObjects => Game.ActiveScene.GetAllComponents<IMarkerObject>();
+
+    public override void Tick()
+    {
+        base.Tick();
+    }
+
+    string WorldToMap(IMarkerObject obj)
+    {
+        var toScreen = Renderer.RemapCoords(obj.GameObject.Transform.Position);
+
+        return $"left: {Length.Fraction(toScreen.x)}; top: {Length.Fraction(toScreen.y)};";
+    }
+
+    string RotationToMap(IMarkerObject obj)
+    {
+        var ply = obj.GameObject.Components.Get<PlayerController>();
+
+        var head = ply.EyeAngles;
+
+        return $"transform: translateX(-50%) translateY(-50%) rotate({-head.yaw}deg);";
+    }
+
+    protected override int BuildHash()
+    {
+        return System.HashCode.Combine( Time.Now );
+    }
+}

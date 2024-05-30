@@ -1,0 +1,22 @@
+﻿@namespace Facepunch
+@attribute [StyleSheet]
+
+<root>
+    <div class="marker" />
+</root>
+
+@code
+{
+    public IMarkerObject Object { get; set; }
+    public MinimapRenderer Renderer { get; set; }
+
+    public GameObject go { get; set; }
+
+    public override void Tick()
+    {
+        var toScreen = Renderer.RemapCoords(Object.GameObject.Transform.Position);
+
+        Style.Left = Length.Fraction(toScreen.x);
+        Style.Top = Length.Fraction(toScreen.y);
+    }
+}

@@ -1,0 +1,40 @@
+﻿Minimap {
+    position: absolute;
+    left: 32px;
+    top: 32px;
+    width: 256px;
+    height: 256px;
+
+    .background {
+        width: 100%;
+        height: 100%;
+        border: 1px solid rgba( black, 0.0 );
+        box-shadow: 0px 0px 15px rgba( black, 0.5 );
+        overflow: hidden;
+    }
+
+    .minimap {
+        width: 100%;
+        height: 100%;
+        background-size: contain;
+        background-position: center;
+    }
+
+    .markers {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+
+        .marker {
+            width: 18px;
+            height: 18px;
+            background-image: url('ui/minimaps/player_icon.png');
+            background-image-tint: rgba( 0, 255, 0, 1 );
+            z-index: 99;
+            transform: translateX(-50%) translateY(-50%);
+            background-size: contain;
+            background-position: center;
+        }
+    }
+}
