@@ -15,8 +15,8 @@ public static class TeamExtensionMethods
 	{
 		return team switch
 		{
-			Team.Terrorist => "Terrorists",
-			Team.CounterTerrorist => "Counter-Terrorists",
+			Team.Terrorist => "Anarchists",
+			Team.CounterTerrorist => "Operators",
 			_ => "Spectators",
 		};
 	}
