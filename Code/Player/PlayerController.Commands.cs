@@ -48,7 +48,7 @@ public partial class PlayerController
 		foreach ( var player in GameUtils.AllPlayers.OrderBy( x => x.Network.OwnerId ) )
 		{
 			if ( player == GameUtils.Viewer ) continue;
-			player.TryPossess();
+			(player as IPawn).Possess();
 			return;
 		}
 	}

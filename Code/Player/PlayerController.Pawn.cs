@@ -8,9 +8,10 @@ public partial class PlayerController
 		SetupCamera();
 	}
 
+	[Broadcast]
 	public void TryPossess()
 	{
-		(this as IPawn ).Possess();
+		(this as IPawn).Possess();
 	}
 
 	public void TryDePossess()

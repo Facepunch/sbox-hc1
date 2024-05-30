@@ -56,7 +56,10 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 			return;
 		}
 
-		playerComponent.TryPossess();
+		using ( Rpc.FilterInclude( channel ) )
+		{
+			playerComponent.TryPossess();
+		}
 
 		if ( playerComponent.CanRespawn )
 		{
