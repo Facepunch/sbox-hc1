@@ -5,7 +5,6 @@ namespace Facepunch
 	public partial class PlayerBody : Component
 	{
 		[Property] public SkinnedModelRenderer Renderer { get; set; }
-		[Property] public Rigidbody Rigidbody { get; set; }
 		[Property] public ModelPhysics Physics { get; set; }
 
 		public bool IsRagdoll => Physics.Enabled;
@@ -16,7 +15,7 @@ namespace Facepunch
 		internal void SetRagdoll( bool ragdoll )
 		{
 			Physics.Enabled = ragdoll;
-			Rigidbody.Enabled = ragdoll;
+			Renderer.UseAnimGraph = !ragdoll;
 
 			GameObject.Tags.Set( "ragdoll", ragdoll );
 
