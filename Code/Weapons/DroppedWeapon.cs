@@ -48,12 +48,19 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 
 	void ICollisionListener.OnCollisionStart( Collision collision )
 	{
+		if ( !Networking.IsHost ) return;
+		
+		// Conna: this is longer than Daenerys Targaryen's full title.
 		if ( collision.Other.GameObject.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } player )
 		{
-			if ( player.Inventory.CanTakeWeapon( Resource ) )
-			{
-				OnUse( player );
-			}
+			if ( !player.Inventory.CanTakeWeapon( Resource ) )
+				return;
+
+			// Don't auto-pickup if we already have a weapon in this slot.
+			if ( player.Inventory.HasWeapon( Resource.Slot ) )
+				return;
+
+			OnUse( player );
 		}
 	}
 }
