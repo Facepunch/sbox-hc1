@@ -1,3 +1,4 @@
+using Sandbox;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -30,6 +31,17 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	/// Does this weapon require an ammo container to fire its bullets?
 	/// </summary>
 	[Property, Category( "Ammo" )] public bool RequiresAmmoContainer { get; set; } = false;
+
+	private static SoundEvent BloodImpactSound;
+	protected override void OnStart()
+	{
+		if ( BloodImpactSound is null )
+		{
+			ResourceLibrary.TryGet<SoundEvent>( "sounds/impacts/bullets/impact-bullet-flesh.sound", out BloodImpactSound );
+		}
+		Log.Info( BloodImpactSound );
+
+	}
 
 	/// <summary>
 	/// Fetches the desired model renderer that we'll focus effects on like trail effects, muzzle flashes, etc.
@@ -104,7 +116,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		var decalPath = Game.Random.FromList( surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
 		if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalResource ) )
 		{
-			var ps = CreateParticleSystem( Game.Random.FromList( surface.ImpactEffects.Bullet ), pos, Rotation.LookAt( -normal ) );
+			var ps = CreateParticleSystem( Game.Random.FromList( surface.ImpactEffects.Bullet ), pos, Rotation.LookAt( -normal ), 1f );
 			ps.SceneObject.SetControlPoint( 0, new Transform( pos, Rotation.LookAt( normal ) ) );
 
 			var decal = Game.Random.FromList( decalResource.Decals );
@@ -121,13 +133,23 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 			decalRenderer.Size = new( decal.Width.GetValue(), decal.Height.GetValue(), decal.Depth.GetValue() );
 
 			// Creates a destruction component to destroy the gameobject after a while
-			gameObject.DestroyAsync( 3f );
+			gameObject.DestroyAsync( 1f );
 		}
 
 		if ( !string.IsNullOrEmpty( surface.Sounds.Bullet ) )
 		{
 			Sound.Play( surface.Sounds.Bullet, pos );
 		}
+	}
+
+	[Broadcast]
+	private void CreateBloodEffects( Vector3 pos, Vector3 normal )
+	{
+		var particlePath = "particles/impact.flesh.bloodpuff.vpcf";
+		CreateParticleSystem( particlePath, pos, Rotation.LookAt( -normal ), 0.5f );
+
+		var snd = Sound.Play( BloodImpactSound, pos );
+		snd.ListenLocal = Weapon.PlayerController.IsViewer;
 	}
 
 	private void ShootBullet()
@@ -143,8 +165,13 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 			}
 
 			DoShootEffects();
-			CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
+			// CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
 			DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
+
+			if ( tr.GameObject?.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } player )
+			{
+				CreateBloodEffects( tr.HitPosition, tr.Normal );
+			}
 
 			// Inflict damage on whatever we find.
 			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id );
@@ -185,22 +212,11 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		if ( count > 0 )
 		{
 			effectPath = "particles/gameplay/guns/trail/rico_trail_smoke.vpcf";
-			var dir = (startPosition - endPosition).Normal;
-			var tr = Scene.Trace.Ray( endPosition, startPosition + (dir * 50f) )
-				.Radius( 1f )
-				.IgnoreGameObjectHierarchy( Weapon.GameObject.Root )
-				.WithoutTags( "weapon" )
-				.Run();
-
-			if ( tr.Hit )
-			{
-				CreateImpactEffects( tr.Surface, tr.StartPosition, dir );
-			}
 		}
 
 		var origin = count == 0 ? EffectsRenderer.GetAttachment( "muzzle" )?.Position ?? startPosition : startPosition;
 
-		var ps = CreateParticleSystem( effectPath, origin, Rotation.Identity, 3f );
+		var ps = CreateParticleSystem( effectPath, origin, Rotation.Identity, 1f );
 		ps.SceneObject.SetControlPoint( 0, origin );
 		ps.SceneObject.SetControlPoint( 1, endPosition );
 		ps.SceneObject.SetControlPoint( 2, distance );
