@@ -3,7 +3,7 @@ using Sandbox.Diagnostics;
 
 namespace Facepunch;
 
-public sealed class Door : Component, IUse
+public sealed class Door : Component, IUse, IRoundStartListener
 {
 	/// <summary>
 	/// Animation curve to use, X is the time between 0-1 and Y is how much the door is open to its target angle from 0-1.
@@ -64,21 +64,25 @@ public sealed class Door : Component, IUse
 	[HostSync] public TimeSince LastUse { get; set; }
 	[HostSync] public DoorState State { get; set; } = DoorState.Closed;
 
+	private DoorState DefaultState { get; set; } = DoorState.Closed;
+
 	protected override void OnStart()
 	{
 		StartTransform = Transform.Local;
 		PivotPosition = Pivot is not null ? Pivot.Transform.Position : StartTransform.Position;
-	}
-
-	protected override void DrawGizmos()
-	{
-		base.DrawGizmos();
+		DefaultState = State;
 	}
 
 	public bool CanUse( PlayerController player )
 	{
 		// Don't use doors already opening/closing
 		return State == DoorState.Open || State == DoorState.Closed;
+	}
+	
+	void IRoundStartListener.PreRoundStart()
+	{
+		Transform.Local = StartTransform;
+		State = DefaultState;
 	}
 
 	public void OnUse( PlayerController player )
@@ -131,10 +135,11 @@ public sealed class Door : Component, IUse
 		{
 			State = State == DoorState.Opening ? DoorState.Open : DoorState.Closed;
 
-			if ( State == DoorState.Open && OpenFinishedSound is not null ) Sound.Play( OpenFinishedSound, Transform.Position ).Occlusion = false;
-			if ( State == DoorState.Closed && CloseFinishedSound is not null ) Sound.Play( CloseFinishedSound, Transform.Position ).Occlusion = false;
-
-			return;
+			if ( State == DoorState.Open && OpenFinishedSound is not null )
+				Sound.Play( OpenFinishedSound, Transform.Position ).Occlusion = false;
+			
+			if ( State == DoorState.Closed && CloseFinishedSound is not null )
+				Sound.Play( CloseFinishedSound, Transform.Position ).Occlusion = false;
 		}
 	}
 }
