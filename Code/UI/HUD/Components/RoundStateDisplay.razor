@@ -5,7 +5,7 @@
 <root class="hud with-deadzone top-middle flex justify-center row">
     @if (MyTeamPlayers is not null && MyTeamPlayers.Count() > 0)
     {
-        <RoundStateTeam Team="@MyTeam" Players="@MyTeamPlayers" iconPosition="Right" />
+        <RoundStateTeam Score="@MyTeamScore" Team="@MyTeam" Players="@MyTeamPlayers" iconPosition="Right" />
     }
 
     <div class="flex column with-background with-padding h-full align-center justify-center" style="min-width: 175px; height: 75px;">
@@ -15,7 +15,7 @@
 
     @if (EnemyTeamPlayers is not null && EnemyTeamPlayers.Count() > 0)
     {
-        <RoundStateTeam Team="@EnemyTeam" Players="@EnemyTeamPlayers" iconPosition="Left" />
+        <RoundStateTeam Score="@EnemyTeamScore" Team="@EnemyTeam" Players="@EnemyTeamPlayers" iconPosition="Left" />
     }
 </root>
 
@@ -23,6 +23,9 @@
 {
     private Team MyTeam => GameUtils.LocalPlayer.TeamComponent.Team;
     private Team EnemyTeam => MyTeam.GetOpponents();
+
+    private int MyTeamScore { get; set; } = 0;
+    private int EnemyTeamScore { get; set; } = 0;
 
     private IEnumerable<PlayerController> MyTeamPlayers { get; set; }
     private IEnumerable<PlayerController> EnemyTeamPlayers { get; set; }
@@ -39,6 +42,12 @@
             MyTeamPlayers = null;
             EnemyTeamPlayers = null;
             return;
+        }
+
+        if (GameMode.Instance.Components.GetInDescendantsOrSelf<TeamScoring>() is { } teamScoring)
+        {
+            MyTeamScore = teamScoring.GetTeamScore(MyTeam);
+            EnemyTeamScore = teamScoring.GetTeamScore(EnemyTeam);
         }
 
         MyTeamPlayers = GameUtils.GetPlayers(MyTeam);

@@ -8,7 +8,7 @@
 
         @if (IconPosition == IconPositions.Left)
         {
-            <img class="hud with-padding icon" src="@TeamIcon" />
+            <label class="important with-px-lg" style="width: 50px; text-align: center;">@Score</label>
         }
 
         @foreach (var values in Players)
@@ -18,7 +18,7 @@
 
         @if (IconPosition == IconPositions.Right)
         {
-            <img class="hud with-padding icon" src="@TeamIcon" />
+            <label class="important with-px-lg" style="width: 50px; text-align: center;">@Score</label>
         }
     </div>
 </root>
@@ -31,16 +31,16 @@
         Right
     }
 
+    public int Score { get; set; }
     public Team Team { get; set; }
     public IEnumerable<PlayerController> Players { get; set; }
     public IconPositions IconPosition { get; set; } = IconPositions.Left;
 
     private string TeamColor => Team.GetColor().Hex;
-    private string TeamIcon => Team.GetIconPath();
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Team, Players, IconPosition, TeamColor, TeamIcon);
+        return HashCode.Combine(Score, Team, Players, IconPosition, TeamColor);
     }
 
     private string BuildStyle()
