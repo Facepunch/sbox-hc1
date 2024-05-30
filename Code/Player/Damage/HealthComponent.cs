@@ -138,8 +138,12 @@ public partial class HealthComponent : Component, IRespawnable
 	}
 
 	[Broadcast]
-	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default )
+	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, bool isHeadshot = false )
 	{
+		if ( isHeadshot ) damage *= 1.5f;
+
+		damage = damage.CeilToInt();
+
 		// Only the host should control the damage state
 		if ( Networking.IsHost )
 		{
@@ -153,7 +157,7 @@ public partial class HealthComponent : Component, IRespawnable
 				State = LifeState.Dead;
 
 				// Broadcast this kill (for feed)
-				BroadcastKill( attackerId, this.Id, damage, position, force, inflictorId );
+				BroadcastKill( attackerId, Id, damage, position, force, inflictorId );
 			}
 		}
 

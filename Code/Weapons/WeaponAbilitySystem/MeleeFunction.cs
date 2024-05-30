@@ -103,7 +103,7 @@ public partial class MeleeFunction : InputActionWeaponFunction
 			CreateImpactEffects( tr.GameObject, GetSurfaceFromTrace( tr ), tr.EndPosition, tr.Normal );
 
 			// Inflict damage on whatever we find.
-			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id );
+			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, tr.Hitbox.Tags.Has( "head" ) );
 		}
 	}
 
@@ -121,7 +121,7 @@ public partial class MeleeFunction : InputActionWeaponFunction
         yield return Scene.Trace.Ray( start, end )
 			.UseHitboxes()
 			.IgnoreGameObjectHierarchy( GameObject.Root )
-			.WithoutTags( "trigger" )
+			.WithoutTags( "trigger", "movement" )
 			.Size( Size )
 			.Run();
 	}

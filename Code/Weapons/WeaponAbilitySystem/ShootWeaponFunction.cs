@@ -175,7 +175,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 			}
 
 			// Inflict damage on whatever we find.
-			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id );
+			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, tr.Hitbox?.Tags?.Has( "head" ) ?? false );
 			count++;
 		}
 	}
