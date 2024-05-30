@@ -32,6 +32,8 @@ public sealed class CameraController : Component
 		AudioListener.Enabled = isActive;
 
 		Player.Body.ShowBodyParts( !isActive ? BodyRenderMode.Show : BodyRenderMode.ShadowsOnly );
+
+		Camera.Transform.Rotation = Player.EyeAngles.ToRotation();
 	}
 
 	void DeathMovement()
@@ -52,7 +54,16 @@ public sealed class CameraController : Component
 			return;
 		}
 
-		Camera.Transform.Rotation = Player.EyeAngles.ToRotation();
+		if ( Player.IsLocallyControlled )
+		{
+			Camera.Transform.Rotation = Player.EyeAngles.ToRotation();
+		}
+		else
+		{
+			Camera.Transform.Rotation = Rotation.Lerp( Camera.Transform.Rotation,
+				Player.EyeAngles.ToRotation(), Time.Delta / Scene.NetworkRate );
+		}
+
 		Camera.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
 
 		if ( ShouldViewBob )
