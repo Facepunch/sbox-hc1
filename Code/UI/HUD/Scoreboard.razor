@@ -9,24 +9,30 @@
 <root class="center with-background with-padding-lg">
     <table>
         <div class="title">
-            <label class="emphasis">@Status</label>
-            <label class="emphasis">@(Time?.ToString(@"m\:ss"))</label>
+            <label class="important">@Status</label>
+            <label class="important">@(Time?.ToString(@"m\:ss"))</label>
         </div>
 
         @foreach ( var group in GroupedPlayers )
         {
             @if ( group.Key == Team.Unassigned )
             {
-                <div class="flex gap-sm">
-                    <label class="small">Spectators:</label>
-                    <label class="small">@(string.Join( ", ", group.Select( x => x.GetPlayerName() ) )</label>
+                <div class="flex gap-sm align-center">
+                    <Icon file="/ui/teams/spectator.png" size="16" />
+                    <label class="small grey">@(string.Join(", ", group.Select(x => x.GetPlayerName()))</label>
                 </div>
             }
             else
             {
-                <span class="flex align-center gap-sm">
-                    <img class="icon" src="@group.Key.GetIconPath()" style="background-image-tint: @group.Key.GetColor().Hex" />
-                    <label class="with-py" style="color: @group.Key.GetColor().Hex">@group.Key.GetName()</label>
+                <span class="flex align-center space-between gap-sm" style="color: @group.Key.GetColor().Hex">
+                    <span class="flex align-center gap-sm">
+                        <img class="icon" src="@group.Key.GetIconPath()" style="background-image-tint: @group.Key.GetColor().Hex" />
+                        <label class="emphasis with-py">@group.Key.GetName()</label>
+                    </span>
+
+                    <separator style="background-color: @group.Key.GetColor().Hex" />
+
+                    <label class="emphasis">0</label>
                 </span>
 
                 <div class="row header with-px-lg with-py-sm">
