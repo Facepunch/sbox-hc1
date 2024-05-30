@@ -255,13 +255,6 @@ public partial class PlayerInventory : Component
 
 	public bool CanTakeWeapon( WeaponData resource )
 	{
-		// TODO: Top-up grenades
-		if ( Weapons.Any( x => x.Resource == resource ) ) return false;
-
-		// Shit code but gets the job done for now
-		if ( Weapons.Any( x => x.Resource.Slot == WeaponSlot.Primary && resource.Slot == WeaponSlot.Primary ) ) return false;
-		if ( Weapons.Any( x => x.Resource.Slot == WeaponSlot.Secondary && resource.Slot == WeaponSlot.Secondary ) ) return false;
-
 		if ( resource.Team != Team.Unassigned
 			&& resource.Team != Player.TeamComponent.Team
 			&& !resource.CanOtherTeamPickUp )
