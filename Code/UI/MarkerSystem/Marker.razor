@@ -54,16 +54,18 @@
 
     public override void Tick()
     {
-        if ( !Scene.Camera.IsValid() )
+        var camera = GameUtils.Viewer?.CameraController?.Camera ?? Scene.Camera;
+
+        if ( !camera.IsValid() )
         {
             return;
         }
 
-        var toScreen = Scene.Camera.PointToScreenNormal( Frame.Position, out IsBehind );
+        var toScreen = camera.PointToScreenNormal( Frame.Position, out IsBehind );
 
         if ( Frame.Trace )
         {
-            var tr = Scene.Trace.Ray( Scene.Camera.Transform.Position, Scene.Camera.Transform.Position * Scene.Camera.Transform.Rotation.Forward * 100000f )
+            var tr = Scene.Trace.Ray( camera.Transform.Position, camera.Transform.Position * camera.Transform.Rotation.Forward * 100000f )
             .WithoutTags( "trigger", "movement" )
             .Run();
 
