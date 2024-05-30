@@ -12,7 +12,8 @@ public interface IKillListener
 	/// <param name="position"></param>
 	/// <param name="force"></param>
 	/// <param name="inflictor"></param>
+	/// <param name="isHeadshot"></param>
 	/// <param name="killer"></param>
 	/// <param name="victim"></param>
-	public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null );
+	public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null, bool isHeadshot = false );
 }

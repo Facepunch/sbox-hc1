@@ -12,7 +12,7 @@ public sealed class KillRewards : Component, IKillListener
 	[Property, HostSync, ShowIf( nameof(AllowFriendlyFire), false )]
 	public int FriendlyFirePenalty { get; set; } = 300;
 
-	public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null )
+	public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null, bool isHeadshot = false )
 	{
 		if ( GameUtils.GetPlayerFromComponent( killer ) is not { } killerPlayer )
 		{

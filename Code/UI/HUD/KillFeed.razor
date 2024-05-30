@@ -12,6 +12,11 @@
                 @if ( GameUtils.GetWeaponFromComponent( entry.Inflictor ) is {} weapon )
                 {
                     <div class="icon" style="background-image: url( @weapon.Resource.Icon );" />
+
+                    @if ( entry.IsHeadshot )
+                    {
+                        <Icon File="/ui/headshot.png" size="32" />
+                    }
                 }
                 else
                 {
@@ -25,15 +30,15 @@
 
 @code
 {
-    public record Entry( Component Killer, Component Victim, Component Inflictor, RealTimeSince TimeSinceAdded );
+    public record Entry( Component Killer, Component Victim, Component Inflictor, bool IsHeadshot, RealTimeSince TimeSinceAdded );
 
     private List<Entry> Entries { get; set; } = new();
 
     private float Lifetime => 10f;
 
-    public void OnPlayerKilled( Component killer, Component victim, Component inflictor )
+    public void OnPlayerKilled( Component killer, Component victim, Component inflictor, bool isHeadshot )
     {
-        var entry = new Entry( killer, victim, inflictor, 0 );
+        var entry = new Entry( killer, victim, inflictor, isHeadshot, 0 );
         Entries.Add( entry );
         StateHasChanged();
     }

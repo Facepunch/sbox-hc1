@@ -34,7 +34,7 @@ public sealed class PlayerScore : Component, IKillListener
 	// Other CTs alive when the bomb is defused
 	private const int DefuseTeamAliveScore = 1;
 
-	public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null )
+	public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null, bool isHeadshot = false )
 	{
 		Log.Info( $"{killer} killed {victim} with {inflictor} for {damage} damage at {position} with {force} force" );
 

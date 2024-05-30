@@ -2,7 +2,7 @@ namespace Facepunch;
 
 public partial class EquippmentDropper : Component, IKillListener
 {
-	void IKillListener.OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor )
+	void IKillListener.OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor, bool isHeadshot )
 	{
 		var player = GameUtils.GetPlayerFromComponent( victim );
 		if ( !player.IsValid() )

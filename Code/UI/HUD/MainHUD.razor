@@ -28,8 +28,8 @@
     public KillFeed KillFeed { get; set; }
 
 
-    public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null )
+    public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null, bool isHeadshot = false )
     {
-        KillFeed.OnPlayerKilled( killer, victim, inflictor );
+        KillFeed.OnPlayerKilled( killer, victim, inflictor, isHeadshot );
     }
 }

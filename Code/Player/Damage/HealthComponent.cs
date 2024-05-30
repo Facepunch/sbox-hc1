@@ -123,7 +123,7 @@ public partial class HealthComponent : Component, IRespawnable
 	}
 
 	[Broadcast]
-	private void BroadcastKill( Guid killerComponent, Guid victimComponent, float damage, Vector3 position, Vector3 force = default, Guid inflictorComponent = default )
+	private void BroadcastKill( Guid killerComponent, Guid victimComponent, float damage, Vector3 position, Vector3 force = default, Guid inflictorComponent = default, bool isHeadshot = false )
 	{
 		foreach ( var listener in Scene.GetAllComponents<IKillListener>() )
 		{
@@ -133,7 +133,8 @@ public partial class HealthComponent : Component, IRespawnable
 				damage, 
 				position,
 				force,
-				Scene.Directory.FindComponentByGuid( inflictorComponent ) );
+				Scene.Directory.FindComponentByGuid( inflictorComponent ),
+				isHeadshot );
 		}
 	}
 
@@ -157,7 +158,7 @@ public partial class HealthComponent : Component, IRespawnable
 				State = LifeState.Dead;
 
 				// Broadcast this kill (for feed)
-				BroadcastKill( attackerId, Id, damage, position, force, inflictorId );
+				BroadcastKill( attackerId, Id, damage, position, force, inflictorId, isHeadshot );
 			}
 		}
 
