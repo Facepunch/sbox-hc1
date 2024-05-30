@@ -53,7 +53,7 @@
 
         var currentTrace = player.Scene.Trace.Ray( origin, camera.Transform.Rotation.Forward * range )
             .IgnoreGameObjectHierarchy( player.GameObject )
-            .WithoutTags("invis")
+            .WithoutTags( "invis", "ragdoll" )
             .UseHitboxes()
             .Run();
 
