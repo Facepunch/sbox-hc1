@@ -2,7 +2,7 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-<root style="@BuildStyle()">
+<root style="@BuildStyle()" class="@BuildClass()">
     <div style="@BuildOuterStyle()" class="container">
         <div style="@BuildInnerStyle()" class="inner"></div>
     </div>
@@ -39,5 +39,10 @@
     private string BuildStyle()
     {
         return $"width: {Size}px; height: {Size}px;";
+    }
+
+    private string BuildClass()
+    {
+        return Value < 1f ? "zero" : "";
     }
 }
