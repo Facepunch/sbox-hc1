@@ -163,12 +163,8 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		foreach ( var tr in GetShootTrace() )
 		{
 			if ( !tr.Hit )
-			{
-				DoShootEffects();
 				continue;
-			}
 
-			DoShootEffects();
 			// CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
 			DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
 
@@ -197,6 +193,8 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 
 		// If we have a recoil function, let it know.
 		Weapon.GetFunction<RecoilFunction>()?.Shoot();
+
+		DoShootEffects();
 
 		for ( int i = 0; i < BulletCount; i++ )
 		{
