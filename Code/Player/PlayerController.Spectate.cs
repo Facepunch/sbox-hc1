@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sandbox.Diagnostics;
 
 namespace Facepunch;
 
@@ -15,29 +11,17 @@ partial class PlayerController
 
 	private void SpectateUpdate()
 	{
-		if ( Input.Pressed( "attack1" ) )
+		if ( Input.Pressed( "SpectatorNext" ) )
 		{
-			var players = Scene.GetAllComponents<PlayerController>();
-			int idx = 0;
-			int idxSelf = 0;
-			for ( int i = 0; i < players.Count(); i++ )
-			{
-				if ( players.ElementAt(i) == GameUtils.Viewer )
-					idx = i;
-
-				if ( players.ElementAt( i ) == this )
-					idxSelf = i;
-			}
-
-			idx = (idx + 1) % players.Count();
-			if ( idx == idxSelf )
-			{
-				Transform.Rotation = GameUtils.Viewer.EyeAngles.ToRotation();
-				Transform.Position = GameUtils.Viewer.Transform.Position + (Transform.Rotation.Forward * 3.0f);
-			}
-
-			var player = players.ElementAt( idx );
-			(player as IPawn).Possess();
+			SpectateNextPlayer( true );
+		}
+		else if ( Input.Pressed( "SpectatorPrev" ) )
+		{
+			SpectateNextPlayer( false );
+		}
+		else if( Input.Pressed( "SpectatorFreeCam" ) )
+		{
+			SpectateFreecam();
 		}
 
 		// freecam
@@ -45,5 +29,51 @@ partial class PlayerController
 		{
 			Transform.Position += Input.AnalogMove * CameraController.Camera.Transform.Rotation * NoclipSpeed * Time.Delta;
 		}
+	}
+
+	private void SpectateNextPlayer( bool direction )
+	{
+		Assert.True( IsSpectating );
+
+		var players = Scene.GetAllComponents<PlayerController>();
+		int idxCur = 0;
+		for ( int i = 0; i < players.Count(); i++ )
+		{
+			if ( players.ElementAt( i ) == GameUtils.Viewer )
+				idxCur = i;
+		}
+
+		int count = players.Count();
+		for ( int i = 1; i < count; i++ )
+		{
+			int idx = (idxCur + (direction ? i : -i) + count) % count;
+
+			var element = players.ElementAt( idx );
+			if ( !element.IsSpectating )
+			{
+				(element as IPawn).Possess();
+				return;
+			}
+		}
+
+		// no players to spectate, fallback to freecam
+		SpectateFreecam();
+		return;
+	}
+
+	private void SpectateFreecam()
+	{
+		Assert.True( IsSpectating );
+
+		if ( IsViewer )
+			return;
+
+		// entering freecam, position ourselves at the last guy's pov
+		var lastTransform = GameUtils.Viewer.Transform;
+		Transform.Rotation = GameUtils.Viewer.EyeAngles.ToRotation();
+		Transform.Position = lastTransform.Position - (Transform.Rotation.Forward * 128.0f);
+		EyeAngles = Angles.Zero;
+
+		( this as IPawn ).Possess();
 	}
 }
