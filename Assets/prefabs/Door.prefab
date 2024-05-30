@@ -2,9 +2,7 @@
   "RootObject": {
     "__guid": "06c40250-1e5a-44ee-818f-ef139d0cf6f4",
     "Flags": 0,
-    "Name": "Door",
-    "Position": "-183,-1032,32",
-    "Rotation": "0,0,0.7071067,0.7071068",
+    "Name": "door",
     "Enabled": true,
     "NetworkMode": 1,
     "NetworkInterpolation": true,
@@ -29,25 +27,26 @@
         "__type": "Sandbox.ModelRenderer",
         "__guid": "cb88b133-2d16-4209-b014-24bbf27fb8d0",
         "BodyGroups": 18446744073709551615,
-        "Model": "models/props/trim_sheets/doors/wooden_doors/wooden_door_01d.vmdl",
+        "Model": "models/dev/door/door_single_dev.vmdl",
         "RenderType": "On",
-        "Tint": "1,1,1,1"
+        "Tint": "0,0.3,1,1"
       },
       {
         "__type": "Sandbox.ModelCollider",
         "__guid": "5f4fcae3-9810-493c-bd5f-2d9d3a4fb20a",
         "IsTrigger": false,
-        "Model": "models/props/trim_sheets/doors/wooden_doors/wooden_door_01d.vmdl",
+        "Model": "models/dev/door/door_single_dev.vmdl",
         "Static": true
       }
-    ]
+    ],
+    "Children": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
   "__references": [
-    "facepunch.wooden_door_01d",
+    "facepunch.door_single_dev",
     "viasoundcorner.hl2_door_open",
     "viasoundcorner.hl2_door_soft_close"
   ],
