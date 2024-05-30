@@ -17,7 +17,7 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// How long does it take to respawn this object?
 	/// </summary>
-	[Property] public float RespawnTime { get; set; } = 2f;
+	public float RespawnTime => 5;
 
 	/// <summary>
 	/// How long has it been since life state changed?

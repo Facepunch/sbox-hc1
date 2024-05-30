@@ -31,7 +31,7 @@ public enum WeaponSlot
 	Special = 5
 }
 
-[GameResource( "Gunfight/Weapon Data", "wpn", "A resource containing basic information about a weapon.", IconBgColor = "#5877E0", Icon = "track_changes" )]
+[GameResource( "hc1/Weapon Data", "wpn", "A resource containing basic information about a weapon.", IconBgColor = "#5877E0", Icon = "track_changes" )]
 public partial class WeaponData : GameResource
 {
 	public static HashSet<WeaponData> All { get; set; } = new();

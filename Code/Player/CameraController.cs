@@ -34,6 +34,11 @@ public sealed class CameraController : Component
 		Player.Body.ShowBodyParts( !isActive ? BodyRenderMode.Show : BodyRenderMode.ShadowsOnly );
 	}
 
+	void DeathMovement()
+	{
+		Camera.Transform.Position = Player.Transform.Position + Player.Transform.Rotation.Backward * 64 + Vector3.Up * 64;
+	}
+
 	/// <summary>
 	/// Updates the camera's position, from player code
 	/// </summary>
@@ -41,8 +46,11 @@ public sealed class CameraController : Component
 	internal void UpdateFromEyes( float eyeHeight )
 	{
 		// Don't move eyes if we're dead
-		if ( Player.HealthComponent.State != LifeState.Alive && !Player.IsSpectating )
+		if ( Player.HealthComponent.State != LifeState.Alive )
+		{
+			DeathMovement();
 			return;
+		}
 
 		Camera.Transform.Rotation = Player.EyeAngles.ToRotation();
 		Camera.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
