@@ -15,25 +15,35 @@
 
         @foreach ( var group in GroupedPlayers )
         {
-            <span class="flex align-center gap-sm">
-                <img class="icon" src="@group.Key.GetIconPath()" style="background-image-tint: @group.Key.GetColor().Hex" />
-                <label class="with-py" style="color: @group.Key.GetColor().Hex">@group.Key.GetName()</label>
-            </span>
-
-            <div class="row header with-px-lg with-py-sm">
-                <label class="col stat small"></label>
-                <label class="col stat-small small"></label>
-                <label class="col playername small"></label>
-                <label class="col stat-large small">Balance</label>
-                <label class="col stat small">Score</label>
-                <label class="col stat small">Kills</label>
-                <label class="col stat small">Deaths</label>
-                <label class="col stat small">Ratio</label>
-            </div>
-
-            @foreach ( var player in group )
+            @if ( group.Key == Team.Unassigned )
             {
-                <ScoreboardRow Player="@player" />
+                <div class="flex gap-sm">
+                    <label class="small">Spectators:</label>
+                    <label class="small">@(string.Join( ", ", group.Select( x => x.GetPlayerName() ) )</label>
+                </div>
+            }
+            else
+            {
+                <span class="flex align-center gap-sm">
+                    <img class="icon" src="@group.Key.GetIconPath()" style="background-image-tint: @group.Key.GetColor().Hex" />
+                    <label class="with-py" style="color: @group.Key.GetColor().Hex">@group.Key.GetName()</label>
+                </span>
+
+                <div class="row header with-px-lg with-py-sm">
+                    <label class="col stat small"></label>
+                    <label class="col stat-small small"></label>
+                    <label class="col playername small"></label>
+                    <label class="col stat-large small">Balance</label>
+                    <label class="col stat small">Score</label>
+                    <label class="col stat small">Kills</label>
+                    <label class="col stat small">Deaths</label>
+                    <label class="col stat small">Ratio</label>
+                </div>
+
+                @foreach ( var player in group )
+                {
+                    <ScoreboardRow Player="@player" />
+                }
             }
         }
     </table>
