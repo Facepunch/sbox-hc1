@@ -329,7 +329,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		IsCrouching = Input.Down( "Duck" );
 		IsUsing = Input.Down( "Use" );
 
-		if ( Input.Pressed( "Noclip" ) && Game.IsEditor )
+		if ( Input.Pressed( "Noclip" ) && ( DeveloperMenu.IsDeveloper || Game.IsEditor ) )
 		{
 			IsNoclipping = !IsNoclipping;
 		}
