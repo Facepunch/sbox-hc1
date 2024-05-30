@@ -35,8 +35,8 @@ public static class TeamExtensionMethods
 	{
 		return team switch
 		{
-			Team.CounterTerrorist => "/ui/teams/counterterrorists.png",
-			Team.Terrorist => "/ui/teams/terrorists.png",
+			Team.CounterTerrorist => "/ui/teams/operators.png",
+			Team.Terrorist => "/ui/teams/anarchists.png",
 			_ => "/ui/teams/spectator.png"
 		};
 	}
