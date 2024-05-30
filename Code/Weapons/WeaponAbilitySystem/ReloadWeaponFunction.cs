@@ -65,10 +65,14 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction
 		return TimedReloadSounds;
 	}
 
+	[Broadcast( NetPermission.OwnerOnly )]
 	void StartReload()
 	{
-		IsReloading = true;
-		TimeUntilReload = GetReloadTime();
+		if ( !IsProxy )
+		{
+			IsReloading = true;
+			TimeUntilReload = GetReloadTime();
+		}
 
 		// Tags will be better so we can just react to stimuli.
 		Weapon.ViewModel?.ModelRenderer.Set( "b_reload", true );
@@ -79,24 +83,28 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction
 		}
 	}
 
+	[Broadcast(NetPermission.OwnerOnly)]
 	void EndReload()
 	{
-		if ( SingleReload )
+		if ( !IsProxy )
 		{
-			AmmoContainer.Ammo++;
-			AmmoContainer.Ammo = AmmoContainer.Ammo.Clamp( 0, AmmoContainer.MaxAmmo );
-			
-			// Reload more!
-			if ( AmmoContainer.Ammo < AmmoContainer.MaxAmmo )
-				StartReload();
+			if ( SingleReload )
+			{
+				AmmoContainer.Ammo++;
+				AmmoContainer.Ammo = AmmoContainer.Ammo.Clamp( 0, AmmoContainer.MaxAmmo );
+
+				// Reload more!
+				if ( AmmoContainer.Ammo < AmmoContainer.MaxAmmo )
+					StartReload();
+				else
+					IsReloading = false;
+			}
 			else
+			{
 				IsReloading = false;
-		}
-		else
-		{
-			IsReloading = false;
-			// Refill the ammo container.
-			AmmoContainer.Ammo = AmmoContainer.MaxAmmo;
+				// Refill the ammo container.
+				AmmoContainer.Ammo = AmmoContainer.MaxAmmo;
+			}
 		}
 
 		// Tags will be better so we can just react to stimuli.

@@ -10,7 +10,7 @@ public partial class AmmoContainer : Component
 	/// <summary>
 	/// How much ammo are we holding?
 	/// </summary>
-	[Property] public int Ammo
+	[Property, Sync] public int Ammo
 	{
 		get => ammo;
 		set
