@@ -1,0 +1,82 @@
+{
+  "RootObject": {
+    "__guid": "58433e54-5e64-4d9e-809d-5f58a640f1f8",
+    "Flags": 0,
+    "Name": "w_he_grenade",
+    "Tags": "player",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.Weapon",
+        "__guid": "5b0c7fb8-2bf7-441e-b81e-ae963010820f",
+        "HoldType": "HoldItem",
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "926097b3-39b1-40f4-b194-3b782a22000b",
+          "go": "e89fb7b5-028f-416c-8140-ea73282f00ca",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "Resource": "weapons/throwable/he_grenade/he_grenade.wpn"
+      },
+      {
+        "__type": "Facepunch.TagBinder",
+        "__guid": "0679ad1d-c836-44c4-9bf8-59269c7fa844"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "e89fb7b5-028f-416c-8140-ea73282f00ca",
+        "Flags": 0,
+        "Name": "Model",
+        "Position": "3.535849,0,-5.571055",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "926097b3-39b1-40f4-b194-3b782a22000b",
+            "BodyGroups": 18446744073709551615,
+            "CreateBoneObjects": false,
+            "Model": "weapons/throwable/he_grenade/v_he_grenade.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "478e993d-2fec-4b4b-878e-109ab3ce47c1",
+        "Flags": 0,
+        "Name": "Functions",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.ThrowWeaponFunction",
+            "__guid": "d0c719bd-d3a5-4de0-8702-176d42fdb8c4",
+            "CookTime": 0.75,
+            "InputActions": [
+              "Attack1"
+            ],
+            "InputType": "Down",
+            "Prefab": {
+              "_type": "gameobject",
+              "prefab": "weapons/throwable/he_grenade/he_grenade.prefab"
+            },
+            "RequiresAllInputActions": false,
+            "ThrowPower": 1200
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

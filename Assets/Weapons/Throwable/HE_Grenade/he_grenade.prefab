@@ -1,0 +1,68 @@
+{
+  "RootObject": {
+    "__guid": "1b6cac5a-2a96-4541-98be-7069f86de897",
+    "Flags": 0,
+    "Name": "he_grenade",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.HEGrenade",
+        "__guid": "56ef21bf-49cc-455d-847e-8a77317f6080",
+        "Lifetime": 3,
+        "PrefabOnExplode": {
+          "_type": "gameobject",
+          "prefab": "weapons/throwable/he_grenade/he_explosion.prefab"
+        }
+      },
+      {
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "bda71a6d-6764-4992-9511-a1233a89f162",
+        "AngularDamping": 0,
+        "Gravity": true,
+        "LinearDamping": 0,
+        "Locking": {},
+        "MassOverride": 0,
+        "MotionEnabled": true,
+        "RigidbodyFlags": 0,
+        "StartAsleep": false
+      },
+      {
+        "__type": "Sandbox.SphereCollider",
+        "__guid": "9e469c3c-d917-47f7-8b25-9ec06a06f754",
+        "Center": "0,0,1.5",
+        "IsTrigger": false,
+        "Radius": 2,
+        "Static": false,
+        "Surface": "weapons/throwable/he_grenade/grenade.surface"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "ec888865-b568-4000-a3ac-1ebad3688768",
+        "Flags": 0,
+        "Name": "Model",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "990911aa-0db1-482f-8636-a1c8c7bb7110",
+            "BodyGroups": 18446744073709551615,
+            "Model": "weapons/throwable/he_grenade/v_he_grenade.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

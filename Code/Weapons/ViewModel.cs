@@ -17,6 +17,11 @@ public partial class ViewModel : Component
 	[Property] public SkinnedModelRenderer Arms { get; set; }
 
 	/// <summary>
+	/// Is this a throwable?
+	/// </summary>
+	[Property] public bool IsThrowable { get; set; }
+
+	/// <summary>
 	/// Look up the tree to find the camera.
 	/// </summary>
 	CameraController CameraController => PlayerController.CameraController;
@@ -43,7 +48,14 @@ public partial class ViewModel : Component
 
 	protected override void OnStart()
 	{
-		ModelRenderer.Set( "b_deploy", true );
+		if ( IsThrowable )
+		{
+			ModelRenderer.Set( "throwable_type", (int)ThrowableType );
+		}
+		else
+		{
+			ModelRenderer.Set( "b_deploy", true );
+		}
 
 		// Register an event.
 		PlayerController.OnJump += OnPlayerJumped;
@@ -163,6 +175,24 @@ public partial class ViewModel : Component
 		// Weapon state
 		ModelRenderer.Set( "b_empty", !Weapon.Components.Get<AmmoContainer>( FindMode.EnabledInSelfAndDescendants )?.HasAmmo ?? false );
 	}
+	
+	public enum ThrowableTypeEnum
+	{
+		HEGrenade,
+		SmokeGrenade,
+		StunGrenade,
+		Molotov
+	}
+
+	[Property] public ThrowableTypeEnum ThrowableType { get; set; }
+
+	private void ApplyThrowableAnimations()
+	{
+		var throwFn = Weapon.GetFunction<ThrowWeaponFunction>();
+
+		ModelRenderer.Set( "b_pull", throwFn.ThrowState == ThrowWeaponFunction.State.Cook );
+		ModelRenderer.Set( "b_throw", throwFn.ThrowState == ThrowWeaponFunction.State.Throwing );
+	}
 
 	protected override void OnUpdate()
 	{
@@ -173,9 +203,16 @@ public partial class ViewModel : Component
 		if ( !PlayerController.IsValid() || !PlayerController.CharacterController.IsValid() )
 			return;
 
+		if ( IsThrowable )
+		{
+			ApplyThrowableAnimations();
+		}
+		else
+		{
+			ApplyStates();
+			ApplyAnimationParameters();
+		}
 		ApplyVelocity();
-		ApplyStates();
-		ApplyAnimationParameters();
 		ApplyAnimationTransform();
 		ApplyInertia();
 

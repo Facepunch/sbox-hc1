@@ -6,6 +6,9 @@
     @if ( CustomPanel is not null )
         return;
 
+    @if ( IsBehind )
+        return;
+
     <label>
         @Frame.DisplayText
     </label>
@@ -58,6 +61,18 @@
 
         var toScreen = Scene.Camera.PointToScreenNormal( Frame.Position, out IsBehind );
 
+        if ( Frame.Trace )
+        {
+            var tr = Scene.Trace.Ray( Scene.Camera.Transform.Position, Scene.Camera.Transform.Position * Scene.Camera.Transform.Rotation.Forward * 100000f )
+            .WithoutTags( "trigger", "movement" )
+            .Run();
+
+            if ( tr.Hit )
+            {
+                IsBehind = true;
+            }
+        }
+
         SetClass( "is-behind", IsBehind );
 
         if ( IsBehind && !ClampToScreen )
@@ -75,6 +90,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( CustomPanel );
+        return HashCode.Combine( CustomPanel, IsBehind );
     }
 }
