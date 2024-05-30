@@ -40,7 +40,7 @@ public sealed class WaitForPlayers : Component, IGameStartListener
 			await Task.DelaySeconds( 1f );
 		}
 
-		GameMode.Instance.ShowStatusText( "Starting game..." );
+		GameMode.Instance.ShowStatusText( "Starting..." );
 		GameMode.Instance.ShowCountDownTimer( Time.Now, GameStartDelaySeconds );
 
 		await Task.DelaySeconds( GameStartDelaySeconds );
@@ -56,7 +56,7 @@ public sealed class WaitForPlayers : Component, IGameStartListener
 	{
 		IsPostponed = true;
 
-		GameMode.Instance.ShowStatusText( "Game Start Paused" );
+		GameMode.Instance.ShowStatusText( "Paused" );
 		GameMode.Instance.HideTimer();
 	}
 
