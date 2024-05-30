@@ -12,7 +12,7 @@ public sealed class RoundStartPlayerSpawner : Component, IRoundStartListener
 		foreach ( var player in GameUtils.ActivePlayers )
 		{
 			Log.Info(
-				$"Calling Respawn on {player.GameObject.Name} ({player.GameObject.Network.OwnerConnection?.DisplayName})" );
+				$"Calling Respawn on {player.GameObject.Name} ({player.GetPlayerName()})" );
 
 			player.Respawn();
 		}

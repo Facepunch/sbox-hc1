@@ -144,6 +144,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// </summary>
 	[HostSync] public bool IsBot { get; set; } = false;
 
+	public string GetPlayerName() => IsBot ? "BOT" : Network.OwnerConnection.DisplayName;
+
 	/// <summary>
 	/// If true, we're not allowed to move.
 	/// </summary>

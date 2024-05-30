@@ -56,7 +56,7 @@ public partial class PlayerController
 	[Broadcast( NetPermission.HostOnly )]
 	public void Respawn()
 	{
-		Log.Info( $"Respawn( {GameObject.Name} ({Network.OwnerConnection?.DisplayName}, {TeamComponent.Team}) )" );
+		Log.Info( $"Respawn( {GameObject.Name} ({GetPlayerName()}, {TeamComponent.Team}) )" );
 
 		if ( !IsSpectating )
 			ResetBody();
