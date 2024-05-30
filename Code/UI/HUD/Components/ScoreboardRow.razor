@@ -55,6 +55,9 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(KillDeathRatio, Score.Score, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead);
+        var a = HashCode.Combine(KillDeathRatio, Score.Score, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead);
+        var b = HashCode.Combine(Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb);
+
+        return HashCode.Combine( a, b );
     }
 }
