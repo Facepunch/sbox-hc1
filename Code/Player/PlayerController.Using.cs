@@ -20,18 +20,15 @@ partial class PlayerController
 
 			if ( Input.Pressed( "Use" ) )
 			{
-				using ( Rpc.FilterInclude( Connection.Host ) )
-				{
-					TryUse( AimRay );
-				}
+				TryUse( AimRay.Position, AimRay.Forward );
 			}
 		}
 	}
 
 	[Broadcast( NetPermission.OwnerOnly )]
-	private void TryUse( Ray ray )
+	private void TryUse( Vector3 pos, Vector3 forward )
 	{
-		var hits = Scene.Trace.Ray( ray, UseDistance )
+		var hits = Scene.Trace.Ray( pos, forward * UseDistance )
 			.Size( 5f )
 			.IgnoreGameObjectHierarchy( GameObject )
 			.HitTriggers()

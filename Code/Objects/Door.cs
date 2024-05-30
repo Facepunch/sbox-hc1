@@ -82,6 +82,8 @@ public sealed class Door : Component, IUse
 
 	public void OnUse( PlayerController player )
 	{
+		if ( !player.IsValid() ) return;
+
 		LastUse = 0.0f;
 
 		if ( State == DoorState.Closed )
