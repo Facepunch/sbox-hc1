@@ -145,6 +145,9 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	[Broadcast]
 	private void CreateBloodEffects( Vector3 pos, Vector3 normal )
 	{
+		if ( !IsNearby( pos ) )
+			return;
+
 		var particlePath = "particles/impact.flesh.bloodpuff.vpcf";
 		CreateParticleSystem( particlePath, pos, Rotation.LookAt( -normal ), 0.5f );
 
@@ -201,11 +204,26 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	}
 
 	/// <summary>
+	/// Anything past 2048 units won't produce effects,
+	/// this is very shitty
+	/// </summary>
+	private const float MaxDistanceSq = 4194304f;
+
+	/// <summary>
+	/// Are we nearby a position? Used for FX
+	/// </summary>
+	/// <param name="position"></param>
+	/// <returns></returns>
+	private bool IsNearby( Vector3 position ) => position.DistanceSquared( Scene.Camera.Transform.Position ) < MaxDistanceSq;
+
+	/// <summary>
 	/// Makes some tracers using legacy particle effects.
 	/// </summary>
 	[Broadcast]
 	protected void DoTracer( Vector3 startPosition, Vector3 endPosition, float distance, int count )
 	{
+		if ( !IsNearby( startPosition ) || IsNearby( endPosition ) ) return;
+
 		var effectPath = "particles/gameplay/guns/trail/trail_smoke.vpcf";
 
 		// For when we have bullet penetration implemented.
