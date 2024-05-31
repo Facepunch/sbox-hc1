@@ -1,9 +1,13 @@
+@import "/UI/Styles/Theme.scss";
+
 KillFeed
 {
     position: absolute;
-    top: 30%;
-    left: 64px;
+    top: $safe-zone-y;
+    right: $safe-zone-x;
     flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
 
     .entry
     {

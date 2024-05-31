@@ -4,7 +4,7 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="hud with-deadzone row middle-left">
+<root class="hud with-deadzone row top-left" style="margin-top: 300px">
     <InputHint Action="BuyMenu" class="small @(!Player.IsInBuyzone() ? "hidden" : "")" Size="@InputGlyphSize.Small" />
     <label>$@Inventory.Balance.ToString("N0")</label>
 </root>
