@@ -18,8 +18,12 @@
 
                     @if ( entry.IsHeadshot )
                     {
-                        <Icon File="/ui/headshot.png" size="32" />
+                        <Icon class="headshot" File="/ui/headshot.png" size="32" />
                     }
+                }
+                else if ( entry.Inflictor is TimedExplosive bomb )
+                {
+                    <Icon File="/ui/bomb.png" size="32"></Icon>
                 }
                 else
                 {
