@@ -11,7 +11,7 @@
             <div class="markers">
                 @foreach (var marker in MarkedObjects)
                 {
-                    if (!TeamCheck(marker))
+                    if (!ShowMarker(marker))
                     {
                         continue;
                     }
@@ -57,11 +57,14 @@
         base.Tick();
     }
 
-    bool TeamCheck(IMarkerObject obj)
+    bool ShowMarker(IMarkerObject obj)
     {
         var ply = obj.GameObject.Components.Get<TeamComponent>();
 
         if (!ply.IsValid()) return false;
+
+        if (obj.GameObject.Tags.Has("invis"))
+            return false;
 
         if (GameUtils.LocalPlayer?.IsSpectating ?? false)
         {
