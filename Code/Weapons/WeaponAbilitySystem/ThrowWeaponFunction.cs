@@ -54,6 +54,8 @@ public partial class ThrowWeaponFunction : InputActionWeaponFunction
 	{
 		if ( !Networking.IsHost ) return;
 
+		RadioSounds.Play( Weapon.PlayerController.GameObject.GetTeam(), RadioSound.ThrownGrenade );
+
 		var player = Weapon.PlayerController;
 
 		var tr = Scene.Trace.Ray( new Ray( player.AimRay.Position, player.AimRay.Forward ), 128 )

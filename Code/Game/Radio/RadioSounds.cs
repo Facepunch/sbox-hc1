@@ -21,7 +21,11 @@ public enum RadioSound
 	/// <summary>
 	/// When the bomb has been defused.
 	/// </summary>
-	BombDefused
+	BombDefused,
+	/// <summary>
+	/// When someone has thrown a grenade.
+	/// </summary>
+	ThrownGrenade,
 }
 
 [GameResource( "Radio sounds", "radio", "" )]
