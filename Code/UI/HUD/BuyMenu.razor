@@ -80,6 +80,8 @@
         if ( !CanAfford( weaponData ) )
             return;
 
+        Sound.Play( "buy" );
+
         Inventory.BuyWeapon( weaponData.ResourceId );
     }
 
@@ -87,6 +89,8 @@
     {
         if ( !CanAfford( equipmentData ) )
             return;
+
+        Sound.Play( "buy" );
 
         Inventory.BuyEquipment( equipmentData.Id );
     }
