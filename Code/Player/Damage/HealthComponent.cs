@@ -109,6 +109,7 @@ public partial class HealthComponent : Component, IRespawnable
 		switch ( newValue )
 		{
 			case LifeState.Alive:
+				InternalHealth = 100f;
 				Respawnables.ToList().ForEach( x => x.Respawn() );
 				break;
 			case LifeState.Dead or LifeState.Respawning when oldValue == LifeState.Alive:

@@ -96,7 +96,7 @@ public partial class PlayerInventory : Component
 		if ( !Player.IsLocallyControlled )
 			return;
 
-		if ( Input.Pressed( "Drop" ) )
+		if ( Input.Pressed( "Drop" ) && CurrentWeapon.IsValid() )
 		{
 			DropWeapon( CurrentWeapon.Id );
 		}
