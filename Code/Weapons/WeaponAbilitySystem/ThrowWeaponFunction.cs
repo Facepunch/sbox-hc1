@@ -19,6 +19,8 @@ public partial class ThrowWeaponFunction : InputActionWeaponFunction
 
 	protected override void OnFunctionExecute()
 	{
+		if ( ThrowState != State.Idle ) return;
+
 		ThrowState = State.Cook;
 		TimeSinceAction = 0;
 	}
