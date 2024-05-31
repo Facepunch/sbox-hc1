@@ -101,4 +101,6 @@ public class DefuseKitEquipment : EquipmentData
 	}
 
 	public override bool IsVisible( PlayerController player ) => player.GameObject.GetTeam() == Team.CounterTerrorist;
+
+	public override bool IsOwned( PlayerController player ) => player.Inventory.HasDefuseKit;
 }
