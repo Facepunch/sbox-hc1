@@ -25,13 +25,11 @@ public sealed class TimedExplosive : Component, IUse
 		? FastDefuseTime
 		: BaseDefuseTime;
 
-	public float Progress => Math.Clamp(TimeSinceDefuseStart / DefuseTime, 0f, 1f );
+	public float Progress => Math.Clamp( TimeSinceDefuseStart / DefuseTime, 0f, 1f );
 
-	[HostSync]
-	public TimeSince TimeSincePlanted { get; private set; }
-
-	[HostSync]
-	public bool IsDefused { get; private set; }
+	[HostSync] public TimeSince TimeSinceDefuseStart { get; private set; }
+	[HostSync] public TimeSince TimeSincePlanted { get; private set; }
+	[HostSync]public bool IsDefused { get; private set; }
 
 	public TimeSince TimeSinceLastBeep { get; private set; }
 
@@ -60,11 +58,9 @@ public sealed class TimedExplosive : Component, IUse
 	/// Bomb site this bomb was planted at.
 	/// </summary>
 	public BombSite BombSite { get; private set; }
-
+	
 	public PlayerController DefusingPlayer { get; private set; }
-
-	[HostSync] public TimeSince TimeSinceDefuseStart { get; private set; }
-
+	
 	protected override void OnEnabled()
 	{
 		base.OnEnabled();
