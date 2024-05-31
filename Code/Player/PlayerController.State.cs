@@ -22,18 +22,25 @@ public partial class PlayerController
 	/// </summary>
 	public bool IsSpectating => HealthComponent.State == LifeState.Dead;
 
-	public void Kill()
+	void IRespawnable.Kill() => Kill(true);
+
+	[Broadcast( NetPermission.HostOnly )]
+	public void Kill( bool enableRagdoll = true )
 	{
 		if ( Networking.IsHost )
 		{
 			HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
 			Inventory.Clear();
+
+			if ( enableRagdoll )
+				EnableRagdoll();
 		}
 
-		if ( TeamComponent.Team is Team.Terrorist or Team.CounterTerrorist )
-			EnableRagdoll();
-		else
+		if ( !enableRagdoll )
 			GameObject.Tags.Set( "invis", true );
+
+		if ( IsProxy || IsBot )
+			return;
 
 		InBuyMenu = false;
 		CameraController.Mode = CameraMode.ThirdPerson;
@@ -84,6 +91,7 @@ public partial class PlayerController
 	public void Teleport( Vector3 position, Rotation rotation )
 	{
 		Transform.World = new( position, rotation );
+		EyeAngles = rotation.Angles();
 	}
 	
 	private void EnableRagdoll()

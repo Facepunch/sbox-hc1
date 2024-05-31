@@ -107,6 +107,14 @@ public interface IPlayerSpawnListener
 	public void PostPlayerSpawn( PlayerController player ) { }
 }
 
+public interface IPlayerJoinedListener
+{
+	/// <summary>
+	/// Called on the host when a new player joins
+	/// </summary>
+	public void OnPlayerJoined( PlayerController player ) { }
+}
+
 public interface ITeamAssignedListener
 {
 	/// <summary>

@@ -3,11 +3,39 @@
 /// <summary>
 /// Split players into two balanced teams.
 /// </summary>
-public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListener
+public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListener, IPlayerJoinedListener
 {
 	[Property]
 	public int MaxTeamSize { get; set; } = 5;
 
+	void IPlayerJoinedListener.OnPlayerJoined( PlayerController player )
+	{
+		Log.Info( nameof( TeamAssigner ) );
+		var ts = GameUtils.GetPlayers( Team.Terrorist ).ToList();
+		var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).ToList();
+
+		Team assignTeam = Team.Unassigned;
+
+		int compare = ts.Count().CompareTo( cts.Count() );
+		if ( compare < 0 )
+		{
+			assignTeam = Team.Terrorist;
+		}
+		else if ( compare > 0 )
+		{
+			assignTeam = Team.CounterTerrorist;
+		}
+		else if ( cts.Count() < MaxTeamSize )
+		{
+			bool coinFlip = Random.Shared.Next( 2 ) == 1;
+			assignTeam = coinFlip ? Team.Terrorist : Team.CounterTerrorist;
+		}
+
+		player.AssignTeam( assignTeam );
+	}
+
+	// assigning teams on join now instead, turn this into balance teams?
+	/*
 	void IGameStartListener.PostGameStart()
 	{
 		Log.Info( nameof( TeamAssigner ) );
@@ -27,6 +55,7 @@ public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListe
 			ctPlayer.AssignTeam( Team.CounterTerrorist );
 		}
 	}
+	*/
 
 	void IRoundEndListener.PostRoundEnd()
 	{

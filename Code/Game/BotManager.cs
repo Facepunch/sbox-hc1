@@ -31,8 +31,11 @@ public sealed class BotManager : SingletonComponent<BotManager>
 	public void AddBot()
 	{
 		var player = GameNetworkManager.Instance.PlayerPrefab.Clone();
-		player.Components.Get<PlayerController>().BotId = CurrentBotId;
-		player.NetworkSpawn( Connection.Host );
+
+		PlayerController playerController = player.Components.Get<PlayerController>();
+		playerController.BotId = CurrentBotId;
+
+		GameNetworkManager.Instance.OnPlayerJoined( playerController, Connection.Host );
 
 		CurrentBotId++;
 	}

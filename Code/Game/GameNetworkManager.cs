@@ -38,28 +38,41 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 
 		Log.Info( $"Player '{channel.DisplayName}' is becoming active" );
 
-		var player = PlayerPrefab.Clone( GameUtils.GetRandomSpawnPoint( Team.Unassigned ) );
-		player.NetworkSpawn( channel );
+		var player = PlayerPrefab.Clone();
 
 		var playerComponent = player.Components.Get<PlayerController>();
-
 		if ( !playerComponent.IsValid() )
-		{
 			return;
+
+		OnPlayerJoined( playerComponent, channel );
+	}
+
+	public void OnPlayerJoined( PlayerController player, Connection channel )
+	{
+		foreach ( var listener in Scene.GetAllComponents<IPlayerJoinedListener>() )
+		{
+			listener.OnPlayerJoined( player );
 		}
 
-		using ( Rpc.FilterInclude( channel ) )
-		{
-			playerComponent.TryPossess();
-		}
+		Transform spawnPoint = GameUtils.GetRandomSpawnPoint( player.TeamComponent.Team );
+		player.Teleport( spawnPoint );
+		player.GameObject.NetworkSpawn( channel );
 
-		if ( playerComponent.CanRespawn )
+		if ( player.CanRespawn )
 		{
-			playerComponent.Respawn();
+			player.Respawn();
 		}
 		else
 		{
-			playerComponent.Kill();
+			player.Kill( false );
+		}
+
+		if ( !player.IsBot )
+		{
+			using ( Rpc.FilterInclude( channel ) )
+			{
+				player.TryPossess();
+			}
 		}
 	}
 
