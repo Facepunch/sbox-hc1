@@ -35,12 +35,14 @@ public sealed class TeamScoring : Component, IGameStartListener, IRoundStartList
 		switch ( RoundWinner )
 		{
 			case Team.Terrorist:
+				GameMode.Instance.ShowToast( "Anarchists Win!" );
 				GameMode.Instance.ShowStatusText( "Anarchists Win!" );
 				RadioSounds.Play( Team.CounterTerrorist, RadioSound.RoundLost );
 				RadioSounds.Play( Team.Terrorist, RadioSound.RoundWon );
 				break;
 
 			case Team.CounterTerrorist:
+				GameMode.Instance.ShowToast( "Operators Win!" );
 				GameMode.Instance.ShowStatusText( "Operators Win!" );
 				RadioSounds.Play( Team.CounterTerrorist, RadioSound.RoundWon );
 				RadioSounds.Play( Team.Terrorist, RadioSound.RoundLost );

@@ -94,6 +94,8 @@ public sealed class BombDefusalScenario : Component,
 
 	void IRoundStartListener.PostRoundStart()
 	{
+		GameMode.Instance.ShowToast( "Match Start" );
+
 		GameMode.Instance.ShowStatusText( Team.Terrorist, "Plant the Bomb" );
 		GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "Defend" );
 	}
@@ -108,6 +110,8 @@ public sealed class BombDefusalScenario : Component,
 		TeamEliminated.IgnoreTeam = Team.Terrorist;
 
 		planter?.Inventory.GiveCash( BombPlantedPlayerBonus );
+
+		GameMode.Instance.ShowToast( "Bomb has been planted." );
 
 		GameMode.Instance.ShowStatusText( Team.Terrorist, "Defend" );
 		GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "Defuse the Bomb" );

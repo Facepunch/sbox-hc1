@@ -1,0 +1,37 @@
+﻿@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root class="hud middle with-padding with-px-lg with-background flex justify-center align-center column @BuildClass()" style="top: 25%">
+    <label class="emphasis">@Status</label>
+</root>
+
+@code
+{
+    public static Toast Instance { get; private set; }
+
+    public Toast()
+    {
+        Instance = this;
+    }
+
+    public void Show( string status )
+    {
+        Status = status;
+        TimeSinceActivated = 0;
+    }
+
+    public string Status { get; set; } = "";
+    private RealTimeSince TimeSinceActivated { get; set; } = 100f;
+    private bool IsActive => TimeSinceActivated < 5f;
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Status, IsActive);
+    }
+
+    private string BuildClass()
+    {
+        return (IsActive) ? "visible" : "";
+    }
+}

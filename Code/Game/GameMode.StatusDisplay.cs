@@ -1,4 +1,5 @@
 ﻿using Facepunch;
+using Facepunch.UI;
 
 partial class GameMode
 {
@@ -67,5 +68,11 @@ partial class GameMode
 	public void HideStatusText()
 	{
 		DisplayedStatus = null;
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	public void ShowToast( string value )
+	{
+		Toast.Instance.Show( value );
 	}
 }
