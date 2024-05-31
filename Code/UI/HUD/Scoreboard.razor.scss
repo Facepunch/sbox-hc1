@@ -3,15 +3,11 @@
 Scoreboard
 {
     z-index: 100;
-    opacity: 0;
-    display: none;
     backdrop-filter: $blur;
     border-radius: $rounding;
 
-    &.active
+    &.visible
     {
-        display: flex;
-        opacity: 1;
         pointer-events: all;
     }
 

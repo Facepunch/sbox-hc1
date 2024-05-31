@@ -6,7 +6,7 @@
 
 @attribute [StyleSheet]
 
-<root class="center with-background with-padding-lg">
+<root class="center with-background with-padding-lg hidden">
     <table>
         <div class="title">
             <label class="important">@Status</label>
@@ -84,6 +84,6 @@
 
     public override void Tick()
     {
-        SetClass( "active", IsActive );
+        SetClass( "visible", IsActive );
     }
 }

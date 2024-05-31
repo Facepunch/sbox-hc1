@@ -1,8 +1,7 @@
 ﻿@namespace Facepunch.UI
 @inherits Panel
-@attribute [StyleSheet]
 
-<root class="hud middle with-padding with-px-lg with-background flex justify-center align-center column @BuildClass()" style="top: 75%">
+<root class="with-padding with-px-lg with-background flex justify-center align-center column hidden @BuildClass()" style="top: 75%">
     <label class="emphasis">@Status</label>
     <ProgressBar Value="@(Progress * 100)" width="100" />
 </root>

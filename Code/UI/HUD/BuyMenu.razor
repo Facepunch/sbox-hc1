@@ -4,7 +4,7 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="flex absolute inset-0 align-center justify-center @(Player.InBuyMenu ? "active" : "")">
+<root class="flex absolute inset-0 align-center justify-center hidden @(Player.InBuyMenu ? "visible" : "")">
     <div class="flex column with-padding gap-sm">
 
         <div class="with-background with-padding">
