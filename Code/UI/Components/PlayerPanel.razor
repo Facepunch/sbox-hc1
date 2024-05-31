@@ -1,6 +1,8 @@
 @namespace Facepunch.UI
 @inherits Panel
 
+@if (!Player.IsValid()) return;
+
 <root>
     <label class="name" style="color:@TeamColor">
         @Player.GetPlayerName()
@@ -11,5 +13,5 @@
 {
     public PlayerController Player { get; set; }
 
-    private string TeamColor => Player.GameObject.GetTeam().GetColor().Hex;
+    private string TeamColor => ( Player?.GameObject?.GetTeam() ?? Team.Unassigned ).GetColor().Hex;
 }

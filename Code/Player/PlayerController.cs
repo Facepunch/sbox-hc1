@@ -179,7 +179,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	
 	private float _smoothEyeHeight;
 
-	[Sync] private Guid CurrentWeaponId { get; set; }
 	[Sync] public Angles EyeAngles { get; set; }
 	
 	/// <summary>

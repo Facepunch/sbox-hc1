@@ -38,6 +38,9 @@ public sealed class PlayerScore : Component, IKillListener
 	{
 		Log.Info( $"{killer} killed {victim} with {inflictor} for {damage} damage at {position} with {force} force" );
 
+		if ( !killer.IsValid() ) return;
+		if ( !victim.IsValid() ) return;
+
 		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
 		var killerPlayer = GameUtils.GetPlayerFromComponent( killer );
 		var victimPlayer = GameUtils.GetPlayerFromComponent( victim );
