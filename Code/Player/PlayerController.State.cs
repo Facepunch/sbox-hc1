@@ -36,7 +36,9 @@ public partial class PlayerController
 				EnableRagdoll();
 		}
 
-		if ( !enableRagdoll )
+		if ( enableRagdoll )
+			EnableRagdoll();
+		else
 			GameObject.Tags.Set( "invis", true );
 
 		if ( IsProxy || IsBot )
