@@ -9,7 +9,14 @@
     {
         @if ( !string.IsNullOrEmpty( Weapon.Resource.Icon ) )
         {
+            <div class="column">
             <div class="gunicon" style="background-image:url(@Weapon.Resource.Icon);" />
+
+            @if ( IsActive )
+            {
+                <label class="gunname">@Weapon.Resource.Name</label>
+            }
+            </div>
         }
         else
         {
@@ -18,7 +25,7 @@
             </div>
         }
 
-        <InputHint Action="Slot@((int) Slot)" />
+        <InputHint Action="Slot@((int) Slot)" class="small" Size="@InputGlyphSize.Small" />
     }
 </root>
 

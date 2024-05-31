@@ -4,8 +4,8 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="hud with-deadzone column middle-right">
-    @foreach ( var weapon in Inventory.Weapons.OrderByDescending( x => x.Resource.Slot ) )
+<root class="hud with-deadzone column bottom-right" style="bottom: 100px">
+    @foreach ( var weapon in Inventory.Weapons.OrderBy( x => x.Resource.Slot ) )
     {
         <WeaponRow Weapon=@weapon/>
     }
