@@ -53,6 +53,8 @@ public partial class PlayerController
 		if ( Networking.IsHost )
 		{
 			HealthComponent.Health = 100f;
+			HealthComponent.Armor = 0f;
+			HealthComponent.HasHelmet = false;
 			Respawn();
 		}
 	}
@@ -74,6 +76,8 @@ public partial class PlayerController
 			}
 
 			HealthComponent.Health = 100f;
+			HealthComponent.Armor = 0f;
+			HealthComponent.HasHelmet = false;
 			HealthComponent.State = LifeState.Alive;
 		}
 
