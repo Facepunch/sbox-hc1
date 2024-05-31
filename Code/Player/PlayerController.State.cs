@@ -48,6 +48,7 @@ public partial class PlayerController
 			return;
 
 		InBuyMenu = false;
+		IsSpectating = true;
 		CameraController.Mode = CameraMode.ThirdPerson;
 	}
 
