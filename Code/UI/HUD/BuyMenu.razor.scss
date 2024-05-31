@@ -67,11 +67,13 @@ BuyMenu {
 
         &.unaffordable {
             background-color: rgba( $red, 0.5 );
+            pointer-events: none;
         }
 
         &.owned {
             background-color: rgba( $yellow, 0.5 );
             border-color: $yellow;
+            pointer-events: none;
         }
 
         &:hover {
