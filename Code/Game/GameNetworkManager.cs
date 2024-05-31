@@ -51,12 +51,17 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	{
 		foreach ( var listener in Scene.GetAllComponents<IPlayerJoinedListener>() )
 		{
-			listener.OnPlayerJoined( player );
+			listener.OnConnect( player );
 		}
 
 		Transform spawnPoint = GameUtils.GetRandomSpawnPoint( player.TeamComponent.Team );
 		player.Teleport( spawnPoint );
 		player.GameObject.NetworkSpawn( channel );
+
+		foreach ( var listener in Scene.GetAllComponents<IPlayerJoinedListener>() )
+		{
+			listener.OnJoined( player );
+		}
 
 		if ( player.CanRespawn )
 		{

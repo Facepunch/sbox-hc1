@@ -110,9 +110,14 @@ public interface IPlayerSpawnListener
 public interface IPlayerJoinedListener
 {
 	/// <summary>
-	/// Called on the host when a new player joins
+	/// Called on the host when a new player joins, before NetworkSpawn is called.
 	/// </summary>
-	public void OnPlayerJoined( PlayerController player ) { }
+	public void OnConnect( PlayerController player ) { }
+
+	/// <summary>
+	/// Called on the host when a new player joins, after NetworkSpawn is called.
+	/// </summary>
+	public void OnJoined( PlayerController player ) { }
 }
 
 public interface ITeamAssignedListener

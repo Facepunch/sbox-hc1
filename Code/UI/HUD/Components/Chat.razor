@@ -5,6 +5,7 @@
 
 @inherits PanelComponent
 @implements Component.INetworkListener
+@implements ITeamAssignedListener
 
 @attribute [StyleSheet]
 
@@ -163,11 +164,14 @@
         StateHasChanged();
     }
 
-    void Component.INetworkListener.OnConnected(Connection channel)
+    void ITeamAssignedListener.OnTeamAssigned(PlayerController player, Team team)
     {
         if (IsProxy) return;
 
-        AddSystemText($"{channel.DisplayName} has joined the game");
+        if (team == Team.Unassigned)
+            AddSystemText($"{@player.GetPlayerName()} is spectating");
+        else
+            AddSystemText($"{@player.GetPlayerName()} is joining the {team.GetName()}");
     }
 
     void Component.INetworkListener.OnDisconnected(Connection channel)

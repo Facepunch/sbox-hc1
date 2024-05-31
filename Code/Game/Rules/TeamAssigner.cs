@@ -8,7 +8,7 @@ public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListe
 	[Property]
 	public int MaxTeamSize { get; set; } = 5;
 
-	void IPlayerJoinedListener.OnPlayerJoined( PlayerController player )
+	void IPlayerJoinedListener.OnConnect( PlayerController player )
 	{
 		Log.Info( nameof( TeamAssigner ) );
 		var ts = GameUtils.GetPlayers( Team.Terrorist ).ToList();
@@ -31,7 +31,14 @@ public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListe
 			assignTeam = coinFlip ? Team.Terrorist : Team.CounterTerrorist;
 		}
 
-		player.AssignTeam( assignTeam );
+		// bit gross: silently AssignTeam so we don't fire OnTeamAssigned events
+		// that may require connection info. invoke again below once we're NetworkSpawned
+		player.AssignTeam( assignTeam, true );
+	}
+
+	void IPlayerJoinedListener.OnJoined( PlayerController player )
+	{
+		player.AssignTeam( player.TeamComponent.Team );
 	}
 
 	// assigning teams on join now instead, turn this into balance teams?

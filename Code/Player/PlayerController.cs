@@ -520,10 +520,13 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		WishVelocity = wishDirection * GetWishSpeed();
 	}
 
-	public void AssignTeam( Team team )
+	public void AssignTeam( Team team, bool silent = false )
 	{
 		Assert.True( Networking.IsHost );
 		TeamComponent.Team = team;
+
+		if ( silent )
+			return;
 
 		foreach ( var listener in Scene.GetAllComponents<ITeamAssignedListener>() )
 		{
