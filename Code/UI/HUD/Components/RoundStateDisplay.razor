@@ -44,7 +44,7 @@
             return;
         }
 
-        if (GameMode.Instance.Components.GetInDescendantsOrSelf<TeamScoring>() is { } teamScoring)
+        if (GameMode.Instance?.Components.GetInDescendantsOrSelf<TeamScoring>() is { } teamScoring)
         {
             MyTeamScore = teamScoring.GetTeamScore(MyTeam);
             EnemyTeamScore = teamScoring.GetTeamScore(EnemyTeam);
