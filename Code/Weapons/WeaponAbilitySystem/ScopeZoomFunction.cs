@@ -21,9 +21,14 @@ public class ScopeZoomFunction : InputActionWeaponFunction
 
 	protected void StartZoom( int level = 0 )
 	{
-
 		renderHook?.Dispose();
 		renderHook = null;
+
+		if ( !Weapon.IsValid() )
+			return;
+
+		if ( !Weapon.PlayerController.IsValid() )
+			return;
 
 		var camera = Weapon.PlayerController.CameraController;
 
@@ -35,7 +40,11 @@ public class ScopeZoomFunction : InputActionWeaponFunction
 
 		ZoomLevel = level;
 		Weapon.Tags.Add( "zooming" );
-		Weapon.ViewModel.GameObject.Enabled = false;
+
+		if ( Weapon.ViewModel.IsValid() )
+		{
+			Weapon.ViewModel.GameObject.Enabled = false;
+		}
 	}
 
 	protected void EndZoom()
@@ -51,7 +60,11 @@ public class ScopeZoomFunction : InputActionWeaponFunction
 		if ( Weapon.IsValid() )
 		{
 			Weapon.Tags.Remove( "zooming" );
-			Weapon.ViewModel.GameObject.Enabled = true;
+
+			if ( Weapon.ViewModel.IsValid() )
+			{
+				Weapon.ViewModel.GameObject.Enabled = true;
+			}
 		}
 
 		AnglesLerp = new Angles();
