@@ -18,6 +18,12 @@ partial class PlayerController
 
 		if ( Input.Pressed( "Use" ) )
 		{
+			if ( TeamComponent.Team == Team.Terrorist && GetZone<BombSite>() is not null )
+			{
+				Inventory.SwitchToSlot( WeaponSlot.Special );
+				return;
+			}
+
 			using ( Rpc.FilterInclude( Connection.Host ) )
 			{
 				TryUse( AimRay );
