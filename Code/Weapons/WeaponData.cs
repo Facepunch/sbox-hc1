@@ -65,7 +65,7 @@ public partial class WeaponData : GameResource
 	/// <summary>
 	/// Is this weapon shown in the buy menu
 	/// </summary>
-	[Category("Economy")] public bool IsPurchasable { get; set; } = true;
+	[Category( "Economy" )] public bool IsPurchasable { get; set; } = true;
 
 	/// <summary>
 	/// How much is this weapon to buy in the buy menu?

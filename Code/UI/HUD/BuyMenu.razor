@@ -27,6 +27,9 @@
                 <div class="flex column gap-sm with-padding">
                     @foreach (WeaponData weaponData in weapons)
                     {
+                        if ( !weaponData.IsPurchasable )
+                            continue;
+                        
                         <div class="button @slot @(@Inventory.HasWeapon( weaponData ) ? "owned" : "unowned") @(@CanAfford( weaponData ) ? "" : "unaffordable" )" onclick=@(() => BuyWeapon( weaponData ))>
                             <label>@weaponData.Name</label>
 
