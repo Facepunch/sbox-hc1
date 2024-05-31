@@ -78,7 +78,6 @@ public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListe
 			if ( ts.Count >= MaxTeamSize && cts.Count >= MaxTeamSize )
 			{
 				// Teams are full
-
 				return;
 			}
 

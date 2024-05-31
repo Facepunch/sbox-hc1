@@ -15,7 +15,8 @@ public abstract class EquipmentData
 	{
 		if ( !IsOwned( player ) )
 		{
-			player.Inventory.Balance -= GetPrice( player );
+			var price = GetPrice( player );
+			player.Inventory.GiveCash( -price );
 			OnPurchase( player );
 		}
 	}
