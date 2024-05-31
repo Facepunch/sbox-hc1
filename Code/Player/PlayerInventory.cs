@@ -190,49 +190,37 @@ public partial class PlayerInventory : Component
 	/// </summary>
 	public void RemoveWeapon( Weapon weapon )
 	{
-		if ( !Networking.IsHost )
-		{
-			Log.Warning( "Tried to remove weapon while not host" );
-			return;
-		}
+		Assert.True( Networking.IsHost );
 		
 		if ( !Weapons.Contains( weapon ) ) return;
 
 		if ( CurrentWeapon == weapon )
-			SwitchWeapon( Weapons.FirstOrDefault( x => x != weapon ) );
+		{
+			var otherWeapons = Weapons.Where( x => x != weapon );
+			var orderedBySlot = otherWeapons.OrderBy( x => x.Resource.Slot );
+			var targetWeapon = orderedBySlot.FirstOrDefault();
+
+			if ( targetWeapon.IsValid() )
+				SwitchWeapon( targetWeapon );
+		}
 
 		weapon.GameObject.Destroy();
 		weapon.Enabled = false;
 	}
 	
 	/// <summary>
-	/// Removes the given weapon and destroys it.
+	/// Removes the given weapon (by its resource data) and destroys it.
 	/// </summary>
 	public void RemoveWeapon( WeaponData resource )
 	{
-		if ( !Networking.IsHost )
-		{
-			Log.Warning( "Tried to remove weapon while not host" );
-			return;
-		}
-
 		var weapon = Weapons.FirstOrDefault( w => w.Resource == resource );
 		if ( !weapon.IsValid() ) return;
-
-		if ( CurrentWeapon == weapon )
-			SwitchWeapon( Weapons.FirstOrDefault( x => x != weapon ) );
-
-		weapon.GameObject.Destroy();
-		weapon.Enabled = false;
+		RemoveWeapon( weapon );
 	}
 
 	public Weapon GiveWeapon( WeaponData resource, bool makeActive = true )
 	{
-		if ( !Networking.IsHost )
-		{
-			Log.Warning( "Tried to give weapon while not host" );
-			return null;
-		}
+		Assert.True( Networking.IsHost );
 
 		// If we're in charge, let's make some weapons.
 		if ( resource == null )

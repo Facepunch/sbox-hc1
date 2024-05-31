@@ -22,7 +22,7 @@ public static class Explosion
 			var damage = GetExplosionDamage( radius, distance, baseDamage );
 			var direction = (obj.Transform.Position - point).Normal;
 			var force = direction * distance * 50f;
-			Log.Info( force );
+			
 			hc.TakeDamage( damage, point, force, attackerId, inflictorId );
 		}
 	}
