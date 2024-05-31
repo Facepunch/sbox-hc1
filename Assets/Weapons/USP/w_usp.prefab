@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "171e8a36-a962-49a7-9a64-14c90d9dc8bc",
+    "__guid": "e6c09b63-1baf-41ca-8c84-f869ed6ceb3e",
     "Flags": 0,
     "Name": "w_usp",
     "Tags": "player",
@@ -10,13 +10,13 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "ec257df1-75e4-43fb-be55-e5d8ec73c2ca",
+        "__guid": "775a4028-aa44-4ed0-8164-bc68f77b2c14",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "HoldType": "Pistol",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "2e873564-77da-485e-b11e-11fe2282c35d",
-          "go": "8e10a8c6-0965-4109-87f0-237f1d42a2a9",
+          "component_id": "184dfdfc-188d-4325-be2a-7e67d1b330d9",
+          "go": "d9d8e83b-4c36-48e8-a05d-3741405f67f8",
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "weapons/usp/usp.wpn",
@@ -24,12 +24,12 @@
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "bb1e50fa-b8d5-4898-ae78-ade5cd5fefc5"
+        "__guid": "81b5d0e8-9dde-4142-be27-2fe556230ed3"
       }
     ],
     "Children": [
       {
-        "__guid": "8e10a8c6-0965-4109-87f0-237f1d42a2a9",
+        "__guid": "d9d8e83b-4c36-48e8-a05d-3741405f67f8",
         "Flags": 0,
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
@@ -39,10 +39,10 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "2e873564-77da-485e-b11e-11fe2282c35d",
+            "__guid": "184dfdfc-188d-4325-be2a-7e67d1b330d9",
             "BodyGroups": 9493,
             "CreateBoneObjects": false,
-            "Model": "models/dev/error.vmdl",
+            "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -50,7 +50,7 @@
         ]
       },
       {
-        "__guid": "b87b3c67-b12f-40ec-9df6-4535ab391dc5",
+        "__guid": "fc2831e9-fe1b-4e68-bd48-7437d925667d",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -59,18 +59,18 @@
         "Components": [
           {
             "__type": "Facepunch.AmmoContainer",
-            "__guid": "76837930-ef9b-4e69-94a0-837174509837",
+            "__guid": "e646980c-5e21-4bd4-a8aa-f1cf9c41e560",
             "Ammo": 13,
             "HasAmmo": true,
             "MaxAmmo": 13
           },
           {
             "__type": "Facepunch.ShootWeaponFunction",
-            "__guid": "4ad09aca-5706-44a3-b7b8-6b63e85dae6a",
+            "__guid": "53f61023-489a-4694-b336-fa052fbb0871",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "76837930-ef9b-4e69-94a0-837174509837",
-              "go": "b87b3c67-b12f-40ec-9df6-4535ab391dc5",
+              "component_id": "e646980c-5e21-4bd4-a8aa-f1cf9c41e560",
+              "go": "fc2831e9-fe1b-4e68-bd48-7437d925667d",
               "component_type": "AmmoContainer"
             },
             "BaseDamage": 15,
@@ -105,11 +105,11 @@
           },
           {
             "__type": "Facepunch.ReloadWeaponFunction",
-            "__guid": "1f14e36c-de49-475b-9665-e75f708655ea",
+            "__guid": "1e9bf72d-7b42-49b5-8abe-1225f3b9face",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "76837930-ef9b-4e69-94a0-837174509837",
-              "go": "b87b3c67-b12f-40ec-9df6-4535ab391dc5",
+              "component_id": "e646980c-5e21-4bd4-a8aa-f1cf9c41e560",
+              "go": "fc2831e9-fe1b-4e68-bd48-7437d925667d",
               "component_type": "AmmoContainer"
             },
             "EmptyReloadSounds": {},
@@ -125,7 +125,7 @@
           },
           {
             "__type": "Facepunch.RecoilFunction",
-            "__guid": "84890af8-f03c-443f-a8dc-6c1c1cdeec3c",
+            "__guid": "1c9d168f-5ba2-43e6-9a55-794f05a3e2b2",
             "HorizontalSpread": "1.40,-1.40,1",
             "PlayerVelocityLimit": 200,
             "RecoilResetTime": 0.3,
@@ -140,6 +140,8 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.w_usp"
+  ],
   "__version": 1
 }
