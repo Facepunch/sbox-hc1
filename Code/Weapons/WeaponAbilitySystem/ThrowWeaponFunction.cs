@@ -4,7 +4,7 @@ public partial class ThrowWeaponFunction : InputActionWeaponFunction
 {
 	[Property] public float CookTime { get; set; } = 1f;
 	[Property] public GameObject Prefab { get; set; }
-	[Property] public float ThrowPower { get; set; } = 1200.0f;
+	[Property] public float ThrowPower { get; set; } = 1200f;
 
 	public enum State
 	{
@@ -13,20 +13,30 @@ public partial class ThrowWeaponFunction : InputActionWeaponFunction
 		Throwing,
 		Thrown
 	}
-
-	TimeSince TimeSinceAction { get; set; }
+	
 	[Sync] public State ThrowState { get; set; }
 
+	private TimeSince TimeSinceAction { get; set; }
+	private bool HasThrownOnHost { get; set; }
+	
 	protected override void OnFunctionExecute()
 	{
 		if ( ThrowState != State.Idle ) return;
 
 		ThrowState = State.Cook;
-		TimeSinceAction = 0;
+		TimeSinceAction = 0f;
 	}
 
 	protected override void OnUpdate()
 	{
+		if ( Networking.IsHost && HasThrownOnHost && TimeSinceAction > 0.25f )
+		{
+			// We want to remove the weapon on the host only.
+			var player = Weapon.PlayerController;
+			player.Inventory.RemoveWeapon( Weapon );
+			return;
+		}
+		
 		if ( IsProxy ) return;
 		if ( ThrowState == State.Idle ) return;
 
@@ -34,18 +44,14 @@ public partial class ThrowWeaponFunction : InputActionWeaponFunction
 		if ( ThrowState == State.Cook && TimeSinceAction > CookTime )
 		{
 			ThrowState = State.Throwing;
-			TimeSinceAction = 0;
+			TimeSinceAction = 0f;
 		}
+		
 		if ( ThrowState == State.Throwing && TimeSinceAction > 0.25f )
 		{
 			Throw();
 			ThrowState = State.Thrown;
-			TimeSinceAction = 0;
-		}
-		if ( ThrowState == State.Thrown && TimeSinceAction > 0.25f )
-		{
-			var player = Weapon.PlayerController;
-			player.Inventory.RemoveWeapon( Weapon );
+			TimeSinceAction = 0f;
 		}
 	}
 
@@ -54,9 +60,9 @@ public partial class ThrowWeaponFunction : InputActionWeaponFunction
 	{
 		if ( !Networking.IsHost ) return;
 
-		RadioSounds.Play( Weapon.PlayerController.GameObject.GetTeam(), RadioSound.ThrownGrenade );
-
 		var player = Weapon.PlayerController;
+		
+		RadioSounds.Play( player.GameObject.GetTeam(), RadioSound.ThrownGrenade );
 
 		var tr = Scene.Trace.Ray( new Ray( player.AimRay.Position, player.AimRay.Forward ), 128 )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
@@ -65,9 +71,7 @@ public partial class ThrowWeaponFunction : InputActionWeaponFunction
 
 		var position = tr.Hit ? tr.HitPosition + tr.Normal * Weapon.Resource.WorldModel.Bounds.Size.Length : player.AimRay.Position + player.AimRay.Forward * 32f;
 		var rotation = Rotation.From( 0, player.EyeAngles.yaw + 90, 90 );
-
 		var baseVelocity = player.CharacterController.Velocity;
-
 		var dropped = Prefab.Clone( position, rotation );
 
 		if ( !tr.Hit )
@@ -79,11 +83,11 @@ public partial class ThrowWeaponFunction : InputActionWeaponFunction
 
 		var grenade = dropped.Components.Get<BaseGrenade>();
 		if ( grenade.IsValid() )
-		{
-			// Set the owner
-			grenade.Owner = player;
-		}
+			grenade.ThrowerId = player.Id;
 
 		dropped.NetworkSpawn();
+
+		TimeSinceAction = 0f;
+		HasThrownOnHost = true;
 	}
 }

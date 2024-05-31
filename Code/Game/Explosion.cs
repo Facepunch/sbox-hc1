@@ -15,13 +15,15 @@ public static class Explosion
 
 		foreach ( var obj in objectsInArea )
 		{
-			if ( obj.Root.Components.Get<HealthComponent>( FindMode.EnabledInSelfAndDescendants ) is { } hc )
-			{
-				var damage = GetExplosionDamage( radius, obj.Transform.Position.Distance( point ), baseDamage );
-				// TODO: force
-				Vector3 force = 0;
-				hc.TakeDamage( damage, point, force, attackerId, inflictorId, false );
-			}
+			if ( obj.Root.Components.Get<HealthComponent>( FindMode.EnabledInSelfAndDescendants ) is not { } hc )
+				continue;
+
+			var distance = obj.Transform.Position.Distance( point );
+			var damage = GetExplosionDamage( radius, distance, baseDamage );
+			var direction = (obj.Transform.Position - point).Normal;
+			var force = direction * distance * 50f;
+			Log.Info( force );
+			hc.TakeDamage( damage, point, force, attackerId, inflictorId );
 		}
 	}
 }

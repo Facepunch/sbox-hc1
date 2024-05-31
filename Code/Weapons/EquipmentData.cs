@@ -2,9 +2,9 @@
 
 public abstract class EquipmentData
 {
-	public string Id { get; protected set; }
-	public string Name { get; protected set; }
-	public string Icon { get; protected set; }
+	public string Id { get; protected init; }
+	public string Name { get; protected init; }
+	public string Icon { get; protected init; }
 	public virtual int GetPrice( PlayerController player ) => 0;
 	public virtual bool IsOwned( PlayerController player ) => true;
 	public virtual bool IsVisible( PlayerController player ) => true;
@@ -13,21 +13,20 @@ public abstract class EquipmentData
 
 	public void Purchase( PlayerController player )
 	{
-		if ( !IsOwned( player ) )
-		{
-			var price = GetPrice( player );
-			player.Inventory.GiveCash( -price );
-			OnPurchase( player );
-		}
+		if ( IsOwned( player ) ) return;
+
+		var price = GetPrice( player );
+		player.Inventory.GiveCash( -price );
+		OnPurchase( player );
 	}
 
 	public static IEnumerable<EquipmentData> GetAll()
 	{
 		return new List<EquipmentData>
 		{
-			new ArmorEquipment("kevlar", "Kevlar", "/ui/equipment/armor.png"),
-			new ArmorWithHelmetEquipment("kevlar_helmet", "Kevlar + Helmet", "/ui/equipment/helmet.png"),
-			new DefuseKitEquipment("defuse_kit", "Defuse Kit", "/ui/equipment/defusekit.png")
+			new ArmorEquipment( "kevlar", "Kevlar", "/ui/equipment/armor.png" ),
+			new ArmorWithHelmetEquipment( "kevlar_helmet", "Kevlar + Helmet", "/ui/equipment/helmet.png" ),
+			new DefuseKitEquipment( "defuse_kit", "Defuse Kit", "/ui/equipment/defusekit.png" )
 		};
 	}
 

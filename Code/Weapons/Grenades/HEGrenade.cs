@@ -1,4 +1,3 @@
-
 namespace Facepunch;
 
 [Title( "HE Grenade" )]
@@ -22,13 +21,11 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 
 	protected override void Explode()
 	{
-		// Tell the server (as the owner of the grenade) to explode
-		if ( ( Owner is null && Connection.Local.IsHost ) || Owner == GameUtils.LocalPlayer )
+		if ( Networking.IsHost )
 		{
-			Log.Info( "Do explosion!" );
-			Explosion.AtPoint( Transform.Position, DamageRadius, MaxDamage, Owner.Id, Id );
+			Explosion.AtPoint( Transform.Position, DamageRadius, MaxDamage, ThrowerId, Id );
 		}
-
+		
 		base.Explode();
 	}
 }
