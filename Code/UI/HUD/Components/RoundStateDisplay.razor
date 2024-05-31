@@ -29,7 +29,7 @@
 
 @code
 {
-    private Team MyTeam => GameUtils.LocalPlayer.TeamComponent.Team;
+    private Team MyTeam => GameUtils.LocalPlayer?.TeamComponent?.Team ?? Team.Unassigned;
     private Team EnemyTeam => MyTeam.GetOpponents();
 
     private int MyTeamScore { get; set; } = 0;
