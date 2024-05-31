@@ -81,7 +81,7 @@
         All,
     }
 
-    private ChatModes ChatMode = ChatModes.All;
+    private ChatModes ChatMode = ChatModes.Team;
     private TextEntry InputBox;
 
     public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded, ChatModes chatMode, MessageType type);
