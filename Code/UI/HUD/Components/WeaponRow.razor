@@ -7,11 +7,6 @@
 
     @if ( Weapon.IsValid() )
     {
-        @if ( IsActive )
-        {
-            <InputHint Action="Attack1" class="small" Size="@InputGlyphSize.Small" />
-        }
-
         @if ( !string.IsNullOrEmpty( Weapon.Resource.Icon ) )
         {
             <div class="gunicon" style="background-image:url(@Weapon.Resource.Icon);" />
