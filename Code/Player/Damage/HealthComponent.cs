@@ -141,7 +141,7 @@ public partial class HealthComponent : Component, IRespawnable
 	[Broadcast]
 	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, bool isHeadshot = false )
 	{
-		if ( isHeadshot ) damage *= 1.5f;
+		if ( isHeadshot ) damage *= 2f;
 
 		damage = damage.CeilToInt();
 
