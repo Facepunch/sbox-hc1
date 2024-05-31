@@ -40,5 +40,7 @@ public partial class PlayerOutfitter : Component
 		var isT = team == Team.Terrorist;
 		TerroristClothes.Enabled = isT;
 		CounterTerroristClothes.Enabled = !isT;
+
+		PlayerController.Body.ReapplyVisibility();
 	}
 }

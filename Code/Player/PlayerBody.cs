@@ -12,6 +12,8 @@ namespace Facepunch
 		public Vector3 DamageTakenPosition { get; set; }
 		public Vector3 DamageTakenForce { get; set; }
 
+		private bool IsShown;
+
 		internal void SetRagdoll( bool ragdoll )
 		{
 			Physics.Enabled = ragdoll;
@@ -42,8 +44,14 @@ namespace Facepunch
 			}
 		}
 
+		public void ReapplyVisibility()
+		{
+			ShowBodyParts( IsShown );
+		}
+
 		public void ShowBodyParts( bool show )
 		{
+			IsShown = show;
 			// Disable the player's body so it doesn't render.
 			var skinnedModels = Components.GetAll<SkinnedModelRenderer>( FindMode.EnabledInSelfAndDescendants );
 
