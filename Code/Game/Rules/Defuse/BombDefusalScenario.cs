@@ -113,7 +113,7 @@ public sealed class BombDefusalScenario : Component,
 
 		GameMode.Instance.ShowToast( "Bomb has been planted." );
 
-		GameMode.Instance.ShowStatusText( Team.Terrorist, "Defend" );
+		GameMode.Instance.ShowStatusText( Team.Terrorist, "Defend the Bomb" );
 		GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "Defuse the Bomb" );
 		GameMode.Instance.HideTimer();
 	}

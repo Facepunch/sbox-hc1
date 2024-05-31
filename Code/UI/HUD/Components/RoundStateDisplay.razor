@@ -13,8 +13,11 @@
     }
 
     <div class="flex column with-background with-padding with-px-lg h-full align-center justify-center" style="min-width: 175px; height: 75px;">
-        <label>@Status</label>
-        <label class="emphasis">@(Time?.ToString(@"m\:ss"))</label>
+        <label class="status">@Status</label>
+        @if (Time.HasValue)
+        {
+            <label class="emphasis">@(Time?.ToString(@"m\:ss"))</label>
+        }
     </div>
 
     @if (EnemyTeamPlayers is not null && EnemyTeamPlayers.Count() > 0)
@@ -65,7 +68,7 @@
     protected override int BuildHash()
     {
         var a = HashCode.Combine(MyTeamPlayers, EnemyTeamPlayers, MyTeam, EnemyTeam);
-        var b = HashCode.Combine(Status, Time?.Seconds, Time?.Minutes, PlayerList.Count());
+        var b = HashCode.Combine(Status, Time.HasValue, Time?.Seconds, Time?.Minutes, PlayerList.Count());
 
         return HashCode.Combine(a, b);
     }
