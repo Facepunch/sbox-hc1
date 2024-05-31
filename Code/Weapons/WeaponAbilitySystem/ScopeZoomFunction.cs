@@ -40,15 +40,19 @@ public class ScopeZoomFunction : InputActionWeaponFunction
 
 	protected void EndZoom()
 	{
-		if( renderHook is not null)
+		if ( renderHook is not null )
 			renderHook.Dispose();
 
-		if( UnzoomSound is not null )
+		if ( UnzoomSound is not null && Weapon.IsValid() )
 			Sound.Play( UnzoomSound, Weapon.GameObject.Transform.Position );
 
 		ZoomLevel = 0;
-		Weapon.Tags.Remove( "zooming" );
-		Weapon.ViewModel.GameObject.Enabled = true;
+
+		if ( Weapon.IsValid() )
+		{
+			Weapon.Tags.Remove( "zooming" );
+			Weapon.ViewModel.GameObject.Enabled = true;
+		}
 
 		AnglesLerp = new Angles();
 		BlurLerp = 1.0f;
@@ -68,7 +72,7 @@ public class ScopeZoomFunction : InputActionWeaponFunction
 	{
 		if( ZoomLevel < NumZoomLevels )
 		{
-			StartZoom( ZoomLevel+1 );
+			StartZoom( ZoomLevel + 1 );
 		}
 		else
 		{

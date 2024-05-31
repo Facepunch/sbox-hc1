@@ -50,11 +50,11 @@ public partial class ViewModel : Component
 	{
 		if ( IsThrowable )
 		{
-			ModelRenderer.Set( "throwable_type", (int)ThrowableType );
+			ModelRenderer?.Set( "throwable_type", (int)ThrowableType );
 		}
 		else
 		{
-			ModelRenderer.Set( "b_deploy", true );
+			ModelRenderer?.Set( "b_deploy", true );
 		}
 
 		// Somehow?
@@ -66,11 +66,14 @@ public partial class ViewModel : Component
 
 	void OnPlayerJumped()
 	{
-		ModelRenderer.Set( "b_jump", true );
+		ModelRenderer?.Set( "b_jump", true );
 	}
 
 	void ApplyAnimationTransform()
 	{
+		if ( !ModelRenderer.IsValid() ) return;
+		if ( !ModelRenderer.Enabled ) return;
+
 		var bone = ModelRenderer.SceneModel.GetBoneLocalTransform( "camera" );
 		var camera = Weapon.PlayerController.CameraGameObject;
 		camera.Transform.LocalPosition += bone.Position;
@@ -101,8 +104,8 @@ public partial class ViewModel : Component
 		lastPitch = newPitch;
 		lastYaw = newYaw;
 
-		ModelRenderer.Set( "aim_yaw_inertia", YawInertia * YawInertiaScale );
-		ModelRenderer.Set( "aim_pitch_inertia", PitchInertia * PitchInertiaScale );
+		ModelRenderer?.Set( "aim_yaw_inertia", YawInertia * YawInertiaScale );
+		ModelRenderer?.Set( "aim_pitch_inertia", PitchInertia * PitchInertiaScale );
 	}
 
 	private Vector3 lerpedWishLook;
@@ -128,7 +131,7 @@ public partial class ViewModel : Component
 		localRotation *= Rotation.From( 0, -lerpedWishLook.y * 3f, 0 );
 		localPosition += -lerpedWishLook;
 
-		ModelRenderer.Set( "move_groundspeed", moveLen );
+		ModelRenderer?.Set( "move_groundspeed", moveLen );
 	}
 
 	private float FieldOfViewOffset = 0f;
