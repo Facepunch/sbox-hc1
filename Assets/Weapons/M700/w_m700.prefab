@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "5966b0ef-37b7-44a1-98f4-583a6438c946",
+    "__guid": "e84af7fc-0b22-4361-9639-88cf529ad05c",
     "Flags": 0,
     "Name": "w_m700",
     "Tags": "player",
@@ -10,24 +10,24 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "eabbc678-8d03-40ee-b074-609e3d794da9",
+        "__guid": "80b84fd5-36bd-4de3-a4b6-bbf4c6e46a79",
         "HoldType": "Rifle",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "8c0eef04-2c83-479d-9760-dc6be2935392",
-          "go": "70ea2386-dc45-4d54-aaaf-5646d5db9696",
+          "component_id": "bd3210d0-98a1-4293-b51e-f1c713111603",
+          "go": "9e137343-5992-488c-8191-b58b647cc8ca",
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "weapons/m700/m700.wpn"
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "3decf6ad-c806-4131-9258-2d8d9bd86eb1"
+        "__guid": "a165b725-b3c0-40df-8379-09f8361d7dca"
       }
     ],
     "Children": [
       {
-        "__guid": "70ea2386-dc45-4d54-aaaf-5646d5db9696",
+        "__guid": "9e137343-5992-488c-8191-b58b647cc8ca",
         "Flags": 0,
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
@@ -37,7 +37,7 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "8c0eef04-2c83-479d-9760-dc6be2935392",
+            "__guid": "bd3210d0-98a1-4293-b51e-f1c713111603",
             "BodyGroups": 27,
             "CreateBoneObjects": false,
             "Model": "weapons/m700/v_m700.vmdl",
@@ -47,7 +47,7 @@
         ]
       },
       {
-        "__guid": "49885d66-9a94-461c-94c3-15e0a625bcb7",
+        "__guid": "374c626f-e02a-46fb-8a06-a35dce430ff1",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -56,18 +56,18 @@
         "Components": [
           {
             "__type": "Facepunch.AmmoContainer",
-            "__guid": "9243b4dd-250a-4271-ad47-8a58bee44d3f",
+            "__guid": "680c5b51-2613-44b6-868e-7c18d121f978",
             "Ammo": 5,
             "HasAmmo": true,
             "MaxAmmo": 5
           },
           {
             "__type": "Facepunch.ShootWeaponFunction",
-            "__guid": "8397b223-0271-49ee-8202-e486bcde1f63",
+            "__guid": "94d1c2e5-e2ec-4319-9af6-b85ce4d24dda",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "9243b4dd-250a-4271-ad47-8a58bee44d3f",
-              "go": "49885d66-9a94-461c-94c3-15e0a625bcb7",
+              "component_id": "680c5b51-2613-44b6-868e-7c18d121f978",
+              "go": "374c626f-e02a-46fb-8a06-a35dce430ff1",
               "component_type": "AmmoContainer"
             },
             "BaseDamage": 15,
@@ -96,11 +96,11 @@
           },
           {
             "__type": "Facepunch.ReloadWeaponFunction",
-            "__guid": "8f488409-7c8e-4cac-82b3-2be3f3ec525d",
+            "__guid": "c07db113-4e21-4786-a87b-8fcfe8882fae",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "9243b4dd-250a-4271-ad47-8a58bee44d3f",
-              "go": "49885d66-9a94-461c-94c3-15e0a625bcb7",
+              "component_id": "680c5b51-2613-44b6-868e-7c18d121f978",
+              "go": "374c626f-e02a-46fb-8a06-a35dce430ff1",
               "component_type": "AmmoContainer"
             },
             "EmptyReloadSounds": {
@@ -125,7 +125,7 @@
           },
           {
             "__type": "Facepunch.RecoilFunction",
-            "__guid": "7f13c0dc-361d-4728-abb6-ab812319971e",
+            "__guid": "ec8cf0b0-66e8-4387-838f-6add37c4b096",
             "HorizontalSpread": "2.00,-2.00,1",
             "PlayerVelocityLimit": 200,
             "RecoilResetTime": 0.3,
@@ -134,15 +134,16 @@
           },
           {
             "__type": "Facepunch.ScopeZoomFunction",
-            "__guid": "7ca07abf-a453-443b-b487-b41f744fd85c",
-            "AimAngles": "0,0,0",
-            "AimOffset": "0,0,0",
+            "__guid": "1ecba588-23ce-48f8-a502-3fa6bdc166a8",
             "InputActions": [
-              "Attack1"
+              "Attack2"
             ],
             "InputType": "Pressed",
+            "NumZoomLevels": 2,
             "RequiresAllInputActions": false,
-            "ScopeOverlay": "weapons/m700/scope.vmat"
+            "ScopeOverlay": "weapons/m700/scope.vmat",
+            "UnzoomSound": "sounds/kenney/ui/ui.button.press.sound",
+            "ZoomSound": "sounds/kenney/ui/ui.button.deny.sound"
           }
         ]
       }

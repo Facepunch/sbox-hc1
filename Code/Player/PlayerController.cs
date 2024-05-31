@@ -171,6 +171,10 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	public bool IsGrounded { get; set; }
 	public Vector3 WishMove { get; private set; }
 	public bool InBuyMenu { get; private set; }
+	/// <summary>
+	/// How much friction to apply to the aim eg if zooming
+	/// </summary>
+	public float AimDampening = 1.0f;
 	public bool InMenu => InBuyMenu;
 	
 	private float _smoothEyeHeight;
@@ -268,7 +272,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 			if ( IsLocallyControlled )
 			{
-				EyeAngles += Input.AnalogLook;
+				EyeAngles += Input.AnalogLook * AimDampening;
 				EyeAngles = EyeAngles.WithPitch( EyeAngles.pitch.Clamp( -90, 90 ) );
 			}
 
@@ -306,6 +310,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 			AnimationHelper.DuckLevel = IsCrouching ? 100 : 0;
 			AnimationHelper.HoldType = CurrentHoldType;
 		}
+
+		AimDampening = 1.0f;
 	}
 
 	/// <summary>
