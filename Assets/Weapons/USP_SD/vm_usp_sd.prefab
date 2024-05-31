@@ -1,0 +1,77 @@
+{
+  "RootObject": {
+    "__guid": "a99c634b-66da-4883-9732-beb55a14653a",
+    "Flags": 0,
+    "Name": "vm_usp_sd",
+    "Tags": "player,viewmodel",
+    "Enabled": true,
+    "NetworkMode": 0,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.ViewModel",
+        "__guid": "10219f2e-3b40-41f1-9357-47171175735e",
+        "Arms": {
+          "_type": "component",
+          "component_id": "cd5a9178-aac1-4ee1-b65d-a491075ccbda",
+          "go": "7ff89627-d595-4df5-9104-1f9e51c65a71",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "IsThrowable": false,
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "69a7afa0-183d-4d9b-b9e2-eeef40c1092d",
+          "go": "a99c634b-66da-4883-9732-beb55a14653a",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "ThrowableType": "HEGrenade"
+      },
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "69a7afa0-183d-4d9b-b9e2-eeef40c1092d",
+        "BodyGroups": 18757,
+        "CreateBoneObjects": false,
+        "Model": "models/weapons/sbox_pistol_usp/v_usp.vmdl",
+        "RenderType": "Off",
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "7ff89627-d595-4df5-9104-1f9e51c65a71",
+        "Flags": 0,
+        "Name": "Object",
+        "Enabled": true,
+        "NetworkMode": 0,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "cd5a9178-aac1-4ee1-b65d-a491075ccbda",
+            "BodyGroups": 18446744073709551383,
+            "BoneMergeTarget": {
+              "_type": "component",
+              "component_id": "69a7afa0-183d-4d9b-b9e2-eeef40c1092d",
+              "go": "a99c634b-66da-4883-9732-beb55a14653a",
+              "component_type": "SkinnedModelRenderer"
+            },
+            "CreateBoneObjects": false,
+            "Model": "models/first_person/first_person_arms.vmdl",
+            "RenderType": "Off",
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.v_usp"
+  ],
+  "__version": 1
+}

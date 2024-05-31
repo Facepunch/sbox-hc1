@@ -1,0 +1,145 @@
+{
+  "RootObject": {
+    "__guid": "72b244a0-e0e7-4098-84f2-889a82ed54e8",
+    "Flags": 0,
+    "Name": "w_usp_sd",
+    "Tags": "player",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.Weapon",
+        "__guid": "a8ffb6e0-3db1-41ed-8f35-2df45083aaf3",
+        "HoldType": "Pistol",
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "d9fce39c-bb64-4822-bce8-03e1558e1856",
+          "go": "feb29dc3-c6e5-46af-9bef-d6d22b50e4aa",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "Resource": "weapons/usp_sd/usp_sd.wpn"
+      },
+      {
+        "__type": "Facepunch.TagBinder",
+        "__guid": "008b3041-67ee-49cc-9fec-2ddc4bfc5969"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "feb29dc3-c6e5-46af-9bef-d6d22b50e4aa",
+        "Flags": 0,
+        "Name": "Model",
+        "Position": "3.535849,0,-5.571055",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "d9fce39c-bb64-4822-bce8-03e1558e1856",
+            "BodyGroups": 9541,
+            "CreateBoneObjects": false,
+            "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ]
+      },
+      {
+        "__guid": "431286a4-3f0d-45b7-969d-6dab7eb1d643",
+        "Flags": 0,
+        "Name": "Functions",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.AmmoContainer",
+            "__guid": "0cfaf3b2-ca54-4517-acdd-9852a8650f70",
+            "Ammo": 13,
+            "HasAmmo": true,
+            "MaxAmmo": 13
+          },
+          {
+            "__type": "Facepunch.ShootWeaponFunction",
+            "__guid": "229c3f61-71e6-4fee-a69a-e3c1e61c2dac",
+            "AmmoContainer": {
+              "_type": "component",
+              "component_id": "0cfaf3b2-ca54-4517-acdd-9852a8650f70",
+              "go": "431286a4-3f0d-45b7-969d-6dab7eb1d643",
+              "component_type": "AmmoContainer"
+            },
+            "BaseDamage": 18,
+            "BaseDamageFalloff": [
+              {
+                "y": 1
+              },
+              {
+                "x": 0.45386904,
+                "y": 0.44311067,
+                "in": 1.6585169,
+                "out": -1.6585169
+              },
+              {
+                "x": 1
+              }
+            ],
+            "BulletCount": 1,
+            "BulletSize": 1,
+            "BulletSpread": 0,
+            "DryFireDelay": 1,
+            "DryFireSound": "sounds/guns/gun_dryfire.sound",
+            "FireRate": 420,
+            "InputActions": [
+              "Attack1"
+            ],
+            "InputType": "Pressed",
+            "MaxRange": 1024000,
+            "RequiresAllInputActions": false,
+            "RequiresAmmoContainer": true,
+            "ShootSound": "sounds/weapons/usp/usp_sd.sound"
+          },
+          {
+            "__type": "Facepunch.ReloadWeaponFunction",
+            "__guid": "1915814b-68a4-4149-8125-52cf69794bb1",
+            "AmmoContainer": {
+              "_type": "component",
+              "component_id": "0cfaf3b2-ca54-4517-acdd-9852a8650f70",
+              "go": "431286a4-3f0d-45b7-969d-6dab7eb1d643",
+              "component_type": "AmmoContainer"
+            },
+            "EmptyReloadSounds": {},
+            "EmptyReloadTime": 2,
+            "InputActions": [
+              "Reload"
+            ],
+            "InputType": "Down",
+            "ReloadTime": 2,
+            "RequiresAllInputActions": false,
+            "SingleReload": false,
+            "TimedReloadSounds": {}
+          },
+          {
+            "__type": "Facepunch.RecoilFunction",
+            "__guid": "9a1d3c5c-aa87-4589-b442-8fffa7d1ea7d",
+            "HorizontalSpread": "1.40,-1.40,1",
+            "PlayerVelocityLimit": 200,
+            "RecoilResetTime": 0.3,
+            "VelocitySpreadScale": 0.25,
+            "VerticalSpread": "1.50,0.00,0"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.w_usp"
+  ],
+  "__version": 1
+}
