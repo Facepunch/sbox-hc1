@@ -53,6 +53,9 @@ public sealed class TimedExplosive : Component, IUse
 	[Property, Category( "Effects" )]
 	public GameObject BeepEffectPrefab { get; set; }
 
+	[Property, Category( "Effects" )]
+	public LineRenderer Wires { get; set; }
+
 	/// <summary>
 	/// Bomb site this bomb was planted at.
 	/// </summary>
@@ -60,7 +63,7 @@ public sealed class TimedExplosive : Component, IUse
 
 	public PlayerController DefusingPlayer { get; private set; }
 
-	public TimeSince TimeSinceDefuseStart { get; private set; }
+	[HostSync] public TimeSince TimeSinceDefuseStart { get; private set; }
 
 	protected override void OnEnabled()
 	{
@@ -177,6 +180,7 @@ public sealed class TimedExplosive : Component, IUse
 		}
 
 		DefusingPlayer = player;
+		Wires.Points[1] = DefusingPlayer.CameraGameObject;
 
 		if ( DefuseStartSound is not null )
 		{
@@ -198,6 +202,7 @@ public sealed class TimedExplosive : Component, IUse
 			}
 		}
 
+		Wires.Points[1] = null;
 		DefusingPlayer = null;
 
 		if ( DefuseEndSound is not null )
@@ -214,6 +219,7 @@ public sealed class TimedExplosive : Component, IUse
 			DefusingPlayer.IsFrozen = false;
 		}
 
+		Wires.Points[1] = null;
 		DefusingPlayer = null;
 	}
 
