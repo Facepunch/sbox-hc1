@@ -1,6 +1,3 @@
-using Sandbox;
-using Sandbox.Diagnostics;
-
 namespace Facepunch;
 
 public sealed class Door : Component, IUse, IRoundStartListener
@@ -76,13 +73,26 @@ public sealed class Door : Component, IUse, IRoundStartListener
 	public bool CanUse( PlayerController player )
 	{
 		// Don't use doors already opening/closing
-		return State == DoorState.Open || State == DoorState.Closed;
+		return State is DoorState.Open or DoorState.Closed;
 	}
 	
 	void IRoundStartListener.PreRoundStart()
 	{
 		Transform.Local = StartTransform;
 		State = DefaultState;
+	}
+
+	private void PlaySound( SoundEvent resource )
+	{
+		PlaySoundRpc( resource.ResourceId );
+	}
+	
+	[Broadcast]
+	private void PlaySoundRpc( int resourceId )
+	{
+		var resource = ResourceLibrary.Get<SoundEvent>( resourceId );
+		var handle = Sound.Play( resource, Transform.Position );
+		handle.Occlusion = false;
 	}
 
 	public void OnUse( PlayerController player )
@@ -92,7 +102,8 @@ public sealed class Door : Component, IUse, IRoundStartListener
 		if ( State == DoorState.Closed )
 		{
 			State = DoorState.Opening;
-			if ( OpenSound is not null ) Sound.Play( OpenSound, Transform.Position ).Occlusion = false;
+			if ( OpenSound is not null )
+				PlaySound( OpenSound );
 
 			if ( OpenAwayFromPlayer )
 			{
@@ -105,7 +116,8 @@ public sealed class Door : Component, IUse, IRoundStartListener
 		else if ( State == DoorState.Open )
 		{
 			State = DoorState.Closing;
-			if ( CloseSound is not null ) Sound.Play( CloseSound, Transform.Position ).Occlusion = false;
+			if ( CloseSound is not null )
+				PlaySound( CloseSound );
 		}
 	}
 
@@ -131,15 +143,17 @@ public sealed class Door : Component, IUse, IRoundStartListener
 		Transform.Local = StartTransform.RotateAround( PivotPosition, Rotation.FromYaw( curve * targetAngle ) );
 
 		// If we're done finalize the state and play the sound
-		if ( time >= 1.0f )
-		{
-			State = State == DoorState.Opening ? DoorState.Open : DoorState.Closed;
+		if ( time < 1f ) return;
+		
+		State = State == DoorState.Opening ? DoorState.Open : DoorState.Closed;
 
+		if ( Networking.IsHost )
+		{
 			if ( State == DoorState.Open && OpenFinishedSound is not null )
-				Sound.Play( OpenFinishedSound, Transform.Position ).Occlusion = false;
-			
+				PlaySound( OpenFinishedSound );
+		
 			if ( State == DoorState.Closed && CloseFinishedSound is not null )
-				Sound.Play( CloseFinishedSound, Transform.Position ).Occlusion = false;
+				PlaySound( CloseFinishedSound );
 		}
 	}
 }
