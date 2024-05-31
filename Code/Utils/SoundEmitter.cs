@@ -58,6 +58,12 @@ public static partial class GameObjectExtensions
 	/// <param name="follow"></param>
 	public static void PlaySound( this GameObject self, SoundEvent sndEvent, bool follow = true )
 	{
+		if ( !self.IsValid() )
+			return;
+
+		if ( sndEvent is null )
+			return;
+
 		var gameObject = self.Scene.CreateObject();
 		gameObject.Name = sndEvent.ResourceName;
 		if ( follow ) gameObject.Parent = self;
