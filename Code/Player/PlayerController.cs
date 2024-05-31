@@ -384,7 +384,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		Outline.Width = 0.2f;
 		Outline.Color = Color.Transparent;
 		Outline.InsideColor = Color.Transparent;
-		Outline.InsideObscuredColor = TeamComponent.Team.GetColor();
+		Outline.ObscuredColor = TeamComponent.Team.GetColor();
 	}
 
 	protected override void OnFixedUpdate()
