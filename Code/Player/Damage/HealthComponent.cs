@@ -152,6 +152,8 @@ public partial class HealthComponent : Component, IRespawnable
 		}
 	}
 
+	[Property] public float HeadshotMultiplier { get; set; } = 2f;
+
 	[Broadcast]
 	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, bool isHeadshot = false )
 	{
@@ -164,7 +166,7 @@ public partial class HealthComponent : Component, IRespawnable
 			}
 			else
 			{
-				damage *= 2f;
+				damage *= HeadshotMultiplier;
 			}
 		}
 
