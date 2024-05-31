@@ -61,7 +61,16 @@ public sealed class BombDefusalScenario : Component,
 	[HostSync] public bool BombHasDetonated { get; private set; }
 	[HostSync] public bool BombWasDefused { get; private set; }
 
-	[HostSync] public PlayerController BombPlanter { get; private set; }
+	[HostSync] private Guid BombPlanterId { get; set; }
+
+	public PlayerController BombPlanter
+	{
+		get => Scene.Directory.FindComponentByGuid( BombPlanterId ) as PlayerController;
+		private set
+		{
+			BombPlanterId = value?.Id ?? Guid.Empty;
+		}
+	}
 
 	private int GetLossStreakBonus( Team team )
 	{

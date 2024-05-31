@@ -115,29 +115,29 @@ public sealed class PlayerScore : Component, IKillListener, IBombDefusedListener
 	{
 		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
 
-		if ( GameMode.Instance?.Components.Get<BombDefusalScenario>() is BombDefusalScenario { } scenario )
-		{
-			var planterPlayer = scenario.BombPlanter;	
-			var planterPlayerComponent = GameUtils.GetPlayerFromComponent( planterPlayer );
+		if ( GameMode.Instance?.Components.Get<BombDefusalScenario>() is not { } scenario )
+			return;
 
-			if ( planterPlayerComponent == thisPlayer )
+		var planterPlayer = scenario.BombPlanter;
+		var planterPlayerComponent = GameUtils.GetPlayerFromComponent( planterPlayer );
+
+		if ( planterPlayerComponent == thisPlayer )
+		{
+			if ( planterPlayer.HealthComponent.State == LifeState.Alive )
 			{
-				if ( planterPlayer.HealthComponent.State == LifeState.Alive )
-				{
-					// Planter is alive when the bomb explodes
-					Score += BombExplodePlanterAliveScore;
-				}
-				else
-				{
-					// Planter is dead when the bomb explodes
-					Score += BombExplodePlanterDeadScore;
-				}
+				// Planter is alive when the bomb explodes
+				Score += BombExplodePlanterAliveScore;
 			}
-			else if ( planterPlayerComponent.TeamComponent.Team == thisPlayer.TeamComponent.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
+			else
 			{
-				// Teammate is alive when the bomb explodes
-				Score += BombExplodeTeamAliveScore;
+				// Planter is dead when the bomb explodes
+				Score += BombExplodePlanterDeadScore;
 			}
+		}
+		else if ( planterPlayerComponent.TeamComponent.Team == thisPlayer.TeamComponent.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
+		{
+			// Teammate is alive when the bomb explodes
+			Score += BombExplodeTeamAliveScore;
 		}
 	}
 }
