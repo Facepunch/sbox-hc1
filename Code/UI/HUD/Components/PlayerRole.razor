@@ -6,13 +6,8 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="flex justify-end align-center row">
-    <div class="line" style="background-image: linear-gradient( to right, rgba( @TeamColor, 0 ), @TeamColor, @TeamColor );" />
-       
-    <div class="circle" style=" border: 1px solid rgba( @TeamColor, 0.5 );">
-        <img class="hud with-padding" style="background-image-tint:@TeamColor" src="@TeamIcon" />
-    </div>
-    <div class="line" style="background-image: linear-gradient( to left, rgba( @TeamColor, 0 ), @TeamColor, @TeamColor );" />
+<root class="flex justify-center align-center row">
+    <img class="hud with-padding" src="@TeamBanner" />
 </root>
 
 @code
@@ -22,15 +17,10 @@
 
     public PlayerController LocalPlayer => GameUtils.LocalPlayer;
 
-    private string TeamColor 
-    {
-        get => TeamComponent.Team.GetColor().Hex;
-    }
-
     protected override int BuildHash()
     {
         return !Player.IsValid() ? 0 : HashCode.Combine( TeamComponent, TeamComponent.Team, LocalPlayer.IsSpectating );
     }
 
-    private string TeamIcon => TeamComponent.Team.GetIconPath();
+    private string TeamBanner => TeamComponent.Team.GetBannerPath();
 }

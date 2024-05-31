@@ -35,8 +35,18 @@ public static class TeamExtensionMethods
 	{
 		return team switch
 		{
-			Team.CounterTerrorist => "/ui/teams/operators.png",
-			Team.Terrorist => "/ui/teams/anarchists.png",
+			Team.CounterTerrorist => "/ui/teams/operators_logo.png",
+			Team.Terrorist => "/ui/teams/anarchists_logo.png",
+			_ => ""
+		};
+	}
+
+	public static string GetBannerPath( this Team team )
+	{
+		return team switch
+		{
+			Team.CounterTerrorist => "/ui/teams/operators_logo_banner.png",
+			Team.Terrorist => "/ui/teams/anarchists_logo_banner.png",
 			_ => ""
 		};
 	}
