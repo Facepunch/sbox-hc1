@@ -62,16 +62,9 @@
 
         var toScreen = camera.PointToScreenNormal( Frame.Position, out IsBehind );
 
-        if ( Frame.Trace )
+        if ( Frame.MaxDistance != 0f && camera.Transform.Position.Distance( Frame.Position ) > Frame.MaxDistance )
         {
-            var tr = Scene.Trace.Ray( camera.Transform.Position, camera.Transform.Position * camera.Transform.Rotation.Forward * 100000f )
-            .WithoutTags( "trigger", "movement" )
-            .Run();
-
-            if ( tr.Hit )
-            {
-                IsBehind = true;
-            }
+            IsBehind = true;
         }
 
         SetClass( "is-behind", IsBehind );

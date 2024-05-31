@@ -15,7 +15,7 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 		DisplayText = "GRENADE!",
 		Position = Transform.Position,
 		Rotation = Transform.Rotation,
-		Trace = true
+		MaxDistance = 512f,
 	};
 
 	bool IMarkerObject.ShouldShowMarker => true;
