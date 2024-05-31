@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "59bebe2f-623c-4ea0-9513-8103ee6b9812",
+    "__guid": "4d62897f-a120-4bba-8e80-97c246b1a79d",
     "Flags": 0,
     "Name": "w_mp5",
     "Tags": "player",
@@ -10,24 +10,25 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "dbd5e631-0785-4852-9606-03a404dd8790",
+        "__guid": "8961996d-26fe-459f-acb5-6273362ced21",
+        "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "HoldType": "Rifle",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "9739bdea-f1f1-475b-99a4-7d1a27910095",
-          "go": "40890233-e7cc-42a4-b734-c62d0d784cb3",
+          "component_id": "381d5d8f-a371-4d3c-b131-5d393f0f2f78",
+          "go": "c999e70c-3c42-4935-a6ef-3c2def45b8dc",
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "weapons/mp5/mp5.wpn"
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "291866c0-866d-4a9a-8703-aec38b0be4eb"
+        "__guid": "4afa88eb-aee1-413e-88eb-9f32c862ca61"
       }
     ],
     "Children": [
       {
-        "__guid": "40890233-e7cc-42a4-b734-c62d0d784cb3",
+        "__guid": "c999e70c-3c42-4935-a6ef-3c2def45b8dc",
         "Flags": 0,
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
@@ -37,17 +38,18 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "9739bdea-f1f1-475b-99a4-7d1a27910095",
+            "__guid": "381d5d8f-a371-4d3c-b131-5d393f0f2f78",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
             "RenderType": "On",
-            "Tint": "1,1,1,1"
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
           }
         ]
       },
       {
-        "__guid": "d8a59b98-0462-454f-8c20-75a37cac62fe",
+        "__guid": "b42d56f0-7233-424d-bc65-0658d4935d77",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -56,18 +58,18 @@
         "Components": [
           {
             "__type": "Facepunch.AmmoContainer",
-            "__guid": "3535589a-f3e6-4b5d-8a7e-8385dbb6c20e",
+            "__guid": "231b5cb0-5ddb-4899-aba5-63d2875915b9",
             "Ammo": 30,
             "HasAmmo": true,
             "MaxAmmo": 30
           },
           {
             "__type": "Facepunch.ShootWeaponFunction",
-            "__guid": "9d964421-56bb-4b1f-ac26-390e22350ee0",
+            "__guid": "ca9b16d2-5d48-45c5-bc03-22e12a27bd31",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "3535589a-f3e6-4b5d-8a7e-8385dbb6c20e",
-              "go": "d8a59b98-0462-454f-8c20-75a37cac62fe",
+              "component_id": "231b5cb0-5ddb-4899-aba5-63d2875915b9",
+              "go": "b42d56f0-7233-424d-bc65-0658d4935d77",
               "component_type": "AmmoContainer"
             },
             "BaseDamage": 12,
@@ -102,11 +104,11 @@
           },
           {
             "__type": "Facepunch.ReloadWeaponFunction",
-            "__guid": "16467635-ecea-43f9-8a2a-dccf5a57b112",
+            "__guid": "fa4a2ae0-a95f-4306-bd45-8b62b293b8c0",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "3535589a-f3e6-4b5d-8a7e-8385dbb6c20e",
-              "go": "d8a59b98-0462-454f-8c20-75a37cac62fe",
+              "component_id": "231b5cb0-5ddb-4899-aba5-63d2875915b9",
+              "go": "b42d56f0-7233-424d-bc65-0658d4935d77",
               "component_type": "AmmoContainer"
             },
             "EmptyReloadSounds": {
@@ -131,7 +133,7 @@
           },
           {
             "__type": "Facepunch.RecoilFunction",
-            "__guid": "eb949eb1-8127-4f52-a170-9c14cd54a25b",
+            "__guid": "636270aa-2a90-4523-905a-0f57a50dd9d6",
             "HorizontalSpread": "2.00,-2.00,1",
             "PlayerVelocityLimit": 200,
             "RecoilResetTime": 0.3,

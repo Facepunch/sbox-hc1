@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "669c839f-aec2-4534-ab6e-6d923dbb30a6",
+    "__guid": "34d9d19c-a11c-4b71-acd5-eb2dd70dff11",
     "Flags": 0,
     "Name": "w_c4",
     "Tags": "player",
@@ -10,24 +10,25 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "6a6b10f4-96bc-489c-9d7b-b9a97a725025",
+        "__guid": "4f868732-f10c-4043-9a3b-22aa715a374b",
+        "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "HoldType": "HoldItem",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "a7588883-3043-4a68-9860-9c7f4d05b9b2",
-          "go": "c77c10df-ae7f-40d0-b6a3-df5eb54f0533",
+          "component_id": "8f05fa55-a9c3-477d-8451-69a1cb645bd0",
+          "go": "c6e5709f-8f6e-4fe2-ba9b-5c045d14c690",
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "weapons/c4/c4.wpn"
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "c208ec52-5a9a-442b-a3c2-ab4954cb9e22"
+        "__guid": "603d512c-fd9a-4c18-9b6a-036f72784ea3"
       }
     ],
     "Children": [
       {
-        "__guid": "c77c10df-ae7f-40d0-b6a3-df5eb54f0533",
+        "__guid": "c6e5709f-8f6e-4fe2-ba9b-5c045d14c690",
         "Flags": 0,
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
@@ -37,17 +38,18 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "a7588883-3043-4a68-9860-9c7f4d05b9b2",
+            "__guid": "8f05fa55-a9c3-477d-8451-69a1cb645bd0",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
             "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
             "RenderType": "On",
-            "Tint": "1,1,1,1"
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
           }
         ]
       },
       {
-        "__guid": "ba2d3ed5-de59-4e60-be4e-ce5278c9db3e",
+        "__guid": "c404ba7c-801c-47ff-a024-420ebeb3fc67",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -56,7 +58,7 @@
         "Components": [
           {
             "__type": "PlantFunction",
-            "__guid": "d28a1f31-03ca-4003-8629-9ce85da9a3e9",
+            "__guid": "3b9bb88d-282c-4db7-87c5-ba5b20397eb3",
             "InputActions": [
               "Attack1",
               "Use"
@@ -89,8 +91,7 @@
             ],
             "PlantingBeepSound": "sounds/guns/c4/c4_planting_beep.sound",
             "PlantTime": 3.2,
-            "RequiresAllInputActions": false,
-            "ResetTime": 0.5
+            "RequiresAllInputActions": false
           }
         ]
       }

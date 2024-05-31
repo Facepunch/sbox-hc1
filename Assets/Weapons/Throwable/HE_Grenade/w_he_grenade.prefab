@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "58433e54-5e64-4d9e-809d-5f58a640f1f8",
+    "__guid": "cd0a70a2-ff2e-4e63-992c-bfbc9fb8a654",
     "Flags": 0,
     "Name": "w_he_grenade",
     "Tags": "player",
@@ -10,24 +10,25 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "5b0c7fb8-2bf7-441e-b81e-ae963010820f",
+        "__guid": "ba8cbccb-46e3-4aca-aaca-229580f4e46e",
+        "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "HoldType": "HoldItem",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "926097b3-39b1-40f4-b194-3b782a22000b",
-          "go": "e89fb7b5-028f-416c-8140-ea73282f00ca",
+          "component_id": "6d954660-0061-4a56-ad93-583c56d19ac9",
+          "go": "90565333-5a55-4bfb-936b-b7370cf45d87",
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "weapons/throwable/he_grenade/he_grenade.wpn"
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "0679ad1d-c836-44c4-9bf8-59269c7fa844"
+        "__guid": "7a722885-a0ab-4ea2-b47e-d905802c8cd5"
       }
     ],
     "Children": [
       {
-        "__guid": "e89fb7b5-028f-416c-8140-ea73282f00ca",
+        "__guid": "90565333-5a55-4bfb-936b-b7370cf45d87",
         "Flags": 0,
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
@@ -37,17 +38,18 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "926097b3-39b1-40f4-b194-3b782a22000b",
+            "__guid": "6d954660-0061-4a56-ad93-583c56d19ac9",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
             "Model": "weapons/throwable/he_grenade/v_he_grenade.vmdl",
             "RenderType": "On",
-            "Tint": "1,1,1,1"
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
           }
         ]
       },
       {
-        "__guid": "478e993d-2fec-4b4b-878e-109ab3ce47c1",
+        "__guid": "f80123a6-17ab-4ab8-a30d-ed126bd3ae51",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -56,7 +58,7 @@
         "Components": [
           {
             "__type": "Facepunch.ThrowWeaponFunction",
-            "__guid": "d0c719bd-d3a5-4de0-8702-176d42fdb8c4",
+            "__guid": "a480f30c-81c3-4765-88f4-5bd507460cd9",
             "CookTime": 0.75,
             "InputActions": [
               "Attack1"
