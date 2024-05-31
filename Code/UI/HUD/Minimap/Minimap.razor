@@ -1,10 +1,10 @@
 ﻿@namespace Facepunch
 @attribute [StyleSheet]
 
-<root>
+<root class="with-background with-rounding">
     @if (Renderer.IsValid())
     {
-        <div class="background">
+        <div>
             <div class="minimap" style="background-image: url( @Renderer.CurrentMinimapPath );" />
             <div class="overlay" style="background-image: url( @Renderer.CurrentMinimapPath );" />
 
