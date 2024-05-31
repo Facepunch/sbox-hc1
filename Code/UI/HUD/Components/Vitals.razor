@@ -26,13 +26,14 @@
 @code
 {
     public PlayerController Player => GameUtils.Viewer;
+    public HealthComponent HealthComponent => Player.Components.Get<HealthComponent>();
     public int Health => Player.Components.Get<HealthComponent>().Health.CeilToInt();
     public int Armor => Player.Components.Get<HealthComponent>().Armor.CeilToInt();
     public bool HasHelmet => Player.Components.Get<HealthComponent>().HasHelmet;
 
     protected override int BuildHash()
     {
-        return !Player.IsValid() ? 0 : HashCode.Combine( Player.IsSpectating, Health, Armor, HasHelmet );
+        return !Player.IsValid() ? 0 : HashCode.Combine(Player.IsSpectating, Health, Armor, HasHelmet, Player.HealthComponent.State);
     }
 
     private string BuildClass()
