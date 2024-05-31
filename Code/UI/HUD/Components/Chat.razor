@@ -22,6 +22,8 @@
                             <div class="square rounded" style="background-image: url( avatar:@entry.steamid )"></div>
                         }
 
+                        @if (entry.type == MessageType.Chat)
+                        {
                         <span class="flex column w-full">
                             <span class="flex row gap-sm w-full align-center">
                                 <label class="emphasis no-shadow grey">@entry.author</label>
@@ -33,6 +35,14 @@
                             </span>
                             <label class="message no-shadow">@entry.message</label>
                         </span>
+                        }
+                        else
+                        {
+                            <span class="flex row gap-sm w-full align-center">
+                                <label class="emphasis no-shadow grey">ℹ️</label>
+                                <label class="message no-shadow">@entry.message</label>
+                            </span>
+                        }
                     </div>
                 }
             </div>
@@ -60,6 +70,12 @@
 
 @code
 {
+    public enum MessageType
+    {
+        Chat,
+        System,
+    }
+
     public enum ChatModes
     {
         Team,
@@ -69,7 +85,7 @@
     private ChatModes ChatMode = ChatModes.All;
     private TextEntry InputBox;
 
-    public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded, ChatModes chatMode);
+    public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded, ChatModes chatMode, MessageType type);
     private List<Entry> Entries = new();
 
     private bool Open => InputBox.HasFocus;
@@ -148,7 +164,7 @@
         var author = Rpc.Caller.DisplayName;
         var steamid = Rpc.Caller.SteamId;
 
-        Entries.Add(new Entry(steamid, author, message, 0.0f, chatMode));
+        Entries.Add(new Entry(steamid, author, message, 0.0f, chatMode, MessageType.Chat));
         StateHasChanged();
     }
 
@@ -160,7 +176,7 @@
         if (string.IsNullOrWhiteSpace(message))
             return;
 
-        Entries.Add(new Entry(0, "ℹ️", message, 0.0f, ChatModes.All));
+        Entries.Add(new Entry(0, "", message, 0.0f, ChatModes.All, MessageType.System));
         StateHasChanged();
     }
 
