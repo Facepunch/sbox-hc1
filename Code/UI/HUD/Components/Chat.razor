@@ -19,13 +19,13 @@
 
                         @if (entry.steamid > 0)
                         {
-                            <div class="square rounded" style="background-image: url( avatar:@entry.steamid )"></div>
+                            <div class="square rounded shrink-0" style="background-image: url( avatar:@entry.steamid )"></div>
                         }
 
                         @if (entry.type == MessageType.Chat)
                         {
-                        <span class="flex row w-full align-center">
-                            <span class="flex row gap-sm align-center">
+                        <span class="flex row w-full align-center shrink-0 gap-sm">
+                            <span class="flex row gap-sm align-center shrink-0">
                                 <label class="playername bold no-shadow" style="color: @entry.color.Hex">@entry.author</label>
 
                                 @if (entry.chatMode != ChatModes.All)
@@ -33,7 +33,7 @@
                                     <label class="small no-shadow green">(@entry.chatMode)</label>
                                 }
                             </span>
-                            <label class="message no-shadow">: @entry.message</label>
+                            <label class="message no-shadow">@entry.message</label>
                         </span>
                         }
                         else
@@ -47,14 +47,14 @@
             </div>
 
             <div>
-                <div class="when-open flex align-center gap-sm">
+                <div class="when-open flex align-center gap-sm shrink-0">
                     <InputHint Action="Score" class="small" Size="@InputGlyphSize.Small" />
                     <label>
                         @ChatMode
                     </label>
                 </div>
 
-                <div class="when-not-open flex align-center gap-sm">
+                <div class="when-not-open flex align-center gap-sm shrink-0">
                     <InputHint Action="Chat" class="small" Size="@InputGlyphSize.Small" />
                     <label>
                         Chat
