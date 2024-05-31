@@ -355,7 +355,9 @@ public partial class PlayerInventory : Component
 		if ( Balance < weaponData.Price )
 			return;
 
+		if ( GiveWeapon( weaponData ) is null )
+			return;
+
 		Balance -= weaponData.Price;
-		GiveWeapon( weaponData );
 	}
 }
