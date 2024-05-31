@@ -7,17 +7,12 @@ public partial class PlayerMarker : Component, IMarkerObject
 	/// </summary>
 	[RequireComponent] PlayerController Player { get; set; }
 
-	bool IMarkerObject.ShouldShowMarker => Player.SteamId != Connection.Local.SteamId && Player.HealthComponent.State == LifeState.Alive;
+	bool IMarkerObject.ShouldShowMarker => !(Player as IPawn).IsPossessed && Player.HealthComponent.State == LifeState.Alive;
 
 	/// <summary>
 	/// Custom marker panel
 	/// </summary>
 	Type IMarkerObject.MarkerPanelTypeOverride => typeof( UI.PlayerMarkerPanel );
-
-	/// <summary>
-	/// The connection (if any)
-	/// </summary>
-	private Connection Connection => Connection.All.FirstOrDefault( x => x.SteamId == Player.SteamId );
 
 	MarkerFrame IMarkerObject.MarkerFrame
 	{
