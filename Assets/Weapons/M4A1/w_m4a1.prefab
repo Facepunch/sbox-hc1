@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "886ea01e-ee68-4c86-9a2f-cb7ec1343301",
+    "__guid": "73818535-4911-4e09-9733-8982fb9d0625",
     "Flags": 0,
     "Name": "w_m4a1",
     "Tags": "player",
@@ -10,35 +10,36 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "10a8dc91-03bc-4c6a-ad3f-63001e55797b",
+        "__guid": "f9abe94c-0d33-4403-8269-772f3fc4acee",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "HoldType": "Rifle",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "9c87efdf-d5f6-4c8c-93b0-720809968462",
-          "go": "fad4a7ba-df07-4dbf-9699-def2e28cbfe4",
+          "component_id": "161275ce-ecae-4bc2-8d36-0fd6d2257ad3",
+          "go": "3685b6b0-bb4b-476c-9160-7c36ea2195fb",
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "weapons/m4a1/m4a1.wpn"
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "29a0983e-626e-40b6-a993-2ec7326e046d"
+        "__guid": "99ee847c-460d-45cf-94aa-674fc16e9088"
       }
     ],
     "Children": [
       {
-        "__guid": "fad4a7ba-df07-4dbf-9699-def2e28cbfe4",
+        "__guid": "3685b6b0-bb4b-476c-9160-7c36ea2195fb",
         "Flags": 0,
         "Name": "Model",
-        "Position": "3.535849,0,-5.571055",
+        "Position": "3.535849,0,-7.041",
+        "Scale": "1.3,1.3,1.3",
         "Enabled": true,
         "NetworkMode": 2,
         "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "9c87efdf-d5f6-4c8c-93b0-720809968462",
+            "__guid": "161275ce-ecae-4bc2-8d36-0fd6d2257ad3",
             "BodyGroups": 427,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
@@ -49,7 +50,7 @@
         ]
       },
       {
-        "__guid": "a64db9a3-27b8-46a9-91aa-06d37f777390",
+        "__guid": "3712e367-5c82-47e3-b6cf-4906962fb625",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -58,18 +59,18 @@
         "Components": [
           {
             "__type": "Facepunch.AmmoContainer",
-            "__guid": "4c7a8736-0997-4e5d-92c6-e54277d2f95d",
+            "__guid": "84d10471-805f-4614-b7ae-9d72c40dee44",
             "Ammo": 30,
             "HasAmmo": true,
             "MaxAmmo": 30
           },
           {
             "__type": "Facepunch.ShootWeaponFunction",
-            "__guid": "83f936bb-bf6e-48ef-b5c2-01014f75c6db",
+            "__guid": "6eac9ed8-22af-4a59-a44d-098e78340fc2",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "4c7a8736-0997-4e5d-92c6-e54277d2f95d",
-              "go": "a64db9a3-27b8-46a9-91aa-06d37f777390",
+              "component_id": "84d10471-805f-4614-b7ae-9d72c40dee44",
+              "go": "3712e367-5c82-47e3-b6cf-4906962fb625",
               "component_type": "AmmoContainer"
             },
             "BaseDamage": 18,
@@ -104,11 +105,11 @@
           },
           {
             "__type": "Facepunch.ReloadWeaponFunction",
-            "__guid": "40d7ced9-20fb-45d2-8dd3-8dbd6e8edf5e",
+            "__guid": "3a0481a5-1cf6-4890-8e72-9b371e8f281e",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "4c7a8736-0997-4e5d-92c6-e54277d2f95d",
-              "go": "a64db9a3-27b8-46a9-91aa-06d37f777390",
+              "component_id": "84d10471-805f-4614-b7ae-9d72c40dee44",
+              "go": "3712e367-5c82-47e3-b6cf-4906962fb625",
               "component_type": "AmmoContainer"
             },
             "EmptyReloadSounds": {
@@ -133,7 +134,7 @@
           },
           {
             "__type": "Facepunch.RecoilFunction",
-            "__guid": "4caa1926-3619-473d-8007-04a0689245ce",
+            "__guid": "abc2ff34-5a16-40f9-8b5a-a8d2bb8a21b2",
             "HorizontalSpread": "2.00,-2.00,1",
             "PlayerVelocityLimit": 200,
             "RecoilResetTime": 0.3,
