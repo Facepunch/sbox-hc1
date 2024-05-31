@@ -84,6 +84,7 @@
             new EquipmentData( "Kevlar + Helmet", "/ui/equipment/helmet.png", 1000, ( PlayerController player ) => {
                 player.Inventory.Balance -= 1000;
                 player.HealthComponent.Armor = 100;
+                player.HealthComponent.HasHelmet = true;
             } ),
             new EquipmentData( "Defuse Kit", "/ui/equipment/defusekit.png", 400, ( PlayerController player ) => {
                 player.Inventory.Balance -= 400;
