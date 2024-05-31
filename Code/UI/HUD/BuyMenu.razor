@@ -4,35 +4,94 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="hud with-deadzone @(Player.InBuyMenu ? "active" : "")">
-    @foreach (WeaponSlot slot in Enum.GetValues(typeof(WeaponSlot)))
-    {
-        var weapons = WeaponData.All.Where( W => W.IsPurchasableForTeam( Player.TeamComponent.Team ) && W.Slot == slot );
-        if (weapons.Count() < 1)
-            continue;
+<root class="flex absolute inset-0 align-center justify-center @(Player.InBuyMenu ? "active" : "")">
+    <div class="flex column with-padding gap-sm">
 
-        <div class="section">
-            <label class="title">@slot</label>
-            <div class="options">
-            @foreach (WeaponData weaponData in weapons)
-            {
-                <div class="button @(@Inventory.HasWeapon( weaponData ) ? "owned" : "unowned") @(@CanAfford( weaponData ) ? "" : "unaffordable" )" onclick=@(() => BuyWeapon( weaponData ))>
-                    @if ( !string.IsNullOrEmpty( weaponData.Icon ) )
+        <div class="with-background with-padding">
+            <label class="emphasis">$@Player.Inventory.Balance.ToString("N0")</label>
+        </div>
+
+        <div class="with-rounding flex row gap-sm">
+
+        @foreach (WeaponSlot slot in Enum.GetValues(typeof(WeaponSlot)))
+        {
+            var weapons = WeaponData.All.Where( W => W.IsPurchasableForTeam( Player.TeamComponent.Team ) && W.Slot == slot );
+            if (weapons.Count() < 1)
+                continue;
+
+            if (slot == WeaponSlot.Melee)
+                continue;
+
+            <div class="flex column shrink-0 with-background">
+                <label class="title text-center with-padding">@slot</label>
+                <div class="flex column gap-sm with-padding">
+                    @foreach (WeaponData weaponData in weapons)
                     {
-                        <div class="gunicon" style="background-image:url(@weaponData.Icon);" />
-                    }
+                        <div class="button @slot @(@Inventory.HasWeapon( weaponData ) ? "owned" : "unowned") @(@CanAfford( weaponData ) ? "" : "unaffordable" )" onclick=@(() => BuyWeapon( weaponData ))>
+                            <label>@weaponData.Name</label>
 
-                    <label>@weaponData.Name</label>
-                    <label class="price">$@weaponData.Price.ToString("N0")</label>
+                            @if ( !string.IsNullOrEmpty( weaponData.Icon ) )
+                            {
+                                <div class="gunicon" style="background-image:url(@weaponData.Icon);" />
+                            }
+
+                            <label class="price">$@weaponData.Price.ToString("N0")</label>
+                        </div>
+                    }
                 </div>
-            }
+            </div>
+        }
+
+        </div>
+
+        <div class="with-rounding flex row gap-sm">
+            <div class="flex column shrink-0 with-background grow">
+                <label class="title text-center with-padding">Equipment</label>
+                <div class="flex row gap-sm with-padding">
+                    @foreach (var equipment in EquipmentData.All)
+                    {
+                        <div class="button grow equipment @(@CanAfford( equipment ) ? "" : "unaffordable" )" onclick=@(() => equipment.OnPurchase(Player))>
+                            <label>@equipment.Name</label>
+
+                            @if (!string.IsNullOrEmpty(equipment.Icon))
+                            {
+                                <div class="gunicon" style="background-image:url(@equipment.Icon);" />
+                            }
+
+                            <label class="price">$@equipment.Price.ToString("N0")</label>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
-    }
+    </div>
 </root>
 
 @code
 {
+    //
+    // alex: Under time constraints here, so I'm going to define equipment (armor, defuse kits) in here
+    // because there isn't really enough time to work out a whole equipment weapon system type thing.
+    //
+    private record struct EquipmentData(string Name, string Icon, int Price, Action<PlayerController> OnPurchase)
+    {
+        public static IEnumerable<EquipmentData> All => new List<EquipmentData>
+        {
+            new EquipmentData( "Kevlar", "/ui/equipment/armor.png", 650, ( PlayerController player ) => {
+                player.Inventory.Balance -= 650;
+                player.HealthComponent.Armor = 100;
+            } ),
+            new EquipmentData( "Kevlar + Helmet", "/ui/equipment/helmet.png", 1000, ( PlayerController player ) => {
+                player.Inventory.Balance -= 1000;
+                player.HealthComponent.Armor = 100;
+            } ),
+            new EquipmentData( "Defuse Kit", "/ui/equipment/defusekit.png", 400, ( PlayerController player ) => {
+                player.Inventory.Balance -= 400;
+                player.Inventory.HasDefuseKit = true;
+            } ),
+        };
+    }
+
     public PlayerInventory Inventory => Player.Inventory;
     public PlayerController Player => GameUtils.Viewer;
 
@@ -47,6 +106,11 @@
     private bool CanAfford( WeaponData weaponData )
     {
         return Inventory.Balance >= weaponData.Price;
+    }
+
+    private bool CanAfford(EquipmentData equipmentData)
+    {
+        return Inventory.Balance >= equipmentData.Price;
     }
 
     protected override int BuildHash()

@@ -28,7 +28,7 @@
 
     private string BuildInnerStyle()
     {
-        return $"mask-image: conic-gradient(white 0%, white {Value}%, black {Value+1}%);";
+        return $"mask-image: conic-gradient(white 0%, white {Value.Clamp(0, 100)}%, black {(Value + 1).Clamp(0, 100)}%);";
     }
 
     private string BuildOuterStyle()

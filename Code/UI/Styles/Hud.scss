@@ -77,6 +77,10 @@
         backdrop-filter: $blur;
     }
 
+    &.with-rounding {
+        border-radius: $rounding;
+    }
+
     &.with-px-sm {
         padding-left: 4px;
         padding-right: 4px;
@@ -133,5 +137,13 @@
 
     &.with-border {
         border: 1px solid $border;
+    }
+
+    &.grow {
+        flex-grow: 1;
+    }
+
+    &.shrink-0 {
+        flex-shrink: 0;
     }
 }

@@ -48,8 +48,6 @@ public partial class PlayerInventory : Component
 	public void Clear()
 	{
 		Assert.True( Networking.IsHost );
-
-		HasDefuseKit = true;
 		
 		foreach ( var wpn in Weapons )
 		{

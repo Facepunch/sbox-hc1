@@ -7,6 +7,7 @@ public partial class HealthComponent : Component, IRespawnable
 {
 	private float InternalArmor = 0f;
 	private float InternalHealth = 100f;
+	private bool InternalHasHelmet = false;
 	private LifeState InternalState = LifeState.Alive;
 
 	/// <summary>
@@ -60,6 +61,18 @@ public partial class HealthComponent : Component, IRespawnable
 			var old = InternalArmor;
 			if ( old == value ) return;
 			InternalArmor = value;
+		}
+	}
+
+	[HostSync( Query = true ), Property, ReadOnly]
+	public bool HasHelmet
+	{
+		get => InternalHasHelmet;
+		set
+		{
+			var old = InternalHasHelmet;
+			if ( old == value ) return;
+			InternalHasHelmet = value;
 		}
 	}
 
@@ -141,7 +154,18 @@ public partial class HealthComponent : Component, IRespawnable
 	[Broadcast]
 	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, bool isHeadshot = false )
 	{
-		if ( isHeadshot ) damage *= 2f;
+		if ( isHeadshot )
+		{
+			if ( HasHelmet )
+			{
+				// Helmet negates headshot damage
+				HasHelmet = false;
+			}
+			else
+			{
+				damage *= 2f;
+			}
+		}
 
 		damage = damage.CeilToInt();
 

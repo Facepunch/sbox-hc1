@@ -1,94 +1,88 @@
 @import "/UI/Styles/Theme.scss";
 
-BuyMenu
-{
-    position: absolute;
-    top: 64px;
-    bottom: 128px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 75%;
-    max-width: 1900px;
-    padding: 64px;
-    background-color: rgba( black, 0.5 );
-    border-radius: 20px;
-    flex-direction: column;
-    gap: 32px;
+BuyMenu {
+    backdrop-filter: brightness( 0.1 );
+    z-index: 100;
     opacity: 0;
-    pointer-events: none;
 
-    .section
-    {        
+    .container {
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 64px;
+        border-radius: 20px;
+        flex-direction: column;
+        gap: 32px;
+        pointer-events: none;
+    }
+
+    .section {
         flex-direction: column;
         gap: 16px;
     }
 
-    .options
-    {
+    .options {
         gap: 8px;
         flex-direction: row;
         flex-wrap: wrap;
+        background-color: rgba( black, 0.5 );
     }
 
-    &.active
-    {
+    &.active {
         pointer-events: all;
         opacity: 1;
     }
 
-    .title
-    {
+    .title {
         font-size: 25px;
         font-family: $main-font;
         color: #fff;
     }
 
-    .button
-    {
+    .button {
         font-size: 18px;
         font-family: $main-font;
         color: #fff;
         background-color: rgba( black, 0.5 );
-        height: 150px;
-        width: 300px;
-        padding: 16px;
+        padding: 8px;
         display: flex;
         flex-direction: column;
         border: 3px solid;
         border-color: transparent;
         transition: all 0.075s ease;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: flex-start;
+        border-radius: $rounding;
+        height: 100px;
+        width: 200px;
 
-        label
-        {
+        &.primary {
+            height: 125px;
+            width: 250px;
+        }
+
+        label {
             text-shadow: 2px 1px 0px rgba( black, 0.5 );
         }
 
-        &.unaffordable
-        {
-            background-color: rgba( red, 0.5 );
+        &.unaffordable {
+            background-color: rgba( $red, 0.5 );
         }
 
-        &.owned
-        {
-            background-color: rgba( $main-color, 0.5 );
-            border-color: $main-color;
-            pointer-events: none;
+        &.owned {
+            background-color: rgba( $yellow, 0.5 );
+            border-color: $yellow;
         }
 
-        &:hover
-        {
-            &:not(.unaffordable)
-            {
+        &:hover {
+            &:not(.unaffordable) {
                 cursor: pointer;
-                border-color: $main-color;
+                border-color: $yellow;
             }
         }
     }
 
-    .gunicon
-    {
+    .gunicon {
         position: absolute;
         align-self: center;
         width: 60%;
