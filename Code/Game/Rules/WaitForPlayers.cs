@@ -65,7 +65,7 @@ public sealed class WaitForPlayers : Component, IGameStartListener
 		StartTime = Time.Now;
 		IsPostponed = false;
 
-		GameMode.Instance.ShowStatusText( "Waiting for players..." );
+		GameMode.Instance.ShowStatusText( "Waiting..." );
 		GameMode.Instance.ShowCountDownTimer( StartTime, DurationSeconds );
 	}
 }
