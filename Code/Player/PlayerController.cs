@@ -334,7 +334,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	}
 
 	private float _baseAcceleration = 10;
-	private void ApplyAccceleration()
+	private void ApplyAcceleration()
 	{
 		if ( !IsGrounded )
 			CharacterController.Acceleration = AirAcceleration;
@@ -387,38 +387,9 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		Outline.ObscuredColor = TeamComponent.Team.GetColor();
 	}
 
-	protected override void OnFixedUpdate()
+	private void ApplyMovement()
 	{
 		var cc = CharacterController;
-		if ( !cc.IsValid() ) return;
-
-		UpdateZones();
-		UpdateOutline();
-
-		if ( HealthComponent.State != LifeState.Alive )
-			return;
-
-		UpdateUse();
-
-		if ( IsLocallyControlled )
-		{
-			UIUpdate();
-			BuildWishInput();
-			BuildWishVelocity();
-			BuildInput();
-
-			if ( cc.IsOnGround && !IsFrozen && !InMenu && Input.Pressed( "Jump" ) )
-			{
-				float flGroundFactor = 1.0f;
-
-				cc.Punch( Vector3.Up * JumpPower * flGroundFactor );
-
-				BroadcastPlayerJumped();
-			}
-		}
-
-		ApplyAccceleration();
-
 		if ( cc.IsOnGround )
 		{
 			cc.Velocity = cc.Velocity.WithZ( 0 );
@@ -432,10 +403,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 			}
 			cc.Accelerate( WishVelocity.ClampLength( 50 ) );
 		}
-
-		cc.ApplyFriction( GetFriction() );
-		cc.Move();
-
+		
 		if ( !cc.IsOnGround )
 		{
 			if ( !IsNoclipping )
@@ -447,12 +415,48 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		{
 			cc.Velocity = cc.Velocity.WithZ( 0 );
 		}
-		
-		if ( !IsNoclipping )
+
+		if ( IsNoclipping )
+		{
+			cc.IsOnGround = false;
+			cc.Velocity = WishMove.Normal * EyeAngles.ToRotation() * NoclipSpeed;
+		}
+
+		cc.ApplyFriction( GetFriction() );
+		cc.Move();
+	}
+
+	protected override void OnFixedUpdate()
+	{
+		var cc = CharacterController;
+		if ( !cc.IsValid() ) return;
+
+		UpdateZones();
+		UpdateOutline();
+
+		if ( HealthComponent.State != LifeState.Alive )
 			return;
-		
-		cc.IsOnGround = false;
-		cc.Velocity = WishMove.Normal * EyeAngles.ToRotation() * NoclipSpeed;
+
+		if ( !IsLocallyControlled )
+			return;
+
+		UpdateUse();
+		UIUpdate();
+		BuildWishInput();
+		BuildWishVelocity();
+		BuildInput();
+
+		if ( cc.IsOnGround && !IsFrozen && !InMenu && Input.Pressed( "Jump" ) )
+		{
+			float flGroundFactor = 1.0f;
+
+			cc.Punch( Vector3.Up * JumpPower * flGroundFactor );
+
+			BroadcastPlayerJumped();
+		}
+
+		ApplyAcceleration();
+		ApplyMovement();
 	}
 	
 	private void UIUpdate()

@@ -14,16 +14,13 @@ partial class PlayerController
 
 	private void UpdateUse()
 	{
-		if ( IsLocallyControlled )
-		{
-			IsUsing = Input.Down( "Use" );
+		IsUsing = Input.Down( "Use" );
 
-			if ( Input.Pressed( "Use" ) )
+		if ( Input.Pressed( "Use" ) )
+		{
+			using ( Rpc.FilterInclude( Connection.Host ) )
 			{
-				using ( Rpc.FilterInclude( Connection.Host ) )
-				{
-					TryUse( AimRay );
-				}
+				TryUse( AimRay );
 			}
 		}
 	}
