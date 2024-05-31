@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "f4193226-3bcc-43c4-adc9-eef20381a8ec",
+    "__guid": "b71537bc-8353-4c46-b673-8ffc73ff26d6",
     "Flags": 0,
     "Name": "w_usp",
     "Tags": "player",
@@ -10,24 +10,24 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "ead7033e-6590-4b81-9756-0d31f9510f36",
+        "__guid": "d91ce6ed-85f7-4e24-accd-6047cb2645e9",
         "HoldType": "Pistol",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "0b5494b0-5f99-4008-944b-a57ae2896cc9",
-          "go": "264c9aa7-57b1-4ea6-a1bc-dcde05466ddf",
+          "component_id": "8dd6f557-a6ed-4d80-bef4-7a82507726bb",
+          "go": "ce83d948-37de-4820-ac33-93813bb229ee",
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "weapons/usp/usp.wpn"
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "d04e07b7-9fda-4879-9c92-391480d7b87f"
+        "__guid": "869d9f1b-2ed0-4e20-b5e0-6ee4e5bb6e57"
       }
     ],
     "Children": [
       {
-        "__guid": "264c9aa7-57b1-4ea6-a1bc-dcde05466ddf",
+        "__guid": "ce83d948-37de-4820-ac33-93813bb229ee",
         "Flags": 0,
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
@@ -37,10 +37,10 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "0b5494b0-5f99-4008-944b-a57ae2896cc9",
+            "__guid": "8dd6f557-a6ed-4d80-bef4-7a82507726bb",
             "BodyGroups": 9493,
             "CreateBoneObjects": false,
-            "Model": "models/dev/error.vmdl",
+            "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -48,7 +48,7 @@
         ]
       },
       {
-        "__guid": "c6177187-217b-4c83-9cb6-b4f69d4e0581",
+        "__guid": "7f57171b-2145-422f-a70b-960762be4f21",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -57,18 +57,18 @@
         "Components": [
           {
             "__type": "Facepunch.AmmoContainer",
-            "__guid": "75209600-6808-468e-9836-f2c48a85c681",
+            "__guid": "275de74d-28dd-4702-b25d-ff8fb633b32d",
             "Ammo": 13,
             "HasAmmo": true,
             "MaxAmmo": 13
           },
           {
             "__type": "Facepunch.ShootWeaponFunction",
-            "__guid": "90e55573-7d10-4534-aa1d-be13ce9e03bb",
+            "__guid": "4c06a640-e6d6-47c0-b088-7fc4350a944f",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "75209600-6808-468e-9836-f2c48a85c681",
-              "go": "c6177187-217b-4c83-9cb6-b4f69d4e0581",
+              "component_id": "275de74d-28dd-4702-b25d-ff8fb633b32d",
+              "go": "7f57171b-2145-422f-a70b-960762be4f21",
               "component_type": "AmmoContainer"
             },
             "BaseDamage": 18,
@@ -103,11 +103,11 @@
           },
           {
             "__type": "Facepunch.ReloadWeaponFunction",
-            "__guid": "62add12e-2f0d-4920-a9e9-531b43d8543e",
+            "__guid": "4fa22887-e687-47b6-bdb1-1c2c4b3e78a6",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "75209600-6808-468e-9836-f2c48a85c681",
-              "go": "c6177187-217b-4c83-9cb6-b4f69d4e0581",
+              "component_id": "275de74d-28dd-4702-b25d-ff8fb633b32d",
+              "go": "7f57171b-2145-422f-a70b-960762be4f21",
               "component_type": "AmmoContainer"
             },
             "EmptyReloadSounds": {},
@@ -123,7 +123,7 @@
           },
           {
             "__type": "Facepunch.RecoilFunction",
-            "__guid": "4a90a552-4b4d-48ee-ae09-6c027a5e6c73",
+            "__guid": "23d36e30-8dc1-48af-8daa-715795d36b66",
             "HorizontalSpread": "1.40,-1.40,1",
             "PlayerVelocityLimit": 200,
             "RecoilResetTime": 0.3,
@@ -138,6 +138,8 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.w_usp"
+  ],
   "__version": 1
 }
