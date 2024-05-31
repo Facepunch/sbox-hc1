@@ -358,4 +358,26 @@ public partial class PlayerInventory : Component
 
 		Balance -= weaponData.Price;
 	}
+
+	public void BuyEquipment( string equipmentId )
+	{
+		using var _ = Rpc.FilterInclude( Connection.Host );
+		BuyEquipmentHost( equipmentId );
+	}
+
+	[Broadcast]
+	private void BuyEquipmentHost( string equipmentId )
+	{
+		Assert.True( Networking.IsHost );
+
+		var equipmentData = EquipmentData.GetById( equipmentId );
+
+		if ( equipmentData == null )
+		{
+			Log.Warning( $"Attempted purchase but EquipmentData (Id: {equipmentId}) not known!" );
+			return;
+		}
+		
+		equipmentData.Purchase( Player );
+	}
 }

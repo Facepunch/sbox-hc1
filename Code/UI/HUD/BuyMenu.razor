@@ -53,7 +53,7 @@
                         @if (!equipment.IsVisible(Player))
                             continue;
 
-                        <div class="button grow equipment @(equipment.IsOwned(Player) ? "owned" : "unowned") @(@CanAfford( equipment ) ? "" : "unaffordable" )" onclick=@(() => equipment.Purchase(Player))>
+                        <div class="button grow equipment @(equipment.IsOwned(Player) ? "owned" : "unowned") @(@CanAfford( equipment ) ? "" : "unaffordable" )" onclick=@(() => BuyEquipment( equipment ))>
                             <label>@equipment.Name</label>
 
                             @if (!string.IsNullOrEmpty(equipment.Icon))
@@ -81,6 +81,14 @@
             return;
 
         Inventory.BuyWeapon( weaponData.ResourceId );
+    }
+
+    private void BuyEquipment( EquipmentData equipmentData )
+    {
+        if ( !CanAfford( equipmentData ) )
+            return;
+
+        Inventory.BuyEquipment( equipmentData.Id );
     }
 
     private bool CanAfford( WeaponData weaponData )

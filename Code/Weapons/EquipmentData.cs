@@ -2,6 +2,7 @@
 
 public abstract class EquipmentData
 {
+	public string Id { get; protected set; }
 	public string Name { get; protected set; }
 	public string Icon { get; protected set; }
 	public virtual int GetPrice( PlayerController player ) => 0;
@@ -23,17 +24,23 @@ public abstract class EquipmentData
 	{
 		return new List<EquipmentData>
 		{
-			new ArmorEquipment("Kevlar", "/ui/equipment/armor.png"),
-			new ArmorWithHelmetEquipment("Kevlar + Helmet", "/ui/equipment/helmet.png"),
-			new DefuseKitEquipment("Defuse Kit", "/ui/equipment/defusekit.png")
+			new ArmorEquipment("kevlar", "Kevlar", "/ui/equipment/armor.png"),
+			new ArmorWithHelmetEquipment("kevlar_helmet", "Kevlar + Helmet", "/ui/equipment/helmet.png"),
+			new DefuseKitEquipment("defuse_kit", "Defuse Kit", "/ui/equipment/defusekit.png")
 		};
+	}
+
+	public static EquipmentData GetById( string id )
+	{
+		return GetAll().FirstOrDefault( x => x.Id == id );
 	}
 }
 
 public class ArmorEquipment : EquipmentData
 {
-	public ArmorEquipment( string name, string icon )
+	public ArmorEquipment( string id, string name, string icon )
 	{
+		Id = id;
 		Name = name;
 		Icon = icon;
 	}
@@ -50,8 +57,9 @@ public class ArmorEquipment : EquipmentData
 
 public class ArmorWithHelmetEquipment : EquipmentData
 {
-	public ArmorWithHelmetEquipment( string name, string icon )
+	public ArmorWithHelmetEquipment( string id, string name, string icon )
 	{
+		Id = id;
 		Name = name;
 		Icon = icon;
 	}
@@ -78,8 +86,9 @@ public class ArmorWithHelmetEquipment : EquipmentData
 
 public class DefuseKitEquipment : EquipmentData
 {
-	public DefuseKitEquipment( string name, string icon )
+	public DefuseKitEquipment( string id, string name, string icon )
 	{
+		Id = id;
 		Name = name;
 		Icon = icon;
 	}
