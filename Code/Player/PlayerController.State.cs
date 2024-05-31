@@ -18,11 +18,11 @@ public partial class PlayerController
     [RequireComponent] public TeamComponent TeamComponent { get; private set; }
 
 	/// <summary>
-	/// Is this player in spectate mode
+	/// Is this player in spectate mode?
 	/// </summary>
-	public bool IsSpectating => HealthComponent.State == LifeState.Dead;
+	[Sync] public bool IsSpectating { get; private set; }
 
-	void IRespawnable.Kill() => Kill(true);
+	void IRespawnable.Kill() => Kill();
 
 	[Broadcast( NetPermission.HostOnly )]
 	public void Kill( bool enableRagdoll = true )
@@ -30,6 +30,9 @@ public partial class PlayerController
 		if ( Networking.IsHost )
 		{
 			HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
+			HealthComponent.HasHelmet = false;
+			HealthComponent.Armor = 0f;
+			
 			Inventory.Clear();
 
 			if ( enableRagdoll )
@@ -51,12 +54,7 @@ public partial class PlayerController
 	void IRespawnable.Respawn()
 	{
 		if ( Networking.IsHost )
-		{
-			HealthComponent.Health = 100f;
-			HealthComponent.Armor = 0f;
-			HealthComponent.HasHelmet = false;
 			Respawn();
-		}
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
@@ -69,15 +67,7 @@ public partial class PlayerController
 
 		if ( Networking.IsHost )
 		{
-			if ( HealthComponent.State != LifeState.Alive )
-			{
-				Inventory.Clear();
-				HealthComponent.Armor = 0f;
-			}
-
 			HealthComponent.Health = 100f;
-			HealthComponent.Armor = 0f;
-			HealthComponent.HasHelmet = false;
 			HealthComponent.State = LifeState.Alive;
 		}
 
@@ -86,6 +76,9 @@ public partial class PlayerController
 
 		GameMode.Instance?.HandlePlayerSpawn();
 		(this as IPawn).Possess();
+		
+		// Conna: we're not spectating if we just respawned.
+		IsSpectating = false;
 	}
 
 	public void Teleport( Transform transform )

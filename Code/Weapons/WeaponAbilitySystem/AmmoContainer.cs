@@ -5,19 +5,10 @@ namespace Facepunch;
 /// </summary>
 public partial class AmmoContainer : Component
 {
-	private int ammo = 0;
-
 	/// <summary>
 	/// How much ammo are we holding?
 	/// </summary>
-	[Property, Sync] public int Ammo
-	{
-		get => ammo;
-		set
-		{
-			ammo = value;
-		}
-	}
+	[Property, Sync] public int Ammo { get; set; } = 0;
 
 	[Property] public int MaxAmmo { get; set; } = 30;
 

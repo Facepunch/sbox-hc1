@@ -28,8 +28,8 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// How much to reduce damage by when we have armor.
 	/// </summary>
-	private float ArmorReduction { get; set; } = 0.775f;
-	
+	private float ArmorReduction => 0.775f;
+
 	/// <summary>
 	/// A list of all Respawnable things on this GameObject
 	/// </summary>
@@ -89,7 +89,7 @@ public partial class HealthComponent : Component, IRespawnable
 			if ( old == value ) return;
 
 			InternalState = value;
-			TimeSinceLifeStateChanged = 0;
+			TimeSinceLifeStateChanged = 0f;
 			LifeStateChanged( old, InternalState );
 		}
 	}
@@ -131,7 +131,7 @@ public partial class HealthComponent : Component, IRespawnable
 			return damage;
 		
 		Armor -= damage;
-		Armor = Armor.Clamp( 0, 100 );
+		Armor = Armor.Clamp( 0f, 100f );
 		
 		return damage * ArmorReduction;
 	}
@@ -159,15 +159,11 @@ public partial class HealthComponent : Component, IRespawnable
 	{
 		if ( isHeadshot )
 		{
+			// Helmet negates headshot damage
 			if ( HasHelmet )
-			{
-				// Helmet negates headshot damage
 				HasHelmet = false;
-			}
 			else
-			{
 				damage *= HeadshotMultiplier;
-			}
 		}
 
 		damage = damage.CeilToInt();

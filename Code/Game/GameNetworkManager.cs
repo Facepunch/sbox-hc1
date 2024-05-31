@@ -64,13 +64,9 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		}
 
 		if ( player.CanRespawn )
-		{
 			player.Respawn();
-		}
 		else
-		{
 			player.Kill( false );
-		}
 
 		if ( !player.IsBot )
 		{
