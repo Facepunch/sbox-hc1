@@ -10,15 +10,34 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 
 	public CameraMode CameraMode { get; set; } = CameraMode.FirstPerson;
 
+	private bool wasSpectating = false;
 	public bool IsSpectating => LocalPlayer.IsSpectating;
 	public bool IsFreecam => (FreecamController as IPawn).IsPossessed;
 
 	[Property] public SpectateController FreecamController;
 
+	private void OnSpectateBegin()
+	{
+		if ( GameUtils.Viewer.GameObject.Tags.Has( "invis" ) )
+		{
+			// prevent us trying to spectate an invisible/spectator pawn
+			// (usually ourselves when we've just joined)
+			SpectateNextPlayer( true );
+		}
+	}
+
 	protected override void OnUpdate()
 	{
-		if ( !LocalPlayer.IsSpectating )
-			return;
+		if ( LocalPlayer.IsSpectating )
+			UpdateSpectate();
+
+		wasSpectating = LocalPlayer.IsSpectating;
+	}
+
+	private void UpdateSpectate()
+	{
+		if ( !wasSpectating )
+			OnSpectateBegin();
 
 		if ( Input.Pressed( "SpectatorNext" ) )
 		{
