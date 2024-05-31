@@ -5,18 +5,20 @@
 
 @if ( !Player.IsValid() || Player.IsSpectating ) return;
 
-<root class="@BuildClass() flex row gap with-padding justify-start">
+<root class="@BuildClass()">
 
-    <div class="flex column">
-        <Donut Value="@(Armor)" size="48" icon="/ui/armor.png" />
-    </div>
+    <div class="inner with-padding flex row gap justify-start">
+        <div class="flex column">
+            <Donut Value="@(Armor)" size="48" icon="/ui/armor.png" />
+        </div>
 
-    <div class="flex column">
-        <ProgressBar Value="@(Health)" width="128" />
-        <span class="flex row align-center gap-sm">
-            <Icon file="/ui/health.png" size="24" />
-            <label class="vital">@Health</label>
-        </span>
+        <div class="flex column">
+            <ProgressBar Value="@(Health)" width="128" />
+            <span class="flex row align-center gap-sm">
+                <Icon file="/ui/health.png" size="24" />
+                <label class="vital">@Health</label>
+            </span>
+        </div>
     </div>
 
 </root>
