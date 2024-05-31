@@ -2,7 +2,7 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-<root class="hud center with-padding with-background flex justify-center align-center column" style="margin-top: 200px">
+<root class="hud center with-padding with-px-lg with-background flex justify-center align-center column @BuildClass()" style="margin-top: 200px">
     <label class="emphasis">@Status</label>
     <label>@Time.ToString("0.00")</label>
 </root>
