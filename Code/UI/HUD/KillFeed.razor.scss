@@ -11,9 +11,17 @@ KillFeed
 
     .entry
     {
+        padding: 0px 8px;
         gap: 16px;
         justify-content: flex-start;
         align-items: center;
+        border-radius: $rounding;
+
+        &.local
+        {
+            border: 1px solid $red;
+            background-color: rgba( $red, 0.1 );
+        }
 
         .method
         {
@@ -26,8 +34,8 @@ KillFeed
 
         .icon
         {
-            width: 96px;
-            height: 64px;
+            width: 64px;
+            height: 48px;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

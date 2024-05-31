@@ -5,7 +5,7 @@
 <root>
     @foreach ( var entry in Entries )
     {
-        <div class="entry">
+        <div class="entry @(entry.IsLocal ? "local" : "")">
             <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.Killer ) />
 
             <div class="method">
@@ -30,7 +30,12 @@
 
 @code
 {
-    public record Entry( Component Killer, Component Victim, Component Inflictor, bool IsHeadshot, RealTimeSince TimeSinceAdded );
+    public record Entry( Component Killer, Component Victim, Component Inflictor, bool IsHeadshot, RealTimeSince TimeSinceAdded )
+    {
+        public bool IsLocal => 
+            (GameUtils.GetPlayerFromComponent(Killer)?.IsLocallyControlled ?? false) || 
+            (GameUtils.GetPlayerFromComponent(Victim)?.IsLocallyControlled ?? false);
+    }
 
     private List<Entry> Entries { get; set; } = new();
 
