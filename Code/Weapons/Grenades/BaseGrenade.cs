@@ -26,7 +26,7 @@ public abstract class BaseGrenade : Component
 	{
 		if ( PrefabOnExplode.IsValid() )
 		{
-			PrefabOnExplode.Clone( Transform.Position, Transform.Rotation );
+			PrefabOnExplode.Clone( Transform.Position );
 		}
 
 		GameObject.Destroy();
