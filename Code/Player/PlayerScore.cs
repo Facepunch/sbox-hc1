@@ -1,6 +1,6 @@
 ﻿namespace Facepunch.UI;
 
-public sealed class PlayerScore : Component, IKillListener
+public sealed class PlayerScore : Component, IKillListener, IBombDefusedListener, IBombDetonatedListener, IBombPlantedListener
 {
 	[HostSync, Property, ReadOnly] 
 	public int Kills { get; set; } = 0;
@@ -76,6 +76,51 @@ public sealed class PlayerScore : Component, IKillListener
 			{
 				Deaths++;
 			}
+		}
+	}
+
+	public void OnBombPlanted( PlayerController planter, GameObject bomb, BombSite bombSite )
+	{
+		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
+		var planterPlayer = GameUtils.GetPlayerFromComponent( planter );
+
+		if ( planterPlayer == thisPlayer )
+		{
+			// Planter is the current player
+			Score += PlantScore;
+		}
+	}
+
+	public void OnBombDefused( PlayerController defuser, GameObject bomb, BombSite bombSite )
+	{
+		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
+		var defuserPlayer = GameUtils.GetPlayerFromComponent( defuser );
+
+		if ( defuserPlayer == thisPlayer )
+		{
+			// Defuser is the current player
+			Score += DefuserScore;
+		}
+		else
+		{
+			// Defuser is a teammate
+			if ( defuserPlayer.TeamComponent.Team == thisPlayer.TeamComponent.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
+			{
+				Score += DefuseTeamAliveScore;
+			}
+		}
+	}
+
+	public void OnBombDetonated( GameObject bomb, BombSite bombSite )
+	{
+		// TODO: Fetch planting player for BombExplodePlanterAliveScore, BombExplodePlanterDeadScore
+		var plantingTeam = Team.Terrorist;
+		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
+
+		if ( thisPlayer.TeamComponent.Team == plantingTeam && thisPlayer.HealthComponent.State == LifeState.Alive )
+		{
+			// Teammate is alive when the bomb explodes
+			Score += BombExplodeTeamAliveScore;
 		}
 	}
 }
