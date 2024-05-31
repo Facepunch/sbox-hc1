@@ -25,8 +25,8 @@ public static class TeamExtensionMethods
 	{
 		return team switch
 		{
-			Team.CounterTerrorist => Color.Parse( "#00B5EB" ) ?? default,
-			Team.Terrorist => Color.Parse( "#EB4C00" ) ?? default,
+			Team.CounterTerrorist => Color.Parse( "#0592EB" ) ?? default,
+			Team.Terrorist => Color.Parse( "#d20606" ) ?? default,
 			_ => Color.Parse( "white" ) ?? default
 		};
 	}
