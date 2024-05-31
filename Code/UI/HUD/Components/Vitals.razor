@@ -9,7 +9,7 @@
 
     <div class="inner with-padding flex row gap justify-start">
         <div class="flex column">
-            <Donut Value="@(Armor)" size="48" icon="@(HasHelmet ? "/ui/armor.png" : "/ui/helmet.png")" />
+            <Donut Value="@(Armor)" size="48" icon="@(HasHelmet ? "/ui/helmet.png" : "/ui/armor.png")" />
         </div>
 
         <div class="flex column">
@@ -32,7 +32,7 @@
 
     protected override int BuildHash()
     {
-        return !Player.IsValid() ? 0 : HashCode.Combine( Player.IsSpectating, Health, Armor );
+        return !Player.IsValid() ? 0 : HashCode.Combine( Player.IsSpectating, Health, Armor, HasHelmet );
     }
 
     private string BuildClass()
