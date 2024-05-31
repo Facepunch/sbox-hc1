@@ -103,9 +103,6 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 	private Task EndRound()
 	{
-		ShowStatusText( "Ending Round..." );
-		HideTimer();
-
 		return Dispatch<IRoundEndListener>(
 			x => x.PreRoundEnd(),
 			x => x.OnRoundEnd(),

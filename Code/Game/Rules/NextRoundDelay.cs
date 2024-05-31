@@ -12,7 +12,6 @@ public class NextRoundDelay : Component, IRoundEndListener
 
 	Task IRoundEndListener.OnRoundEnd()
 	{
-		GameMode.Instance.ShowStatusText( "Round Over!" );
 		GameMode.Instance.HideTimer();
 
 		return Task.DelaySeconds( DurationSeconds );

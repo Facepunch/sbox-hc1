@@ -34,7 +34,7 @@ public sealed class FreezeTime : Component, IRoundStartListener
 		StartTime = Time.Now;
 
 		GameMode.Instance.ShowCountDownTimer( StartTime, DurationSeconds );
-		GameMode.Instance.ShowStatusText( "Round starts in..." );
+		GameMode.Instance.ShowStatusText( "PREPARE" );
 
 		while ( Time.Now < StartTime + DurationSeconds )
 		{

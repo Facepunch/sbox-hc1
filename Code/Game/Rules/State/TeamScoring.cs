@@ -31,19 +31,22 @@ public sealed class TeamScoring : Component, IGameStartListener, IRoundStartList
 		RoundWinHistory.Add( RoundWinner );
 
 		await Task.DelaySeconds( 1f );
+		GameMode.Instance.ShowStatusText( Team.Unassigned, "ROUND OVER" );
 
 		switch ( RoundWinner )
 		{
 			case Team.Terrorist:
 				GameMode.Instance.ShowToast( "Anarchists Win!" );
-				GameMode.Instance.ShowStatusText( "Anarchists Win!" );
+				GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "ROUND LOST" );
+				GameMode.Instance.ShowStatusText( Team.Terrorist, "ROUND WON" );
 				RadioSounds.Play( Team.CounterTerrorist, RadioSound.RoundLost );
 				RadioSounds.Play( Team.Terrorist, RadioSound.RoundWon );
 				break;
 
 			case Team.CounterTerrorist:
 				GameMode.Instance.ShowToast( "Operators Win!" );
-				GameMode.Instance.ShowStatusText( "Operators Win!" );
+				GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "ROUND WON" );
+				GameMode.Instance.ShowStatusText( Team.Terrorist, "ROUND LOST" );
 				RadioSounds.Play( Team.CounterTerrorist, RadioSound.RoundWon );
 				RadioSounds.Play( Team.Terrorist, RadioSound.RoundLost );
 				break;
