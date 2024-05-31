@@ -6,7 +6,10 @@
     @foreach ( var entry in Entries )
     {
         <div class="entry @(entry.IsLocal ? "local" : "")">
-            <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.Killer ) />
+            @if ( entry.Killer.IsValid() )
+            {
+                <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.Killer ) />
+            }
 
             <div class="method">
                 @if ( GameUtils.GetWeaponFromComponent( entry.Inflictor ) is {} weapon )
@@ -23,7 +26,11 @@
                     <label>killed</label>
                 }
             </div>
-            <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.Victim ) />
+
+            @if ( entry.Victim.IsValid() )
+            {
+                <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.Victim ) />
+            }
         </div>
     }
 </root>
