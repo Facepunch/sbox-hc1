@@ -25,6 +25,8 @@ public sealed class TimedExplosive : Component, IUse
 		? FastDefuseTime
 		: BaseDefuseTime;
 
+	public float Progress => Math.Clamp(TimeSinceDefuseStart / DefuseTime, 0f, 1f );
+
 	[HostSync]
 	public TimeSince TimeSincePlanted { get; private set; }
 

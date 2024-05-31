@@ -29,6 +29,8 @@ public partial class PlantFunction : InputActionWeaponFunction
 	/// </summary>
 	[HostSync] public TimeSince TimeSincePlantStart { get; private set; }
 
+	public float Progress => Math.Clamp( TimeSincePlantStart / PlantTime, 0f, 1f );
+
 	/// <summary>
 	/// Hold long since we aborted planting.
 	/// </summary>
@@ -159,10 +161,7 @@ public partial class PlantFunction : InputActionWeaponFunction
 		}
 
 		// TODO: this will get tied into an animation
-
-		var t = Math.Clamp( TimeSincePlantStart / PlantTime, 0f, 1f );
-
-		if ( TimeSinceBeep > PlantingBeepFrequency.Evaluate( t ) )
+		if ( TimeSinceBeep > PlantingBeepFrequency.Evaluate( Progress ) )
 		{
 			TimeSinceBeep = 0f;
 
