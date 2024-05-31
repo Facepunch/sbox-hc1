@@ -33,7 +33,7 @@
                 }
                 @foreach (var buyZone in Game.ActiveScene.GetAllComponents<BuyZone>())
                 {
-                    <div class="buysite" style="@WorldToMap(buyZone.GameObject) @GetTeamIcon(buyZone) @TeamColor(buyZone)">
+                    <div class="buysite" style="@WorldToMap(buyZone.GameObject) @GetTeamIcon(buyZone)">
                         <div class="buyzone" style="@GetBox(buyZone)" />
                     </div>
                 }
