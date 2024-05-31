@@ -159,8 +159,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <summary>
 	/// If true, we're not allowed to move.
 	/// </summary>
-	[HostSync]
-	public bool IsFrozen { get; set; }
+	[HostSync] public bool IsFrozen { get; set; }
 
 	/// <summary>
 	/// If true, we can automatically respawn.
@@ -347,8 +346,13 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 			return;
 
 		IsSlowWalking = Input.Down( "Run" );
-		IsCrouching = Input.Down( "Duck" ) || Tags.Has("planting");
+		IsCrouching = Input.Down( "Duck" );
 		IsUsing = Input.Down( "Use" );
+		
+		// Check if our current weapon has the planting tag and if so force us to crouch.
+		var currentWeapon = CurrentWeapon;
+		if ( currentWeapon.IsValid() && currentWeapon.Tags.Has( "planting" ) )
+			IsCrouching = true;
 
 		if ( Input.Pressed( "Noclip" ) && ( DeveloperMenu.IsDeveloper || Game.IsEditor ) )
 		{
@@ -447,10 +451,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 		if ( cc.IsOnGround && !IsFrozen && !InMenu && Input.Pressed( "Jump" ) )
 		{
-			float flGroundFactor = 1.0f;
-
-			cc.Punch( Vector3.Up * JumpPower * flGroundFactor );
-
+			cc.Punch( Vector3.Up * JumpPower * 1f );
 			BroadcastPlayerJumped();
 		}
 

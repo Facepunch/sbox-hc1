@@ -68,7 +68,6 @@ public partial class PlantFunction : InputActionWeaponFunction
 			IsPlanting = true;
 
 			var player = Weapon.PlayerController;
-			player.Tags.Add( "planting" );
 			player.IsFrozen = true;
 		}
 	}
@@ -86,7 +85,6 @@ public partial class PlantFunction : InputActionWeaponFunction
 		var player = Weapon.PlayerController;
 
 		player.Inventory.RemoveWeapon( Weapon );
-		player.Tags.Remove( "planting" );
 		player.IsFrozen = false;
 		
 		if ( PlantedObjectPrefab is null ) return;
@@ -112,7 +110,6 @@ public partial class PlantFunction : InputActionWeaponFunction
 			TimeSincePlantCancel = 0f;
 
 			var player = Weapon.PlayerController;
-			player.Tags.Remove( "planting" );
 			player.IsFrozen = false;
 		}
 	}
