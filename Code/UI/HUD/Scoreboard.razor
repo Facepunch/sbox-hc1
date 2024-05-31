@@ -32,7 +32,10 @@
 
                     <separator style="background-color: @group.Key.GetColor().Hex" />
 
-                    <label class="emphasis">0</label>
+                    @if ( GameMode.Instance.Components.GetInDescendantsOrSelf<TeamScoring>() is { } scoring )
+                    {
+                        <label class="emphasis">@scoring.GetTeamScore(group.Key)</label>
+		            }
                 </span>
 
                 <div class="row header with-px-lg with-py-sm">
