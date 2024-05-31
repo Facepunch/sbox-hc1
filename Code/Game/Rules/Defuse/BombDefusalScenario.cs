@@ -61,6 +61,8 @@ public sealed class BombDefusalScenario : Component,
 	[HostSync] public bool BombHasDetonated { get; private set; }
 	[HostSync] public bool BombWasDefused { get; private set; }
 
+	[HostSync] public PlayerController BombPlanter { get; private set; }
+
 	private int GetLossStreakBonus( Team team )
 	{
 		if ( !LossStreakLevel.TryGetValue( team, out var level ) )
@@ -106,6 +108,8 @@ public sealed class BombDefusalScenario : Component,
 		BombHasDetonated = false;
 		BombWasDefused = false;
 
+		BombPlanter = planter;
+
 		RoundTimeLimit.Enabled = false;
 		TeamEliminated.IgnoreTeam = Team.Terrorist;
 
@@ -150,6 +154,7 @@ public sealed class BombDefusalScenario : Component,
 		}
 
 		IsBombPlanted = false;
+		BombPlanter = null;
 
 		RoundTimeLimit.Enabled = true;
 		TeamEliminated.IgnoreTeam = Team.Unassigned;
