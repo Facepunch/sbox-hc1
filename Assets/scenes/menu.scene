@@ -1,48 +1,15 @@
 {
-  "__guid": "e21f2d41-e41c-4299-ba4d-547eaee6a6c6",
+  "__guid": "89dfc3cd-8ece-46f5-9808-8cbc7ebd7ebc",
   "GameObjects": [
     {
-      "__guid": "bfc59c12-1ed2-4f91-8956-a95a315eac3c",
-      "Name": "Sun",
-      "Position": "445.0681,1144.973,1044.812",
-      "Rotation": "0.3464704,0.2151882,-0.7756222,0.4817287",
-      "Tags": "light,light_directional",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "Components": [
-        {
-          "__type": "Sandbox.DirectionalLight",
-          "__guid": "6d443b95-806b-4355-8689-9f2a6d2626be",
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "1.36634,0.9402,1.10213,1",
-          "Shadows": true,
-          "SkyColor": "0.18317,0.18317,0.18317,1"
-        }
-      ]
-    },
-    {
-      "__guid": "00344a8c-fa5e-45ae-b12a-10bb781a1dc3",
-      "Name": "2D Skybox",
-      "Tags": "skybox",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "Components": [
-        {
-          "__type": "Sandbox.SkyBox2D",
-          "__guid": "d841ed13-1ec2-4754-9a94-47a69c031c94",
-          "SkyMaterial": "materials/skybox/light_test_sky_sunset.vmat",
-          "Tint": "1,1,1,1"
-        }
-      ]
-    },
-    {
       "__guid": "adb42f1f-2599-449a-a6fa-407e0c9029bd",
+      "Flags": 0,
       "Name": "Camera",
-      "Position": "-952.3967,-928.0466,1561.85",
-      "Rotation": "0,-0.3826836,0,0.9238794",
+      "Position": "-560.5312,-575.1614,145.3174",
+      "Rotation": "-0.08295299,0.04063793,0.8941895,0.4380554",
       "Enabled": true,
       "NetworkMode": 2,
+      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.CameraComponent",
@@ -65,10 +32,12 @@
     },
     {
       "__guid": "ff590321-7fa0-4089-8421-33cc01854ce0",
+      "Flags": 0,
       "Name": "Main Menu",
       "Position": "-955.678,-1009.678,1463.084",
       "Enabled": true,
       "NetworkMode": 2,
+      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.ScreenPanel",
@@ -80,17 +49,35 @@
         },
         {
           "__type": "Facepunch.UI.MainMenuPanel",
-          "__guid": "520f73ed-1abc-403f-bfa3-be4160caa365",
-          "PlayScene": "scenes/gunfight_fps_testing.scene"
+          "__guid": "520f73ed-1abc-403f-bfa3-be4160caa365"
         }
       ]
+    },
+    {
+      "__guid": "569667a5-d271-4000-92df-13faee86ff4f",
+      "Flags": 0,
+      "Name": "mapmesh",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "scenes/maps/defusemap_01/mapmesh.prefab"
+    },
+    {
+      "__guid": "2bba8601-1164-477a-982a-ea96574e5aa3",
+      "Flags": 0,
+      "Name": "enviroment_setup",
+      "Position": "-847.0894,-339.7076,34",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "scenes/maps/defusemap_01/enviroment_setup.prefab"
     }
   ],
   "SceneProperties": {
     "FixedUpdateFrequency": 50,
-    "Lerping": true,
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 60,
+    "NetworkInterpolation": true,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
@@ -109,8 +96,8 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-04-18T20:46:48.2029894\u002B01:00",
+  "LastSaved": "2024-05-31T22:30:19.4985501\u002B01:00",
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

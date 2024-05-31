@@ -8,18 +8,172 @@ MainMenuPanel
     right: 0;
     width: 100%;
     height: 100%;
-    pointer-events: all;
-    background-color: darken( $main-color, 0.1 );
+    backdrop-filter: blur(5px);
+}
+
+MainMenuRoot
+{
+    opacity: 1;
+    flex-direction: column;
+    font-size: 25px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: all 0.5s ease;
 
     > .background
     {
         position: absolute;
+        left: 0;
+        bottom: 0;
         width: 100%;
         height: 100%;
-        background-image: url( https://files.facepunch.com/tony/1b2211b1/0H4JV4T4W9.jpg );
-        opacity: 0.5;
-        filter: blur(20px);
-        background-size: cover;
-        background-repeat: no-repeat;
+        background-image: linear-gradient( to right, #13192aff 0%, rgba( black, 0 ) 99% );
+    }
+
+    > .footer
+    {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 48px;
+        flex-shrink: 0;
+        padding-right: 8px;
+        align-items: center;
+
+        .logo
+        {
+            width: 32px;
+            height: 32px;
+            mask-mode: luminance;
+            background-color: rgba( 255, 255, 255, 1 );
+            mask-position: center;
+            mask-size: 32px;
+            opacity: 0.3;
+            mask-image: url( https://files.facepunch.com/tony/1b2611b1/marque.png );
+        }
+    }
+
+    > .navigator-canvas
+    {
+        flex-direction: column;
+        height: 100%;
+        flex-grow: 1;
+        z-index: 100;
+    }
+
+    .navigator-body
+    {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+
+        &.hidden
+        {
+            opacity: 0;
+        }
+    }
+}
+
+// Any game page will have these CSS classes
+.navigator-body
+{
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+LandingPage
+{
+
+    .logo
+    {
+        left: -32px;
+        top: -32px;
+
+        width: 256px;
+        pointer-events: all;
+        height: 128px;
+    }
+
+    &:hover
+    {
+        .logo
+        {
+            animation: logoanim 2s linear infinite;
+        }
+    }
+}
+
+.navigator-body
+{
+    color: $text-color;
+
+    .logo
+    {
+        left: -32px;
+        top: -32px;
+        width: 256px;
+        pointer-events: all;
+        height: 128px;
+        flex-shrink: 0;
+    }
+
+    &:hover
+    {
+        .logo
+        {
+            animation: logoanim 2s linear infinite;
+        }
+    }
+}
+
+@keyframes bganim
+{
+    0%
+    {
+        opacity: 0.03;
+    }
+
+    50%
+    {
+        opacity: 0.09;
+    }
+
+    75%
+    {
+        opacity: 0.03;
+    }
+
+    100%
+    {
+        opacity: 0.03;
+    }
+}
+
+@keyframes logoanim
+{
+    0%
+    {
+        transform: scale( 1 );
+    }
+
+    50%
+    {
+        transform: scale( 0.98 );
+    }
+
+    75%
+    {
+        transform: scale( 0.96 );
+    }
+
+    100%
+    {
+        transform: scale( 1 );
     }
 }

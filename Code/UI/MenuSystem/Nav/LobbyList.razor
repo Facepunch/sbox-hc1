@@ -1,0 +1,88 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using Sandbox.Network;
+
+@implements INavigatorPage
+@attribute [StyleSheet]
+@namespace Facepunch.UI
+
+<root class="hc1">
+    <div class="layout padding-insane column">
+        <div class="logo">
+            <img src="/ui/teams/operators_logo_banner.png" />
+        </div>
+    </div>
+
+    <div class="layout flex-grow" />
+
+    <div class="layout padding-insane column with-scroll with-gap" style="width: 30%;">
+        @if ( ShowFakeLobbies )
+        {
+            @for ( int i = 0; i < 4; i++ )
+            {
+                <LobbyRow onclick=@( () => OpenLobbyPage() ) />
+            }
+        }
+
+        @foreach ( var lobby in FetchedLobbies )
+        {
+            <LobbyRow @Lobby=@(new Lobby( lobby )) onclick=@( () => OpenLobbyPage( lobby ) ) />
+        }
+
+        @if ( FetchedLobbies.Count() == 0 )
+        {
+            <div class="button standard">Searching for lobbies...</div>
+        }
+    </div>
+
+    <div class="layout padding-insane column" style="width: 30%;">
+        <div class="layout column gap">
+            <div class="button standard" onclick=@(() => Refresh())>refresh</div>
+            <a class="button standard" href="/">return</a>
+        </div>
+    </div>
+</root>
+
+@code
+{
+    [ConVar( "fp_ui_show_fake_lobbies" )]
+    public static bool ShowFakeLobbies { get; set; }
+
+    private List<LobbyInformation> FetchedLobbies { get; set; } = new();
+
+    protected override void OnAfterTreeRender( bool firstTime )
+    {
+        if ( firstTime )
+        {
+            FetchLobbies();
+        }
+    }
+
+    protected async void FetchLobbies()
+    {
+        FetchedLobbies = new();
+        StateHasChanged();
+
+        var lobbies = await Networking.QueryLobbies( Game.Ident );
+
+        FetchedLobbies = lobbies;
+        StateHasChanged();
+    }
+
+    private void Refresh()
+    {
+        FetchLobbies();
+    }
+
+    private void OpenLobbyPage( LobbyInformation x )
+    {
+        LobbyPage.Lobby = new Lobby( x );
+        this.Navigate( "/lobby" );
+    }
+
+    private void OpenLobbyPage()
+    {
+        LobbyPage.Lobby = new Lobby();
+        this.Navigate( "/lobby" );
+    }
+}

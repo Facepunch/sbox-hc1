@@ -23,7 +23,13 @@ $hud-deadzone-y: 16px;
         padding: $layout-insane-padding;
     }
 
-    &.gap
+    &.with-scroll
+    {
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+
+    &.gap, &.with-gap
     {
         gap: 8px;
     }
