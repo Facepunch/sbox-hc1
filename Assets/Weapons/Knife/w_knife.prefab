@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "50e599a3-21cf-4f6a-aec0-3d967ed54548",
+    "__guid": "e4160422-135f-4528-a808-840c7067a473",
     "Flags": 0,
     "Name": "w_knife",
     "Tags": "player",
@@ -10,25 +10,26 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "7bd6c56b-d659-4738-a47c-06c90a235153",
+        "__guid": "3d61e107-7b61-4437-8052-5f78202310c3",
         "DeploySound": "sounds/guns/knife/knife.deploy.sound",
         "HoldType": "Swing",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "99ca082e-948c-4f4e-a17c-e8364356c0ff",
-          "go": "7846dbaa-7968-4b05-9967-f3bf1c3451de",
+          "component_id": "3da16e49-80a3-4825-b490-24fc8d8d43ce",
+          "go": "5ea85659-af98-485e-bdb9-f60aba40acd4",
           "component_type": "SkinnedModelRenderer"
         },
-        "Resource": "weapons/knife/knife.wpn"
+        "Resource": "weapons/knife/knife.wpn",
+        "SpeedPenalty": 0
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "dc4670d2-c3df-4192-bc37-a25d05376ba7"
+        "__guid": "83d87bcb-d5d7-49ef-9151-36b27d51d175"
       }
     ],
     "Children": [
       {
-        "__guid": "7846dbaa-7968-4b05-9967-f3bf1c3451de",
+        "__guid": "5ea85659-af98-485e-bdb9-f60aba40acd4",
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
@@ -37,17 +38,18 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "99ca082e-948c-4f4e-a17c-e8364356c0ff",
+            "__guid": "3da16e49-80a3-4825-b490-24fc8d8d43ce",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_melee_trenchknife/w_trenchknife.vmdl",
             "RenderType": "On",
-            "Tint": "1,1,1,1"
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
           }
         ]
       },
       {
-        "__guid": "4083efe6-65d9-4d09-8bdc-8f579290bc65",
+        "__guid": "bd708d46-e5c3-4470-8fb2-b58a737665b5",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -56,7 +58,7 @@
         "Components": [
           {
             "__type": "Facepunch.MeleeFunction",
-            "__guid": "30b9673d-d961-4cf5-ac38-6656986bccaa",
+            "__guid": "8b01173d-afa3-4a74-a24a-135453e9130f",
             "BaseDamage": 50,
             "FireRate": 1,
             "InputActions": [
