@@ -18,12 +18,6 @@ partial class PlayerController
 
 		if ( Input.Pressed( "Use" ) )
 		{
-			if ( TeamComponent.Team == Team.Terrorist && GetZone<BombSite>() is not null )
-			{
-				Inventory.SwitchToSlot( WeaponSlot.Special );
-				return;
-			}
-
 			using ( Rpc.FilterInclude( Connection.Host ) )
 			{
 				TryUse( AimRay );
@@ -48,6 +42,11 @@ partial class PlayerController
 		{
 			UpdateLastUsedObject( (usable as Component)?.GameObject.Id ?? Guid.Empty );
 			usable.OnUse( this );
+		}
+		else if ( TeamComponent.Team == Team.Terrorist && GetZone<BombSite>() is not null )
+		{
+			Inventory.SwitchToSlot( WeaponSlot.Special );
+			return;
 		}
 	}
 
