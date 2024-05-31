@@ -6,8 +6,13 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="flex justify-end align-center column">
-    <img class="hud with-padding" style="background-image-tint:@TeamColor" src="@TeamIcon" />
+<root class="flex justify-end align-center row">
+    <div class="line" style="background-image: linear-gradient( to right, rgba( @TeamColor, 0 ), @TeamColor, @TeamColor );" />
+       
+    <div class="circle" style=" border: 1px solid rgba( @TeamColor, 0.5 );">
+        <img class="hud with-padding" style="background-image-tint:@TeamColor" src="@TeamIcon" />
+    </div>
+    <div class="line" style="background-image: linear-gradient( to left, rgba( @TeamColor, 0 ), @TeamColor, @TeamColor );" />
 </root>
 
 @code
