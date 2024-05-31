@@ -8,11 +8,11 @@
     <span class="col stat-small">
         @if ( Player.IsValid() && GameUtils.LocalPlayer.IsValid() ) 
         {
-            @if (Player.Inventory.HasBomb && Player.IsFriendly(GameUtils.LocalPlayer) && Team == Team.Terrorist)
+            @if (Player.Inventory.HasBomb && IsFriendly && Team == Team.Terrorist)
             {
                 <Icon File="/ui/bomb.png" size="24"></Icon>
             }
-            else if (Player.Inventory.HasDefuseKit && Player.IsFriendly(GameUtils.LocalPlayer) && Team == Team.CounterTerrorist)
+            else if (Player.Inventory.HasDefuseKit && IsFriendly && Team == Team.CounterTerrorist)
             {
                 <Icon File="/ui/defusekit.png" size="24"></Icon>
             }
@@ -51,6 +51,7 @@
     private Connection Connection => Player.Network.OwnerConnection;
     private PlayerScore Score => Player.Components.Get<PlayerScore>();
 
+    private bool IsFriendly => (GameUtils.LocalPlayer is null || Player.IsFriendly(GameUtils.LocalPlayer));
     private bool IsLocal => Player.IsLocallyControlled;
     private bool IsDead => Player.HealthComponent.State != LifeState.Alive;
     private float KillDeathRatio => (float)Score.Kills / (float)Score.Deaths.Clamp(1, int.MaxValue);
