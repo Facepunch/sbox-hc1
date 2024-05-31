@@ -37,7 +37,7 @@
                         <div class="buyzone" style="@GetBox(buyZone)" />
                     </div>
                 }
-                @if (GameUtils.LocalPlayer.IsSpectating && SpectateSystem.Instance.IsFreecam)
+                @if ( ( GameUtils.LocalPlayer?.IsSpectating ?? false ) && ( SpectateSystem.Instance?.IsFreecam ?? false ) )
                 {
                     <div class="marker" style="@WorldToMap(Scene.Components.GetAll<SpectateController>().FirstOrDefault().GameObject) @RotationToMap(Scene.Components.GetAll<SpectateController>().FirstOrDefault().Transform.Rotation.Angles())" />
                 }
@@ -63,7 +63,7 @@
 
         if (!ply.IsValid()) return false;
 
-        if (GameUtils.LocalPlayer.IsSpectating)
+        if (GameUtils.LocalPlayer?.IsSpectating ?? false)
         {
             return true;
         }
@@ -73,7 +73,7 @@
 
     bool IsSpectating()
     {
-        return GameUtils.LocalPlayer.IsSpectating;
+        return GameUtils.LocalPlayer?.IsSpectating ?? false;
     }
 
     string GetTeamIcon(BuyZone obj)

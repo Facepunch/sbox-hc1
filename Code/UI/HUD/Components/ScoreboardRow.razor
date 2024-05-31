@@ -6,13 +6,16 @@
 
 <root class="row @(IsLocal ? "local" : "") @(IsDead ? "dead" : "") with-px-lg with-py">
     <span class="col stat-small">
-        @if (Player.Inventory.HasBomb && Player.IsFriendly(GameUtils.LocalPlayer) && Team == Team.Terrorist)
+        @if ( Player.IsValid() && GameUtils.LocalPlayer.IsValid() ) 
         {
-            <Icon File="/ui/bomb.png" size="24"></Icon>
-        }
-        else if (Player.Inventory.HasDefuseKit && Player.IsFriendly(GameUtils.LocalPlayer) && Team == Team.CounterTerrorist)
-        {
-            <Icon File="/ui/defusekit.png" size="24"></Icon>
+            @if (Player.Inventory.HasBomb && Player.IsFriendly(GameUtils.LocalPlayer) && Team == Team.Terrorist)
+            {
+                <Icon File="/ui/bomb.png" size="24"></Icon>
+            }
+            else if (Player.Inventory.HasDefuseKit && Player.IsFriendly(GameUtils.LocalPlayer) && Team == Team.CounterTerrorist)
+            {
+                <Icon File="/ui/defusekit.png" size="24"></Icon>
+            }
         }
     </span>
 
@@ -27,7 +30,7 @@
         </label>
     </span>
 
-    @if (Player.IsFriendly(GameUtils.LocalPlayer))
+    @if ( Player.IsValid() && GameUtils.LocalPlayer.IsValid() && Player.IsFriendly( GameUtils.LocalPlayer ) )
     {
         <label class="col stat-large">$@(Player.Inventory.Balance.ToString("N0")</label>
     }

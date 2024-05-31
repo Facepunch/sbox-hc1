@@ -11,8 +11,8 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 	public CameraMode CameraMode { get; set; } = CameraMode.FirstPerson;
 
 	private bool wasSpectating = false;
-	public bool IsSpectating => LocalPlayer.IsSpectating;
-	public bool IsFreecam => (FreecamController as IPawn).IsPossessed;
+	public bool IsSpectating => LocalPlayer?.IsSpectating ?? false;
+	public bool IsFreecam => (FreecamController as IPawn)?.IsPossessed ?? false;
 
 	[Property] public SpectateController FreecamController;
 
