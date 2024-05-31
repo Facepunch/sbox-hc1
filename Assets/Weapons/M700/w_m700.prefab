@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "e84af7fc-0b22-4361-9639-88cf529ad05c",
+    "__guid": "3ebd99cf-de20-4d87-ba2f-85136da4e899",
     "Flags": 0,
     "Name": "w_m700",
     "Tags": "player",
@@ -10,24 +10,24 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "80b84fd5-36bd-4de3-a4b6-bbf4c6e46a79",
+        "__guid": "945ea0be-0cd6-4e9f-af28-5e9afedf6d22",
         "HoldType": "Rifle",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "bd3210d0-98a1-4293-b51e-f1c713111603",
-          "go": "9e137343-5992-488c-8191-b58b647cc8ca",
+          "component_id": "09633310-a2a3-44d1-b70a-fb3fd8ad6604",
+          "go": "53c76446-b2ea-426b-a946-0a711ff35417",
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "weapons/m700/m700.wpn"
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "a165b725-b3c0-40df-8379-09f8361d7dca"
+        "__guid": "5e7aec88-69c6-41e5-a48e-077fac1fc4be"
       }
     ],
     "Children": [
       {
-        "__guid": "9e137343-5992-488c-8191-b58b647cc8ca",
+        "__guid": "53c76446-b2ea-426b-a946-0a711ff35417",
         "Flags": 0,
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
@@ -37,7 +37,7 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "bd3210d0-98a1-4293-b51e-f1c713111603",
+            "__guid": "09633310-a2a3-44d1-b70a-fb3fd8ad6604",
             "BodyGroups": 27,
             "CreateBoneObjects": false,
             "Model": "weapons/m700/v_m700.vmdl",
@@ -47,7 +47,7 @@
         ]
       },
       {
-        "__guid": "374c626f-e02a-46fb-8a06-a35dce430ff1",
+        "__guid": "a5d5c877-e2ec-4d17-b1ee-8665d5df57f1",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -56,18 +56,18 @@
         "Components": [
           {
             "__type": "Facepunch.AmmoContainer",
-            "__guid": "680c5b51-2613-44b6-868e-7c18d121f978",
+            "__guid": "e896d6dc-630e-446e-8e94-91a3a7ef9f52",
             "Ammo": 5,
             "HasAmmo": true,
             "MaxAmmo": 5
           },
           {
             "__type": "Facepunch.ShootWeaponFunction",
-            "__guid": "94d1c2e5-e2ec-4319-9af6-b85ce4d24dda",
+            "__guid": "ae120e89-7b71-4a6d-b18a-0268fa7048dd",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "680c5b51-2613-44b6-868e-7c18d121f978",
-              "go": "374c626f-e02a-46fb-8a06-a35dce430ff1",
+              "component_id": "e896d6dc-630e-446e-8e94-91a3a7ef9f52",
+              "go": "a5d5c877-e2ec-4d17-b1ee-8665d5df57f1",
               "component_type": "AmmoContainer"
             },
             "BaseDamage": 15,
@@ -96,11 +96,11 @@
           },
           {
             "__type": "Facepunch.ReloadWeaponFunction",
-            "__guid": "c07db113-4e21-4786-a87b-8fcfe8882fae",
+            "__guid": "8430dbdb-bbac-4099-8317-3d51bd6e63bc",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "680c5b51-2613-44b6-868e-7c18d121f978",
-              "go": "374c626f-e02a-46fb-8a06-a35dce430ff1",
+              "component_id": "e896d6dc-630e-446e-8e94-91a3a7ef9f52",
+              "go": "a5d5c877-e2ec-4d17-b1ee-8665d5df57f1",
               "component_type": "AmmoContainer"
             },
             "EmptyReloadSounds": {
@@ -125,7 +125,7 @@
           },
           {
             "__type": "Facepunch.RecoilFunction",
-            "__guid": "ec8cf0b0-66e8-4387-838f-6add37c4b096",
+            "__guid": "97ae31cd-a69c-4119-8a1c-4f98c39feaa2",
             "HorizontalSpread": "2.00,-2.00,1",
             "PlayerVelocityLimit": 200,
             "RecoilResetTime": 0.3,
@@ -134,7 +134,8 @@
           },
           {
             "__type": "Facepunch.ScopeZoomFunction",
-            "__guid": "1ecba588-23ce-48f8-a502-3fa6bdc166a8",
+            "__guid": "df2f3ec3-fed2-4d5c-91e9-36a974902847",
+            "AngleOffsetScale": 0.01,
             "InputActions": [
               "Attack2"
             ],

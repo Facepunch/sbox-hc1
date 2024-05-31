@@ -57,9 +57,46 @@ VS
 PS
 {
     #include "postprocess/common.hlsl"
-  
+
+    RenderState(BlendEnable, true);
+    RenderState(SrcBlend, SRC_ALPHA);
+    RenderState(DstBlend, INV_SRC_ALPHA);
+
+    float BlurAmount < Attribute("BlurAmount"); Default(1.0f); > ;
+    float2 Offset < Attribute("Offset"); > ;
+
+    // Good old SDF functions from Inigo Quilez
+    float sdCircle(float2 p, float r)
+    {
+        return length(p) - r;
+    }
+
+    float sdBox(in float2 p, in float2 b)
+    {
+        float2 d = abs(p) - b;
+        return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0);
+    }
+
     float4 MainPs( PixelInput i ) : SV_Target0
     {
-        return 0.5f;
+        float2 pos = i.vPositionSs.xy;
+
+        float2 center = g_vViewportSize * 0.5f;
+        center += Offset * g_vViewportSize.xy;
+
+        float radius = g_vViewportSize.y * 0.45f;
+        //radius *= BlurAmount;
+
+        float d = sdCircle(pos - center, radius );
+
+        // LLines
+        d = max(d, 1.0 - sdBox(pos - center, float2( -1.0f, g_vViewportSize.y)));
+        d = max(d, 1.0 - sdBox(pos - center, float2(g_vViewportSize.x, -1.0f)));
+
+        d *= BlurAmount;
+        d+= 1.0f;
+
+        d = saturate( d * BlurAmount  );
+        return float4( 0,0,0, d );
     }
 }

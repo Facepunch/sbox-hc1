@@ -57,7 +57,9 @@
             .UseHitboxes()
             .Run();
 
-        Reticle.SetClass( "aiming", Weapon?.GetFunction<AimWeaponFunction>()?.IsAiming ?? false );
+        bool IsAiming = ( Weapon?.GetFunction<AimWeaponFunction>()?.IsAiming ?? false ) || ( Weapon?.GetFunction<ScopeZoomFunction>()?.IsZooming ?? false );
+
+        Reticle.SetClass("aiming", IsAiming );
         
         if ( currentTrace.Hit )
         {

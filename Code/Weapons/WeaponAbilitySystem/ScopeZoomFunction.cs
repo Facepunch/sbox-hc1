@@ -11,7 +11,13 @@ public class ScopeZoomFunction : InputActionWeaponFunction
 	
 	IDisposable renderHook;
 
-	internal int ZoomLevel { get; private set; } = 0;
+	private int ZoomLevel { get; set; } = 0;
+	public bool IsZooming => ZoomLevel > 0;
+	private float BlurLerp { get; set; } = 1.0f;
+
+	private Angles LastAngles;
+	private Angles AnglesLerp;
+	[Property] private float AngleOffsetScale { get; set; } = 0.01f;
 
 	protected void StartZoom( int level = 0 )
 	{
@@ -21,10 +27,11 @@ public class ScopeZoomFunction : InputActionWeaponFunction
 
 		var camera = Weapon.PlayerController.CameraController;
 
-		//renderHook = camera.AddHookAfterTransparent( "Scope", 100, RenderEffect );
+		if ( ScopeOverlay is not null )
+			renderHook = camera.Camera.AddHookAfterTransparent( "Scope", 100, RenderEffect );
 
 		if( ZoomSound is not null )
-		Sound.Play( ZoomSound, Weapon.GameObject.Transform.Position );
+			Sound.Play( ZoomSound, Weapon.GameObject.Transform.Position );
 
 		ZoomLevel = level;
 		Weapon.Tags.Add( "zooming" );
@@ -42,11 +49,17 @@ public class ScopeZoomFunction : InputActionWeaponFunction
 		ZoomLevel = 0;
 		Weapon.Tags.Remove( "zooming" );
 		Weapon.ViewModel.GameObject.Enabled = true;
+
+		AnglesLerp = new Angles();
+		BlurLerp = 1.0f;
 	}
 
 	public void RenderEffect( SceneCamera camera )
 	{
 		RenderAttributes attrs = new RenderAttributes();
+
+		attrs.Set( "BlurAmount", BlurLerp );
+		attrs.Set( "Offset", new Vector2( AnglesLerp.yaw, -AnglesLerp.pitch ) * AngleOffsetScale );
 
 		Graphics.Blit( ScopeOverlay, attrs );
 	}
@@ -87,13 +100,44 @@ public class ScopeZoomFunction : InputActionWeaponFunction
 		base.OnUpdate();
 		var camera = Weapon.PlayerController.CameraController;
 
-		if( !CanAim() && ZoomLevel > 0 )
+		if ( !IsZooming )
+			return;
+
+		if ( !CanAim() )
+		{
+			EndZoom();
+		}
+
+		if ( Weapon.PlayerController.CurrentWeapon != Weapon )
 		{
 			EndZoom();
 		}
 
 		camera.AddFieldOfViewOffset( ZoomLevel * 30 );
+		Weapon.PlayerController.AimDampening /= (ZoomLevel * ZoomLevel) + 1;
 
-		Weapon.PlayerController.AimDampening /= ( ZoomLevel * ZoomLevel ) + 1;
+
+		{
+			var cc = Weapon.PlayerController.CharacterController;
+
+			float velocity = Weapon.PlayerController.CharacterController.Velocity.Length / 25.0f;
+			float blur = 1.0f / (velocity + 1.0f);
+			blur = MathX.Clamp( blur, 0.1f, 1.0f );
+
+			if ( !cc.IsOnGround )
+				blur = 0.1f;
+
+			if ( blur > BlurLerp )
+				BlurLerp = BlurLerp.LerpTo( blur, Time.Delta * 1.0f );
+			else
+				BlurLerp = BlurLerp.LerpTo( blur, Time.Delta * 10.0f );
+
+			var angles = Weapon.PlayerController.EyeAngles;
+			var delta = angles - LastAngles;
+
+			AnglesLerp = AnglesLerp.LerpTo( delta, Time.Delta * 10.0f );
+			LastAngles= angles;
+		}
+
 	}
 };
