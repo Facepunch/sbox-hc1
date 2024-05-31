@@ -347,7 +347,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 			return;
 
 		IsSlowWalking = Input.Down( "Run" );
-		IsCrouching = Input.Down( "Duck" );
+		IsCrouching = Input.Down( "Duck" ) || Tags.Has("planting");
 		IsUsing = Input.Down( "Use" );
 
 		if ( Input.Pressed( "Noclip" ) && ( DeveloperMenu.IsDeveloper || Game.IsEditor ) )
