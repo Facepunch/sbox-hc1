@@ -481,9 +481,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		if ( GameMode.Instance.BuyAnywhere )
 			return true;
 
-		if ( GameMode.Instance.State == GameState.PreGame )
-			return true;
-
 		BuyZone zone = GetZone<BuyZone>();
 		if ( zone is null )
 			return false;
