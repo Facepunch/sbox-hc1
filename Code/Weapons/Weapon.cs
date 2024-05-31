@@ -36,7 +36,12 @@ public partial class Weapon : Component
 	/// What sound should we play when taking this gun out?
 	/// </summary>
 	[Property, Group( "Sounds" )] public SoundEvent DeploySound { get; set; }
-	
+
+	/// <summary>
+	/// How slower do we walk with this weapon out?
+	/// </summary>
+	[Property, Group( "Movement" )] public float SpeedPenalty { get; set; } = 0f;
+
 	/// <summary>
 	/// Is this weapon currently deployed by the player?
 	/// </summary>

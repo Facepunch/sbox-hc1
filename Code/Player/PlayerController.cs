@@ -508,6 +508,14 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		WishMove += Input.AnalogMove;
 	}
 
+	private float GetWalkSpeed()
+	{
+		var spd = GetWishSpeed();
+		var wpn = CurrentWeapon;
+		if ( !wpn.IsValid() ) return spd;
+		return spd - wpn.SpeedPenalty;
+	}
+
 	public void BuildWishVelocity()
 	{
 		WishVelocity = 0f;
@@ -517,7 +525,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		var wishDirection = WishMove.Normal * rot;
 		wishDirection = wishDirection.WithZ( 0 );
 
-		WishVelocity = wishDirection * GetWishSpeed();
+		WishVelocity = wishDirection * GetWalkSpeed();
 	}
 
 	public void AssignTeam( Team team, bool silent = false )
