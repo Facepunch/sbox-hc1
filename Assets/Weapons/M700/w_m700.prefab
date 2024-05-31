@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "e4f4e1e6-955a-4249-858e-c51d54b8903a",
+    "__guid": "87b395e0-bc4e-4843-953a-6fe94c7578a2",
     "Flags": 0,
     "Name": "w_m700",
     "Tags": "player",
@@ -10,25 +10,26 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "0e3666bf-1717-4c6b-9cd2-d6495e7577cd",
+        "__guid": "3c8d4b27-65a3-4d1e-a1d5-e198c90b002f",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "HoldType": "Rifle",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "4821c944-79b3-4f5d-b586-fc6ae5cbed40",
-          "go": "1e84411d-5e0b-4f1b-af3a-5ea72e150475",
+          "component_id": "c4026d3b-ee1e-474a-90ca-e7ec2f773438",
+          "go": "f01a0112-1d85-4b15-be48-3b418926575c",
           "component_type": "SkinnedModelRenderer"
         },
-        "Resource": "weapons/m700/m700.wpn"
+        "Resource": "weapons/m700/m700.wpn",
+        "SpeedPenalty": 80
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "844c2171-fdfe-4486-9676-bdeac2de45ba"
+        "__guid": "273043db-5f82-40c8-885d-a1dc8e56d274"
       }
     ],
     "Children": [
       {
-        "__guid": "1e84411d-5e0b-4f1b-af3a-5ea72e150475",
+        "__guid": "f01a0112-1d85-4b15-be48-3b418926575c",
         "Flags": 0,
         "Name": "Model",
         "Position": "7.374,0,-5.004",
@@ -39,7 +40,7 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "4821c944-79b3-4f5d-b586-fc6ae5cbed40",
+            "__guid": "c4026d3b-ee1e-474a-90ca-e7ec2f773438",
             "BodyGroups": 27,
             "CreateBoneObjects": false,
             "Model": "weapons/m700/v_m700.vmdl",
@@ -50,7 +51,7 @@
         ]
       },
       {
-        "__guid": "d262861f-41fa-4186-8a61-21cbdfa85c43",
+        "__guid": "d5331bfa-4a73-406a-932a-a4948b083835",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -59,18 +60,18 @@
         "Components": [
           {
             "__type": "Facepunch.AmmoContainer",
-            "__guid": "d11ff3de-c67a-4ede-8fb2-de58c7d1231c",
+            "__guid": "7cb8b247-c76c-41b5-9d11-6d17dabb70bf",
             "Ammo": 5,
             "HasAmmo": true,
             "MaxAmmo": 5
           },
           {
             "__type": "Facepunch.ShootWeaponFunction",
-            "__guid": "a2f844ee-0385-485d-9c93-850fceddba1a",
+            "__guid": "60da80a8-b02b-4731-b3c0-a168eacc8dd1",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "d11ff3de-c67a-4ede-8fb2-de58c7d1231c",
-              "go": "d262861f-41fa-4186-8a61-21cbdfa85c43",
+              "component_id": "7cb8b247-c76c-41b5-9d11-6d17dabb70bf",
+              "go": "d5331bfa-4a73-406a-932a-a4948b083835",
               "component_type": "AmmoContainer"
             },
             "BaseDamage": 80,
@@ -99,11 +100,11 @@
           },
           {
             "__type": "Facepunch.ReloadWeaponFunction",
-            "__guid": "46dc44a6-cb39-47bd-98ee-18b0da2e79e5",
+            "__guid": "355a0e77-b52b-46ef-a515-3aa8594f268e",
             "AmmoContainer": {
               "_type": "component",
-              "component_id": "d11ff3de-c67a-4ede-8fb2-de58c7d1231c",
-              "go": "d262861f-41fa-4186-8a61-21cbdfa85c43",
+              "component_id": "7cb8b247-c76c-41b5-9d11-6d17dabb70bf",
+              "go": "d5331bfa-4a73-406a-932a-a4948b083835",
               "component_type": "AmmoContainer"
             },
             "EmptyReloadSounds": {
@@ -128,7 +129,7 @@
           },
           {
             "__type": "Facepunch.RecoilFunction",
-            "__guid": "2b6e3ab2-96f8-480a-8d0b-2f9b53542736",
+            "__guid": "d29d4edb-4fe1-4bb7-a796-a1300c55ad0a",
             "HorizontalSpread": "2.00,-2.00,1",
             "PlayerVelocityLimit": 200,
             "RecoilResetTime": 0.3,
@@ -137,7 +138,7 @@
           },
           {
             "__type": "Facepunch.ScopeZoomFunction",
-            "__guid": "21d5110a-88b6-4db5-9035-62324af8ed65",
+            "__guid": "5a7a1be9-ae1e-4d26-8235-4fe14d721872",
             "AngleOffsetScale": 0.01,
             "InputActions": [
               "Attack2"
