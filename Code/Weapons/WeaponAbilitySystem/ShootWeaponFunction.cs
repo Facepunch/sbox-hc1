@@ -78,13 +78,13 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		{
 			if ( Sound.Play( ShootSound, Weapon.Transform.Position ) is SoundHandle snd )
 			{
-				snd.ListenLocal = Weapon.PlayerController.IsViewer;
+				snd.ListenLocal = Weapon.PlayerController?.IsViewer ?? false;
 				Log.Trace( $"ShootWeaponFunction: ShootSound {ShootSound.ResourceName}" );
 			}
 		}
 
 		// Third person
-		Weapon.PlayerController.BodyRenderer.Set( "b_attack", true );
+		Weapon.PlayerController?.BodyRenderer.Set( "b_attack", true );
 
 		// First person
 		Weapon.ViewModel?.ModelRenderer.Set( "b_attack", true );
