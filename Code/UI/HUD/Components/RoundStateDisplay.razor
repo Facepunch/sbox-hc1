@@ -7,8 +7,12 @@
     {
         <RoundStateTeam Score="@MyTeamScore" Team="@MyTeam" Players="@MyTeamPlayers" iconPosition="Right" />
     }
+    else
+    {
+        <div class="grow"></div>        
+    }
 
-    <div class="flex column with-background with-padding h-full align-center justify-center" style="min-width: 175px; height: 75px;">
+    <div class="flex column with-background with-padding with-px-lg h-full align-center justify-center" style="min-width: 175px; height: 75px;">
         <label>@Status</label>
         <label class="emphasis">@(Time?.ToString(@"m\:ss"))</label>
     </div>
@@ -16,6 +20,10 @@
     @if (EnemyTeamPlayers is not null && EnemyTeamPlayers.Count() > 0)
     {
         <RoundStateTeam Score="@EnemyTeamScore" Team="@EnemyTeam" Players="@EnemyTeamPlayers" iconPosition="Left" />
+    }
+    else
+    {
+        <div class="grow"></div>
     }
 </root>
 
