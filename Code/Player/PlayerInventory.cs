@@ -105,6 +105,9 @@ public partial class PlayerInventory : Component
 
 		foreach ( var slot in Enum.GetValues<WeaponSlot>() )
 		{
+			if ( slot == WeaponSlot.Undefined )
+				continue;
+
 			if ( Input.Pressed( $"Slot{(int)slot}" ) )
 			{
 				SwitchToSlot( slot );
