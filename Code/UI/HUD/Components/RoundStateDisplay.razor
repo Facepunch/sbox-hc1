@@ -13,10 +13,18 @@
     }
 
     <div class="flex column with-background with-padding with-px-lg h-full align-center justify-center" style="min-width: 175px; height: 75px;">
-        <label class="status">@Status</label>
-        @if (Time.HasValue)
+
+        @if (GameMode.Instance.Components.Get<BombDefusalScenario>() is BombDefusalScenario { IsBombPlanted: true })
         {
-            <label class="emphasis">@(Time?.ToString(@"m\:ss"))</label>
+            <Icon File="/ui/items/c4.png" size="64" />
+        }
+        else
+        {
+            <label class="status">@Status</label>
+            @if (Time.HasValue)
+            {
+                <label class="emphasis">@(Time?.ToString(@"m\:ss"))</label>
+            }
         }
     </div>
 
