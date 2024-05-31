@@ -28,7 +28,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 
 	protected override void OnUpdate()
 	{
-		if ( LocalPlayer.IsSpectating )
+		if ( LocalPlayer?.IsSpectating ?? false )
 			UpdateSpectate();
 
 		wasSpectating = LocalPlayer.IsSpectating;
