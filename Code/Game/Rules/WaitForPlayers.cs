@@ -44,6 +44,11 @@ public sealed class WaitForPlayers : Component, IGameStartListener
 		GameMode.Instance.ShowStatusText( "Starting in" );
 		GameMode.Instance.ShowCountDownTimer( Time.Now, GameStartDelaySeconds );
 
+		foreach ( var player in GameUtils.ActivePlayers )
+		{
+			player.IsFrozen = true;
+		}
+
 		await Task.DelaySeconds( GameStartDelaySeconds );
 	}
 
