@@ -71,8 +71,8 @@ partial class GameMode
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
-	public void ShowToast( string value )
+	public void ShowToast( string value, ToastType type = ToastType.Generic )
 	{
-		Toast.Instance.Show( value );
+		Toast.Instance.Show( value, type );
 	}
 }

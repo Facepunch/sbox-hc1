@@ -111,7 +111,7 @@ public sealed class BombDefusalScenario : Component,
 
 		planter?.Inventory.GiveCash( BombPlantedPlayerBonus );
 
-		GameMode.Instance.ShowToast( "Bomb has been planted." );
+		GameMode.Instance.ShowToast( "Bomb has been planted" );
 
 		GameMode.Instance.ShowStatusText( Team.Terrorist, "Defend the Bomb" );
 		GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "Defuse the Bomb" );

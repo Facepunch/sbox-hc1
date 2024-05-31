@@ -1,8 +1,20 @@
 ﻿@namespace Facepunch.UI
 @inherits Panel
 
-<root class="hud middle with-padding with-px-lg with-background flex justify-center align-center column hidden @BuildClass()" style="top: 35%">
-    <label class="emphasis">@Status</label>
+@attribute [StyleSheet]
+
+@using System.Text;
+
+<root class="hud middle with-padding with-rounding with-px-lg with-background flex justify-center align-center column hidden @BuildClass()" style="top: 35%; @BuildStyle()">
+    @if ( Type == ToastType.TerroristsWin || Type == ToastType.CounterTerroristsWin )
+    {
+        <Icon File="@GetWinningTeam(Type).GetIconPath()" style="background-image-tint: @GetWinningTeam(Type).GetColor().Hex" size="256" />
+        <label class="huge">@Status</label>
+    }
+    else
+    {
+        <label class="emphasis">@Status</label>
+    }
 </root>
 
 @code
@@ -14,23 +26,51 @@
         Instance = this;
     }
 
-    public void Show( string status )
+    public void Show( string status, ToastType type = ToastType.Generic )
     {
         Status = status;
+        Type = type;
         TimeSinceActivated = 0;
     }
 
-    public string Status { get; set; } = "";
+    private string Status { get; set; } = "";
+    private ToastType Type { get; set; } = ToastType.Generic;
+
     private RealTimeSince TimeSinceActivated { get; set; } = 100f;
     private bool IsActive => TimeSinceActivated < 5f;
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Status, IsActive);
+        return HashCode.Combine(Status, Type, IsActive);
+    }
+
+    private Team GetWinningTeam(ToastType toastType)
+    {
+        switch ( toastType )
+        {
+            case ToastType.TerroristsWin: return Team.Terrorist;
+            case ToastType.CounterTerroristsWin: return Team.CounterTerrorist;
+            default: return Team.Unassigned;
+        }
     }
 
     private string BuildClass()
     {
-        return (IsActive) ? "visible" : "";
+        var sb = new StringBuilder();
+        sb.Append((IsActive) ? "visible " : "");
+        sb.Append($"{Type} ");
+
+        return sb.ToString();
+    }
+
+    private string BuildStyle()
+    {
+        if (Type == ToastType.TerroristsWin || Type == ToastType.CounterTerroristsWin )
+        {
+            var col = GetWinningTeam(Type).GetColor().Hex;
+            return $"background-color: rgba( {col}, 0.1 );";
+        }
+
+        return "background-color: transparent;";
     }
 }

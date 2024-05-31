@@ -40,7 +40,7 @@ public sealed class WaitForPlayers : Component, IGameStartListener
 			await Task.DelaySeconds( 1f );
 		}
 
-		GameMode.Instance.ShowToast( "Starting Match..." );
+		GameMode.Instance.ShowToast( "Match Starting..." );
 		GameMode.Instance.ShowStatusText( "Starting in" );
 		GameMode.Instance.ShowCountDownTimer( Time.Now, GameStartDelaySeconds );
 
