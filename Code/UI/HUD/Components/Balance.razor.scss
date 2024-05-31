@@ -2,22 +2,22 @@
 
 Balance {
     position: absolute;
-    gap: 8px;
 
     InputHint
     {
         transform: scale( 1 );
         max-width: 120px;
+        margin-right: 8px;
 
         &.hidden
         {
             transform: scale( 0 );
             max-width: 0;
+            margin-right: 0;
         }
     }
 
     .label {
         align-self: center;
-        font-size: 20px;
     }
 }
