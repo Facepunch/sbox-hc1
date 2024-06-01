@@ -29,9 +29,14 @@
             <LobbyRow @Lobby=@(new Lobby( lobby )) onclick=@( () => OpenLobbyPage( lobby ) ) />
         }
 
-        @if ( FetchedLobbies.Count() == 0 )
+        @if ( IsSearching )
         {
             <div class="button standard">Searching for lobbies...</div>
+        }
+
+        @if ( !IsSearching && FetchedLobbies.Count() == 0 )
+        {
+            <div class="button standard">No lobbies found...</div>
         }
     </div>
 
@@ -50,6 +55,8 @@
 
     private List<LobbyInformation> FetchedLobbies { get; set; } = new();
 
+    private bool IsSearching = true;
+
     protected override void OnAfterTreeRender( bool firstTime )
     {
         if ( firstTime )
@@ -60,11 +67,13 @@
 
     protected async void FetchLobbies()
     {
+        IsSearching = true;
         FetchedLobbies = new();
         StateHasChanged();
 
         var lobbies = await Networking.QueryLobbies( Game.Ident );
 
+        IsSearching = false;
         FetchedLobbies = lobbies;
         StateHasChanged();
     }
