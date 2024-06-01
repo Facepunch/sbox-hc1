@@ -1,6 +1,4 @@
-@import "/UI/Styles/Theme.scss";
-
-MainMenuPanel
+MainMenuPanel, PauseMenuPanel
 {
     left: 0;
     top: 0;
@@ -9,9 +7,23 @@ MainMenuPanel
     width: 100%;
     height: 100%;
     backdrop-filter: blur(5px);
+    pointer-events: all;
 }
 
-MainMenuRoot
+PauseMenuPanel {
+    pointer-events: none;
+    opacity: 0;
+    display: none;
+
+    &.open
+    {
+        pointer-events: all;
+        display: flex;
+        opacity: 1;
+    }
+}
+
+MainMenuRoot, PauseMenuRoot
 {
     opacity: 1;
     flex-direction: column;
@@ -94,7 +106,6 @@ LandingPage
     {
         left: -32px;
         top: -32px;
-
         width: 256px;
         pointer-events: all;
         height: 128px;

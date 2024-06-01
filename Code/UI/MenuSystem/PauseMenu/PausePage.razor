@@ -1,0 +1,32 @@
+@using Sandbox;
+@using Sandbox.UI;
+
+@implements INavigatorPage
+@attribute [StyleSheet]
+@namespace Facepunch.UI
+
+<root class="hc1">
+    <div class="layout padding-insane column">
+        <div class="logo">
+            <img src="/ui/teams/operators_logo_banner.png" />
+        </div>
+    </div>
+
+    <div class="layout flex-grow" />
+
+    <div class="layout padding-insane column" style="width: 30%;">
+        <div class="layout column gap">
+            <a class="button standard" href="/settings">Settings</a>
+            <button class="button standard" onclick=@Disconnect>Disconnect</button>
+        </div>
+    </div>
+</root>
+
+@code
+{
+    void Disconnect()
+    {
+        var sc = ResourceLibrary.Get<SceneFile>( "scenes/menu.scene" );
+        Game.ActiveScene.Load( sc );
+    }
+}

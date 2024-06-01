@@ -1,0 +1,22 @@
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+@inherits PanelComponent
+
+<root class="@(IsOpen ? "open" : "")">
+    <PauseMenuRoot />
+</root>
+
+@code
+{
+    private bool IsOpen = false;
+
+    protected override void OnUpdate()
+    {
+        if ( Input.EscapePressed )
+        {
+            Input.EscapePressed = false;
+            IsOpen = !IsOpen;
+            StateHasChanged();
+        }
+    }
+}
