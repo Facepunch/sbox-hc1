@@ -35,7 +35,7 @@ public sealed class CameraController : Component
 	/// <summary>
 	/// Constructs a ray using the camera's GameObject
 	/// </summary>
-	public Ray AimRay => new( Camera.Transform.Position + Camera.Transform.Rotation.Forward * 25f, Camera.Transform.Rotation.Forward );
+	public Ray AimRay => new( Camera.Transform.Position + Camera.Transform.Rotation.Forward, Camera.Transform.Rotation.Forward );
 
 	private float FieldOfViewOffset = 0f;
 	private float TargetFieldOfView = 90f;
