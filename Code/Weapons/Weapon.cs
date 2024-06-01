@@ -201,7 +201,7 @@ public partial class Weapon : Component
 		ClearViewModel();
 		UpdateRenderMode();
 
-		if ( resource.ViewModelPrefab != null )
+		if ( resource.ViewModelPrefab.IsValid() )
 		{
 			// Create the weapon prefab and put it on the weapon gameobject.
 			var viewModelGameObject = resource.ViewModelPrefab.Clone( new CloneConfig()

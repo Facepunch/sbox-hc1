@@ -243,7 +243,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	protected override void OnStart()
 	{
 		if ( !IsProxy && !IsBot )
+		{
+			// Set this as our local player and possess it.
 			GameUtils.LocalPlayer = this;
+			(this as IPawn).Possess();
+		}
 
 		if ( IsBot )
 			GameObject.Name += " (Bot)";
@@ -440,6 +444,14 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		if ( HealthComponent.State != LifeState.Alive )
 			return;
 
+		if ( Networking.IsHost && IsBot )
+		{
+			// If we're a bot call these so they don't float in the air.
+			ApplyAcceleration();
+			ApplyMovement();
+			return;
+		}
+
 		if ( !IsLocallyControlled )
 			return;
 
@@ -482,7 +494,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		if ( GameMode.Instance.BuyAnywhere )
 			return true;
 
-		BuyZone zone = GetZone<BuyZone>();
+		var zone = GetZone<BuyZone>();
 		if ( zone is null )
 			return false;
 
@@ -529,13 +541,10 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		WishVelocity = wishDirection * GetWishSpeed();
 	}
 
-	public void AssignTeam( Team team, bool silent = false )
+	public void AssignTeam( Team team )
 	{
 		Assert.True( Networking.IsHost );
 		TeamComponent.Team = team;
-
-		if ( silent )
-			return;
 
 		foreach ( var listener in Scene.GetAllComponents<ITeamAssignedListener>() )
 		{

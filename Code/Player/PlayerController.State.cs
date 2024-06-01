@@ -1,3 +1,5 @@
+using Sandbox.Diagnostics;
+
 namespace Facepunch;
 
 public partial class PlayerController
@@ -32,11 +34,7 @@ public partial class PlayerController
 			HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
 			HealthComponent.HasHelmet = false;
 			HealthComponent.Armor = 0f;
-			
 			Inventory.Clear();
-
-			if ( enableRagdoll )
-				EnableRagdoll();
 		}
 
 		if ( enableRagdoll )
@@ -58,6 +56,40 @@ public partial class PlayerController
 			Respawn();
 	}
 
+	/// <summary>
+	/// Can be called on the host when creating the player before network spawning it. This
+	/// seems like duplicating code but for now it's best practice to ensure state is up-to-date
+	/// before clients receive it from the host instead of sending RPCs after spawning it in the same
+	/// tick.
+	/// </summary>
+	public void Initialize()
+	{
+		Assert.True( Networking.IsHost );
+
+		if ( CanRespawn )
+		{
+			HealthComponent.Health = 100f;
+			HealthComponent.State = LifeState.Alive;
+			
+			if ( TeamComponent.Team is Team.Terrorist or Team.CounterTerrorist )
+				ResetBody();
+			
+			IsSpectating = false;
+		}
+		else
+		{
+			HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
+			HealthComponent.HasHelmet = false;
+			HealthComponent.Armor = 0f;
+			
+			GameObject.Tags.Set( "invis", true );
+			
+			CameraController.Mode = CameraMode.ThirdPerson;
+			IsSpectating = true;
+			InBuyMenu = false;
+		}
+	}
+
 	[Broadcast( NetPermission.HostOnly )]
 	public void Respawn()
 	{
@@ -75,7 +107,7 @@ public partial class PlayerController
 		if ( IsProxy || IsBot )
 			return;
 
-		GameMode.Instance?.HandlePlayerSpawn();
+		GameMode.Instance?.SendSpawnConfirmation();
 		(this as IPawn).Possess();
 		
 		// Conna: we're not spectating if we just respawned.

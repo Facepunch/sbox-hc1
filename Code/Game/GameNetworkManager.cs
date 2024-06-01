@@ -54,27 +54,18 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 			listener.OnConnect( player );
 		}
 
-		Transform spawnPoint = GameUtils.GetRandomSpawnPoint( player.TeamComponent.Team );
+		var spawnPoint = GameUtils.GetRandomSpawnPoint( player.TeamComponent.Team );
 		player.Teleport( spawnPoint );
+		player.Initialize();
 		player.GameObject.NetworkSpawn( channel );
-
+		
 		foreach ( var listener in Scene.GetAllComponents<IPlayerJoinedListener>() )
 		{
 			listener.OnJoined( player );
 		}
-
-		if ( player.CanRespawn )
-			player.Respawn();
-		else
-			player.Kill( false );
-
-		if ( !player.IsBot )
-		{
-			using ( Rpc.FilterInclude( channel ) )
-			{
-				player.TryPossess();
-			}
-		}
+		
+		if ( player.HealthComponent.State == LifeState.Alive )
+			GameMode.Instance?.SpawnPlayer( player );
 	}
 
 	[ConCmd( "lobby_list" )]

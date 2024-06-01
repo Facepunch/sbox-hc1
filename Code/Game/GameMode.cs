@@ -1,5 +1,6 @@
 ﻿using Facepunch;
 using System.Threading.Tasks;
+using Sandbox.Diagnostics;
 
 /// <summary>
 /// Handles the main game loop, using components that listen to state change
@@ -136,16 +137,18 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	/// RPC called by a client when they have finished respawning.
 	/// </summary>
 	[Authority]
-	public void HandlePlayerSpawn()
+	public void SendSpawnConfirmation()
 	{
 		var player = GameUtils.AllPlayers.FirstOrDefault( x => x.Network.OwnerConnection == Rpc.Caller )
 			?? throw new Exception( $"Unable to find {nameof(PlayerController)} owned by {Rpc.Caller.DisplayName}." );
 
-		_ = HandlePlayerSpawn( player );
+		_ = SpawnPlayer( player );
 	}
 
-	private Task HandlePlayerSpawn( PlayerController player )
+	public Task SpawnPlayer( PlayerController player )
 	{
+		Assert.True( Networking.IsHost );
+		
 		return Dispatch<IPlayerSpawnListener>(
 			x => x.PrePlayerSpawn( player ),
 			x => x.OnPlayerSpawn( player ),

@@ -49,19 +49,13 @@ public partial class ViewModel : Component
 	protected override void OnStart()
 	{
 		if ( IsThrowable )
-		{
 			ModelRenderer?.Set( "throwable_type", (int)ThrowableType );
-		}
 		else
-		{
 			ModelRenderer?.Set( "b_deploy", true );
-		}
 
 		// Somehow?
 		if ( PlayerController.IsValid() )
-		{
 			PlayerController.OnJump += OnPlayerJumped;
-		}
 	}
 
 	void OnPlayerJumped()
@@ -218,6 +212,7 @@ public partial class ViewModel : Component
 			ApplyStates();
 			ApplyAnimationParameters();
 		}
+		
 		ApplyVelocity();
 		ApplyAnimationTransform();
 		ApplyInertia();

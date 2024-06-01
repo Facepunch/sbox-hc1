@@ -5,18 +5,15 @@
 /// </summary>
 public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListener, IPlayerJoinedListener
 {
-	[Property]
-	public int MaxTeamSize { get; set; } = 5;
+	[Property] public int MaxTeamSize { get; set; } = 5;
 
 	void IPlayerJoinedListener.OnConnect( PlayerController player )
 	{
-		Log.Info( nameof( TeamAssigner ) );
 		var ts = GameUtils.GetPlayers( Team.Terrorist ).ToList();
 		var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).ToList();
+		var assignTeam = Team.Unassigned;
 
-		Team assignTeam = Team.Unassigned;
-
-		int compare = ts.Count().CompareTo( cts.Count() );
+		var compare = ts.Count.CompareTo( cts.Count );
 		if ( compare < 0 )
 		{
 			assignTeam = Team.Terrorist;
@@ -25,19 +22,19 @@ public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListe
 		{
 			assignTeam = Team.CounterTerrorist;
 		}
-		else if ( cts.Count() < MaxTeamSize )
+		else if ( cts.Count < MaxTeamSize )
 		{
-			bool coinFlip = Random.Shared.Next( 2 ) == 1;
+			var coinFlip = Random.Shared.Next( 2 ) == 1;
 			assignTeam = coinFlip ? Team.Terrorist : Team.CounterTerrorist;
 		}
 
-		// bit gross: silently AssignTeam so we don't fire OnTeamAssigned events
-		// that may require connection info. invoke again below once we're NetworkSpawned
-		player.AssignTeam( assignTeam, true );
+		// Set the team directly to avoid callbacks for ITeamAssignedListener listeners right now.
+		player.TeamComponent.Team = assignTeam;
 	}
 
 	void IPlayerJoinedListener.OnJoined( PlayerController player )
 	{
+		// Calling this will invoke callbacks for any ITeamAssignedListener listeners.
 		player.AssignTeam( player.TeamComponent.Team );
 	}
 
@@ -67,11 +64,9 @@ public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListe
 	void IRoundEndListener.PostRoundEnd()
 	{
 		// Put spectators on a team at the end of each round
-
-		var unassigned = GameUtils.InactivePlayers.Shuffle();
-
 		var ts = GameUtils.GetPlayers( Team.Terrorist ).ToList();
 		var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).ToList();
+		var unassigned = GameUtils.InactivePlayers.Shuffle();
 
 		foreach ( var player in unassigned )
 		{
