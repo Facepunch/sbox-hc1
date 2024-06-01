@@ -91,7 +91,11 @@ public sealed class Door : Component, IUse, IRoundStartListener
 	private void PlaySoundRpc( int resourceId )
 	{
 		var resource = ResourceLibrary.Get<SoundEvent>( resourceId );
+		if ( resource == null ) return;
+		
 		var handle = Sound.Play( resource, Transform.Position );
+		if ( !handle.IsValid() ) return;
+		
 		handle.Occlusion = false;
 	}
 
