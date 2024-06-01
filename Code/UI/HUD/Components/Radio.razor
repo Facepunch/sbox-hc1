@@ -1,0 +1,112 @@
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root class="@(IsOpen ? "open" : "") with-background">
+    @if ( string.IsNullOrEmpty( SelectedCategory ) )
+    {
+        @for ( int i = 0; i < MySounds.TeamSounds.Count; i++ )
+        {
+            <div class="row">
+                <InputHint Action="Slot@(i + 1)" Size=@InputGlyphSize.Small />
+                <label>@MySounds.TeamSounds[i].Category</label>
+            </div>
+        }
+
+        <div class="row">
+            <InputHint Action="Slide" Size=@InputGlyphSize.Small />
+            <label>close</label>
+        </div>
+    }
+    else
+    {
+
+        @for ( int i = 0; i < CurrentCategory.Entries.Count; i++ )
+        {
+            <div class="row">
+                <InputHint Action="Slot@(i + 1)" Size=@InputGlyphSize.Small />
+                <label>@CurrentCategory.Entries[i].Name</label>
+            </div>
+        }
+
+        <div class="row">
+            <InputHint Action="Slide" Size=@InputGlyphSize.Small />
+            <label>back</label>
+        </div>
+    }
+</root>
+
+@code
+{
+    public RadioSounds MySounds => RadioSounds.All.FirstOrDefault( x => x.Team == GameUtils.LocalPlayer.GameObject.GetTeam() );
+
+    public TeamRadioCategory CurrentCategory => MySounds.TeamSounds.FirstOrDefault( x => x.Category == SelectedCategory );
+
+    protected string SelectedCategory { get; set; }
+
+    private bool IsOpen;
+
+    private void CheckForEntryInput()
+    {
+        if ( CurrentCategory is null ) return;
+
+        int i = 0;
+        foreach ( var snd in CurrentCategory.Entries )
+        {
+            var inputAction = $"Slot{++i}";
+            if ( Input.Pressed( inputAction ) )
+            {
+                Input.Clear( inputAction );
+
+                RadioSounds.CmdPlay( SelectedCategory, snd.Name );
+
+                IsOpen = false;
+                SelectedCategory = null; 
+                StateHasChanged();
+            }
+        }
+    }
+
+    private void CheckForCategoryInput()
+    {
+        int i = 0;
+        foreach ( var category in MySounds.TeamSounds )
+        {
+            var inputAction = $"Slot{++i}";
+            if ( Input.Pressed( inputAction ) )
+            {
+                Input.Clear( inputAction );
+                SelectedCategory = category.Category;
+                StateHasChanged();
+            }
+        }
+    }
+
+    public override void Tick()
+    {
+        if ( Input.Pressed( "Slide" ) )
+        {
+            if ( !string.IsNullOrEmpty( SelectedCategory ) )
+            {
+                SelectedCategory = null;
+            }
+            else
+            {
+                IsOpen = !IsOpen;
+            }
+
+            StateHasChanged();
+        }
+
+        if ( !IsOpen ) return;
+
+        if ( !string.IsNullOrEmpty( SelectedCategory ) ) 
+        {
+            CheckForEntryInput();
+        }
+        else
+        {
+            CheckForCategoryInput();
+        }
+    }
+}

@@ -1,0 +1,31 @@
+Radio
+{
+    left: 30%;
+    bottom: 15%;
+    position: absolute;
+    width: 256px;
+    padding: 16px;
+    gap: 16px;
+    flex-direction: column;
+
+    opacity: 0;
+    &.open{
+        opacity: 1;
+    }
+
+    .row
+    {
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+
+        InputHint
+        {
+            img
+            {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    }
+}
