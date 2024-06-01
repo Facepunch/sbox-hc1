@@ -3,23 +3,28 @@ namespace Facepunch;
 [Icon( "track_changes" )]
 public partial class ShootWeaponFunction : InputActionWeaponFunction
 {
-	[Property, Category( "Bullet" )] public float BaseDamage { get; set; } = 25.0f;
-	[Property, Category( "Bullet" )] public float FireRate { get; set; } = 0.2f;
-	[Property, Category( "Bullet" )] public float DryFireDelay { get; set; } = 1f;
-	[Property, Category( "Bullet" )] public float MaxRange { get; set; } = 1024000;
-	[Property, Category( "Bullet" )] public Curve BaseDamageFalloff { get; set; } = new( new List<Curve.Frame>() { new( 0, 1 ), new( 1, 0 ) } );
-	[Property, Category( "Bullet" )] public float BulletSize { get; set; } = 1.0f;
+	[Property, Group( "Bullet" )] public float BaseDamage { get; set; } = 25.0f;
+	[Property, Group( "Bullet" )] public float FireRate { get; set; } = 0.2f;
+	[Property, Group( "Bullet" )] public float DryFireDelay { get; set; } = 1f;
+	[Property, Group( "Bullet" )] public float BulletSize { get; set; } = 1.0f;
 	[Property, Group( "Bullet" )] public int BulletCount { get; set; } = 1;
-	[Property, Group( "Bullet" )] public float BulletSpread { get; set; } = 0;
 
+	[Property, Group( "Bullet Falloff" )] public Curve BaseDamageFalloff { get; set; } = new( new List<Curve.Frame>() { new( 0, 1 ), new( 1, 0 ) } );
+	[Property, Group( "Bullet Falloff" )] public float MaxRange { get; set; } = 1024000;
+
+	[Property, Group( "Bullet Spread" )] public float BulletSpread { get; set; } = 0;
 	[Property, Group( "Bullet Spread" )] public float PlayerVelocityLimit { get; set; } = 300f;
 	[Property, Group( "Bullet Spread" )] public float VelocitySpreadScale { get; set; } = 0.25f;
 	[Property, Group( "Bullet Spread" )] public float InAirSpreadMultiplier { get; set; } = 2f;
 
-	// Effects
-	[Property, Group( "Effects" )] public GameObject MuzzleFlash { get; set; }
-	[Property, Group( "Effects" )] public GameObject BulletTrail { get; set; }
+	/// <summary>
+	/// What sound should we play when we fire?
+	/// </summary>
 	[Property, Group( "Effects" )] public SoundEvent ShootSound { get; set; }
+
+	/// <summary>
+	/// What sound should we play when we dry fire?
+	/// </summary>
 	[Property, Group( "Effects" )] public SoundEvent DryFireSound { get; set; }
 
 	/// <summary>
@@ -56,7 +61,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	/// Anything past 2048 units won't produce effects,
 	/// This is squared.
 	/// </summary>
-	[Property] public float MaxEffectsPlayDistance { get; set; } = 4194304f;
+	[Property, Group( "Effects" )] public float MaxEffectsPlayDistance { get; set; } = 4194304f;
 
 	/// <summary>
 	/// Accessor for the aim ray.
@@ -76,21 +81,21 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		get
 		{
 			if ( IsProxy || !Weapon.ViewModel.IsValid() )
-			{
 				return Weapon.ModelRenderer;
-			}
 
 			return Weapon.ViewModel.ModelRenderer;
 		}
 	}
 
+	/// <summary>
+	/// Store a reference to the blood impact sound so we don't have to grab it every time.
+	/// </summary>
 	private static SoundEvent BloodImpactSound;
+
 	protected override void OnStart()
 	{
-		if ( BloodImpactSound is null )
-		{
-			ResourceLibrary.TryGet( "sounds/impacts/bullets/impact-bullet-flesh.sound", out BloodImpactSound );
-		}
+		if ( BloodImpactSound is not null ) return;
+		BloodImpactSound = ResourceLibrary.Get<SoundEvent>( "sounds/impacts/bullets/impact-bullet-flesh.sound" );
 	}
 
 	/// <summary>
@@ -102,15 +107,9 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		if ( !EffectsRenderer.IsValid() )
 			return;
 
-		// Create a muzzle flash from a GameObject / prefab
-		if ( MuzzleFlash.IsValid() )
-		{
-			MuzzleFlash.Clone( EffectsRenderer.GetAttachment( "muzzle" ) ?? Weapon.Transform.World );
-		}
-
 		if ( ShootSound is not null )
 		{
-			if ( Sound.Play( ShootSound, Weapon.Transform.Position ) is SoundHandle snd )
+			if ( Sound.Play( ShootSound, Weapon.Transform.Position ) is { } snd )
 			{
 				snd.ListenLocal = Weapon.PlayerController?.IsViewer ?? false;
 				Log.Trace( $"ShootWeaponFunction: ShootSound {ShootSound.ResourceName}" );
@@ -190,11 +189,23 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 					CreateBloodEffects( tr.HitPosition, tr.Normal );
 				}
 
+				var damage = CalculateDamageFalloff( BaseDamage, tr.Distance );
+
+				Log.Info( $"base damage: {BaseDamage}, real damage: {damage}" );
+
 				// Inflict damage on whatever we find.
-				tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, tr.Hitbox?.Tags?.Has( "head" ) ?? false );
+				tr.GameObject.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, tr.Hitbox?.Tags?.Has( "head" ) ?? false );
 				count++;
 			}
 		}
+	}
+
+	private float CalculateDamageFalloff( float damage, float distance )
+	{
+		var distDelta = distance / MaxRange;
+		var damageMultiplier = BaseDamageFalloff.Evaluate( distDelta );
+
+		return damage * damageMultiplier;
 	}
 
 	/// <summary>
