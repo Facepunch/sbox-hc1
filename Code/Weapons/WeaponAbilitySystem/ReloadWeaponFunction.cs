@@ -13,8 +13,7 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction
 	/// How long does it take to reload while empty?
 	/// </summary>
 	[Property] public float EmptyReloadTime { get; set; } = 2.0f;
-
-
+	
 	[Property] public bool SingleReload { get; set; } = false;
 
 	/// <summary>
@@ -22,8 +21,8 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction
 	/// </summary>
 	[Property] public AmmoContainer AmmoContainer { get; set; }
 
-	bool IsReloading;
-	TimeUntil TimeUntilReload;
+	private TimeUntil TimeUntilReload { get; set; }
+	[Sync] private bool IsReloading { get; set; }
 
 	protected override void OnEnabled()
 	{
@@ -41,6 +40,13 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction
 	protected override void OnUpdate()
 	{
 		if ( IsProxy ) return;
+
+		// Conna: if we're no longer deployed cancel reloading.
+		if ( !Weapon.IsDeployed && IsReloading )
+		{
+			CancelReload();
+			return;
+		}
 
 		if ( IsReloading && TimeUntilReload )
 		{
@@ -79,11 +85,22 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction
 
 		foreach ( var kv in GetReloadSounds() )
 		{
-			PlayAsyncSound( kv.Key, kv.Value );
+			// Play this sound after a certain time but only if we're reloading.
+			PlayAsyncSound( kv.Key, kv.Value, () => IsReloading );
 		}
 	}
+	
+	[Broadcast( NetPermission.OwnerOnly )]
+	void CancelReload()
+	{
+		if ( !IsProxy )
+			IsReloading = false;
 
-	[Broadcast(NetPermission.OwnerOnly)]
+		// Tags will be better so we can just react to stimuli.
+		Weapon.ViewModel?.ModelRenderer.Set( "b_reload", false );
+	}
+
+	[Broadcast( NetPermission.OwnerOnly )]
 	void EndReload()
 	{
 		if ( !IsProxy )
@@ -114,9 +131,14 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction
 	[Property] public Dictionary<float, SoundEvent> TimedReloadSounds { get; set; } = new();
 	[Property] public Dictionary<float, SoundEvent> EmptyReloadSounds { get; set; } = new();
 
-	async void PlayAsyncSound( float delay, SoundEvent snd )
+	async void PlayAsyncSound( float delay, SoundEvent snd, Func<bool> playCondition = null )
 	{
 		await GameTask.DelaySeconds( delay );
+		
+		// Can we play this sound?
+		if ( playCondition != null && !playCondition.Invoke() )
+			return;
+		
 		GameObject.PlaySound( snd );
 	}
 }
