@@ -6,6 +6,15 @@ namespace Facepunch;
 public partial class Weapon : Component
 {
 	/// <summary>
+	/// Subscribe to changes in the weapon's deployed state.
+	/// </summary>
+	public interface IDeploymentListener
+	{
+		public void OnDeployed( Weapon weapon ) { }
+		public void OnHolstered( Weapon weapon ) { }
+	}
+	
+	/// <summary>
 	/// A reference to the weapon's <see cref="WeaponData"/>.
 	/// </summary>
 	[Property] public WeaponData Resource { get; set; }
@@ -245,12 +254,20 @@ public partial class Weapon : Component
 			CreateViewModel();
 		
 		ModelRenderer.Enabled = true;
+		
+		var listeners = Components.GetAll<IDeploymentListener>();
+		foreach ( var listener in listeners )
+			listener.OnDeployed( this );
 	}
 
 	protected virtual void OnHolstered()
 	{
 		ModelRenderer.Enabled = false;
 		ClearViewModel();
+
+		var listeners = Components.GetAll<IDeploymentListener>();
+		foreach ( var listener in listeners )
+			listener.OnHolstered( this );
 	}
 
 	protected override void OnDestroy()

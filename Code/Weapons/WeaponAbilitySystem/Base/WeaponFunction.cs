@@ -7,9 +7,15 @@ namespace Facepunch;
 public abstract class WeaponFunction : Component
 {
 	/// <summary>
-	/// Find the weapon, it's going to be a component on the same GameObject.
+	/// The weapon. It's going to be a component on the same <see cref="GameObject"/>.
 	/// </summary>
-	protected Weapon Weapon => Components.Get<Weapon>( FindMode.EverythingInSelfAndAncestors );
+	protected Weapon Weapon { get; set; }
 
 	protected void BindTag( string tag, Func<bool> predicate ) => Weapon.BindTag( tag, predicate );
+
+	protected override void OnAwake()
+	{
+		Weapon = Components.Get<Weapon>( FindMode.EverythingInSelfAndAncestors );
+		base.OnAwake();
+	}
 }

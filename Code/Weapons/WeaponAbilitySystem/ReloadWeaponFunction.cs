@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace Facepunch;
 
-public partial class ReloadWeaponFunction : InputActionWeaponFunction
+public partial class ReloadWeaponFunction : InputActionWeaponFunction, Weapon.IDeploymentListener
 {
 	/// <summary>
 	/// How long does it take to reload?
@@ -41,16 +41,18 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction
 	{
 		if ( IsProxy ) return;
 
-		// Conna: if we're no longer deployed cancel reloading.
-		if ( !Weapon.IsDeployed && IsReloading )
-		{
-			CancelReload();
-			return;
-		}
-
 		if ( IsReloading && TimeUntilReload )
 		{
 			EndReload();
+		}
+	}
+
+	void Weapon.IDeploymentListener.OnHolstered( Weapon weapon )
+	{
+		if ( !IsProxy && IsReloading )
+		{
+			// Conna: if we're no longer deployed cancel reloading.
+			CancelReload();
 		}
 	}
 
