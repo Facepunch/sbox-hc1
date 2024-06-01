@@ -1,7 +1,3 @@
-using Sandbox;
-using System.ComponentModel;
-using System.Diagnostics;
-
 namespace Facepunch;
 
 [Icon( "track_changes" )]
@@ -16,11 +12,15 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	[Property, Group( "Bullet" )] public int BulletCount { get; set; } = 1;
 	[Property, Group( "Bullet" )] public float BulletSpread { get; set; } = 0;
 
+	[Property, Group( "Bullet Spread" )] public float PlayerVelocityLimit { get; set; } = 300f;
+	[Property, Group( "Bullet Spread" )] public float VelocitySpreadScale { get; set; } = 0.25f;
+	[Property, Group( "Bullet Spread" )] public float InAirSpreadMultiplier { get; set; } = 2f;
+
 	// Effects
-	[Property, Category( "Effects" )] public GameObject MuzzleFlash { get; set; }
-	[Property, Category( "Effects" )] public GameObject BulletTrail { get; set; }
-	[Property, Category( "Effects" )] public SoundEvent ShootSound { get; set; }
-	[Property, Category( "Effects" )] public SoundEvent DryFireSound { get; set; }
+	[Property, Group( "Effects" )] public GameObject MuzzleFlash { get; set; }
+	[Property, Group( "Effects" )] public GameObject BulletTrail { get; set; }
+	[Property, Group( "Effects" )] public SoundEvent ShootSound { get; set; }
+	[Property, Group( "Effects" )] public SoundEvent DryFireSound { get; set; }
 
 	/// <summary>
 	/// The current weapon's ammo container.
@@ -32,19 +32,46 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	/// </summary>
 	[Property, Category( "Ammo" )] public bool RequiresAmmoContainer { get; set; } = false;
 
-	private static SoundEvent BloodImpactSound;
-	protected override void OnStart()
-	{
-		if ( BloodImpactSound is null )
-		{
-			ResourceLibrary.TryGet<SoundEvent>( "sounds/impacts/bullets/impact-bullet-flesh.sound", out BloodImpactSound );
-		}
-	}
+	/// <summary>
+	/// How many ricochet hits until we stop traversing
+	/// </summary>
+	[Property, Group( "Ricochet" )] protected float RicochetMaxHits { get; set; } = 2f;
+
+	/// <summary>
+	/// Maximum angle in degrees for ricochet to be possible
+	/// </summary>
+	[Property, Group( "Ricochet" )] public float MaxRicochetAngle { get; set; } = 45f;
+
+	/// <summary>
+	/// How many units forward are we moving each time we penetrate an object?
+	/// </summary>
+	[Property, Group( "Penetration" )] public float PenetrationIncrementAmount { get; set; } = 15f;
+
+	/// <summary>
+	/// How many steps forward can we take before it's too thick?
+	/// </summary>
+	[Property, Group( "Penetration" )] public int PenetrationMaxSteps { get; set; } = 2;
+
+	/// <summary>
+	/// Anything past 2048 units won't produce effects,
+	/// This is squared.
+	/// </summary>
+	[Property] public float MaxEffectsPlayDistance { get; set; } = 4194304f;
+
+	/// <summary>
+	/// Accessor for the aim ray.
+	/// </summary>
+	protected Ray WeaponRay => Weapon.PlayerController.AimRay;
+
+	/// <summary>
+	/// How long since we shot?
+	/// </summary>
+	public TimeSince TimeSinceShoot { get; private set; }
 
 	/// <summary>
 	/// Fetches the desired model renderer that we'll focus effects on like trail effects, muzzle flashes, etc.
 	/// </summary>
-	protected SkinnedModelRenderer EffectsRenderer 
+	protected SkinnedModelRenderer EffectsRenderer
 	{
 		get
 		{
@@ -57,7 +84,14 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		}
 	}
 
-	public TimeSince TimeSinceShoot { get; private set; }
+	private static SoundEvent BloodImpactSound;
+	protected override void OnStart()
+	{
+		if ( BloodImpactSound is null )
+		{
+			ResourceLibrary.TryGet( "sounds/impacts/bullets/impact-bullet-flesh.sound", out BloodImpactSound );
+		}
+	}
 
 	/// <summary>
 	/// Play any particle effects such as muzzle flashes.
@@ -98,46 +132,12 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 
 		var p = gameObject.Components.Create<LegacyParticleSystem>();
 		p.Particles = ParticleSystem.Load( particle );
-
-		// ?
 		gameObject.Transform.ClearInterpolation();
 
 		// Clear off in a suitable amount of time.
 		gameObject.DestroyAsync( decay );
 
 		return p;
-	}
-
-	[Broadcast]
-	private void CreateImpactEffects( Surface surface, Vector3 pos, Vector3 normal )
-	{
-		var decalPath = Game.Random.FromList( surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
-		if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalResource ) )
-		{
-			var ps = CreateParticleSystem( Game.Random.FromList( surface.ImpactEffects.Bullet ), pos, Rotation.LookAt( -normal ), 1f );
-			ps.SceneObject.SetControlPoint( 0, new Transform( pos, Rotation.LookAt( normal ) ) );
-
-			var decal = Game.Random.FromList( decalResource.Decals );
-
-			var gameObject = Scene.CreateObject();
-			gameObject.Transform.Position = pos;
-			gameObject.Transform.Rotation = Rotation.LookAt( -normal );
-
-			// Random rotation
-			gameObject.Transform.Rotation *= Rotation.FromAxis( Vector3.Forward, decal.Rotation.GetValue() );
-
-			var decalRenderer = gameObject.Components.Create<DecalRenderer>();
-			decalRenderer.Material = decal.Material;
-			decalRenderer.Size = new( decal.Width.GetValue(), decal.Height.GetValue(), decal.Depth.GetValue() );
-
-			// Creates a destruction component to destroy the gameobject after a while
-			gameObject.DestroyAsync( 1f );
-		}
-
-		if ( !string.IsNullOrEmpty( surface.Sounds.Bullet ) )
-		{
-			Sound.Play( surface.Sounds.Bullet, pos );
-		}
 	}
 
 	[Broadcast]
@@ -154,29 +154,6 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 
 		var snd = Sound.Play( BloodImpactSound, pos );
 		snd.ListenLocal = Weapon?.PlayerController?.IsViewer ?? false;
-	}
-
-	private void ShootBullet()
-	{
-		int count = 0;
-
-		foreach ( var tr in GetShootTrace() )
-		{
-			if ( !tr.Hit )
-				continue;
-
-			// CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
-			DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
-
-			if ( tr.GameObject?.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } player )
-			{
-				CreateBloodEffects( tr.HitPosition, tr.Normal );
-			}
-
-			// Inflict damage on whatever we find.
-			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, tr.Hitbox?.Tags?.Has( "head" ) ?? false );
-			count++;
-		}
 	}
 
 	/// <summary>
@@ -198,22 +175,37 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 
 		for ( int i = 0; i < BulletCount; i++ )
 		{
-			ShootBullet();
+			int count = 0;
+
+			foreach ( var tr in GetShootTrace() )
+			{
+				if ( !tr.Hit )
+					continue;
+
+				// CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
+				DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
+
+				if ( tr.GameObject?.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } player )
+				{
+					CreateBloodEffects( tr.HitPosition, tr.Normal );
+				}
+
+				// Inflict damage on whatever we find.
+				tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, tr.Hitbox?.Tags?.Has( "head" ) ?? false );
+				count++;
+			}
 		}
 	}
-
-	/// <summary>
-	/// Anything past 2048 units won't produce effects,
-	/// this is very shitty
-	/// </summary>
-	private const float MaxDistanceSq = 4194304f;
 
 	/// <summary>
 	/// Are we nearby a position? Used for FX
 	/// </summary>
 	/// <param name="position"></param>
 	/// <returns></returns>
-	private bool IsNearby( Vector3 position ) => position.DistanceSquared( Scene.Camera.Transform.Position ) < MaxDistanceSq;
+	private bool IsNearby( Vector3 position )
+	{
+		return position.DistanceSquared( Scene.Camera.Transform.Position ) < MaxEffectsPlayDistance;
+	}
 
 	/// <summary>
 	/// Makes some tracers using legacy particle effects.
@@ -259,21 +251,6 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		Weapon.ViewModel?.ModelRenderer.Set( "b_attack_dry", true );
 	}
 
-	protected virtual Ray WeaponRay => Weapon.PlayerController.AimRay;
-
-	/// <summary>
-	/// How many ricochet hits until we stop traversing
-	/// </summary>
-	protected virtual float MaxAmtOfHits => 2f;
-
-	/// <summary>
-	/// Maximum angle in degrees for ricochet to be possible
-	/// </summary>
-	protected virtual float MaxRicochetAngle => 45f;
-
-	protected float PenetrationIncrementAmount => 15f;
-	protected int PenetrationMaxSteps => 2;
-
 	protected SceneTraceResult DoTraceBullet( Vector3 start, Vector3 end, float radius )
 	{
 		return Scene.Trace.Ray( start, end )
@@ -297,6 +274,21 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	}
 
 	/// <summary>
+	/// Gets the current bullet spread which is accumulated by the player's movement speed, or if they're in the air.
+	/// </summary>
+	/// <returns></returns>
+	float GetBulletSpread()
+	{
+		var spread = BulletSpread;
+		var velLen = Weapon.PlayerController.CharacterController.Velocity.Length;
+		spread += velLen.Remap( 0, PlayerVelocityLimit, 0, 1, true ) * VelocitySpreadScale;
+
+		if ( !Weapon.PlayerController.IsGrounded ) spread *= InAirSpreadMultiplier;
+
+		return spread;
+	}
+
+	/// <summary>
 	/// Runs a trace with all the data we have supplied it, and returns the result
 	/// </summary>
 	/// <returns></returns>
@@ -310,12 +302,12 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		var rot = Rotation.LookAt( WeaponRay.Forward );
 
 		var forward = rot.Forward;
-		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * BulletSpread * 0.25f;
+		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * GetBulletSpread() * 0.25f;
 		forward = forward.Normal;
 
 		var end = WeaponRay.Position + forward * MaxRange;
 
-		while ( curHits < MaxAmtOfHits )
+		while ( curHits < RicochetMaxHits )
 		{
 			curHits++;
 
@@ -328,7 +320,6 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 
 			var reflectDir = CalculateRicochetDirection( tr, ref curHits );
 			var angle = reflectDir.Angle( tr.Direction );
-			var dist = tr.Distance.Remap( 0, MaxRange, 1, 0.5f ).Clamp( 0.5f, 1f );
 
 			start = tr.EndPosition;
 			end = tr.EndPosition + (reflectDir * MaxRange);
