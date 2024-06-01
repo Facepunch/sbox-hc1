@@ -84,14 +84,13 @@ public sealed class Door : Component, IUse, IRoundStartListener
 
 	private void PlaySound( SoundEvent resource )
 	{
-		// Conna: not a fan of this but sometimes resource ids are different?
-		PlaySoundRpc( resource.ResourcePath );
+		PlaySoundRpc( resource.ResourceId );
 	}
 	
 	[Broadcast]
-	private void PlaySoundRpc( string resourcePath )
+	private void PlaySoundRpc( int resourceId )
 	{
-		var resource = ResourceLibrary.Get<SoundEvent>( resourcePath );
+		var resource = ResourceLibrary.Get<SoundEvent>( resourceId );
 		if ( resource == null ) return;
 		
 		var handle = Sound.Play( resource, Transform.Position );
