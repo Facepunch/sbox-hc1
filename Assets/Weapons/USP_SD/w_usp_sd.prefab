@@ -58,20 +58,20 @@
         "NetworkInterpolation": true,
         "Components": [
           {
-            "__type": "Facepunch.AmmoContainer",
+            "__type": "Facepunch.AmmoComponent",
             "__guid": "0cfaf3b2-ca54-4517-acdd-9852a8650f70",
             "Ammo": 13,
             "HasAmmo": true,
             "MaxAmmo": 13
           },
           {
-            "__type": "Facepunch.ShootWeaponFunction",
+            "__type": "Facepunch.ShootWeaponComponent",
             "__guid": "229c3f61-71e6-4fee-a69a-e3c1e61c2dac",
-            "AmmoContainer": {
+            "AmmoComponent": {
               "_type": "component",
               "component_id": "0cfaf3b2-ca54-4517-acdd-9852a8650f70",
               "go": "431286a4-3f0d-45b7-969d-6dab7eb1d643",
-              "component_type": "AmmoContainer"
+              "component_type": "AmmoComponent"
             },
             "BaseDamage": 18,
             "BaseDamageFalloff": [
@@ -100,17 +100,17 @@
             "InputType": "Pressed",
             "MaxRange": 1024000,
             "RequiresAllInputActions": false,
-            "RequiresAmmoContainer": true,
+            "RequiresAmmoComponent": true,
             "ShootSound": "sounds/weapons/usp/usp_sd.sound"
           },
           {
-            "__type": "Facepunch.ReloadWeaponFunction",
+            "__type": "Facepunch.ReloadWeaponComponent",
             "__guid": "1915814b-68a4-4149-8125-52cf69794bb1",
-            "AmmoContainer": {
+            "AmmoComponent": {
               "_type": "component",
               "component_id": "0cfaf3b2-ca54-4517-acdd-9852a8650f70",
               "go": "431286a4-3f0d-45b7-969d-6dab7eb1d643",
-              "component_type": "AmmoContainer"
+              "component_type": "AmmoComponent"
             },
             "EmptyReloadSounds": {},
             "EmptyReloadTime": 2,
@@ -124,7 +124,7 @@
             "TimedReloadSounds": {}
           },
           {
-            "__type": "Facepunch.RecoilFunction",
+            "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "9a1d3c5c-aa87-4589-b442-8fffa7d1ea7d",
             "HorizontalSpread": "1.40,-1.40,1",
             "PlayerVelocityLimit": 200,

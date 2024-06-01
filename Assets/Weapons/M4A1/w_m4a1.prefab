@@ -59,20 +59,20 @@
         "NetworkInterpolation": true,
         "Components": [
           {
-            "__type": "Facepunch.AmmoContainer",
+            "__type": "Facepunch.AmmoComponent",
             "__guid": "fdd6e020-ea98-4a4a-b12b-40b14179f438",
             "Ammo": 30,
             "HasAmmo": true,
             "MaxAmmo": 30
           },
           {
-            "__type": "Facepunch.ShootWeaponFunction",
+            "__type": "Facepunch.ShootWeaponComponent",
             "__guid": "42e3f84b-689b-459b-a4a5-f501d3b93022",
-            "AmmoContainer": {
+            "AmmoComponent": {
               "_type": "component",
               "component_id": "fdd6e020-ea98-4a4a-b12b-40b14179f438",
               "go": "2c973a94-4119-41e2-9eb0-8f36cc7bf06a",
-              "component_type": "AmmoContainer"
+              "component_type": "AmmoComponent"
             },
             "BaseDamage": 20,
             "BaseDamageFalloff": [
@@ -107,19 +107,19 @@
             "PenetrationMaxSteps": 2,
             "PlayerVelocityLimit": 300,
             "RequiresAllInputActions": false,
-            "RequiresAmmoContainer": true,
+            "RequiresAmmoComponent": true,
             "RicochetMaxHits": 2,
             "ShootSound": "sounds/weapons/m4a1/m4_shot.sound",
             "VelocitySpreadScale": 0.25
           },
           {
-            "__type": "Facepunch.ReloadWeaponFunction",
+            "__type": "Facepunch.ReloadWeaponComponent",
             "__guid": "8e301357-339b-42d4-b665-f700c2d38957",
-            "AmmoContainer": {
+            "AmmoComponent": {
               "_type": "component",
               "component_id": "fdd6e020-ea98-4a4a-b12b-40b14179f438",
               "go": "2c973a94-4119-41e2-9eb0-8f36cc7bf06a",
-              "component_type": "AmmoContainer"
+              "component_type": "AmmoComponent"
             },
             "EmptyReloadSounds": {
               "0": "sounds/guns/mp5/reload/mp5.move.sound",
@@ -142,7 +142,7 @@
             }
           },
           {
-            "__type": "Facepunch.RecoilFunction",
+            "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "1ab235e6-6803-4b29-b69b-71f933b08f48",
             "HorizontalSpread": "2.00,-2.00,1",
             "PlayerVelocityLimit": 200,

@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public partial class ThrowWeaponFunction : InputActionWeaponFunction
+public partial class ThrowWeaponComponent : InputWeaponComponent
 {
 	[Property] public float CookTime { get; set; } = 1f;
 	[Property] public GameObject Prefab { get; set; }
@@ -19,7 +19,7 @@ public partial class ThrowWeaponFunction : InputActionWeaponFunction
 	private TimeSince TimeSinceAction { get; set; }
 	private bool HasThrownOnHost { get; set; }
 	
-	protected override void OnFunctionExecute()
+	protected override void OnInput()
 	{
 		if ( ThrowState != State.Idle ) return;
 

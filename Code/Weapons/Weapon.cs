@@ -89,26 +89,6 @@ public partial class Weapon : Component
 	}
 
 	/// <summary>
-	/// Access a function.
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	/// <returns></returns>
-	public T GetFunction<T>() where T : WeaponFunction
-	{
-		return Components.Get<T>( FindMode.EnabledInSelfAndChildren );
-	}
-
-	/// <summary>
-	/// Access any amount of functions.
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	/// <returns></returns>
-	public IEnumerable<T> GetFunctions<T>() where T : WeaponFunction
-	{
-		return Components.GetAll<T>( FindMode.EnabledInSelfAndChildren );
-	}
-
-	/// <summary>
 	/// Get the weapon's owner - namely the player controller
 	/// </summary>
 	public PlayerController PlayerController => Components.Get<PlayerController>( FindMode.EverythingInAncestors );

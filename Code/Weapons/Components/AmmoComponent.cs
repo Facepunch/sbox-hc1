@@ -3,7 +3,7 @@ namespace Facepunch;
 /// <summary>
 /// An ammo container. It holds ammo for a weapon.
 /// </summary>
-public partial class AmmoContainer : Component
+public partial class AmmoComponent : Component
 {
 	/// <summary>
 	/// How much ammo are we holding?

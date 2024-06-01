@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace Facepunch;
 
-public partial class ReloadWeaponFunction : InputActionWeaponFunction, Weapon.IDeploymentListener
+public partial class ReloadWeaponComponent : InputWeaponComponent, Weapon.IDeploymentListener
 {
 	/// <summary>
 	/// How long does it take to reload?
@@ -19,7 +19,7 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction, Weapon.ID
 	/// <summary>
 	/// This is really just the magazine for the weapon. 
 	/// </summary>
-	[Property] public AmmoContainer AmmoContainer { get; set; }
+	[Property] public AmmoComponent AmmoComponent { get; set; }
 
 	private TimeUntil TimeUntilReload { get; set; }
 	[Sync] private bool IsReloading { get; set; }
@@ -29,7 +29,7 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction, Weapon.ID
 		BindTag( "reloading", () => IsReloading );
 	}
 
-	protected override void OnFunctionExecute()
+	protected override void OnInput()
 	{
 		if ( CanReload() )
 		{
@@ -58,18 +58,18 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction, Weapon.ID
 
 	bool CanReload()
 	{
-		return !IsReloading && AmmoContainer.IsValid() && !AmmoContainer.IsFull;
+		return !IsReloading && AmmoComponent.IsValid() && !AmmoComponent.IsFull;
 	}
 
 	float GetReloadTime()
 	{
-		if ( !AmmoContainer.HasAmmo ) return EmptyReloadTime;
+		if ( !AmmoComponent.HasAmmo ) return EmptyReloadTime;
 		return ReloadTime;
 	}
 
 	Dictionary<float, SoundEvent> GetReloadSounds()
 	{
-		if ( !AmmoContainer.HasAmmo ) return EmptyReloadSounds;
+		if ( !AmmoComponent.HasAmmo ) return EmptyReloadSounds;
 		return TimedReloadSounds;
 	}
 
@@ -109,11 +109,11 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction, Weapon.ID
 		{
 			if ( SingleReload )
 			{
-				AmmoContainer.Ammo++;
-				AmmoContainer.Ammo = AmmoContainer.Ammo.Clamp( 0, AmmoContainer.MaxAmmo );
+				AmmoComponent.Ammo++;
+				AmmoComponent.Ammo = AmmoComponent.Ammo.Clamp( 0, AmmoComponent.MaxAmmo );
 
 				// Reload more!
-				if ( AmmoContainer.Ammo < AmmoContainer.MaxAmmo )
+				if ( AmmoComponent.Ammo < AmmoComponent.MaxAmmo )
 					StartReload();
 				else
 					IsReloading = false;
@@ -122,7 +122,7 @@ public partial class ReloadWeaponFunction : InputActionWeaponFunction, Weapon.ID
 			{
 				IsReloading = false;
 				// Refill the ammo container.
-				AmmoContainer.Ammo = AmmoContainer.MaxAmmo;
+				AmmoComponent.Ammo = AmmoComponent.MaxAmmo;
 			}
 		}
 

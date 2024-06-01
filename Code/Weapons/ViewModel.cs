@@ -131,32 +131,14 @@ public partial class ViewModel : Component
 	private float FieldOfViewOffset = 0f;
 	private float TargetFieldOfView = 90f;
 
-	void AddFieldOfViewOffset( float degrees )
-	{
-		FieldOfViewOffset -= degrees;
-	}
-
 	void ApplyStates()
 	{
-		if ( Weapon.Tags.Has( "aiming" ) )
+		var shootFn = Weapon.Components.Get<ShootWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
+		if ( shootFn.IsValid() && PlayerController.IsCrouching && shootFn.TimeSinceShoot > 0.25f )
 		{
-			var aimFn = Weapon.GetFunction<AimWeaponFunction>();
-			localPosition += aimFn.AimOffset;
-			localRotation *= aimFn.AimAngles.ToRotation();
-
-			CameraController.AddFieldOfViewOffset( 5 );
-			AddFieldOfViewOffset( 15 );
-		}
-		else // While not aiming
-		{
-			var shootFn = Weapon.GetFunction<ShootWeaponFunction>();
-
-			if ( shootFn.IsValid() && PlayerController.IsCrouching && shootFn.TimeSinceShoot > 0.25f )
-			{
-				localPosition += Vector3.Right * -2f;
-				localPosition += Vector3.Up * -1f;
-				localRotation *= Rotation.From( 0, -2, -18 );
-			}
+			localPosition += Vector3.Right * -2f;
+			localPosition += Vector3.Up * -1f;
+			localRotation *= Rotation.From( 0, -2, -18 );
 		}
 	}
 
@@ -173,7 +155,7 @@ public partial class ViewModel : Component
 		ModelRenderer.Set( "b_twohanded", true );
 
 		// Weapon state
-		ModelRenderer.Set( "b_empty", !Weapon.Components.Get<AmmoContainer>( FindMode.EnabledInSelfAndDescendants )?.HasAmmo ?? false );
+		ModelRenderer.Set( "b_empty", !Weapon.Components.Get<AmmoComponent>( FindMode.EnabledInSelfAndDescendants )?.HasAmmo ?? false );
 	}
 	
 	public enum ThrowableTypeEnum
@@ -188,10 +170,10 @@ public partial class ViewModel : Component
 
 	private void ApplyThrowableAnimations()
 	{
-		var throwFn = Weapon.GetFunction<ThrowWeaponFunction>();
+		var throwFn = Weapon.Components.Get<ThrowWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
 
-		ModelRenderer.Set( "b_pull", throwFn.ThrowState == ThrowWeaponFunction.State.Cook );
-		ModelRenderer.Set( "b_throw", throwFn.ThrowState == ThrowWeaponFunction.State.Throwing );
+		ModelRenderer.Set( "b_pull", throwFn.ThrowState == ThrowWeaponComponent.State.Cook );
+		ModelRenderer.Set( "b_throw", throwFn.ThrowState == ThrowWeaponComponent.State.Throwing );
 	}
 
 	protected override void OnUpdate()

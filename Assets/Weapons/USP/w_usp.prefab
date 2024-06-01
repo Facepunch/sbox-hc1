@@ -58,20 +58,20 @@
         "NetworkInterpolation": true,
         "Components": [
           {
-            "__type": "Facepunch.AmmoContainer",
+            "__type": "Facepunch.AmmoComponent",
             "__guid": "e646980c-5e21-4bd4-a8aa-f1cf9c41e560",
             "Ammo": 13,
             "HasAmmo": true,
             "MaxAmmo": 13
           },
           {
-            "__type": "Facepunch.ShootWeaponFunction",
+            "__type": "Facepunch.ShootWeaponComponent",
             "__guid": "53f61023-489a-4694-b336-fa052fbb0871",
-            "AmmoContainer": {
+            "AmmoComponent": {
               "_type": "component",
               "component_id": "e646980c-5e21-4bd4-a8aa-f1cf9c41e560",
               "go": "fc2831e9-fe1b-4e68-bd48-7437d925667d",
-              "component_type": "AmmoContainer"
+              "component_type": "AmmoComponent"
             },
             "BaseDamage": 15,
             "BaseDamageFalloff": [
@@ -100,17 +100,17 @@
             "InputType": "Pressed",
             "MaxRange": 1024000,
             "RequiresAllInputActions": false,
-            "RequiresAmmoContainer": true,
+            "RequiresAmmoComponent": true,
             "ShootSound": "sounds/guns/m1911/pistol_shoot.sound"
           },
           {
-            "__type": "Facepunch.ReloadWeaponFunction",
+            "__type": "Facepunch.ReloadWeaponComponent",
             "__guid": "1e9bf72d-7b42-49b5-8abe-1225f3b9face",
-            "AmmoContainer": {
+            "AmmoComponent": {
               "_type": "component",
               "component_id": "e646980c-5e21-4bd4-a8aa-f1cf9c41e560",
               "go": "fc2831e9-fe1b-4e68-bd48-7437d925667d",
-              "component_type": "AmmoContainer"
+              "component_type": "AmmoComponent"
             },
             "EmptyReloadSounds": {},
             "EmptyReloadTime": 2,
@@ -124,7 +124,7 @@
             "TimedReloadSounds": {}
           },
           {
-            "__type": "Facepunch.RecoilFunction",
+            "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "1c9d168f-5ba2-43e6-9a55-794f05a3e2b2",
             "HorizontalSpread": "1.40,-1.40,1",
             "PlayerVelocityLimit": 200,

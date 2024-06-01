@@ -2,12 +2,12 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-@if (AmmoContainer.IsValid())
+@if (AmmoComponent.IsValid())
 {
     <root class="flex row gap align-center justify-end" style="width: 100px;">
-        <label class="vital">@AmmoContainer.Ammo</label>
+        <label class="vital">@AmmoComponent.Ammo</label>
         <separator />
-        <label class="important">@AmmoContainer.MaxAmmo</label>
+        <label class="important">@AmmoComponent.MaxAmmo</label>
     </root>
 }
 
@@ -21,10 +21,10 @@
     /// The player
     public PlayerController Player => GameUtils.Viewer;
 
-    private AmmoContainer AmmoContainer => Player?.CurrentWeapon?.Components.Get<AmmoContainer>(FindMode.EverythingInSelfAndDescendants);
+    private AmmoComponent AmmoComponent => Player?.CurrentWeapon?.Components.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Player, AmmoContainer?.Ammo);
+        return HashCode.Combine(Player, AmmoComponent?.Ammo);
     }
 }

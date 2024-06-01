@@ -59,20 +59,20 @@
         "NetworkInterpolation": true,
         "Components": [
           {
-            "__type": "Facepunch.AmmoContainer",
+            "__type": "Facepunch.AmmoComponent",
             "__guid": "7cb8b247-c76c-41b5-9d11-6d17dabb70bf",
             "Ammo": 5,
             "HasAmmo": true,
             "MaxAmmo": 5
           },
           {
-            "__type": "Facepunch.ShootWeaponFunction",
+            "__type": "Facepunch.ShootWeaponComponent",
             "__guid": "60da80a8-b02b-4731-b3c0-a168eacc8dd1",
-            "AmmoContainer": {
+            "AmmoComponent": {
               "_type": "component",
               "component_id": "7cb8b247-c76c-41b5-9d11-6d17dabb70bf",
               "go": "d5331bfa-4a73-406a-932a-a4948b083835",
-              "component_type": "AmmoContainer"
+              "component_type": "AmmoComponent"
             },
             "BaseDamage": 80,
             "BaseDamageFalloff": [
@@ -95,17 +95,17 @@
             "InputType": "Pressed",
             "MaxRange": 1024000,
             "RequiresAllInputActions": false,
-            "RequiresAmmoContainer": true,
+            "RequiresAmmoComponent": true,
             "ShootSound": "sounds/weapons/m700/m700_shot.sound"
           },
           {
-            "__type": "Facepunch.ReloadWeaponFunction",
+            "__type": "Facepunch.ReloadWeaponComponent",
             "__guid": "355a0e77-b52b-46ef-a515-3aa8594f268e",
-            "AmmoContainer": {
+            "AmmoComponent": {
               "_type": "component",
               "component_id": "7cb8b247-c76c-41b5-9d11-6d17dabb70bf",
               "go": "d5331bfa-4a73-406a-932a-a4948b083835",
-              "component_type": "AmmoContainer"
+              "component_type": "AmmoComponent"
             },
             "EmptyReloadSounds": {
               "0": "sounds/guns/mp5/reload/mp5.move.sound",
@@ -128,7 +128,7 @@
             }
           },
           {
-            "__type": "Facepunch.RecoilFunction",
+            "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "d29d4edb-4fe1-4bb7-a796-a1300c55ad0a",
             "HorizontalSpread": "2.00,-2.00,1",
             "PlayerVelocityLimit": 200,
@@ -137,7 +137,7 @@
             "VerticalSpread": "20.00,0.00,0"
           },
           {
-            "__type": "Facepunch.ScopeZoomFunction",
+            "__type": "Facepunch.ScopeWeaponComponent",
             "__guid": "5a7a1be9-ae1e-4d26-8235-4fe14d721872",
             "AngleOffsetScale": 0.01,
             "InputActions": [

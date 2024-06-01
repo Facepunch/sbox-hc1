@@ -1,7 +1,7 @@
 namespace Facepunch;
 
 [Icon( "track_changes" )]
-public partial class MeleeFunction : InputActionWeaponFunction
+public partial class MeleeWeaponComponent : InputWeaponComponent
 {
 	[Property, Category( "Config" )] public float BaseDamage { get; set; } = 25.0f;
 	[Property, Category( "Config" )] public float FireRate { get; set; } = 0.2f;
@@ -135,7 +135,7 @@ public partial class MeleeFunction : InputActionWeaponFunction
 		return TimeSinceSwing >= FireRate;
 	}
 
-    protected override void OnFunctionExecute()
+    protected override void OnInput()
 	{
 		if ( CanSwing() )
 		{

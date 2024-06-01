@@ -2,7 +2,7 @@ using Sandbox;
 
 namespace Facepunch;
 
-public class ScopeZoomFunction : InputActionWeaponFunction
+public class ScopeWeaponComponent : InputWeaponComponent
 {
 	[Property] public Material ScopeOverlay { get; set; }
 	[Property] public SoundEvent ZoomSound { get; set; }
@@ -81,7 +81,7 @@ public class ScopeZoomFunction : InputActionWeaponFunction
 		Graphics.Blit( ScopeOverlay, attrs );
 	}
 
-	protected override void OnFunctionExecute()
+	protected override void OnInput()
 	{
 		if( ZoomLevel < NumZoomLevels )
 		{

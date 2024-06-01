@@ -1,10 +1,10 @@
 namespace Facepunch;
 
 /// <summary>
-/// A weapon function. This can be anything that controls a weapon. Aiming, recoil, sway, shooting..
+/// A weapon component. This can be anything that controls a weapon. Aiming, recoil, sway, shooting..
 /// </summary>
 [Icon( "track_changes" )]
-public abstract class WeaponFunction : Component
+public abstract class WeaponComponent : Component
 {
 	/// <summary>
 	/// The weapon. It's going to be a component on the same <see cref="GameObject"/>.
@@ -15,7 +15,9 @@ public abstract class WeaponFunction : Component
 
 	protected override void OnAwake()
 	{
+		// Cache the weapon on awake
 		Weapon = Components.Get<Weapon>( FindMode.EverythingInSelfAndAncestors );
+
 		base.OnAwake();
 	}
 }

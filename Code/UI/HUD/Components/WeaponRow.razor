@@ -41,12 +41,12 @@
     /// </summary>
     public Weapon Weapon { get; set; }
 
-    private AmmoContainer AmmoContainer => Weapon?.Components.Get<AmmoContainer>( FindMode.EverythingInSelfAndDescendants );
+    private AmmoComponent AmmoComponent => Weapon?.Components.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
     public PlayerController Player => Weapon?.PlayerController;
     public bool IsActive => Player?.CurrentWeapon == Weapon;
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( IsActive, Weapon, AmmoContainer?.Ammo );
+        return HashCode.Combine( IsActive, Weapon, AmmoComponent?.Ammo );
     }   
 }

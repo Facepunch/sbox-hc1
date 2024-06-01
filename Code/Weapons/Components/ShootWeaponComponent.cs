@@ -1,7 +1,7 @@
 namespace Facepunch;
 
 [Icon( "track_changes" )]
-public partial class ShootWeaponFunction : InputActionWeaponFunction
+public partial class ShootWeaponComponent : InputWeaponComponent
 {
 	[Property, Group( "Bullet" )] public float BaseDamage { get; set; } = 25.0f;
 	[Property, Group( "Bullet" )] public float FireRate { get; set; } = 0.2f;
@@ -30,12 +30,12 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	/// <summary>
 	/// The current weapon's ammo container.
 	/// </summary>
-	[Property, Category( "Ammo" )] public AmmoContainer AmmoContainer { get; set; }
+	[Property, Category( "Ammo" )] public AmmoComponent AmmoComponent { get; set; }
 
 	/// <summary>
 	/// Does this weapon require an ammo container to fire its bullets?
 	/// </summary>
-	[Property, Category( "Ammo" )] public bool RequiresAmmoContainer { get; set; } = false;
+	[Property, Category( "Ammo" )] public bool RequiresAmmoComponent { get; set; } = false;
 
 	/// <summary>
 	/// How many ricochet hits until we stop traversing
@@ -102,7 +102,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 			if ( Sound.Play( ShootSound, Weapon.Transform.Position ) is { } snd )
 			{
 				snd.ListenLocal = Weapon.PlayerController?.IsViewer ?? false;
-				Log.Trace( $"ShootWeaponFunction: ShootSound {ShootSound.ResourceName}" );
+				Log.Trace( $"ShootWeaponComponent: ShootSound {ShootSound.ResourceName}" );
 			}
 		}
 
@@ -152,13 +152,13 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	{
 		TimeSinceShoot = 0;
 
-		if ( AmmoContainer is not null )
+		if ( AmmoComponent is not null )
 		{
-			AmmoContainer.Ammo--;
+			AmmoComponent.Ammo--;
 		}
 
 		// If we have a recoil function, let it know.
-		Weapon.GetFunction<RecoilFunction>()?.Shoot();
+		Weapon.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants )?.Shoot();
 
 		DoShootEffects();
 
@@ -239,7 +239,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		{
 			var snd = Sound.Play( DryFireSound, Weapon.Transform.Position );
 			snd.ListenLocal = !IsProxy;
-			Log.Trace( $"ShootWeaponFunction: ShootSound {DryFireSound.ResourceName}" );
+			Log.Trace( $"ShootWeaponComponent: ShootSound {DryFireSound.ResourceName}" );
 		}
 
 		// First person
@@ -363,13 +363,13 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 			return false;
 
 		// Ammo checks
-		if ( RequiresAmmoContainer && ( AmmoContainer == null || !AmmoContainer.HasAmmo ) )
+		if ( RequiresAmmoComponent && ( AmmoComponent == null || !AmmoComponent.HasAmmo ) )
 			return false;
 
 		return true;
 	}
 
-	protected override void OnFunctionExecute()
+	protected override void OnInput()
 	{
 		if ( CanShoot() )
 		{
@@ -378,7 +378,7 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		else
 		{
 			// Dry fire
-			if ( !AmmoContainer.HasAmmo )
+			if ( !AmmoComponent.HasAmmo )
 			{
 				if ( TimeSinceShoot < DryFireDelay )
 					return;

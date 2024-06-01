@@ -60,20 +60,20 @@
         "NetworkInterpolation": true,
         "Components": [
           {
-            "__type": "Facepunch.AmmoContainer",
+            "__type": "Facepunch.AmmoComponent",
             "__guid": "3403b27d-69d7-4a0c-b1ba-077301fb7f6a",
             "Ammo": 6,
             "HasAmmo": true,
             "MaxAmmo": 6
           },
           {
-            "__type": "Facepunch.ShootWeaponFunction",
+            "__type": "Facepunch.ShootWeaponComponent",
             "__guid": "f9e2879d-5bdf-4662-b7f4-534f1a05e6d1",
-            "AmmoContainer": {
+            "AmmoComponent": {
               "_type": "component",
               "component_id": "3403b27d-69d7-4a0c-b1ba-077301fb7f6a",
               "go": "774b2848-5f47-4934-9e99-817faaf52011",
-              "component_type": "AmmoContainer"
+              "component_type": "AmmoComponent"
             },
             "BaseDamage": 8,
             "BaseDamageFalloff": [
@@ -108,17 +108,17 @@
             "InputType": "Pressed",
             "MaxRange": 1024000,
             "RequiresAllInputActions": false,
-            "RequiresAmmoContainer": true,
+            "RequiresAmmoComponent": true,
             "ShootSound": "sounds/guns/r870/shotgun1_shoot.sound"
           },
           {
-            "__type": "Facepunch.ReloadWeaponFunction",
+            "__type": "Facepunch.ReloadWeaponComponent",
             "__guid": "6fb05fe7-4455-427e-8ebc-3beae7670619",
-            "AmmoContainer": {
+            "AmmoComponent": {
               "_type": "component",
               "component_id": "3403b27d-69d7-4a0c-b1ba-077301fb7f6a",
               "go": "774b2848-5f47-4934-9e99-817faaf52011",
-              "component_type": "AmmoContainer"
+              "component_type": "AmmoComponent"
             },
             "EmptyReloadSounds": {},
             "EmptyReloadTime": 0.5,
@@ -134,7 +134,7 @@
             }
           },
           {
-            "__type": "Facepunch.RecoilFunction",
+            "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "ec50bd16-2766-43a8-8c2c-9272225148e4",
             "HorizontalSpread": "5.00,-5.00,1",
             "PlayerVelocityLimit": 200,

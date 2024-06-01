@@ -56,10 +56,6 @@
             .WithoutTags( "invis", "ragdoll" )
             .UseHitboxes()
             .Run();
-
-        bool IsAiming = ( Weapon?.GetFunction<AimWeaponFunction>()?.IsAiming ?? false ) || ( Weapon?.GetFunction<ScopeZoomFunction>()?.IsZooming ?? false );
-
-        Reticle.SetClass("aiming", IsAiming );
         
         if ( currentTrace.Hit )
         {

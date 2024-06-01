@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public partial class RecoilFunction : WeaponFunction
+public partial class RecoilWeaponComponent : WeaponComponent
 {
 	[Property, Category( "Recoil" )] public float RecoilResetTime { get; set; } = 0.3f;
 	[Property, Category( "Recoil" )] public RangedFloat HorizontalSpread { get; set; } = 0f;

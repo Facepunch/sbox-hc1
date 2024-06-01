@@ -1,8 +1,7 @@
-﻿
-using Facepunch;
+﻿using Facepunch;
 
 [Icon( "yard" )]
-public partial class PlantFunction : InputActionWeaponFunction
+public partial class BombPlantComponent : InputWeaponComponent
 {
 	/// <summary>
 	/// How long the input must be held to plant.
@@ -134,12 +133,12 @@ public partial class PlantFunction : InputActionWeaponFunction
 		base.OnFixedUpdate();
 	}
 
-	protected override void OnFunctionExecute()
+	protected override void OnInput()
 	{
 		
 	}
 
-	protected override void OnFunctionDown()
+	protected override void OnInputDown()
 	{
 		if ( CanPlant() )
 		{
@@ -147,7 +146,7 @@ public partial class PlantFunction : InputActionWeaponFunction
 		}
 	}
 
-	protected override void OnFunctionUp()
+	protected override void OnInputUp()
 	{
 		CancelPlant();
 	}

@@ -17,7 +17,7 @@ public partial class PlayerInventory : Component
 	/// <summary>
 	/// Does this player have a bomb on them?
 	/// </summary>
-	public bool HasBomb => Weapons.Any( x => x.GetFunction<PlantFunction>() != null );
+	public bool HasBomb => Weapons.Any( x => x.Components.Get<BombPlantComponent>( FindMode.EnabledInSelfAndDescendants ) != null );
 
 	/// <summary>
 	/// A <see cref="GameObject"/> that will hold all of our weapons.

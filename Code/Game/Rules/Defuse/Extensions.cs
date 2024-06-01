@@ -5,10 +5,10 @@ public static class DefuseExtensions
 	/// <summary>
 	/// Helper to check if a player is planting, useful for UI.
 	/// </summary>
-	public static bool IsPlanting( this PlayerController player, out PlantFunction plantFunction )
+	public static bool IsPlanting( this PlayerController player, out BombPlantComponent BombPlantComponent )
 	{
-		plantFunction = player.Inventory.CurrentWeapon?.GetFunction<PlantFunction>();
-		return plantFunction is { Active: true, IsPlanting: true };
+		BombPlantComponent = player.Inventory.CurrentWeapon?.Components.Get<BombPlantComponent>( FindMode.EnabledInSelfAndDescendants );
+		return BombPlantComponent is { Active: true, IsPlanting: true };
 	}
 
 	/// <summary>

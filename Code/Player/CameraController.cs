@@ -141,11 +141,8 @@ public sealed class CameraController : Component
 		if ( !Player.IsViewer )
 			return;
 
-		if ( Player.CurrentWeapon.IsValid() && Player.CurrentWeapon?.GetFunction<RecoilFunction>() is { } fn )
+		if ( Player.CurrentWeapon.IsValid() && Player.CurrentWeapon?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } fn )
 			Player.EyeAngles += fn.Current;
-
-		if ( Player.CurrentWeapon.IsValid() && Player.CurrentWeapon?.GetFunction<SwayFunction>() is { } sFn )
-			Player.EyeAngles += sFn.Current;
 	}
 
 	void OnModeChanged()

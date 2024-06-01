@@ -1,9 +1,9 @@
 namespace Facepunch;
 
 /// <summary>
-/// A weapon function that reacts to input actions.
+/// A weapon component that reacts to input actions.
 /// </summary>
-public abstract class InputActionWeaponFunction : WeaponFunction
+public abstract class InputWeaponComponent : WeaponComponent
 {
 	public enum InputListenerType
 	{
@@ -30,7 +30,7 @@ public abstract class InputActionWeaponFunction : WeaponFunction
 	/// <summary>
 	/// ActionGraphs action so you can do stuff with visual scripting.
 	/// </summary>
-	[Property, Category( "Base" )] public Action<InputActionWeaponFunction> OnFunctionExecuteAction { get; set; }
+	[Property, Category( "Base" )] public Action<InputWeaponComponent> OnInputAction { get; set; }
 
 	/// <summary>
 	/// Gets the input method
@@ -58,7 +58,7 @@ public abstract class InputActionWeaponFunction : WeaponFunction
 	/// <summary>
 	/// Called when the input method succeeds.
 	/// </summary>
-	protected virtual void OnFunctionExecute()
+	protected virtual void OnInput()
 	{
 		//
 	}
@@ -66,7 +66,7 @@ public abstract class InputActionWeaponFunction : WeaponFunction
 	/// <summary>
 	/// When the button is up
 	/// </summary>
-	protected virtual void OnFunctionUp()
+	protected virtual void OnInputUp()
 	{
 		//
 	}
@@ -74,7 +74,7 @@ public abstract class InputActionWeaponFunction : WeaponFunction
 	/// <summary>
 	/// When the button is down
 	/// </summary>
-	protected virtual void OnFunctionDown()
+	protected virtual void OnInputDown()
 	{
 		//
 	}
@@ -84,7 +84,7 @@ public abstract class InputActionWeaponFunction : WeaponFunction
 		if ( !Weapon.IsValid() )
 			return;
 		
-		// Don't execute weapon functions on weapons that aren't deployed.
+		// Don't execute weapon components on weapons that aren't deployed.
 		if ( !Weapon.IsDeployed )
 			return;
 		
@@ -114,12 +114,12 @@ public abstract class InputActionWeaponFunction : WeaponFunction
 
 		if ( matched )
 		{
-			OnFunctionExecute();
-			OnFunctionExecuteAction?.Invoke( this );
+			OnInput();
+			OnInputAction?.Invoke( this );
 
 			if ( !isDown )
 			{
-				OnFunctionDown();
+				OnInputDown();
 				isDown = true;
 			}
 		}
@@ -127,7 +127,7 @@ public abstract class InputActionWeaponFunction : WeaponFunction
 		{
 			if ( isDown )
 			{
-				OnFunctionUp();
+				OnInputUp();
 				isDown = false;
 			}
 		}
