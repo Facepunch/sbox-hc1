@@ -48,16 +48,6 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 	[Property, Group( "Ricochet" )] public float MaxRicochetAngle { get; set; } = 45f;
 
 	/// <summary>
-	/// How many units forward are we moving each time we penetrate an object?
-	/// </summary>
-	[Property, Group( "Penetration" )] public float PenetrationIncrementAmount { get; set; } = 15f;
-
-	/// <summary>
-	/// How many steps forward can we take before it's too thick?
-	/// </summary>
-	[Property, Group( "Penetration" )] public int PenetrationMaxSteps { get; set; } = 2;
-
-	/// <summary>
 	/// Anything past 2048 units won't produce effects,
 	/// This is squared.
 	/// </summary>
@@ -227,15 +217,9 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		if ( !IsNearby( startPosition ) || !IsNearby( endPosition ) ) return;
 
 		var effectPath = "particles/gameplay/guns/trail/trail_smoke.vpcf";
-
-		// For when we have bullet penetration implemented.
-		if ( count > 0 )
-		{
-			effectPath = "particles/gameplay/guns/trail/rico_trail_smoke.vpcf";
-		}
+		if ( count > 0 ) effectPath = "particles/gameplay/guns/trail/rico_trail_smoke.vpcf";
 
 		var origin = count == 0 ? EffectsRenderer.GetAttachment( "muzzle" )?.Position ?? startPosition : startPosition;
-
 		var ps = CreateParticleSystem( effectPath, origin, Rotation.Identity, 1f );
 		ps.SceneObject.SetControlPoint( 0, origin );
 		ps.SceneObject.SetControlPoint( 1, endPosition );
@@ -309,7 +293,6 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		var hits = new List<SceneTraceResult>();
 
 		var start = WeaponRay.Position;
-
 		var rot = Rotation.LookAt( WeaponRay.Forward );
 
 		var forward = rot.Forward;
@@ -317,56 +300,31 @@ public partial class ShootWeaponFunction : InputActionWeaponFunction
 		forward = forward.Normal;
 
 		var end = WeaponRay.Position + forward * MaxRange;
-
 		while ( curHits < RicochetMaxHits )
 		{
 			curHits++;
 
 			var tr = DoTraceBullet( start, end, BulletSize );
-
-			if ( tr.Hit )
-			{
-				hits.Add( tr );
-			}
+			if ( tr.Hit ) hits.Add( tr );
 
 			var reflectDir = CalculateRicochetDirection( tr, ref curHits );
 			var angle = reflectDir.Angle( tr.Direction );
-
 			start = tr.EndPosition;
-			end = tr.EndPosition + (reflectDir * MaxRange);
+			end = tr.EndPosition + ( reflectDir * MaxRange );
 
-			var didPenetrate = false;
-			if ( true )
-			{
-				// Look for penetration
-				var forwardStep = 0f;
-
-				while ( forwardStep < PenetrationMaxSteps )
-				{
-					forwardStep++;
-
-					var penStart = tr.EndPosition + tr.Direction * (forwardStep * PenetrationIncrementAmount);
-					var penEnd = tr.EndPosition + tr.Direction * (forwardStep + 1 * PenetrationIncrementAmount);
-
-					var penTrace = DoTraceBullet( penStart, penEnd, BulletSize );
-					if ( !penTrace.StartedSolid )
-					{
-						var newStart = penTrace.EndPosition;
-						var newTrace = DoTraceBullet( newStart, newStart + tr.Direction * MaxRange, BulletSize );
-						hits.Add( newTrace );
-						didPenetrate = true;
-						break;
-					}
-				}
-			}
-
-			if ( didPenetrate || !ShouldBulletContinue( tr, angle ) )
+			if ( !ShouldBulletContinue( tr, angle ) )
 				break;
 		}
 
 		return hits;
 	}
 
+	/// <summary>
+	/// Should we ricochet?
+	/// </summary>
+	/// <param name="tr"></param>
+	/// <param name="angle"></param>
+	/// <returns></returns>
 	protected virtual bool ShouldBulletContinue( SceneTraceResult tr, float angle )
 	{
 		float maxAngle = MaxRicochetAngle;
