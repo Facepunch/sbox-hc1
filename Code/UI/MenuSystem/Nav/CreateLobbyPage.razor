@@ -1,0 +1,41 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using Sandbox.Network;
+
+@implements INavigatorPage
+@attribute [StyleSheet]
+@namespace Facepunch.UI
+
+<root class="hc1">
+    <div class="layout padding-insane column">
+        <div class="logo">
+            <img src="/ui/teams/operators_logo_banner.png" />
+        </div>
+    </div>
+
+    <div class="layout flex-grow" />
+    
+    <div class="layout padding-insane column gap" style="width: 30%;">
+        <a class="text ">Create a lobby</a>
+        <a class="button standard">There's nothing to customize yet</a>
+    </div>
+
+    <div class="layout flex-grow" />
+
+
+    <div class="layout padding-insane column" style="width: 30%;">
+        <div class="layout column gap">
+            <div class="button standard" onclick=@(() => Join())>start game</div>
+            <a class="button standard" href="/lobbies">return</a>
+        </div>
+    </div>
+</root>
+
+@code
+{
+    private void Join()
+    {
+        var sc = ResourceLibrary.Get<SceneFile>("scenes/maps/defusemap_01/de_garry.scene");
+        Game.ActiveScene.Load(sc);
+    }
+}

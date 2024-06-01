@@ -1,13 +1,26 @@
 @inherits Panel
 @namespace Facepunch.UI
 
-<root class="button standard">
-    <label>@Lobby.Name</label>
-    <div class="layout flex-grow" />
-    <label>@(Lobby.Members)/@(Lobby.MaxMembers)</label>
+<root class="button standard layout column">
+    <div class="row">
+        <label>@(GetFriend((long)Lobby.OwnerId).Name)'s game</label>
+        <div class="layout flex-grow" />
+        <label>@(Lobby.Members)/@(Lobby.MaxMembers)</label>
+    </div>
+
+    <div class="row">
+        map
+        <div class="layout flex-grow" />
+        de_garry
+    </div>
 </root>
 
 @code
 {
     public Lobby Lobby { get; set; }
+
+    public Friend GetFriend( long id )
+    {
+        return new Friend( id );
+    }
 }

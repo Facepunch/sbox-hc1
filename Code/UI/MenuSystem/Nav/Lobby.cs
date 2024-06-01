@@ -16,6 +16,7 @@ public partial struct Lobby
 	public int Members => _lobby?.Members ?? 8;
 	public int MaxMembers => _lobby?.MaxMembers ?? 8;
 	public string Map => _lobby?.Map;
+	public ulong OwnerId => _lobby?.OwnerId ?? 0;
 	public ulong LobbyId => _lobby?.LobbyId ?? 0;
 
 	public Lobby( LobbyInformation lobby )

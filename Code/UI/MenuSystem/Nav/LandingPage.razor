@@ -16,7 +16,7 @@
 
     <div class="layout padding-insane column" style="width: 30%;">
         <div class="layout column gap">
-            <a class="button standard" onclick=@Play>New Lobby</a>
+            <a class="button standard" href="/new">Create Lobby</a>
             <a class="button standard" href="/lobbies">Search for lobby</a>
             <a class="button standard" onclick=@Quit>quit</a>
         </div>
@@ -25,12 +25,6 @@
 
 @code
 {
-    void Play()
-    {
-        var sc = ResourceLibrary.Get<SceneFile>( "scenes/maps/defusemap_01/de_garry.scene" );
-        Game.ActiveScene.Load( sc );
-    }
-
     void Quit()
     {
         Game.Close();
