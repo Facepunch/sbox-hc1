@@ -68,6 +68,16 @@ public class RadioSounds : GameResource
 		}
 	}
 
+	/// <summary>
+	/// Locally controlled, spam control.
+	/// </summary>
+	private static TimeSince TimeSinceRadio;
+
+	/// <summary>
+	/// How frequently can we spam the radio?
+	/// </summary>
+	private const float RadioSpamDelay = 2;
+
 	[Broadcast]
 	public static void Play( Team team, string category, string sound )
 	{
@@ -83,6 +93,9 @@ public class RadioSounds : GameResource
 	[ConCmd( "radio_sound" )]
 	public static void CmdPlay( string category, string sound )
 	{
+		if ( TimeSinceRadio < RadioSpamDelay && TimeSinceRadio > .0f ) return;
+		TimeSinceRadio = 0;
+
 		var team = GameUtils.LocalPlayer.GameObject.GetTeam();
 		Play( team, category, sound );
 	}
