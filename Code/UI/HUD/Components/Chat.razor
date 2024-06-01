@@ -16,7 +16,6 @@
                 @foreach (var entry in Entries)
                 {
                     <div class="hud with-padding flex row gap-sm align-center">
-
                         @if (entry.steamid > 0)
                         {
                             <div class="square rounded shrink-0" style="background-image: url( avatar:@entry.steamid )"></div>
@@ -31,6 +30,11 @@
                                 @if (entry.chatMode != ChatModes.All)
                                 {
                                     <label class="small no-shadow green">(@entry.chatMode)</label>
+                                }
+                                
+                                @if ( entry.tags?.Contains( "radio" ) ?? false )
+                                {
+                                    <Icon class="square rounded shrink-0" File="/ui/chat/radio.png" size="24" />
                                 }
                             </span>
                             <label class="message no-shadow">@entry.message</label>
@@ -84,10 +88,17 @@
     private ChatModes ChatMode = ChatModes.Team;
     private TextEntry InputBox;
 
-    public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded, ChatModes chatMode, MessageType type, Color color);
+    public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded, ChatModes chatMode, MessageType type, Color color, string tags = null);
     private List<Entry> Entries = new();
 
     private bool Open => InputBox.HasFocus;
+
+    public static Chat Instance { get; set; }
+
+    public Chat()
+    {
+        Instance = this;
+    }
 
     protected override int BuildHash()
     {
@@ -153,7 +164,7 @@
     }
 
     [Broadcast]
-    public void AddText(string message, ChatModes chatMode)
+    public void AddText(string message, ChatModes chatMode, string tags = null)
     {
         message = message.Truncate(300);
 
@@ -166,7 +177,7 @@
         var player = GameUtils.AllPlayers.FirstOrDefault(x => x.Network.OwnerConnection == Rpc.Caller);
         var color = player?.GameObject?.GetTeam().GetColor() ?? Color.White;
 
-        Entries.Add(new Entry(steamid, author, message, 0.0f, chatMode, MessageType.Chat, color));
+        Entries.Add(new Entry(steamid, author, message, 0.0f, chatMode, MessageType.Chat, color, tags));
         StateHasChanged();
     }
 
