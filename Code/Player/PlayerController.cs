@@ -218,14 +218,14 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		}
 	}
 
-	public void CreateViewModel()
+	public void CreateViewModel( bool playDeployEffects = true )
 	{
 		if ( CameraController.Mode != CameraMode.FirstPerson )
 			return;
 
 		var weapon = CurrentWeapon;
 		if ( weapon.IsValid() )
-			weapon.CreateViewModel();
+			weapon.CreateViewModel( playDeployEffects );
 	}
 	
 	protected float GetEyeHeightOffset()

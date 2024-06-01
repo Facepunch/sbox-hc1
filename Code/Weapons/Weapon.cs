@@ -191,7 +191,7 @@ public partial class Weapon : Component
 	/// <summary>
 	/// Creates a viewmodel for the player to use.
 	/// </summary>
-	public void CreateViewModel()
+	public void CreateViewModel( bool playDeployEffects = true )
 	{
 		var player = PlayerController;
 		if ( !player.IsValid() ) return;
@@ -216,6 +216,9 @@ public partial class Weapon : Component
 			// Weapon needs to know about the ViewModel
 			ViewModel = viewModelComponent;
 		}
+
+		if ( !playDeployEffects )
+			return;
 
 		if ( DeploySound is null )
 			return;

@@ -152,17 +152,13 @@ public sealed class CameraController : Component
 	{
 		SetBoomLength( Mode == CameraMode.FirstPerson ? 0.0f : 256.0f );
 
-		bool firstPersonPOV = Mode == CameraMode.FirstPerson && Player.IsViewer;
+		var firstPersonPOV = Mode == CameraMode.FirstPerson && Player.IsViewer;
 		Player.Body.ShowBodyParts( !firstPersonPOV );
 
 		if ( firstPersonPOV )
-		{
-			Player.CreateViewModel();
-		}
+			Player.CreateViewModel( false );
 		else
-		{
 			Player.ClearViewModel();
-		}
 	}
 
 	private void SetBoomLength(float length)
