@@ -25,7 +25,7 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 		_ = ResumeGame();
 	}
-	
+
 	void INetworkListener.OnBecameHost( Connection previousHost )
 	{
 		Log.Info( "We became the host, taking over the game loop..." );
@@ -36,7 +36,7 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	{
 		return _gameLoopTask ??= GameLoop();
 	}
-
+	
 	private async Task GameLoop()
 	{
 		while ( State != GameState.Ended )

@@ -53,8 +53,29 @@
 
     public IEnumerable<PlayerController> PlayerList => Scene.GetAllComponents<PlayerController>();
 
+    private void OnSecondElapsed()
+    {
+        // TODO: hook this up to a place where we can conditionally activate the beeping
+        // if ( storedTime <= 5 )
+        // {
+        //     var snd = Sound.Play( storedTime == 0 ? "countdown_activate" : "countdown_beep" );
+        //     snd.TargetMixer = Sandbox.Audio.Mixer.FindMixerByName( "UI" );
+        // }
+    }
+
+    private int storedTime;
     public override void Tick()
     {
+        if ( Time.HasValue )
+        {
+            var timeInSeconds = (int)Time.Value.TotalSeconds;
+            if ( storedTime != timeInSeconds )
+            {
+                storedTime = timeInSeconds;
+                OnSecondElapsed();
+            }
+        }
+
         if ( MyTeam == Team.Unassigned || EnemyTeam == Team.Unassigned )
         {
             MyTeamPlayers = null;

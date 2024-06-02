@@ -105,8 +105,6 @@ public sealed class BombDefusalScenario : Component,
 
 	void IRoundStartListener.PostRoundStart()
 	{
-		GameMode.Instance.ShowToast( "Match Start" );
-
 		GameMode.Instance.ShowStatusText( Team.Terrorist, "Plant the Bomb" );
 		GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "Defend" );
 	}
