@@ -12,18 +12,21 @@
         </div>
     </div>
 
-    <div class="layout padding-insane with-scroll with-gap column">
+    <div class="layout padding-insane no-bottom-padding with-scroll-x row with-gap" style="padding-bottom: 16px;">
             @foreach ( var grouping in TypeLibrary.GetPropertyDescriptions( GameSettingsSystem.Current ).GroupBy( x => x.Group )  )
             {
-                <div class="layout column with-gap">
-                    <label class="important layout padding-extra no-left-padding no-bottom-padding no-top-padding">@grouping.Key</label>
-
-                    @foreach ( var property in grouping )
-                    {
-                        <SettingEntry @Target=@GameSettingsSystem.Current @Description=@property />
-                    }
-                </div>
+                <div class="button standard no-anim extra-x-padding @(SelectedGroup == grouping.Key ? "selected" : "")" onclick=@(() => SetGroup( grouping.Key ) )>@grouping.Key</div>
             }
+    </div>
+
+    <div class="layout padding-insane with-scroll no-top-padding no-bottom-padding with-gap column">
+        @if ( !string.IsNullOrEmpty( SelectedGroup ) )
+        {
+            @foreach ( var property in TypeLibrary.GetPropertyDescriptions( GameSettingsSystem.Current ).Where( x => x.Group == SelectedGroup ) )
+            {
+                <SettingEntry Target=@GameSettingsSystem.Current Description=@property />
+            }
+        }
     </div>
 
     <div class="layout flex-grow" />
@@ -42,6 +45,24 @@
 
 @code
 {
+    private string SelectedGroup { get; set; } = null;
+
+    protected override void OnAfterTreeRender( bool firstTime )
+    {
+        if ( firstTime )
+        {
+            // Get the first group
+            var first = TypeLibrary.GetPropertyDescriptions( GameSettingsSystem.Current ).FirstOrDefault();
+            SetGroup( first.Group );
+        }
+    }
+
+    private void SetGroup( string group )
+    {
+        SelectedGroup = group;
+        StateHasChanged();
+    }
+
     void Save()
     {
         GameSettingsSystem.Save();
