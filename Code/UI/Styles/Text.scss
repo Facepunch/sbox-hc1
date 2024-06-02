@@ -1,52 +1,86 @@
 $text-color: #e9e9e9;
 
-label, text, textentry {
+label, text, textentry
+{
     font-family: $main-font;
     font-size: 18px;
     font-weight: bold;
     text-transform: uppercase;
     text-shadow: 0 4px 4px rgba( black, 0.25 );
 
-    &.no-shadow {
+    &.no-shadow
+    {
         text-shadow: none;
     }
 
-    &.small {
+    &.small
+    {
         font-size: 16px;
     }
 
-    &.emphasis {
+    &.emphasis
+    {
         font-size: 21px;
         font-weight: bold;
     }
 
-    &.important {
+    &.important
+    {
         font-size: 26px;
         font-weight: bold;
     }
 
-    &.vital {
+    &.vital
+    {
         font-size: 32px;
         font-weight: bold;
     }
 
-    &.huge {
+    &.huge
+    {
         font-size: 42px;
         font-weight: bold;
     }
 
-    &.blue { color: $blue; }
-    &.red { color: $red; }
-    &.green { color: $green; }
-    &.yellow { color: $yellow; }
-    &.grey { opacity: 0.5; }
+    &.blue
+    {
+        color: $blue;
+    }
+
+    &.red
+    {
+        color: $red;
+    }
+
+    &.green
+    {
+        color: $green;
+    }
+
+    &.yellow
+    {
+        color: $yellow;
+    }
+
+    &.grey
+    {
+        opacity: 0.5;
+    }
 
     &.text-center
     {
         text-align: center;
     }
+
+    &.icon
+    {
+        text-transform: lowercase;
+        font-family: 'Material Icons';
+    }
 }
 
-icon, icon label {
+i, icon, icon label
+{
+    text-transform: lowercase;
     font-family: Material Icons;
 }

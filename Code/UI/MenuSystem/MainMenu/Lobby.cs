@@ -12,12 +12,29 @@ public partial struct Lobby
 	/// </summary>
 	public LobbyInformation? _lobby;
 
-	public string Name => _lobby?.Name ?? "My cool lobby";
+	public string Name => _lobby?.Name ?? "Tony";
 	public int Members => _lobby?.Members ?? 8;
 	public int MaxMembers => _lobby?.MaxMembers ?? 8;
 	public string Map => _lobby?.Map;
 	public ulong OwnerId => _lobby?.OwnerId ?? 0;
 	public ulong LobbyId => _lobby?.LobbyId ?? 0;
+	public bool IsFull => _lobby?.IsFull ?? (Members >= MaxMembers);
+
+	/// <summary>
+	/// Is this lobby a dev env?
+	/// </summary>
+	public bool IsEditorLobby
+	{
+		get
+		{
+			if ( _lobby?.Data.TryGetValue( "dev", out string dev ) ?? false )
+			{
+				return Convert.ToInt16( dev ) == 1;
+			}
+
+			return true;
+		}
+	}
 
 	public Lobby( LobbyInformation lobby )
 	{

@@ -15,17 +15,40 @@
     <div class="layout flex-grow" />
     
     <div class="layout padding-insane column gap" style="width: 30%;">
-        <a class="text ">lobby information</a>
-        <a class="button standard">Name: @Lobby.Name</a>
-        <a class="button standard">Players: @(Lobby.Members)/@Lobby.MaxMembers</a>
+        <button class="text ">lobby information</button>
+        <button class="button standard">
+            name
+            <div class="layout flex-grow" />
+            <label>@(Lobby.Name)'s game</label>
+        </button>
+        <button class="button standard">
+            players
+            <div class="layout flex-grow"/>
+            @(Lobby.Members)/@Lobby.MaxMembers
+        </button>
     </div>
 
     <div class="layout flex-grow" />
 
-
     <div class="layout padding-insane column" style="width: 30%;">
         <div class="layout column gap">
-            <div class="button standard" onclick=@(() => Join())>join lobby</div>
+            @if (Lobby.IsEditorLobby)
+            {
+                <button class="button standard layout gap warning no-anim">
+                    <label class="icon">api</label>
+                    <label>Warning: This is a development lobby - you may experience gameplay issues or get kicked randomly</label>
+                </button>
+            }
+            <div class="button standard" onclick=@(() => Join())>
+                @if ( Lobby.IsFull )
+                {
+                   <label>Game is full - cannot join</label>
+                }
+                else
+                {
+                    <label>join lobby</label>
+                }
+            </div>
             <a class="button standard" href="/lobbies">return</a>
         </div>
     </div>
@@ -37,6 +60,8 @@
 
     private async void Join()
     {
+        if ( Lobby.IsFull ) return;
+
         if ( await GameNetworkSystem.TryConnectSteamId( Lobby.LobbyId ) )
 		{
 			Log.Info( "joined lobby!" );

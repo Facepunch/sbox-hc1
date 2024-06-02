@@ -1,14 +1,28 @@
 @inherits Panel
 @namespace Facepunch.UI
 
-<root class="button standard layout column">
-    <div class="row">
+<style>
+    LobbyRow
+    {
+        &.dev
+        {
+            background-color: orange;
+        }
+    }
+</style>
+
+<root class="button standard layout column @(Lobby.IsEditorLobby ? "dev" : "")">
+    <div class="row layout gap">
         <label>@(Lobby.Name)'s game</label>
         <div class="layout flex-grow" />
         <label>@(Lobby.Members)/@(Lobby.MaxMembers)</label>
     </div>
 
-    <div class="row">
+    <div class="row layout gap">
+        @if ( Lobby.IsEditorLobby )
+        {
+            <label class="icon" style="color:orange;">api</label>
+        }
         <div class="layout flex-grow" />
         de_garry
     </div>
