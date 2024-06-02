@@ -143,8 +143,8 @@ public class RadioSounds : GameResource
 		if ( soundList.Sounds.TryGetValue( snd, out var sndEvent ) )
 		{
 			// play the sound
-			var snd = Sound.Play( sndEvent );
-			snd.TargetMixer = Mixer.FindMixerByName( "Radio" );
+			var s = Sound.Play( sndEvent );
+			s.TargetMixer = Mixer.FindMixerByName( "Radio" );
 		}
 		else
 		{
