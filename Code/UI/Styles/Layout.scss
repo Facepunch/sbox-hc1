@@ -13,9 +13,21 @@ $hud-deadzone-y: 16px;
         padding: $layout-standard-padding;
     }
 
+    &.padding-x
+    {
+        padding-left: $layout-standard-padding;
+        padding-right: $layout-standard-padding;
+    }
+
     &.padding-extra
     {
         padding: $layout-extra-padding;
+    }
+
+    &.padding-extra-x
+    {
+        padding-left: $layout-extra-padding;
+        padding-right: $layout-extra-padding;
     }
 
     &.padding-insane
@@ -23,24 +35,16 @@ $hud-deadzone-y: 16px;
         padding: $layout-insane-padding;
     }
 
+    &.padding-insane-x
+    {
+        padding-left: $layout-insane-padding;
+        padding-right: $layout-insane-padding;
+    }
+
     &.with-scroll
     {
         overflow-x: hidden;
         overflow-y: scroll;
-    }
-
-    &.no-top-padding
-    {
-        padding-top: 0;
-    }
-
-    &.no-left-padding {
-        padding-left: 0;
-    }
-
-    &.no-bottom-padding
-    {
-        padding-bottom: 0;
     }
 
     &.gap, &.with-gap

@@ -6,20 +6,20 @@
 @namespace Facepunch.UI
 
 <root class="hc1">
-    <div class="layout padding-insane column">
+    <div class="layout column padding-insane">
         <div class="logo">
             <img src="/ui/teams/operators_logo_banner.png" />
         </div>
     </div>
 
-    <div class="layout padding-insane no-bottom-padding with-scroll-x row with-gap" style="padding-bottom: 16px;">
+    <div class="layout padding-insane-x with-scroll-x row with-gap" style="padding-bottom: 16px;">
             @foreach ( var grouping in TypeLibrary.GetPropertyDescriptions( GameSettingsSystem.Current ).GroupBy( x => x.Group )  )
             {
                 <div class="button standard no-anim extra-x-padding @(SelectedGroup == grouping.Key ? "selected" : "")" onclick=@(() => SetGroup( grouping.Key ) )>@grouping.Key</div>
             }
     </div>
 
-    <div class="layout padding-insane with-scroll no-top-padding no-bottom-padding with-gap column">
+    <div class="layout padding-insane-x with-scroll with-gap column">
         @if ( !string.IsNullOrEmpty( SelectedGroup ) )
         {
             @foreach ( var property in TypeLibrary.GetPropertyDescriptions( GameSettingsSystem.Current ).Where( x => x.Group == SelectedGroup ) )
@@ -31,7 +31,7 @@
 
     <div class="layout flex-grow" />
 
-    <div class="layout padding-insane no-top-padding column" style="width: 30%;">
+    <div class="layout padding-insane column" style="width: 30%;">
         <div class="layout column gap">
             <div class="button standard" onclick=@(() => Game.Overlay.ShowBinds())>
                 EDIT INPUT BINDINGS
