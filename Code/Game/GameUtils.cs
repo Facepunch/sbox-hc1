@@ -92,4 +92,13 @@ public partial class GameUtils
 			player.Inventory.GiveCash( amount );
 		}
 	}
+
+	/// <summary>
+	/// Returns the invoking client to the main menu
+	/// </summary>
+	public static void ReturnToMainMenu()
+	{
+		var sc = ResourceLibrary.Get<SceneFile>( "scenes/menu.scene" );
+		Game.ActiveScene.Load( sc );
+	}
 }
