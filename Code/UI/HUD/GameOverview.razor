@@ -1,0 +1,75 @@
+@namespace Facepunch.UI
+@inherits Panel
+
+<style>
+    GameOverview
+    {
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .box
+    {
+        width: 24px;
+        height: 24px;
+        background-color: rgba( black, 0.5 );
+
+        img {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .half
+    {
+        background-color: white;
+        width: 1px;
+        height: 24px;
+    }
+</style>
+
+@if (!RoundLimit.IsValid()) return;
+@if (!TeamSwapper.IsValid()) return;
+@if (!TeamScoring.IsValid()) return;
+
+<root style="padding-top: 10px;">
+    @for ( int i = 0; i < RoundLimit.MaxRounds; i++ )
+    {
+        @if (i == TeamSwapper.FirstHalfRoundCount)
+        {
+            <div class="half"/>
+        }
+        <div class="box" style="background-color:rgba( @GetColor( i ), 0.5 )">
+            @if ( GetWinner( i ) != Team.Unassigned )
+            {
+                <img src="@GetWinner( i ).GetIconPath()" />
+            }
+
+        </div>
+    }
+</root>
+
+@code
+{
+    HalfTimeTeamSwap TeamSwapper => GameMode.Instance?.Components.GetInDescendantsOrSelf<HalfTimeTeamSwap>();
+    RoundLimit RoundLimit => GameMode.Instance?.Components.GetInDescendantsOrSelf<RoundLimit>();
+    TeamScoring TeamScoring => GameMode.Instance?.Components.GetInDescendantsOrSelf<TeamScoring>();
+
+    private Team GetWinner( int round )
+    {
+        if ( round > TeamScoring.RoundWinHistory.Count() - 1 ) return Team.Unassigned;
+        return TeamScoring.RoundWinHistory[round];
+    }
+
+    private string GetColor( int round )
+    {
+        var winner = GetWinner( round );
+        if (winner == Team.Unassigned) return new Color( 0, 0, 0, 0.5f ).Hex;
+        return winner.GetColor().Hex;
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( TeamScoring?.RoundWinHistory?.Count() ?? 0 );
+    }
+}

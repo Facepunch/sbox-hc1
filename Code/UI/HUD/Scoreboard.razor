@@ -13,8 +13,12 @@
             <label class="important">@(Time?.ToString(@"m\:ss"))</label>
         </div>
 
-        @foreach ( var group in GroupedPlayers )
+        @for ( int i = 0; i < GroupedPlayers.Count(); i++ )
         {
+            @{
+                var group = GroupedPlayers[i];
+            }
+
             @if ( group.Key == Team.Unassigned )
             {
                 <div class="flex gap-sm align-center">
@@ -53,6 +57,11 @@
                 {
                     <ScoreboardRow Player="@player" />
                 }
+
+                @if ( i == 0 )
+                {
+                    <GameOverview />
+                }
             }
         }
     </table>
@@ -75,7 +84,8 @@
         }
     }
 
-    public bool IsActive => Input.Down("score");
+    public bool IsActive => Input.Down( "score" );
+    //public bool IsActive => true;
 
     protected override int BuildHash()
     {
