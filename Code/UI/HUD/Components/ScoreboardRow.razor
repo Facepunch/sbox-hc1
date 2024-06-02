@@ -23,11 +23,16 @@
         <label class="small">@(Connection.Ping.CeilToInt())</label>
     </span>
 
-    <span class="col playername">
+    <span class="col playername gap-sm">
         <img class="avatar" src="avatar:@(Connection.SteamId)" />
         <label>
             @Player.GetPlayerName()
         </label>
+
+        @if ( IsPartyMember )
+        {
+            <Icon File="/ui/party-member.png" size="24"></Icon>
+        }
     </span>
 
     @if ( Player.IsValid() && GameUtils.LocalPlayer.IsValid() && Player.IsFriendly( GameUtils.LocalPlayer ) )
@@ -56,11 +61,12 @@
     private bool IsDead => Player.HealthComponent.State != LifeState.Alive;
     private float KillDeathRatio => (float)Score.Kills / (float)Score.Deaths.Clamp(1, int.MaxValue);
     private Team Team => Player.TeamComponent.Team;
+    private bool IsPartyMember => PartyRoom.Current?.Members.Any( x => x.Id == Connection.SteamId ) ?? false;
 
     protected override int BuildHash()
     {
         var a = HashCode.Combine(KillDeathRatio, Score.Score, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead);
-        var b = HashCode.Combine(Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb);
+        var b = HashCode.Combine(Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb, IsPartyMember);
 
         return HashCode.Combine(a, b);
     }
