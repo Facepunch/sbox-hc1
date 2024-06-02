@@ -475,18 +475,28 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	{
 		if ( InBuyMenu )
 		{
-			if ( Input.EscapePressed || Input.Pressed( "BuyMenu" ) || !IsInBuyzone() )
+			if ( Input.EscapePressed || Input.Pressed( "BuyMenu" ) || !CanBuy() )
 			{
 				InBuyMenu = false;
 			}
 		}
 		else if ( Input.Pressed( "BuyMenu" ) )
 		{
-			if ( IsInBuyzone() )
+			if ( CanBuy() )
 			{
 				InBuyMenu = true;
 			}
 		}
+	}
+
+	public bool CanBuy()
+	{
+		if ( GameMode.Instance?.Components.Get<BuyZoneTime>() is { } buyZoneTime )
+		{
+			return IsInBuyzone() && buyZoneTime.CanBuy();
+		}
+
+		return IsInBuyzone();
 	}
 
 	public bool IsInBuyzone()

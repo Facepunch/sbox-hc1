@@ -5,7 +5,7 @@
 @if ( !Player.IsValid() ) return;
 
 <root class="hud with-deadzone row top-left" style="margin-top: 300px">
-    <InputHint Action="BuyMenu" class="small @(!Player.IsInBuyzone() ? "hidden" : "")" Size="@InputGlyphSize.Small" />
+    <InputHint Action="BuyMenu" class="small @(!Player.CanBuy() ? "hidden" : "")" Size="@InputGlyphSize.Small" />
     <label class="important">$@Inventory.Balance.ToString("N0")</label>
 </root>
 
@@ -21,6 +21,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( Inventory?.Balance, Player?.IsInBuyzone() );
+        return HashCode.Combine( Inventory?.Balance, Player?.CanBuy() );
     }   
 }
