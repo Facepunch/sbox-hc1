@@ -112,7 +112,7 @@ public sealed class CameraController : Component
 
 	protected override void OnUpdate()
 	{
-		var baseFov = Preferences.FieldOfView;
+		var baseFov = GameSettingsSystem.Current.FieldOfView;
 
 		TargetFieldOfView = TargetFieldOfView.LerpTo( baseFov + FieldOfViewOffset, Time.Delta * 5f );
 		FieldOfViewOffset = 0;

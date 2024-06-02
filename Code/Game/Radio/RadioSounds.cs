@@ -1,3 +1,5 @@
+using Sandbox.Audio;
+
 namespace Facepunch;
 
 public enum RadioSound
@@ -121,7 +123,8 @@ public class RadioSounds : GameResource
 			return;
 
 		// play the sound
-		Sound.Play( entry.Sound );
+		var snd = Sound.Play( entry.Sound );
+		snd.TargetMixer = Mixer.FindMixerByName( "Radio" );
 	}
 
 	[Broadcast]
@@ -140,7 +143,8 @@ public class RadioSounds : GameResource
 		if ( soundList.Sounds.TryGetValue( snd, out var sndEvent ) )
 		{
 			// play the sound
-			Sound.Play( sndEvent );
+			var snd = Sound.Play( sndEvent );
+			snd.TargetMixer = Mixer.FindMixerByName( "Radio" );
 		}
 		else
 		{

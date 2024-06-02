@@ -1,0 +1,55 @@
+@using Sandbox.UI
+@using Sandbox
+
+@inherits Panel
+@namespace Facepunch.UI
+
+<root class="">
+    @if ( Description is not null )
+    {
+        <div class="with-background with-padding border-bottom">
+            <label class="name">@Description.Title</label>
+            <div class="grow"/>
+            <div class="value-area">@Value</div>
+        </div>
+
+        @if ( Description.PropertyType == typeof( float ) )
+        {
+            <div class="control with-background">
+                @if ( Range is not null )
+                {
+                    <CustomSlider class="devslider" Value:bind=@Value Min=@Range.Min Max=@Range.Max Step=@Range.Step ShowTextEntry="@false" />
+                }
+                else
+                {
+                    <CustomSlider class="devslider" Value:bind=@Value />
+                }
+            </div>
+        }
+
+        @if ( Description.PropertyType == typeof( bool ) )
+        {
+            <Checkbox Value:bind=@Value />
+        }
+    }
+    else
+    {
+        <label class="name">???</label>
+    }
+</root>
+
+@code
+{
+    public object Target { get; set; }
+    public object Value
+    {
+        get => Description.GetValue( Target );
+        set
+        {
+            Description.SetValue( Target, value );   
+        }
+    }
+    public PropertyDescription Description { get; set; }
+
+    public RangeAttribute Range => Description.GetCustomAttribute<RangeAttribute>();
+}

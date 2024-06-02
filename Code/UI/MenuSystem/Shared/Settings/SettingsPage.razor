@@ -1,0 +1,49 @@
+@using Sandbox;
+@using Sandbox.UI;
+
+@implements INavigatorPage
+@attribute [StyleSheet]
+@namespace Facepunch.UI
+
+<root class="hc1">
+    <div class="layout padding-insane column">
+        <div class="logo">
+            <img src="/ui/teams/operators_logo_banner.png" />
+        </div>
+    </div>
+
+    <div class="layout padding-insane with-scroll with-gap column">
+            @foreach ( var grouping in TypeLibrary.GetPropertyDescriptions( GameSettingsSystem.Current ).GroupBy( x => x.Group )  )
+            {
+                <div class="layout column with-gap">
+                    <label class="important layout padding-extra no-left-padding no-bottom-padding no-top-padding">@grouping.Key</label>
+
+                    @foreach ( var property in grouping )
+                    {
+                        <SettingEntry @Target=@GameSettingsSystem.Current @Description=@property />
+                    }
+                </div>
+            }
+    </div>
+
+    <div class="layout flex-grow" />
+
+    <div class="layout padding-insane no-top-padding column" style="width: 30%;">
+        <div class="layout column gap">
+            <div class="button standard" onclick=@(() => Game.Overlay.ShowBinds())>
+                EDIT INPUT BINDINGS
+            </div>
+
+            <button class="button standard" onclick=@(()=>Save())>Save</button>
+            <a class="button standard" href="/">Return</a>
+        </div>
+    </div>
+</root>
+
+@code
+{
+    void Save()
+    {
+        GameSettingsSystem.Save();
+    }
+}

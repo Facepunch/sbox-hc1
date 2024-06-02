@@ -1,0 +1,163 @@
+@using System
+@namespace Sandbox.UI
+@inherits BaseControl
+
+<root class="slidercontrol">
+
+    <div class="inner">
+
+        @if (ShowRange)
+        {
+            <div class="values">
+                <div class="left">@Min.ToString( NumberFormat )</div>
+               <div class="right">@Max.ToString( NumberFormat )</div>
+            </div>
+        }
+
+        <div @ref="TrackPanel" class="track">
+            <div class="track-active" style="width: @(SliderPosition)%;"></div>
+            <div @ref="ThumbPanel" style="left: @(SliderPosition)%;" class="thumb">
+
+                @if (this.HasActive)
+                {
+                    <div class="value-tooltip">
+                        <label>@Value.ToString( NumberFormat )</label>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+
+    @if ( ShowTextEntry )
+    {
+        <div class="entry">
+            <TextEntry @ref="TextEntryPanel" Value:bind="@Value" Numeric="@true" NumberFormat="@NumberFormat"></TextEntry>
+        </div>
+    }
+
+</root>
+
+@code
+{
+    public Action<float> OnValueChanged { get; set; }
+
+    /// <summary>
+    /// The right side of the slider.
+    /// </summary>
+    public float Max { get; set; } = 100;
+
+
+    /// <summary>
+    /// The left side of the slider.
+    /// </summary>
+    public float Min { get; set; } = 0;
+
+    /// <summary>
+    /// If set to 1, value will be rounded to 1's
+    /// If set to 10, value will be rounded to 10's
+    /// If set to 0.1, value will be rounded to 0.1's
+    /// </summary>
+    public float Step { get; set; } = 1.0f;
+
+    /// <summary>
+    /// Show the range values above the slider
+    /// </summary>
+    public bool ShowRange { get; set; } = false;
+
+    /// <summary>
+    /// When changing the value show the tooltip
+    /// </summary>
+    public bool ShowValueTooltip { get; set; } = true;
+
+    /// <summary>
+    /// When changing the value show the tooltip
+    /// </summary>
+    public bool ShowTextEntry { get; set; } = false;
+
+    /// <summary>
+    /// How to display numbers in this control
+    /// </summary>
+    public string NumberFormat { get; set; } = "0";
+
+    float _value;
+
+    public float Value
+    {
+        get => _value;
+
+        set
+        {
+            if (_value == value)
+                return;
+
+            _value = MathX.Clamp( _value, Min, Max );
+
+            _value = value;
+            StateHasChanged();
+        }
+    }
+
+    Panel TrackPanel { get; set; }
+    Panel ThumbPanel { get; set; }
+    TextEntry TextEntryPanel { get; set; }
+
+    public CustomSlider()
+    {
+
+    }
+
+    public CustomSlider( float min, float max, float step = 1.0f )
+    {
+        Min = min;
+        Max = max;
+        Step = step;
+    }
+
+    /// <summary>
+    /// Convert a screen position to a value. The value is clamped, but not snapped.
+    /// </summary>
+    public virtual float ScreenPosToValue( Vector2 pos )
+    {
+        var normalized = MathX.LerpInverse(pos.x, TrackPanel.Box.Left, TrackPanel.Box.Right, true);
+        var scaled = MathX.LerpTo( Min, Max, normalized, true );
+        return Step > 0 ? scaled.SnapToGrid( Step ) : scaled;
+    }
+
+    /// <summary>
+    /// If we move the mouse while we're being pressed then set the value
+    /// </summary>
+    protected override void OnMouseMove( MousePanelEvent e )
+    {
+        base.OnMouseMove( e );
+
+        if ( !HasActive || e.MouseButton == MouseButtons.Middle ) return;
+
+        Value = ScreenPosToValue( Mouse.Position );
+        OnValueChanged?.Invoke( Value );
+        e.StopPropagation();
+    }
+
+    /// <summary>
+    /// On mouse press jump to that position
+    /// </summary>
+    protected override void OnMouseDown( MousePanelEvent e )
+    {
+        base.OnMouseDown( e );
+
+        Value = ScreenPosToValue( Mouse.Position );
+        OnValueChanged?.Invoke( Value );
+        e.StopPropagation();
+
+        TextEntryPanel?.Blur();
+    }
+
+    protected override void OnMiddleClick( MousePanelEvent e )
+    {
+        base.OnMiddleClick( e );
+        e.StopPropagation();
+    }
+
+    float SliderPosition => MathX.LerpInverse(Value, Min, Max, true) * 100.0f;
+}

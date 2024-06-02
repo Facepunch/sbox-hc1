@@ -199,7 +199,7 @@ public partial class ViewModel : Component
 		ApplyAnimationTransform();
 		ApplyInertia();
 
-		var baseFov = Preferences.FieldOfView;
+		var baseFov = GameSettingsSystem.Current.FieldOfView;
 
 		TargetFieldOfView = TargetFieldOfView.LerpTo( baseFov + FieldOfViewOffset, Time.Delta * 10f );
 		FieldOfViewOffset = 0;

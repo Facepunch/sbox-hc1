@@ -188,3 +188,190 @@ LandingPage
         transform: scale( 1 );
     }
 }
+
+SettingEntry, .entry
+{
+    width: 448px;
+    justify-content: space-between;
+    flex-direction: column;
+
+    .icon
+    {
+        font-family: Material Icons;
+        color: white;
+        font-size: 20px;
+    }
+
+    .name
+    {
+        color: white;
+        font-size: 18px;
+    }
+
+    .description
+    {
+        font-weight: 500;
+        font-size: 15px;
+    }
+
+    .warning
+    {
+        font-size: 16px;
+        color: orange;
+    }
+}
+
+.checkbox
+{
+    align-items: center;
+    cursor: pointer;
+    color: rgba( white, 0.6 );
+    align-items: center;
+
+    label
+    {
+        pointer-events: none;
+    }
+
+    > .checkmark
+    {
+        aspect-ratio: 1;
+        padding: 1px;
+        font-size: 22px;
+        border: 3px solid white;
+        border-radius: 0px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        color: transparent;
+        margin-right: 10px;
+        min-width: 32px;
+        max-width: 32px;
+        pointer-events: none;
+        box-shadow: 2px 2px 2px black;
+    }
+
+    &.checked
+    {
+        > .checkmark
+        {
+            color: white;
+            background-color: white;
+        }
+    }
+
+    &:active
+    {
+        color: white;
+    }
+
+    &:hover
+    {
+        color: white;
+    }
+}
+
+.slidercontrol
+{
+    flex-direction: row;
+    position: relative;
+    flex-shrink: 0;
+    flex-direction: row;
+    cursor: pointer;
+    flex-grow: 1;
+    align-items: center;
+    flex-grow: 1;
+
+    > .inner
+    {
+        flex-direction: column;
+        flex-shrink: 1;
+        flex-grow: 1;
+        justify-content: center;
+
+        > .values
+        {
+            width: 100%;
+            pointer-events: none;
+            font-size: 14px;
+            color: #aaa;
+
+            > .left
+            {
+                flex-grow: 1;
+            }
+        }
+
+        > .track
+        {
+            background-color: rgba( white, 0.05 );
+            height: 2px;
+            margin: 8px;
+            align-items: center;
+
+            > .track-active
+            {
+                background-color: darken( white, 0.2 );
+                position: absolute;
+                height: 100%;
+                left: 0px;
+            }
+
+            > .thumb
+            {
+                background-color: white;
+                width: 2px;
+                height: 2px;
+                transform: translateX( -50% );
+                box-shadow: 2px 2px 2px solid black;
+            }
+        }
+    }
+
+    > .entry
+    {
+        width: 25px;
+        flex-shrink: 0;
+        flex-grow: 0;
+        padding-right: 10px;
+
+        > textentry
+        {
+            text-align: right;
+            width: 100%;
+            padding: 0;
+            min-height: 0px;
+
+            > .content-label
+            {
+                padding: 0 4px;
+            }
+        }
+    }
+}
+
+
+.slidercontrol .value-tooltip
+{
+    position: absolute;
+    bottom: 14px;
+    left: -8px;
+    z-index: 1000;
+    flex-direction: column;
+
+    > .label
+    {
+        font-size: 16px;
+        background-color: black;
+        padding: 4px 8px;
+    }
+}
+
+.slidercontrol
+{
+    label
+    {
+        color: white;
+        font-size: 20px;
+    }
+}
