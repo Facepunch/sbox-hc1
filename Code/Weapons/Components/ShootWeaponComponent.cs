@@ -272,7 +272,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		return Scene.Trace.Ray( start, end )
 			.UseHitboxes()
 			.IgnoreGameObjectHierarchy( GameObject.Root )
-			.WithoutTags( "trigger", "invis", "ragdoll" )
+			.WithoutTags( "trigger", "invis", "ragdoll", "movement" )
 			.Size( radius )
 			.Run();
 	}
