@@ -181,8 +181,6 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 				var damage = CalculateDamageFalloff( BaseDamage, tr.Distance );
 
-				Log.Info( $"base damage: {BaseDamage}, real damage: {damage}" );
-
 				// Inflict damage on whatever we find.
 				tr.GameObject.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, tr.Hitbox?.Tags?.Has( "head" ) ?? false );
 				count++;
