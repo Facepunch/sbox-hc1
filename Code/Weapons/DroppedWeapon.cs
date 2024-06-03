@@ -6,12 +6,12 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 
 	public Rigidbody Rigidbody { get; private set; }
 
-	public static DroppedWeapon Create( WeaponData resource, Vector3 positon, Rotation rotation = default )
+	public static DroppedWeapon Create( WeaponData resource, Vector3 positon, Rotation? rotation = null, Weapon heldWeapon = null )
 	{
 		var go = new GameObject();
 		go.Tags.Set( "no_player", true );
 		go.Transform.Position = positon;
-		go.Transform.Rotation = rotation;
+		go.Transform.Rotation = rotation ?? Rotation.Identity;
 		go.Name = resource.Name;
 
 		var droppedWeapon = go.Components.Create<DroppedWeapon>();
@@ -26,6 +26,14 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 		droppedWeapon.Rigidbody = go.Components.Create<Rigidbody>();
 
 		go.Components.Create<DestroyBetweenRounds>();
+
+		if ( heldWeapon is not null )
+		{
+			foreach ( var state in heldWeapon.Components.GetAll<IDroppedWeaponState>() )
+			{
+				state.CopyToDroppedWeapon( droppedWeapon );
+			}
+		}
 
 		return droppedWeapon;
 	}
@@ -42,7 +50,13 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 		if ( _isUsed ) return;
 		_isUsed = true;
 
-		player.Inventory.GiveWeapon( Resource );
+		var weapon = player.Inventory.GiveWeapon( Resource );
+
+		foreach ( var state in weapon.Components.GetAll<IDroppedWeaponState>() )
+		{
+			state.CopyFromDroppedWeapon( this );
+		}
+
 		GameObject.Destroy();
 	}
 

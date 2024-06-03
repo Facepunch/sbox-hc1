@@ -17,4 +17,15 @@ public static partial class GameObjectExtensions
 			damageable.TakeDamage( damage, position, force, attackerId, inflictorId, isHeadshot );
 		}
 	}
+
+	public static void CopyPropertiesTo( this Component src, Component dst )
+	{
+		var json = src.Serialize().AsObject();
+
+		json.Remove( "__guid" );
+
+		Log.Info( json );
+
+		dst.DeserializeImmediately( json );
+	}
 }
