@@ -181,7 +181,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		}
 
 		// If we have a recoil function, let it know.
-		Weapon.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants )?.Shoot();
+		 Weapon.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants )?.Shoot();
 
 		DoShootEffects();
 
@@ -295,9 +295,19 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	/// <returns></returns>
 	float GetBulletSpread()
 	{
+		var recoil = Weapon.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
+
 		var spread = BulletSpread;
 		var velLen = Weapon.PlayerController.CharacterController.Velocity.Length;
 		spread += velLen.Remap( 0, PlayerVelocityLimit, 0, 1, true ) * VelocitySpreadScale;
+
+		if ( recoil.IsValid() )
+		{
+			var recoilScale = 0.5f;
+			if ( Weapon.PlayerController.IsCrouching ) recoilScale *= 0.5f;
+
+			spread += recoil.Current.AsVector3().Length * recoilScale;
+		}
 
 		if ( !Weapon.PlayerController.IsGrounded ) spread *= InAirSpreadMultiplier;
 
