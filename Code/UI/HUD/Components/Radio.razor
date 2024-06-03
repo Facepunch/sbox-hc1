@@ -21,7 +21,7 @@
         }
 
         <div class="row">
-            <InputHint Action="Slide" Size=@InputGlyphSize.Small />
+            <InputHint Action="Radio" Size=@InputGlyphSize.Small />
             <label>close</label>
         </div>
     }
@@ -37,7 +37,7 @@
         }
 
         <div class="row">
-            <InputHint Action="Slide" Size=@InputGlyphSize.Small />
+            <InputHint Action="Radio" Size=@InputGlyphSize.Small />
             <label>back</label>
         </div>
     }
@@ -90,7 +90,7 @@
 
     public override void Tick()
     {
-        if ( Input.Pressed( "Slide" ) )
+        if ( Input.Pressed( "Radio" ) )
         {
             if ( !string.IsNullOrEmpty( SelectedCategory ) )
             {

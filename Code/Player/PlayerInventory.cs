@@ -115,6 +115,11 @@ public partial class PlayerInventory : Component
 		}
 
 		var wheel = Input.MouseWheel;
+
+		// gamepad input
+		if ( Input.Pressed( "NextSlot" ) ) wheel.y = -1;
+		if ( Input.Pressed( "PrevSlot" ) ) wheel.y = 1;
+
 		if ( wheel.y == 0f ) return;
 
 		var availableWeapons = Weapons.OrderBy( x => x.Resource.Slot ).ToList();
