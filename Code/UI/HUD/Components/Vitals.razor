@@ -19,12 +19,22 @@
                 <label class="vital">@Health</label>
             </span>
         </div>
+
+        @if ( DebugUnits )
+        {
+            <div class="flex column">
+                <label>@PlayerVelocity.ToString( "0" )u</label>
+            </div>
+        }
     </div>
 
 </root>
 
 @code
 {
+    [ConVar( "hc1_debug_units" )] public static bool DebugUnits { get; set; }
+
+    public float PlayerVelocity => Player.CharacterController.Velocity.Length;
     public PlayerController Player => GameUtils.Viewer;
     public HealthComponent HealthComponent => Player.Components.Get<HealthComponent>();
     public int Health => Player.Components.Get<HealthComponent>().Health.CeilToInt();
@@ -33,7 +43,7 @@
 
     protected override int BuildHash()
     {
-        return !Player.IsValid() ? 0 : HashCode.Combine(Player.IsSpectating, Health, Armor, HasHelmet, Player.HealthComponent.State);
+        return !Player.IsValid() ? 0 : HashCode.Combine(Player.IsSpectating, Health, Armor, HasHelmet, Player.HealthComponent.State, DebugUnits, PlayerVelocity );
     }
 
     private string BuildClass()
