@@ -56,6 +56,12 @@ public partial class ThrowWeaponComponent : InputWeaponComponent, Weapon.IDeploy
 		}
 		
 		if ( IsProxy ) return;
+
+		if ( Input.Pressed( "Attack2" ) )
+		{
+			ThrowState = State.Idle;
+			TimeSinceAction = 0;
+		}
 		
 		if ( ThrowState == State.Throwing && TimeSinceAction > 0.25f )
 		{
