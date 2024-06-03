@@ -3,7 +3,7 @@ namespace Facepunch;
 /// <summary>
 /// A weapon component.
 /// </summary>
-public partial class Weapon : Component
+public partial class Weapon : Component, Component.INetworkListener
 {
 	/// <summary>
 	/// Subscribe to changes in the weapon's deployed state.
@@ -102,6 +102,24 @@ public partial class Weapon : Component
 	/// How long it's been since we used this attack.
 	/// </summary>
 	protected TimeSince TimeSinceSecondaryAttack { get; set; }
+	
+	void INetworkListener.OnDisconnected( Connection connection )
+	{
+		if ( !Networking.IsHost )
+		{
+			Log.Info( "someone left: " + connection.Id );
+			return;
+		}
+
+		if ( !Resource.DropOnDisconnect )
+			return;
+		
+		var player = GameUtils.AllPlayers.FirstOrDefault( x => x.Network.OwnerConnection == connection );
+		if ( !player.IsValid() ) return;
+		
+		var droppedWeapon = DroppedWeapon.Create( Resource, player.Transform.Position + Vector3.Up * 32f, Rotation.Identity, this );
+		droppedWeapon.GameObject.NetworkSpawn();
+	}
 
 	/// <summary>
 	/// Allow weapons to override holdtypes at any notice.

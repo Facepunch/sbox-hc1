@@ -58,6 +58,12 @@ public partial class WeaponData : GameResource
 	public bool CanOtherTeamPickUp { get; set; } = true;
 
 	/// <summary>
+	/// If true, owner will drop this weapon if they disconnect.
+	/// </summary>
+	[Category( "Base" )]
+	public bool DropOnDisconnect { get; set; } = false;
+
+	/// <summary>
 	/// The weapon's icon
 	/// </summary>
 	[Group( "Base" ), ImageAssetPath] public string Icon { get; set; }

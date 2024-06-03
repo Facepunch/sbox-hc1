@@ -8,11 +8,13 @@ public partial class EquippmentDropper : Component, IKillListener
 		if ( !player.IsValid() )
 			return;
 
-		var specials = player.Inventory.Weapons.Where( x => x.Resource.Slot == WeaponSlot.Special );
+		var specials = player.Inventory.Weapons
+			.Where( x => x.Resource.Slot == WeaponSlot.Special )
+			.ToList();
 
-		for ( int i = specials.Count() - 1; i >= 0; i-- )
+		for ( var i = specials.Count - 1; i >= 0; i-- )
 		{
-			player.Inventory.DropWeapon( specials.ElementAt( i ).Id );
+			player.Inventory.DropWeapon( specials[i].Id );
 		}
 
 		var currentWeapon = player.Inventory.CurrentWeapon;
