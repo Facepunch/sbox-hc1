@@ -8,13 +8,32 @@
     "NetworkInterpolation": true,
     "Children": [
       {
-        "__guid": "db36f630-582d-43ef-92a1-b7edddf9407b",
+        "__guid": "2a670c0d-a9bf-4616-9a25-4169129f8ae0",
         "Flags": 0,
-        "Name": "GameMode",
+        "Name": "Game Modes",
         "Enabled": true,
-        "NetworkMode": 1,
+        "NetworkMode": 2,
         "NetworkInterpolation": true,
-        "__Prefab": "prefabs/game_modes/bomb_defusal.prefab"
+        "Children": [
+          {
+            "__guid": "db36f630-582d-43ef-92a1-b7edddf9407b",
+            "Flags": 0,
+            "Name": "Bomb Defusal",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "__Prefab": "prefabs/game_modes/bomb_defusal.prefab"
+          },
+          {
+            "__guid": "e2a5c2a3-d3b1-402b-8bb8-4852ec8a3d00",
+            "Flags": 0,
+            "Name": "Deathmatch",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "__Prefab": "prefabs/game_modes/deathmatch.prefab"
+          }
+        ]
       },
       {
         "__guid": "69d5003a-44d7-41fe-a620-32f6bf0c4cd0",
@@ -81,7 +100,7 @@
             "__guid": "843ab22f-5541-4fb8-bc8c-759f41e35140",
             "FreecamController": {
               "_type": "component",
-              "component_id": "3d085c6f-1616-4d74-a02e-9b0c432883e7",
+              "component_id": "1875c84b-c61e-42a1-8ab3-eb9fdb790004",
               "go": "89e9bfbf-5479-448a-be07-24914e1c82c3",
               "component_type": "SpectateController"
             }
