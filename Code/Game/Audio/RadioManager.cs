@@ -48,15 +48,13 @@ public partial class RadioManager : Component,
 		{
 			var killerTeam = killer.GameObject.GetTeam();
 
-			if ( killerTeam == victimTeam ) return;
-
 			if ( GetAliveCount( victimTeam ) == 2 )
 			{
-				RadioSounds.Play( killerTeam, RadioSound.TwoEnemiesLeft );
+				RadioSounds.Play( victimTeam.GetOpponents(), RadioSound.TwoEnemiesLeft );
 			}
 			else if ( GetAliveCount( victimTeam ) == 1 )
 			{
-				RadioSounds.Play( killerTeam, RadioSound.OneEnemyLeft );
+				RadioSounds.Play( victimTeam.GetOpponents(), RadioSound.OneEnemyLeft );
 			}
 		}
 	}
