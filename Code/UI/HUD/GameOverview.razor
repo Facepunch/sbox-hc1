@@ -46,15 +46,24 @@
                 <img src="@GetWinner( i ).GetIconPath()" />
             }
 
+            @if ( i == ( WinningRound - 1 ) )
+            {
+                <Icon File="/ui/crown.png" size="24"/>
+            }
         </div>
     }
 </root>
 
 @code
 {
+    RoundCounter RoundCounter => GameMode.Instance?.Components.GetInDescendantsOrSelf<RoundCounter>();
     HalfTimeTeamSwap TeamSwapper => GameMode.Instance?.Components.GetInDescendantsOrSelf<HalfTimeTeamSwap>();
     RoundLimit RoundLimit => GameMode.Instance?.Components.GetInDescendantsOrSelf<RoundLimit>();
     TeamScoring TeamScoring => GameMode.Instance?.Components.GetInDescendantsOrSelf<TeamScoring>();
+    DefuseWinCondition WinCondition => GameMode.Instance?.Components.GetInDescendantsOrSelf<DefuseWinCondition>();
+
+    Team LocalTeam = GameUtils.LocalPlayer.GameObject.GetTeam();
+    int WinningRound => WinCondition.RoundsToWin + TeamScoring.OpposingTeamScore;
 
     private Team GetWinner( int round )
     {
