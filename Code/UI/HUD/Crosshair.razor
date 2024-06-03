@@ -52,9 +52,9 @@
 
     string HitmarkerClasses => !TimeUntilHitmarkerRemove ? "is-visible" : string.Empty;
 
-    private ShootWeaponComponent Shoot => Weapon.Components.Get<ShootWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
-    private ScopeWeaponComponent Scope => Weapon.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
-    private RecoilWeaponComponent Recoil => Weapon.Components.Get<RecoilWeaponComponent>(FindMode.EnabledInSelfAndDescendants);
+    private ShootWeaponComponent Shoot => Weapon?.Components.Get<ShootWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
+    private ScopeWeaponComponent Scope => Weapon?.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
+    private RecoilWeaponComponent Recoil => Weapon?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
 
     float BaseDistance => 15 + (( Shoot?.BulletSpread ?? 0 ) * 250f);
     // 10px base size
