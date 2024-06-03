@@ -1,3 +1,5 @@
+using Sandbox.Diagnostics;
+
 namespace Facepunch;
 
 public static class Explosion
@@ -7,13 +9,11 @@ public static class Explosion
 		var t = 1f - Math.Clamp( distance / radius, 0f, 1f );
 		return damage * t * t;
 	}
-
-	[Broadcast( NetPermission.HostOnly )]
+	
 	public static void AtPoint( Vector3 point, float radius, float baseDamage, Guid attackerId = default, Guid inflictorId = default )
 	{
 		var scene = Game.ActiveScene;
-		if ( !scene.IsValid() )
-			return;
+		if ( !scene.IsValid() ) return;
 
 		var objectsInArea = scene.FindInPhysics( new Sphere( point, radius ) );
 		var inflictor = scene.Directory.FindComponentByGuid( inflictorId );

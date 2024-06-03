@@ -61,35 +61,39 @@ public partial class ThrowWeaponComponent : InputWeaponComponent
 	[Broadcast]
 	protected void Throw()
 	{
-		if ( !Networking.IsHost ) return;
-
 		var player = Weapon.PlayerController;
 		
-		RadioSounds.Play( player.GameObject.GetTeam(), RadioSound.ThrownGrenade );
-
-		var tr = Scene.Trace.Ray( new Ray( player.AimRay.Position, player.AimRay.Forward ), 128 )
-			.IgnoreGameObjectHierarchy( GameObject.Root )
-			.WithoutTags( "trigger" )
-			.Run();
-
-		var position = tr.Hit ? tr.HitPosition + tr.Normal * Weapon.Resource.WorldModel.Bounds.Size.Length : player.AimRay.Position + player.AimRay.Forward * 32f;
-		var rotation = Rotation.From( 0, player.EyeAngles.yaw + 90, 90 );
-		var baseVelocity = player.CharacterController.Velocity;
-		var dropped = Prefab.Clone( position, rotation );
-
-		if ( !tr.Hit )
+		if ( !IsProxy )
 		{
-			var rb = dropped.Components.Get<Rigidbody>( FindMode.EnabledInSelfAndDescendants );
-			rb.Velocity = baseVelocity + player.AimRay.Forward * ThrowPower + Vector3.Up * 100;
-			rb.AngularVelocity = Vector3.Random * 8.0f;
+			var tr = Scene.Trace.Ray( new( player.AimRay.Position, player.AimRay.Forward ), 128f )
+				.IgnoreGameObjectHierarchy( GameObject.Root )
+				.WithoutTags( "trigger" )
+				.Run();
+
+			var position = tr.Hit ? tr.HitPosition + tr.Normal * Weapon.Resource.WorldModel.Bounds.Size.Length : player.AimRay.Position + player.AimRay.Forward * 32f;
+			var rotation = Rotation.From( 0, player.EyeAngles.yaw + 90f, 90f );
+			var baseVelocity = player.CharacterController.Velocity;
+			var dropped = Prefab.Clone( position, rotation );
+
+			if ( !tr.Hit )
+			{
+				var rb = dropped.Components.Get<Rigidbody>( FindMode.EnabledInSelfAndDescendants );
+				rb.Velocity = baseVelocity + player.AimRay.Forward * ThrowPower + Vector3.Up * 100f;
+				rb.AngularVelocity = Vector3.Random * 8f;
+			}
+
+			var grenade = dropped.Components.Get<BaseGrenade>();
+			if ( grenade.IsValid() )
+				grenade.ThrowerId = player.Id;
+
+			dropped.Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
+			dropped.NetworkSpawn();
 		}
 
-		var grenade = dropped.Components.Get<BaseGrenade>();
-		if ( grenade.IsValid() )
-			grenade.ThrowerId = player.Id;
+		if ( !Networking.IsHost )
+			return;
 
-		dropped.NetworkSpawn();
-
+		RadioSounds.Play( player.GameObject.GetTeam(), RadioSound.ThrownGrenade );
 		TimeSinceAction = 0f;
 		HasThrownOnHost = true;
 	}

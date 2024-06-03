@@ -22,9 +22,7 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 	protected override void Explode()
 	{
 		if ( Networking.IsHost )
-		{
 			Explosion.AtPoint( Transform.Position, DamageRadius, MaxDamage, ThrowerId, Id );
-		}
 		
 		base.Explode();
 	}
