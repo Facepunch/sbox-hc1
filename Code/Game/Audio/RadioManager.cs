@@ -42,10 +42,13 @@ public partial class RadioManager : Component,
 	void IKillListener.OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor, bool isHeadshot )
 	{
 		var victimTeam = victim.GameObject.GetTeam();
+		RadioSounds.Play( victimTeam, RadioSound.TeammateDies );
 
 		if ( killer.IsValid() )
 		{
 			var killerTeam = killer.GameObject.GetTeam();
+
+			if ( killerTeam == victimTeam ) return;
 
 			if ( GetAliveCount( victimTeam ) == 2 )
 			{
@@ -55,9 +58,6 @@ public partial class RadioManager : Component,
 			{
 				RadioSounds.Play( killerTeam, RadioSound.OneEnemyLeft );
 			}
-
 		}
-
-		RadioSounds.Play( victimTeam, RadioSound.TeammateDies );
 	}
 }
