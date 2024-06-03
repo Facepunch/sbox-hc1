@@ -102,22 +102,22 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(ChatMode, Open);
+        return HashCode.Combine( ChatMode, Open );
     }
 
     protected override void OnUpdate()
     {
-        if (InputBox is null)
+        if ( InputBox is null )
             return;
 
         Panel.AcceptsFocus = false;
 
-        if (Input.Pressed("chat"))
+        if ( Input.Pressed( "chat" ) )
         {
             InputBox.Focus();
         }
 
-        if (Entries.RemoveAll(x => x.timeSinceAdded > 20.0f) > 0)
+        if ( Entries.RemoveAll( x => x.timeSinceAdded > 20.0f ) > 0 )
         {
             StateHasChanged();
         }
@@ -131,8 +131,7 @@
     void ChangeChatMode()
     {
         ChatMode = ChatMode == ChatModes.All ? ChatModes.Team : ChatModes.All;
-
-        Log.Info($"Chat mode changed to {ChatMode}");
+        Log.Info( $"Chat mode changed to {ChatMode}" );
     }
 
     void ChatFinished()
@@ -140,35 +139,35 @@
         var text = InputBox.Text;
         InputBox.Text = "";
 
-        if (string.IsNullOrWhiteSpace(text))
+        if ( string.IsNullOrWhiteSpace( text ) )
             return;
 
-        if (ChatMode == ChatModes.Team)
+        if ( ChatMode == ChatModes.Team )
         {
             var localPlayer = GameUtils.LocalPlayer;
-            bool IsFriendly(PlayerController x) => localPlayer.GameObject.IsFriendly(x.GameObject) || localPlayer.GameObject == x.GameObject;
+            bool IsFriendly( PlayerController x ) => localPlayer.GameObject.IsFriendly(x.GameObject) || localPlayer.GameObject == x.GameObject;
 
             var players = GameUtils.AllPlayers;
-            var friendlyGameObjects = players.Where(IsFriendly);
-            var friendlyConnections = friendlyGameObjects.Select(x => x.Network.OwnerConnection);
+            var friendlyGameObjects = players.Where( IsFriendly );
+            var friendlyConnections = friendlyGameObjects.Select( x => x.Network.OwnerConnection );
 
-            using (var _ = Rpc.FilterInclude(friendlyConnections))
+            using ( Rpc.FilterInclude( friendlyConnections ) )
             {
-                AddText(text, ChatMode);
+                AddText( text, ChatMode );
             }
         }
         else
         {
-            AddText(text, ChatMode);
+            AddText( text, ChatMode );
         }
     }
 
     [Broadcast]
-    public void AddText(string message, ChatModes chatMode, string tags = null)
+    public void AddText( string message, ChatModes chatMode, string tags = null )
     {
-        message = message.Truncate(300);
+        message = message.Truncate( 300 );
 
-        if (string.IsNullOrWhiteSpace(message))
+        if ( string.IsNullOrWhiteSpace( message ) )
             return;
 
         var author = Rpc.Caller.DisplayName;
@@ -177,36 +176,36 @@
         var player = GameUtils.AllPlayers.FirstOrDefault(x => x.Network.OwnerConnection == Rpc.Caller);
         var color = player?.GameObject?.GetTeam().GetColor() ?? Color.White;
 
-        Entries.Add(new Entry(steamid, author, message, 0.0f, chatMode, MessageType.Chat, color, tags));
+        Entries.Add( new( steamid, author, message, 0.0f, chatMode, MessageType.Chat, color, tags ) );
         StateHasChanged();
     }
 
-    [Broadcast] // todo: only from host/owner
-    public void AddSystemText(string message)
+    [Broadcast( NetPermission.HostOnly )]
+    public void AddSystemText( string message )
     {
-        message = message.Truncate(300);
+        message = message.Truncate( 300 );
 
-        if (string.IsNullOrWhiteSpace(message))
+        if ( string.IsNullOrWhiteSpace( message ) )
             return;
 
-        Entries.Add(new Entry(0, "", message, 0.0f, ChatModes.All, MessageType.System, Color.White));
+        Entries.Add( new( 0, "", message, 0.0f, ChatModes.All, MessageType.System, Color.White ) );
         StateHasChanged();
     }
 
     void ITeamAssignedListener.OnTeamAssigned(PlayerController player, Team team)
     {
-        if (IsProxy) return;
+        if ( IsProxy ) return;
 
-        if (team == Team.Unassigned)
-            AddSystemText($"{@player.GetPlayerName()} is spectating");
+        if ( team == Team.Unassigned )
+            AddSystemText( $"{@player.GetPlayerName()} is spectating" );
         else
-            AddSystemText($"{@player.GetPlayerName()} is joining the {team.GetName()}");
+            AddSystemText( $"{@player.GetPlayerName()} is joining the {team.GetName()}" );
     }
 
     void Component.INetworkListener.OnDisconnected(Connection channel)
     {
-        if (IsProxy) return;
+        if ( IsProxy ) return;
 
-        AddSystemText($"{channel.DisplayName} has left the game");
+        AddSystemText( $"{channel.DisplayName} has left the game" );
     }
 }

@@ -78,16 +78,20 @@ public class RadioSounds : GameResource
 	/// <summary>
 	/// How frequently can we spam the radio?
 	/// </summary>
-	private const float RadioSpamDelay = 2;
-
-	[Broadcast]
+	private const float RadioSpamDelay = 2f;
+	
+	/// <summary>
+	/// Send a radio sound to all players on the specified team
+	/// </summary>
+	/// <param name="team"></param>
+	/// <param name="category"></param>
+	/// <param name="sound"></param>
 	public static void Play( Team team, string category, string sound )
 	{
-		Chat.Instance?.AddText( sound, Chat.ChatModes.Team, "radio" );
-
 		// Only send this message to members of the specified team
 		using ( Rpc.FilterInclude( GameUtils.GetPlayers( team ).Select( x => x.Network.OwnerConnection ) ) )
 		{
+			Chat.Instance?.AddText( sound, Chat.ChatModes.Team, "radio" );
 			RpcPlay( team, category, sound );
 		}
 	}
@@ -95,13 +99,16 @@ public class RadioSounds : GameResource
 	[ConCmd( "radio_sound" )]
 	public static void CmdPlay( string category, string sound )
 	{
-		if ( TimeSinceRadio < RadioSpamDelay && TimeSinceRadio > .0f ) return;
-		TimeSinceRadio = 0;
+		if ( TimeSinceRadio < RadioSpamDelay && TimeSinceRadio > 0f )
+			return;
+		
+		TimeSinceRadio = 0f;
 
 		var team = GameUtils.LocalPlayer.GameObject.GetTeam();
 		Play( team, category, sound );
 	}
 
+	[Broadcast]
 	private static void RpcPlay( Team team, string category, string sound )
 	{
 		var localPlayerTeam = GameUtils.LocalPlayer.GameObject.GetTeam();
@@ -122,7 +129,7 @@ public class RadioSounds : GameResource
 		if ( entry is null )
 			return;
 
-		// play the sound
+		// Play the sound
 		var snd = Sound.Play( entry.Sound );
 		snd.TargetMixer = Mixer.FindMixerByName( "Radio" );
 	}
