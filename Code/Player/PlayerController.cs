@@ -97,12 +97,20 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <summary>
 	/// How much friction does the player have?
 	/// </summary>
-	[Property, Group( "Config" )] public float BaseFriction { get; set; } = 4.0f;
+	[Property, Group( "Friction" )] public float BaseFriction { get; set; } = 4.0f;
+
+
+	[Property, Group( "Friction" )] public float SlowWalkFriction { get; set; } = 4.0f;
+	[Property, Group( "Friction" )] public float CrouchingFriction { get; set; } = 4.0f;
 
 	/// <summary>
 	/// Can we control our movement in the air?
 	/// </summary>
-	[Property, Group( "Config" )] public float AirAcceleration { get; set; } = 40f;
+	[Property, Group( "Acceleration" )] public float AirAcceleration { get; set; } = 40f;
+
+	[Property, Group( "Acceleration" )] public float BaseAcceleration { get; set; } = 10;
+	[Property, Group( "Acceleration" )] public float SlowWalkAcceleration { get; set; } = 10;
+	[Property, Group( "Acceleration" )] public float CrouchingAcceleration { get; set; } = 10;
 
 	/// <summary>
 	/// Is the player crouching?
@@ -237,11 +245,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		return 0f;
 	}
 
-	protected override void OnAwake()
-	{
-		_baseAcceleration = CharacterController.Acceleration;
-	}
-
 	protected override void OnStart()
 	{
 		if ( !IsProxy && !IsBot )
@@ -334,16 +337,19 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <returns></returns>
 	private float GetFriction()
 	{
+		if ( IsSlowWalking ) return SlowWalkFriction;
+		if ( IsCrouching ) return CrouchingFriction;
 		return !CharacterController.IsOnGround ? 0.1f : BaseFriction;
 	}
 
-	private float _baseAcceleration = 10;
 	private void ApplyAcceleration()
 	{
 		if ( !IsGrounded )
 			CharacterController.Acceleration = AirAcceleration;
+		else if ( IsSlowWalking ) CharacterController.Acceleration = SlowWalkAcceleration;
+		else if ( IsCrouching ) CharacterController.Acceleration = CrouchingAcceleration;
 		else
-			CharacterController.Acceleration = _baseAcceleration;
+			CharacterController.Acceleration = BaseAcceleration;
 	}
 
 	private void BuildInput()
