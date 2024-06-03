@@ -9,7 +9,7 @@ public class HalfTimeTeamSwap : Component, IRoundEndListener, IRoundStartListene
 
 	void IRoundStartListener.PreRoundStart()
 	{
-		if ( RoundCounter.Round == FirstHalfRoundCount )
+		if ( RoundCounter.Round == FirstHalfRoundCount - 1 )
 		{
 			Facepunch.UI.Toast.Instance.Show( "Final round of the first half", Facepunch.UI.ToastType.Generic );
 		}
