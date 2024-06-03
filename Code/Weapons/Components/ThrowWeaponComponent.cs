@@ -74,6 +74,7 @@ public partial class ThrowWeaponComponent : InputWeaponComponent
 			var rotation = Rotation.From( 0, player.EyeAngles.yaw + 90f, 90f );
 			var baseVelocity = player.CharacterController.Velocity;
 			var dropped = Prefab.Clone( position, rotation );
+			dropped.Tags.Set( "no_player", true );
 
 			if ( !tr.Hit )
 			{
