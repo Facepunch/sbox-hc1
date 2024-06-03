@@ -70,6 +70,12 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 			// Don't pickup weapons if we're dead.
 			if ( player.HealthComponent.State != LifeState.Alive )
 				return;
+
+			// If we last respawned less than 2 seconds ago then don't pickup. This is because
+			// we need to give a chance for the owner to update its position. I want to add a way
+			// to specify that Transform can be changed on non-owner too (prediction.)
+			if ( player.TimeSinceLastRespawn < 2f )
+				return;
 			
 			if ( !player.Inventory.CanTakeWeapon( Resource ) )
 				return;

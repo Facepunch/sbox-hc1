@@ -23,6 +23,11 @@ public partial class PlayerController
 	/// Is this player in spectate mode?
 	/// </summary>
 	[Sync] public bool IsSpectating { get; private set; }
+	
+	/// <summary>
+	/// How long since the player last respawned?
+	/// </summary>
+	public TimeSince TimeSinceLastRespawn { get; private set; }
 
 	void IRespawnable.Kill() => Kill();
 
@@ -70,6 +75,7 @@ public partial class PlayerController
 		{
 			HealthComponent.Health = 100f;
 			HealthComponent.State = LifeState.Alive;
+			TimeSinceLastRespawn = 0f;
 			
 			if ( TeamComponent.Team is Team.Terrorist or Team.CounterTerrorist )
 				ResetBody();
@@ -103,6 +109,8 @@ public partial class PlayerController
 			HealthComponent.Health = 100f;
 			HealthComponent.State = LifeState.Alive;
 		}
+		
+		TimeSinceLastRespawn = 0f;
 
 		if ( IsProxy || IsBot )
 			return;
