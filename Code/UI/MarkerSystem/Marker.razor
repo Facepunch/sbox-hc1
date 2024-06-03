@@ -36,6 +36,7 @@
     protected override void OnAfterTreeRender( bool firstTime )
     {
         if ( !firstTime ) return;
+
         if ( !Object.IsValid() ) return;
         if ( Object.MarkerPanelTypeOverride is null ) return;
 
@@ -50,22 +51,27 @@
     }
 
     private static Vector2 ScreenSafezone = new( 0.05f, 0.95f );
-
-    public override void Tick()
+    
+    // Tries to reposition the marker on the screen
+    public void Reposition()
     {
-        var camera = GameUtils.Viewer?.CameraController?.Camera ?? Scene.Camera;
-
-        if ( !camera.IsValid() )
-        {
+        if ( !Object.IsValid() ) 
             return;
-        }
+
+        if ( Frame is null )
+            return;
+
+        if ( !Scene.IsValid() ) 
+            return;
+
+        var camera = GameUtils.Viewer?.CameraController?.Camera ?? Scene.Camera;
+        if ( !camera.IsValid() )
+            return;
 
         var toScreen = camera.PointToScreenNormal( Frame.Position, out IsBehind );
 
         if ( Frame.MaxDistance != 0f && camera.Transform.Position.Distance( Frame.Position ) > Frame.MaxDistance )
-        {
             IsBehind = true;
-        }
 
         SetClass( "is-behind", IsBehind );
 
@@ -76,7 +82,7 @@
         IsOffScreen = toScreen.x > 1.0f || toScreen.x < 0.0f || toScreen.y > 1.0f || toScreen.y < 0.0f;
 
         if ( ClampToScreen )
-           toScreen = new( toScreen.x.Clamp( ScreenSafezone.x, ScreenSafezone.y ),  toScreen.y.Clamp( ScreenSafezone.x, ScreenSafezone.y ) );
+            toScreen = new( toScreen.x.Clamp( ScreenSafezone.x, ScreenSafezone.y ),  toScreen.y.Clamp( ScreenSafezone.x, ScreenSafezone.y ) );
 
         Style.Left = Length.Fraction( toScreen.x );
         Style.Top = Length.Fraction( toScreen.y );

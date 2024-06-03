@@ -1,3 +1,5 @@
+using Facepunch.UI;
+
 namespace Facepunch;
 
 public interface IMarkerObject : IValid
@@ -21,4 +23,14 @@ public interface IMarkerObject : IValid
 	/// Are we overriding the type here?
 	/// </summary>
 	Type MarkerPanelTypeOverride { get => null; }
+
+	public void Register()
+	{
+		MarkerSystem.Register( this );
+	}
+
+	public void UnRegister()
+	{
+		MarkerSystem.UnRegister( this );
+	}
 }

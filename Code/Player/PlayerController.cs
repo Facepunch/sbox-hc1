@@ -149,6 +149,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// </summary>
 	[HostSync] public int BotId { get; set; } = -1;
 
+	[ConVar( "hc1_bot_follow" )] public static bool BotFollowHostInput { get; set; }
+
 	/// <summary>
 	/// Is this a player or a bot
 	/// </summary>
@@ -446,6 +448,12 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 		if ( Networking.IsHost && IsBot )
 		{
+			if ( BotFollowHostInput )
+			{
+				BuildWishInput();
+				BuildWishVelocity();
+			}
+
 			// If we're a bot call these so they don't float in the air.
 			ApplyAcceleration();
 			ApplyMovement();
@@ -533,7 +541,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	{
 		WishMove = 0f;
 
-		if ( !IsLocallyControlled || IsFrozen || InMenu )
+		if ( IsFrozen || InMenu )
 			return;
 
 		WishMove += Input.AnalogMove;
