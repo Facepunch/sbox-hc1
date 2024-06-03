@@ -21,10 +21,10 @@ public partial class MarkerSystem : Panel
 
 	public static void Register( IMarkerObject obj )
 	{
-		var marker = new Marker();
+		var marker = Instance.AddChild<Marker>();
 		marker.Object = obj;
+
 		Markers.Add( marker );
-		Instance.AddChild( marker );
 
 		// Immediately repostion before tick
 		marker.Reposition();
