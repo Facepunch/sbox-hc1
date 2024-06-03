@@ -12,6 +12,8 @@
     {
         @for ( int i = 0; i < sounds.TeamSounds.Count; i++ )
         {
+            @if (sounds.TeamSounds[i].IsHidden) continue;
+
             <div class="row">
                 <InputHint Action="Slot@(i + 1)" Size=@InputGlyphSize.Small />
                 <label>@sounds.TeamSounds[i].Category</label>

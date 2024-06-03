@@ -33,6 +33,7 @@ public enum RadioSound
 public class TeamRadioCategory
 {
 	[KeyProperty] public string Category { get; set; }
+	[Property] public bool IsHidden { get; set; }
 
 	public List<TeamRadioEntry> Entries { get; set; }
 
@@ -40,6 +41,7 @@ public class TeamRadioCategory
 	{
 		[KeyProperty] public string Name { get; set; }
 		[KeyProperty] public SoundEvent Sound { get; set; }
+		[Property] public bool IsHidden { get; set; }
 	}
 }
 

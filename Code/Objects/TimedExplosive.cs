@@ -1,5 +1,7 @@
 ﻿
 using Facepunch;
+using Sandbox.Utility;
+using Sandbox;
 
 public sealed class TimedExplosive : Component, IUse
 {
@@ -227,8 +229,9 @@ public sealed class TimedExplosive : Component, IUse
 	public void OnUse( PlayerController player )
 	{
 		TimeSinceDefuseStart = 0f;
-
 		StartDefusing( player.Id );
+
+		RadioSounds.Play( player.TeamComponent.Team, "Hidden", "Defusing the bomb" );
 
 		player.IsFrozen = true;
 	}
