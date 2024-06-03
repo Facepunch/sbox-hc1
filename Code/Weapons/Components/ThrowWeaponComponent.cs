@@ -78,7 +78,7 @@ public partial class ThrowWeaponComponent : InputWeaponComponent, Weapon.IDeploy
 		
 		if ( !IsProxy )
 		{
-			var tr = Scene.Trace.Ray( new( player.AimRay.Position, player.AimRay.Forward ), 128f )
+			var tr = Scene.Trace.Ray( new( player.AimRay.Position, player.AimRay.Forward ), 10f )
 				.IgnoreGameObjectHierarchy( GameObject.Root )
 				.WithoutTags( "trigger" )
 				.Run();
@@ -89,12 +89,8 @@ public partial class ThrowWeaponComponent : InputWeaponComponent, Weapon.IDeploy
 			var dropped = Prefab.Clone( position, rotation );
 			dropped.Tags.Set( "no_player", true );
 
-			if ( !tr.Hit )
-			{
-				var rb = dropped.Components.Get<Rigidbody>( FindMode.EnabledInSelfAndDescendants );
-				rb.Velocity = baseVelocity + player.AimRay.Forward * ThrowPower + Vector3.Up * 100f;
-				rb.AngularVelocity = Vector3.Random * 8f;
-			}
+			var rb = dropped.Components.Get<Rigidbody>( FindMode.EnabledInSelfAndDescendants );
+			rb.Velocity = baseVelocity + player.AimRay.Forward * ThrowPower + Vector3.Up * 100f;
 
 			var grenade = dropped.Components.Get<BaseGrenade>();
 			if ( grenade.IsValid() )
