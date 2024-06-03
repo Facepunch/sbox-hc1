@@ -2,7 +2,7 @@ namespace Facepunch;
 
 public partial class ThrowWeaponComponent : InputWeaponComponent
 {
-	[Property] public float CookTime { get; set; } = 1f;
+	[Property] public float CookTime { get; set; } = 0.5f;
 	[Property] public GameObject Prefab { get; set; }
 	[Property] public float ThrowPower { get; set; } = 1200f;
 
@@ -27,7 +27,7 @@ public partial class ThrowWeaponComponent : InputWeaponComponent
 
 	protected override void OnInputUp()
 	{
-		if ( TimeSinceAction > 0.25f && ThrowState == State.Cook )
+		if ( TimeSinceAction > CookTime && ThrowState == State.Cook )
 		{
 			ThrowState = State.Throwing;
 			TimeSinceAction = 0;
