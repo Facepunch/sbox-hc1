@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public partial class ThrowWeaponComponent : InputWeaponComponent
+public partial class ThrowWeaponComponent : InputWeaponComponent, Weapon.IDeploymentListener
 {
 	[Property] public float CookTime { get; set; } = 0.5f;
 	[Property] public GameObject Prefab { get; set; }
@@ -14,10 +14,17 @@ public partial class ThrowWeaponComponent : InputWeaponComponent
 		Thrown
 	}
 
-	[Sync] public State ThrowState { get; set; }
+	[Sync] public State ThrowState { get; private set; }
 
 	private TimeSince TimeSinceAction { get; set; }
 	private bool HasThrownOnHost { get; set; }
+
+	void Weapon.IDeploymentListener.OnHolstered( Weapon weapon )
+	{
+		if ( IsProxy ) return;
+		if ( ThrowState == State.Thrown ) return;
+		ThrowState = State.Idle;
+	}
 
 	protected override void OnInputDown()
 	{
