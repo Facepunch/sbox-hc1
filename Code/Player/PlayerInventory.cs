@@ -99,6 +99,7 @@ public partial class PlayerInventory : Component
 		if ( Input.Pressed( "Drop" ) && CurrentWeapon.IsValid() )
 		{
 			DropWeapon( CurrentWeapon.Id );
+			return;
 		}
 
 		foreach ( var slot in Enum.GetValues<WeaponSlot>() )
@@ -106,19 +107,50 @@ public partial class PlayerInventory : Component
 			if ( slot == WeaponSlot.Undefined )
 				continue;
 
-			if ( Input.Pressed( $"Slot{(int)slot}" ) )
-			{
-				SwitchToSlot( slot );
-			}
+			if ( !Input.Pressed( $"Slot{(int)slot}" ) )
+				continue;
+
+			SwitchToSlot( slot );
+			return;
 		}
+
+		var wheel = Input.MouseWheel;
+		if ( wheel.y == 0f ) return;
+
+		var availableWeapons = Weapons.OrderBy( x => x.Resource.Slot ).ToList();
+		if ( availableWeapons.Count == 0 )
+			return;
+
+		var currentSlot = 0;
+		for ( var index = 0; index < availableWeapons.Count; index++ )
+		{
+			var weapon = availableWeapons[index];
+			if ( !weapon.IsDeployed )
+				continue;
+
+			currentSlot = index;
+			break;
+		}
+
+		var slotDelta = wheel.y > 0f ? 1 : -1;
+		currentSlot += slotDelta;
+
+		if ( currentSlot < 0 )
+			currentSlot = availableWeapons.Count - 1;
+		else if ( currentSlot >= availableWeapons.Count )
+			currentSlot = 0;
+
+		var weaponToSwitchTo = availableWeapons[currentSlot];
+		if ( weaponToSwitchTo == CurrentWeapon )
+			return;
+
+		SwitchWeapon( weaponToSwitchTo );
 	}
 
 	public void SwitchToBestWeapon()
 	{
 		if ( !Weapons.Any() )
-		{
 			return;
-		}
 
 		if ( HasWeapon( WeaponSlot.Primary ) )
 		{
@@ -156,9 +188,7 @@ public partial class PlayerInventory : Component
 			.ToArray();
 
 		if ( weapons.Length == 0 )
-		{
 			return;
-		}
 
 		if ( weapons.Length == 1 && CurrentWeapon == weapons[0] && CanUnequipCurrentWeapon )
 		{
@@ -167,7 +197,6 @@ public partial class PlayerInventory : Component
 		}
 
 		var index = Array.IndexOf( weapons, CurrentWeapon );
-
 		SwitchWeapon( weapons[(index + 1) % weapons.Length] );
 	}
 
