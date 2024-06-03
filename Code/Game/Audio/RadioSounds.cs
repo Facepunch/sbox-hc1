@@ -154,12 +154,7 @@ public class RadioSounds : GameResource
 
 	protected override void PostLoad()
 	{
-		if ( All.Contains( this ) )
-		{
-			Log.Warning( "Tried to add two of the same radio sounds (?)" );
-			return;
-		}
-
-		All.Add( this );
+		if ( All.Add( this ) ) return;
+		Log.Warning( "Tried to add two of the same radio sounds (?)" );
 	}
 }

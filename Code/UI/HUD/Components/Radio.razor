@@ -2,14 +2,19 @@
 @attribute [StyleSheet]
 @inherits Panel
 
+@{
+    var sounds = MySounds;
+    if ( sounds == null ) return;
+}
+
 <root class="@(IsOpen ? "open" : "") with-background">
     @if ( string.IsNullOrEmpty( SelectedCategory ) )
     {
-        @for ( int i = 0; i < MySounds.TeamSounds.Count; i++ )
+        @for ( int i = 0; i < sounds.TeamSounds.Count; i++ )
         {
             <div class="row">
                 <InputHint Action="Slot@(i + 1)" Size=@InputGlyphSize.Small />
-                <label>@MySounds.TeamSounds[i].Category</label>
+                <label>@sounds.TeamSounds[i].Category</label>
             </div>
         }
 
@@ -38,8 +43,7 @@
 
 @code
 {
-    public RadioSounds MySounds => RadioSounds.All.FirstOrDefault( x => x.Team == GameUtils.LocalPlayer.GameObject.GetTeam() );
-
+    public RadioSounds MySounds => RadioSounds.All.FirstOrDefault( x => x.Team == (GameUtils.LocalPlayer?.GameObject?.GetTeam() ?? Team.Unassigned) );
     public TeamRadioCategory CurrentCategory => MySounds.TeamSounds.FirstOrDefault( x => x.Category == SelectedCategory );
 
     protected string SelectedCategory { get; set; }

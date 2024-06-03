@@ -113,9 +113,7 @@ public static class TeamExtensions
 	public static Team GetTeam( this GameObject gameObject )
 	{
 		var comp = gameObject.Components.Get<TeamComponent>( FindMode.EverythingInSelfAndAncestors );
-		if ( !comp.IsValid() ) return Team.Unassigned;
-
-		return comp.Team;
+		return !comp.IsValid() ? Team.Unassigned : comp.Team;
 	}
 
 	//
