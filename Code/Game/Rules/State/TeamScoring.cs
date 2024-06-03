@@ -32,7 +32,6 @@ public sealed class TeamScoring : Component, IGameStartListener, IRoundStartList
 	{
 		RoundWinHistory.Add( RoundWinner );
 
-		await Task.DelaySeconds( 1f );
 		GameMode.Instance.ShowStatusText( Team.Unassigned, "ROUND OVER" );
 
 		switch ( RoundWinner )
