@@ -1,3 +1,5 @@
+using Scene = Sandbox.Scene;
+
 namespace Facepunch;
 
 public static partial class GameObjectExtensions
@@ -27,5 +29,10 @@ public static partial class GameObjectExtensions
 		Log.Info( json );
 
 		dst.DeserializeImmediately( json );
+	}
+
+	public static string GetScenePath( this GameObject go )
+	{
+		return go is Scene ? "" : $"{go.Parent.GetScenePath()}/{go.Name}";
 	}
 }

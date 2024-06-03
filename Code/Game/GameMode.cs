@@ -9,12 +9,34 @@ using Sandbox.Diagnostics;
 public sealed partial class GameMode : SingletonComponent<GameMode>, Component.INetworkListener
 {
 	/// <summary>
+	/// Path in the scene of the game mode selected by the host.
+	/// </summary>
+	public static string ActivePath { get; set; }
+
+	/// <summary>
 	/// Current game state (controlled by the host.)
 	/// </summary>
 	[Property, HostSync]
 	public GameState State { get; private set; }
 
+	[Property]
+	public string Title { get; set; }
+
+	[Property]
+	public string Description { get; set; }
+
 	private Task _gameLoopTask;
+
+	protected override void OnAwake()
+	{
+		if ( ActivePath is { } path && !path.Equals( GameObject.GetScenePath(), StringComparison.OrdinalIgnoreCase ) )
+		{
+			GameObject.Enabled = false;
+			return;
+		}
+
+		base.OnAwake();
+	}
 
 	protected override void OnStart()
 	{

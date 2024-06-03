@@ -375,3 +375,26 @@ SettingEntry
         font-size: 20px;
     }
 }
+
+select
+{
+    padding: $button-standard-padding;
+    background-color: rgba( black, 0.5 );
+    pointer-events: all;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.1s ease;
+    border-radius: 2px;
+    cursor: pointer;
+    backdrop-filter: $blur;
+
+    label
+    {
+        text-transform: uppercase;
+    }
+
+    > option
+    {
+        display: none;
+    }
+}

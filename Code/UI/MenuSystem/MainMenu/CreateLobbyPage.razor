@@ -1,7 +1,8 @@
 @using Sandbox;
+@using Sandbox.Network
 @using Sandbox.UI;
-@using Sandbox.Network;
 
+@inherits Panel
 @implements INavigatorPage
 @namespace Facepunch.UI
 
@@ -15,25 +16,69 @@
     <div class="layout flex-grow" />
     
     <div class="layout padding-insane column gap" style="width: 30%;">
-        <a class="text ">Create a lobby</a>
-        <button class="button standard">There's nothing to customize yet</button>
+        <label class="text">Create a lobby</label>
+        <select @ref=GameModeDropDown
+                text="@SelectedGameMode?.Title"
+                value.changed=@GameModeDropDown_ValueChanged>
+        </select>
     </div>
 
     <div class="layout flex-grow" />
 
     <div class="layout padding-insane column" style="width: 30%;">
         <div class="layout column gap">
-            <div class="button standard" onclick=@(() => Join())>start game</div>
-            <a class="button standard" href="/lobbies">return</a>
+            <div class="button standard" onclick=@Join>start game</div>
+            <a class="button standard" href="/">return</a>
         </div>
     </div>
 </root>
 
 @code
 {
+    // TODO: map selection
+
+    private GameModeInfo _selectedGameMode;
+
+    public SceneFile Map { get; private set; }
+    public IReadOnlyList<GameModeInfo> GameModes { get; private set; }
+
+    public GameModeInfo SelectedGameMode
+    {
+        get => _selectedGameMode;
+        set
+        {
+            _selectedGameMode = value;
+            GameMode.ActivePath = value?.Path;
+        }
+    }
+
+    public DropDown GameModeDropDown { get; private set; }
+
+    public void OnNavigationOpen()
+    {
+        Map ??= ResourceLibrary.Get<SceneFile>( "scenes/maps/defusemap_01/de_garry_hammer.scene" );
+        GameModes = GameMode.GetAll( Map );
+        SelectedGameMode = GameModes.FirstOrDefault();
+    }
+
     private void Join()
     {
-        var sc = ResourceLibrary.Get<SceneFile>("scenes/maps/defusemap_01/de_garry_hammer.scene");
-        Game.ActiveScene.Load(sc);
+        Log.Info( $"{SelectedGameMode.Path}" );
+
+        Game.ActiveScene.Load( Map );
+    }
+
+    private void GameModeDropDown_ValueChanged( PanelEvent ev )
+    {
+        SelectedGameMode = ev.Value as GameModeInfo;
+    }
+
+    protected override void OnAfterTreeRender( bool firstTime )
+    {
+        base.OnAfterTreeRender( firstTime );
+
+        GameModeDropDown.Options = GameModes
+            .Select( x => new Option( x.Title, x ) )
+            .ToList();
     }
 }
