@@ -172,6 +172,7 @@ public partial class ViewModel : Component
 	{
 		var throwFn = Weapon.Components.Get<ThrowWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
 
+		ModelRenderer.Set( "b_idle", throwFn.ThrowState == ThrowWeaponComponent.State.Idle );
 		ModelRenderer.Set( "b_pull", throwFn.ThrowState == ThrowWeaponComponent.State.Cook );
 		ModelRenderer.Set( "b_throw", throwFn.ThrowState == ThrowWeaponComponent.State.Throwing );
 	}

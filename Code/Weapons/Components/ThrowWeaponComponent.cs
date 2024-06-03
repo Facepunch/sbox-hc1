@@ -13,18 +13,29 @@ public partial class ThrowWeaponComponent : InputWeaponComponent
 		Throwing,
 		Thrown
 	}
-	
+
 	[Sync] public State ThrowState { get; set; }
 
 	private TimeSince TimeSinceAction { get; set; }
 	private bool HasThrownOnHost { get; set; }
-	
-	protected override void OnInput()
-	{
-		if ( ThrowState != State.Idle ) return;
 
+	protected override void OnInputDown()
+	{
 		ThrowState = State.Cook;
-		TimeSinceAction = 0f;
+		TimeSinceAction = 0;
+	}
+
+	protected override void OnInputUp()
+	{
+		if ( TimeSinceAction > 0.25f && ThrowState == State.Cook )
+		{
+			ThrowState = State.Throwing;
+			TimeSinceAction = 0;
+			return;
+		}
+
+		ThrowState = State.Idle;
+		TimeSinceAction = 0;
 	}
 
 	protected override void OnUpdate()
@@ -38,14 +49,6 @@ public partial class ThrowWeaponComponent : InputWeaponComponent
 		}
 		
 		if ( IsProxy ) return;
-		if ( ThrowState == State.Idle ) return;
-
-		// Simple state machine to handle this stuff.
-		if ( ThrowState == State.Cook && TimeSinceAction > CookTime )
-		{
-			ThrowState = State.Throwing;
-			TimeSinceAction = 0f;
-		}
 		
 		if ( ThrowState == State.Throwing && TimeSinceAction > 0.25f )
 		{
