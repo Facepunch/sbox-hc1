@@ -199,7 +199,7 @@
         StateHasChanged();
     }
 
-    void ITeamAssignedListener.OnTeamAssigned(PlayerController player, Team team)
+    void ITeamAssignedListener.OnTeamAssigned( PlayerController player, Team team )
     {
         if ( IsProxy ) return;
 
@@ -209,9 +209,13 @@
             AddSystemText( $"{@player.GetPlayerName()} is joining the {team.GetName()}" );
     }
 
-    void Component.INetworkListener.OnDisconnected(Connection channel)
+    void Component.INetworkListener.OnDisconnected( Connection channel )
     {
         if ( IsProxy ) return;
+
+        // TODO: why would these events get fired with an empty guid in the first place?
+        if ( channel.Id == Guid.Empty )
+            return;
 
         AddSystemText( $"{channel.DisplayName} has left the game" );
     }
