@@ -4,11 +4,21 @@
 
 <root>
     <div class="guide"/>
-    <div @ref="Left" class="left element"></div>
-    <div @ref="Right" class="right element"></div>
-    <div @ref="Top" class="top element"></div>
-    <div @ref="Bottom" class="bottom element"></div>
-    <div class="dot element" />
+
+    @if ( IsFriendly )
+    {
+       <i>close</i>
+    }
+    else
+    {
+        <div @ref="Left" class="left element"></div>
+        <div @ref="Right" class="right element"></div>
+        <div @ref="Top" class="top element"></div>
+        <div @ref="Bottom" class="bottom element"></div>
+        <div class="dot element" />
+    }
+
+
     <div @ref="Hitmarker" class="hitmarker @HitmarkerClasses" />
 </root>
 
@@ -28,6 +38,9 @@
     private float HitMarkerDuration => 0.1f;
 
     public static Crosshair Instance { get; set; }
+
+    private bool IsFriendly { get; set; } = false;
+    private bool IsEnemy { get; set; } = false;
 
     protected override void OnAfterTreeRender( bool firstTime )
     {
@@ -91,6 +104,8 @@
 
     void UpdateDistance()
     {
+        if (!Left.IsValid()) return;
+
         LerpedDistance = LerpedDistance.LerpTo( Distance, Time.Delta * 7.5f );
 
         var length = GetLength();
@@ -126,15 +141,30 @@
             .WithoutTags( "invis", "ragdoll" )
             .UseHitboxes()
             .Run();
-        
+
         if ( currentTrace.Hit )
         {
-            var enemy = currentTrace.GameObject.Root.Components.Get<PlayerController>();
-            SetClass( "enemy", enemy.IsValid() );
+            var targetPlayer = currentTrace.GameObject.Root.Components.Get<PlayerController>();
+            if (targetPlayer.IsValid())
+            {
+                var friendly = targetPlayer.IsFriendly(GameUtils.Viewer);
+                IsFriendly = friendly;
+                IsEnemy = !friendly;
+            }
+            else
+            {
+                IsEnemy = false;
+                IsFriendly = false;
+            }
+
+            SetClass( "enemy", IsEnemy );
+            SetClass( "friendly", IsFriendly );
         }
         else
         {
             SetClass( "enemy", false );
+            SetClass( "friendly", false );
+
         }
 
         SetClass( "hidden", Scope?.IsZooming ?? false );
@@ -142,6 +172,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( Time.Now );
+        return HashCode.Combine(Time.Now);
     }
 }

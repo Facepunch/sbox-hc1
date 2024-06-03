@@ -11,6 +11,14 @@ Crosshair
         position: absolute;
     }
 
+    i
+    {
+        position: absolute;
+        transform: translateX( -50% ) translateY( -50% );
+        font-size: 20px;
+        color: $counter-terror-color;
+    }
+
     .guide
     {
         transform: translateX( -50% ) translateY( -50% );
@@ -37,6 +45,14 @@ Crosshair
     {
         width: 2px;
         height: 20px;
+    }
+
+    &.friendly
+    {
+        .left, .right, .top, .bottom, .dot
+        {
+            background-color: rgba( white, 0.15 );
+        }
     }
 
     &.enemy
