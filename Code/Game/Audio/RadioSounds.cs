@@ -28,6 +28,18 @@ public enum RadioSound
 	/// When someone has thrown a grenade.
 	/// </summary>
 	ThrownGrenade,
+	/// <summary>
+	/// When someone dies, and there's 2 people left.
+	/// </summary>
+	TwoEnemiesLeft,
+	/// <summary>
+	/// When someone dies, and there's 1 person left.
+	/// </summary>
+	OneEnemyLeft,
+	/// <summary>
+	/// When a teammate dies.
+	/// </summary>
+	TeammateDies
 }
 
 public class TeamRadioCategory
