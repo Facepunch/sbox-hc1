@@ -106,10 +106,7 @@ public partial class Weapon : Component, Component.INetworkListener
 	void INetworkListener.OnDisconnected( Connection connection )
 	{
 		if ( !Networking.IsHost )
-		{
-			Log.Info( "someone left: " + connection.Id );
 			return;
-		}
 
 		if ( !Resource.DropOnDisconnect )
 			return;
