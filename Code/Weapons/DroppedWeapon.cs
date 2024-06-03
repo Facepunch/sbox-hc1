@@ -67,6 +67,10 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 		// Conna: this is longer than Daenerys Targaryen's full title.
 		if ( collision.Other.GameObject.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } player )
 		{
+			// Don't pickup weapons if we're dead.
+			if ( player.HealthComponent.State != LifeState.Alive )
+				return;
+			
 			if ( !player.Inventory.CanTakeWeapon( Resource ) )
 				return;
 

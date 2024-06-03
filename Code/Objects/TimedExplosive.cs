@@ -59,25 +59,23 @@ public sealed class TimedExplosive : Component, IUse
 	/// <summary>
 	/// Bomb site this bomb was planted at.
 	/// </summary>
-	public BombSite BombSite { get; private set; }
+	private BombSite BombSite { get; set; }
 	
 	public PlayerController DefusingPlayer { get; private set; }
-	
-	protected override void OnEnabled()
-	{
-		base.OnEnabled();
 
+	protected override void OnStart()
+	{
 		TimeSincePlanted = 0f;
 		TimeSinceLastBeep = 0f;
-
+		
 		BombSite = Zone.GetAt( Transform.Position )
 			.Select( x => x.Components.Get<BombSite>() )
 			.FirstOrDefault( x => x is not null );
 
-		if ( BombSite is null )
-		{
+		if ( !BombSite.IsValid() )
 			Log.Warning( $"Bomb site is null!" );
-		}
+		
+		base.OnStart();
 	}
 
 	protected override void OnUpdate()
@@ -159,9 +157,9 @@ public sealed class TimedExplosive : Component, IUse
 				Sound.Play( BeepSound, Transform.Position );
 			}
 
-			if ( BeepEffectPrefab is not null )
+			if ( BeepEffectPrefab.IsValid() )
 			{
-				BeepEffectPrefab.Clone( Transform.Position + Vector3.Up * 4 );
+				BeepEffectPrefab.Clone( Transform.Position + Vector3.Up * 4f );
 			}
 		}
 	}
