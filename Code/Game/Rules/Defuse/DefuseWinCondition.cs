@@ -3,7 +3,7 @@
 /// <summary>
 /// End the game after a fixed number of rounds.
 /// </summary>
-public sealed class DefuseWinCondition : Component, IGameEndCondition, IGameEndListener
+public sealed class DefuseWinCondition : Component, IGameEndCondition, IGameEndListener, IRoundStartListener
 {
 	[RequireComponent]
 	public RoundLimit RoundLimit { get; private set; }
@@ -20,17 +20,31 @@ public sealed class DefuseWinCondition : Component, IGameEndCondition, IGameEndL
 	/// How many rounds does one team need to win?
 	/// </summary>
 	public int RoundsToWin => ( RoundLimit.MaxRounds / 2 ) + 1;
+	public int RoundsToMatchPoint => ( RoundLimit.MaxRounds / 2 );
+
+	private int GetWonRounds( Team team )
+	{
+		return TeamScoring.RoundWinHistory.Count( x => x == team );
+	}
+
+	void IRoundStartListener.PostRoundStart()
+	{
+		if ( GetWonRounds( Team.Terrorist ) == RoundsToMatchPoint || GetWonRounds( Team.CounterTerrorist ) == RoundsToMatchPoint )
+		{
+			Facepunch.UI.Toast.Instance.Show( "Match Point", Facepunch.UI.ToastType.Generic );
+		}
+	}
 
 	public bool ShouldGameEnd()
 	{
-		if ( TeamScoring.RoundWinHistory.Count( x => x == Team.CounterTerrorist ) >= RoundsToWin )
+		if ( GetWonRounds( Team.CounterTerrorist ) >= RoundsToWin )
 		{
 			WinningTeam = Team.CounterTerrorist;
 			GameMode.Instance.ShowToast( "Operators Win!", Facepunch.UI.ToastType.CounterTerroristsWin );
 			return true;
 		}
 
-		if ( TeamScoring.RoundWinHistory.Count( x => x == Team.Terrorist ) >= RoundsToWin )
+		if ( GetWonRounds( Team.Terrorist ) >= RoundsToWin )
 		{
 			WinningTeam = Team.Terrorist;
 			GameMode.Instance.ShowToast( "Anarchists Win!", Facepunch.UI.ToastType.TerroristsWin );
