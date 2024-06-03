@@ -145,6 +145,29 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		snd.ListenLocal = Weapon?.PlayerController?.IsViewer ?? false;
 	}
 
+	private void CreateImpactEffects( Surface surface, Vector3 pos, Vector3 normal )
+	{
+		var decalPath = Game.Random.FromList( surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
+		if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalResource ) )
+		{
+			var decal = Game.Random.FromList( decalResource.Decals );
+
+			var gameObject = Scene.CreateObject();
+			gameObject.Transform.Position = pos;
+			gameObject.Transform.Rotation = Rotation.LookAt( -normal );
+
+			// Random rotation
+			gameObject.Transform.Rotation *= Rotation.FromAxis( Vector3.Forward, decal.Rotation.GetValue() );
+
+			var decalRenderer = gameObject.Components.Create<DecalRenderer>();
+			decalRenderer.Material = decal.Material;
+			decalRenderer.Size = new( decal.Width.GetValue(), decal.Height.GetValue(), decal.Depth.GetValue() );
+
+			// Creates a destruction component to destroy the gameobject after a while
+			gameObject.DestroyAsync( 3f );
+		}
+	}
+
 	/// <summary>
 	/// Shoot the gun!
 	/// </summary>
@@ -171,7 +194,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 				if ( !tr.Hit )
 					continue;
 
-				// CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
+				CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
 				DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
 
 				if ( tr.GameObject?.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } player )

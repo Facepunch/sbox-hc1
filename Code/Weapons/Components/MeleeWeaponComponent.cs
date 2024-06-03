@@ -49,16 +49,6 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 		Weapon?.ViewModel?.ModelRenderer.Set( "b_attack", true );
 	}
 
-	/// <summary>
-	/// Gets a surface from a trace.
-	/// </summary>
-	/// <param name="tr"></param>
-	/// <returns></returns>
-	private Surface GetSurfaceFromTrace( SceneTraceResult tr )
-	{
-		return tr.Surface;	
-	}
-
 	private void CreateImpactEffects( GameObject hitObject, Surface surface, Vector3 pos, Vector3 normal )
 	{
 		var decalPath = Game.Random.FromList( surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
@@ -100,7 +90,7 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 			}
 
 			DoEffects();
-			CreateImpactEffects( tr.GameObject, GetSurfaceFromTrace( tr ), tr.EndPosition, tr.Normal );
+			CreateImpactEffects( tr.GameObject, tr.Surface, tr.EndPosition, tr.Normal );
 
 			// Inflict damage on whatever we find.
 			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, false );
