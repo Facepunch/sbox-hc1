@@ -358,7 +358,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		if ( currentWeapon.IsValid() && currentWeapon.Tags.Has( "planting" ) )
 			IsCrouching = true;
 
-		if ( Input.Pressed( "Noclip" ) && ( DeveloperMenu.IsDeveloper || Game.IsEditor ) )
+		if ( Input.Pressed( "Noclip" ) && Game.IsEditor )
 		{
 			IsNoclipping = !IsNoclipping;
 		}
