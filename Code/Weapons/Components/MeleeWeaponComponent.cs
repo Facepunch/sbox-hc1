@@ -93,7 +93,7 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 			CreateImpactEffects( tr.GameObject, tr.Surface, tr.EndPosition, tr.Normal );
 
 			// Inflict damage on whatever we find.
-			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, null );
+			tr.GameObject.TakeDamage( BaseDamage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id );
 		}
 	}
 
