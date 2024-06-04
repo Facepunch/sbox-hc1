@@ -70,8 +70,11 @@ public partial class ViewModel : Component
 
 		var bone = ModelRenderer.SceneModel.GetBoneLocalTransform( "camera" );
 		var camera = Weapon.PlayerController.CameraGameObject;
-		camera.Transform.LocalPosition += bone.Position;
-		camera.Transform.LocalRotation *= bone.Rotation;
+
+		var scale = GameSettingsSystem.Current.ViewBob;
+
+		camera.Transform.LocalPosition += bone.Position * scale;
+		camera.Transform.LocalRotation *= bone.Rotation * scale;
 	}
 
 	void ApplyInertia()
@@ -118,7 +121,7 @@ public partial class ViewModel : Component
 		var wishLook = PlayerController.WishMove.Normal * 1f;
 		if ( Weapon?.Tags.Has( "aiming" ) ?? false ) wishLook = 0;
 
-		if ( PlayerController.IsSlowWalking ) moveLen *= 0.2f;
+		if ( PlayerController.IsSlowWalking || PlayerController.IsCrouching ) moveLen *= 0.2f;
 
 		lerpedWishLook = lerpedWishLook.LerpTo( wishLook, Time.Delta * 5.0f );
 
@@ -130,17 +133,6 @@ public partial class ViewModel : Component
 
 	private float FieldOfViewOffset = 0f;
 	private float TargetFieldOfView = 90f;
-
-	void ApplyStates()
-	{
-		var shootFn = Weapon.Components.Get<ShootWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
-		if ( shootFn.IsValid() && PlayerController.IsCrouching && shootFn.TimeSinceShoot > 0.25f )
-		{
-			localPosition += Vector3.Right * -2f;
-			localPosition += Vector3.Up * -1f;
-			localRotation *= Rotation.From( 0, -2, -18 );
-		}
-	}
 
 	void ApplyAnimationParameters()
 	{
@@ -192,7 +184,6 @@ public partial class ViewModel : Component
 		}
 		else
 		{
-			ApplyStates();
 			ApplyAnimationParameters();
 		}
 		
