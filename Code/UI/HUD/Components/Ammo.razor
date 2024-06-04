@@ -1,15 +1,12 @@
-@namespace Facepunch.UI
+﻿@namespace Facepunch.UI
 @inherits Panel
 @attribute [StyleSheet]
 
-@if (AmmoComponent.IsValid())
-{
-    <root class="flex row gap align-center justify-end" style="width: 100px;">
-        <label class="vital">@AmmoComponent.Ammo</label>
-        <separator />
-        <label class="important">@AmmoComponent.MaxAmmo</label>
-    </root>
-}
+<root class="flex row gap align-center justify-end" style="width: 100px;">
+    <label class="vital">@(AmmoComponent?.Ammo.ToString() ?? "∞")</label>
+    <separator />
+    <label class="important">@(AmmoComponent?.MaxAmmo.ToString() ?? "∞")</label>
+</root>
 
 @code
 {
@@ -25,6 +22,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Player, AmmoComponent?.Ammo);
+        return HashCode.Combine( Player, AmmoComponent?.Ammo, Player?.CurrentWeapon );
     }
 }
