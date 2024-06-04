@@ -6,7 +6,7 @@ using Facepunch;
 /// </summary>
 public sealed class TeamEliminated : Component, IRoundStartListener, IRoundEndCondition
 {
-	[RequireComponent] public TeamScoring TeamScoring { get; private set; }
+	[RequireComponent] public RoundBasedTeamScoring Scoring { get; private set; }
 
 	private bool _bothTeamsHadPlayers;
 
@@ -48,7 +48,7 @@ public sealed class TeamEliminated : Component, IRoundStartListener, IRoundEndCo
 			return false;
 		}
 
-		TeamScoring.RoundWinner = GetRoundWinner( ctsEliminated, tsEliminated );
+		Scoring.RoundWinner = GetRoundWinner( ctsEliminated, tsEliminated );
 
 		return true;
 	}

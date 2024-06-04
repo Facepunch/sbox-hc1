@@ -13,7 +13,7 @@ public sealed class BombDefusalScenario : Component,
 {
 	[RequireComponent] public RoundTimeLimit RoundTimeLimit { get; private set; }
 	[RequireComponent] public TeamEliminated TeamEliminated { get; private set; }
-	[RequireComponent] public TeamScoring TeamScoring { get; private set; }
+	[RequireComponent] public RoundBasedTeamScoring Scoring { get; private set; }
 
 	[Property, HostSync, Category( "Economy" )]
 	public int StartMoney { get; set; } = 800;
@@ -143,7 +143,7 @@ public sealed class BombDefusalScenario : Component,
 
 	void IRoundEndListener.PreRoundEnd()
 	{
-		if ( TeamScoring.RoundWinner == Team.Terrorist )
+		if ( Scoring.RoundWinner == Team.Terrorist )
 		{
 			GameUtils.GiveTeamIncome( Team.Terrorist, IsBombPlanted ? BombDetonatedTeamIncome : DefaultWinTeamIncome );
 			GameUtils.GiveTeamIncome( Team.CounterTerrorist, GetLossStreakBonus( Team.CounterTerrorist ) );
@@ -151,7 +151,7 @@ public sealed class BombDefusalScenario : Component,
 			IncrementLossStreak( Team.Terrorist, -1 );
 			IncrementLossStreak( Team.CounterTerrorist, 1 );
 		}
-		else if ( TeamScoring.RoundWinner == Team.CounterTerrorist )
+		else if ( Scoring.RoundWinner == Team.CounterTerrorist )
 		{
 			GameUtils.GiveTeamIncome( Team.Terrorist, GetLossStreakBonus( Team.Terrorist ) + (BombWasDefused ? BombPlantedTeamBonus : 0) );
 			GameUtils.GiveTeamIncome( Team.CounterTerrorist, BombWasDefused ? BombDefusedTeamIncome : DefaultWinTeamIncome );
@@ -176,13 +176,13 @@ public sealed class BombDefusalScenario : Component,
 
 		if ( BombWasDefused )
 		{
-			TeamScoring.RoundWinner = Team.CounterTerrorist;
+			Scoring.RoundWinner = Team.CounterTerrorist;
 			return true;
 		}
 
 		if ( BombHasDetonated )
 		{
-			TeamScoring.RoundWinner = Team.Terrorist;
+			Scoring.RoundWinner = Team.Terrorist;
 			return true;
 		}
 

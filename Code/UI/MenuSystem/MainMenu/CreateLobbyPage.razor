@@ -77,6 +77,8 @@
     {
         base.OnAfterTreeRender( firstTime );
 
+        if ( !firstTime ) return;
+
         GameModeDropDown.Options = GameModes
             .Select( x => new Option( x.Title, x ) )
             .ToList();

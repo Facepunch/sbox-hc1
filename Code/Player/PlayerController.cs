@@ -171,11 +171,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// </summary>
 	[HostSync] public bool IsFrozen { get; set; }
 
-	/// <summary>
-	/// If true, we can automatically respawn.
-	/// </summary>
-	public bool CanRespawn => GameMode.Instance.State is GameState.PreGame;
-
 	private Vector3 WishVelocity { get; set; }
 	public bool IsGrounded { get; set; }
 	public Vector3 WishMove { get; private set; }

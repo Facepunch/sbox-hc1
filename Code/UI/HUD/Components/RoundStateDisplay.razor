@@ -85,8 +85,8 @@
 
         if (GameMode.Instance?.Components.GetInDescendantsOrSelf<TeamScoring>() is { } teamScoring)
         {
-            MyTeamScore = teamScoring.GetTeamScore(MyTeam);
-            EnemyTeamScore = teamScoring.GetTeamScore(EnemyTeam);
+            MyTeamScore = teamScoring.Scores.GetValueOrDefault(MyTeam);
+            EnemyTeamScore = teamScoring.Scores.GetValueOrDefault(EnemyTeam);
         }
 
         MyTeamPlayers = GameUtils.GetPlayers(MyTeam);

@@ -36,7 +36,7 @@ public partial class PlayerController
 	{
 		if ( Networking.IsHost )
 		{
-			HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
+			HealthComponent.State = LifeState.Dead;
 			HealthComponent.HasHelmet = false;
 			HealthComponent.Armor = 0f;
 			Inventory.Clear();
@@ -71,29 +71,16 @@ public partial class PlayerController
 	{
 		Assert.True( Networking.IsHost );
 
-		if ( CanRespawn )
-		{
-			HealthComponent.Health = 100f;
-			HealthComponent.State = LifeState.Alive;
-			TimeSinceLastRespawn = 0f;
-			
-			if ( TeamComponent.Team is Team.Terrorist or Team.CounterTerrorist )
-				ResetBody();
-			
-			IsSpectating = false;
-		}
-		else
-		{
-			HealthComponent.State = CanRespawn ? LifeState.Respawning : LifeState.Dead;
-			HealthComponent.HasHelmet = false;
-			HealthComponent.Armor = 0f;
-			
-			GameObject.Tags.Set( "invis", true );
-			
-			CameraController.Mode = CameraMode.ThirdPerson;
-			IsSpectating = true;
-			InBuyMenu = false;
-		}
+		HealthComponent.State = LifeState.Dead;
+		HealthComponent.HasHelmet = false;
+		HealthComponent.Armor = 0f;
+		HealthComponent.RespawnState = RespawnState.None;
+
+		GameObject.Tags.Set( "invis", true );
+
+		CameraController.Mode = CameraMode.ThirdPerson;
+		IsSpectating = true;
+		InBuyMenu = false;
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
@@ -108,6 +95,7 @@ public partial class PlayerController
 		{
 			HealthComponent.Health = 100f;
 			HealthComponent.State = LifeState.Alive;
+			HealthComponent.RespawnState = RespawnState.None;
 		}
 		
 		TimeSinceLastRespawn = 0f;

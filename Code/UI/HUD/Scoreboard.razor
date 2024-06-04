@@ -38,7 +38,7 @@
 
                     @if ( GameMode.Instance.Components.GetInDescendantsOrSelf<TeamScoring>() is { } scoring )
                     {
-                        <label class="emphasis">@scoring.GetTeamScore(group.Key)</label>
+                        <label class="emphasis">@scoring.Scores.GetValueOrDefault(group.Key)</label>
 		            }
                 </span>
 

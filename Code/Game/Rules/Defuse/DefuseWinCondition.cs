@@ -24,7 +24,7 @@ public sealed class DefuseWinCondition : Component, IGameEndCondition, IGameEndL
 
 	private int GetWonRounds( Team team )
 	{
-		return TeamScoring.RoundWinHistory.Count( x => x == team );
+		return TeamScoring.Scores.GetValueOrDefault( team );
 	}
 
 	void IRoundStartListener.PostRoundStart()

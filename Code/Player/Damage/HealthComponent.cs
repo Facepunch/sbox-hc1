@@ -16,14 +16,15 @@ public partial class HealthComponent : Component, IRespawnable
 	[Property] public Action<float, float> OnHealthChanged { get; set; }
 
 	/// <summary>
-	/// How long does it take to respawn this object?
-	/// </summary>
-	public float RespawnTime => 5f;
-
-	/// <summary>
 	/// How long has it been since life state changed?
 	/// </summary>
-	private TimeSince TimeSinceLifeStateChanged = 1f;
+	public TimeSince TimeSinceLifeStateChanged { get; private set; } = 1f;
+
+	/// <summary>
+	/// Are we ready to respawn?
+	/// </summary>
+	[HostSync]
+	public RespawnState RespawnState { get; set; }
 
 	/// <summary>
 	/// How much to reduce damage by when we have armor.
@@ -73,7 +74,7 @@ public partial class HealthComponent : Component, IRespawnable
 				Health = 100f;
 				Respawnables.ToList().ForEach( x => x.Respawn() );
 				break;
-			case LifeState.Dead or LifeState.Respawning when oldValue == LifeState.Alive:
+			case LifeState.Dead:
 				Health = 0f;
 				Respawnables.ToList()
 					.ForEach( x => x.Kill() );
@@ -166,14 +167,6 @@ public partial class HealthComponent : Component, IRespawnable
 			}
 		}
 	}
-
-	protected override void OnUpdate()
-	{
-		if ( !Networking.IsHost ) return;
-		
-		if ( State == LifeState.Respawning && TimeSinceLifeStateChanged > RespawnTime )
-			State = LifeState.Alive;
-	}
 }
 
 
@@ -183,8 +176,14 @@ public partial class HealthComponent : Component, IRespawnable
 public enum LifeState
 {
 	Alive,
-	Respawning,
 	Dead
+}
+
+public enum RespawnState
+{
+	None,
+	CountingDown,
+	Ready
 }
 
 /// <summary>

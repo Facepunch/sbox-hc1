@@ -3,10 +3,14 @@
 /// <summary>
 /// Place players at spawn points matching their teams.
 /// </summary>
-public sealed class TeamSpawnAssigner : Component, IRoundStartListener
+public sealed class TeamSpawnAssigner : Component, IRoundStartListener, ISpawnAssigner
 {
+	private Dictionary<PlayerController, Transform> AssignedSpawns { get; } = new();
+
 	void IRoundStartListener.PreRoundStart()
 	{
+		AssignedSpawns.Clear();
+
 		foreach ( var team in GameUtils.Teams )
 		{
 			var spawns = GameUtils.GetSpawnPoints( team ).Shuffle();
@@ -26,8 +30,15 @@ public sealed class TeamSpawnAssigner : Component, IRoundStartListener
 
 			for ( var i = 0; i < players.Length; ++i )
 			{
-				players[i].Teleport( spawns[i % spawns.Count] );
+				AssignedSpawns[players[i]] = spawns[i % spawns.Count];
 			}
 		}
+	}
+
+	public Transform GetSpawnPoint( PlayerController player )
+	{
+		return AssignedSpawns.TryGetValue( player, out var spawn )
+			? spawn
+			: GameUtils.GetSpawnPoints( player.TeamComponent.Team ).Shuffle().First();
 	}
 }

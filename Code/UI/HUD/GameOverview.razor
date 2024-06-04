@@ -61,14 +61,15 @@
     HalfTimeTeamSwap TeamSwapper => GameMode.Instance?.Components.GetInDescendantsOrSelf<HalfTimeTeamSwap>();
     RoundLimit RoundLimit => GameMode.Instance?.Components.GetInDescendantsOrSelf<RoundLimit>();
     TeamScoring TeamScoring => GameMode.Instance?.Components.GetInDescendantsOrSelf<TeamScoring>();
+    RoundBasedTeamScoring RoundScoring => GameMode.Instance?.Components.GetInDescendantsOrSelf<RoundBasedTeamScoring>();
     DefuseWinCondition WinCondition => GameMode.Instance?.Components.GetInDescendantsOrSelf<DefuseWinCondition>();
     
     int WinningRound => WinCondition.RoundsToWin + TeamScoring.OpposingTeamScore;
 
     private Team GetWinner( int round )
     {
-        if ( round > TeamScoring.RoundWinHistory.Count() - 1 ) return Team.Unassigned;
-        return TeamScoring.RoundWinHistory[round];
+        if (round > RoundScoring.RoundWinHistory.Count - 1) return Team.Unassigned;
+        return RoundScoring.RoundWinHistory[round];
     }
 
     private string GetColor( int round )
@@ -80,6 +81,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( TeamScoring?.RoundWinHistory?.Count() ?? 0 );
+        return HashCode.Combine( RoundScoring?.RoundWinHistory?.Count() ?? 0 );
     }
 }

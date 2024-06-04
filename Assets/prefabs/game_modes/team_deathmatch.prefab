@@ -1,51 +1,51 @@
 {
   "RootObject": {
-    "__guid": "f4fe73a9-6aa7-4002-8b52-a120444c3473",
+    "__guid": "f7c25223-1ca5-4076-9d06-aa3c3c46f4a1",
     "Flags": 0,
-    "Name": "deathmatch",
+    "Name": "team_deathmatch",
     "Enabled": true,
     "NetworkMode": 1,
     "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "GameMode",
-        "__guid": "3d316172-22ea-48e3-b3c5-244ef04d8ba8",
+        "__guid": "5b253708-de7c-4c86-8893-b86fb4822642",
         "BuyAnywhere": true,
-        "Description": "Free-for-all with respawning.",
+        "Description": "",
         "MaxBalance": 16000,
         "State": "PreGame",
-        "Title": "Deathmatch"
+        "Title": "Team Deathmatch"
       },
       {
         "__type": "WaitForPlayers",
-        "__guid": "17acf21e-6519-464a-99de-9cebf256dd89",
+        "__guid": "66a0869b-6772-4b08-ba3e-5d01f5ae2c8a",
         "DurationSeconds": 60,
         "GameStartDelaySeconds": 5,
         "MinPlayerCount": 2
       },
       {
         "__type": "TeamAssigner",
-        "__guid": "4b0d1e68-abbe-488d-b6ed-de79d5710911",
+        "__guid": "852bbb9d-accd-43df-aed2-4d8c4aaa3456",
         "MaxTeamSize": 10
       },
       {
         "__type": "RoundStartPlayerSpawner",
-        "__guid": "635f68da-8885-4207-90be-61f3cd3ea900"
+        "__guid": "96cc4ea9-f578-41fa-9cb7-cf0979aa9bc2"
       },
       {
         "__type": "FreezeTime",
-        "__guid": "ebd72618-c298-4028-859b-53b50fabe382",
+        "__guid": "5011e642-13da-472a-a24d-acb34de22da0",
         "DurationSeconds": 5
       },
       {
         "__type": "RoundTimeLimit",
-        "__guid": "e82153f1-ceb3-4fd0-ac74-62e5b08fef72",
+        "__guid": "29713793-d4f7-40de-8048-8d618211ad1e",
         "DefaultWinningTeam": "Unassigned",
-        "TimeLimitSeconds": 150
+        "TimeLimitSeconds": 600
       },
       {
         "__type": "DefaultEquipment",
-        "__guid": "5a1f9f56-13f2-4c0b-8bbe-0142619e9d5c",
+        "__guid": "8a4d31c2-0d32-48a5-b750-103e691d4f3a",
         "Weapons": [
           "weapons/knife/knife.wpn",
           "weapons/usp/usp.wpn"
@@ -53,23 +53,37 @@
       },
       {
         "__type": "Facepunch.RadioManager",
-        "__guid": "dd9886aa-2706-4f9b-a28b-acceeb7f2374"
+        "__guid": "d07ebbb7-4475-429d-ab01-92d08abd8bfa"
       },
       {
         "__type": "PreRoundCleanup",
-        "__guid": "580e0f2e-59a9-4c0b-a944-22796c21f3af"
+        "__guid": "0fb1a48d-9355-43db-af96-e2e187612d2e"
       },
       {
         "__type": "Facepunch.BotManager",
-        "__guid": "daa55be9-e50a-4bb6-b22a-33faf081753c"
+        "__guid": "a7037fd4-d384-43dc-b789-9f40576d0945"
       },
       {
         "__type": "Facepunch.MusicManager",
-        "__guid": "b83c776a-c356-4817-8ce9-89426e2e4ec3"
+        "__guid": "a3c560da-f7e9-4289-b090-b2fe255f5907"
       },
       {
         "__type": "Facepunch.KillGameOnEnd",
-        "__guid": "4e466631-9e5d-476f-9153-0a7c8d9223fe"
+        "__guid": "8975525b-4453-4ed3-9abf-9828170b2878"
+      },
+      {
+        "__type": "PlayerAutoRespawner",
+        "__guid": "a083e7e9-43e7-4462-aff1-7f9f18a8737d",
+        "DisableOnGameStart": false,
+        "RespawnDelaySeconds": 3
+      },
+      {
+        "__type": "TeamScoring",
+        "__guid": "99ec3263-0644-4666-b10f-bf68c45712ba"
+      },
+      {
+        "__type": "TeamSpawnAssigner",
+        "__guid": "7dcee5c5-8cb4-45e1-a0c4-f9df96dc4f87"
       }
     ],
     "Children": []

@@ -29,8 +29,19 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 	protected override void OnAwake()
 	{
+		// Only stay enabled if host chose this game mode
+
 		if ( ActivePath is { } path && !path.Equals( GameObject.GetScenePath(), StringComparison.OrdinalIgnoreCase ) )
 		{
+			GameObject.Enabled = false;
+			return;
+		}
+
+		// Fallback for testing in editor - just use first active game mode
+
+		if ( Instance is { IsValid: true, Active: true, Scene: {} scene } && scene == Scene )
+		{
+			Log.Info( $"A GameMode is already active, disabling {GameObject.GetScenePath()}" );
 			GameObject.Enabled = false;
 			return;
 		}
