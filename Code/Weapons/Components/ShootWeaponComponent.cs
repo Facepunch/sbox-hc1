@@ -54,6 +54,11 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	[Property, Group( "Effects" )] public float MaxEffectsPlayDistance { get; set; } = 4194304f;
 
 	/// <summary>
+	/// How far will we trace away from a gunshot wound, to make blood splatters?
+	/// </summary>
+	[Property, Group( "Effects" )] public float BloodEjectDistance { get; set; } = 512f;
+
+	/// <summary>
 	/// Accessor for the aim ray.
 	/// </summary>
 	protected Ray WeaponRay => Weapon.PlayerController.AimRay;
@@ -129,8 +134,20 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		return p;
 	}
 
+	private record struct BloodDecal( Material Material, float Size, float Depth );
+
+	/// <summary>
+	/// Bit shitty, but it's something I want global across all guns
+	/// </summary>
+	private static BloodDecal[] AvailableDecals = new BloodDecal[] 
+	{
+		new BloodDecal( Material.Load( "materials/decals/blood1.vmat" ), 32f, 32f ),
+		new BloodDecal( Material.Load( "materials/decals/blood-impact.vmat" ), 12f, 32f ),
+		new BloodDecal( Material.Load( "materials/decals/blood-impact2.vmat" ), 12f, 32f ),
+	};
+
 	[Broadcast]
-	private void CreateBloodEffects( Vector3 pos, Vector3 normal )
+	private void CreateBloodEffects( Vector3 pos, Vector3 normal, Vector3 direction )
 	{
 		if ( !IsNearby( pos ) )
 			return;
@@ -143,6 +160,35 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 		var snd = Sound.Play( BloodImpactSound, pos );
 		snd.ListenLocal = Weapon?.PlayerController?.IsViewer ?? false;
+
+		var tr = Scene.Trace.Ray( pos, pos + direction * BloodEjectDistance )
+			.WithoutTags( "player" )
+			.Run();
+
+		if ( tr.Hit )
+		{
+			var decal = Game.Random.FromArray( AvailableDecals );
+			CreateDecal( decal.Material, tr.HitPosition - (tr.Direction * 5 ), tr.Normal, Game.Random.Float( 0, 360 ), decal.Size, decal.Depth, 5f );
+		}
+	}
+
+	private DecalRenderer CreateDecal( Material material, Vector3 pos, Vector3 normal, float rotation, float size, float depth, float destroyTime = 3f )
+	{
+		var gameObject = Scene.CreateObject();
+		gameObject.Transform.Position = pos;
+		gameObject.Transform.Rotation = Rotation.LookAt( -normal );
+
+		// Random rotation
+		gameObject.Transform.Rotation *= Rotation.FromAxis( Vector3.Forward, rotation );
+
+		var decalRenderer = gameObject.Components.Create<DecalRenderer>();
+		decalRenderer.Material = material;
+		decalRenderer.Size = new( size, size, depth );
+
+		// Creates a destruction component to destroy the gameobject after a while
+		gameObject.DestroyAsync( destroyTime );
+
+		return decalRenderer;
 	}
 
 	private void CreateImpactEffects( Surface surface, Vector3 pos, Vector3 normal )
@@ -152,19 +198,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		{
 			var decal = Game.Random.FromList( decalResource.Decals );
 
-			var gameObject = Scene.CreateObject();
-			gameObject.Transform.Position = pos;
-			gameObject.Transform.Rotation = Rotation.LookAt( -normal );
-
-			// Random rotation
-			gameObject.Transform.Rotation *= Rotation.FromAxis( Vector3.Forward, decal.Rotation.GetValue() );
-
-			var decalRenderer = gameObject.Components.Create<DecalRenderer>();
-			decalRenderer.Material = decal.Material;
-			decalRenderer.Size = new( decal.Width.GetValue(), decal.Height.GetValue(), decal.Depth.GetValue() );
-
-			// Creates a destruction component to destroy the gameobject after a while
-			gameObject.DestroyAsync( 3f );
+			CreateDecal( decal.Material, pos, normal, decal.Rotation.GetValue(), decal.Width.GetValue(), decal.Depth.GetValue() );
 		}
 	}
 
@@ -199,7 +233,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 				if ( tr.GameObject?.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } player )
 				{
-					CreateBloodEffects( tr.HitPosition, tr.Normal );
+					CreateBloodEffects( tr.HitPosition, tr.Normal, tr.Direction );
 				}
 
 				var damage = CalculateDamageFalloff( BaseDamage, tr.Distance );
