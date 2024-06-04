@@ -118,7 +118,7 @@ public partial class HealthComponent : Component, IRespawnable
 	[Broadcast]
 	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, string hitbox = "" )
 	{
-		if ( !string.IsNullOrEmpty( hitbox ) && hitbox.Contains( "head" )) )
+		if ( hitbox.Contains( "head" ) )
 		{
 			// Helmet negates headshot damage
 			if ( HasHelmet )
