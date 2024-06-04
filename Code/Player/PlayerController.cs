@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Facepunch;
 
-public partial class PlayerController : Component, IPawn, IRespawnable, IDamageListener
+public partial class PlayerController : Component, IPawn, IRespawnable, IDamageListener, Weapon.IDeploymentListener
 {
 	/// <summary>
 	/// Sync the player's steamid
@@ -193,8 +193,13 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <summary>
 	/// What weapon are we using?
 	/// </summary>
-	public Weapon CurrentWeapon => Components.GetAll<Weapon>( FindMode.EverythingInSelfAndDescendants ).FirstOrDefault( c => c.IsDeployed );
+	public Weapon CurrentWeapon { get; private set; }
 
+	void Weapon.IDeploymentListener.OnDeployed( Weapon weapon )
+	{
+		CurrentWeapon = weapon;
+	}
+	
 	[Authority]
 	private void SetCurrentWeapon( Guid weaponId )
 	{
@@ -211,13 +216,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 			return;
 		}
-		
-		foreach ( var w in Inventory.Weapons )
-		{
-			w.IsDeployed = false;
-		}
-	
-		weapon.IsDeployed = true;
+
+		weapon.Deploy();
 	}
 
 	public void ClearViewModel()

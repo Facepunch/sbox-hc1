@@ -54,7 +54,8 @@ public partial class Weapon : Component, Component.INetworkListener
 	/// <summary>
 	/// Is this weapon currently deployed by the player?
 	/// </summary>
-	[Sync] public bool IsDeployed { get; set; }
+	[Sync, Change( nameof( OnIsDeployedPropertyChanged ))]
+	public bool IsDeployed { get; private set; }
 	private bool _wasDeployed { get; set; }
 
 	/// <summary>
@@ -119,6 +120,37 @@ public partial class Weapon : Component, Component.INetworkListener
 	}
 
 	/// <summary>
+	/// Deploy this weapon.
+	/// </summary>
+	[Authority]
+	public void Deploy()
+	{
+		if ( IsDeployed )
+			return;
+		
+		// We must first holster all other weapons.
+		if ( PlayerController.IsValid() )
+		{
+			foreach ( var weapon in PlayerController.Inventory.Weapons )
+				weapon.Holster();
+		}
+		
+		IsDeployed = true;
+	}
+	
+	/// <summary>
+	/// Holster this weapon.
+	/// </summary>
+	[Authority]
+	public void Holster()
+	{
+		if ( !IsDeployed )
+			return;
+		
+		IsDeployed = false;
+	}
+
+	/// <summary>
 	/// Allow weapons to override holdtypes at any notice.
 	/// </summary>
 	/// <returns></returns>
@@ -162,8 +194,8 @@ public partial class Weapon : Component, Component.INetworkListener
 	{
 		return false;
 	}
-
-	protected override void OnUpdate()
+	
+	private void OnIsDeployedPropertyChanged( bool oldValue, bool newValue )
 	{
 		UpdateDeployedState();
 	}
@@ -247,22 +279,25 @@ public partial class Weapon : Component, Component.INetworkListener
 	
 	protected virtual void OnDeployed()
 	{
-		if ( PlayerController is not null && PlayerController.IsViewer && PlayerController.CameraController.Mode != CameraMode.ThirdPerson )
+		if ( PlayerController.IsValid() && PlayerController.IsViewer && PlayerController.CameraController.Mode != CameraMode.ThirdPerson )
 			CreateViewModel();
 		
-		ModelRenderer.Enabled = true;
+		if ( ModelRenderer.IsValid() )
+			ModelRenderer.Enabled = true;
 		
-		var listeners = Components.GetAll<IDeploymentListener>();
+		var listeners = GameObject.Root.Components.GetAll<IDeploymentListener>();
 		foreach ( var listener in listeners )
 			listener.OnDeployed( this );
 	}
 
 	protected virtual void OnHolstered()
 	{
-		ModelRenderer.Enabled = false;
+		if ( ModelRenderer.IsValid() )
+			ModelRenderer.Enabled = false;
+		
 		ClearViewModel();
 
-		var listeners = Components.GetAll<IDeploymentListener>();
+		var listeners = GameObject.Root.Components.GetAll<IDeploymentListener>();
 		foreach ( var listener in listeners )
 			listener.OnHolstered( this );
 	}
