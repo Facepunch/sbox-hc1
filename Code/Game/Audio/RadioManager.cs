@@ -39,7 +39,7 @@ public partial class RadioManager : Component,
 		return GameUtils.GetPlayers( team ).Where( x => x.HealthComponent.State == LifeState.Alive ).Count();
 	}
 
-	void IKillListener.OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor, bool isHeadshot )
+	void IKillListener.OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor, string hitbox = "" )
 	{
 		var victimTeam = victim.GameObject.GetTeam();
 		RadioSounds.Play( victimTeam, RadioSound.TeammateDies );

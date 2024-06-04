@@ -60,14 +60,14 @@
     // 10px base size
     float BaseElementSize => 10;
 
-    public void Trigger( float damage, Component component, Vector3 position, bool isHeadshot )
+    public void Trigger( float damage, Component component, Vector3 position, string hitbox = "" )
     {
         if ( component is HealthComponent hc )
         {
             var isKill = hc.Health <= 0f;
             TimeUntilHitmarkerRemove = isKill ? 0.5f : 0.2f;
             Hitmarker.SetClass( "is-kill", isKill );
-            Hitmarker.SetClass( "is-headshot", isHeadshot );
+            Hitmarker.SetClass( "is-headshot", hitbox.Contains( "head" ) );
         }
     }
 

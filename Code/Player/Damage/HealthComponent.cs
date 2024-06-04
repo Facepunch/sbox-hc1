@@ -143,7 +143,7 @@ public partial class HealthComponent : Component, IRespawnable
 	}
 
 	[Broadcast]
-	private void BroadcastKill( Guid killerComponent, Guid victimComponent, float damage, Vector3 position, Vector3 force = default, Guid inflictorComponent = default, bool isHeadshot = false )
+	private void BroadcastKill( Guid killerComponent, Guid victimComponent, float damage, Vector3 position, Vector3 force = default, Guid inflictorComponent = default, string hitbox = "" )
 	{
 		foreach ( var listener in Scene.GetAllComponents<IKillListener>() )
 		{
@@ -154,16 +154,16 @@ public partial class HealthComponent : Component, IRespawnable
 				position,
 				force,
 				Scene.Directory.FindComponentByGuid( inflictorComponent ),
-				isHeadshot );
+				hitbox );
 		}
 	}
 
 	[Property] public float HeadshotMultiplier { get; set; } = 2f;
 
 	[Broadcast]
-	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, bool isHeadshot = false )
+	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, string hitbox = "" )
 	{
-		if ( isHeadshot )
+		if ( hitbox.Contains( "head" ) )
 		{
 			// Helmet negates headshot damage
 			if ( HasHelmet )
@@ -187,7 +187,7 @@ public partial class HealthComponent : Component, IRespawnable
 				State = LifeState.Dead;
 
 				// Broadcast this kill (for feed)
-				BroadcastKill( attackerId, Id, damage, position, force, inflictorId, isHeadshot );
+				BroadcastKill( attackerId, Id, damage, position, force, inflictorId, hitbox );
 			}
 		}
 
@@ -197,7 +197,7 @@ public partial class HealthComponent : Component, IRespawnable
 		var receivers = GameObject.Root.Components.GetAll<IDamageListener>();
 		foreach ( var x in receivers )
 		{
-			x.OnDamageTaken( damage, position, force, attackingComponent, isHeadshot );
+			x.OnDamageTaken( damage, position, force, attackingComponent, hitbox );
 		}
 
 		if ( attackingComponent.IsValid() )
@@ -205,7 +205,7 @@ public partial class HealthComponent : Component, IRespawnable
 			var givers = attackingComponent.GameObject.Root.Components.GetAll<IDamageListener>();
 			foreach ( var x in givers )
 			{
-				x.OnDamageGiven( damage, position, force, this, isHeadshot );
+				x.OnDamageGiven( damage, position, force, this, hitbox );
 			}
 		}
 	}

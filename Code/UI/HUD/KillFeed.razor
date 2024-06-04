@@ -16,7 +16,7 @@
                 {
                     <div class="icon" style="background-image: url( @weapon.Resource.Icon );" />
 
-                    @if ( entry.IsHeadshot )
+                    @if ( entry.Hitbox.Contains( "head" ) )
                     {
                         <Icon class="headshot" File="/ui/headshot.png" size="32" />
                     }
@@ -41,7 +41,7 @@
 
 @code
 {
-    public record Entry( Component Killer, Component Victim, Component Inflictor, bool IsHeadshot, RealTimeSince TimeSinceAdded )
+    public record Entry( Component Killer, Component Victim, Component Inflictor, string Hitbox, RealTimeSince TimeSinceAdded )
     {
         public bool IsLocal => 
             (GameUtils.GetPlayerFromComponent(Killer)?.IsLocallyControlled ?? false) || 
@@ -52,9 +52,9 @@
 
     private float Lifetime => 10f;
 
-    public void OnPlayerKilled( Component killer, Component victim, Component inflictor, bool isHeadshot )
+    public void OnPlayerKilled( Component killer, Component victim, Component inflictor, string hitbox = "" )
     {
-        var entry = new Entry( killer, victim, inflictor, isHeadshot, 0 );
+        var entry = new Entry( killer, victim, inflictor, hitbox, 0 );
         Entries.Add( entry );
         StateHasChanged();
     }

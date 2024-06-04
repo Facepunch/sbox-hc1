@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Facepunch;
 
 [Icon( "track_changes" )]
@@ -240,8 +242,14 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 				var damage = CalculateDamageFalloff( BaseDamage, tr.Distance );
 
+				var hitbox = "";
+				if ( tr.Hitbox is not null )
+				{
+					hitbox = string.Join( " ", tr.Hitbox.Tags.TryGetAll() );
+				}
+
 				// Inflict damage on whatever we find.
-				tr.GameObject.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, tr.Hitbox?.Tags?.Has( "head" ) ?? false );
+				tr.GameObject.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, hitbox );
 				count++;
 			}
 		}

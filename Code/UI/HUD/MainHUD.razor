@@ -34,8 +34,8 @@
     public KillFeed KillFeed { get; set; }
 
 
-    public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null, bool isHeadshot = false )
+    public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null, string hitbox = "" )
     {
-        KillFeed.OnPlayerKilled( killer, victim, inflictor, isHeadshot );
+        KillFeed.OnPlayerKilled( killer, victim, inflictor, hitbox );
     }
 }

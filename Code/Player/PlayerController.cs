@@ -686,15 +686,15 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <param name="position"></param>
 	/// <param name="force"></param>
 	/// <param name="target"></param>
-	/// <param name="isHeadshot"></param>
-	void IDamageListener.OnDamageGiven( float damage, Vector3 position, Vector3 force, Component target, bool isHeadshot )
+	/// <param name="hitbox"></param>
+	void IDamageListener.OnDamageGiven( float damage, Vector3 position, Vector3 force, Component target, string hitbox = "" )
 	{
 		Log.Info( $"{this} damaged {target} for {damage}" );
 
 		// Did we cause this damage?
 		if ( this == GameUtils.Viewer )
 		{
-			Crosshair.Instance?.Trigger( damage, target, position, isHeadshot );
+			Crosshair.Instance?.Trigger( damage, target, position, hitbox );
 		}
 	}
 
@@ -705,8 +705,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <param name="position"></param>
 	/// <param name="force"></param>
 	/// <param name="attacker"></param>
-	/// <param name="isHeadshot"></param>
-	void IDamageListener.OnDamageTaken( float damage, Vector3 position, Vector3 force, Component attacker, bool isHeadshot )
+	/// <param name="hitbox"></param>
+	void IDamageListener.OnDamageTaken( float damage, Vector3 position, Vector3 force, Component attacker, string hitbox = "" )
 	{
 		Log.Info( $"{this} took {damage} damage!" );
 
