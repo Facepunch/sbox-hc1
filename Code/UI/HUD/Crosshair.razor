@@ -72,7 +72,7 @@
     }
 
     float VelocityScale => MathF.Abs( Player.CharacterController.Velocity.Length ).LerpInverse( 0, 700f, true );
-    float VelocityScaleFactor => 3000;
+    float VelocityScaleFactor => 175;
 
     public float Distance => GetDistance();
 
@@ -87,10 +87,9 @@
 
         if ( Recoil.IsValid() )
         {
-            dist += Recoil.Current.AsVector3().Length * 1024;
+            dist += Recoil.Current.AsVector3().Length * 175;
         }
-
-        return dist.Clamp( 0, 70 );
+        return dist;
     }
 
     Length? GetLength()
