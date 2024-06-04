@@ -16,11 +16,11 @@
     <div class="layout flex-grow" />
     
     <div class="layout padding-insane column gap" style="width: 30%;">
-        <label class="text">Create a lobby</label>
-        <select @ref=GameModeDropDown
+        <label class="text">Game mode</label>
+        <OptionSelect @ref=GameModeDropDown
                 text="@SelectedGameMode?.Title"
                 value.changed=@GameModeDropDown_ValueChanged>
-        </select>
+        </OptionSelect>
     </div>
 
     <div class="layout flex-grow" />
@@ -52,7 +52,7 @@
         }
     }
 
-    public DropDown GameModeDropDown { get; private set; }
+    public OptionSelect GameModeDropDown { get; private set; }
 
     public void OnNavigationOpen()
     {

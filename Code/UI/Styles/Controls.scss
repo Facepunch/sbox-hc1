@@ -1,0 +1,164 @@
+
+.hc1
+{
+    Popup
+    {
+        flex-direction: column;
+        transition: all 0.1s ease-out;
+        position: absolute;
+        z-index: 1000;
+        min-height: 20px;
+        min-width: 10px;
+        overflow: scroll;
+        pointer-events: all;
+
+        &.medium
+        {
+            max-width: 300px;
+        }
+
+        &.center-horizontal
+        {
+            transform-origin: top center;
+        }
+
+        &.below-center
+        {
+            transform: translateX( -50% );
+            transform-origin: 50% 0%;
+        }
+
+        &.above-left
+        {
+            transform-origin: 0% 100%;
+        }
+
+        &.left
+        {
+            transform-origin: 100% 50%;
+            transform: translate( 00% -50% );
+        }
+
+        &:intro
+        {
+            transform: scale( 0 );
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        &:outro
+        {
+            opacity: 0;
+            transition: all 0.1s ease-in;
+            margin-top: 50px;
+            pointer-events: none;
+        }
+
+        &.below-stretch
+        {
+            transform-origin: 0% 0%;
+
+            &:intro
+            {
+                transform: scaleY( 0.1 );
+            }
+        }
+
+        > .canvas
+        {
+            flex-direction: column;
+        }
+
+        .information
+        {
+            padding: 16px;
+            font-size: 14px;
+            opacity: 0.5;
+        }
+
+        .button
+        {
+            background-color: transparent;
+            border-radius: 0;
+            font-size: 18px;
+            padding: 8px 12px;
+            padding-right: 24px;
+            min-height: 10px;
+            border: 0;
+            flex-shrink: 0;
+            gap: 16px;
+            cursor: pointer;
+            color: white;
+            font-weight: 400;
+            white-space: nowrap;
+
+            .iconpanel
+            {
+                color: #eee;
+                flex-grow: 0;
+                flex-shrink: 0;
+            }
+
+            .button-label
+            {
+                flex-grow: 1;
+                flex-shrink: 0;
+            }
+
+            .count
+            {
+                flex-grow: 0;
+                flex-shrink: 0;
+                margin-left: 32px;
+                text-align: right;
+            }
+
+            &:hover, &.active, &:active
+            {
+                color: #fff;
+                background-color: white;
+
+                .iconpanel
+                {
+                    color: #fff;
+                }
+            }
+
+            &.disabled
+            {
+                pointer-events: none;
+                opacity: 0.2;
+            }
+        }
+    }
+}
+
+OptionSelect
+{
+    gap: 16px;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: $button-standard-padding;
+    background-color: rgba( black, 0.5 );
+    backdrop-filter: $blur;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    border-radius: 2px;
+
+    &:hover
+    {
+        background-color: white;
+    }
+
+    &:hover, &.selected
+    {
+        background-color: rgba( white, 1 );
+        sound-in: ui.button.over;
+
+        label, iconpanel
+        {
+            color: black;
+            text-shadow: 1px 1px 2px rgba( black, 0 );
+        }
+    }
+}
