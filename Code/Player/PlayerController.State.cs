@@ -44,7 +44,11 @@ public partial class PlayerController
 		if ( enableRagdoll )
 			EnableRagdoll();
 		else
+		{
 			GameObject.Tags.Set( "invis", true );
+			Body.SetRagdoll( false );
+			Body.DamageTakenForce = Vector3.Zero;
+		}
 
 		if ( IsProxy || IsBot )
 			return;
@@ -76,6 +80,8 @@ public partial class PlayerController
 		HealthComponent.RespawnState = RespawnState.None;
 
 		GameObject.Tags.Set( "invis", true );
+		Body.SetRagdoll( false );
+		Body.DamageTakenForce = Vector3.Zero;
 
 		CameraController.Mode = CameraMode.ThirdPerson;
 		IsSpectating = true;
@@ -87,8 +93,7 @@ public partial class PlayerController
 	{
 		Log.Info( $"Respawn( {GameObject.Name} ({GetPlayerName()}, {TeamComponent.Team}) )" );
 
-		if ( TeamComponent.Team is Team.Terrorist or Team.CounterTerrorist )
-			ResetBody();
+		ResetBody();
 
 		if ( Networking.IsHost )
 		{
@@ -128,7 +133,7 @@ public partial class PlayerController
 		Body.SetRagdoll( true );
 		PlayerBoxCollider.Enabled = false;
 	}
-	
+
 	private void ResetBody()
 	{
 		Body.SetRagdoll( false );

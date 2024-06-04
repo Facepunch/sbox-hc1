@@ -73,6 +73,9 @@
         {
           "__type": "DefaultEquipment",
           "__guid": "463af880-b1a7-4de0-931f-58e97ed62ff2",
+          "Armor": 0,
+          "Helmet": false,
+          "RefillAmmo": true,
           "Weapons": [
             "weapons/knife/knife.wpn",
             "weapons/usp/usp.wpn",
@@ -86,6 +89,19 @@
         {
           "__type": "Facepunch.BotManager",
           "__guid": "4cb2b22f-95b9-486a-b0ef-b71051627e00"
+        },
+        {
+          "__type": "RandomSpawnAssigner",
+          "__guid": "6815ffa8-dc2f-4e9a-8ac6-06b7b9d0bec2",
+          "MaxDistance": 2048,
+          "MinDistance": 512,
+          "SpawnTags": []
+        },
+        {
+          "__type": "PlayerAutoRespawner",
+          "__guid": "1256da46-f61e-4b97-842e-a3a226fdea06",
+          "DisableOnGameStart": false,
+          "RespawnDelaySeconds": 1
         }
       ]
     },
@@ -1807,7 +1823,7 @@
       "__guid": "7d175a49-e17c-4844-9962-5c609039a793",
       "Flags": 0,
       "Name": "Unassigned Spawn",
-      "Position": "44.42921,159.1817,-0.000002560753",
+      "Position": "44.42922,159.1817,40.90297",
       "Rotation": "0,0,-0.9817033,0.1904173",
       "Enabled": true,
       "NetworkMode": 2,
@@ -2306,7 +2322,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-06-04T11:37:37.2063603\u002B01:00",
+  "LastSaved": "2024-06-04T19:45:20.624378\u002B01:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
