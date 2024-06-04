@@ -405,6 +405,15 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	private void ApplyMovement()
 	{
 		var cc = CharacterController;
+
+		CheckLadder();
+
+		if ( IsTouchingLadder )
+		{
+			LadderMove();
+			return;
+		}
+
 		if ( cc.IsOnGround )
 		{
 			cc.Velocity = cc.Velocity.WithZ( 0 );
@@ -541,6 +550,67 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		if ( IsSlowWalking ) return 100f;
 		if ( IsCrouching ) return 100f;
 		return GetWalkSpeed();
+	}
+
+	bool IsTouchingLadder = false;
+	Vector3 LadderNormal;
+
+	public virtual void CheckLadder()
+	{
+		var cc = CharacterController;
+		var wishvel = new Vector3( WishMove.x.Clamp( -1f, 1f ), WishMove.y.Clamp( -1f, 1f ), 0 );
+		wishvel *= EyeAngles.WithPitch( 0 ).ToRotation();
+		wishvel = wishvel.Normal;
+
+		if ( IsTouchingLadder )
+		{
+			if ( Input.Pressed( "jump" ) )
+			{
+				cc.Velocity = LadderNormal * 100.0f;
+				IsTouchingLadder = false;
+
+				return;
+
+			}
+			else if ( cc.GroundObject != null && LadderNormal.Dot( wishvel ) > 0 )
+			{
+				IsTouchingLadder = false;
+
+				return;
+			}
+		}
+
+		const float ladderDistance = 1.0f;
+		var start = Transform.Position;
+		Vector3 end = start + (IsTouchingLadder ? (LadderNormal * -1.0f) : wishvel) * ladderDistance;
+
+		var pm = Scene.Trace.Ray( start, end )
+					.Size( cc.BoundingBox.Mins, cc.BoundingBox.Maxs )
+					.WithTag( "ladder" )
+					.IgnoreGameObjectHierarchy( GameObject )
+					.Run();
+
+		// Gizmo.Draw.LineBBox( cc.BoundingBox.Translate( end ) );
+
+		IsTouchingLadder = false;
+
+		if ( pm.Hit )
+		{
+			IsTouchingLadder = true;
+			LadderNormal = pm.Normal;
+		}
+	}
+
+	public virtual void LadderMove()
+	{
+		CharacterController.IsOnGround = false;
+
+		var velocity = WishVelocity;
+		float normalDot = velocity.Dot( LadderNormal );
+		var cross = LadderNormal * normalDot;
+		CharacterController.Velocity = (velocity - cross) + (-normalDot * LadderNormal.Cross( Vector3.Up.Cross( LadderNormal ).Normal ));
+
+		CharacterController.Move();
 	}
 
 	public void BuildWishInput()
