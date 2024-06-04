@@ -11,6 +11,11 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	[Property] public GameObject PlayerPrefab { get; set; }
 
 	/// <summary>
+	/// A list of connections that map to their player.
+	/// </summary>
+	public static Dictionary<Connection, PlayerController> PlayerConnections { get; set; } = new();
+
+	/// <summary>
 	/// Is this game multiplayer? If not, we won't create a lobby.
 	/// </summary>
 	[Property] public bool IsMultiplayer { get; set; } = true;
@@ -45,6 +50,22 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 			return;
 
 		OnPlayerJoined( playerComponent, channel );
+
+		if ( !playerComponent.IsBot )
+		{
+			PlayerConnections[channel] = playerComponent;
+		}
+	}
+
+	public void OnDisconnected( Connection channel )
+	{
+		if ( PlayerConnections.TryGetValue( channel, out var player ) )
+		{
+			// Have to check if it's not a bot before removing
+			if ( player.IsBot ) return;
+
+			PlayerConnections.Remove( channel );	
+		}
 	}
 
 	public void OnPlayerJoined( PlayerController player, Connection channel )
