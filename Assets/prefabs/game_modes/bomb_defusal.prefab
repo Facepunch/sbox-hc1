@@ -30,7 +30,8 @@
       },
       {
         "__type": "TeamSpawnAssigner",
-        "__guid": "d62349f5-1fb4-4984-8893-b7d24469f326"
+        "__guid": "d62349f5-1fb4-4984-8893-b7d24469f326",
+        "SpawnTags": []
       },
       {
         "__type": "RoundStartPlayerSpawner",
@@ -69,6 +70,9 @@
       {
         "__type": "DefaultEquipment",
         "__guid": "5a1f9f56-13f2-4c0b-8bbe-0142619e9d5c",
+        "Armor": 0,
+        "Helmet": false,
+        "RefillAmmo": true,
         "Weapons": [
           "weapons/knife/knife.wpn",
           "weapons/usp/usp.wpn"
@@ -93,13 +97,15 @@
       },
       {
         "__type": "TeamScoring",
-        "__guid": "82c20899-ff89-4bec-bb8a-56c6d422e66c",
-        "CounterTerroristScore": 0,
-        "TerroristScore": 0
+        "__guid": "82c20899-ff89-4bec-bb8a-56c6d422e66c"
       },
       {
         "__type": "Facepunch.RadioManager",
         "__guid": "dd9886aa-2706-4f9b-a28b-acceeb7f2374"
+      },
+      {
+        "__type": "RoundBasedTeamScoring",
+        "__guid": "3c836768-800a-435e-b031-cc02147b5611"
       },
       {
         "__type": "PreRoundCleanup",
