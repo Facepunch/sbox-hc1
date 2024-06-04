@@ -1,0 +1,32 @@
+@namespace Facepunch.UI
+@inherits Panel
+
+<root>
+	@foreach ( var marker in Scene.GetAllComponents<IMarkerObject>() )
+	{
+		<Marker @Object=@marker />
+	}
+</root>
+
+@code
+{
+	public IEnumerable<Marker> Markers => Children.OfType<Marker>();
+
+	RealTimeSince sinceRefreshedMarkers = 0;
+
+	void Refresh()
+	{
+		sinceRefreshedMarkers = 0;
+		StateHasChanged();
+	}
+
+	public override void Tick()
+	{
+		if (sinceRefreshedMarkers > 0.25f) Refresh();
+
+		foreach ( var marker in Markers )
+		{
+			marker.Reposition();
+		}
+	}
+}

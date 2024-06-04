@@ -21,14 +21,4 @@ public partial class PlayerMarker : Component, IMarkerObject
 			DisplayText = Player.GetPlayerName()
 		};
 	}
-
-	protected override void OnEnabled()
-	{
-		( this as IMarkerObject ).Register();
-	}
-
-	protected override void OnDisabled()
-	{
-		( this as IMarkerObject ).UnRegister();
-	}
 }

@@ -29,18 +29,4 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 	/// Custom marker panel
 	/// </summary>
 	Type IMarkerObject.MarkerPanelTypeOverride => typeof( UI.GrenadeMarkerPanel );
-
-	protected override void OnEnabled()
-	{
-		(this as IMarkerObject).Register();
-
-		base.OnEnabled();
-	}
-
-	protected override void OnDisabled()
-	{
-		(this as IMarkerObject).UnRegister();
-
-		base.OnEnabled();
-	}
 }
