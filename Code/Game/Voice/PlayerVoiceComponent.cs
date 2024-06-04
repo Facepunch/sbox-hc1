@@ -9,10 +9,9 @@ public partial class PlayerVoiceComponent : Voice
 		Filter = Scene.GetAllComponents<IVoiceFilter>().FirstOrDefault();
 	}
 
-	protected override bool ShouldExclude( Connection listener )
+	protected override IEnumerable<Connection> ExcludeFilter()
 	{
-		if ( Filter is null ) return false;
-
-		return Filter.ShouldExclude( listener );
+		if ( Filter is null ) return base.ExcludeFilter();
+		return Filter.GetExcludeFilter();
 	}
 }

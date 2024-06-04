@@ -8,7 +8,6 @@ public interface IVoiceFilter
 	/// <summary>
 	/// Should we exclude this potential listener from hearing our voice?
 	/// </summary>
-	/// <param name="listener"></param>
 	/// <returns></returns>
-	bool ShouldExclude( Connection listener );
+	IEnumerable<Connection> GetExcludeFilter();
 }

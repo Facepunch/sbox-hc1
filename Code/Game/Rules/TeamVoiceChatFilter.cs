@@ -2,12 +2,10 @@ namespace Facepunch;
 
 public partial class TeamVoiceChatFilter : Component, IVoiceFilter
 {
-	bool IVoiceFilter.ShouldExclude( Connection listener )
+	IEnumerable<Connection> IVoiceFilter.GetExcludeFilter()
 	{
-		if ( GameNetworkManager.PlayerConnections.TryGetValue( listener, out var player ) )
-		{
-			return !player.IsFriendly( GameUtils.LocalPlayer );
-		}
-		return false;
+		return Scene.GetAllComponents<PlayerController>()
+			.Where( x => !x.IsFriendly( GameUtils.LocalPlayer ) )
+			.Select( x => x.Network.OwnerConnection );
 	}
 }
