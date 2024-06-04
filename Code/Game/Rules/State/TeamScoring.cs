@@ -7,7 +7,7 @@ public sealed class TeamScoring : Component, IGameStartListener, IRoundStartList
 	[Property, JsonIgnore] public int TerroristScore => GetTeamScore( Team.Terrorist );
 	[Property, JsonIgnore] public int CounterTerroristScore => GetTeamScore( Team.CounterTerrorist );
 
-	public int OpposingTeamScore => GetTeamScore( GameUtils.LocalPlayer.GameObject.GetTeam().GetOpponents() );
+	public int OpposingTeamScore => GetTeamScore( GameUtils.LocalPlayer?.GameObject.GetTeam().GetOpponents() ?? Team.Unassigned );
 
 	[HostSync] public Team RoundWinner { get; set; }
 
