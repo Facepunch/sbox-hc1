@@ -134,16 +134,18 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		return p;
 	}
 
-	private record struct BloodDecal( Material Material, float Size, float Depth );
+	private record struct BloodDecal( Material Material, RangedFloat Size, float Depth );
 
 	/// <summary>
 	/// Bit shitty, but it's something I want global across all guns
 	/// </summary>
-	private static BloodDecal[] AvailableDecals = new BloodDecal[] 
+	private static BloodDecal[] AvailableDecals => new BloodDecal[]
 	{
-		new BloodDecal( Material.Load( "materials/decals/blood1.vmat" ), 32f, 32f ),
-		new BloodDecal( Material.Load( "materials/decals/blood-impact.vmat" ), 12f, 32f ),
-		new BloodDecal( Material.Load( "materials/decals/blood-impact2.vmat" ), 12f, 32f ),
+		new BloodDecal( Cloud.Material( "jase.bloodsplatter08" ), new RangedFloat( 32, 96 ), 10f ),
+		new BloodDecal( Cloud.Material( "jase.bloodsplatter07" ), new RangedFloat( 32, 96 ), 10f ),
+		new BloodDecal( Cloud.Material( "jase.bloodsplatter06" ), new RangedFloat( 32, 96 ), 10f ),
+		new BloodDecal( Cloud.Material( "jase.bloodsplatter05" ), new RangedFloat( 32, 96 ), 10f ),
+		new BloodDecal( Cloud.Material( "jase.bloodsplatter04" ), new RangedFloat( 32, 96 ), 10f ),
 	};
 
 	[Broadcast]
@@ -168,7 +170,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		if ( tr.Hit )
 		{
 			var decal = Game.Random.FromArray( AvailableDecals );
-			CreateDecal( decal.Material, tr.HitPosition - (tr.Direction * 5 ), tr.Normal, Game.Random.Float( 0, 360 ), decal.Size, decal.Depth, 5f );
+			CreateDecal( decal.Material, tr.HitPosition - (tr.Direction * 2 ), tr.Normal, Game.Random.Float( 0, 360 ), decal.Size.GetValue(), decal.Depth, 5f );
 		}
 	}
 
