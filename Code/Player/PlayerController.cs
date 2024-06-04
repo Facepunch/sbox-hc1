@@ -337,15 +337,15 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <returns></returns>
 	private float GetFriction()
 	{
+		if ( !IsGrounded ) return 0.1f;
 		if ( IsSlowWalking ) return SlowWalkFriction;
 		if ( IsCrouching ) return CrouchingFriction;
-		return !CharacterController.IsOnGround ? 0.1f : BaseFriction;
+		return BaseFriction;
 	}
 
 	private void ApplyAcceleration()
 	{
-		if ( !IsGrounded )
-			CharacterController.Acceleration = AirAcceleration;
+		if ( !IsGrounded ) CharacterController.Acceleration = AirAcceleration;
 		else if ( IsSlowWalking ) CharacterController.Acceleration = SlowWalkAcceleration;
 		else if ( IsCrouching ) CharacterController.Acceleration = CrouchingAcceleration;
 		else
