@@ -72,32 +72,18 @@ public partial class TeamComponent : Component
 	/// </summary>
 	[Property, Group( "Actions" )] public Action<Team, Team> OnTeamChanged { get; set; }
 
-	private Team InternalTeam;
-
 	/// <summary>
 	/// The team this player is on.
 	/// </summary>
-	[Property, HostSync( Query = true ), Group( "Setup" )]
-	public Team Team
-	{
-		get => InternalTeam;
-		set
-		{
-			if ( InternalTeam == value )
-				return;
-
-			var before = InternalTeam;
-			InternalTeam = value;
-			TeamChanged( before, InternalTeam );
-		}
-	}
+	[Property, Group( "Setup" ), HostSync, Change( nameof( OnTeamPropertyChanged ))]
+	public Team Team { get; set; }
 
 	/// <summary>
-	/// Called when <see cref="Team"/> changes
+	/// Called when <see cref="Team"/> changes across the network.
 	/// </summary>
 	/// <param name="before"></param>
 	/// <param name="after"></param>
-	private void TeamChanged( Team before, Team after )
+	private void OnTeamPropertyChanged( Team before, Team after )
 	{
 		OnTeamChanged?.Invoke( before, after );
 	}

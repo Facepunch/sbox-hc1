@@ -66,13 +66,8 @@ public partial class GameUtils
 	public static PlayerController GetPlayerFromComponent( Component component )
 	{
 		if ( component is PlayerController player ) return player;
-
-		if ( component?.GameObject?.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } foundPlayer )
-		{
-			return foundPlayer;
-		}
-
-		return null;
+		if ( !component.IsValid() ) return null;
+		return !component.GameObject.IsValid() ? null : component.GameObject.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants );
 	}
 
 	public static Weapon GetWeaponFromComponent( Component inflictor )

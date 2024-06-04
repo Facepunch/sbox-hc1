@@ -228,6 +228,8 @@ public partial class Weapon : Component, Component.INetworkListener
 			return;
 
 		var snd = Sound.Play( DeploySound, Transform.Position );
+		if ( !snd.IsValid() ) return;
+		
 		snd.ListenLocal = !IsProxy;
 	}
 

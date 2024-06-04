@@ -5,11 +5,6 @@ namespace Facepunch;
 /// </summary>
 public partial class HealthComponent : Component, IRespawnable
 {
-	private float InternalArmor = 0f;
-	private float InternalHealth = 100f;
-	private bool InternalHasHelmet = false;
-	private LifeState InternalState = LifeState.Alive;
-
 	/// <summary>
 	/// Are we in god mode?
 	/// </summary>
@@ -23,7 +18,7 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// How long does it take to respawn this object?
 	/// </summary>
-	public float RespawnTime => 5;
+	public float RespawnTime => 5f;
 
 	/// <summary>
 	/// How long has it been since life state changed?
@@ -43,83 +38,43 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// What's our health?
 	/// </summary>
-	[HostSync( Query = true ), Property, ReadOnly]
-	public float Health
-	{
-		get => InternalHealth;
-		set
-		{
-			var old = InternalHealth;
-			if ( old == value ) return;
+	[Property, ReadOnly, HostSync, Change( nameof( OnHealthPropertyChanged ))]
+	public float Health { get; set; }
 
-			if ( IsGodMode ) value = InternalHealth;
-			InternalHealth = value;
-			HealthChanged( old, InternalHealth );
-		}
-	}
+	[Property, ReadOnly, HostSync]
+	public float Armor { get; set; }
 
-	[HostSync( Query = true ), Property, ReadOnly]
-	public float Armor
-	{
-		get => InternalArmor;
-		set
-		{
-			var old = InternalArmor;
-			if ( old == value ) return;
-			InternalArmor = value;
-		}
-	}
-
-	[HostSync( Query = true ), Property, ReadOnly]
-	public bool HasHelmet
-	{
-		get => InternalHasHelmet;
-		set
-		{
-			var old = InternalHasHelmet;
-			if ( old == value ) return;
-			InternalHasHelmet = value;
-		}
-	}
+	[Property, ReadOnly, HostSync]
+	public bool HasHelmet { get; set; }
 
 	/// <summary>
 	/// What's our life state?
 	/// </summary>
-	[HostSync( Query = true ), Property, ReadOnly, Group( "Life State" )]
-	public LifeState State
-	{
-		get => InternalState;
-		set
-		{
-			var old = InternalState;
-			if ( old == value ) return;
-
-			InternalState = value;
-			TimeSinceLifeStateChanged = 0f;
-			LifeStateChanged( old, InternalState );
-		}
-	}
+	[Property, ReadOnly, Group( "Life State" ), HostSync, Change( nameof( OnStatePropertyChanged )) ]
+	public LifeState State { get; set; }
 
 	/// <summary>
-	/// Called when Health is changed.
+	/// Called when <see cref="Health"/> is changed across the network.
 	/// </summary>
 	/// <param name="oldValue"></param>
 	/// <param name="newValue"></param>
-	protected void HealthChanged( float oldValue, float newValue )
+	protected void OnHealthPropertyChanged( float oldValue, float newValue )
 	{
 		OnHealthChanged?.Invoke( oldValue, newValue );
 	}
 
-	protected void LifeStateChanged( LifeState oldValue, LifeState newValue )
+	protected void OnStatePropertyChanged( LifeState oldValue, LifeState newValue )
 	{
+		TimeSinceLifeStateChanged = 0f;
+		
 		switch ( newValue )
 		{
 			case LifeState.Alive:
-				InternalHealth = 100f;
+				Health = 100f;
 				Respawnables.ToList().ForEach( x => x.Respawn() );
 				break;
 			case LifeState.Dead or LifeState.Respawning when oldValue == LifeState.Alive:
-				InternalHealth = 0;
+				Health = 0f;
 				Respawnables.ToList()
 					.ForEach( x => x.Kill() );
 				break;
@@ -179,10 +134,12 @@ public partial class HealthComponent : Component, IRespawnable
 		{
 			// Let armor try its hand
 			damage = CalculateArmorDamage( damage );
-			Health -= damage;
+
+			if ( !IsGodMode )
+				Health -= damage;
 
 			// Did we die?
-			if ( Health <= 0 && State == LifeState.Alive )
+			if ( Health <= 0f && State == LifeState.Alive )
 			{
 				State = LifeState.Dead;
 
@@ -215,9 +172,7 @@ public partial class HealthComponent : Component, IRespawnable
 		if ( !Networking.IsHost ) return;
 		
 		if ( State == LifeState.Respawning && TimeSinceLifeStateChanged > RespawnTime )
-		{
 			State = LifeState.Alive;
-		}
 	}
 }
 

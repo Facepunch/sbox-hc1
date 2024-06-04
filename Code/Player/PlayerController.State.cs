@@ -124,13 +124,15 @@ public partial class PlayerController
 
 	public void Teleport( Transform transform )
 	{
+		Assert.True( Networking.IsHost );
 		Teleport( transform.Position, transform.Rotation );
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Authority( NetPermission.HostOnly )]
 	public void Teleport( Vector3 position, Rotation rotation )
 	{
 		Transform.World = new( position, rotation );
+		Transform.ClearInterpolation();
 		EyeAngles = rotation.Angles();
 	}
 	
