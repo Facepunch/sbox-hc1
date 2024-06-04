@@ -26,18 +26,18 @@
         Instance = this;
     }
 
-    public void Show( string status, ToastType type = ToastType.Generic )
+    public void Show( string status, ToastType type = ToastType.Generic, float duration = 5f )
     {
         Status = status;
         Type = type;
-        TimeSinceActivated = 0;
+        TimeUntilHide = duration;
     }
 
     private string Status { get; set; } = "";
     private ToastType Type { get; set; } = ToastType.Generic;
 
-    private RealTimeSince TimeSinceActivated { get; set; } = 100f;
-    private bool IsActive => TimeSinceActivated < 5f;
+    private RealTimeUntil TimeUntilHide { get; set; }
+    private bool IsActive => TimeUntilHide > 0f;
 
     protected override int BuildHash()
     {
