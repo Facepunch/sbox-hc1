@@ -11,9 +11,9 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 	/// </summary>
 	MarkerFrame IMarkerObject.MarkerFrame => new MarkerFrame()
 	{
-		DisplayText = "GRENADE!",
+		DisplayText = null,
 		Position = Transform.Position,
-		Rotation = Transform.Rotation,
+		Rotation = Rotation.Identity,
 		MaxDistance = 512f,
 	};
 
@@ -23,5 +23,24 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 			Explosion.AtPoint( Transform.Position, DamageRadius, MaxDamage, ThrowerId, Id );
 		
 		base.Explode();
+	}
+
+	/// <summary>
+	/// Custom marker panel
+	/// </summary>
+	Type IMarkerObject.MarkerPanelTypeOverride => typeof( UI.GrenadeMarkerPanel );
+
+	protected override void OnEnabled()
+	{
+		(this as IMarkerObject).Register();
+
+		base.OnEnabled();
+	}
+
+	protected override void OnDisabled()
+	{
+		(this as IMarkerObject).UnRegister();
+
+		base.OnEnabled();
 	}
 }
