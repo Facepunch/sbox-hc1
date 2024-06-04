@@ -10,10 +10,10 @@
       {
         "__type": "Facepunch.TimedDestroyComponent",
         "__guid": "942876b9-56a3-4eed-acb1-06626d99a974",
-        "Time": 10,
+        "Time": 30,
         "TimeUntilDestroy": {
-          "Relative": -8360.491,
-          "Passed": 8360.491,
+          "Relative": -1530.1854,
+          "Passed": 1530.1854,
           "Fraction": 1
         }
       },
@@ -179,6 +179,28 @@
             "Rate": 0
           }
         ]
+      },
+      {
+        "__guid": "c888b11b-c181-4b04-817a-126311456b95",
+        "Flags": 0,
+        "Name": "Object",
+        "Rotation": "0,0.7071068,0,0.7071068",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.DecalRenderer",
+            "__guid": "156d5787-bde5-4cff-9cd5-de9d25869915",
+            "CutoffAngle": 60,
+            "CutoffAngleSoftness": 5,
+            "Material": "materials/decals/decal_scorchmark/grenade_scorchmark.vmat",
+            "Mod2XBlending": false,
+            "Size": "128,128,32",
+            "TintColor": "1,1,1,1",
+            "TriPlanar": false
+          }
+        ]
       }
     ]
   },
@@ -186,6 +208,8 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.grenade_scorchmark"
+  ],
   "__version": 1
 }
