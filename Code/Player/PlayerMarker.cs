@@ -7,8 +7,6 @@ public partial class PlayerMarker : Component, IMarkerObject
 	/// </summary>
 	[RequireComponent] PlayerController Player { get; set; }
 
-	bool IMarkerObject.ShouldShowMarker => !(Player as IPawn).IsPossessed && Player.HealthComponent.State == LifeState.Alive;
-
 	/// <summary>
 	/// Custom marker panel
 	/// </summary>

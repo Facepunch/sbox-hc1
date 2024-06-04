@@ -17,8 +17,6 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 		MaxDistance = 512f,
 	};
 
-	bool IMarkerObject.ShouldShowMarker => true;
-
 	protected override void Explode()
 	{
 		if ( Networking.IsHost )

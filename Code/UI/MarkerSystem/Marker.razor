@@ -1,13 +1,13 @@
 @namespace Facepunch.UI
 @inherits Panel
 
+@if ( CustomPanel is not null )
+    return;
+
+@if ( IsBehind )
+    return;
+
 <root>
-    @if ( CustomPanel is not null )
-        return;
-
-    @if ( IsBehind )
-        return;
-
     <label>
         @Frame.DisplayText
     </label>

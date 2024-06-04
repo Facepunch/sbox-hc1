@@ -15,11 +15,6 @@ public interface IMarkerObject : IValid
 	MarkerFrame MarkerFrame { get; }
 
 	/// <summary>
-	/// Should we show the marker?
-	/// </summary>
-	bool ShouldShowMarker { get; }
-
-	/// <summary>
 	/// Are we overriding the type here?
 	/// </summary>
 	Type MarkerPanelTypeOverride { get => null; }

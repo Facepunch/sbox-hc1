@@ -6,9 +6,11 @@ public partial class MarkerSystem : Panel
 
 	public static HashSet<Marker> Markers { get; set; } = new();
 
+
 	public MarkerSystem()
 	{
 		Instance = this;
+		RegisterAll();
 	}
 
 	public override void Tick()
@@ -19,15 +21,34 @@ public partial class MarkerSystem : Panel
 		}
 	}
 
+	/// <summary>
+	/// We might make this piece of UI too late, so fetch all the markers
+	/// </summary>
+	private static void RegisterAll()
+	{
+		foreach ( var obj in Game.ActiveScene.GetAllComponents<IMarkerObject>() )
+		{
+			Register( obj );
+		}
+	}
+
 	public static void Register( IMarkerObject obj )
 	{
+		if ( Instance is null )
+			return;
+
+		if ( Markers.FirstOrDefault( x => x.Object == obj ) is { } found )
+			return;
+
 		var marker = Instance.AddChild<Marker>();
-		marker.Object = obj;
-
-		Markers.Add( marker );
-
-		// Immediately repostion before tick
-		marker.Reposition();
+		if ( marker.IsValid() )
+		{
+			Log.Info( marker );
+			marker.Object = obj;
+			Markers.Add( marker );
+			// Immediately repostion before tick
+			marker.Reposition();
+		}
 	}
 
 	public static void UnRegister( IMarkerObject obj )
