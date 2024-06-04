@@ -71,8 +71,8 @@
         }
     }
 
-    float VelocityScale => MathF.Abs( Player.CharacterController.Velocity.Length ).LerpInverse( 0, 700f, true );
-    float VelocityScaleFactor => 175;
+    float VelocityScale => MathF.Abs( Player.CharacterController.Velocity.Length ).LerpInverse( 0, 250f, true );
+    float VelocityScaleFactor => 75;
 
     public float Distance => GetDistance();
 
