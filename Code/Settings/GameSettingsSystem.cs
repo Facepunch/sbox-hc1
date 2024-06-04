@@ -22,8 +22,8 @@ public class GameSettings
 	[Title( "Radio" ), Description( "" ), Group( "Volume" ), Icon( "grid_view" ), Range( 0, 100, 5 )]
 	public float RadioVolume { get; set; } = 100;
 
-	[Title( "View Bob" ), Group( "Game" ), Range( 0, 1, 0.1f )]
-	public float ViewBob { get; set; } = 1f;
+	[Title( "View Bob" ), Group( "Game" ), Range( 0, 100, 5f )]
+	public float ViewBob { get; set; } = 100f;
 }
 
 public partial class GameSettingsSystem

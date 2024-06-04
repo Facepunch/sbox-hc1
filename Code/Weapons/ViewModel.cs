@@ -71,7 +71,7 @@ public partial class ViewModel : Component
 		var bone = ModelRenderer.SceneModel.GetBoneLocalTransform( "camera" );
 		var camera = Weapon.PlayerController.CameraGameObject;
 
-		var scale = GameSettingsSystem.Current.ViewBob;
+		var scale = GameSettingsSystem.Current.ViewBob / 100f;
 
 		camera.Transform.LocalPosition += bone.Position * scale;
 		camera.Transform.LocalRotation *= bone.Rotation * scale;
