@@ -11,6 +11,11 @@ public partial class HealthComponent : Component, IRespawnable
 	private LifeState InternalState = LifeState.Alive;
 
 	/// <summary>
+	/// Are we in god mode?
+	/// </summary>
+	[Property] public bool IsGodMode { get; set; } = false;
+
+	/// <summary>
 	/// An action (mainly for ActionGraphs) to respond to when a GameObject's health changes.
 	/// </summary>
 	[Property] public Action<float, float> OnHealthChanged { get; set; }
@@ -47,6 +52,7 @@ public partial class HealthComponent : Component, IRespawnable
 			var old = InternalHealth;
 			if ( old == value ) return;
 
+			if ( IsGodMode ) value = InternalHealth;
 			InternalHealth = value;
 			HealthChanged( old, InternalHealth );
 		}
