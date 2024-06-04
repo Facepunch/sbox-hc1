@@ -102,6 +102,9 @@ public class RadioSounds : GameResource
 	/// <param name="sound"></param>
 	public static void Play( Team team, string category, string sound )
 	{
+		if ( GameUtils.LocalPlayer.HealthComponent.State != LifeState.Alive )
+			return;
+
 		// Only send this message to members of the specified team
 		using ( Rpc.FilterInclude( GameUtils.GetPlayers( team ).Select( x => x.Network.OwnerConnection ) ) )
 		{
