@@ -8,6 +8,10 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 	/// </summary>
 	[Property] public List<WeaponData> Weapons { get; set; }
 
+	[Property] public int Armor { get; set; }
+	[Property] public bool Helmet { get; set; }
+	[Property] public bool RefillAmmo { get; set; } = true;
+
 	Task IPlayerSpawnListener.OnPlayerSpawn( PlayerController player )
 	{
 		if ( Weapons is null ) return Task.CompletedTask;
@@ -21,6 +25,14 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 		}
 
 		player.Inventory.SwitchToBestWeapon();
+
+		player.HealthComponent.Armor = Math.Max( player.HealthComponent.Armor, Armor );
+		player.HealthComponent.HasHelmet |= Helmet;
+
+		if ( RefillAmmo )
+		{
+			player.Inventory.RefillAmmo();
+		}
 
 		return Task.CompletedTask;
 	}

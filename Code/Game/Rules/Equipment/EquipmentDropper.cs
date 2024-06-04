@@ -23,5 +23,7 @@ public partial class EquippmentDropper : Component, IKillListener
 		{
 			player.Inventory.DropWeapon( currentWeapon.Id );
 		}
+
+		player.Inventory.Clear();
 	}
 }

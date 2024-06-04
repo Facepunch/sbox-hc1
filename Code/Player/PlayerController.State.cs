@@ -39,7 +39,6 @@ public partial class PlayerController
 			HealthComponent.State = LifeState.Dead;
 			HealthComponent.HasHelmet = false;
 			HealthComponent.Armor = 0f;
-			Inventory.Clear();
 		}
 
 		if ( enableRagdoll )

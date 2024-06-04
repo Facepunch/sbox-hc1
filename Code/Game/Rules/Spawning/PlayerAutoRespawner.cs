@@ -34,8 +34,7 @@ public sealed class PlayerAutoRespawner : Component, IGameStartListener
 
 					using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
 					{
-						GameMode.Instance.ShowStatusText( "Respawning in..." );
-						GameMode.Instance.ShowCountDownTimer( Time.Now - player.HealthComponent.TimeSinceLifeStateChanged, RespawnDelaySeconds );
+						GameMode.Instance.ShowToast( "Respawning...", duration: RespawnDelaySeconds );
 					}
 
 					break;
@@ -49,7 +48,6 @@ public sealed class PlayerAutoRespawner : Component, IGameStartListener
 
 						if ( GameMode.Instance.Components.GetInDescendantsOrSelf<ISpawnAssigner>() is { } spawnAssigner )
 						{
-							Log.Info( $"Found spawn assigner" );
 							player.Teleport( spawnAssigner.GetSpawnPoint( player ) );
 						}
 

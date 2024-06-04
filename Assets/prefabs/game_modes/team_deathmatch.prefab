@@ -46,6 +46,8 @@
       {
         "__type": "DefaultEquipment",
         "__guid": "8a4d31c2-0d32-48a5-b750-103e691d4f3a",
+        "Armor": 100,
+        "Helmet": true,
         "Weapons": [
           "weapons/knife/knife.wpn",
           "weapons/usp/usp.wpn"
@@ -82,8 +84,17 @@
         "__guid": "99ec3263-0644-4666-b10f-bf68c45712ba"
       },
       {
-        "__type": "TeamSpawnAssigner",
-        "__guid": "7dcee5c5-8cb4-45e1-a0c4-f9df96dc4f87"
+        "__type": "TeamDeathmatchScoring",
+        "__guid": "0a8b9540-6d9f-423f-9534-d7d845d98d8f"
+      },
+      {
+        "__type": "RandomSpawnAssigner",
+        "__guid": "069c8ba2-37c7-404b-b97e-7d5facefdab0",
+        "MaxDistance": 2048,
+        "MinDistance": 512,
+        "SpawnTags": [
+          "deathmatch"
+        ]
       }
     ],
     "Children": []

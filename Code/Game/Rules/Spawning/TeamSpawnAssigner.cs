@@ -1,10 +1,16 @@
 ﻿using Facepunch;
 
 /// <summary>
-/// Place players at spawn points matching their teams.
+/// Assign a spawn point for each player at the start of each round, based on their team.
 /// </summary>
 public sealed class TeamSpawnAssigner : Component, IRoundStartListener, ISpawnAssigner
 {
+	/// <summary>
+	/// Use spawns that include at least one of these tags.
+	/// </summary>
+	[Property, Title( "Tags" )]
+	public List<string> SpawnTags { get; private set; } = new();
+
 	private Dictionary<PlayerController, Transform> AssignedSpawns { get; } = new();
 
 	void IRoundStartListener.PreRoundStart()
@@ -13,7 +19,7 @@ public sealed class TeamSpawnAssigner : Component, IRoundStartListener, ISpawnAs
 
 		foreach ( var team in GameUtils.Teams )
 		{
-			var spawns = GameUtils.GetSpawnPoints( team ).Shuffle();
+			var spawns = GameUtils.GetSpawnPoints( team, Tags.ToArray() ).Shuffle();
 
 			if ( spawns.Count < 1 )
 			{

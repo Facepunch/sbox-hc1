@@ -56,6 +56,18 @@ public partial class PlayerInventory : Component
 		}
 	}
 
+	[Authority( NetPermission.HostOnly )]
+	public void RefillAmmo()
+	{
+		foreach ( var wpn in Weapons )
+		{
+			if ( wpn.Components.Get<AmmoComponent>( FindMode.EnabledInSelfAndDescendants ) is { } ammo )
+			{
+				ammo.Ammo = ammo.MaxAmmo;
+			}
+		}
+	}
+
 	[Broadcast]
 	public void DropWeapon( Guid weaponId )
 	{
