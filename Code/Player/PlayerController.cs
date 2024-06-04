@@ -303,8 +303,14 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 				Body.Transform.Rotation = Rotation.Lerp( Body.Transform.Rotation, targetAngle, Time.Delta * 10.0f );
 			}
 		}
-		
+
+		var wasGrounded = IsGrounded;
 		IsGrounded = cc.IsOnGround;
+
+		if ( IsGrounded != wasGrounded )
+		{
+			GroundedChanged( wasGrounded, IsGrounded );
+		}
 
 		if ( AnimationHelper.IsValid() )
 		{
@@ -329,6 +335,27 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	{
 		AnimationHelper?.TriggerJump();
 		OnJump?.Invoke();
+	}
+
+	private void GroundedChanged( bool wasOnGround, bool isOnGround )
+	{
+		if ( !wasOnGround && isOnGround )
+		{
+			var vel = PreviousVelocity.z;
+			var jumpFromPos = JumpPosition;
+			var positionNow = Transform.Position;
+
+			// jumped up somehow?
+			if ( positionNow.z >= jumpFromPos.z ) return;
+
+			var fallDamageScale = 125;
+			var zDist = MathF.Abs( positionNow.z - jumpFromPos.z );
+
+			var scale = zDist.LerpInverse( 0, 500f, true );
+			if ( scale < 0.35f ) return;
+
+			GameObject.TakeDamage( fallDamageScale * scale, Transform.Position, vel, Id, Id );
+		}
 	}
 
 	/// <summary>
@@ -401,6 +428,9 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		Outline.InsideColor = Color.Transparent;
 		Outline.ObscuredColor = TeamComponent.Team.GetColor();
 	}
+
+	private Vector3 PreviousVelocity;
+	Vector3 JumpPosition;
 
 	private void ApplyMovement()
 	{
@@ -478,6 +508,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		if ( !IsLocallyControlled )
 			return;
 
+		PreviousVelocity = cc.Velocity;
+
 		UpdateUse();
 		UIUpdate();
 		BuildWishInput();
@@ -486,6 +518,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 		if ( cc.IsOnGround && !IsFrozen && !InMenu && Input.Pressed( "Jump" ) )
 		{
+			JumpPosition = Transform.Position;
 			cc.Punch( Vector3.Up * JumpPower * 1f );
 			BroadcastPlayerJumped();
 		}
