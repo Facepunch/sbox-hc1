@@ -22,6 +22,9 @@ public class GameSettings
 	[Title( "Radio" ), Description( "" ), Group( "Volume" ), Icon( "grid_view" ), Range( 0, 100, 5 )]
 	public float RadioVolume { get; set; } = 100;
 
+	[Title( "Voice" ), Description( "" ), Group( "Volume" ), Icon( "grid_view" ), Range( 0, 100, 5 )]
+	public float VoiceVolume { get; set; } = 100;
+
 	[Title( "View Bob" ), Group( "Game" ), Range( 0, 100, 5f )]
 	public float ViewBob { get; set; } = 100f;
 }
@@ -52,8 +55,9 @@ public partial class GameSettingsSystem
 		channel[1].Volume = Current.SFXVolume / 100;
 		channel[2].Volume = Current.UIVolume / 100;
 		channel[3].Volume = Current.RadioVolume / 100;
+		channel[4].Volume = Current.VoiceVolume / 100;
 
-		FileSystem.Data.WriteJson<GameSettings>( FilePath, Current );
+		FileSystem.Data.WriteJson( FilePath, Current );
 	}
 
 	public static void Load()
