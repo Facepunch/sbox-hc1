@@ -1,0 +1,40 @@
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root class="">
+    @foreach (var voice in VoiceList.Where( x => CanDisplay( x ) ) )
+    {
+        <div class="row">
+            <Icon class="square rounded shrink-0" File="/ui/chat/radio.png" size="24" style="transform: scale( @GetAmplitudeScale( voice ) )" />
+            <PlayerPanel Player=@GetPlayer( voice ) />
+        </div>
+    }
+
+</root>
+
+@code
+{
+    public IEnumerable<Voice> VoiceList => Scene.GetAllComponents<Voice>();
+
+    private PlayerController GetPlayer( Voice voice )
+    {
+        return voice.Components.Get<PlayerController>();
+    }
+
+    private bool CanDisplay( Voice voice )
+    {
+        return voice.LastPlayed < 0.25f;
+    }
+
+    private string GetAmplitudeScale( Voice voice )
+    {
+        var scale = 0.5f + ( voice.Amplitude * 2.365f );
+        return ( scale ).ToString( "0.#" );
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( Time.Now );
+    }
+}
