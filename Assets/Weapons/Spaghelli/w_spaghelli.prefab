@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "fa3e6e17-cbc7-4997-873c-8f6b7933872c",
+    "__guid": "f251ac10-702e-4889-b1d2-4953d0d3ae76",
     "Flags": 0,
     "Name": "w_spaghelli",
     "Tags": "player",
@@ -10,13 +10,13 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "43638200-fe47-44b4-a345-b2704a274a1a",
+        "__guid": "136c49ad-109b-4c2c-a8a6-b19aab60af86",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "HoldType": "Shotgun",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "065e246b-3444-4eb9-8515-dac73a22d53a",
-          "go": "3693527c-53e3-40b5-a5d1-5e3de3fafe08",
+          "component_id": "d8ca842a-b62d-4060-8f52-e16b9d975295",
+          "go": "324aa28d-ed8d-4976-a107-94337b59a293",
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "weapons/spaghelli/spaghelli.wpn",
@@ -24,12 +24,12 @@
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "5c7df344-5611-4b9d-b8d0-9692ac2d552b"
+        "__guid": "105311c3-9d34-4a34-8032-df89c898cd50"
       }
     ],
     "Children": [
       {
-        "__guid": "3693527c-53e3-40b5-a5d1-5e3de3fafe08",
+        "__guid": "324aa28d-ed8d-4976-a107-94337b59a293",
         "Flags": 0,
         "Name": "Model",
         "Position": "6.886,0,-7.335",
@@ -41,7 +41,7 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "065e246b-3444-4eb9-8515-dac73a22d53a",
+            "__guid": "d8ca842a-b62d-4060-8f52-e16b9d975295",
             "BodyGroups": 3,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_shotgun_spaghellim4/w_spaghellim4.vmdl",
@@ -52,7 +52,7 @@
         ]
       },
       {
-        "__guid": "774b2848-5f47-4934-9e99-817faaf52011",
+        "__guid": "a0ea0f3e-7b90-4337-97e8-0b1e127962c9",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -61,18 +61,18 @@
         "Components": [
           {
             "__type": "Facepunch.AmmoComponent",
-            "__guid": "3403b27d-69d7-4a0c-b1ba-077301fb7f6a",
+            "__guid": "1af44458-c7c7-4d52-b8ed-a20b840f678b",
             "Ammo": 6,
             "HasAmmo": true,
             "MaxAmmo": 6
           },
           {
             "__type": "Facepunch.ShootWeaponComponent",
-            "__guid": "f9e2879d-5bdf-4662-b7f4-534f1a05e6d1",
+            "__guid": "9a339e0e-060c-433b-98d4-0eabfb66d108",
             "AmmoComponent": {
               "_type": "component",
-              "component_id": "3403b27d-69d7-4a0c-b1ba-077301fb7f6a",
-              "go": "774b2848-5f47-4934-9e99-817faaf52011",
+              "component_id": "1af44458-c7c7-4d52-b8ed-a20b840f678b",
+              "go": "a0ea0f3e-7b90-4337-97e8-0b1e127962c9",
               "component_type": "AmmoComponent"
             },
             "BaseDamage": 8,
@@ -97,9 +97,9 @@
               }
             ],
             "BloodEjectDistance": 512,
-            "BulletCount": 8,
+            "BulletCount": 10,
             "BulletSize": 1,
-            "BulletSpread": 0.13,
+            "BulletSpread": 0.1,
             "DryFireDelay": 1,
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
             "FireRate": 175,
@@ -113,7 +113,7 @@
             "MaxRicochetAngle": 45,
             "MuzzleFlashPrefab": {
               "_type": "gameobject",
-              "prefab": "prefabs/weapon_effects/pistol_muzzleflash.prefab"
+              "prefab": "prefabs/weapon_effects/shotgun_muzzleflash.prefab"
             },
             "PlayerVelocityLimit": 300,
             "RequiresAllInputActions": false,
@@ -124,11 +124,11 @@
           },
           {
             "__type": "Facepunch.ReloadWeaponComponent",
-            "__guid": "6fb05fe7-4455-427e-8ebc-3beae7670619",
+            "__guid": "6f937656-66a6-4590-b25c-8bf383c4aa96",
             "AmmoComponent": {
               "_type": "component",
-              "component_id": "3403b27d-69d7-4a0c-b1ba-077301fb7f6a",
-              "go": "774b2848-5f47-4934-9e99-817faaf52011",
+              "component_id": "1af44458-c7c7-4d52-b8ed-a20b840f678b",
+              "go": "a0ea0f3e-7b90-4337-97e8-0b1e127962c9",
               "component_type": "AmmoComponent"
             },
             "EmptyReloadSounds": {},
@@ -146,8 +146,8 @@
           },
           {
             "__type": "Facepunch.RecoilWeaponComponent",
-            "__guid": "ec50bd16-2766-43a8-8c2c-9272225148e4",
-            "HorizontalSpread": "5.00,-5.00,1",
+            "__guid": "a34aa137-9474-4c22-92d4-4491616f033c",
+            "HorizontalSpread": "3.00,-3.00,1",
             "PlayerVelocityLimit": 200,
             "RecoilResetTime": 0.3,
             "VelocitySpreadScale": 0.5,
