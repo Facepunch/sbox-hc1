@@ -31,25 +31,38 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 		return aim * MinDistance / dist;
 	}
 
-	private float ScoreSpawnPoint( Transform spawn, IReadOnlyList<Transform> players )
+	private float ScoreSpawnPoint( Transform spawn, IReadOnlyList<Transform> allPlayers, IReadOnlyList<Transform> enemyPlayers )
 	{
-		if ( players.Count == 0 )
+		if ( allPlayers.Count == 0 )
 		{
 			return 0f;
 		}
 
-		var minDist = MathF.Sqrt( players.Min( x => (x.Position - spawn.Position).LengthSquared ) );
-
+		var minDist = MathF.Sqrt( allPlayers.Min( x => (x.Position - spawn.Position).LengthSquared ) );
 		var distScore = minDist < MinDistance ? minDist / MinDistance : minDist > MaxDistance ? MaxDistance / minDist : 100f;
-		var lookingAtScore = players.Sum( x => GetLookAtScore( spawn, x.Position ) ) / players.Count;
-		var lookedAtScore = 1f - players.Sum( x => GetLookAtScore( x, spawn.Position ) ) / players.Count;
+
+		if ( enemyPlayers.Count == 0 )
+		{
+			return distScore;
+		}
+
+		var lookingAtScore = enemyPlayers.Sum( x => GetLookAtScore( spawn, x.Position ) ) / enemyPlayers.Count;
+		var lookedAtScore = 1f - enemyPlayers.Sum( x => GetLookAtScore( x, spawn.Position ) ) / enemyPlayers.Count;
 
 		return distScore * lookingAtScore * lookedAtScore;
 	}
 
 	Transform ISpawnAssigner.GetSpawnPoint( PlayerController player )
 	{
-		var players = GameUtils.ActivePlayers
+		var allPlayers = GameUtils.ActivePlayers
+			.Where( x => x != player )
+			.Where( x => x.HealthComponent.State == LifeState.Alive )
+			.Select( x => x.Transform.World )
+			.ToArray();
+
+		var enemyPlayers = GameUtils.ActivePlayers
+			.Where( x => x != player )
+			.Where( x => !x.IsFriendly( player ) )
 			.Where( x => x.HealthComponent.State == LifeState.Alive )
 			.Select( x => x.Transform.World )
 			.ToArray();
@@ -61,6 +74,6 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 			throw new Exception( "No unassigned spawn points!" );
 		}
 
-		return spawns.MaxBy( x => ScoreSpawnPoint( x, players ) + Random.Shared.NextSingle() );
+		return spawns.MaxBy( x => ScoreSpawnPoint( x, allPlayers, enemyPlayers ) + Random.Shared.NextSingle() );
 	}
 }
