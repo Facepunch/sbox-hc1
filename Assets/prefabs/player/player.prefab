@@ -81,12 +81,19 @@
           "go": "27ac91be-e0d6-430f-89bd-560314019fdc",
           "component_type": "CameraComponent"
         },
+        "ColorAdjustments": {
+          "_type": "component",
+          "component_id": "87bbcfb4-d91c-4720-ba24-6f0a96dcea7f",
+          "go": "27ac91be-e0d6-430f-89bd-560314019fdc",
+          "component_type": "ColorAdjustments"
+        },
         "Player": {
           "_type": "component",
           "component_id": "fbf2dc9f-ed92-40d8-afef-5e80ebaef2f9",
           "go": "2348e145-f731-4b86-ad1b-9201cd5a55a0",
           "component_type": "PlayerController"
         },
+        "RespawnProtectionSaturation": 0.25,
         "ShouldViewBob": false
       },
       {
@@ -246,7 +253,8 @@
                           "t": 1,
                           "c": "1,1,1,1"
                         }
-                      ]
+                      ],
+                      "alpha": []
                     },
                     "BloomCurve": [
                       {
@@ -261,6 +269,14 @@
                     "Strength": 0.25,
                     "Threshold": 0.5,
                     "ThresholdWidth": 0
+                  },
+                  {
+                    "__type": "Sandbox.ColorAdjustments",
+                    "__guid": "87bbcfb4-d91c-4720-ba24-6f0a96dcea7f",
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "HueRotate": 0,
+                    "Saturation": 1
                   }
                 ],
                 "Children": [

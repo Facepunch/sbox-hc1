@@ -16,9 +16,11 @@ public sealed class CameraController : Component
 	[Property] public CameraComponent Camera { get; set; }
 	[Property] public GameObject Boom { get; set; }
 	[Property] public AudioListener AudioListener { get; set; }
+	[Property] public ColorAdjustments ColorAdjustments { get; set; }
 	[Property] public PlayerController Player { get; set; }
 
 	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = false;
+	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
 
 	private CameraMode _mode;
 	public CameraMode Mode
@@ -117,6 +119,13 @@ public sealed class CameraController : Component
 		TargetFieldOfView = TargetFieldOfView.LerpTo( baseFov + FieldOfViewOffset, Time.Delta * 5f );
 		FieldOfViewOffset = 0;
 		Camera.FieldOfView = TargetFieldOfView;
+
+		if ( ColorAdjustments is not null )
+		{
+			ColorAdjustments.Saturation = Player.HealthComponent.IsGodMode
+				? RespawnProtectionSaturation
+				: ColorAdjustments.Saturation.MoveToLinear( 1f, 1f );
+		}
 
 		ApplyRecoil();
 
