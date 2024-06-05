@@ -123,9 +123,16 @@ public partial class HealthComponent : Component, IRespawnable
 		{
 			// Helmet negates headshot damage
 			if ( HasHelmet )
-				HasHelmet = false;
+			{
+				if ( !IsGodMode && Networking.IsHost )
+				{
+					HasHelmet = false;
+				}
+			}
 			else
+			{
 				damage *= HeadshotMultiplier;
+			}
 		}
 
 		damage = damage.CeilToInt();
