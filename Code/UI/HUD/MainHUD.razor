@@ -6,7 +6,6 @@
 <root>
     <canvas>
         <Crosshair />
-        <WeaponInfoComponent />
         <Minimap />
 
         <Toast />
@@ -20,8 +19,13 @@
         <DamageIndicator />
         <KillFeed @ref="KillFeed" />
 
+        <div class="right">
+            <div class="flex-grow" />
+            <Voices />
+            <WeaponInfoComponent />
+        </div>
+
         <Radio />
-        <Voices />
     </canvas>
     
     <!-- Full-screen overlays -->

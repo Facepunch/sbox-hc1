@@ -2,10 +2,11 @@
 
 WeaponInfoComponent
 {
-    position: absolute;
     gap: 32px;
     flex-direction: column-reverse;
     justify-content: center;
+    flex-grow: 0;
+    align-items: flex-end;
 
     WeaponViewer
     {
@@ -30,6 +31,7 @@ WeaponRow
     transform: scale( 0.9 );
     min-height: 50px;
     min-width: 256px;
+    max-width: 256px;
 
     .gunicon
     {

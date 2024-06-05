@@ -6,8 +6,15 @@
     @foreach (var voice in VoiceList.Where( x => CanDisplay( x ) ) )
     {
         <div class="row">
-            <Icon class="square rounded shrink-0" File="/ui/chat/radio.png" size="24" style="transform: scale( @GetAmplitudeScale( voice ) )" />
-            <PlayerPanel Player=@GetPlayer( voice ) />
+            <div class="item-row with-background">
+                @{
+                    var player = GetPlayer( voice );
+                }
+
+                <Icon class="square rounded shrink-0" File="/ui/chat/radio.png" size="24" style="transform: scale( @GetAmplitudeScale( voice ) )" />
+                <img class="avatar" src="avatar:@player.SteamId" />
+                <PlayerPanel Player=@player />
+            </div>
         </div>
     }
 
@@ -30,7 +37,7 @@
     private string GetAmplitudeScale( Voice voice )
     {
         var scale = 0.5f + ( voice.Amplitude * 2.365f );
-        return ( scale ).ToString( "0.#" );
+        return ( 1f + scale ).ToString( "0.#" );
     }
 
     protected override int BuildHash()
