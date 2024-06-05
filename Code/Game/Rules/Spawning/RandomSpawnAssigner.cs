@@ -9,47 +9,62 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 	public List<string> SpawnTags { get; private set; } = new();
 
 	/// <summary>
-	/// Avoid spawning within this radius of an active player.
+	/// Avoid spawning within this radius of an enemy player.
 	/// </summary>
 	[Property]
-	public float MinDistance { get; set; } = 512f;
+	public float MinEnemyDistance { get; set; } = 512f;
 
 	/// <summary>
-	/// Avoid spawning outside of this radius of an active player.
+	/// Assume an enemy player is out of line-of-sight if at least this far away.
 	/// </summary>
 	[Property]
-	public float MaxDistance { get; set; } = 2048f;
+	public float SkipLineOfSightTestDistance { get; set; } = 2048;
 
-	/// <summary>
-	/// How much is the given transform looking at the given position?
-	/// </summary>
-	private float GetLookAtScore( Transform transform, Vector3 position )
+	private bool IsValidSpawnPoint( Transform spawn, IReadOnlyList<Transform> allPlayers, IReadOnlyList<Transform> enemyPlayers )
 	{
-		var aim = Vector3.Dot( transform.Forward, (position - transform.Position).Normal );
-		var dist = Math.Max( (position - transform.Position).Length, MinDistance );
+		// Don't spawn inside another player
 
-		return aim * MinDistance / dist;
-	}
-
-	private float ScoreSpawnPoint( Transform spawn, IReadOnlyList<Transform> allPlayers, IReadOnlyList<Transform> enemyPlayers )
-	{
-		if ( allPlayers.Count == 0 )
+		foreach ( var player in allPlayers )
 		{
-			return 0f;
+			if ( (player.Position - spawn.Position).LengthSquared < 64f * 64f )
+			{
+				return false;
+			}
 		}
 
-		var minDist = MathF.Sqrt( allPlayers.Min( x => (x.Position - spawn.Position).LengthSquared ) );
-		var distScore = minDist < MinDistance ? minDist / MinDistance : minDist > MaxDistance ? MaxDistance / minDist : 100f;
+		// Don't spawn close to an enemy
 
-		if ( enemyPlayers.Count == 0 )
+		foreach ( var player in enemyPlayers )
 		{
-			return distScore;
+			if ( (player.Position - spawn.Position).LengthSquared < MinEnemyDistance * MinEnemyDistance )
+			{
+				return false;
+			}
 		}
 
-		var lookingAtScore = enemyPlayers.Sum( x => GetLookAtScore( spawn, x.Position ) ) / enemyPlayers.Count;
-		var lookedAtScore = 1f - enemyPlayers.Sum( x => GetLookAtScore( x, spawn.Position ) ) / enemyPlayers.Count;
+		// Don't spawn in line of sight of an enemy
+		// TODO: is this too expensive? will a ray not be a good enough test? is there still baked PVS in the map for us to use?
 
-		return distScore * lookingAtScore * lookedAtScore;
+		foreach ( var player in enemyPlayers )
+		{
+			if ( (player.Position - spawn.Position).LengthSquared > SkipLineOfSightTestDistance * SkipLineOfSightTestDistance )
+			{
+				continue;
+			}
+
+			var tr = Scene.Trace
+				.FromTo( spawn.Position + Vector3.Up * 64f, player.Position + Vector3.Up )
+				.Size( 0.01f )
+				.WithoutTags( "player", "ragdoll", "glass", "np_player" )
+				.Run();
+
+			if ( !tr.Hit )
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	Transform ISpawnAssigner.GetSpawnPoint( PlayerController player )
@@ -67,13 +82,21 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 			.Select( x => x.Transform.World )
 			.ToArray();
 
-		var spawns = GameUtils.GetSpawnPoints( Team.Unassigned, SpawnTags.ToArray() ).ToArray();
+		var spawns = GameUtils.GetSpawnPoints( Team.Unassigned, SpawnTags.ToArray() )
+			.Shuffle();
 
-		if ( spawns.Length == 0 )
+		foreach ( var spawn in spawns )
 		{
-			throw new Exception( "No unassigned spawn points!" );
+			if ( IsValidSpawnPoint( spawn, allPlayers, enemyPlayers ) )
+			{
+				return spawn;
+			}
 		}
 
-		return spawns.MaxBy( x => ScoreSpawnPoint( x, allPlayers, enemyPlayers ) + Random.Shared.NextSingle() );
+		// Fallback
+
+		Log.Warning( $"Used fallback spawn for {player.GameObject.Name}" );
+
+		return spawns[0];
 	}
 }
