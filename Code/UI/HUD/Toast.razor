@@ -37,7 +37,7 @@
     private ToastType Type { get; set; } = ToastType.Generic;
 
     private RealTimeUntil TimeUntilHide { get; set; }
-    private bool IsActive => TimeUntilHide > 0f;
+    private bool IsActive => TimeUntilHide > 0f && !string.IsNullOrEmpty( Status );
 
     protected override int BuildHash()
     {

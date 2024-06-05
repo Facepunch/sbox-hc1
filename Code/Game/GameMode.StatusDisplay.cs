@@ -75,4 +75,10 @@ partial class GameMode
 	{
 		Toast.Instance.Show( value, type, duration );
 	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	public void HideToast()
+	{
+		Toast.Instance.Show( "", default, 0f );
+	}
 }

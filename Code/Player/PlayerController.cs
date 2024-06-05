@@ -171,6 +171,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// </summary>
 	[HostSync] public bool IsFrozen { get; set; }
 
+	/// <summary>
+	/// Last time this player moved or attacked.
+	/// </summary>
+	[Sync] public TimeSince TimeSinceLastInput { get; private set; }
+
 	private Vector3 WishVelocity { get; set; }
 	public bool IsGrounded { get; set; }
 	public Vector3 WishMove { get; private set; }
@@ -392,6 +397,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		{
 			IsNoclipping = !IsNoclipping;
 		}
+
+		if ( WishMove.LengthSquared > 0.01f || Input.Down( "Attack1" ) )
+		{
+			TimeSinceLastInput = 0f;
+		}
 	}
 
 	private bool IsOutlineVisible()
@@ -405,6 +415,9 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 		if ( TeamComponent.Team == Team.Unassigned )
 			return false;
+
+		if ( HealthComponent.IsGodMode )
+			return true;
 		
 		return HealthComponent.State == LifeState.Alive && TeamComponent.Team == localPlayer.TeamComponent.Team;
 	}
@@ -419,9 +432,10 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 		Outline.Enabled = true;
 		Outline.Width = 0.2f;
-		Outline.Color = Color.Transparent;
+		Outline.Color = HealthComponent.IsGodMode ? Color.Yellow : Color.Transparent;
 		Outline.InsideColor = Color.Transparent;
-		Outline.ObscuredColor = TeamComponent.Team.GetColor();
+		Outline.ObscuredColor = GameUtils.Viewer is { TeamComponent.Team: var localTeam } && localTeam != TeamComponent.Team
+			? TeamComponent.Team.GetColor() : Color.Transparent;
 	}
 
 	private Vector3 PreviousVelocity;

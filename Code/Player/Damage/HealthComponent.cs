@@ -8,7 +8,7 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// Are we in god mode?
 	/// </summary>
-	[Property] public bool IsGodMode { get; set; } = false;
+	[Property, HostSync] public bool IsGodMode { get; set; } = false;
 
 	/// <summary>
 	/// An action (mainly for ActionGraphs) to respond to when a GameObject's health changes.
