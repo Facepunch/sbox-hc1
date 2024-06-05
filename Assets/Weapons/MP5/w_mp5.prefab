@@ -89,20 +89,31 @@
                 "x": 1
               }
             ],
+            "BloodEjectDistance": 512,
             "BulletCount": 1,
             "BulletSize": 1,
             "BulletSpread": 0,
             "DryFireDelay": 1,
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
             "FireRate": 740,
+            "InAirSpreadMultiplier": 2,
             "InputActions": [
               "Attack1"
             ],
             "InputType": "Down",
+            "MaxEffectsPlayDistance": 4194304,
             "MaxRange": 1024000,
+            "MaxRicochetAngle": 45,
+            "MuzzleFlashPrefab": {
+              "_type": "gameobject",
+              "prefab": "prefabs/weapon_effects/pistol_muzzleflash.prefab"
+            },
+            "PlayerVelocityLimit": 300,
             "RequiresAllInputActions": false,
             "RequiresAmmoComponent": true,
-            "ShootSound": "sounds/guns/mp5/smg1_shoot.sound"
+            "RicochetMaxHits": 2,
+            "ShootSound": "sounds/guns/mp5/smg1_shoot.sound",
+            "VelocitySpreadScale": 0.25
           },
           {
             "__type": "Facepunch.ReloadWeaponComponent",
