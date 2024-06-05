@@ -8,7 +8,14 @@
     <div class="flex column with-padding gap-sm">
 
         <div class="with-background with-padding">
-            <label class="emphasis">$@Player.Inventory.Balance.ToString("N0")</label>
+            @if ( GameMode.Instance?.UnlimitedMoney is true )
+            {
+                <label class="emphasis">Unlimited Funds</label>
+            }
+            else
+            {
+                <label class="emphasis">$@Player.Inventory.Balance.ToString( "N0" )</label>
+            }
         </div>
 
         <div class="with-rounding flex row gap-sm">
@@ -38,7 +45,7 @@
                                 <div class="gunicon" style="background-image:url(@weaponData.Icon);" />
                             }
 
-                            <label class="price">$@weaponData.Price.ToString("N0")</label>
+                            <label class="price @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">$@weaponData.Price.ToString("N0")</label>
                         </div>
                     }
                 </div>
@@ -64,7 +71,7 @@
                                 <div class="gunicon" style="background-image:url(@equipment.Icon);" />
                             }
 
-                            <label class="price">$@equipment.GetPrice(Player).ToString("N0")</label>
+                            <label class="price @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">$@equipment.GetPrice( Player ).ToString( "N0" )</label>
                         </div>
                     }
                 </div>

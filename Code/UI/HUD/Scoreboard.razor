@@ -46,7 +46,14 @@
                     <label class="col stat-small small"></label>
                     <label class="col stat-small small"></label>
                     <label class="col playername small"></label>
-                    <label class="col stat-large small">Balance</label>
+                    @if ( !GameMode.Instance.UnlimitedMoney )
+                    {
+                        <label class="col stat-large small">Balance</label>
+                    }
+                    else
+                    {
+                        <label class="col stat-large small"></label>
+                    }
                     <label class="col stat small">Score</label>
                     <label class="col stat small">Kills</label>
                     <label class="col stat small">Deaths</label>

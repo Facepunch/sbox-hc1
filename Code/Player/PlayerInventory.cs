@@ -29,10 +29,17 @@ public partial class PlayerInventory : Component
 	/// </summary>
 	[Property] public bool CanUnequipCurrentWeapon { get; set; } = false;
 
+	private int _balance = 16_000;
+
 	/// <summary>
 	/// Players current cash balance
 	/// </summary>
-	[HostSync] public int Balance { get; private set; } = 999999;
+	[HostSync]
+	public int Balance
+	{
+		get => GameMode.Instance.UnlimitedMoney ? GameMode.Instance.MaxBalance : _balance;
+		private set => _balance = GameMode.Instance.UnlimitedMoney ? GameMode.Instance.MaxBalance : value;
+	}
 
 	/// <summary>
 	/// Does this player have a defuse kit?

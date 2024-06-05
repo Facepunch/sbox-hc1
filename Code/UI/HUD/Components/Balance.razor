@@ -6,7 +6,7 @@
 
 <root class="hud with-deadzone row top-left" style="margin-top: 300px">
     <InputHint Action="BuyMenu" class="small @(!Player.CanBuy() ? "hidden" : "")" Size="@InputGlyphSize.Small" />
-    <label class="important">$@Inventory.Balance.ToString("N0")</label>
+    <label class="important" class="small @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">$@Inventory.Balance.ToString( "N0" )</label>
 </root>
 
 @code
@@ -21,6 +21,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( Inventory?.Balance, Player?.CanBuy() );
+        return HashCode.Combine( Inventory?.Balance, Player?.CanBuy(), GameMode.Instance?.UnlimitedMoney );
     }   
 }
