@@ -73,12 +73,12 @@ partial class GameMode
 	[Broadcast( NetPermission.HostOnly )]
 	public void ShowToast( string value, ToastType type = ToastType.Generic, float duration = 5f )
 	{
-		Toast.Instance.Show( value, type, duration );
+		Toast.Instance?.Show( value, type, duration );
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
 	public void HideToast()
 	{
-		Toast.Instance.Show( "", default, 0f );
+		Toast.Instance?.Show( "", default, 0f );
 	}
 }
