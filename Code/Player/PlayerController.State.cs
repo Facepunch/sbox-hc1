@@ -126,6 +126,9 @@ public partial class PlayerController
 		Transform.World = new( position, rotation );
 		Transform.ClearInterpolation();
 		EyeAngles = rotation.Angles();
+
+		if ( CharacterController.IsValid() )
+			CharacterController.Velocity = Vector3.Zero;
 	}
 	
 	private void EnableRagdoll()
