@@ -11,6 +11,9 @@ public partial class RadioManager : Component,
 {
 	public static RadioManager Instance { get; private set; }
 
+	[Property] public bool PlayEnemyLeftSounds { get; set; } = true;
+	[Property] public bool PlayDeathSounds { get; set; } = true;
+
 	protected override void OnStart()
 	{
 		Instance = this;
@@ -42,7 +45,12 @@ public partial class RadioManager : Component,
 	void IKillListener.OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor, string hitbox = "" )
 	{
 		var victimTeam = victim.GameObject.GetTeam();
-		RadioSounds.Play( victimTeam, RadioSound.TeammateDies );
+
+		if ( PlayDeathSounds )
+			RadioSounds.Play( victimTeam, RadioSound.TeammateDies );
+
+		if ( !PlayEnemyLeftSounds )
+			return;
 
 		if ( killer.IsValid() )
 		{
