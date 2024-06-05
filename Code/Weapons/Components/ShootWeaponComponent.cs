@@ -204,6 +204,11 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 			CreateDecal( decal.Material, pos, normal, decal.Rotation.GetValue(), decal.Width.GetValue(), decal.Depth.GetValue() );
 		}
+
+		if ( !string.IsNullOrEmpty( surface.Sounds.Bullet ) )
+		{
+			Sound.Play( surface.Sounds.Bullet, pos );
+		}
 	}
 
 	/// <summary>

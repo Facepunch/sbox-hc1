@@ -73,7 +73,7 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 
 		if ( !string.IsNullOrEmpty( surface.Sounds.Bullet ) )
 		{
-			hitObject.PlaySound( surface.Sounds.Bullet );
+			Sound.Play( surface.Sounds.Bullet, pos );
 		}
 	}
 
