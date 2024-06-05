@@ -88,40 +88,54 @@
                 "x": 1
               }
             ],
+            "BloodEjectDistance": 512,
             "BulletCount": 1,
             "BulletSize": 1,
             "BulletSpread": 0,
             "DryFireDelay": 1,
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
             "FireRate": 420,
+            "InAirSpreadMultiplier": 2,
             "InputActions": [
               "Attack1"
             ],
             "InputType": "Pressed",
+            "MaxEffectsPlayDistance": 4194304,
             "MaxRange": 1024000,
+            "MaxRicochetAngle": 45,
+            "PlayerVelocityLimit": 300,
             "RequiresAllInputActions": false,
             "RequiresAmmoComponent": true,
-            "ShootSound": "sounds/weapons/usp/usp_sd.sound"
+            "RicochetMaxHits": 2,
+            "ShootSound": "sounds/weapons/usp/usp_sd.sound",
+            "VelocitySpreadScale": 0.25
           },
           {
             "__type": "Facepunch.ReloadWeaponComponent",
-            "__guid": "1915814b-68a4-4149-8125-52cf69794bb1",
+            "__guid": "822e5044-7cf3-4213-b6ff-4aec5ec33897",
             "AmmoComponent": {
               "_type": "component",
               "component_id": "0cfaf3b2-ca54-4517-acdd-9852a8650f70",
               "go": "431286a4-3f0d-45b7-969d-6dab7eb1d643",
               "component_type": "AmmoComponent"
             },
-            "EmptyReloadSounds": {},
+            "EmptyReloadSounds": {
+              "0": "sounds/guns/m1911/reload/m1911.reload.sound",
+              "0.5": "sounds/guns/m1911/reload/m1911.reload.fow.sound",
+              "1.2": "sounds/guns/m1911/reload/m1911.reload.load.sound"
+            },
             "EmptyReloadTime": 2,
             "InputActions": [
               "Reload"
             ],
             "InputType": "Down",
-            "ReloadTime": 2,
+            "ReloadTime": 1.5,
             "RequiresAllInputActions": false,
             "SingleReload": false,
-            "TimedReloadSounds": {}
+            "TimedReloadSounds": {
+              "0": "sounds/guns/m1911/reload/m1911.reload.sound",
+              "1": "sounds/guns/m1911/reload/m1911.reload.out.sound"
+            }
           },
           {
             "__type": "Facepunch.RecoilWeaponComponent",
