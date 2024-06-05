@@ -12,11 +12,6 @@ public sealed class DefuseWinCondition : Component, IGameEndCondition, IGameEndL
 	public TeamScoring TeamScoring { get; private set; }
 
 	/// <summary>
-	/// Who's the winning team?
-	/// </summary>
-	[HostSync] public Team WinningTeam { get; set; }
-
-	/// <summary>
 	/// How many rounds does one team need to win?
 	/// </summary>
 	public int RoundsToWin => ( RoundLimit.MaxRounds / 2 ) + 1;
@@ -39,16 +34,11 @@ public sealed class DefuseWinCondition : Component, IGameEndCondition, IGameEndL
 	{
 		if ( GetWonRounds( Team.CounterTerrorist ) >= RoundsToWin )
 		{
-			WinningTeam = Team.CounterTerrorist;
-			GameMode.Instance.ShowToast( "Operators Win!", Facepunch.UI.ToastType.CounterTerroristsWin );
 			return true;
 		}
 
 		if ( GetWonRounds( Team.Terrorist ) >= RoundsToWin )
 		{
-			WinningTeam = Team.Terrorist;
-			GameMode.Instance.ShowToast( "Anarchists Win!", Facepunch.UI.ToastType.TerroristsWin );
-
 			return true;
 		}
 
