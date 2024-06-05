@@ -53,6 +53,8 @@ public partial class PlayerController
 		if ( IsProxy || IsBot )
 			return;
 
+		Holster();
+
 		InBuyMenu = false;
 		IsSpectating = true;
 		CameraController.Mode = CameraMode.ThirdPerson;

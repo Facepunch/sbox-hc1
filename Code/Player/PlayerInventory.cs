@@ -54,7 +54,8 @@ public partial class PlayerInventory : Component
 	
 	public void Clear()
 	{
-		Assert.True( Networking.IsHost );
+		if ( !Networking.IsHost )
+			return;
 		
 		foreach ( var wpn in Weapons )
 		{

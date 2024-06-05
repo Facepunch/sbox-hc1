@@ -193,18 +193,43 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <summary>
 	/// What weapon are we using?
 	/// </summary>
-	public Weapon CurrentWeapon { get; private set; }
+	[Property, ReadOnly] public Weapon CurrentWeapon { get; private set; }
 
 	void Weapon.IDeploymentListener.OnDeployed( Weapon weapon )
 	{
 		CurrentWeapon = weapon;
 	}
-	
+
+	void Weapon.IDeploymentListener.OnHolstered( Weapon weapon )
+	{
+		if ( weapon == CurrentWeapon )
+			CurrentWeapon = null;
+	}
+
 	[Authority]
 	private void SetCurrentWeapon( Guid weaponId )
 	{
 		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Weapon;
 		SetCurrentWeapon( weapon );
+	}
+
+	[Authority]
+	private void ClearCurrentWeapon()
+	{
+		CurrentWeapon?.Holster();
+	}
+
+	public void Holster()
+	{
+		if ( IsProxy )
+		{
+			if ( Networking.IsHost )
+				ClearCurrentWeapon();
+
+			return;
+		}
+
+		CurrentWeapon?.Holster();
 	}
 
 	public void SetCurrentWeapon( Weapon weapon )
