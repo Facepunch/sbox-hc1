@@ -19,6 +19,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	[Property, Group( "Bullet Spread" )] public float VelocitySpreadScale { get; set; } = 0.25f;
 	[Property, Group( "Bullet Spread" )] public float InAirSpreadMultiplier { get; set; } = 2f;
 
+
+	[Property, Group( "Effects" )] public GameObject MuzzleFlashPrefab { get; set; }
+
 	/// <summary>
 	/// What sound should we play when we fire?
 	/// </summary>
@@ -103,6 +106,18 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	{
 		if ( !EffectsRenderer.IsValid() )
 			return;
+
+		// Create a muzzle flash from a GameObject / prefab
+		if ( MuzzleFlashPrefab.IsValid() )
+		{
+			var inst = MuzzleFlashPrefab.Clone( new CloneConfig()
+			{
+				Transform = EffectsRenderer.GetAttachment( "muzzle", true ) ?? Weapon.Transform.World,
+				StartEnabled = true
+			} );
+
+			inst.Transform.ClearInterpolation();
+		}
 
 		if ( ShootSound is not null )
 		{

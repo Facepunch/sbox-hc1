@@ -251,6 +251,8 @@ public partial class Weapon : Component, Component.INetworkListener
 
 			// Weapon needs to know about the ViewModel
 			ViewModel = viewModelComponent;
+
+			viewModelGameObject.BreakFromPrefab();
 		}
 
 		if ( !playDeployEffects )

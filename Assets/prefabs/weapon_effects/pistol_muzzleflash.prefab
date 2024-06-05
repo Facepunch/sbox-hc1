@@ -1,29 +1,43 @@
 {
   "RootObject": {
-    "Id": "cbfd9dd1-a25c-46a8-8b14-5dccd490fd20",
+    "__guid": "cbfd9dd1-a25c-46a8-8b14-5dccd490fd20",
+    "Flags": 0,
     "Name": "pistol_muzzleflash",
     "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
     "Components": [
       {
-        "__type": "TimedDestroyComponent",
-        "__enabled": true,
-        "Time": 1,
+        "__type": "Facepunch.TimedDestroyComponent",
+        "__guid": "29aa6d79-220c-470e-a145-124c60925b1d",
+        "Time": 30,
         "TimeUntilDestroy": {
-          "Relative": -1829.6537,
-          "Passed": 1829.6537,
+          "Relative": -1490.6702,
+          "Passed": 1490.6702,
           "Fraction": 1
         }
+      },
+      {
+        "__type": "Sandbox.ModelRenderer",
+        "__guid": "096ccc36-3b54-411b-a584-ebbf9dca4f29",
+        "BodyGroups": 18446744073709551615,
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
       }
     ],
     "Children": [
       {
-        "Id": "531e5e47-68d9-4d6a-9d9c-b723e0668334",
+        "__guid": "531e5e47-68d9-4d6a-9d9c-b723e0668334",
+        "Flags": 0,
         "Name": "Layer One",
+        "Tags": "particles",
         "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
         "Components": [
           {
-            "__type": "ParticleEffect",
-            "__enabled": true,
+            "__type": "Sandbox.ParticleEffect",
+            "__guid": "b9bd1141-464b-4148-a359-b82cc634a04b",
             "Alpha": {
               "Type": "Range",
               "Constants": "1,0,0,0"
@@ -39,7 +53,6 @@
             },
             "Bumpiness": {},
             "Collision": false,
-            "CollisionIgnore": null,
             "CollisionRadius": 1,
             "Damping": {},
             "DieOnCollisionChance": {},
@@ -108,10 +121,11 @@
             "Tint": "1,1,1,1"
           },
           {
-            "__type": "ParticleBoxEmitter",
-            "__enabled": true,
+            "__type": "Sandbox.ParticleBoxEmitter",
+            "__guid": "56713760-898c-4cfb-9101-2f9fe1e01ed1",
             "Burst": 1,
             "Delay": 0,
+            "DestroyOnEnd": false,
             "Duration": 0.1,
             "Loop": false,
             "OnEdge": false,
@@ -119,8 +133,8 @@
             "Size": "0,0,0"
           },
           {
-            "__type": "ParticleSpriteRenderer",
-            "__enabled": true,
+            "__type": "Sandbox.ParticleSpriteRenderer",
+            "__guid": "e9059eb8-0da8-4d38-b451-1c8631016d3c",
             "Additive": false,
             "BlurAmount": 0.5,
             "BlurOpacity": 0.5,
@@ -144,5 +158,7 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
-  "__references": []
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
 }
