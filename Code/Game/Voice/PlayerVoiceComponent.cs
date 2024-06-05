@@ -1,3 +1,5 @@
+using Sandbox.Audio;
+
 namespace Facepunch;
 
 public partial class PlayerVoiceComponent : Voice
@@ -7,6 +9,7 @@ public partial class PlayerVoiceComponent : Voice
 	protected override void OnStart()
 	{
 		Filter = Scene.GetAllComponents<IVoiceFilter>().FirstOrDefault();
+		TargetMixer = Mixer.FindMixerByName( "Voice" );
 	}
 
 	protected override IEnumerable<Connection> ExcludeFilter()
