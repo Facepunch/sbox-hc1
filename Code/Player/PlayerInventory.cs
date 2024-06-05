@@ -37,8 +37,8 @@ public partial class PlayerInventory : Component
 	[HostSync]
 	public int Balance
 	{
-		get => GameMode.Instance.UnlimitedMoney ? GameMode.Instance.MaxBalance : _balance;
-		private set => _balance = GameMode.Instance.UnlimitedMoney ? GameMode.Instance.MaxBalance : value;
+		get => GameMode.Instance?.UnlimitedMoney is true ? GameMode.Instance.MaxBalance : _balance;
+		private set => _balance = GameMode.Instance?.UnlimitedMoney is true ? GameMode.Instance.MaxBalance : value;
 	}
 
 	/// <summary>
