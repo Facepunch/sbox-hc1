@@ -432,9 +432,9 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 		Outline.Enabled = true;
 		Outline.Width = 0.2f;
-		Outline.Color = HealthComponent.IsGodMode ? Color.Yellow : Color.Transparent;
-		Outline.InsideColor = Color.Transparent;
-		Outline.ObscuredColor = GameUtils.Viewer is { TeamComponent.Team: var localTeam } && localTeam != TeamComponent.Team
+		Outline.Color = Color.Transparent;
+		Outline.InsideColor = HealthComponent.IsGodMode ? Color.Green.WithAlpha( 0.25f ) : Color.Transparent;
+		Outline.ObscuredColor = GameUtils.Viewer is { TeamComponent.Team: var localTeam } && localTeam == TeamComponent.Team
 			? TeamComponent.Team.GetColor() : Color.Transparent;
 	}
 
