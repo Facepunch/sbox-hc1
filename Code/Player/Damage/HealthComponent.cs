@@ -133,11 +133,13 @@ public partial class HealthComponent : Component, IRespawnable
 		// Only the host should control the damage state
 		if ( Networking.IsHost )
 		{
-			// Let armor try its hand
-			damage = CalculateArmorDamage( damage );
-
 			if ( !IsGodMode )
+			{
+				// Let armor try its hand
+				damage = CalculateArmorDamage( damage );
+
 				Health -= damage;
+			}
 
 			// Did we die?
 			if ( Health <= 0f && State == LifeState.Alive )
