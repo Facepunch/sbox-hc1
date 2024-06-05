@@ -43,6 +43,9 @@
     @if ( !LocalPlayer.IsValid() )
         return;
 
+    @if ( Player == LocalPlayer )
+        return;
+
     @if ( !Marker.IsValid() ) return;
 
     @if ( Marker.IsBehind ) 
