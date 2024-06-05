@@ -1,5 +1,6 @@
 ﻿using Facepunch;
 using Facepunch.UI;
+using Sandbox.Diagnostics;
 
 partial class GameMode
 {
@@ -10,64 +11,71 @@ partial class GameMode
 		CountDown
 	}
 
-	public string DisplayedStatus { get; private set; }
+	public string DisplayedStatus => TeamStatusText.GetValueOrDefault( GameUtils.LocalPlayer?.TeamComponent.Team ?? Team.Unassigned );
 
-	public TimeSpan? DisplayedTime => _timerMode switch
+	public TimeSpan? DisplayedTime => TimerMode switch
 	{
-		DisplayedTimerMode.CountUp => TimeSpan.FromSeconds( Math.Clamp( Time.Now - _timerStart, 0f, _timerDuration ) ),
-		DisplayedTimerMode.CountDown => TimeSpan.FromSeconds( Math.Clamp( _timerStart + _timerDuration - Time.Now, 0f, _timerDuration ) ),
+		DisplayedTimerMode.CountUp => TimeSpan.FromSeconds( Math.Clamp( Time.Now - TimerStart, 0f, TimerDuration ) ),
+		DisplayedTimerMode.CountDown => TimeSpan.FromSeconds( Math.Clamp( TimerStart + TimerDuration - Time.Now, 0f, TimerDuration ) ),
 		_ => null
 	};
 
-	private DisplayedTimerMode _timerMode;
-	private float _timerStart;
-	private float _timerDuration;
+	[HostSync]
+	private NetDictionary<Team, string> TeamStatusText { get; set; } = new();
 
-	[Broadcast( NetPermission.HostOnly )]
+	[HostSync] private DisplayedTimerMode TimerMode { get; set; }
+	[HostSync] private float TimerStart { get; set; }
+	[HostSync] private float TimerDuration { get; set; }
+
 	public void ShowCountUpTimer( float startTime )
 	{
-		_timerMode = DisplayedTimerMode.CountUp;
-		_timerStart = startTime;
-		_timerDuration = float.PositiveInfinity;
+		Assert.True( Networking.IsHost );
+
+		TimerMode = DisplayedTimerMode.CountUp;
+		TimerStart = startTime;
+		TimerDuration = float.PositiveInfinity;
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
 	public void ShowCountDownTimer( float startTime, float duration )
 	{
-		_timerMode = DisplayedTimerMode.CountDown;
-		_timerStart = startTime;
-		_timerDuration = duration;
+		Assert.True( Networking.IsHost );
+
+		TimerMode = DisplayedTimerMode.CountDown;
+		TimerStart = startTime;
+		TimerDuration = duration;
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
 	public void HideTimer()
 	{
-		_timerMode = DisplayedTimerMode.None;
-		_timerStart = 0f;
-		_timerDuration = 0f;
+		Assert.True( Networking.IsHost );
+
+		TimerMode = DisplayedTimerMode.None;
+		TimerStart = 0f;
+		TimerDuration = 0f;
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
 	public void ShowStatusText( string value )
 	{
-		DisplayedStatus = value;
+		Assert.True( Networking.IsHost );
+
+		foreach ( var team in Enum.GetValues<Team>() )
+		{
+			ShowStatusText( team, value );
+		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
 	public void ShowStatusText( Team team, string value )
 	{
-		if ( (GameUtils.Viewer?.TeamComponent.Team ?? Team.Unassigned) != team )
-		{
-			return;
-		}
+		Assert.True( Networking.IsHost );
 
-		DisplayedStatus = value;
+		TeamStatusText[team] = value;
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
 	public void HideStatusText()
 	{
-		DisplayedStatus = null;
+		Assert.True( Networking.IsHost );
+
+		TeamStatusText.Clear();
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
