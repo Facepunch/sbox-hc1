@@ -1,4 +1,5 @@
 using System.Linq;
+using static Sandbox.PhysicsGroupDescription.BodyPart;
 
 namespace Facepunch;
 
@@ -76,14 +77,14 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	/// <summary>
 	/// Fetches the desired model renderer that we'll focus effects on like trail effects, muzzle flashes, etc.
 	/// </summary>
-	protected SkinnedModelRenderer EffectsRenderer
+	protected IWeapon Effector
 	{
 		get
 		{
 			if ( IsProxy || !Weapon.ViewModel.IsValid() )
-				return Weapon.ModelRenderer;
+				return Weapon;
 
-			return Weapon.ViewModel.ModelRenderer;
+			return Weapon.ViewModel;
 		}
 	}
 
@@ -104,19 +105,23 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	[Broadcast]
 	protected void DoShootEffects()
 	{
-		if ( !EffectsRenderer.IsValid() )
+		if ( !Effector.ModelRenderer.IsValid() )
 			return;
 
 		// Create a muzzle flash from a GameObject / prefab
 		if ( MuzzleFlashPrefab.IsValid() )
 		{
-			var inst = MuzzleFlashPrefab.Clone( new CloneConfig()
+			if ( Effector.Muzzle.IsValid() )
 			{
-				Transform = EffectsRenderer.GetAttachment( "muzzle", true ) ?? Weapon.Transform.World,
-				StartEnabled = true
-			} );
+				var inst = MuzzleFlashPrefab.Clone( new CloneConfig()
+				{
+					Parent = Effector.Muzzle,
+					Transform = new Transform(),
+					StartEnabled = true
+				} );
 
-			inst.Transform.ClearInterpolation();
+				inst.Transform.ClearInterpolation();
+			}
 		}
 
 		if ( ShootSound is not null )
@@ -304,7 +309,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		var effectPath = "particles/gameplay/guns/trail/trail_smoke.vpcf";
 		if ( count > 0 ) effectPath = "particles/gameplay/guns/trail/rico_trail_smoke.vpcf";
 
-		var origin = count == 0 ? EffectsRenderer.GetAttachment( "muzzle" )?.Position ?? startPosition : startPosition;
+		var origin = count == 0 ? Effector?.Muzzle?.Transform.Position ?? Weapon.Transform.Position : startPosition;
 		var ps = CreateParticleSystem( effectPath, origin, Rotation.Identity, 1f );
 		ps.SceneObject.SetControlPoint( 0, origin );
 		ps.SceneObject.SetControlPoint( 1, endPosition );

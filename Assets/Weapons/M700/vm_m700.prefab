@@ -11,12 +11,20 @@
       {
         "__type": "Facepunch.ViewModel",
         "__guid": "84386830-61fd-47ae-8e55-8472c32bcb2b",
+        "EjectionPort": {
+          "_type": "gameobject",
+          "go": "e7e7d57b-8e57-47f6-b41b-f256b6c45882"
+        },
         "IsThrowable": false,
         "ModelRenderer": {
           "_type": "component",
           "component_id": "17371f20-3241-4da2-b97c-7fc604619a81",
           "go": "95837f57-4440-43ce-a6ea-5e911cd95fb2",
           "component_type": "SkinnedModelRenderer"
+        },
+        "Muzzle": {
+          "_type": "gameobject",
+          "go": "19f361be-9dcf-493c-8c70-46db578766c3"
         },
         "ThrowableType": "HEGrenade"
       },
@@ -51,6 +59,26 @@
             "Model": "weapons/m700/v_m700.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "e7e7d57b-8e57-47f6-b41b-f256b6c45882",
+            "Flags": 0,
+            "Name": "Eject",
+            "Position": "0,0.0000002980232,5.964143",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "19f361be-9dcf-493c-8c70-46db578766c3",
+            "Flags": 0,
+            "Name": "Muzzle",
+            "Position": "21.15613,0.0000007748604,5.964143",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
           }
         ]
       }

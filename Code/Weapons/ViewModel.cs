@@ -4,7 +4,7 @@ namespace Facepunch;
 /// A weapon's viewmodel. It's responsibility is to listen to events from a weapon.
 /// It should only exist on the client for the currently possessed pawn.
 /// </summary>
-public partial class ViewModel : Component
+public partial class ViewModel : Component, IWeapon
 {
 	/// <summary>
 	/// A reference to the <see cref="Weapon"/> we want to listen to.
@@ -22,14 +22,12 @@ public partial class ViewModel : Component
 	[Property] public bool IsThrowable { get; set; }
 
 	/// <summary>
-	/// Look up the tree to find the camera.
-	/// </summary>
-	CameraController CameraController => PlayerController.CameraController;
-
-	/// <summary>
 	/// Looks up the tree to find the player controller.
 	/// </summary>
 	PlayerController PlayerController => Weapon.PlayerController;
+
+	[Property, Group( "GameObjects" )] public GameObject Muzzle { get; set; }
+	[Property, Group( "GameObjects" )] public GameObject EjectionPort { get; set; }
 
 	[Property] public SkinnedModelRenderer ModelRenderer { get; set; }
 

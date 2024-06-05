@@ -3,7 +3,7 @@ namespace Facepunch;
 /// <summary>
 /// A weapon component.
 /// </summary>
-public partial class Weapon : Component, Component.INetworkListener
+public partial class Weapon : Component, Component.INetworkListener, IWeapon
 {
 	/// <summary>
 	/// Subscribe to changes in the weapon's deployed state.
@@ -50,6 +50,9 @@ public partial class Weapon : Component, Component.INetworkListener
 	/// How slower do we walk with this weapon out?
 	/// </summary>
 	[Property, Group( "Movement" )] public float SpeedPenalty { get; set; } = 0f;
+
+	[Property, Group( "GameObjects" )] public GameObject Muzzle { get; set; }
+	[Property, Group( "GameObjects" )] public GameObject EjectionPort { get; set; }
 
 	/// <summary>
 	/// Is this weapon currently deployed by the player?
