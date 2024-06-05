@@ -218,9 +218,6 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 			AmmoComponent.Ammo--;
 		}
 
-		// If we have a recoil function, let it know.
-		 Weapon.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants )?.Shoot();
-
 		DoShootEffects();
 
 		for ( int i = 0; i < BulletCount; i++ )
@@ -253,6 +250,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 				count++;
 			}
 		}
+
+		// If we have a recoil function, let it know.
+		Weapon.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants )?.Shoot();
 	}
 
 	private float CalculateDamageFalloff( float damage, float distance )
@@ -342,6 +342,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		var recoil = Weapon.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
 
 		var spread = BulletSpread;
+
 		var velLen = Weapon.PlayerController.CharacterController.Velocity.Length;
 		spread += velLen.Remap( 0, PlayerVelocityLimit, 0, 1, true ) * VelocitySpreadScale;
 
