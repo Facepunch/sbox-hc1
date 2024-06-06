@@ -2708,7 +2708,7 @@
             {
               "__type": "Zone",
               "__guid": "04b41c3e-1cd3-4104-80a9-da49aeaefd2b",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "CT SPAWN"
             },
             {
@@ -2739,7 +2739,7 @@
             {
               "__type": "Zone",
               "__guid": "47685796-8834-41f9-bed7-55b2d5dfcb9f",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "MID"
             },
             {
@@ -2771,7 +2771,7 @@
             {
               "__type": "Zone",
               "__guid": "8c7d2e29-d85f-4067-95f8-8e098afe51bd",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "MID"
             },
             {
@@ -2787,7 +2787,7 @@
         {
           "__guid": "e7b814b7-35e0-4d4e-b42c-857f4296b961",
           "Flags": 0,
-          "Name": "MID CONNECTOR",
+          "Name": "A CONNECTOR",
           "Position": "-2416.167,-41.15884,256.0012",
           "Rotation": "0,0,-0.7071067,0.7071068",
           "Scale": "0.3947283,0.5362558,1",
@@ -2803,8 +2803,8 @@
             {
               "__type": "Zone",
               "__guid": "ef2ee039-9167-41c5-881f-89afa6dbe6e5",
-              "Color": "0.35137,0.4186,0.34657,1",
-              "DisplayName": "MID CONNECTOR"
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "A CONNECTOR"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -2835,7 +2835,7 @@
             {
               "__type": "Zone",
               "__guid": "c02402e4-8d53-4e9e-b602-b691d11e8e1e",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "APARTMENTS"
             },
             {
@@ -2867,7 +2867,7 @@
             {
               "__type": "Zone",
               "__guid": "83b0dcfa-fe54-486e-becc-6589ccd1bc1d",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "APARTMENTS"
             },
             {
@@ -2898,12 +2898,43 @@
             {
               "__type": "Zone",
               "__guid": "f7c12a70-2c44-4e17-ad01-bcc90fc00702",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "HEAVEN"
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "a1f3d4dd-321d-4d9a-b8a3-0acf5ad78e70",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "678.533,473.4684,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "094b1cfc-aadb-47e7-82a6-87a04ca2a9bf",
+          "Flags": 0,
+          "Name": "GUTTER",
+          "Position": "-4139.414,-572.5887,135.3322",
+          "Scale": "1.258871,0.2821018,0.2605474",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "20d50a24-7d7b-4098-904d-cda906f41d0c"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "b01f827f-c2ce-4fb3-9ed9-f6f598ce4841",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "GUTTER"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "5e8a9285-5f70-4a42-aba2-dd8e5ff0e81d",
               "Center": "0,0,0",
               "IsTrigger": true,
               "Scale": "678.533,473.4684,550.9339",
@@ -2929,7 +2960,7 @@
             {
               "__type": "Zone",
               "__guid": "45ef6f95-713a-4ec0-beda-f3b65f1ff07a",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "A SITE"
             },
             {
@@ -2960,7 +2991,7 @@
             {
               "__type": "Zone",
               "__guid": "26f0e895-de50-4675-9fae-84a507412d80",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "A CUBBY"
             },
             {
@@ -2974,10 +3005,104 @@
           ]
         },
         {
+          "__guid": "ee874ad3-e70a-41d2-bd62-2ab2070996d5",
+          "Flags": 0,
+          "Name": "LEDGE",
+          "Position": "-1677.464,-551.8355,256.0006",
+          "Scale": "0.2685625,0.186113,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "0749051d-bdea-4c64-811a-0841ec7ca952"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "abde9a76-9ed7-42fb-b865-cde62c8eadf4",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "LEDGE"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "fbddebef-7efd-49b2-86c7-ff5a49f580c4",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "370572a3-2c88-4907-b375-9fc734fe3015",
+          "Flags": 0,
+          "Name": "A ARCH",
+          "Position": "-675.0955,-781.0417,256.0008",
+          "Scale": "0.2685625,0.4502278,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "346bf5cd-6611-48d1-9cef-00a47d41dc81"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "b9ca2bf5-da9a-477a-9d45-a99cc7bcf095",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "A ARCH"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "4054bc9d-4de2-47e6-8bcc-d0afaf45cb52",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "ece89722-3cbb-4774-95f1-c262ee4306a5",
+          "Flags": 0,
+          "Name": "VAN",
+          "Position": "-563.8967,-1116.479,256",
+          "Scale": "0.1963638,0.1566217,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "fc9973c9-c4d2-4c1b-8d71-ff9007f5cd19"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "175a12b4-74bf-4338-9ee0-f051f36709f1",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "VAN"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "6e5f62ed-2d54-4555-82b0-81beb422188c",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
           "__guid": "4b4bd634-f452-4581-88ae-c66c30a55408",
           "Flags": 0,
           "Name": "B-SITE",
-          "Position": "-4096,-1024,255.9998",
+          "Position": "-4032.781,-972.8252,255.9998",
+          "Scale": "0.6575238,0.5940797,1",
           "Tags": "zone",
           "Enabled": true,
           "NetworkMode": 2,
@@ -2990,12 +3115,43 @@
             {
               "__type": "Zone",
               "__guid": "4775aacf-df7d-4a28-9087-30e7acd88421",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "B SITE"
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "49dd7df3-98c2-4c49-b23f-86290a0e25d6",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "fbca64b6-3e8b-45ac-8728-ce99f33b9b33",
+          "Flags": 0,
+          "Name": "BOOTH",
+          "Position": "-3414.631,-1234.883,256.0001",
+          "Scale": "0.3153993,0.315198,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "52f78ad6-51b9-4dbf-bbc8-ec2be2baf363"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "1565e9d7-5d54-4c8c-b562-74b9f1682102",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "BOOTH"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "d6928398-9a57-4d25-b5a8-5a85e291deea",
               "Center": "0,0,0",
               "IsTrigger": true,
               "Scale": "1079,1102.402,550.9339",
@@ -3021,7 +3177,7 @@
             {
               "__type": "Zone",
               "__guid": "e3ef0df5-01cb-4170-b0c2-9d0a388d9080",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "T SPAWN"
             },
             {
@@ -3053,7 +3209,7 @@
             {
               "__type": "Zone",
               "__guid": "fc9cf716-7d11-4e8d-a6da-9528d5eacbcd",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "TUNNEL"
             },
             {
@@ -3067,12 +3223,74 @@
           ]
         },
         {
+          "__guid": "37d9069e-46f3-41ab-a6fb-3de06305163b",
+          "Flags": 0,
+          "Name": "BACKDOORS",
+          "Position": "-4064.195,90.55884,247.7197",
+          "Scale": "1.706365,0.829925,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "d49131b7-9c7c-4de7-be11-23eb5de0544d"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "48c81a84-f7d4-478a-b5fd-5520d9dc73d7",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "BACKDOORS"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "359172b3-cc92-4540-a1d7-36da9b458743",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "524.7341,535.2,360.6002",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "d4ff89d3-42c5-4862-b64a-585e99186d9a",
+          "Flags": 0,
+          "Name": "BACKDOORS",
+          "Position": "-3668.833,30.10536,247.7202",
+          "Scale": "0.5681196,0.583999,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "6bba5ca3-2455-4e28-8a59-7c843b8e019a"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "952faa81-bd2b-4e41-a34c-743a5cb36fbd",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "BACKDOORS"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "40760d5c-80fb-424a-82e7-318b24f7b689",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "524.7341,535.2,360.6002",
+              "Static": false
+            }
+          ]
+        },
+        {
           "__guid": "5b832c79-29d0-4b47-9e4f-703b2fd787f5",
           "Flags": 0,
           "Name": "A CATWALK",
-          "Position": "-1811.852,498.3486,184.7043",
+          "Position": "-1811.85,203.4,184.7043",
           "Rotation": "0,0,0.7071067,0.7071068",
-          "Scale": "2.031421,1.124157,1",
+          "Scale": "2.653467,1.124157,1",
           "Tags": "zone",
           "Enabled": true,
           "NetworkMode": 2,
@@ -3085,7 +3303,7 @@
             {
               "__type": "Zone",
               "__guid": "083c8376-afc5-4e18-b7b5-0cd7be0ba92f",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "A CATWALK"
             },
             {
@@ -3117,7 +3335,7 @@
             {
               "__type": "Zone",
               "__guid": "0660b1dc-f913-4566-944b-996b28839460",
-              "Color": "0.35137,0.4186,0.34657,1",
+              "Color": "0.51056,0.70698,0.49653,1",
               "DisplayName": "A CATWALK"
             },
             {
@@ -3288,7 +3506,7 @@
   },
   "Title": "de_garry",
   "Description": "",
-  "LastSaved": "2024-06-06T21:10:44.9177213\u002B01:00",
+  "LastSaved": "2024-06-06T21:28:09.161958\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "deff.birdchirp"
