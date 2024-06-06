@@ -167,6 +167,8 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// </summary>
 	[Property] public BoxCollider PlayerBoxCollider { get; set; }
 
+	[Property, Group( "Config" )] public float Height { get; set; } = 64f;
+
 	/// <summary>
 	/// How far can we use stuff?
 	/// </summary>
@@ -313,6 +315,31 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 			GameObject.Name += " (Bot)";
 	}
 
+	public SceneTraceResult TraceBBox( Vector3 start, Vector3 end, float liftFeet = 0.0f, float liftHead = 0.0f )
+	{
+		var bbox = CharacterController.BoundingBox;
+		var mins = bbox.Mins;
+		var maxs = bbox.Maxs;
+
+		if ( liftFeet > 0 )
+		{
+			start += Vector3.Up * liftFeet;
+			maxs = maxs.WithZ( maxs.z - liftFeet );
+		}
+
+		if ( liftHead > 0 )
+		{
+			end += Vector3.Up * liftHead;
+		}
+
+		var tr = Scene.Trace.Ray( start, end )
+					.Size( mins, maxs )
+					.WithoutTags( "ragdoll", "invis", "pickup" )
+					.IgnoreGameObjectHierarchy( GameObject.Root )
+					.Run();
+		return tr;
+	}
+
 	protected override void OnUpdate()
 	{
 		var cc = CharacterController;
@@ -321,9 +348,23 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		// Eye input
 		if ( (this as IPawn).IsPossessed && cc.IsValid() )
 		{
-			// TODO: Move this eye height stuff to the camera? Not sure.
 			var eyeHeightOffset = GetEyeHeightOffset();
+
+			var target = eyeHeightOffset;
+			var trace = TraceBBox( Transform.Position, Transform.Position, 0, 10f );
+			if ( trace.Hit && target > _smoothEyeHeight )
+			{
+				// We hit something, that means we can't increase our eye height because something's in the way.
+				eyeHeightOffset = _smoothEyeHeight;
+				IsCrouching = true;
+			}
+			else
+			{
+				eyeHeightOffset = target;
+			}
+
 			_smoothEyeHeight = _smoothEyeHeight.LerpTo( eyeHeightOffset, Time.Delta * 10f );
+			CharacterController.Height = Height + _smoothEyeHeight;
 
 			if ( PlayerBoxCollider.IsValid() )
 			{
