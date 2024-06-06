@@ -76,6 +76,9 @@ public class ArmorWithHelmetEquipment : EquipmentData
 	{
 		player.HealthComponent.Armor = 100;
 		player.HealthComponent.HasHelmet = true;
+
+		// Reset the player's outfit
+		player.Outfitter.OnResetState( player );
 	}
 
 	public override bool IsOwned( PlayerController player )

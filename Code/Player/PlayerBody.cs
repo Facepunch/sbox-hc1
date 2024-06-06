@@ -12,6 +12,13 @@ public partial class PlayerBody : Component
 
 	private bool IsShown;
 
+	public PlayerController Player { get; set; }
+
+	protected override void OnStart()
+	{
+		Player = Components.Get<PlayerController>( FindMode.EverythingInSelfAndAncestors );
+	}
+
 	internal void SetRagdoll( bool ragdoll )
 	{
 		Physics.Enabled = ragdoll;
