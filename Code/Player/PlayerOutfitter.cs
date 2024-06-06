@@ -2,53 +2,64 @@
 
 public class PlayerOutfit
 {
+	/// <summary>
+	/// A list of items we'll apply on top of the player's avatar.
+	/// </summary>
 	public List<Clothing> Items { get; set; } = new();
 
-	bool IsKeptCategory( ClothingContainer.ClothingEntry entry )
-	{
-		if ( entry.Clothing.Category == Clothing.ClothingCategory.Skin ) return true;
-		if ( entry.Clothing.Category == Clothing.ClothingCategory.Facial ) return true;
-		return false;
-	}
+	/// <summary>
+	/// A list of categories we'll discard from the player's avatar.
+	/// </summary>
+	public List<Clothing.ClothingCategory> DiscardCategories { get; set; } = new();
 
+	/// <summary>
+	/// A list of subcategories we'll discard from the player's avatar.
+	/// </summary>
+	public List<string> DiscardSubcategories { get; set; } = new();
+
+	/// <summary>
+	/// Handle the helmet separately, this'll get applied only when the player has a helmet purchased.
+	/// </summary>
 	[Property] public Clothing Helmet { get; set; }
 
 	public void Wear( PlayerOutfitter outfitter )
 	{
-		var clothing = new ClothingContainer();
-		clothing.Deserialize( outfitter.Avatar );
+		var container = new ClothingContainer();
+		container.Deserialize( outfitter.Avatar );
 
-		for ( int i = clothing.Clothing.Count() - 1; i >= 0; i-- )
+		for ( int i = container.Clothing.Count() - 1; i >= 0; i-- )
 		{
-			if ( !IsKeptCategory( clothing.Clothing[i] ) )
+			var item = container.Clothing[i];
+			if ( DiscardCategories.Contains( item.Clothing.Category ) 
+				|| DiscardSubcategories.Contains( item.Clothing.SubCategory ) )
 			{
-				clothing.Clothing.RemoveAt( i );
+				container.Clothing.RemoveAt( i );
 			}
 		}
 
 		// Outfit items
 		foreach ( var item in Items )
 		{
-			if ( !clothing.Has( item ) )
-				clothing.Toggle( item );
+			if ( !container.Has( item ) )
+				container.Toggle( item );
 		}
 
 		// Do we have a hat on?
-		var hat = clothing.Clothing.FirstOrDefault( x => x.Clothing.Category == Clothing.ClothingCategory.Hat );
+		var hat = container.Clothing.FirstOrDefault( x => x.Clothing.Category == Clothing.ClothingCategory.Hat );
 
 		// Take off the hat
 		if ( hat is not null )
-			clothing.Toggle( hat.Clothing );
+			container.Toggle( hat.Clothing );
 
 		// Do we have a helmet?
 		if ( outfitter.PlayerController.HealthComponent.HasHelmet )
 		{
 			// Turn on our helmet override
-			clothing.Toggle( Helmet );
+			container.Toggle( Helmet );
 		}
 
 		// Apply to player
-		clothing.Apply( outfitter.Body.Renderer );
+		container.Apply( outfitter.Body.Renderer );
 	}
 
 	public override string ToString()
