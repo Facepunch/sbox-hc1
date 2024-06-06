@@ -40,6 +40,8 @@ public class PlayerOutfit
 		// Outfit items
 		foreach ( var item in Items )
 		{
+			if ( item is null ) continue;
+
 			if ( !container.Has( item ) )
 				container.Toggle( item );
 		}
