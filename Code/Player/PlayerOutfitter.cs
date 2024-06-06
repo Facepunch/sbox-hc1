@@ -47,7 +47,7 @@ public class PlayerOutfit
 		}
 
 		// Do we have a hat on?
-		var hat = container.Clothing.FirstOrDefault( x => x.Clothing.Category == Clothing.ClothingCategory.Hat );
+		var hat = container.Clothing.FirstOrDefault( x => x.Clothing.Category == Clothing.ClothingCategory.Hat && x.Clothing.SubCategory != "Masks" );
 
 		// Take off the hat
 		if ( hat is not null )
