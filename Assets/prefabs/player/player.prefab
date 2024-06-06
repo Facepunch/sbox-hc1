@@ -3,7 +3,7 @@
     "__guid": "b6dcc93f-1a2d-4553-9f6c-edb21c0eb264",
     "Flags": 0,
     "Name": "player",
-    "Tags": "player,noblockaudio",
+    "Tags": "noblockaudio,player",
     "Enabled": true,
     "NetworkMode": 2,
     "NetworkInterpolation": true,
@@ -87,12 +87,6 @@
           "go": "ffa0259b-f18d-434e-bcc0-756b17f567ae",
           "component_type": "CameraComponent"
         },
-        "ColorAdjustments": {
-          "_type": "component",
-          "component_id": "61e44cd2-796f-4304-ac5e-be34fa8375fe",
-          "go": "ffa0259b-f18d-434e-bcc0-756b17f567ae",
-          "component_type": "ColorAdjustments"
-        },
         "Player": {
           "_type": "component",
           "component_id": "e215c99d-27a4-4d28-9516-6b50cf89ba0d",
@@ -100,7 +94,8 @@
           "component_type": "PlayerController"
         },
         "RespawnProtectionSaturation": 0.25,
-        "ShouldViewBob": false
+        "ShouldViewBob": false,
+        "ThirdPersonDistance": 128
       },
       {
         "__type": "Facepunch.CharacterController",
@@ -469,6 +464,48 @@
               "go": "b6dcc93f-1a2d-4553-9f6c-edb21c0eb264",
               "component_type": "TeamComponent"
             }
+          },
+          {
+            "__type": "Facepunch.EquipmentHolsters",
+            "__guid": "35ddfcfd-a435-4524-9e6a-0118aa6b4f9e",
+            "MountPoints": [
+              {
+                "Slot": "Primary",
+                "GameObjects": [
+                  {
+                    "_type": "gameobject",
+                    "go": "ccd99d09-74c5-48b8-8fe6-bc8b836a7264"
+                  }
+                ]
+              },
+              {
+                "Slot": "Secondary",
+                "GameObjects": [
+                  {
+                    "_type": "gameobject",
+                    "go": "1e4b26b1-187d-46f0-a9f4-49cfc61a0791"
+                  }
+                ]
+              },
+              {
+                "Slot": "Utility",
+                "GameObjects": [
+                  {
+                    "_type": "gameobject",
+                    "go": "172ddc6c-b2ce-489a-815d-00d3aa182d14"
+                  }
+                ]
+              },
+              {
+                "Slot": "Special",
+                "GameObjects": [
+                  {
+                    "_type": "gameobject",
+                    "go": "8ef1060e-c75a-4a07-bcfb-86c20686292a"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "Children": [
@@ -1201,8 +1238,58 @@
                             "NetworkInterpolation": true
                           }
                         ]
+                      },
+                      {
+                        "__guid": "8ef1060e-c75a-4a07-bcfb-86c20686292a",
+                        "Flags": 0,
+                        "Name": "BombMountPoint",
+                        "Position": "5.911533,-12.08859,-0.6136986",
+                        "Rotation": "0.0729852,-0.6972747,0.7094356,0.0719909",
+                        "Enabled": true,
+                        "NetworkMode": 2,
+                        "NetworkInterpolation": true,
+                        "Children": [
+                          {
+                            "__guid": "9c08d9a1-c9b7-4b54-b2c2-32ceab4f09f0",
+                            "Flags": 0,
+                            "Name": "Object",
+                            "Position": "3.535849,0,-5.571055",
+                            "NetworkMode": 2,
+                            "NetworkInterpolation": true,
+                            "Components": [
+                              {
+                                "__type": "Sandbox.ModelRenderer",
+                                "__guid": "c4fcff05-1060-4007-b50f-09e26936ebeb",
+                                "BodyGroups": 18446744073709551615,
+                                "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
+                                "RenderType": "On",
+                                "Tint": "1,1,1,1"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "__guid": "ccd99d09-74c5-48b8-8fe6-bc8b836a7264",
+                        "Flags": 0,
+                        "Name": "PrimaryMountPoint",
+                        "Position": "5.921557,10.93031,-5.41015",
+                        "Rotation": "0.4069917,-0.05174786,0.9119226,0.008846819",
+                        "Enabled": true,
+                        "NetworkMode": 2,
+                        "NetworkInterpolation": true
                       }
                     ]
+                  },
+                  {
+                    "__guid": "172ddc6c-b2ce-489a-815d-00d3aa182d14",
+                    "Flags": 0,
+                    "Name": "GrenadeMountPoint",
+                    "Position": "-3.034623,-6.32999,6.998024",
+                    "Rotation": "-0.06523964,0.7195596,-0.06852837,0.6879549",
+                    "Enabled": true,
+                    "NetworkMode": 2,
+                    "NetworkInterpolation": true
                   }
                 ]
               },
@@ -1303,6 +1390,16 @@
                     "Name": "leg_glute_helper_R",
                     "Position": "0,0,0",
                     "Rotation": "-0.000001056968,-0.0000006258488,-0.7071052,0.7071084",
+                    "Enabled": true,
+                    "NetworkMode": 2,
+                    "NetworkInterpolation": true
+                  },
+                  {
+                    "__guid": "1e4b26b1-187d-46f0-a9f4-49cfc61a0791",
+                    "Flags": 0,
+                    "Name": "SecondaryMountPoint",
+                    "Position": "-0.000009145748,-4.307933,5.293606",
+                    "Rotation": "-0.684105,-0.000002405606,-0.000003099442,0.7293837",
                     "Enabled": true,
                     "NetworkMode": 2,
                     "NetworkInterpolation": true

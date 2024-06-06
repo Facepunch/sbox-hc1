@@ -12,7 +12,7 @@ public partial class PlayerInventory : Component
 	/// <summary>
 	/// What weapons do we have right now?
 	/// </summary>
-	public IEnumerable<Weapon> Weapons => WeaponGameObject.Components.GetAll<Weapon>( FindMode.EverythingInSelfAndDescendants );
+	public IEnumerable<Weapon> Weapons => Player.Components.GetAll<Weapon>( FindMode.EverythingInSelfAndDescendants );
 
 	/// <summary>
 	/// Does this player have a bomb on them?

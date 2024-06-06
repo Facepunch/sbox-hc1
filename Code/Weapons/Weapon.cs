@@ -134,7 +134,9 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 		// We must first holster all other weapons.
 		if ( PlayerController.IsValid() )
 		{
-			foreach ( var weapon in PlayerController.Inventory.Weapons )
+			var weapons = PlayerController.Inventory.Weapons.ToList();
+
+			foreach ( var weapon in weapons )
 				weapon.Holster();
 		}
 		

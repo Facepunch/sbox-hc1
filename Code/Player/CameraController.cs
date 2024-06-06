@@ -1,3 +1,4 @@
+using Facepunch.UI;
 using Sandbox;
 
 namespace Facepunch;
@@ -21,6 +22,9 @@ public sealed class CameraController : Component
 
 	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = false;
 	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
+
+	[ConVar( "hc1_thirdperson" )] public static bool ThirdPersonEnabled { get; set; } = false;
+	[Property] public float ThirdPersonDistance { get; set; } = 128f;
 
 	private CameraMode _mode;
 	public CameraMode Mode
@@ -127,6 +131,15 @@ public sealed class CameraController : Component
 				: ColorAdjustments.Saturation.MoveToLinear( 1f, 1f );
 		}
 
+		// Developer override
+		if ( ThirdPersonEnabled & DeveloperMenu.IsDeveloper )
+		{
+			if ( Mode == CameraMode.ThirdPerson )
+				Mode = CameraMode.FirstPerson;
+			else
+				Mode = CameraMode.ThirdPerson;
+		}
+
 		ApplyRecoil();
 
 		if (MaxBoomLength > 0)
@@ -137,6 +150,7 @@ public sealed class CameraController : Component
 			.Run();
 
 			Camera.Transform.LocalPosition = Vector3.Backward * (tr.Hit ? tr.Distance - 5.0f : MaxBoomLength);
+			Camera.Transform.LocalPosition += Vector3.Right * 20f;
 		}
 		else
 		{
@@ -156,7 +170,7 @@ public sealed class CameraController : Component
 
 	void OnModeChanged()
 	{
-		SetBoomLength( Mode == CameraMode.FirstPerson ? 0.0f : 256.0f );
+		SetBoomLength( Mode == CameraMode.FirstPerson ? 0.0f : ThirdPersonDistance );
 
 		var firstPersonPOV = Mode == CameraMode.FirstPerson && Player.IsViewer;
 		Player.Body.ShowBodyParts( !firstPersonPOV );
