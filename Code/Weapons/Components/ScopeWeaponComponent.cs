@@ -121,7 +121,10 @@ public class ScopeWeaponComponent : InputWeaponComponent
 	protected override void OnUpdate()
 	{
 		base.OnUpdate();
-		var camera = Weapon.PlayerController.CameraController;
+		var camera = Weapon?.PlayerController?.CameraController;
+
+		if ( !camera.IsValid() )
+			return;
 
 		if ( !IsZooming )
 			return;
