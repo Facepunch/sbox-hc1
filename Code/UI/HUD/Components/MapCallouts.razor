@@ -4,7 +4,7 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="hud with-deadzone row top-left" style="margin-top: 260px">
+<root class="row">
     <label class="small">@(Player?.GetZone<MapLocation>()?.Zone?.DisplayName)</label>
 </root>
 
