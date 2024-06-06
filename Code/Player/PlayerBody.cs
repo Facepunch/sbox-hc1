@@ -36,6 +36,8 @@ public partial class PlayerBody : Component
 
 		if ( ragdoll && DamageTakenForce.LengthSquared > 0f )
 			ApplyRagdollImpulses( DamageTakenPosition, DamageTakenForce );
+
+		Transform.ClearInterpolation();
 	}
 
 	internal void ApplyRagdollImpulses( Vector3 position, Vector3 force )
