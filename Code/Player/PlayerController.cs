@@ -684,6 +684,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 		var pm = Scene.Trace.Ray( start, end )
 					.Size( cc.BoundingBox.Mins, cc.BoundingBox.Maxs )
 					.WithTag( "ladder" )
+					.HitTriggers()
 					.IgnoreGameObjectHierarchy( GameObject )
 					.Run();
 
