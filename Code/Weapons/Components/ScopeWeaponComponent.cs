@@ -11,6 +11,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 	
 	IDisposable renderHook;
 
+	[Sync, Change( nameof( OnZoomChanged ))]
 	private int ZoomLevel { get; set; } = 0;
 	public bool IsZooming => ZoomLevel > 0;
 	private float BlurLerp { get; set; } = 1.0f;
@@ -19,7 +20,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 	private Angles AnglesLerp;
 	[Property] private float AngleOffsetScale { get; set; } = 0.01f;
 
-	protected void StartZoom( int level = 0 )
+	protected void StartZoom()
 	{
 		renderHook?.Dispose();
 		renderHook = null;
@@ -38,7 +39,6 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		if( ZoomSound is not null )
 			Sound.Play( ZoomSound, Weapon.GameObject.Transform.Position );
 
-		ZoomLevel = level;
 		Weapon.Tags.Add( "zooming" );
 
 		if ( Weapon.ViewModel.IsValid() )
@@ -71,6 +71,12 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		BlurLerp = 1.0f;
 	}
 
+	private void OnZoomChanged( int oldValue, int newValue )
+	{
+		if ( oldValue == 0 ) StartZoom();
+		else if ( newValue == 0) EndZoom();
+	}
+
 	public void RenderEffect( SceneCamera camera )
 	{
 		RenderAttributes attrs = new RenderAttributes();
@@ -83,13 +89,13 @@ public class ScopeWeaponComponent : InputWeaponComponent
 
 	protected override void OnInput()
 	{
-		if( ZoomLevel < NumZoomLevels )
+		if ( ZoomLevel < NumZoomLevels )
 		{
-			StartZoom( ZoomLevel + 1 );
+			ZoomLevel++;
 		}
 		else
 		{
-			EndZoom();
+			ZoomLevel = 0;
 		}
 	}
 
