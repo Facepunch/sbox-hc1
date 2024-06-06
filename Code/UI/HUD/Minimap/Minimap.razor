@@ -92,9 +92,10 @@
 
     string GetBox( IMinimapVolume volume )
     {
-        var position = Renderer.RemapCoords(volume.WorldPosition + (volume.Size / 2));
-        var scaledSize = (Vector2)(volume.Size / 2) * (Renderer.ExportResolution / Renderer.Size) / 2;
-        return $"left: {Length.Fraction(position.x)}; top: {Length.Fraction(position.y)}; width:{scaledSize.y}px; height:{scaledSize.x}px;";
+        var min = Renderer.RemapCoords(volume.WorldPosition + (volume.Size / 2));
+        var max = Renderer.RemapCoords(volume.WorldPosition - (volume.Size / 2));
+        var remappedSize = max - min;
+        return $"left: {Length.Fraction(min.x)}; top: {Length.Fraction(min.y)}; width:{Length.Fraction(remappedSize.x)}; height:{Length.Fraction(remappedSize.y)};";
     }
 
     string RotationToMap( Angles rot )

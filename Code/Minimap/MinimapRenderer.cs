@@ -25,8 +25,8 @@ public partial class MinimapRenderer : Component, Component.ExecuteInEditor
 		var normalizedY = (worldPos.y - minY) / (maxY - minY);
 
 		// Map normalized coordinates to the minimap image resolution
-		var minimapX = 1 - normalizedX;
-		var minimapY = 1 - normalizedY; // Invert Y to match top-left origin
+		var minimapX = (1 - normalizedX).Clamp( 0, 1 );
+		var minimapY = (1 - normalizedY).Clamp( 0, 1 ); // Invert Y to match top-left origin
 
 		// Return the mapped coordinates
 		return new Vector2(minimapY, minimapX);
