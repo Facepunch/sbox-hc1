@@ -32,6 +32,26 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	[Property, Group( "Config" )] public Vector3 Gravity { get; set; } = new Vector3( 0, 0, 800 );
 
 	/// <summary>
+	/// What effect should we spawn when a player gets headshot?
+	/// </summary>
+	[Property, Group( "Effects" )] public GameObject HeadshotEffect { get; set; }
+
+	/// <summary>
+	/// What effect should we spawn when a player gets headshot while wearing a helmet?
+	/// </summary>
+	[Property, Group( "Effects" )] public GameObject HeadshotWithHelmetEffect { get; set; }
+
+	/// <summary>
+	/// What sound should we play when a player gets headshot?
+	/// </summary>
+	[Property, Group( "Effects" )] public SoundEvent HeadshotSound { get; set; }
+
+	/// <summary>
+	/// What sound should we play when a player gets headshot?
+	/// </summary>
+	[Property, Group( "Effects" )] public SoundEvent HeadshotWithHelmetSound { get; set; }
+
+	/// <summary>
 	/// The current character controller for this player.
 	/// </summary>
 	[RequireComponent] public CharacterController CharacterController { get; set; }
@@ -754,5 +774,28 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 		Body.DamageTakenPosition = position;
 		Body.DamageTakenForce = force.Normal * damage * Game.Random.Float(5f, 20f);
+
+		// Headshot effects
+		if ( hitbox.Contains( "head" ) )
+		{
+			var hasHelmet = HealthComponent.HasHelmet;
+
+			// Non-local viewer
+			if ( !IsViewer )
+			{
+				var go = hasHelmet ? HeadshotWithHelmetEffect?.Clone( position ) : HeadshotEffect?.Clone( position );
+
+				if ( go.IsValid() )
+				{
+					// we did it
+				}
+			}
+
+			var headshotSound = hasHelmet ? HeadshotWithHelmetSound : HeadshotSound;
+			if ( headshotSound is not null )
+			{
+				Sound.Play( headshotSound, position );
+			}
+		}
 	}
 }
