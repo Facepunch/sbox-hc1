@@ -7,7 +7,6 @@ public class ScopeWeaponComponent : InputWeaponComponent
 	[Property] public Material ScopeOverlay { get; set; }
 	[Property] public SoundEvent ZoomSound { get; set; }
 	[Property] public SoundEvent UnzoomSound { get; set;}
-	[Property] public int NumZoomLevels { get; set; } = 2;
 	
 	IDisposable renderHook;
 
@@ -19,6 +18,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 	private Angles LastAngles;
 	private Angles AnglesLerp;
 	[Property] private float AngleOffsetScale { get; set; } = 0.01f;
+	[Property] public List<int> ZoomLevels { get; set; } = new();
 
 	protected void StartZoom()
 	{
@@ -89,7 +89,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 
 	protected override void OnInput()
 	{
-		if ( ZoomLevel < NumZoomLevels )
+		if ( ZoomLevel < ZoomLevels.Count )
 		{
 			ZoomLevel++;
 		}
@@ -136,9 +136,8 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			EndZoom();
 		}
 
-		camera.AddFieldOfViewOffset( ZoomLevel * 30 );
+		camera.AddFieldOfViewOffset( ZoomLevels[ZoomLevel - 1] );
 		Weapon.PlayerController.AimDampening /= (ZoomLevel * ZoomLevel) + 1;
-
 
 		{
 			var cc = Weapon.PlayerController.CharacterController;
