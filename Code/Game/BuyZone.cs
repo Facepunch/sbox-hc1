@@ -6,7 +6,8 @@ internal class BuyZone : Component, ICustomMinimapIcon, IMinimapVolume
 	[Property]
 	public Team Team { get; set; }
 
-	public Color Color => "rgba(171, 245, 0, 0.10)";
+	public Color Color => $"rgba( {Team.GetColor().Rgba}, 0.10)";
+	public Color LineColor => $"rgba({Team.GetColor().Rgba}, 0.5)";
 
 	public Vector3 Size => Components.Get<BoxCollider>().Scale;
 

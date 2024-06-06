@@ -29,6 +29,7 @@ public interface ICustomMinimapIcon : IMinimapIcon
 public interface IMinimapVolume : IMinimapElement
 {
 	public Color Color { get; }
+	public Color LineColor { get; }
 	public Vector3 Size { get; }
 }
 
@@ -36,6 +37,7 @@ public interface IMinimapVolume : IMinimapElement
 public interface IMinimapLabel : IMinimapElement
 {
 	public string Label { get; }
+	public Color LabelColor { get; }
 }
 
 public static class MinimapExtensionMethods

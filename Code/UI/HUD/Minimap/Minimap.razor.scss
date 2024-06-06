@@ -1,40 +1,35 @@
 ﻿@import "/UI/Styles/Theme.scss";
 
-Minimap {
+Minimap
+{
     width: 256px;
     height: 256px;
     border-radius: $rounding;
     transition: all 0.1s ease;
 
-    &.big {
+    &.big
+    {
         width: 400px;
         height: 400px;
     }
 
-    .minimap {
+    .minimap
+    {
         width: 100%;
         height: 100%;
         background-size: contain;
         background-position: center;
     }
 
-    .overlay {
-        position: absolute;
-        mix-blend-mode: lighten;
-        width: 100%;
-        height: 100%;
-        background-size: contain;
-        background-position: center;
-        background-image-tint: rgba( 0, 255, 0, 0.5 );
-    }
-
-    .markers {
+    .markers
+    {
         position: absolute;
         width: 100%;
         height: 100%;
     }
 
-    .marker {
+    .marker
+    {
         position: absolute;
         width: 18px;
         height: 18px;
@@ -44,45 +39,57 @@ Minimap {
         background-size: contain;
         background-position: center;
 
-        &.c4 {
+        &.c4
+        {
             width: 24px;
             height: 24px;
             background-image: url('ui/items/c4.png');
         }
 
-        &.dead {
+        &.dead
+        {
             background-image: url('ui/minimaps/icon-map_skull.png');
             width: 32px;
             height: 32px;
         }
 
-        &.viewer {
+        &.viewer
+        {
             background-image-tint: rgba( 0, 255, 255, 1 );
             width: 22px;
             height: 22px;
             z-index: 200;
         }
 
-        &.buyzone {
+        &.buyzone
+        {
             width: 24px;
             height: 24px;
             z-index: 15;
         }
     }
 
-    .volume {
+    .volume
+    {
         position: absolute;
         background-color: white;
         z-index: 5;
 
-        &.bombzone {
-            background-color: rgb(255, 106, 0,0.25);
+        .bg
+        {
+            width: 100%;
+            height: 100%;
+            mask-position: center;
+            mask-size: 16px;
+            opacity: 1;
+            mask-image: url( https://files.facepunch.com/tony/1b0711b1/line_mask.png );
         }
     }
 
-    .label {
+    .label
+    {
         position: absolute;
-        z-index: 10;
+        z-index: 999;
         transform: translateX(-50%) translateY(-50%);
     }
 }
