@@ -13,6 +13,7 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 		go.Transform.Position = positon;
 		go.Transform.Rotation = rotation ?? Rotation.Identity;
 		go.Name = resource.Name;
+		go.Tags.Add("pickup");
 
 		var droppedWeapon = go.Components.Create<DroppedWeapon>();
 		droppedWeapon.Resource = resource;
