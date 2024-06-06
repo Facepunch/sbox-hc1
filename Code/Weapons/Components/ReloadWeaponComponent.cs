@@ -84,6 +84,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent, Weapon.IDeplo
 
 		// Tags will be better so we can just react to stimuli.
 		Weapon.ViewModel?.ModelRenderer.Set( "b_reload", true );
+		Weapon.PlayerController?.BodyRenderer.Set( "b_reload", true );
 
 		foreach ( var kv in GetReloadSounds() )
 		{
@@ -100,6 +101,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent, Weapon.IDeplo
 
 		// Tags will be better so we can just react to stimuli.
 		Weapon.ViewModel?.ModelRenderer.Set( "b_reload", false );
+		Weapon.PlayerController?.BodyRenderer.Set( "b_reload", false );
 	}
 
 	[Broadcast( NetPermission.OwnerOnly )]
