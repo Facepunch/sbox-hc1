@@ -25,7 +25,7 @@
                 }
                 @foreach (var element in Game.ActiveScene.GetAllComponents<IMinimapElement>())
                 {
-                    if ( !element.IsValid() || !element.IsVisible(GameUtils.Viewer) )
+                    if ( !element.IsValid() || (GameUtils.Viewer is not null && !element.IsVisible(GameUtils.Viewer)) )
                         continue;
 
                     if ( element is IMinimapVolume volume )
