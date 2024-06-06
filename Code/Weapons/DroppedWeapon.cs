@@ -27,6 +27,11 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 
 		go.Components.Create<DestroyBetweenRounds>();
 
+		if ( resource.Slot == WeaponSlot.Special )
+		{
+			droppedWeapon.IconType = MinimapIconType.DroppedC4;
+		}
+
 		if ( heldWeapon is not null )
 		{
 			foreach ( var state in heldWeapon.Components.GetAll<IDroppedWeaponState>() )

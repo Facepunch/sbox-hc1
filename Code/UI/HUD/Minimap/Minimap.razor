@@ -9,37 +9,44 @@
             <div class="overlay" style="background-image: url( @Renderer.CurrentMinimapPath );" />
 
             <div class="markers">
-                @foreach (var marker in MarkedObjects)
+                @foreach (var player in GetPlayers())
                 {
-                    if (!ShowMarker(marker))
-                    {
+                    if (player.Tags.Has("invis"))
                         continue;
-                    }
-                    if (IsDead(marker))
+
+                    if ( player.HealthComponent.State == LifeState.Dead )
                     {
-                        <div class="marker dead" style="@WorldToMap(marker)" />
+                        <div class="marker dead" style="@WorldToMap(player.Transform.Position)" />
                     }
                     else
                     {
-                        <div class="marker @(ViewingPlayer(marker))" style="@WorldToMap(marker) @RotationToMap(marker) @TeamColor(marker)" />
+                        <div class="marker @GetPlayerClass(player)" style="@WorldToMap(player.Transform.Position) @RotationToMap(player.EyeAngles) @GetPlayerColor(player)" />
                     }
                 }
-                @foreach (var bombZone in Game.ActiveScene.GetAllComponents<BombSite>())
+                @foreach (var element in Game.ActiveScene.GetAllComponents<IMinimapElement>())
                 {
-                    <div class="bombsite" style="@WorldToMap(bombZone.GameObject)">
-                        @BombSiteIntToAlphabet(bombZone.Index)
-                        <div class="bombzone" style="@GetBox(bombZone)" />
-                    </div>
+                    if ( !element.IsValid() || !element.IsVisible(GameUtils.Viewer) )
+                        continue;
+
+                    if ( element is IMinimapVolume volume )
+                    {
+                        <div class="volume" style="@GetBox(volume) background-color: @volume.Color.Rgba;" />
+                    }
+                    if (element is IMinimapIcon icon && icon.IconType != MinimapIconType.None)
+                    {
+                        <div class="marker @icon.IconType.GetClass()" style="@WorldToMap(icon.WorldPosition) @((icon as ICustomMinimapIcon)?.CustomStyle ?? "")" />
+                    }
+                    if (element is IMinimapLabel label)
+                    {
+                        <div class="label" style="@WorldToMap(label.WorldPosition)">
+                            @label.Label
+                        </div>
+                    }
                 }
-                @foreach (var buyZone in Game.ActiveScene.GetAllComponents<BuyZone>())
+                @if ( SpectateSystem.Instance?.IsFreecam ?? false )
                 {
-                    <div class="buysite" style="@WorldToMap(buyZone.GameObject) @GetTeamIcon(buyZone)">
-                        <div class="buyzone" style="@GetBox(buyZone)" />
-                    </div>
-                }
-                @if ( ( GameUtils.LocalPlayer?.IsSpectating ?? false ) && ( SpectateSystem.Instance?.IsFreecam ?? false ) )
-                {
-                    <div class="marker" style="@WorldToMap(Scene.Components.GetAll<SpectateController>().FirstOrDefault().GameObject) @RotationToMap(Scene.Components.GetAll<SpectateController>().FirstOrDefault().Transform.Rotation.Angles())" />
+                    var spectateController = SpectateSystem.Instance.FreecamController;
+                    <div class="marker" style="@WorldToMap(spectateController.Transform.Position) @RotationToMap(spectateController.Transform.Rotation.Angles())" />
                 }
             </div>
         </div>
@@ -50,125 +57,47 @@
 {
     public MinimapRenderer Renderer => Game.ActiveScene.GetAllComponents<MinimapRenderer>().FirstOrDefault();
 
-    public IEnumerable<IMarkerObject> MarkedObjects => Game.ActiveScene.GetAllComponents<IMarkerObject>();
-
-    public override void Tick()
+    IEnumerable<PlayerController> GetPlayers()
     {
-        base.Tick();
-    }
-
-    bool ShowMarker(IMarkerObject obj)
-    {
-        var ply = obj.GameObject.Components.Get<TeamComponent>();
-
-        if (!ply.IsValid()) return false;
-
-        if (obj.GameObject.Tags.Has("invis"))
-            return false;
-
-        if (GameUtils.LocalPlayer?.IsSpectating ?? false)
+        if ( GameUtils.LocalPlayer?.IsSpectating ?? false || GameUtils.Viewer is null )
         {
-            return true;
+            return GameUtils.AllPlayers;
         }
 
-        return ply.Team == GameUtils.Viewer?.TeamComponent.Team;
+        return GameUtils.GetPlayers(GameUtils.Viewer.TeamComponent.Team);
     }
 
-    bool IsSpectating()
+    // player
+    string GetPlayerColor( PlayerController player )
     {
-        return GameUtils.LocalPlayer?.IsSpectating ?? false;
-    }
-
-    string GetTeamIcon(BuyZone obj)
-    {
-        return $"background-image: url( '{obj.Team.GetIconPath()}' );";
-    }
-
-    string BombSiteIntToAlphabet(int i)
-    {
-        return ((char)(i + 65)).ToString();
-    }
-
-    string TeamColor (IMarkerObject obj)
-    {
-        var ctl = obj.GameObject.Components.Get<PlayerController>();
-        if(ctl == GameUtils.Viewer)
+        if ((player as IPawn).IsPossessed)
         {
             return "background-image-tint: rgba( 0, 255, 255, 1 )";
         }
 
-        var ply = obj.GameObject.Components.Get<TeamComponent>();
-
-        return $"background-image-tint: {ply.Team.GetColor().Hex}";
+        return $"background-image-tint: {player.TeamComponent.Team.GetColor().Hex}";
     }
 
-    string TeamColor(BuyZone obj)
+    string GetPlayerClass( PlayerController player )
     {
-        var ply = obj.Team;
-
-        return $"background-image-tint: {ply.GetColor().Hex}";
+        return (player as IPawn).IsPossessed ? "viewer" : "";
     }
 
-    bool IsDead(IMarkerObject obj)
+    // generic
+    string WorldToMap( Vector3 worldPosition )
     {
-        var controller = obj.GameObject.Components.Get<HealthComponent>();
-        return controller.State == LifeState.Dead;
+        var position = Renderer.RemapCoords(worldPosition);
+        return $"left: {Length.Fraction(position.x)}; top: {Length.Fraction(position.y)};";
     }
 
-    string ViewingPlayer(IMarkerObject obj)
+    string GetBox( IMinimapVolume volume )
     {
-        var ply = obj.GameObject.Components.Get<PlayerController>();
-
-        return ply == GameUtils.Viewer ? "viewer" : "";
+        var position = Renderer.RemapCoords(volume.WorldPosition + (volume.Size / 2));
+        var scaledSize = (Vector2)(volume.Size / 2) * (Renderer.ExportResolution / Renderer.Size) / 2;
+        return $"left: {Length.Fraction(position.x)}; top: {Length.Fraction(position.y)}; width:{scaledSize.y}px; height:{scaledSize.x}px;";
     }
 
-    string WorldToMap(IMarkerObject obj)
-    {
-        var toScreen = Renderer.RemapCoords(obj.GameObject.Transform.LocalPosition);
-
-        return $"left: {Length.Fraction(toScreen.x)}; top: {Length.Fraction(toScreen.y)};";
-    }
-
-    string WorldToMap(GameObject obj)
-    {
-        var toScreen = Renderer.RemapCoords(obj.Transform.LocalPosition);
-
-        return $"left: {Length.Fraction(toScreen.x)}; top: {Length.Fraction(toScreen.y)};";
-    }
-
-    string GetBox(BombSite site)
-    {
-        //This poop but do for now.
-        var size = site.GameObject.Components.Get<BoxCollider>();
-        return $"width:{size.Scale.y / 20}px; height:{size.Scale.x / 20}px;";
-    }
-
-    string GetBox(BuyZone site)
-    {
-        //This poop but do for now.
-        var size = site.GameObject.Components.Get<BoxCollider>();
-        return $"width:{size.Scale.y / 20}px; height:{size.Scale.x / 20}px;";
-    }
-
-    string RotationToMap(IMarkerObject obj)
-    {
-        var ply = obj.GameObject.Components.Get<PlayerController>();
-
-        var head = ply.EyeAngles;
-
-        return $"transform: translateX(-50%) translateY(-50%) rotate({-head.yaw}deg);";
-    }
-
-    string RotationToMap(GameObject obj)
-    {
-        var ply = obj.Components.Get<PlayerController>();
-
-        var head = ply.EyeAngles;
-
-        return $"transform: translateX(-50%) translateY(-50%) rotate({-head.yaw}deg);";
-    }
-
-    string RotationToMap(Angles rot)
+    string RotationToMap( Angles rot )
 	{
 		return $"transform: translateX(-50%) translateY(-50%) rotate({-rot.yaw}deg);";
 	}

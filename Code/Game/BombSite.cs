@@ -3,7 +3,7 @@
 /// <summary>
 /// C4 can be planted anywhere within colliders inside this object.
 /// </summary>
-public sealed class BombSite : Component
+public sealed partial class BombSite : Component
 {
 	/// <summary>
 	/// The zone defining the bounds of this bomb site.
