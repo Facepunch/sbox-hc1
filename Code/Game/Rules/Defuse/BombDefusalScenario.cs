@@ -3,6 +3,7 @@
 public sealed class BombDefusalScenario : Component,
 	IGameStartListener,
 	IRoundStartListener,
+	IBombDroppedListener,
 	IBombPlantedListener,
 	IBombDetonatedListener,
 	IBombDefusedListener,
@@ -107,6 +108,16 @@ public sealed class BombDefusalScenario : Component,
 	{
 		GameMode.Instance.ShowStatusText( Team.Terrorist, "Plant the Bomb" );
 		GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "Defend" );
+	}
+
+	void IBombDroppedListener.OnBombDropped( )
+	{
+		GameMode.Instance.ShowStatusText( Team.Terrorist, "Recover the Bomb" );
+	}
+
+	void IBombDroppedListener.OnBombPickedUp()
+	{
+		GameMode.Instance.ShowStatusText( Team.Terrorist, "Plant the Bomb" );
 	}
 
 	void IBombPlantedListener.OnBombPlanted( PlayerController planter, GameObject bomb, BombSite bombSite )

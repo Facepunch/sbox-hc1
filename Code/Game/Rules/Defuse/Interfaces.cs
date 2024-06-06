@@ -15,3 +15,9 @@ public interface IBombDetonatedListener
 {
 	public void OnBombDetonated( GameObject bomb, BombSite bombSite ) { }
 }
+
+public interface IBombDroppedListener
+{
+	public void OnBombDropped() { }
+	public void OnBombPickedUp() { }
+}

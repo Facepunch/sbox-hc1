@@ -29,6 +29,11 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 
 		if ( resource.Slot == WeaponSlot.Special )
 		{
+			foreach ( var listener in Game.ActiveScene.GetAllComponents<IBombDroppedListener>() )
+			{
+				listener.OnBombDropped();
+			}
+
 			droppedWeapon.IconType = MinimapIconType.DroppedC4;
 		}
 

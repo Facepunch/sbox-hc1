@@ -314,6 +314,14 @@ public partial class PlayerInventory : Component
 		
 		Log.Info( $"Spawned weapon {weaponGameObject} for {Player}" );
 
+		if ( weaponComponent.Resource.Slot == WeaponSlot.Special )
+		{
+			foreach ( var listener in Game.ActiveScene.GetAllComponents<IBombDroppedListener>() )
+			{
+				listener.OnBombPickedUp();
+			}
+		}
+
 		return weaponComponent;
 	}
 
