@@ -810,12 +810,15 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 		if ( BloodEffect.IsValid() )
 		{
-			BloodEffect?.Clone( new CloneConfig()
+			var x = BloodEffect?.Clone( new CloneConfig()
 			{
 				StartEnabled = true,
 				Transform = new Transform( position ),
 				Name = $"Blood effect from ({GameObject})"
 			} );
+
+			// bug? @conna
+			x.Transform.ClearInterpolation();
 		}
 
 		if ( BloodImpactSound is not null )
