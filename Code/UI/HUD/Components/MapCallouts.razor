@@ -5,7 +5,7 @@
 @if ( !Player.IsValid() ) return;
 
 <root class="hud with-deadzone row top-left" style="margin-top: 260px">
-    <label class="small">@(Player?.GetZone<MapLocation>().Zone.DisplayName)</label>
+    <label class="small">@(Player?.GetZone<MapLocation>()?.Zone?.DisplayName)</label>
 </root>
 
 @code
@@ -15,6 +15,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( Player?.GetZone<MapLocation>().Zone.DisplayName);
+        return HashCode.Combine( Player?.GetZone<MapLocation>()?.Zone?.DisplayName );
     }   
 }
