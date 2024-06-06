@@ -1,0 +1,20 @@
+@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+@if ( !Player.IsValid() ) return;
+
+<root class="hud with-deadzone row top-left" style="margin-top: 260px">
+    <label class="small">@(Player?.GetZone<MapLocation>().Zone.DisplayName)</label>
+</root>
+
+@code
+{
+    /// The player
+    public PlayerController Player => GameUtils.Viewer;
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( Player?.GetZone<MapLocation>().Zone.DisplayName);
+    }   
+}
