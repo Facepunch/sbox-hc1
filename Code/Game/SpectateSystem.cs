@@ -73,13 +73,17 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 		}
 
 		var count = players.Count;
-		for ( var i = 1; i < count; i++ )
+		for ( var i = 1; i <= count; i++ )
 		{
 			var idx = (idxCur + (direction ? i : -i) + count) % count;
 			var element = players.ElementAt( idx );
 			
 			if ( element.IsSpectating )
 				continue;
+
+			// Already spectating this guy, no need to reposess (and reset the viewmodel etc)
+			if ( idx == idxCur )
+				return;
 
 			((IPawn)element).Possess();
 			return;
