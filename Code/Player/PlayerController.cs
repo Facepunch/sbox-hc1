@@ -394,6 +394,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 	private void GroundedChanged( bool wasOnGround, bool isOnGround )
 	{
+		if ( wasOnGround && !isOnGround )
+		{
+			JumpPosition = Transform.Position;
+		}
+
 		if ( !wasOnGround && isOnGround )
 		{
 			var vel = PreviousVelocity.z;
@@ -582,7 +587,6 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 		if ( cc.IsOnGround && !IsFrozen && !InMenu && Input.Pressed( "Jump" ) )
 		{
-			JumpPosition = Transform.Position;
 			cc.Punch( Vector3.Up * JumpPower * 1f );
 			BroadcastPlayerJumped();
 		}
