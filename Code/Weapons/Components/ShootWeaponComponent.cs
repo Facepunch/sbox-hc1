@@ -176,15 +176,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		if ( !IsNearby( pos ) )
 			return;
 
-		if ( BloodImpactSound is null )
-			return;
-
-		var particlePath = "particles/impact.flesh.bloodpuff.vpcf";
-		CreateParticleSystem( particlePath, pos, Rotation.LookAt( -normal ), 0.5f );
-
-		var snd = Sound.Play( BloodImpactSound, pos );
-		snd.ListenLocal = Weapon?.PlayerController?.IsViewer ?? false;
-
+		// TODO: move this to the player
 		var tr = Scene.Trace.Ray( pos, pos + direction * BloodEjectDistance )
 			.WithoutTags( "player" )
 			.Run();

@@ -42,6 +42,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	[Property, Group( "Effects" )] public GameObject HeadshotWithHelmetEffect { get; set; }
 
 	/// <summary>
+	/// What effect should we spawn when we hit a player?
+	/// </summary>
+	[Property, Group( "Effects" )] public GameObject BloodEffect { get; set; }
+
+	/// <summary>
 	/// What sound should we play when a player gets headshot?
 	/// </summary>
 	[Property, Group( "Effects" )] public SoundEvent HeadshotSound { get; set; }
@@ -50,6 +55,11 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// What sound should we play when a player gets headshot?
 	/// </summary>
 	[Property, Group( "Effects" )] public SoundEvent HeadshotWithHelmetSound { get; set; }
+
+	/// <summary>
+	/// What sound should we play when we hit a player?
+	/// </summary>
+	[Property, Group( "Effects" )] public SoundEvent BloodImpactSound { get; set; }
 
 	/// <summary>
 	/// The current character controller for this player.
@@ -796,6 +806,22 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 			{
 				Sound.Play( headshotSound, position );
 			}
+		}
+
+		if ( BloodEffect.IsValid() )
+		{
+			BloodEffect?.Clone( new CloneConfig()
+			{
+				StartEnabled = true,
+				Transform = new Transform( position ),
+				Name = $"Blood effect from ({GameObject})"
+			} );
+		}
+
+		if ( BloodImpactSound is not null )
+		{
+			var snd = Sound.Play( BloodImpactSound, position );
+			snd.ListenLocal = IsViewer;
 		}
 	}
 }
