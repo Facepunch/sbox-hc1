@@ -6,12 +6,15 @@
 <root>
     <canvas>
         <Crosshair />
-        <Minimap />
+
+        <div class="hud with-deadzone top-left flex column">
+            <Minimap />
+            <Balance />
+        </div>
 
         <Toast />
         <EquipmentOverlay />
         <PlayerInfo />
-        <Balance />
         <Spectating />
 
         <RoundStateDisplay />

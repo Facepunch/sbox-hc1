@@ -1,7 +1,7 @@
 ﻿@namespace Facepunch
 @attribute [StyleSheet]
 
-<root class="with-background with-rounding">
+<root class="with-background with-rounding @(Input.Down( "score" ) ? "big" : "")">
     @if (Renderer.IsValid())
     {
         <div>

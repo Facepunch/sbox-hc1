@@ -1,12 +1,15 @@
 ﻿@import "/UI/Styles/Theme.scss";
 
 Minimap {
-    position: absolute;
-    left: $safe-zone-x;
-    top: $safe-zone-y;
     width: 256px;
     height: 256px;
     border-radius: $rounding;
+    transition: all 0.1s ease;
+
+    &.big {
+        width: 400px;
+        height: 400px;
+    }
 
     .minimap {
         width: 100%;
