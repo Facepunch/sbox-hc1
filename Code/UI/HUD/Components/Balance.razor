@@ -4,7 +4,7 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="row">
+<root class="row" style="padding-top: 16px;">
     <InputHint Action="BuyMenu" class="small @(!Player.CanBuy() ? "hidden" : "")" Size="@InputGlyphSize.Small" />
     <label class="important @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">$@Inventory.Balance.ToString("N0")</label>
 </root>
