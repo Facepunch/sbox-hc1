@@ -126,7 +126,10 @@
     public override void Tick()
     {
         var player = Player;
-        if (!player.IsValid()) return;
+
+        SetClass( "visible", player.IsValid() && player.HealthComponent.State == LifeState.Alive );
+
+        if ( !player.IsValid() ) return;
 
         UpdateDistance();
 
