@@ -113,14 +113,12 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		{
 			if ( Effector.Muzzle.IsValid() )
 			{
-				var inst = MuzzleFlashPrefab.Clone( new CloneConfig()
+				MuzzleFlashPrefab.Clone( new CloneConfig()
 				{
 					Parent = Effector.Muzzle,
-					Transform = new Transform(),
+					Transform = new(),
 					StartEnabled = true
 				} );
-
-				inst.Transform.ClearInterpolation();
 			}
 		}
 
