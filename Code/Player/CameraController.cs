@@ -23,7 +23,6 @@ public sealed class CameraController : Component
 	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = false;
 	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
 
-	[ConVar( "hc1_thirdperson" )] public static bool ThirdPersonEnabled { get; set; } = false;
 	[Property] public float ThirdPersonDistance { get; set; } = 128f;
 
 	private CameraMode _mode;
@@ -129,15 +128,6 @@ public sealed class CameraController : Component
 			ColorAdjustments.Saturation = Player.HealthComponent.IsGodMode
 				? RespawnProtectionSaturation
 				: ColorAdjustments.Saturation.MoveToLinear( 1f, 1f );
-		}
-
-		// Developer override
-		if ( ThirdPersonEnabled & DeveloperMenu.IsDeveloper )
-		{
-			if ( Mode == CameraMode.ThirdPerson )
-				Mode = CameraMode.FirstPerson;
-			else
-				Mode = CameraMode.ThirdPerson;
 		}
 
 		ApplyRecoil();
