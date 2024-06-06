@@ -3,7 +3,7 @@ namespace Facepunch;
 /// <summary>
 /// A weapon component that reacts to input actions.
 /// </summary>
-public abstract class InputWeaponComponent : WeaponComponent
+public abstract class InputWeaponComponent : WeaponComponent, Weapon.IDeploymentListener
 {
 	public enum InputListenerType
 	{
@@ -32,6 +32,19 @@ public abstract class InputWeaponComponent : WeaponComponent
 	/// </summary>
 	[Property, Category( "Base" )] public Action<InputWeaponComponent> OnInputAction { get; set; }
 
+	bool AttackingWhileDeployed { get; set; }
+
+	public void OnDeployed( Weapon weapon )
+	{
+		if ( Weapon.PlayerController.IsLocallyControlled )
+		{
+			if ( Input.Down( "Attack1" ) )
+			{
+				AttackingWhileDeployed = true;
+			}
+		}
+	}
+
 	/// <summary>
 	/// Gets the input method
 	/// </summary>
@@ -39,6 +52,8 @@ public abstract class InputWeaponComponent : WeaponComponent
 	/// <returns></returns>
 	public bool GetInputMethod( string action )
 	{
+		if ( AttackingWhileDeployed ) return false;
+
 		if ( InputType == InputListenerType.Pressed )
 		{
 			return Input.Pressed( action );
@@ -68,7 +83,6 @@ public abstract class InputWeaponComponent : WeaponComponent
 	/// </summary>
 	protected virtual void OnInputUp()
 	{
-		//
 	}
 
 	/// <summary>
@@ -94,6 +108,11 @@ public abstract class InputWeaponComponent : WeaponComponent
 		// We only care about input actions coming from the owning object.
 		if ( !Weapon.PlayerController.IsLocallyControlled )
 			return;
+
+		if ( Input.Released( "Attack1" ) )
+		{
+			AttackingWhileDeployed = false;
+		}
 
 		bool matched = false;
 
