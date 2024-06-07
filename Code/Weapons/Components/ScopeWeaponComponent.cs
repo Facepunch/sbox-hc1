@@ -39,7 +39,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		if( ZoomSound is not null )
 			Sound.Play( ZoomSound, Weapon.GameObject.Transform.Position );
 
-		Weapon.Tags.Add( "zooming" );
+		Weapon.Tags.Add( "aiming" );
 
 		if ( Weapon.ViewModel.IsValid() )
 		{
@@ -59,7 +59,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 
 		if ( Weapon.IsValid() )
 		{
-			Weapon.Tags.Remove( "zooming" );
+			Weapon.Tags.Remove( "aiming" );
 
 			if ( Weapon.ViewModel.IsValid() )
 			{
@@ -120,8 +120,13 @@ public class ScopeWeaponComponent : InputWeaponComponent
 
 	protected override void OnUpdate()
 	{
-		base.OnUpdate();
 		var camera = Weapon?.PlayerController?.CameraController;
+
+		if ( !Weapon.IsValid() )
+			return;
+
+		if ( !Weapon.PlayerController.IsValid() )
+			return;
 
 		if ( !camera.IsValid() )
 			return;
@@ -137,6 +142,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		if ( Weapon.PlayerController.CurrentWeapon != Weapon )
 		{
 			EndZoom();
+			return;
 		}
 
 		camera.AddFieldOfViewOffset( ZoomLevels[ZoomLevel - 1] );
@@ -163,6 +169,5 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			AnglesLerp = AnglesLerp.LerpTo( delta, Time.Delta * 10.0f );
 			LastAngles= angles;
 		}
-
 	}
 };

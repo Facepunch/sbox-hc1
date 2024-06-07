@@ -127,7 +127,12 @@
     {
         var player = Player;
 
-        SetClass( "visible", player.IsValid() && player.HealthComponent.State == LifeState.Alive );
+        bool visible = player.IsValid() && player.HealthComponent.State == LifeState.Alive;
+
+        if ( Weapon?.Tags.Has( "aiming" ) ?? false )
+            visible = false;
+
+        SetClass( "visible", visible );
 
         if ( !player.IsValid() ) return;
 
@@ -168,8 +173,6 @@
             SetClass( "friendly", false );
 
         }
-
-        SetClass( "hidden", Scope?.IsZooming ?? false );
     }
 
     protected override int BuildHash()
