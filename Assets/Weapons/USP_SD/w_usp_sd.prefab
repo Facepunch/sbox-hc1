@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "122b813b-db61-4478-9b11-ddaf9c37c21c",
+    "__guid": "2b092d29-91ab-4e50-a053-471e62bd8ab4",
     "Flags": 0,
     "Name": "w_usp_sd",
     "Tags": "player",
@@ -10,40 +10,41 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "b9e869bc-6066-4b6e-98f2-2cadd7612426",
+        "__guid": "b2c72ddb-020a-42ca-9498-19d67d2b5d7c",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "HoldType": "Pistol",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "a997bdac-377d-4d49-8e81-b08877ca1bf3",
-          "go": "52f58ac9-0bdc-44fa-9574-d9868c9940bc",
+          "component_id": "ddc48609-1f72-4623-ae10-95c2c6115dda",
+          "go": "7737d8a8-a296-4ba0-bdec-80971d96d664",
           "component_type": "SkinnedModelRenderer"
         },
         "Muzzle": {
           "_type": "gameobject",
-          "go": "f7438cf4-2cc7-472b-8f60-85da81ae9a37"
+          "go": "82f32782-5f39-4b80-a3b5-85895c3cca44"
         },
         "Resource": "weapons/usp_sd/usp_sd.wpn",
         "SpeedPenalty": 20
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "ac3862be-6440-4472-a383-bd94d90b8911"
+        "__guid": "85778677-8cc8-4c7f-8a4c-dd78ba22bffd"
       }
     ],
     "Children": [
       {
-        "__guid": "52f58ac9-0bdc-44fa-9574-d9868c9940bc",
+        "__guid": "7737d8a8-a296-4ba0-bdec-80971d96d664",
         "Flags": 0,
         "Name": "Model",
-        "Position": "3.535849,0,-5.571055",
+        "Position": "3.535849,0,-4.395255",
+        "Scale": "1.5,1.5,1.5",
         "Enabled": true,
         "NetworkMode": 2,
         "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "a997bdac-377d-4d49-8e81-b08877ca1bf3",
+            "__guid": "ddc48609-1f72-4623-ae10-95c2c6115dda",
             "BodyGroups": 9541,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
@@ -54,7 +55,7 @@
         ],
         "Children": [
           {
-            "__guid": "f7438cf4-2cc7-472b-8f60-85da81ae9a37",
+            "__guid": "82f32782-5f39-4b80-a3b5-85895c3cca44",
             "Flags": 0,
             "Name": "Muzzle",
             "Position": "11.75661,0,4.755252",
@@ -65,7 +66,7 @@
         ]
       },
       {
-        "__guid": "4a33aa5c-d523-4beb-b795-e46c6854dc69",
+        "__guid": "9fd77dcc-d51b-4289-8702-8d4dc2b26778",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -74,18 +75,18 @@
         "Components": [
           {
             "__type": "Facepunch.AmmoComponent",
-            "__guid": "93022dc8-c47e-4b63-8a1f-2c482937c53d",
+            "__guid": "03410f91-287e-4818-b0a9-097257bcb11c",
             "Ammo": 13,
             "HasAmmo": true,
             "MaxAmmo": 13
           },
           {
             "__type": "Facepunch.ShootWeaponComponent",
-            "__guid": "8c7c6216-e0db-4c96-a4d3-aef5f74886ab",
+            "__guid": "4a62c833-87a6-4a41-a9fe-669b38665a85",
             "AmmoComponent": {
               "_type": "component",
-              "component_id": "93022dc8-c47e-4b63-8a1f-2c482937c53d",
-              "go": "4a33aa5c-d523-4beb-b795-e46c6854dc69",
+              "component_id": "03410f91-287e-4818-b0a9-097257bcb11c",
+              "go": "9fd77dcc-d51b-4289-8702-8d4dc2b26778",
               "component_type": "AmmoComponent"
             },
             "BaseDamage": 18,
@@ -131,11 +132,11 @@
           },
           {
             "__type": "Facepunch.ReloadWeaponComponent",
-            "__guid": "632a5e49-e60b-40f4-8c39-18926a29b925",
+            "__guid": "af3cc821-8819-4c22-8d11-0753c65c9a91",
             "AmmoComponent": {
               "_type": "component",
-              "component_id": "93022dc8-c47e-4b63-8a1f-2c482937c53d",
-              "go": "4a33aa5c-d523-4beb-b795-e46c6854dc69",
+              "component_id": "03410f91-287e-4818-b0a9-097257bcb11c",
+              "go": "9fd77dcc-d51b-4289-8702-8d4dc2b26778",
               "component_type": "AmmoComponent"
             },
             "EmptyReloadSounds": {
@@ -158,7 +159,7 @@
           },
           {
             "__type": "Facepunch.RecoilWeaponComponent",
-            "__guid": "437ddb6c-a77b-4c14-b08c-4cf7e0ece31c",
+            "__guid": "f073b080-0e65-44e7-8132-c60521a204af",
             "HorizontalSpread": "1.40,-1.40,1",
             "PlayerVelocityLimit": 200,
             "RecoilResetTime": 0.3,
