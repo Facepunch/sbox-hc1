@@ -24,6 +24,8 @@ public sealed class DecoyGrenade : BaseGrenade
 				Fire();
 			}
 		}
+
+		base.OnUpdate();
 	}
 
 	void Fire()
