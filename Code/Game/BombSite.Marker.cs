@@ -11,6 +11,6 @@ partial class BombSite : IMinimapLabel, IMinimapVolume
 	Color IMinimapVolume.LineColor => new Color32( 183, 85, 70 );
 
 	string IMinimapLabel.Label => $"{(char)('A' + Index)}";
-	Color IMinimapLabel.LabelColor => new Color32( 183, 85, 70 );
+	Color IMinimapLabel.LabelColor => new Color32( 255, 199, 0 );
 
 }
