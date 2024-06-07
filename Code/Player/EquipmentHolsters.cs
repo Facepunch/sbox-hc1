@@ -19,7 +19,9 @@ public sealed class EquipmentHolsters : Component, Weapon.IDeploymentListener
 
 	void Weapon.IDeploymentListener.OnDeployed( Weapon weapon )
 	{
-		var newParent = weapon.PlayerController.Inventory.WeaponGameObject;
+		var newParent = weapon?.PlayerController?.Inventory?.WeaponGameObject;
+		if ( !newParent.IsValid() )
+			return;
 
 		weapon.GameObject.SetParent( newParent, false );
 	}
