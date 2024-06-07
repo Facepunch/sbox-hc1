@@ -32,13 +32,13 @@ public partial class MinimapRenderer : Component, Component.ExecuteInEditor
 		return new Vector2(minimapY, minimapX);
 	}
 
-	public Vector3 FromWorldRadar( Vector3 worldPos, Vector3 playerPos, float yaw )
+	public Vector3 FromWorldRadar( Vector3 worldPos, Vector3 playerPos, float yaw, float zoom )
 	{
 		// Get relative world position
 		Vector3 dir = (playerPos - worldPos);
 
 		// Scale to minimap space
-		dir /= Size / 2; 
+		dir /= ( Size / 2 ) / zoom;
 
 		// Apply look rotation
 		float cosYaw = MathF.Cos( MathX.DegreeToRadian( -yaw ) );
