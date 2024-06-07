@@ -1,29 +1,19 @@
 {
   "RootObject": {
-    "__guid": "d4376410-2b70-439c-8139-75ffdfaf8679",
+    "__guid": "4106694e-ea04-421e-9b71-303bcb25323d",
     "Flags": 0,
-    "Name": "he_grenade",
+    "Name": "decoy_grenade_thrown",
+    "Tags": "noblockaudio",
     "Enabled": true,
     "NetworkMode": 2,
     "NetworkInterpolation": true,
     "Components": [
       {
-        "__type": "Facepunch.HEGrenade",
-        "__guid": "bff82dae-11a3-4ad7-b65c-c61acb93fe32",
-        "DamageRadius": 450,
-        "Lifetime": 3,
-        "MaxDamage": 90,
-        "PrefabOnExplode": {
-          "_type": "gameobject",
-          "prefab": "weapons/throwable/he_grenade/he_explosion.prefab"
-        }
-      },
-      {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "2fe7d02b-24c8-4472-832b-da47c895c9eb",
-        "AngularDamping": 0.5,
+        "__guid": "91ab974b-7334-4f96-9e6b-8a15920cf824",
+        "AngularDamping": 1,
         "Gravity": true,
-        "LinearDamping": 0.5,
+        "LinearDamping": 1,
         "Locking": {},
         "MassOverride": 0,
         "MotionEnabled": true,
@@ -32,7 +22,7 @@
       },
       {
         "__type": "Sandbox.SphereCollider",
-        "__guid": "6b82b36b-95ea-4f10-ad0c-e989c378e8b2",
+        "__guid": "c992ad21-84f2-4056-b8ba-727ab4e5831f",
         "Center": "0,0,1.5",
         "IsTrigger": false,
         "Radius": 2,
@@ -41,12 +31,24 @@
       },
       {
         "__type": "DestroyBetweenRounds",
-        "__guid": "f7afacba-fd6d-407f-b116-647254f87093"
+        "__guid": "03357514-9fc0-410d-9e9e-4522fe52e8c6"
+      },
+      {
+        "__type": "Facepunch.DecoyGrenade",
+        "__guid": "fd142e01-ee3d-45cf-bc6b-7eceac89dc26",
+        "ChatterSpeed": 35,
+        "Lifetime": 15,
+        "PrefabOnExplode": {
+          "_type": "gameobject",
+          "prefab": "weapons/throwable/he_grenade/he_explosion.prefab"
+        },
+        "ShotDelay": "0.50,1.00,1",
+        "ShotSound": "sounds/weapons/m4a1/m4_shot.sound"
       }
     ],
     "Children": [
       {
-        "__guid": "9f6f8f45-06db-484d-9330-f5b0188432ed",
+        "__guid": "ca60fe61-f01b-483b-b268-950e0bc98518",
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
@@ -55,9 +57,9 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "b4a547c0-1d96-4e51-b33a-c046f77ef86d",
+            "__guid": "4559c69b-7cc0-40b9-9bc2-904b2c7df85f",
             "BodyGroups": 18446744073709551615,
-            "Model": "weapons/throwable/he_grenade/v_he_grenade.vmdl",
+            "Model": "weapons/throwable/m84_stun_grenade/v_m84_stun_grenade.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
           }
