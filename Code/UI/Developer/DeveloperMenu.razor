@@ -26,7 +26,7 @@
 
     protected void InvokeMethod( MethodDescription method )
     {
-        Developer.InvokeMethod( method );
+        method?.Invoke( null );
     }
 
     [ConVar( "developer_mode" )]

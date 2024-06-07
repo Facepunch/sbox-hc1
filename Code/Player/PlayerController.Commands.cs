@@ -5,7 +5,7 @@ public partial class PlayerController
 	[DeveloperCommand( "Hurt Self" )]
 	private static void Command_Hurt()
 	{
-		var player = Developer.CurrentPlayer;
+		var player = GameUtils.Viewer;
 		if ( player.IsValid() )
 		{
 			player.HealthComponent.TakeDamage( 50, Vector3.Zero, Vector3.Zero, player.HealthComponent.Id );
@@ -15,7 +15,7 @@ public partial class PlayerController
 	[DeveloperCommand( "Heal" )]
 	private static void Command_Heal()
 	{
-		var player = Developer.CurrentPlayer;
+		var player = GameUtils.Viewer;
 		if ( player.IsValid() )
 		{
 			player.HealthComponent.Health = 100f;
@@ -25,7 +25,7 @@ public partial class PlayerController
 	[DeveloperCommand( "Suicide" ), ConCmd( "kill" )]
 	private static void Command_Suicide()
 	{
-		var player = Developer.CurrentPlayer;
+		var player = GameUtils.Viewer;
 		if ( player.IsValid() )
 		{
 			player.Kill();
@@ -35,7 +35,7 @@ public partial class PlayerController
 	[DeveloperCommand( "Depossess Pawn" )]
 	private static void Command_Depossess()
 	{
-		var player = Developer.CurrentPlayer;
+		var player = GameUtils.Viewer;
 		if ( player.IsValid() )
 		{
 			player.TryDePossess();
@@ -56,7 +56,7 @@ public partial class PlayerController
 	[DeveloperCommand("Give $1k")]
 	private static void Command_GiveGrand()
 	{
-		var player = Developer.CurrentPlayer;
+		var player = GameUtils.Viewer;
 		if ( player.IsValid() )
 		{
 			player.Inventory.GiveCash(1000);
