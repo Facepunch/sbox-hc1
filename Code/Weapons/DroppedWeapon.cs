@@ -35,6 +35,9 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 				listener.OnBombDropped();
 			}
 
+			Spottable spottable = go.Components.Get<Spottable>();
+			spottable.Team = Team.Terrorist;
+
 			droppedWeapon.IconType = MinimapIconType.DroppedC4;
 		}
 
