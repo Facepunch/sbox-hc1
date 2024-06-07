@@ -35,7 +35,8 @@ public sealed class DecoyGrenade : BaseGrenade
 
 		Effect?.Clone( new CloneConfig()
 		{
-			Transform = new Transform( Transform.Position ),
+			Parent = GameObject,
+			Transform = new Transform(),
 			StartEnabled = true
 		} );
 	}
