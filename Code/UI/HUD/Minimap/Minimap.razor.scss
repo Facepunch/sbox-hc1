@@ -83,8 +83,8 @@ Minimap
     .marker
     {
         position: absolute;
-        width: 18px;
-        height: 18px;
+        width: 22px;
+        height:  22px;
         background-image: url('ui/minimaps/player_icon.png');
         z-index: 99;
         transform: translateX(-50%) translateY(-50%);
@@ -98,6 +98,16 @@ Minimap
             background-image: url('ui/items/c4.png');
         }
 
+        &.enemy
+        {
+            background-image: url('ui/minimaps/enemy_icon.png');
+        }
+
+        &.enemy-missing
+        {
+            background-image: url('ui/minimaps/enemy_missing.png');
+        }
+
         &.dead
         {
             background-image: url('ui/minimaps/icon-map_skull.png');
@@ -108,8 +118,6 @@ Minimap
         &.viewer
         {
             background-image-tint: rgba( 0, 255, 255, 1 );
-            width: 22px;
-            height: 22px;
             z-index: 200;
         }
 

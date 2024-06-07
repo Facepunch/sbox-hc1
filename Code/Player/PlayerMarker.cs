@@ -23,30 +23,44 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 		};
 	}
 
-	MinimapIconType IMinimapIcon.IconType => IsAlive ? MinimapIconType.Player : MinimapIconType.PlayerDead;
+	MinimapIconType IMinimapIcon.IconType => GetIconType();
 	bool IDirectionalMinimapIcon.EnableDirectional => IsAlive;
-	Angles IDirectionalMinimapIcon.Direction => (Player as IPawn).IsPossessed || !IsAlive ? Angles.Zero : Player.EyeAngles;
+	Angles IDirectionalMinimapIcon.Direction => !IsAlive ? Angles.Zero : Player.EyeAngles;
 	string ICustomMinimapIcon.CustomStyle => GetMinimapColor();
 
-	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => IsEnemy && IsMissing ? Player.Spottable.LastSeenPosition : Transform.Position;
+
+	bool IsEnemy => GameUtils.Viewer is not null && GameUtils.Viewer.TeamComponent.Team != Player.TeamComponent.Team;
+	bool IsMissing => Player.Spottable.WasSpotted;
+
+	private MinimapIconType GetIconType()
+	{
+		if ( IsEnemy )	return IsMissing ? MinimapIconType.PlayerEnemyMissing : MinimapIconType.PlayerEnemy;
+		if ( !IsAlive ) return MinimapIconType.PlayerDead;
+		return MinimapIconType.Player;
+	}
+
 	bool IMinimapElement.IsVisible( PlayerController viewer )
 	{
 		if ( Player.Tags.Has( "invis" ) )
 			return false;
 
-		if ( IsAlive && (Player as IPawn).IsPossessed )
-			return false;
+		if ( IsAlive )
+		{
+			if ( (Player as IPawn).IsPossessed )
+				return false;
 
-		// todo: or seen by enemies?
+			// seen by enemy team
+			if ( Player.Spottable.IsSpotted || Player.Spottable.WasSpotted )
+				return true;
+		}
+
 		return viewer.TeamComponent.Team == Player.TeamComponent.Team;
 	}
 
-	string GetMinimapColor()
+	private string GetMinimapColor()
 	{
-		if ( (Player as IPawn).IsPossessed )
-		{
-			return "background-image-tint: rgba( 0, 255, 255, 1 )";
-		}
+		if ( IsEnemy ) return "background-image-tint: rgba(255, 0, 0, 1 );";
 
 		return $"background-image-tint: {Player.TeamComponent.Team.GetColor().Hex}";
 	}

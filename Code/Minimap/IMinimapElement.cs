@@ -6,7 +6,9 @@ public enum MinimapIconType
 	DroppedC4,
 	Buyzone,
 	Player,
-	PlayerDead
+	PlayerDead,
+	PlayerEnemy,
+	PlayerEnemyMissing
 }
 
 public interface IMinimapElement : IValid
@@ -58,6 +60,8 @@ public static class MinimapExtensionMethods
 			MinimapIconType.Buyzone => "buyzone",
 			MinimapIconType.Player => "",
 			MinimapIconType.PlayerDead => "dead",
+			MinimapIconType.PlayerEnemy => "enemy",
+			MinimapIconType.PlayerEnemyMissing => "enemy-missing",
 			_ => "",
 		};
 	}
