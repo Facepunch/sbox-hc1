@@ -29,6 +29,9 @@ public sealed class Spotter : Component
 			if ( spottable.GameObject == this.GameObject )
 				continue;
 
+			if ( spottable.Team == Player.TeamComponent.Team )
+				continue;
+
 			Poll( spottable );
 		}
 

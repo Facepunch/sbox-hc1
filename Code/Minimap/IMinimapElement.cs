@@ -4,6 +4,7 @@ public enum MinimapIconType
 {
 	None,
 	DroppedC4,
+	PlantedC4,
 	Buyzone,
 	Player,
 	PlayerDead,
@@ -57,6 +58,7 @@ public static class MinimapExtensionMethods
 		return type switch
 		{
 			MinimapIconType.DroppedC4 => "c4",
+			MinimapIconType.PlantedC4 => "c4",
 			MinimapIconType.Buyzone => "buyzone",
 			MinimapIconType.Player => "",
 			MinimapIconType.PlayerDead => "dead",

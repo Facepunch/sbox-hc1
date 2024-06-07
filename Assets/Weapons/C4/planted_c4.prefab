@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "03f52703-ffb5-4fc2-b8a9-c8129026e79f",
+    "__guid": "5ff1f631-1e7f-459d-ac57-86a116bab95e",
     "Flags": 0,
     "Name": "planted_c4",
     "Enabled": true,
@@ -9,7 +9,7 @@
     "Components": [
       {
         "__type": "TimedExplosive",
-        "__guid": "a08ed2a8-a86f-4c07-ae74-e98020f26589",
+        "__guid": "c66d4972-49e5-4cee-8ea3-93958e16906a",
         "BaseDefuseTime": 10,
         "BeepEffectPrefab": {
           "_type": "gameobject",
@@ -36,14 +36,14 @@
         "FastDefuseTime": 5,
         "Wires": {
           "_type": "component",
-          "component_id": "cac728c1-57d8-4bca-8d59-1aa45912ae26",
-          "go": "81173bb5-c145-459f-9cda-56e66ec4db56",
+          "component_id": "0fa53a05-2cf0-4d8c-ab70-52c8f440951d",
+          "go": "e2b1f45b-2793-4c03-8d1c-236f6417736a",
           "component_type": "LineRenderer"
         }
       },
       {
         "__type": "Sandbox.BoxCollider",
-        "__guid": "36246d02-ea17-414d-8082-dc1dcad0b616",
+        "__guid": "ba91eebe-63d7-472f-b7cc-e2966a8fad41",
         "Center": "0,0,2",
         "IsTrigger": true,
         "Scale": "15,10,5",
@@ -51,12 +51,19 @@
       },
       {
         "__type": "DestroyBetweenRounds",
-        "__guid": "65100ab7-9059-47ad-b7ff-72cb68b224f3"
+        "__guid": "58627bfe-6a3c-47d1-9318-787d77694354"
+      },
+      {
+        "__type": "Facepunch.Spottable",
+        "__guid": "e9043b73-f6bb-4ed6-8f53-5a55e236ca36",
+        "Height": 16,
+        "Static": true,
+        "Team": "Terrorist"
       }
     ],
     "Children": [
       {
-        "__guid": "4f725c88-b5c9-4911-88a6-e77cfc7757ff",
+        "__guid": "02cf019d-2e91-42a4-8eca-d60f582504df",
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
@@ -65,7 +72,7 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "c0298e21-253c-47d7-a822-5fb35caddb5e",
+            "__guid": "aa32e2f8-5eab-4952-b162-b885b6c3d975",
             "BodyGroups": 18446744073709551615,
             "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
             "RenderType": "On",
@@ -74,7 +81,7 @@
         ]
       },
       {
-        "__guid": "81173bb5-c145-459f-9cda-56e66ec4db56",
+        "__guid": "e2b1f45b-2793-4c03-8d1c-236f6417736a",
         "Flags": 0,
         "Name": "Wires",
         "Enabled": true,
@@ -83,7 +90,7 @@
         "Components": [
           {
             "__type": "Sandbox.LineRenderer",
-            "__guid": "cac728c1-57d8-4bca-8d59-1aa45912ae26",
+            "__guid": "0fa53a05-2cf0-4d8c-ab70-52c8f440951d",
             "Color": {
               "color": [
                 {
@@ -101,7 +108,7 @@
             "Points": [
               {
                 "_type": "gameobject",
-                "go": "4f725c88-b5c9-4911-88a6-e77cfc7757ff"
+                "go": "02cf019d-2e91-42a4-8eca-d60f582504df"
               },
               null
             ],

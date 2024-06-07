@@ -3,7 +3,7 @@ using Facepunch;
 using Sandbox.Utility;
 using Sandbox;
 
-public sealed class TimedExplosive : Component, IUse
+public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 {
 	[Property, Category( "Config" )]
 	public float Duration { get; set; } = 45f;
@@ -60,8 +60,14 @@ public sealed class TimedExplosive : Component, IUse
 	/// Bomb site this bomb was planted at.
 	/// </summary>
 	private BombSite BombSite { get; set; }
-	
+
+	[RequireComponent] public Spottable Spottable { get; private set; }
+
 	public PlayerController DefusingPlayer { get; private set; }
+
+	MinimapIconType IMinimapIcon.IconType => MinimapIconType.PlantedC4;
+
+	Vector3 IMinimapElement.WorldPosition => Transform.Position;
 
 	protected override void OnStart()
 	{
@@ -232,5 +238,13 @@ public sealed class TimedExplosive : Component, IUse
 		RadioSounds.Play( player.TeamComponent.Team, "Hidden", "Defusing the bomb" );
 
 		player.IsFrozen = true;
+	}
+
+	bool IMinimapElement.IsVisible( PlayerController viewer )
+	{
+		if ( Spottable.IsSpotted )
+			return true;
+
+		return viewer.TeamComponent.Team == Team.Terrorist;
 	}
 }

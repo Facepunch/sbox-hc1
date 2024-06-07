@@ -11,13 +11,19 @@ public sealed class Spottable : Component, IRoundStartListener
 	/// </summary>
 	[Property] public Team Team;
 
+	/// <summary>
+	/// As the position doesn't move, it'll always be spotted after it's seen once.
+	/// </summary>
+	[Property] public bool Static;
+
+	[HostSync] public bool HasBeenSpotted { get; private set; }
 	[HostSync] public TimeSince LastSpotted { get; private set; }
 
 	public Vector3 LastSeenPosition;
 
 	[Property] public float Height;
 
-	public bool IsSpotted => LastSpotted < 1;
+	public bool IsSpotted => Static ? HasBeenSpotted : LastSpotted < 1;
 	public bool WasSpotted => !IsSpotted && LastSpotted < 5;
 
 	protected override void OnEnabled()
@@ -57,11 +63,13 @@ public sealed class Spottable : Component, IRoundStartListener
 	public void Spotted(Spotter spotter)
 	{
 		LastSpotted = 0;
+		HasBeenSpotted = true;
 	}
 
 	void IRoundStartListener.PreRoundStart()
 	{
 		LastSpotted = 999;
+		HasBeenSpotted = false;
 	}
 
 	protected override void DrawGizmos()
