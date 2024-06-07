@@ -45,7 +45,7 @@ public partial class HealthComponent : Component, IRespawnable
 	[Property, ReadOnly, HostSync]
 	public float Armor { get; set; }
 
-	[Property, ReadOnly, HostSync]
+	[Property, ReadOnly, HostSync, Change( nameof( OnHasHelmetChanged ) )]
 	public bool HasHelmet { get; set; }
 
 	/// <summary>
@@ -53,6 +53,14 @@ public partial class HealthComponent : Component, IRespawnable
 	/// </summary>
 	[Property, ReadOnly, Group( "Life State" ), HostSync, Change( nameof( OnStatePropertyChanged )) ]
 	public LifeState State { get; set; }
+
+	protected void OnHasHelmetChanged( bool oldValue, bool newValue )
+	{
+		foreach ( var listener in GameObject.Root.Components.GetAll<IArmorListener>() )
+		{
+			listener?.OnHelmetChanged( newValue );
+		}
+	}
 
 	/// <summary>
 	/// Called when <see cref="Health"/> is changed across the network.
@@ -98,6 +106,22 @@ public partial class HealthComponent : Component, IRespawnable
 		return damage * ArmorReduction;
 	}
 
+	[DeveloperCommand( "Toggle Kevlar & Helmet" )]
+	private static void Dev_ToggleKevlarAndHelmet()
+	{
+		var player = GameUtils.Viewer;
+		if ( player.HealthComponent.HasHelmet )
+		{
+			player.HealthComponent.Armor = 0;
+			player.HealthComponent.HasHelmet = false;
+		}
+		else
+		{
+			player.HealthComponent.Armor = 100;
+			player.HealthComponent.HasHelmet = true;
+		}
+	}
+
 	[Broadcast]
 	private void BroadcastKill( Guid killerComponent, Guid victimComponent, float damage, Vector3 position, Vector3 force = default, Guid inflictorComponent = default, string hitbox = "" )
 	{
@@ -122,14 +146,7 @@ public partial class HealthComponent : Component, IRespawnable
 		if ( hitbox.Contains( "head" ) )
 		{
 			// Helmet negates headshot damage
-			if ( HasHelmet )
-			{
-				if ( !IsGodMode && Networking.IsHost )
-				{
-					HasHelmet = false;
-				}
-			}
-			else
+			if ( !HasHelmet )
 			{
 				damage *= HeadshotMultiplier;
 			}
@@ -175,6 +192,18 @@ public partial class HealthComponent : Component, IRespawnable
 				x.OnDamageGiven( damage, position, force, this, hitbox );
 			}
 		}
+
+		if ( hitbox.Contains( "head" ) )
+		{
+			// Helmet negates headshot damage
+			if ( HasHelmet )
+			{
+				if ( !IsGodMode && Networking.IsHost )
+				{
+					HasHelmet = false;
+				}
+			}
+		}
 	}
 }
 
@@ -202,4 +231,10 @@ public interface IRespawnable
 {
 	public void Respawn() { }
 	public void Kill() { }
+}
+
+public interface IArmorListener
+{
+	public void OnHelmetChanged( bool hasHelmet ) { }
+	public void OnArmorChanged( float oldValue, float newValue ) { }
 }

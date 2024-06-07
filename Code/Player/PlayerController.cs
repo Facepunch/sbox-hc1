@@ -344,7 +344,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 
 		var tr = Scene.Trace.Ray( start, end )
 					.Size( mins, maxs )
-					.WithoutTags( "ragdoll", "invis", "pickup" )
+					.WithoutTags( CharacterController.IgnoreLayers )
 					.IgnoreGameObjectHierarchy( GameObject.Root )
 					.Run();
 		return tr;
@@ -863,21 +863,24 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 				Sound.Play( headshotSound, position );
 			}
 		}
-
-		if ( BloodEffect.IsValid() )
+		else
 		{
-			BloodEffect?.Clone( new CloneConfig()
+			if ( BloodEffect.IsValid() )
 			{
-				StartEnabled = true,
-				Transform = new( position ),
-				Name = $"Blood effect from ({GameObject})"
-			} );
+				BloodEffect?.Clone( new CloneConfig()
+				{
+					StartEnabled = true,
+					Transform = new( position ),
+					Name = $"Blood effect from ({GameObject})"
+				} );
+			}
+
+			if ( BloodImpactSound is not null )
+			{
+				var snd = Sound.Play( BloodImpactSound, position );
+				snd.ListenLocal = IsViewer;
+			}
 		}
 
-		if ( BloodImpactSound is not null )
-		{
-			var snd = Sound.Play( BloodImpactSound, position );
-			snd.ListenLocal = IsViewer;
-		}
 	}
 }

@@ -90,7 +90,7 @@ public class TeamOutfits
 /// <summary>
 /// An extremely basic outfitter, which'll swap between two gameobjects (which are holding an outfit)
 /// </summary>
-public partial class PlayerOutfitter : Component, Component.INetworkSpawn
+public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IArmorListener
 {
 	[RequireComponent] public PlayerBody Body { get; set; }
 
@@ -124,9 +124,20 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn
 		base.OnDisabled();
 	}
 
+	public PlayerOutfit CurrentOutfit { get; set; }
+
 	[Broadcast( NetPermission.HostOnly )]
-	private void UpdateFromTeam( Team team )
+	private void UpdateCurrent()
 	{
+		CurrentOutfit?.Wear( this );
+		PlayerController.Body.ReapplyVisibility();
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	private void UpdateFromTeam( Team team, bool replace = true )
+	{
+		var outfit = CurrentOutfit;
+
 		var teamOutfits = Outfits.FirstOrDefault( x => x.Team == team );
 
 		if ( teamOutfits is null )
@@ -135,8 +146,10 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn
 		if ( teamOutfits is null )
 			return;
 
-		var outfit = teamOutfits.TakeRandom();
-		outfit.Wear( this );
+		if ( outfit is null || replace ) outfit = teamOutfits.TakeRandom();
+
+		CurrentOutfit = outfit;
+		CurrentOutfit?.Wear( this );
 
 		PlayerController.Body.ReapplyVisibility();
 	}
@@ -146,5 +159,54 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn
 	public void OnNetworkSpawn( Connection owner )
 	{
 		Avatar = owner.GetUserData( "avatar" );
+	}
+
+	[Property] public bool EnableHelmetPhysics { get; set; } = true;
+
+	void IArmorListener.OnHelmetChanged( bool hasHelmet )
+	{
+		if ( PlayerController.HealthComponent.State != LifeState.Alive )
+			return;
+
+		if ( hasHelmet )
+		{
+			UpdateCurrent();
+		}
+		else
+		{
+			if ( !EnableHelmetPhysics )
+			{
+				UpdateCurrent();
+			}
+			else
+			{
+				var player = PlayerController;
+				var helmetRenderer = player.Body.Components.GetAll<SkinnedModelRenderer>()
+					.FirstOrDefault( x => x.Model.ResourcePath == CurrentOutfit.Helmet.Model );
+
+				if ( !helmetRenderer.IsValid() )
+					return;
+				
+				helmetRenderer.GameObject.SetParent( null );
+				helmetRenderer.GameObject.Tags.Add( "no_player" );
+				helmetRenderer.BoneMergeTarget = null;
+
+				var phys = helmetRenderer.Components.Create<SphereCollider>();
+				phys.Radius = 10f;
+				phys.Center = new( 0, 0, 64 );
+
+				var rb = helmetRenderer.Components.Create<Rigidbody>();
+				rb.RigidbodyFlags |= RigidbodyFlags.DisableCollisionSounds;
+
+				var destroy = helmetRenderer.Components.Create<TimedDestroyComponent>();
+				destroy.Time = 5;
+
+				var rot = player.EyeAngles.ToRotation();
+
+				// Kinda just cheesy random values to make it look good
+				rb.Velocity = Vector3.Up * 100f + rot.Left * 25f + rot.Backward * 100f;
+				rb.AngularVelocity = rot.Backward * 10f;
+			}
+		}
 	}
 }
