@@ -24,22 +24,6 @@
         </div>
 
         <div class="markers">
-            @foreach (var player in GetPlayers())
-            {
-                if (player.Tags.Has("invis"))
-                    continue;
-
-                if ( player.HealthComponent.State == LifeState.Dead )
-                {
-                    <div class="marker dead" style="@WorldToMap(player.Transform.Position)" />
-                }
-                else
-                {
-                    <div class="marker @GetPlayerClass(player)" style="@WorldToMap(player.Transform.Position)
-                    @RotationToMap(!FixedMode && (player as IPawn).IsPossessed ? Angles.Zero : player.EyeAngles)
-                    @GetPlayerColor(player)" />
-                }
-            }
             @foreach (var element in Game.ActiveScene.GetAllComponents<IMinimapElement>())
             {
                 if ( !element.IsValid() || (GameUtils.Viewer is not null && !element.IsVisible(GameUtils.Viewer)) )
@@ -47,7 +31,15 @@
 
                 if (element is IMinimapIcon icon && icon.IconType != MinimapIconType.None)
                 {
-                    <div class="marker @icon.IconType.GetClass()" style="@WorldToMap(icon.WorldPosition) @((icon as ICustomMinimapIcon)?.CustomStyle ?? "")" />
+                    string style = WorldToMap(icon.WorldPosition);
+
+                    if (icon is IDirectionalMinimapIcon dir && dir.EnableDirectional)
+                        style += RotationToMap(dir.Direction);
+
+                    if (icon is ICustomMinimapIcon custom)
+                        style += custom.CustomStyle;
+
+                    <div class="marker @icon.IconType.GetClass()" style="@style" />
                 }
                 if (element is IMinimapLabel label)
                 {
@@ -56,12 +48,13 @@
                     </div>
                 }
             }
-            @if ( SpectateSystem.Instance?.IsFreecam ?? false )
+
+            <!-- POV Marker -->
+            @if ( GameUtils.Viewer is null || GameUtils.Viewer.HealthComponent.State == LifeState.Alive )
             {
-                var spectateController = SpectateSystem.Instance.FreecamController;
-                <div class="marker" style="@WorldToMap(spectateController.Transform.Position)
-                @RotationToMap(!FixedMode ? Angles.Zero : spectateController.Transform.Rotation.Angles())" />
+                <div class="marker @(SpectateSystem.Instance?.IsFreecam ?? false ? "" : "viewer")" style="@WorldToMap(ViewPos) @RotationToMap(ViewYaw)" />
             }
+
         </div>
     }
 </root>
@@ -71,7 +64,7 @@
     public MinimapRenderer Renderer => Game.ActiveScene.GetAllComponents<MinimapRenderer>().FirstOrDefault();
 
     public Vector3 ViewPos => GameUtils.Viewer?.Transform.Position ?? SpectateSystem.Instance.FreecamController.Transform.Position;
-    public float ViewYaw => FixedMode ? 0 : GameUtils.Viewer?.EyeAngles.yaw ?? SpectateSystem.Instance.FreecamController.Transform.Rotation.Angles().yaw;
+    public float ViewYaw => GameUtils.Viewer?.EyeAngles.yaw ?? SpectateSystem.Instance.FreecamController.Transform.Rotation.Angles().yaw;
 
     public float Zoom => 2;
 
@@ -80,36 +73,10 @@
     // doesn't rotate the map with the player
     public bool FixedMode => FullMode;
 
-    IEnumerable<PlayerController> GetPlayers()
-    {
-        if ( GameUtils.LocalPlayer?.IsSpectating ?? false || GameUtils.Viewer is null )
-        {
-            return GameUtils.AllPlayers;
-        }
-
-        return GameUtils.GetPlayers(GameUtils.Viewer.TeamComponent.Team);
-    }
-
-    // player
-    string GetPlayerColor( PlayerController player )
-    {
-        if ((player as IPawn).IsPossessed)
-        {
-            return "background-image-tint: rgba( 0, 255, 255, 1 )";
-        }
-
-        return $"background-image-tint: {player.TeamComponent.Team.GetColor().Hex}";
-    }
-
-    string GetPlayerClass( PlayerController player )
-    {
-        return (player as IPawn).IsPossessed ? "viewer" : "";
-    }
-
     // generic
     string WorldToMap( Vector3 worldPosition )
     {
-        var position = FullMode ? Renderer.FromWorld(worldPosition) : Renderer.FromWorldRadar(worldPosition, ViewPos, ViewYaw, Zoom);
+        var position = FullMode ? Renderer.FromWorld(worldPosition) : Renderer.FromWorldRadar(worldPosition, ViewPos, FixedMode ? 0 : ViewYaw, Zoom);
         return $"left: {Length.Fraction(position.x)}; top: {Length.Fraction(position.y)};";
     }
 
@@ -138,7 +105,12 @@
 
     string RotationToMap( Angles rot )
     {
-        return $"transform: translateX(-50%) translateY(-50%) rotate({-rot.yaw}deg);";
+        return RotationToMap(rot.yaw);
+    }
+
+    string RotationToMap( float yaw )
+    {
+        return $"transform: translateX(-50%) translateY(-50%) rotate({-(yaw - (FixedMode ? 0 : ViewYaw))}deg);";
     }
 
     string MapTransform()
@@ -151,7 +123,7 @@
     string MapRot()
     {
         if (FixedMode) return "transform: none;";
-        return $"transform-origin: center center; transform: rotate({ViewYaw}deg); ";
+        return $"transform-origin: center center; transform: rotate({(FixedMode ? 0 : ViewYaw)}deg); ";
     }
 
     protected override int BuildHash()

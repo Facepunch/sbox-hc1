@@ -4,7 +4,9 @@ public enum MinimapIconType
 {
 	None,
 	DroppedC4,
-	Buyzone
+	Buyzone,
+	Player,
+	PlayerDead
 }
 
 public interface IMinimapElement : IValid
@@ -23,6 +25,12 @@ public interface IMinimapIcon : IMinimapElement
 public interface ICustomMinimapIcon : IMinimapIcon
 {
 	public string CustomStyle { get; }
+}
+
+public interface IDirectionalMinimapIcon : ICustomMinimapIcon
+{
+	public bool EnableDirectional { get; }
+	public Angles Direction { get; }
 }
 
 // Volumes
@@ -48,6 +56,8 @@ public static class MinimapExtensionMethods
 		{
 			MinimapIconType.DroppedC4 => "c4",
 			MinimapIconType.Buyzone => "buyzone",
+			MinimapIconType.Player => "",
+			MinimapIconType.PlayerDead => "dead",
 			_ => "",
 		};
 	}
