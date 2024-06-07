@@ -60,6 +60,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	[Sync, Change( nameof( OnIsDeployedPropertyChanged ))]
 	public bool IsDeployed { get; private set; }
 	private bool _wasDeployed { get; set; }
+	private bool _hasStarted { get; set; }
 
 	/// <summary>
 	/// Updates the render mode, if we're locally controlling a player, we want to hide the world model.
@@ -202,6 +203,9 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	
 	private void OnIsDeployedPropertyChanged( bool oldValue, bool newValue )
 	{
+		// Conna: If `OnStart` hasn't been called yet, don't do anything. It'd be nice to have a property on
+		// a Component that can indicate this.
+		if ( !_hasStarted ) return;
 		UpdateDeployedState();
 	}
 
@@ -275,6 +279,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	protected override void OnStart()
 	{
 		_wasDeployed = IsDeployed;
+		_hasStarted = true;
 		
 		if ( IsDeployed )
 			OnDeployed();
