@@ -8,7 +8,7 @@ public partial class MinimapRenderer : Component, Component.ExecuteInEditor
 	private GameObject CameraGameObject;
 	public CameraComponent Camera { get; set; }
 
-	public Vector2 RemapCoords( Vector3 worldPos )
+	public Vector3 FromWorld( Vector3 worldPos )
 	{
 		// Define the center position and half size of the minimap area
 		var origin = Transform.Position;
@@ -30,6 +30,26 @@ public partial class MinimapRenderer : Component, Component.ExecuteInEditor
 
 		// Return the mapped coordinates
 		return new Vector2(minimapY, minimapX);
+	}
+
+	public Vector3 FromWorldRadar( Vector3 worldPos, Vector3 playerPos, float yaw )
+	{
+		// Get relative world position
+		Vector3 dir = (playerPos - worldPos);
+
+		// Scale to minimap space
+		dir /= Size / 2; 
+
+		// Apply look rotation
+		float cosYaw = MathF.Cos( MathX.DegreeToRadian( -yaw ) );
+		float sinYaw = MathF.Sin( MathX.DegreeToRadian( -yaw ) );
+		Vector3 rotatedDirection = new Vector3(
+			dir.x * cosYaw - dir.y * sinYaw,
+			dir.x * sinYaw + dir.y * cosYaw
+		);
+
+		// Limit to radar bounds (so we stick to the edge)
+		return new Vector3( rotatedDirection.y, rotatedDirection.x).ClampLength(1);
 	}
 
 	protected override void DrawGizmos()

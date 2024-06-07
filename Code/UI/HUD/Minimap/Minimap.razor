@@ -1,56 +1,67 @@
 ﻿@namespace Facepunch
 @attribute [StyleSheet]
 
-<root class="with-background with-rounding @(Input.Down( "score" ) ? "big" : "")">
+<root class="with-rounding @(FullMode ? "big" : "radar")">
     @if (Renderer.IsValid())
     {
-        <div>
-            <div class="minimap" style="background-image: url( @Renderer.CurrentMinimapPath );" />
-            <div class="overlay" style="background-image: url( @Renderer.CurrentMinimapPath );" />
+        <div class="mask" style="@MapRot()">
+            <div class="map-parent">
+                <div style="@MapTransform()">
+                    <div class="minimap" style="background-image: url( @Renderer.CurrentMinimapPath )" />
+                    <div class="overlay" style="background-image: url( @Renderer.CurrentMinimapPath )" />
 
-            <div class="markers">
-                @foreach (var player in GetPlayers())
-                {
-                    if (player.Tags.Has("invis"))
-                        continue;
-
-                    if ( player.HealthComponent.State == LifeState.Dead )
+                    @foreach (var volume in Game.ActiveScene.GetAllComponents<IMinimapVolume>())
                     {
-                        <div class="marker dead" style="@WorldToMap(player.Transform.Position)" />
-                    }
-                    else
-                    {
-                        <div class="marker @GetPlayerClass(player)" style="@WorldToMap(player.Transform.Position) @RotationToMap(player.EyeAngles) @GetPlayerColor(player)" />
-                    }
-                }
-                @foreach (var element in Game.ActiveScene.GetAllComponents<IMinimapElement>())
-                {
-                    if ( !element.IsValid() || (GameUtils.Viewer is not null && !element.IsVisible(GameUtils.Viewer)) )
-                        continue;
-
-                    if ( element is IMinimapVolume volume )
-                    {
-                        <div class="volume" style="@GetBox(volume) @GetBoxStyles(volume);" >
+                        if (!volume.IsValid() || (GameUtils.Viewer is not null && !volume.IsVisible(GameUtils.Viewer)))
+                            continue;
+                            
+                        <div class="volume" style="@GetBox(volume) @GetBoxStyles(volume)" >
                             <div class="bg" style="@GetLineStyles(volume)" />
                         </div>
                     }
-                    if (element is IMinimapIcon icon && icon.IconType != MinimapIconType.None)
-                    {
-                        <div class="marker @icon.IconType.GetClass()" style="@WorldToMap(icon.WorldPosition) @((icon as ICustomMinimapIcon)?.CustomStyle ?? "")" />
-                    }
-                    if (element is IMinimapLabel label)
-                    {
-                        <div class="label" style="@WorldToMap(label.WorldPosition) @LabelStyles( label )">
-                            @label.Label
-                        </div>
-                    }
-                }
-                @if ( SpectateSystem.Instance?.IsFreecam ?? false )
-                {
-                    var spectateController = SpectateSystem.Instance.FreecamController;
-                    <div class="marker" style="@WorldToMap(spectateController.Transform.Position) @RotationToMap(spectateController.Transform.Rotation.Angles())" />
-                }
+                </div>
             </div>
+        </div>
+
+        <div class="markers">
+            @foreach (var player in GetPlayers())
+            {
+                if (player.Tags.Has("invis"))
+                    continue;
+
+                if ( player.HealthComponent.State == LifeState.Dead )
+                {
+                    <div class="marker dead" style="@WorldToMap(player.Transform.Position)" />
+                }
+                else
+                {
+                    <div class="marker @GetPlayerClass(player)" style="@WorldToMap(player.Transform.Position)
+                    @RotationToMap(!FixedMode && (player as IPawn).IsPossessed ? Angles.Zero : player.EyeAngles)
+                    @GetPlayerColor(player)" />
+                }
+            }
+            @foreach (var element in Game.ActiveScene.GetAllComponents<IMinimapElement>())
+            {
+                if ( !element.IsValid() || (GameUtils.Viewer is not null && !element.IsVisible(GameUtils.Viewer)) )
+                    continue;
+
+                if (element is IMinimapIcon icon && icon.IconType != MinimapIconType.None)
+                {
+                    <div class="marker @icon.IconType.GetClass()" style="@WorldToMap(icon.WorldPosition) @((icon as ICustomMinimapIcon)?.CustomStyle ?? "")" />
+                }
+                if (element is IMinimapLabel label)
+                {
+                    <div class="label" style="@WorldToMap(label.WorldPosition) @LabelStyles( label )">
+                        @label.Label
+                    </div>
+                }
+            }
+            @if ( SpectateSystem.Instance?.IsFreecam ?? false )
+            {
+                var spectateController = SpectateSystem.Instance.FreecamController;
+                <div class="marker" style="@WorldToMap(spectateController.Transform.Position)
+                @RotationToMap(!FixedMode ? Angles.Zero : spectateController.Transform.Rotation.Angles())" />
+            }
         </div>
     }
 </root>
@@ -58,6 +69,14 @@
 @code
 {
     public MinimapRenderer Renderer => Game.ActiveScene.GetAllComponents<MinimapRenderer>().FirstOrDefault();
+
+    public Vector3 ViewPos => GameUtils.Viewer?.Transform.Position ?? SpectateSystem.Instance.FreecamController.Transform.Position;
+    public float ViewYaw => FixedMode ? 0 : GameUtils.Viewer?.EyeAngles.yaw ?? SpectateSystem.Instance.FreecamController.Transform.Rotation.Angles().yaw;
+
+    // shows full map, embiggened
+    public bool FullMode => Input.Down("score");
+    // doesn't rotate the map with the player
+    public bool FixedMode => FullMode;
 
     IEnumerable<PlayerController> GetPlayers()
     {
@@ -88,7 +107,7 @@
     // generic
     string WorldToMap( Vector3 worldPosition )
     {
-        var position = Renderer.RemapCoords(worldPosition);
+        var position = FullMode ? Renderer.FromWorld(worldPosition) : Renderer.FromWorldRadar(worldPosition, ViewPos, ViewYaw);
         return $"left: {Length.Fraction(position.x)}; top: {Length.Fraction(position.y)};";
     }
 
@@ -99,8 +118,8 @@
 
     string GetBox( IMinimapVolume volume )
     {
-        var min = Renderer.RemapCoords(volume.WorldPosition + (volume.Size / 2));
-        var max = Renderer.RemapCoords(volume.WorldPosition - (volume.Size / 2));
+        var min = Renderer.FromWorld(volume.WorldPosition + (volume.Size / 2));
+        var max = Renderer.FromWorld(volume.WorldPosition - (volume.Size / 2));
         var remappedSize = max - min;
         return $"left: {Length.Fraction(min.x)}; top: {Length.Fraction(min.y)}; width:{Length.Fraction(remappedSize.x)}; height:{Length.Fraction(remappedSize.y)};";
     }
@@ -116,9 +135,22 @@
     }
 
     string RotationToMap( Angles rot )
-	{
-		return $"transform: translateX(-50%) translateY(-50%) rotate({-rot.yaw}deg);";
-	}
+    {
+        return $"transform: translateX(-50%) translateY(-50%) rotate({-rot.yaw}deg);";
+    }
+
+    string MapTransform()
+    {
+        if (FullMode) return "left: 0; top: 0;";
+        var position = -Renderer.FromWorld(ViewPos);
+        return $"left: {Length.Fraction(position.x)}; top: {Length.Fraction(position.y)}; transform: scale(1);";
+    }
+
+    string MapRot()
+    {
+        if (FixedMode) return "transform: none;";
+        return $"transform-origin: center center; transform: rotate({ViewYaw}deg); ";
+    }
 
     protected override int BuildHash()
     {
