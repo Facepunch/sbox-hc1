@@ -18,7 +18,7 @@ public partial class PlayerController
 		var player = GameUtils.Viewer;
 		if ( player.IsValid() )
 		{
-			player.HealthComponent.Health = 100f;
+			player.HealthComponent.Health = player.HealthComponent.MaxHealth;
 		}
 	}
 

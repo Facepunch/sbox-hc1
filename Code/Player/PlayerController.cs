@@ -807,7 +807,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <param name="force"></param>
 	/// <param name="target"></param>
 	/// <param name="hitbox"></param>
-	void IDamageListener.OnDamageGiven( float damage, Vector3 position, Vector3 force, Component target, string hitbox = "" )
+	void IDamageListener.OnDamageGiven( float damage, Vector3 position, Vector3 force, Component target, string hitbox )
 	{
 		Log.Info( $"{this} damaged {target} for {damage}" );
 
@@ -826,7 +826,7 @@ public partial class PlayerController : Component, IPawn, IRespawnable, IDamageL
 	/// <param name="force"></param>
 	/// <param name="attacker"></param>
 	/// <param name="hitbox"></param>
-	void IDamageListener.OnDamageTaken( float damage, Vector3 position, Vector3 force, Component attacker, string hitbox = "" )
+	void IDamageListener.OnDamageTaken( float damage, Vector3 position, Vector3 force, Component attacker, string hitbox )
 	{
 		Log.Info( $"{this} took {damage} damage!" );
 

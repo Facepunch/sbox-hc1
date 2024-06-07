@@ -99,7 +99,7 @@ public partial class PlayerController
 
 		if ( Networking.IsHost )
 		{
-			HealthComponent.Health = 100f;
+			HealthComponent.Health = HealthComponent.MaxHealth;
 			HealthComponent.State = LifeState.Alive;
 			HealthComponent.RespawnState = RespawnState.None;
 		}

@@ -45,6 +45,10 @@ public partial class HealthComponent : Component, IRespawnable
 	[Property, ReadOnly, HostSync]
 	public float Armor { get; set; }
 
+	[Property] public float MaxHealth { get; set; } = 100f;
+
+	[Property] public float MaxArmor { get; set; } = 100f;
+
 	[Property, ReadOnly, HostSync, Change( nameof( OnHasHelmetChanged ) )]
 	public bool HasHelmet { get; set; }
 
@@ -79,7 +83,7 @@ public partial class HealthComponent : Component, IRespawnable
 		switch ( newValue )
 		{
 			case LifeState.Alive:
-				Health = 100f;
+				Health = MaxHealth;
 				Respawnables.ToList().ForEach( x => x.Respawn() );
 				break;
 			case LifeState.Dead:
@@ -117,7 +121,7 @@ public partial class HealthComponent : Component, IRespawnable
 		}
 		else
 		{
-			player.HealthComponent.Armor = 100;
+			player.HealthComponent.Armor = player.HealthComponent.MaxArmor;
 			player.HealthComponent.HasHelmet = true;
 		}
 	}

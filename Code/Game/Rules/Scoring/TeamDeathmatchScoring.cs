@@ -11,7 +11,7 @@ public sealed class TeamDeathmatchScoring : Component, IKillListener, IPlayerSpa
 	}
 
 	void IKillListener.OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force,
-		Component inflictor = null, string hitbox = "" )
+		Component inflictor, string hitbox )
 	{
 		if ( GameUtils.GetPlayerFromComponent( killer ) is not { } killerPlayer )
 		{
