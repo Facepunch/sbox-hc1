@@ -1,6 +1,9 @@
 ﻿namespace Facepunch;
 
-public class PlayerOutfit
+/// <summary>
+/// An outfit for the player.
+/// </summary>
+public sealed class PlayerOutfit
 {
 	/// <summary>
 	/// A list of items we'll apply on top of the player's avatar.
@@ -22,6 +25,10 @@ public class PlayerOutfit
 	/// </summary>
 	[Property] public Clothing Helmet { get; set; }
 
+	/// <summary>
+	/// Wear the outfit
+	/// </summary>
+	/// <param name="outfitter"></param>
 	public void Wear( PlayerOutfitter outfitter )
 	{
 		var container = new ClothingContainer();
@@ -70,40 +77,90 @@ public class PlayerOutfit
 	}
 }
 
-public class TeamOutfits
+/// <summary>
+/// A list of outfits for a team.
+/// </summary>
+public sealed class TeamOutfits
 {
+	/// <summary>
+	/// What team is this for?
+	/// </summary>
 	[KeyProperty] public Team Team { get; set; }
 
+	/// <summary>
+	/// A list of outfits for a team.
+	/// </summary>
 	public List<PlayerOutfit> Outfits { get; set; } = new();
 
+	/// <summary>
+	/// Take a random outfit from <see cref="Outfits"/>
+	/// </summary>
+	/// <returns></returns>
 	public PlayerOutfit TakeRandom()
 	{
 		return Game.Random.FromList( Outfits );
 	}
-
-	public override string ToString()
-	{
-		return $"{Team}, {Outfits.Count} outfits";
-	}
 }
 
 /// <summary>
-/// An extremely basic outfitter, which'll swap between two gameobjects (which are holding an outfit)
+/// A component that handles what a player wears.
 /// </summary>
 public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IArmorListener
 {
+	/// <summary>
+	/// The player's body component.
+	/// </summary>
 	[RequireComponent] public PlayerBody Body { get; set; }
 
+	/// <summary>
+	/// A list of outfits per-team.
+	/// </summary>
 	[Property] public List<TeamOutfits> Outfits { get; set; }
+	
+	/// <summary>
+	/// A reference to the current team we're on.
+	/// </summary>
 	[Property] public TeamComponent TeamComponent { get; set; }
+
+	/// <summary>
+	/// The player controller.
+	/// </summary>
 	[Property] public PlayerController PlayerController { get; set; }
+
+	/// <summary>
+	/// When we're not in a team that has any outfits, what team should we fall back to (preferably one with some outfits!)
+	/// </summary>
 	[Property] public Team FallbackTeam { get; set; }
 
+	/// <summary>
+	/// Should we enable helmet physics when the helmet breaks?
+	/// </summary>
+	[Property] public bool EnableHelmetPhysics { get; set; } = true;
+	
+	/// <summary>
+	/// We store the player's avatar over the network so everyone knows what everyone looks like.
+	/// </summary>
+	[Sync] public string Avatar { get; set; }
+
+	/// <summary>
+	/// The stored outfit for this player. We'll use it as their preferred outfit until they change team.
+	/// </summary>
+	public PlayerOutfit CurrentOutfit { get; set; }
+
+	/// <summary>
+	/// Resets the state of the player, using its team.
+	/// </summary>
+	/// <param name="player"></param>
 	public void OnResetState( PlayerController player )
 	{
 		UpdateFromTeam( player.TeamComponent.Team );
 	}
 
+	/// <summary>
+	/// Called when the player's team changes.
+	/// </summary>
+	/// <param name="oldTeam"></param>
+	/// <param name="newTeam"></param>
 	private void OnTeamChanged( Team oldTeam, Team newTeam )
 	{
 		if ( PlayerController.IsSpectating )
@@ -112,20 +169,26 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IArmo
 		UpdateFromTeam( newTeam );
 	}
 
+	/// <summary>
+	/// Called when the component is enabled.
+	/// </summary>
 	protected override void OnEnabled()
 	{
 		TeamComponent.OnTeamChanged += OnTeamChanged;
-		base.OnEnabled();
 	}
 
+	/// <summary>
+	/// Called when the component is disabled.
+	/// </summary>
 	protected override void OnDisabled()
 	{
 		TeamComponent.OnTeamChanged -= OnTeamChanged;
-		base.OnDisabled();
 	}
 
-	public PlayerOutfit CurrentOutfit { get; set; }
-
+	/// <summary>
+	/// Assuming we don't want to change the player's outfit, just re-apply the current set of clothing.
+	/// Useful when we lose our helmet.
+	/// </summary>
 	[Broadcast( NetPermission.HostOnly )]
 	private void UpdateCurrent()
 	{
@@ -133,6 +196,11 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IArmo
 		PlayerController.Body.ReapplyVisibility();
 	}
 
+	/// <summary>
+	/// Called to wear an outfit based off a team.
+	/// </summary>
+	/// <param name="team"></param>
+	/// <param name="replace"></param>
 	[Broadcast( NetPermission.HostOnly )]
 	private void UpdateFromTeam( Team team, bool replace = true )
 	{
@@ -154,15 +222,19 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IArmo
 		PlayerController.Body.ReapplyVisibility();
 	}
 
-	[Sync] public string Avatar { get; set; }
-
+	/// <summary>
+	/// Grab the player's avatar data.
+	/// </summary>
+	/// <param name="owner"></param>
 	public void OnNetworkSpawn( Connection owner )
 	{
 		Avatar = owner.GetUserData( "avatar" );
 	}
 
-	[Property] public bool EnableHelmetPhysics { get; set; } = true;
-
+	/// <summary>
+	/// Called when the player's helmet state has changed.
+	/// </summary>
+	/// <param name="hasHelmet"></param>
 	void IArmorListener.OnHelmetChanged( bool hasHelmet )
 	{
 		if ( PlayerController.HealthComponent.State != LifeState.Alive )

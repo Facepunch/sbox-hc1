@@ -1,5 +1,8 @@
 ﻿namespace Facepunch.UI;
 
+/// <summary>
+/// Handles all the player score values.
+/// </summary>
 public sealed class PlayerScore : Component, IKillListener, IBombDefusedListener, IBombDetonatedListener, IBombPlantedListener
 {
 	[HostSync, Property, ReadOnly] 
