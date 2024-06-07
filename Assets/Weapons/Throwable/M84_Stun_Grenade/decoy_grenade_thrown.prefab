@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "0fc6231f-d3af-426e-ac3e-2f16008012d3",
+    "__guid": "ccdabc7c-e265-464a-9bfc-faa767c890b3",
     "Flags": 0,
     "Name": "decoy_grenade_thrown",
     "Tags": "noblockaudio",
@@ -10,7 +10,7 @@
     "Components": [
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "52246e63-87d8-41ca-8a49-131e31dc7315",
+        "__guid": "f7c158b3-9fc6-44c5-bd1a-a2c3dcf47064",
         "AngularDamping": 1,
         "Gravity": true,
         "LinearDamping": 1,
@@ -22,7 +22,7 @@
       },
       {
         "__type": "Sandbox.SphereCollider",
-        "__guid": "28f7c79a-6752-4369-9346-5cb4a9c55c06",
+        "__guid": "0541985d-7dfb-4686-9a28-b6ce9c6957dd",
         "Center": "0,0,1.5",
         "IsTrigger": false,
         "Radius": 2,
@@ -31,11 +31,11 @@
       },
       {
         "__type": "DestroyBetweenRounds",
-        "__guid": "35a42225-0faa-427a-bb9b-1bb969155402"
+        "__guid": "3b7f80da-adaf-4c07-ad89-06ccd3a72e83"
       },
       {
         "__type": "Facepunch.DecoyGrenade",
-        "__guid": "04696d0f-b8b7-4c7e-9740-dd0548b0c700",
+        "__guid": "7c3bcc01-8fc7-45a1-8dee-44ebef2f335f",
         "ChatterSpeed": 35,
         "Effect": {
           "_type": "gameobject",
@@ -44,7 +44,7 @@
         "Lifetime": 15,
         "PrefabOnExplode": {
           "_type": "gameobject",
-          "prefab": "prefabs/equipment/decoy_grenade_active.prefab"
+          "prefab": "prefabs/equipment/decoy_grenade_explode.prefab"
         },
         "ShotDelay": "0.50,1.00,1",
         "ShotSound": "sounds/weapons/m4a1/m4_shot.sound"
@@ -52,7 +52,7 @@
     ],
     "Children": [
       {
-        "__guid": "addfb85c-61bc-473f-ad1a-ceeb704b2410",
+        "__guid": "6b3f4ee9-4d72-4316-839f-0e2ceae66079",
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
@@ -61,13 +61,22 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "64b7a6ff-9eb0-44a8-b261-da64462c55fd",
+            "__guid": "8956b60f-c00e-458c-a279-e489e0d9ba64",
             "BodyGroups": 18446744073709551615,
             "Model": "weapons/throwable/m84_stun_grenade/v_m84_stun_grenade.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
           }
         ]
+      },
+      {
+        "__guid": "5f468e2e-4110-49d0-a349-54c873be4257",
+        "Flags": 0,
+        "Name": "decoy_smoke",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "__Prefab": "prefabs/equipment/decoy_smoke.prefab"
       }
     ]
   },
