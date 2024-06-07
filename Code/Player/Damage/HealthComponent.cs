@@ -45,9 +45,8 @@ public partial class HealthComponent : Component, IRespawnable
 	[Property, ReadOnly, HostSync]
 	public float Armor { get; set; }
 
-	[Property] public float MaxHealth { get; set; } = 100f;
-
-	[Property] public float MaxArmor { get; set; } = 100f;
+	public float MaxHealth => GetGlobal<PlayerGlobals>().MaxHealth;
+	public float MaxArmor => GetGlobal<PlayerGlobals>().MaxArmor;
 
 	[Property, ReadOnly, HostSync, Change( nameof( OnHasHelmetChanged ) )]
 	public bool HasHelmet { get; set; }

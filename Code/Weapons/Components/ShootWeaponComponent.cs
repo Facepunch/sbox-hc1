@@ -156,17 +156,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 	private record struct BloodDecal( Material Material, RangedFloat Size, float Depth );
 
-	/// <summary>
-	/// Bit shitty, but it's something I want global across all guns
-	/// </summary>
-	private static BloodDecal[] AvailableDecals => new BloodDecal[]
-	{
-		new BloodDecal( Cloud.Material( "jase.bloodsplatter08" ), new RangedFloat( 32, 96 ), 10f ),
-		new BloodDecal( Cloud.Material( "jase.bloodsplatter07" ), new RangedFloat( 32, 96 ), 10f ),
-		new BloodDecal( Cloud.Material( "jase.bloodsplatter06" ), new RangedFloat( 32, 96 ), 10f ),
-		new BloodDecal( Cloud.Material( "jase.bloodsplatter05" ), new RangedFloat( 32, 96 ), 10f ),
-		new BloodDecal( Cloud.Material( "jase.bloodsplatter04" ), new RangedFloat( 32, 96 ), 10f ),
-	};
+	private static List<Material> AvailableDecals => GetGlobal<PlayerGlobals>().BloodDecalMaterials;
 
 	[Broadcast]
 	private void CreateBloodEffects( Vector3 pos, Vector3 normal, Vector3 direction )
@@ -181,8 +171,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 		if ( tr.Hit )
 		{
-			var decal = Game.Random.FromArray( AvailableDecals );
-			CreateDecal( decal.Material, tr.HitPosition - (tr.Direction * 2 ), tr.Normal, Game.Random.Float( 0, 360 ), decal.Size.GetValue(), decal.Depth, 5f );
+			var material = Game.Random.FromList( AvailableDecals );
+			CreateDecal( material, tr.HitPosition - (tr.Direction * 2 ), tr.Normal, Game.Random.Float( 0, 360 ), Game.Random.Int( 32, 96 ), 10f, 5f );
 		}
 	}
 

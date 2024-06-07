@@ -1,6 +1,3 @@
-using Facepunch.UI;
-using Sandbox.Diagnostics;
-
 namespace Facepunch;
 
 public sealed partial class PlayerController : Component, IPawn, IRespawnable, IDamageListener, Weapon.IDeploymentListener
@@ -126,6 +123,7 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 		ApplyMovement();
 	}
 	
+	// I don't think this belongs here either. Should just be able to do this in the UI system.
 	private void UIUpdate()
 	{
 		if ( InBuyMenu )
@@ -144,6 +142,7 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 		}
 	}
 
+	// Can we do this differently? I don't like it.
 	public bool CanBuy()
 	{
 		if ( GameMode.Instance?.Components.Get<BuyZoneTime>() is { } buyZoneTime )
@@ -154,6 +153,7 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 		return IsInBuyzone();
 	}
 
+	// Same with this, I don't like it.
 	public bool IsInBuyzone()
 	{
 		if ( GameMode.Instance.BuyAnywhere )
@@ -171,7 +171,9 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 
 	public void AssignTeam( Team team )
 	{
-		Assert.True( Networking.IsHost );
+		if ( !Networking.IsHost )
+			return;
+
 		TeamComponent.Team = team;
 
 		foreach ( var listener in Scene.GetAllComponents<ITeamAssignedListener>() )
