@@ -63,7 +63,7 @@ MainMenuRoot, PauseMenuRoot
             mask-position: center;
             mask-size: 32px;
             opacity: 0.3;
-            mask-image: url( https://files.facepunch.com/tony/1b2611b1/marque.png );
+            mask-image: url( ui/fp.png );
         }
     }
 
@@ -238,17 +238,17 @@ SettingEntry
         aspect-ratio: 1;
         padding: 1px;
         font-size: 22px;
-        border: 3px solid white;
         border-radius: 0px;
         text-align: center;
         justify-content: center;
         align-items: center;
         color: transparent;
+        background-color: rgba( black, 0.75 );
+        border: 0.5px solid rgba( white, 1 );
         margin-right: 10px;
-        min-width: 32px;
-        max-width: 32px;
+        min-width: 16px;
+        max-width: 16px;
         pointer-events: none;
-        box-shadow: 2px 2px 2px black;
     }
 
     &.checked
@@ -323,7 +323,6 @@ SettingEntry
                 width: 2px;
                 height: 2px;
                 transform: translateX( -50% );
-                box-shadow: 2px 2px 2px solid black;
             }
         }
     }

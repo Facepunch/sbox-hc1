@@ -7,14 +7,14 @@
 <root class="">
     @if ( Description is not null )
     {
-        <div class="with-background with-padding border-bottom">
-            <label class="name">@Description.Title</label>
-            <div class="grow"/>
-            <div class="value-area">@Value</div>
-        </div>
-
-        @if ( Description.PropertyType == typeof( float ) )
+        @if ( Description.PropertyType == typeof( float ) || Description.PropertyType == typeof( int ) )
         {
+            <div class="with-background with-padding border-bottom">
+                <label class="name">@Description.Title</label>
+                <div class="grow" />
+                <div class="value-area">@Value</div>
+            </div>
+
             <div class="control with-background">
                 @if ( Range is not null )
                 {
@@ -29,12 +29,23 @@
 
         @if ( Description.PropertyType == typeof( bool ) )
         {
-            <Checkbox Value:bind=@Value />
+            <div class="with-background with-padding border-bottom">
+                <label class="name">@Description.Title</label>
+                <div class="grow" />
+                <Checkbox Value:bind=@Value />
+            </div>
+
         }
     }
     else
     {
-        <label class="name">???</label>
+        <div class="with-background with-padding border-bottom">
+            <label class="name">@Description.Title</label>
+            <div class="grow" />
+            <div class="value-area">@Value</div>
+        </div>
+
+        <label class="name">Unsupported</label>
     }
 </root>
 
