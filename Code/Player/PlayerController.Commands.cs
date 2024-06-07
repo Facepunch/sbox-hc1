@@ -22,7 +22,7 @@ public partial class PlayerController
 		}
 	}
 
-	[DeveloperCommand( "Suicide" )]
+	[DeveloperCommand( "Suicide" ), ConCmd( "kill" )]
 	private static void Command_Suicide()
 	{
 		var player = Developer.CurrentPlayer;
