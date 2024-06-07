@@ -8,6 +8,11 @@ partial class PlayerController
 	[Sync] public bool IsUsing { get; set; }
 
 	/// <summary>
+	/// How far can we use stuff?
+	/// </summary>
+	[Property, Group( "Interaction" )] public float UseDistance { get; set; } = 72f;
+
+	/// <summary>
 	/// Which object did the player last press use on?
 	/// </summary>
 	public GameObject LastUsedObject { get; private set; }
