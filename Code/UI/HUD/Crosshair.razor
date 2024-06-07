@@ -32,7 +32,7 @@
     public Panel Hitmarker { get; set; }
 
     PlayerController Player => GameUtils.Viewer;
-    Weapon Weapon => Player.CurrentWeapon;
+    Weapon Weapon => Player?.CurrentWeapon;
 
     private TimeUntil TimeUntilHitmarkerRemove = 0f;
     private float HitMarkerDuration => 0.1f;
@@ -129,7 +129,7 @@
 
         bool visible = player.IsValid() && player.HealthComponent.State == LifeState.Alive;
 
-        if ( Weapon?.Tags.Has( "aiming" ) ?? false )
+        if ( Weapon.IsValid() && Weapon.Tags.Has( "aiming" ) )
             visible = false;
 
         SetClass( "visible", visible );
