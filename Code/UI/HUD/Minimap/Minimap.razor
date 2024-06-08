@@ -1,7 +1,7 @@
 ﻿@namespace Facepunch
 @attribute [StyleSheet]
 
-<root class="with-rounding @(FullMode ? "big" : "radar")">
+<root class="with-rounding @(FullMode ? "big" : "radar")" style="border: 1px solid @(TeamColor.WithAlpha( 0.5f ).Hex)">
     @if (Renderer.IsValid())
     {
         <div class="mask" style="@MapRot()">
@@ -52,7 +52,7 @@
             <!-- POV Marker -->
             @if ( GameUtils.Viewer is null || GameUtils.Viewer.HealthComponent.State == LifeState.Alive )
             {
-                <div class="marker @(SpectateSystem.Instance?.IsFreecam ?? false ? "" : "viewer")" style="@WorldToMap(ViewPos) @RotationToMap(ViewYaw)" />
+                <div class="marker @(SpectateSystem.Instance?.IsFreecam ?? false ? "" : "viewer")" style="@WorldToMap(ViewPos) @RotationToMap(ViewYaw) background-tint: @TeamColor.Hex" />
             }
 
         </div>
@@ -62,6 +62,8 @@
 @code
 {
     public MinimapRenderer Renderer => Game.ActiveScene.GetAllComponents<MinimapRenderer>().FirstOrDefault();
+
+    public Color TeamColor => GameUtils.Viewer?.GameObject?.GetTeam().GetColor() ?? Color.White;
 
     public Vector3 ViewPos => GameUtils.Viewer?.Transform.Position ?? SpectateSystem.Instance.FreecamController.Transform.Position;
     public float ViewYaw => GameUtils.Viewer?.EyeAngles.yaw ?? SpectateSystem.Instance.FreecamController.Transform.Rotation.Angles().yaw;

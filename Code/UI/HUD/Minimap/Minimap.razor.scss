@@ -5,7 +5,6 @@ Minimap
     width: 256px;
     height: 256px;
     border-radius: $rounding;
-    padding: 8px;
     z-index: 10;
 
     &.big
@@ -36,11 +35,10 @@ Minimap
         background-color: $background;
         border-radius: 50%;
         backdrop-filter: $blur;
-
         // sol: mask-image with backdrop-filter breaks the blur, so nest and border-radius to emulate the mask
         .mask
         {
-            mask: url('ui/minimaps/mask.png');
+            mask: radial-gradient( white, white 45%, #E7E7E7 48%, black 52% );
             mask-size: cover;
         }
     }
@@ -84,7 +82,7 @@ Minimap
     {
         position: absolute;
         width: 22px;
-        height:  22px;
+        height: 22px;
         background-image: url('ui/minimaps/player_icon.png');
         z-index: 99;
         transform: translateX(-50%) translateY(-50%);
@@ -117,7 +115,6 @@ Minimap
 
         &.viewer
         {
-            background-image-tint: rgba( 0, 255, 255, 1 );
             z-index: 200;
         }
 
@@ -146,10 +143,11 @@ Minimap
         }
     }
 
-    .label
+    label
     {
         position: absolute;
         z-index: 10;
         transform: translateX(-50%) translateY(-50%);
+        text-shadow: 2px 2px 0px rgba( black, 0.5 );
     }
 }
