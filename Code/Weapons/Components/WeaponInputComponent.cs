@@ -32,13 +32,13 @@ public abstract class InputWeaponComponent : WeaponComponent, Weapon.IDeployment
 	/// </summary>
 	[Property, Category( "Base" )] public Action<InputWeaponComponent> OnInputAction { get; set; }
 
-	bool AttackingWhileDeployed { get; set; }
+	bool RunningWhileDeployed { get; set; }
 
 	public void OnDeployed( Weapon weapon )
 	{
 		if ( Weapon.PlayerController.IsLocallyControlled )
 		{
-			AttackingWhileDeployed = Input.Down( "Attack1" );
+			RunningWhileDeployed = InputActions.Any( x => Input.Down( x ) );
 		}
 	}
 
@@ -49,7 +49,7 @@ public abstract class InputWeaponComponent : WeaponComponent, Weapon.IDeployment
 	/// <returns></returns>
 	public bool GetInputMethod( string action )
 	{
-		if ( AttackingWhileDeployed ) return false;
+		if ( RunningWhileDeployed ) return false;
 
 		if ( InputType == InputListenerType.Pressed )
 		{
@@ -106,9 +106,9 @@ public abstract class InputWeaponComponent : WeaponComponent, Weapon.IDeployment
 		if ( !Weapon.PlayerController.IsLocallyControlled )
 			return;
 
-		if ( Input.Released( "Attack1" ) )
+		if ( InputActions.All( x => !Input.Down( x ) ) )
 		{
-			AttackingWhileDeployed = false;
+			RunningWhileDeployed = false;
 		}
 
 		bool matched = false;
