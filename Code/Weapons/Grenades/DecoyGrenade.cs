@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public sealed class DecoyGrenade : BaseGrenade
+public sealed class DecoyGrenade : BaseGrenade, ICustomMinimapIcon
 {
 	[RequireComponent] Rigidbody Rigidbody { get; set; }
 
@@ -11,6 +11,12 @@ public sealed class DecoyGrenade : BaseGrenade
 
 	bool CanChatter;
 	TimeUntil TimeUntilShot = 0;
+	TimeSince TimeSinceShot = 1;
+
+	MinimapIconType IMinimapIcon.IconType => MinimapIconType.PlayerEnemy;
+	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	string ICustomMinimapIcon.CustomStyle => "background-image-tint: rgba(255, 0, 0, 1 );";
+	bool IMinimapElement.IsVisible( PlayerController viewer ) => TimeSinceShot < 0.5f;
 
 	protected override void OnUpdate()
 	{
@@ -30,7 +36,9 @@ public sealed class DecoyGrenade : BaseGrenade
 
 	void Fire()
 	{
-		if ( ShotSound is not null)
+		TimeSinceShot = 0;
+
+		if ( ShotSound is not null )
 			Sound.Play( ShotSound, Transform.Position );
 
 		Effect?.Clone( new CloneConfig()
