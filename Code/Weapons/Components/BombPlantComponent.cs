@@ -68,6 +68,8 @@ public partial class BombPlantComponent : InputWeaponComponent
 
 			var player = Weapon.PlayerController;
 			player.IsFrozen = true;
+
+			RadioSounds.Play( player.TeamComponent.Team, "Hidden", "Planting bomb" );
 		}
 	}
 
