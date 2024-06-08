@@ -81,6 +81,11 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 	protected override void OnUpdate()
 	{
 		OnUpdateMovement();
+
+		if ( IsLocallyControlled )
+		{
+			DebugUpdate();
+		}
 	}
 
 	protected override void OnFixedUpdate()
@@ -119,6 +124,7 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 		BuildWishVelocity();
 		BuildInput();
 
+		UpdateRecoilAndSpread();
 		ApplyAcceleration();
 		ApplyMovement();
 	}

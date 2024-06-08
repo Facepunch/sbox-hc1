@@ -457,4 +457,16 @@ public partial class PlayerController
 		if ( IsCrouching ) return 100f;
 		return GetWalkSpeed();
 	}
+
+	private void DebugUpdate()
+	{
+		DebugText.Update();
+
+		DebugText.Write( $"Player", Color.White, 20 );
+		DebugText.Write( $"Velocity: {CharacterController.Velocity}" );
+		DebugText.Write( $"Speed: {CharacterController.Velocity.Length}" );
+		DebugText.Spacer();
+		DebugText.Write( $"Weapon Info", Color.White, 20 );
+		DebugText.Write( $"Spread: {Spread}" );
+	}
 }

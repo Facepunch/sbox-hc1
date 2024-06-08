@@ -12,6 +12,36 @@ public partial class PlayerController
 	/// </summary>
 	[Property] public GameObject ViewModelGameObject { get; set; }
 
+	/// <summary>
+	/// How inaccurate are things like gunshots?
+	/// </summary>
+	public float Spread { get; set; }
+
+	private void UpdateRecoilAndSpread()
+	{
+		var recoil = CurrentWeapon?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
+
+		var spread = 0f;
+		var velLimit = 350f;
+		var velSpreadScale = 0.25f;
+		var airSpreadMult = 2f;
+
+		var velLen = CharacterController.Velocity.Length;
+		spread += velLen.Remap( 0, velLimit, 0, 1, true ) * velSpreadScale;
+
+		if ( recoil.IsValid() )
+		{
+			var recoilScale = 0.5f;
+			if ( IsCrouching ) recoilScale *= 0.5f;
+
+			spread += recoil.Current.AsVector3().Length * recoilScale;
+		}
+
+		if ( !IsGrounded ) spread *= airSpreadMult;
+
+		Spread = spread;
+	}
+
 	void Weapon.IDeploymentListener.OnDeployed( Weapon weapon )
 	{
 		CurrentWeapon = weapon;

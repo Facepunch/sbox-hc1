@@ -56,7 +56,7 @@
     private ScopeWeaponComponent Scope => Weapon?.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
     private RecoilWeaponComponent Recoil => Weapon?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
 
-    float BaseDistance => 15 + (( Shoot?.BulletSpread ?? 0 ) * 250f);
+    float BaseDistance => 15 + (( Player?.Spread ?? 0 ) * 250f);
     // 10px base size
     float BaseElementSize => 10;
 
@@ -71,8 +71,8 @@
         }
     }
 
-    float VelocityScale => MathF.Abs( Player.CharacterController.Velocity.Length ).LerpInverse( 0, 250f, true );
-    float VelocityScaleFactor => 75;
+    float VelocityScale => MathF.Abs( Player?.Spread ?? 0 ).Clamp( 0, 0.25f );
+    float VelocityScaleFactor => 350;
 
     public float Distance => GetDistance();
 

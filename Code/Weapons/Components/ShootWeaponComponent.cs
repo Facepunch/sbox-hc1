@@ -377,7 +377,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		var rot = Rotation.LookAt( WeaponRay.Forward );
 
 		var forward = rot.Forward;
-		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * GetBulletSpread() * 0.25f;
+		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * Weapon.PlayerController.Spread * 0.25f;
 		forward = forward.Normal;
 
 		var end = WeaponRay.Position + forward * MaxRange;
