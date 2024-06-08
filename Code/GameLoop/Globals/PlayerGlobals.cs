@@ -60,6 +60,7 @@ public class PlayerGlobals : GlobalComponent
 	/// The current gravity.
 	/// </summary>
 	[Property, Group( "Movement" )] public Vector3 Gravity { get; set; } = new Vector3( 0, 0, 800 );
+	[Property, Group( "Movement" )] public float JumpPower { get; set; } = 320f;
 
 	/// <summary>
 	/// Can we bunny hop?

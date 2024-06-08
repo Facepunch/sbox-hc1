@@ -23,11 +23,6 @@ public partial class PlayerController
 	[Property, Group( "Config" )] public float WalkSpeed { get; set; } = 125f;
 
 	/// <summary>
-	/// How powerful is the player's jump?
-	/// </summary>
-	[Property, Group( "Config" )] public float JumpPower { get; set; } = 320f;
-
-	/// <summary>
 	/// How much friction does the player have?
 	/// </summary>
 	[Property, Group( "Friction" )] public float BaseFriction { get; set; } = 4.0f;
@@ -274,7 +269,7 @@ public partial class PlayerController
 			var bhop = GetGlobal<PlayerGlobals>().BunnyHopping;
 			if ( bhop ? Input.Down( "Jump" ) : Input.Pressed( "Jump" ) )
 			{
-				CharacterController.Punch( Vector3.Up * JumpPower * 1f );
+				CharacterController.Punch( Vector3.Up * GetGlobal<PlayerGlobals>().JumpPower * 1f );
 				BroadcastPlayerJumped();
 			}
 		}
