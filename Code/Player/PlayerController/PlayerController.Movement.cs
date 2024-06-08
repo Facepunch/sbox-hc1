@@ -419,7 +419,7 @@ public partial class PlayerController
 	/// <returns></returns>
 	private float GetFriction()
 	{
-		if ( !IsGrounded ) return 0f;
+		if ( !IsGrounded ) return 0.1f;
 		if ( IsSlowWalking ) return SlowWalkFriction;
 		if ( IsCrouching ) return CrouchingFriction;
 		return BaseFriction;
