@@ -43,11 +43,6 @@ public partial class PlayerController
 	[Property, Group( "Acceleration" )] public float CrouchingAcceleration { get; set; } = 10;
 
 	/// <summary>
-	/// The current gravity. Make this a gamerule thing later?
-	/// </summary>
-	[Property, Group( "Config" )] public Vector3 Gravity { get; set; } = new Vector3( 0, 0, 800 );
-
-	/// <summary>
 	/// Noclip movement speed
 	/// </summary>
 	[Property] public float NoclipSpeed { get; set; } = 1000f;
@@ -207,6 +202,8 @@ public partial class PlayerController
 
 		CheckLadder();
 
+		var gravity = GetGlobal<PlayerGlobals>().Gravity;
+
 		if ( _isTouchingLadder )
 		{
 			LadderMove();
@@ -222,7 +219,7 @@ public partial class PlayerController
 		{
 			if ( !IsNoclipping )
 			{
-				cc.Velocity -= Gravity * Time.Delta * 0.5f;
+				cc.Velocity -= gravity * Time.Delta * 0.5f;
 			}
 			cc.Accelerate( WishVelocity.ClampLength( 50 ) );
 		}
@@ -231,7 +228,7 @@ public partial class PlayerController
 		{
 			if ( !IsNoclipping )
 			{
-				cc.Velocity -= Gravity * Time.Delta * 0.5f;
+				cc.Velocity -= gravity * Time.Delta * 0.5f;
 			}
 		}
 		else
@@ -273,10 +270,14 @@ public partial class PlayerController
 			TimeSinceLastInput = 0f;
 		}
 
-		if ( CharacterController.IsOnGround && !IsFrozen && !InMenu && Input.Pressed( "Jump" ) )
+		if ( CharacterController.IsOnGround && !IsFrozen && !InMenu )
 		{
-			CharacterController.Punch( Vector3.Up * JumpPower * 1f );
-			BroadcastPlayerJumped();
+			var bhop = GetGlobal<PlayerGlobals>().BunnyHopping;
+			if ( bhop ? Input.Down( "Jump" ) : Input.Pressed( "Jump" ) )
+			{
+				CharacterController.Punch( Vector3.Up * JumpPower * 1f );
+				BroadcastPlayerJumped();
+			}
 		}
 	}
 
@@ -322,7 +323,7 @@ public partial class PlayerController
 			_jumpPosition = Transform.Position;
 		}
 
-		if ( !wasOnGround && isOnGround )
+		if ( !wasOnGround && isOnGround && GetGlobal<PlayerGlobals>().EnableFallDamage )
 		{
 			var vel = _previousVelocity.z;
 			var jumpFromPos = _jumpPosition;

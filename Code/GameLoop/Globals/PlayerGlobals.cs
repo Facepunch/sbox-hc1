@@ -55,4 +55,19 @@ public class PlayerGlobals : GlobalComponent
 		}
 		return 1f;
 	}
+
+	/// <summary>
+	/// The current gravity.
+	/// </summary>
+	[Property, Group( "Movement" )] public Vector3 Gravity { get; set; } = new Vector3( 0, 0, 800 );
+
+	/// <summary>
+	/// Can we bunny hop?
+	/// </summary>
+	[Property, Group( "Movement" )] public bool BunnyHopping { get; set; } = false;
+
+	/// <summary>
+	/// Is fall damage enabled?
+	/// </summary>
+	[Property, Group( "Movement" )] public bool EnableFallDamage { get; set; } = true;
 }
