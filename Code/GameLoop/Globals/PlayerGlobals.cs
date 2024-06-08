@@ -26,4 +26,33 @@ public class PlayerGlobals : GlobalComponent
 		Cloud.Material( "jase.bloodsplatter05" ),
 		Cloud.Material( "jase.bloodsplatter04" )
 	};
+
+	/// <summary>
+	/// How much should we scale damage by if the player is using armor?
+	/// </summary>
+	[Property, Group( "Damage" )] public float BaseArmorReduction { get; set; } = 0.775f;
+
+	/// <summary>
+	/// How much should we scale the damage by if the player is hit in certain areas?
+	/// </summary>
+	[Property, Group( "Damage" )]
+	Dictionary<string, float> HitboxDamage { get; set; } = new()
+	{
+		{ "head helmet", 1f },
+		{ "head", 5f },
+	};
+
+	/// <summary>
+	/// Safe accessor for <see cref="HitboxDamage"/>
+	/// </summary>
+	/// <param name="hitbox"></param>
+	/// <returns></returns>
+	public float GetDamageMultiplier( string hitbox )
+	{
+		if ( HitboxDamage.TryGetValue( hitbox, out var mult ) )
+		{
+			return mult;
+		}
+		return 1f;
+	}
 }

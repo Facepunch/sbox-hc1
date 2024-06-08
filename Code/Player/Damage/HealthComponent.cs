@@ -106,7 +106,7 @@ public partial class HealthComponent : Component, IRespawnable
 		Armor -= damage;
 		Armor = Armor.Clamp( 0f, 100f );
 		
-		return damage * ArmorReduction;
+		return damage * GetGlobal<PlayerGlobals>().BaseArmorReduction;
 	}
 
 	[DeveloperCommand( "Toggle Kevlar & Helmet" )]
@@ -143,16 +143,27 @@ public partial class HealthComponent : Component, IRespawnable
 
 	[Property] public float HeadshotMultiplier { get; set; } = 2f;
 
+	private string GetFirstWord( string text )
+	{
+		var candidate = text.Trim();
+		if ( !candidate.Any( char.IsWhiteSpace ) )
+			return text;
+
+		return candidate.Split( ' ' ).FirstOrDefault();
+	}
+
 	[Broadcast]
 	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, string hitbox = "" )
 	{
-		if ( hitbox.Contains( "head" ) )
+		var firstHitbox = GetFirstWord( hitbox );
+
+		// Edge case, but it's okay.
+		if ( firstHitbox == "head" && HasHelmet )
+			firstHitbox += " helmet";
+
+		if ( GetGlobal<PlayerGlobals>().GetDamageMultiplier( firstHitbox ) is { } damageMultiplier )
 		{
-			// Helmet negates headshot damage
-			if ( !HasHelmet )
-			{
-				damage *= HeadshotMultiplier;
-			}
+			damage *= damageMultiplier;
 		}
 
 		damage = damage.CeilToInt();
