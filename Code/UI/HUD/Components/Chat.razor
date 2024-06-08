@@ -25,18 +25,29 @@
                         {
                         <span class="flex row w-full align-center shrink-0 gap-sm">
                             <span class="flex row gap-sm align-center shrink-0">
+
+                                @if ( entry.chatMode != ChatModes.All )
+                                {
+                                    <label class="small no-shadow green">TEAM</label>
+                                }
+
                                 <label class="playername bold no-shadow" style="color: @entry.color.Hex">@entry.author</label>
 
                                 @if (entry.chatMode != ChatModes.All)
                                 {
-                                    <label class="small no-shadow green">(@entry.chatMode)</label>
+                                    @if ( entry.location is { } zoneName )
+                                    {
+                                        <label class="small no-shadow grey">(@zoneName)</label>
+                                    }
                                 }
                                 
                                 @if ( entry.tags?.Contains( "radio" ) ?? false )
                                 {
                                     <Icon class="square rounded shrink-0" File="/ui/chat/radio.png" size="24" />
                                 }
+
                             </span>
+
                             <label class="message no-shadow">@entry.message</label>
                         </span>
                         }
@@ -95,7 +106,7 @@
     private ChatModes ChatMode = ChatModes.Team;
     private TextEntry InputBox;
 
-    public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded, ChatModes chatMode, MessageType type, Color color, string tags = null);
+    public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded, ChatModes chatMode, MessageType type, Color color, string tags = null, string location = null);
     private List<Entry> Entries = new();
 
     private bool Open => InputBox.HasFocus;
@@ -182,8 +193,11 @@
 
         var player = GameUtils.AllPlayers.FirstOrDefault(x => x.Network.OwnerConnection == Rpc.Caller);
         var color = player?.GameObject?.GetTeam().GetColor() ?? Color.White;
+        var location = player?.GetZone<MapLocation>()?.Zone?.DisplayName;
 
-        Entries.Add( new( steamid, author, message, 0.0f, chatMode, MessageType.Chat, color, tags ) );
+        Entries.Add( new( steamid, author, message, 0.0f, chatMode, MessageType.Chat, color, tags, location ) );
+
+
         StateHasChanged();
     }
 
