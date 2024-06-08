@@ -70,4 +70,15 @@ public class PlayerGlobals : GlobalComponent
 	/// Is fall damage enabled?
 	/// </summary>
 	[Property, Group( "Movement" )] public bool EnableFallDamage { get; set; } = true;
+
+	/// <summary>
+	/// Can we control our movement in the air?
+	/// </summary>
+	[Property, Group( "Movement" )] public float AirAcceleration { get; set; } = 40f;
+	[Property, Group( "Movement" )] public float BaseAcceleration { get; set; } = 10;
+	[Property, Group( "Movement" )] public float SlowWalkAcceleration { get; set; } = 10;
+	[Property, Group( "Movement" )] public float CrouchingAcceleration { get; set; } = 10;
+
+	[Property, Group( "Movement" )] public float MaxAcceleration { get; set; } = 100f;
+	[Property, Group( "Movement" )] public float AirMaxAcceleration { get; set; } = 150f;
 }

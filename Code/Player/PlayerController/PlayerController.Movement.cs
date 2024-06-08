@@ -35,14 +35,6 @@ public partial class PlayerController
 	[Property, Group( "Friction" )] public float CrouchingFriction { get; set; } = 4.0f;
 
 	/// <summary>
-	/// Can we control our movement in the air?
-	/// </summary>
-	[Property, Group( "Acceleration" )] public float AirAcceleration { get; set; } = 40f;
-	[Property, Group( "Acceleration" )] public float BaseAcceleration { get; set; } = 10;
-	[Property, Group( "Acceleration" )] public float SlowWalkAcceleration { get; set; } = 10;
-	[Property, Group( "Acceleration" )] public float CrouchingAcceleration { get; set; } = 10;
-
-	/// <summary>
 	/// Noclip movement speed
 	/// </summary>
 	[Property] public float NoclipSpeed { get; set; } = 1000f;
@@ -196,6 +188,13 @@ public partial class PlayerController
 		AimDampening = 1.0f;
 	}
 
+	private float GetMaxAcceleration()
+	{
+		var global = GetGlobal<PlayerGlobals>();
+		if ( !IsGrounded ) return global.AirMaxAcceleration;
+		return global.MaxAcceleration;
+	}
+
 	private void ApplyMovement()
 	{
 		var cc = CharacterController;
@@ -221,7 +220,7 @@ public partial class PlayerController
 			{
 				cc.Velocity -= gravity * Time.Delta * 0.5f;
 			}
-			cc.Accelerate( WishVelocity.ClampLength( 50 ) );
+			cc.Accelerate( WishVelocity.ClampLength( GetMaxAcceleration() ) );
 		}
 
 		if ( !cc.IsOnGround )
@@ -425,7 +424,7 @@ public partial class PlayerController
 	/// <returns></returns>
 	private float GetFriction()
 	{
-		if ( !IsGrounded ) return 0.1f;
+		if ( !IsGrounded ) return 0f;
 		if ( IsSlowWalking ) return SlowWalkFriction;
 		if ( IsCrouching ) return CrouchingFriction;
 		return BaseFriction;
@@ -433,11 +432,13 @@ public partial class PlayerController
 
 	private void ApplyAcceleration()
 	{
-		if ( !IsGrounded ) CharacterController.Acceleration = AirAcceleration;
-		else if ( IsSlowWalking ) CharacterController.Acceleration = SlowWalkAcceleration;
-		else if ( IsCrouching ) CharacterController.Acceleration = CrouchingAcceleration;
+		var global = GetGlobal<PlayerGlobals>();
+
+		if ( !IsGrounded ) CharacterController.Acceleration = global.AirAcceleration;
+		else if ( IsSlowWalking ) CharacterController.Acceleration = global.SlowWalkAcceleration;
+		else if ( IsCrouching ) CharacterController.Acceleration = global.CrouchingAcceleration;
 		else
-			CharacterController.Acceleration = BaseAcceleration;
+			CharacterController.Acceleration = global.BaseAcceleration;
 	}
 
 	float GetEyeHeightOffset()
