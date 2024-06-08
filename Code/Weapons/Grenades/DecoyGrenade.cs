@@ -16,7 +16,7 @@ public sealed class DecoyGrenade : BaseGrenade, ICustomMinimapIcon
 	MinimapIconType IMinimapIcon.IconType => MinimapIconType.PlayerEnemy;
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;
 	string ICustomMinimapIcon.CustomStyle => "background-image-tint: rgba(255, 0, 0, 1 );";
-	bool IMinimapElement.IsVisible( PlayerController viewer ) => TimeSinceShot < 0.5f;
+	bool IMinimapElement.IsVisible( PlayerController viewer ) => TimeSinceShot < 0.5f && IsEnemy;
 
 	protected override void OnUpdate()
 	{
