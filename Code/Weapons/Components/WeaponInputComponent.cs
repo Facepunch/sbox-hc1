@@ -38,10 +38,7 @@ public abstract class InputWeaponComponent : WeaponComponent, Weapon.IDeployment
 	{
 		if ( Weapon.PlayerController.IsLocallyControlled )
 		{
-			if ( Input.Down( "Attack1" ) )
-			{
-				AttackingWhileDeployed = true;
-			}
+			AttackingWhileDeployed = Input.Down( "Attack1" );
 		}
 	}
 
