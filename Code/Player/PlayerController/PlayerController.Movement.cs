@@ -205,12 +205,6 @@ public partial class PlayerController
 	{
 		var cc = CharacterController;
 
-		if ( cc.IsOnGround && !IsFrozen && !InMenu && Input.Pressed( "Jump" ) )
-		{
-			cc.Punch( Vector3.Up * JumpPower * 1f );
-			BroadcastPlayerJumped();
-		}
-
 		CheckLadder();
 
 		if ( _isTouchingLadder )
@@ -277,6 +271,12 @@ public partial class PlayerController
 		if ( WishMove.LengthSquared > 0.01f || Input.Down( "Attack1" ) )
 		{
 			TimeSinceLastInput = 0f;
+		}
+
+		if ( CharacterController.IsOnGround && !IsFrozen && !InMenu && Input.Pressed( "Jump" ) )
+		{
+			CharacterController.Punch( Vector3.Up * JumpPower * 1f );
+			BroadcastPlayerJumped();
 		}
 	}
 
