@@ -30,6 +30,7 @@
     public string GroupClasses( WeaponSlot slot )
     {
         var wpn = CurrentWeapon;
+        if (!wpn.IsValid()) return "";
 
         if (wpn.Resource.Slot == slot) return "active";
 
