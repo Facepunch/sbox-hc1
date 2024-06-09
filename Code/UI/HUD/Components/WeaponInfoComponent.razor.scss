@@ -2,7 +2,7 @@
 
 WeaponInfoComponent
 {
-    gap: 32px;
+    gap: 0px;
     flex-direction: column-reverse;
     justify-content: center;
     flex-grow: 0;
@@ -12,14 +12,37 @@ WeaponInfoComponent
     {
         opacity: 0.75;
     }
-}
 
-WeaponViewer
-{
-    width: 128px;
-    height: 64px;
-    filter: saturate(0);
-    filter: invert(1);
+    .group
+    {
+        flex-direction: row-reverse;
+
+        padding: 16px;
+        right: 32px;
+
+        > .background
+        {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background: linear-gradient( to right, rgba( black, 0.0 ), black );
+
+        }
+
+        &.active
+        {
+            >.background
+            {
+                opacity: 1;
+            }
+        }
+    }
+
+    InputHint
+    {
+        padding-left: 32px;
+    }
 }
 
 WeaponRow
@@ -29,14 +52,20 @@ WeaponRow
     gap: 8px;
     opacity: 0.5;
     transform: scale( 0.9 );
-    min-height: 50px;
-    min-width: 256px;
-    max-width: 256px;
 
-    .gunicon
+    .icon
     {
-        width: 128px;
+        justify-content: center;
+        align-items: center;
+        width: 96px;
         height: 64px;
+    }
+
+    .image
+    {
+        position: absolute;
+        width: 128px;
+        height: 128px;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -53,15 +82,6 @@ WeaponRow
         flex-direction: column;
         justify-content: flex-end;
         align-items: flex-end;
-    }
-
-    > .background
-    {
-        position: absolute;
-        width: 150%;
-        height: 150%;
-        opacity: 0;
-        background: linear-gradient( to right, rgba( black, 0.0 ), black );
     }
 
     &.is-active

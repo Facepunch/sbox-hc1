@@ -2,15 +2,16 @@
 @inherits Panel
 
 <root class="@(IsActive ? "is-active" : "")">
-    <div class="background" />
-    <div class="grow" />
 
     @if ( Weapon.IsValid() )
     {
         @if ( !string.IsNullOrEmpty( Weapon.Resource.Icon ) )
         {
             <div class="column">
-            <div class="gunicon" style="background-image:url(@Weapon.Resource.Icon);" />
+
+            <div class="icon">
+                <div class="image" style="background-image:url(@Weapon.Resource.Icon);" />
+            </div>
 
             @if ( IsActive )
             {
@@ -24,8 +25,6 @@
                 <label class="gunname">@Weapon.Resource.Name</label>
             </div>
         }
-
-        <InputHint Action="Slot@((int) Slot)" class="small" Size="@InputGlyphSize.Small" />
     }
 </root>
 
