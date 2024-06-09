@@ -125,19 +125,11 @@ public partial class HealthComponent : Component, IRespawnable
 		}
 	}
 
-	[Broadcast]
-	private void BroadcastKill( Guid killerComponent, Guid victimComponent, float damage, Vector3 position, Vector3 force = default, Guid inflictorComponent = default, string hitbox = "" )
+	private void OnKilled( DamageEvent damageEvent )
 	{
 		foreach ( var listener in Scene.GetAllComponents<IKillListener>() )
 		{
-			listener.OnPlayerKilled(
-				Scene.Directory.FindComponentByGuid( killerComponent ),
-				Scene.Directory.FindComponentByGuid( victimComponent ),
-				damage, 
-				position,
-				force,
-				Scene.Directory.FindComponentByGuid( inflictorComponent ),
-				hitbox );
+			listener.OnPlayerKilled( damageEvent );
 		}
 	}
 
@@ -153,9 +145,14 @@ public partial class HealthComponent : Component, IRespawnable
 	}
 
 	[Broadcast]
-	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, string hitbox = "" )
+	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, string hitbox = "", string tags = "" )
 	{
 		var firstHitbox = GetFirstWord( hitbox );
+
+		var attacker = Scene.Directory.FindComponentByGuid( attackerId );
+		var inflictor = Scene.Directory.FindComponentByGuid( inflictorId );
+
+		var damageEvent = DamageEvent.From( attacker, damage, inflictor, position, force, hitbox, tags ) with { Victim = GameUtils.GetPlayerFromComponent( this ) };
 
 		// Edge case, but it's okay.
 		if ( firstHitbox == "head" && HasHelmet )
@@ -163,10 +160,10 @@ public partial class HealthComponent : Component, IRespawnable
 
 		if ( GetGlobal<PlayerGlobals>().GetDamageMultiplier( firstHitbox ) is { } damageMultiplier )
 		{
-			damage *= damageMultiplier;
+			damageEvent.Damage *= damageMultiplier;
 		}
 
-		damage = damage.CeilToInt();
+		damageEvent.Damage = damageEvent.Damage.CeilToInt();
 
 		// Only the host should control the damage state
 		if ( Networking.IsHost )
@@ -174,9 +171,9 @@ public partial class HealthComponent : Component, IRespawnable
 			if ( !IsGodMode )
 			{
 				// Let armor try its hand
-				damage = CalculateArmorDamage( damage );
+				damageEvent.Damage = CalculateArmorDamage( damageEvent.Damage );
 
-				Health -= damage;
+				Health -= damageEvent.Damage;
 			}
 
 			// Did we die?
@@ -184,26 +181,26 @@ public partial class HealthComponent : Component, IRespawnable
 			{
 				State = LifeState.Dead;
 
-				// Broadcast this kill (for feed)
-				BroadcastKill( attackerId, Id, damage, position, force, inflictorId, hitbox );
+				OnKilled( damageEvent );
 			}
 		}
 
+		Log.Info( damageEvent );
+
 		Log.Info( $"{GameObject.Name}.OnDamage( {damage} ): {Health}, {State}" );
 
-		var attackingComponent = Scene.Directory.FindComponentByGuid( attackerId );
 		var receivers = GameObject.Root.Components.GetAll<IDamageListener>();
 		foreach ( var x in receivers )
 		{
-			x.OnDamageTaken( damage, position, force, attackingComponent, hitbox );
+			x.OnDamageTaken( damageEvent );
 		}
 
-		if ( attackingComponent.IsValid() )
+		if ( attacker.IsValid() )
 		{
-			var givers = attackingComponent.GameObject.Root.Components.GetAll<IDamageListener>();
+			var givers = attacker.GameObject.Root.Components.GetAll<IDamageListener>();
 			foreach ( var x in givers )
 			{
-				x.OnDamageGiven( damage, position, force, this, hitbox );
+				x.OnDamageGiven( damageEvent );
 			}
 		}
 

@@ -7,35 +7,23 @@ public partial class PlayerController
 	/// <summary>
 	/// Called when YOU inflict damage on something
 	/// </summary>
-	/// <param name="damage"></param>
-	/// <param name="position"></param>
-	/// <param name="force"></param>
-	/// <param name="target"></param>
-	/// <param name="hitbox"></param>
-	void IDamageListener.OnDamageGiven( float damage, Vector3 position, Vector3 force, Component target, string hitbox )
+	void IDamageListener.OnDamageGiven( DamageEvent damageEvent )
 	{
-		Log.Info( $"{this} damaged {target} for {damage}" );
-
 		// Did we cause this damage?
-		if ( this == GameUtils.Viewer )
+		if ( IsViewer )
 		{
-			Crosshair.Instance?.Trigger( damage, target, position, hitbox );
+			Crosshair.Instance?.Trigger( damageEvent );
 		}
 	}
 
 	/// <summary>
 	/// Called when YOU take damage from something
 	/// </summary>
-	/// <param name="damage"></param>
-	/// <param name="position"></param>
-	/// <param name="force"></param>
-	/// <param name="attacker"></param>
-	/// <param name="hitbox"></param>
-	void IDamageListener.OnDamageTaken( float damage, Vector3 position, Vector3 force, Component attacker, string hitbox )
+	void IDamageListener.OnDamageTaken( DamageEvent damageEvent )
 	{
-		Log.Info( $"{this} took {damage} damage!" );
+		AnimationHelper.ProceduralHitReaction( damageEvent.Damage / 100f, damageEvent.Force );
 
-		AnimationHelper.ProceduralHitReaction( damage / 100f, force );
+		var position = damageEvent.Attacker.Transform.Position;
 
 		// Is this the local player?
 		if ( IsViewer )
@@ -44,10 +32,10 @@ public partial class PlayerController
 		}
 
 		Body.DamageTakenPosition = position;
-		Body.DamageTakenForce = force.Normal * damage * Game.Random.Float( 5f, 20f );
+		Body.DamageTakenForce = damageEvent.Force.Normal * damageEvent.Damage * Game.Random.Float( 5f, 20f );
 
 		// Headshot effects
-		if ( hitbox.Contains( "head" ) )
+		if ( damageEvent.Hitboxes.Contains( "head" ) )
 		{
 			var hasHelmet = HealthComponent.HasHelmet;
 

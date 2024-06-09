@@ -1,5 +1,4 @@
-﻿
-using Facepunch;
+﻿using Facepunch;
 
 public sealed class TeamDeathmatchScoring : Component, IKillListener, IPlayerSpawnListener, IRoundStartListener
 {
@@ -10,33 +9,22 @@ public sealed class TeamDeathmatchScoring : Component, IKillListener, IPlayerSpa
 		GameMode.Instance.ShowStatusText( "Deathmatch" );
 	}
 
-	void IKillListener.OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force,
-		Component inflictor, string hitbox )
+	void IKillListener.OnPlayerKilled( DamageEvent damageEvent )
 	{
-		if ( GameUtils.GetPlayerFromComponent( killer ) is not { } killerPlayer )
-		{
+		if ( GameUtils.GetPlayerFromComponent( damageEvent.Attacker ) is not { } killerPlayer )
 			return;
-		}
 
-		if ( GameUtils.GetPlayerFromComponent( victim ) is not { } victimPlayer )
-		{
+		if ( GameUtils.GetPlayerFromComponent( damageEvent.Victim ) is not { } victimPlayer )
 			return;
-		}
 
-		if ( killerPlayer.TeamComponent.Team == victimPlayer.TeamComponent.Team )
-		{
+		if ( killerPlayer.IsFriendly( victimPlayer ) )
 			return;
-		}
 
 		if ( killerPlayer.TeamComponent.Team == Team.Unassigned )
-		{
 			return;
-		}
 
 		if ( victimPlayer.TeamComponent.Team == Team.Unassigned )
-		{
 			return;
-		}
 
 		TeamScoring.IncrementScore( killerPlayer.TeamComponent.Team );
 	}

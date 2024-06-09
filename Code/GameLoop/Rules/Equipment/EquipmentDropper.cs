@@ -2,9 +2,9 @@ namespace Facepunch;
 
 public partial class EquippmentDropper : Component, IKillListener
 {
-	void IKillListener.OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor, string hitbox = "" )
+	void IKillListener.OnPlayerKilled( DamageEvent damageEvent )
 	{
-		var player = GameUtils.GetPlayerFromComponent( victim );
+		var player = GameUtils.GetPlayerFromComponent( damageEvent.Victim );
 		if ( !player.IsValid() )
 			return;
 

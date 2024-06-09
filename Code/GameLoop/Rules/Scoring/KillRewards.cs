@@ -12,23 +12,19 @@ public sealed class KillRewards : Component, IKillListener
 	[Property, HostSync, ShowIf( nameof(AllowFriendlyFire), false )]
 	public int FriendlyFirePenalty { get; set; } = 300;
 
-	public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null, string hitbox = "" )
+	public void OnPlayerKilled( DamageEvent damageEvent )
 	{
-		if ( GameUtils.GetPlayerFromComponent( killer ) is not { } killerPlayer )
-		{
+		if ( GameUtils.GetPlayerFromComponent( damageEvent.Attacker ) is not { } killerPlayer )
 			return;
-		}
 
-		if ( GameUtils.GetPlayerFromComponent( victim ) is not { } victimPlayer )
-		{
+		if ( GameUtils.GetPlayerFromComponent( damageEvent.Victim ) is not { } victimPlayer )
 			return;
-		}
 
 		if ( !AllowFriendlyFire && killerPlayer.IsFriendly( victimPlayer ) )
 		{
 			killerPlayer.Inventory.GiveCash( -FriendlyFirePenalty );
 		}
-		else if ( GameUtils.GetWeaponFromComponent( inflictor ) is {} weapon )
+		else if ( damageEvent.Inflictor is Weapon weapon )
 		{
 			killerPlayer.Inventory.GiveCash( weapon.Resource.KillReward );
 		}

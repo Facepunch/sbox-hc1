@@ -37,16 +37,14 @@ public sealed class PlayerScore : Component, IKillListener, IBombDefusedListener
 	// Other CTs alive when the bomb is defused
 	private const int DefuseTeamAliveScore = 1;
 
-	public void OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor = null, string hitbox = "" )
+	public void OnPlayerKilled( DamageEvent damageEvent )
 	{
-		Log.Info( $"{killer} killed {victim} with {inflictor} for {damage} damage at {position} with {force} force" );
-
-		if ( !killer.IsValid() ) return;
-		if ( !victim.IsValid() ) return;
+		if ( !damageEvent.Attacker.IsValid() ) return;
+		if ( !damageEvent.Victim.IsValid() ) return;
 
 		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
-		var killerPlayer = GameUtils.GetPlayerFromComponent( killer );
-		var victimPlayer = GameUtils.GetPlayerFromComponent( victim );
+		var killerPlayer = GameUtils.GetPlayerFromComponent( damageEvent.Attacker );
+		var victimPlayer = GameUtils.GetPlayerFromComponent( damageEvent.Victim );
 
 		bool isFriendly = killerPlayer.TeamComponent.Team == victimPlayer.TeamComponent.Team;
 		bool isSuicide = killerPlayer == victimPlayer;

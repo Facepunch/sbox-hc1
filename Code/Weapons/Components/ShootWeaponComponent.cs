@@ -247,7 +247,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 				}
 
 				// Inflict damage on whatever we find.
-				tr.GameObject.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, hitbox );
+				//tr.GameObject.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, hitbox );
+				tr.GameObject.TakeDamage( DamageEvent.From( Weapon.PlayerController, damage, Weapon, tr.EndPosition, tr.Direction * tr.Distance, hitbox ) );
 				count++;
 			}
 		}

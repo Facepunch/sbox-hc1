@@ -332,7 +332,7 @@ public partial class PlayerController
 			var scale = zDist.LerpInverse( 0, 500f, true );
 			if ( scale < 0.35f ) return;
 
-			GameObject.TakeDamage( fallDamageScale * scale, Transform.Position, vel, Id, Id );
+			GameObject.TakeDamage( DamageEvent.From( this, fallDamageScale * scale, null, Transform.Position ) with { Tags = "fall_damage" } );
 		}
 	}
 

@@ -42,9 +42,9 @@ public partial class RadioManager : Component,
 		return GameUtils.GetPlayers( team ).Where( x => x.HealthComponent.State == LifeState.Alive ).Count();
 	}
 
-	void IKillListener.OnPlayerKilled( Component killer, Component victim, float damage, Vector3 position, Vector3 force, Component inflictor, string hitbox )
+	void IKillListener.OnPlayerKilled( DamageEvent damageEvent )
 	{
-		var victimTeam = victim.GameObject.GetTeam();
+		var victimTeam = damageEvent.Attacker.GameObject.GetTeam();
 
 		if ( PlayDeathSounds )
 			RadioSounds.Play( victimTeam, RadioSound.TeammateDies );
@@ -52,7 +52,7 @@ public partial class RadioManager : Component,
 		if ( !PlayEnemyLeftSounds )
 			return;
 
-		if ( killer.IsValid() )
+		if ( damageEvent.Attacker.IsValid() )
 		{
 			if ( GetAliveCount( victimTeam ) == 2 )
 			{

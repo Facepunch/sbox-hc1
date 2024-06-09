@@ -6,22 +6,22 @@
     @foreach ( var entry in Entries )
     {
         <div class="entry @(entry.IsLocal ? "local" : "")">
-            @if ( entry.Killer.IsValid() )
+            @if ( entry.DamageEvent.Attacker.IsValid() )
             {
-                <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.Killer ) />
+                <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.DamageEvent.Attacker ) />
             }
 
             <div class="method">
-                @if ( GameUtils.GetWeaponFromComponent( entry.Inflictor ) is {} weapon )
+                @if ( GameUtils.GetWeaponFromComponent( entry.DamageEvent.Inflictor ) is {} weapon )
                 {
                     <div class="icon" style="background-image: url( @weapon.Resource.Icon );" />
 
-                    @if ( entry.Hitbox.Contains( "head" ) )
+                    @if ( entry.DamageEvent.Hitboxes.Contains( "head" ) )
                     {
                         <Icon class="headshot" File="/ui/headshot.png" size="32" />
                     }
                 }
-                else if ( entry.Inflictor is TimedExplosive bomb )
+                else if ( entry.DamageEvent.Inflictor is TimedExplosive bomb )
                 {
                     <Icon File="/ui/bomb.png" size="32"></Icon>
                 }
@@ -31,9 +31,9 @@
                 }
             </div>
 
-            @if ( entry.Victim.IsValid() )
+            @if ( entry.DamageEvent.Victim.IsValid() )
             {
-                <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.Victim ) />
+                <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.DamageEvent.Victim ) />
             }
         </div>
     }
@@ -41,20 +41,20 @@
 
 @code
 {
-    public record Entry( Component Killer, Component Victim, Component Inflictor, string Hitbox, RealTimeSince TimeSinceAdded )
+    public record Entry( DamageEvent DamageEvent, RealTimeSince TimeSinceAdded )
     {
         public bool IsLocal => 
-            (GameUtils.GetPlayerFromComponent(Killer)?.IsLocallyControlled ?? false) || 
-            (GameUtils.GetPlayerFromComponent(Victim)?.IsLocallyControlled ?? false);
+            (GameUtils.GetPlayerFromComponent(DamageEvent.Attacker)?.IsLocallyControlled ?? false) ||
+            (GameUtils.GetPlayerFromComponent(DamageEvent.Victim)?.IsLocallyControlled ?? false);
     }
 
     private List<Entry> Entries { get; set; } = new();
 
     private float Lifetime => 10f;
 
-    public void OnPlayerKilled( Component killer, Component victim, Component inflictor, string hitbox = "" )
+    public void OnPlayerKilled( DamageEvent damageEvent )
     {
-        var entry = new Entry( killer, victim, inflictor, hitbox, 0 );
+        var entry = new Entry( damageEvent, 0 );
         Entries.Add( entry );
         StateHasChanged();
     }
