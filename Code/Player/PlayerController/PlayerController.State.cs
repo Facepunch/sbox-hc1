@@ -106,10 +106,11 @@ public partial class PlayerController
 		
 		TimeSinceLastRespawn = 0f;
 
+		GameMode.Instance?.SendSpawnConfirmation( Id );
+
 		if ( IsProxy || IsBot )
 			return;
 
-		GameMode.Instance?.SendSpawnConfirmation();
 		(this as IPawn).Possess();
 		
 		// Conna: we're not spectating if we just respawned.

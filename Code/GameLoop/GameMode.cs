@@ -170,12 +170,13 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	/// RPC called by a client when they have finished respawning.
 	/// </summary>
 	[Authority]
-	public void SendSpawnConfirmation()
+	public void SendSpawnConfirmation( Guid playerGuid )
 	{
-		var player = GameUtils.AllPlayers.FirstOrDefault( x => x.Network.OwnerConnection == Rpc.Caller )
-			?? throw new Exception( $"Unable to find {nameof(PlayerController)} owned by {Rpc.Caller.DisplayName}." );
-
-		_ = SpawnPlayer( player );
+		var player = Scene.Directory.FindComponentByGuid( playerGuid ) as PlayerController;
+		if ( player.IsValid() )
+		{
+			_ = SpawnPlayer( player );
+		}
 	}
 
 	public Task SpawnPlayer( PlayerController player )
