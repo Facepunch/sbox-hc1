@@ -177,19 +177,19 @@ public partial class PlayerInventory : Component
 		if ( !Weapons.Any() )
 			return;
 
-		if ( HasWeapon( WeaponSlot.Primary ) )
+		if ( HasWeaponInSlot( WeaponSlot.Primary ) )
 		{
 			SwitchToSlot( WeaponSlot.Primary );
 			return;
 		}
 
-		if ( HasWeapon( WeaponSlot.Secondary ) )
+		if ( HasWeaponInSlot( WeaponSlot.Secondary ) )
 		{
 			SwitchToSlot( WeaponSlot.Secondary );
 			return;
 		}
 
-		if ( HasWeapon( WeaponSlot.Melee ) )
+		if ( HasWeaponInSlot( WeaponSlot.Melee ) )
 		{
 			SwitchToSlot( WeaponSlot.Melee );
 			return;
@@ -283,16 +283,21 @@ public partial class PlayerInventory : Component
 			return null;
 		}
 
-		if ( !CanTakeWeapon( resource ) )
+		var pickupResult = CanTakeWeapon( resource );
+
+		if ( pickupResult == PickupResult.None )
 			return null;
 
 		// Don't let us have the exact same weapon
 		if ( HasWeapon( resource ) )
 			return null;
 
-		var slotCurrent = Weapons.FirstOrDefault( weapon => weapon.Enabled && weapon.Resource.Slot == resource.Slot );
-		if ( slotCurrent.IsValid() )
-			DropWeapon( slotCurrent.Id );
+		if ( pickupResult == PickupResult.Swap )
+		{
+			var slotCurrent = Weapons.FirstOrDefault( weapon => weapon.Enabled && weapon.Resource.Slot == resource.Slot );
+			if ( slotCurrent.IsValid() )
+				DropWeapon( slotCurrent.Id );
+		}
 
 		if ( !resource.MainPrefab.IsValid() )
 		{
@@ -330,28 +335,35 @@ public partial class PlayerInventory : Component
 		return Weapons.Any( weapon => weapon.Enabled && weapon.Resource == resource );
 	}
 
-	public bool HasWeapon( WeaponSlot slot )
+	public bool HasWeaponInSlot( WeaponSlot slot )
 	{
 		return Weapons.Any( weapon => weapon.Enabled && weapon.Resource.Slot == slot );
 	}
 
-	public bool CanTakeWeapon( WeaponData resource )
+	public enum PickupResult
+	{
+		None,
+		Pickup,
+		Swap
+	}
+
+	public PickupResult CanTakeWeapon( WeaponData resource )
 	{
 		if ( resource.Team != Team.Unassigned
 			&& resource.Team != Player.TeamComponent.Team
 			&& !resource.CanOtherTeamPickUp )
 		{
-			return false;
+			return PickupResult.None;
 		}
 
 		switch ( resource.Slot )
 		{
 			case WeaponSlot.Utility:
-				// TODO: grenade limits
-				return true;
+				var can = !HasWeapon( resource );
+				return can ? PickupResult.Pickup : PickupResult.Swap;
 
 			default:
-				return true;
+				return !HasWeaponInSlot( resource.Slot ) ? PickupResult.Pickup : PickupResult.Swap;
 		}
 	}
 

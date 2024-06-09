@@ -54,7 +54,7 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 
 	public bool CanUse( PlayerController player )
 	{
-		return player.Inventory.CanTakeWeapon( Resource );
+		return player.Inventory.CanTakeWeapon( Resource ) != PlayerInventory.PickupResult.None;
 	}
 
 	private bool _isUsed;
@@ -91,11 +91,11 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 			if ( player.TimeSinceLastRespawn < 2f )
 				return;
 			
-			if ( !player.Inventory.CanTakeWeapon( Resource ) )
+			if ( player.Inventory.CanTakeWeapon( Resource ) == PlayerInventory.PickupResult.Pickup )
 				return;
 
 			// Don't auto-pickup if we already have a weapon in this slot.
-			if ( player.Inventory.HasWeapon( Resource.Slot ) )
+			if ( player.Inventory.HasWeaponInSlot( Resource.Slot ) )
 				return;
 
 			OnUse( player );

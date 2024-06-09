@@ -20,7 +20,7 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 
 		foreach ( var weapon in Weapons )
 		{
-			if ( !player.Inventory.HasWeapon( weapon.Slot ) )
+			if ( !player.Inventory.HasWeaponInSlot( weapon.Slot ) )
 				player.Inventory.GiveWeapon( weapon, false );
 		}
 
