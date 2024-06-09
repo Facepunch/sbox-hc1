@@ -154,10 +154,6 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		return p;
 	}
 
-	private record struct BloodDecal( Material Material, RangedFloat Size, float Depth );
-
-	private static List<Material> AvailableDecals => GetGlobal<PlayerGlobals>().BloodDecalMaterials;
-
 	[Broadcast]
 	private void CreateBloodEffects( Vector3 pos, Vector3 normal, Vector3 direction )
 	{
@@ -171,8 +167,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 		if ( tr.Hit )
 		{
-			var material = Game.Random.FromList( AvailableDecals );
-			CreateDecal( material, tr.HitPosition - (tr.Direction * 2 ), tr.Normal, Game.Random.Float( 0, 360 ), Game.Random.Int( 32, 96 ), 10f, 5f );
+			var material = Game.Random.FromList( GetGlobal<PlayerGlobals>().BloodDecalMaterials );
+			CreateDecal( material, tr.HitPosition - (tr.Direction * 2 ), tr.Normal, Game.Random.Float( 0, 360 ), Game.Random.Int( 32, 96 ), 10f, 30f );
 		}
 	}
 
@@ -202,7 +198,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		{
 			var decal = Game.Random.FromList( decalResource.Decals );
 
-			CreateDecal( decal.Material, pos, normal, decal.Rotation.GetValue(), decal.Width.GetValue(), decal.Depth.GetValue() );
+			CreateDecal( decal.Material, pos, normal, decal.Rotation.GetValue(), decal.Width.GetValue() / 1.5f, decal.Depth.GetValue(), 30f );
 		}
 
 		if ( !string.IsNullOrEmpty( surface.Sounds.Bullet ) )

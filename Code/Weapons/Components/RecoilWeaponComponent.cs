@@ -2,70 +2,48 @@ namespace Facepunch;
 
 public partial class RecoilWeaponComponent : WeaponComponent
 {
-	[Property, Category( "Recoil" )] public float RecoilResetTime { get; set; } = 0.3f;
-	[Property, Category( "Recoil" )] public RangedFloat HorizontalSpread { get; set; } = 0f;
-	[Property, Category( "Recoil" )] public RangedFloat VerticalSpread { get; set; } = 0f;
+	[Property, Category( "Recoil" )] public float ResetTime { get; set; } = 0.3f;
 
-	[Property, Category( "Scaling" )] public float PlayerVelocityLimit { get; set; } = 300f;
-	[Property, Category( "Scaling" )] public float VelocitySpreadScale { get; set; } = 0.25f;
+	// Recoil Patterns
+	[Property, ToggleGroup( "UseRecoilPattern" )] public bool UseRecoilPattern { get; set; } = false;
+	[Property, Category( "UseRecoilPattern" ), HideIf( "UseRecoilPattern", false )] public Vector2 Scale { get; set; } = new Vector2( 2f, 5f );
+	[Property, Category( "UseRecoilPattern" ), HideIf( "UseRecoilPattern", false )] public RecoilPattern RecoilPattern { get; set; } = new();
+	[Property, Group( "Standard Recoil" ), HideIf( "UseRecoilPattern", true )] public RangedFloat HorizontalSpread { get; set; } 
+	[Property, Group( "Standard Recoil" ), HideIf( "UseRecoilPattern", true )] public RangedFloat VerticalSpread { get; set; }
 
 	internal Angles Current { get; private set; }
 
 	TimeSince TimeSinceLastShot;
 	int currentFrame = 0;
 
-	private float HorizontalScale
-	{
-		get
-		{
-			var scale = 1f;
-			// TODO: better accessor for stuff like this, this is mega shit
-			var velLen = Weapon.PlayerController.CharacterController.Velocity.Length;
-			scale += velLen.Remap( 0, PlayerVelocityLimit, 0, 1, true ) * VelocitySpreadScale;
-
-			return scale;
-		}
-	}
-
-	private float VerticalScale
-	{
-		get
-		{
-			var scale = 1f;
-			// TODO: better accessor for stuff like this, this is mega shit
-			var velLen = Weapon.PlayerController.CharacterController.Velocity.Length;
-			scale += velLen.Remap( 0, PlayerVelocityLimit, 0, 1, true ) * VelocitySpreadScale;
-
-			return scale;
-		}
-	}
-
 	internal void Shoot()
 	{
-		if ( TimeSinceLastShot > RecoilResetTime )
-		{
+		if ( TimeSinceLastShot > ResetTime )
 			currentFrame = 0;
-		}
 
 		TimeSinceLastShot = 0;
 
 		var timeDelta = Time.Delta;
-		var newAngles = new Angles( - (VerticalSpread.GetBetween() * VerticalScale ) * timeDelta, ( HorizontalSpread.GetBetween() * HorizontalScale ) * timeDelta, 0 );
 
-		Current = Current + newAngles;
-		currentFrame++;
+		if ( UseRecoilPattern )
+		{
+			var point = RecoilPattern.GetPoint( ref currentFrame );
+
+			var newAngles = new Angles( -point.y * Scale.y, -point.x * Scale.x, 0 ) * timeDelta;
+
+			Current = Current + newAngles;
+			currentFrame++;
+		}
+		else
+		{
+			var newAngles = new Angles( -VerticalSpread.GetValue() * timeDelta, HorizontalSpread.GetValue() * timeDelta, 0 );
+			Current = Current + newAngles;
+		}
+
 	}
 
 	protected override void OnUpdate()
 	{
 		Current = Current.LerpTo( Angles.Zero, Time.Delta * 10f );
-	}
-}
-
-public static class Extensions
-{
-	public static float GetBetween( this RangedFloat self )
-	{
-		return Game.Random.Float( self.x, self.y );
 	}
 }
