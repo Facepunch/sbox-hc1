@@ -10,11 +10,12 @@
         align-items: center;
         flex-direction: column-reverse;
         text-shadow: 1px 1px 1px rgba( black, 1 );
+        transform: translateY(-100%);
        
         .dot
         {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 100px;
             background-color: @Player.TeamComponent.Team.GetColor().Hex;
             box-shadow: 2px 2px 2px rgba( black, 0.5 );
@@ -23,14 +24,30 @@
         .name
         {
             text-shadow: 1px 1px 1px rgba( black, 1 );
+            font-weight: 900;
             color: @Player.TeamComponent.Team.GetColor().Hex;
         }
 
-        .chevron 
+        .hp
         {
-            font-size: 30px;
-            font-weight: 900;
+            text-shadow: 1px 1px 1px rgba( black, 1 );
             color: @Player.TeamComponent.Team.GetColor().Hex;
+        }
+
+        .weapons
+        {
+            label
+            {
+                text-shadow: 1px 1px 1px rgba( black, 1 );
+            }
+            gap: -8px;
+
+            height: 48px;
+
+            .icon {
+                width: 64px;
+                height: 64px;
+            }
         }
 
         Icon {
@@ -56,20 +73,28 @@
 
     @if ( !LocalPlayer.IsSpectating )
     {
-        @*TODO: make the player markers show up for enemies under certain circumstances
+        @* TODO: make the player markers show up for enemies under certain circumstances
         when aiming at a player that's kinda close to you? *@
         @if ( Viewer.IsValid() && !Viewer.GameObject.IsFriendly(Player.GameObject) )
             return;
     }
 
+
     @if ( Marker.IsOffScreen )
     {
-        <label class="chevron" style="transform: rotateZ(@(ChevronAngle)deg);">></label>
+        //
     }
     else
     {
         <div class="dot" />
-        <label class="name">@MarkerFrame.DisplayText</label>
+        <label class="name">@(Player.HealthComponent.Health)%</label>
+        <label class="name">@Player.GetPlayerName()</label>
+        <div class="weapons row">
+            @foreach (var wpn in Player.Inventory.Weapons.Where( CanShowWeapon ) )
+            {
+                <img class="icon" src="@wpn.Resource.Icon"/>
+            }
+        </div>
 
         @if( Player.Inventory.HasBomb && Player.IsFriendly( GameUtils.LocalPlayer ) )
         {
@@ -84,11 +109,11 @@
     private PlayerController Viewer => GameUtils.Viewer;
     private PlayerController LocalPlayer => GameUtils.LocalPlayer;
 
-    private float ChevronAngle => Scene.Camera.PointToScreenNormal(MarkerFrame.Position).Angle(new(0.5f, 0.5f)) - 180f; 
-
-    protected override void OnAfterTreeRender( bool firstTime )
+    private bool CanShowWeapon( Weapon weapon )
     {
-        Marker.ClampToScreen = true;
+        if ( weapon.Resource.Slot == WeaponSlot.Melee ) return false;
+        if ( weapon.Resource.Slot == WeaponSlot.Special ) return false;
+        return true;
     }
 
     protected override int BuildHash()

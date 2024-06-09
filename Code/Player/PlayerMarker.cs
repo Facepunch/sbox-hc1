@@ -20,6 +20,16 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// </summary>
 	Type IMarkerObject.MarkerPanelTypeOverride => typeof( UI.PlayerMarkerPanel );
 
+	private Vector3 DistOffset
+	{
+		get
+		{
+			var dist = Scene.Camera.Transform.Position.Distance( Transform.Position );
+			dist *= 0.0225f;
+			return Vector3.Up * dist;
+		}
+	}
+
 	/// <summary>
 	/// A bunch of info we'll pass to the marker syste.
 	/// </summary>
@@ -27,7 +37,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	{
 		get => new MarkerFrame()
 		{
-			Position = Transform.Position + Vector3.Up * 80,
+			Position = Transform.Position + Vector3.Up * 70 + DistOffset,
 			Rotation = Transform.Rotation,
 			DisplayText = Player.GetPlayerName()
 		};

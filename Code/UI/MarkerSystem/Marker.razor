@@ -51,7 +51,16 @@
     }
 
     private static Vector2 ScreenSafezone = new( 0.05f, 0.95f );
-    
+
+    public Vector2 DistanceFromCenter( Vector2 screenPos )
+    {
+        var xDistance = MathF.Abs( screenPos.x - 0.5f ) * 2f;
+        var yDistance = MathF.Abs( screenPos.y - 0.5f ) * 2f;
+        return new( xDistance, yDistance );
+    }
+
+    public Vector2 CenterDistance { get; set; }
+
     // Tries to reposition the marker on the screen
     public void Reposition()
     {
@@ -78,6 +87,8 @@
         if ( IsBehind && !ClampToScreen )
             return;
 
+        CenterDistance = DistanceFromCenter( toScreen );
+
         // Are we off the screen?
         IsOffScreen = toScreen.x > 1.0f || toScreen.x < 0.0f || toScreen.y > 1.0f || toScreen.y < 0.0f;
 
@@ -86,6 +97,14 @@
 
         Style.Left = Length.Fraction( toScreen.x );
         Style.Top = Length.Fraction( toScreen.y );
+        Style.Opacity = CalculateOpacity();
+    }
+
+    private float CalculateOpacity()
+    {
+        var opacity = 1f;
+        var dist = MathF.Max( CenterDistance.x, CenterDistance.y );
+        return opacity - ( 1 - dist * 2f );
     }
 
     protected override int BuildHash()
