@@ -158,7 +158,8 @@ public partial class HealthComponent : Component, IRespawnable
 		if ( firstHitbox == "head" && HasHelmet )
 			firstHitbox += " helmet";
 
-		if ( GetGlobal<PlayerGlobals>().GetDamageMultiplier( firstHitbox ) is { } damageMultiplier )
+		if ( GetGlobal<PlayerGlobals>().GetDamageMultiplier( firstHitbox ) is { } damageMultiplier
+			&& !tags.Contains( "melee" ) )
 		{
 			damageEvent.Damage *= damageMultiplier;
 		}
