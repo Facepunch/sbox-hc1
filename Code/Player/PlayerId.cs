@@ -59,14 +59,12 @@ public class PlayerId : Component
 			return;
 
 		TeamComponent.OnTeamChanged += OnTeamChanged;
-
 		UniqueId = uniqueGenerator.Get();
 	}
 
 	private void OnTeamChanged( Team before, Team after )
 	{
 		teamGenerator[(int)before].Free(TeamUniqueId);
-
 		TeamUniqueId = teamGenerator[(int)after].Get();
 	}
 
@@ -75,6 +73,7 @@ public class PlayerId : Component
 		if ( !Networking.IsHost )
 			return;
 
+		TeamComponent.OnTeamChanged -= OnTeamChanged;
 		uniqueGenerator.Free( UniqueId );
 		teamGenerator[(int)TeamComponent.Team].Free( TeamUniqueId );
 	}
