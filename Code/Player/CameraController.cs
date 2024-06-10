@@ -24,7 +24,7 @@ public sealed class CameraController : Component
 	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
 
 	bool AudioListenerModeToggled = false;
-	[DeveloperCommand( "Toggle Audio Mode" )]
+	[DeveloperCommand( "Drop Audio Listener", "Player" )]
 	static void ToggleAudioListenerMode()
 	{
 		var player = GameUtils.Viewer;

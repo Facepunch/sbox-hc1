@@ -62,7 +62,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	private bool _wasDeployed { get; set; }
 	private bool _hasStarted { get; set; }
 
-	[DeveloperCommand( "Toggle View Model" )]
+	[DeveloperCommand( "Toggle View Model", "Visuals" )]
 	private static void ToggleViewModel()
 	{
 		var player = GameUtils.Viewer;

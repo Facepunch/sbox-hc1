@@ -9,17 +9,30 @@ DeveloperMenu
 	bottom: 0;
 	font-weight: bold;
 	padding: 64px;
-	border-radius: 20px;
 	opacity: 0;
 	pointer-events: none;
-	flex-direction: column;
-	gap: 16px;
-	z-index: 999;
+	z-index: 9999;
+	justify-content: center;
+	align-items: center;
+
 	.options
 	{
-		width: 256px;
+		border-radius: 10px;
 		gap: 8px;
-		flex-direction: column;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: flex-start;
+		padding: 32px;
+		backdrop-filter: $blur;
+		background-color: rgba( black, 0.5 );
+		flex-wrap: wrap;
+
+		.group
+		{
+			padding: 16px;
+			gap: 8px;
+			flex-direction: column;
+		}
 	}
 
 	&.active
@@ -38,7 +51,9 @@ DeveloperMenu
 
 	.button
 	{
+		min-width: 256px;
 		font-size: 18px;
+		min-height: 48px;
 		font-family: $main-font;
 		color: #fff;
 		background-color: rgba( black, 0.5 );

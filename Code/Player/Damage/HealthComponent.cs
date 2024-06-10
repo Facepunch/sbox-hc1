@@ -109,7 +109,7 @@ public partial class HealthComponent : Component, IRespawnable
 		return damage * GetGlobal<PlayerGlobals>().BaseArmorReduction;
 	}
 
-	[DeveloperCommand( "Toggle Kevlar & Helmet" )]
+	[DeveloperCommand( "Toggle Kevlar + Helmet", "Player" )]
 	private static void Dev_ToggleKevlarAndHelmet()
 	{
 		var player = GameUtils.Viewer;

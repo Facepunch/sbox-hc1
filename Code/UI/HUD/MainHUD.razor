@@ -45,7 +45,7 @@
 {
     public static bool IsHudEnabled { get; set; } = true;
 
-    [DeveloperCommand( "Toggle HUD" )]
+    [DeveloperCommand( "Toggle HUD", "Visuals" )]
     private static void Command_ToggleHUD()
     {
         IsHudEnabled = !IsHudEnabled;

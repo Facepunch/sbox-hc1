@@ -5,12 +5,16 @@
 @inherits PanelComponent
 
 <root>
-	<div class="title">Developer Menu</div>
-
     <div class="options">
-        @foreach ( var data in TypeLibrary.GetMethodsWithAttribute<DeveloperCommandAttribute>().OrderBy( x => x.Attribute.Name ) )
+        @foreach ( var grouping in TypeLibrary.GetMethodsWithAttribute<DeveloperCommandAttribute>().OrderBy( x => x.Attribute.Name ).GroupBy( x => x.Attribute.Group ) )
         {
-            <div class="button" onclick=@(() => InvokeMethod( data.Method ))>@data.Attribute.Name</div>
+            <div class="group">
+                <label class="text white">@grouping.Key</label>
+                @foreach ( var data in grouping )
+                {
+                    <div class="button" onclick=@(() => InvokeMethod( data.Method ))>@data.Attribute.Name</div>
+                }
+            </div>
         }
     </div>
 </root>

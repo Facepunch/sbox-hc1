@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 /// </summary>
 public sealed class WaitForPlayers : Component, IGameStartListener
 {
-	[DeveloperCommand( "Pause Game Start", "Pause / resume timer before game starts." )]
+	[DeveloperCommand( "Pause Game Start", "Game Loop" )]
 	public static void DevToggle()
 	{
 		GameMode.Instance

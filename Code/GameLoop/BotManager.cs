@@ -45,14 +45,14 @@ public sealed class BotManager : SingletonComponent<BotManager>
 		return Names[id % Names.Length];
 	}
 
-	[DeveloperCommand( "Add Bot" )]
+	[DeveloperCommand( "Add Bot", "Game Loop" )]
 	private static void Command_Add_Bot()
 	{
 		Instance.AddBot();
 	}
 
 
-	[DeveloperCommand( "Add 9 Bots" )]
+	[DeveloperCommand( "Add 9 Bots", "Game Loop" )]
 	private static void Command_Add_Bots_Filled()
 	{
 		for ( int i = 0; i < 9; i++ )
@@ -61,7 +61,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 		}
 	}
 
-	[DeveloperCommand( "Kick all Bots" )]
+	[DeveloperCommand( "Kick all Bots", "Game Loop" )]
 	private static void Command_Kick_Bots()
 	{
 		foreach ( var player in GameUtils.AllPlayers )

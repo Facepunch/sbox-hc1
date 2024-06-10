@@ -2,7 +2,7 @@ namespace Facepunch;
 
 public partial class PlayerController
 {
-	[DeveloperCommand( "Hurt Self" )]
+	[DeveloperCommand( "-50 HP", "Player" )]
 	private static void Command_Hurt()
 	{
 		var player = GameUtils.Viewer;
@@ -12,7 +12,7 @@ public partial class PlayerController
 		}
 	}
 
-	[DeveloperCommand( "Heal" )]
+	[DeveloperCommand( "Heal", "Player" )]
 	private static void Command_Heal()
 	{
 		var player = GameUtils.Viewer;
@@ -22,7 +22,7 @@ public partial class PlayerController
 		}
 	}
 
-	[DeveloperCommand( "Suicide" ), ConCmd( "kill" )]
+	[DeveloperCommand( "Suicide", "Player" ), ConCmd( "kill" )]
 	private static void Command_Suicide()
 	{
 		var player = GameUtils.Viewer;
@@ -32,28 +32,7 @@ public partial class PlayerController
 		}
 	}
 
-	[DeveloperCommand( "Depossess Pawn" )]
-	private static void Command_Depossess()
-	{
-		var player = GameUtils.Viewer;
-		if ( player.IsValid() )
-		{
-			player.TryDePossess();
-		}
-	}
-
-	[DeveloperCommand( "Possess Pawn" )]
-	private static void Command_PossessSomething()
-	{
-		foreach ( var player in GameUtils.AllPlayers.OrderBy( x => x.Network.OwnerId ) )
-		{
-			if ( player == GameUtils.Viewer ) continue;
-			(player as IPawn).Possess();
-			return;
-		}
-	}
-
-	[DeveloperCommand("Give $1k")]
+	[DeveloperCommand( "Give $1k", "Player" )]
 	private static void Command_GiveGrand()
 	{
 		var player = GameUtils.Viewer;
