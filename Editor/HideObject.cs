@@ -8,8 +8,6 @@ public class HideObject
 	{
 		using var scope = SceneEditorSession.Scope();
 
-		var selection = EditorScene.Selection;
-
 		foreach ( var item in EditorScene.Selection )
 		{
 			var thing = item as GameObject;
