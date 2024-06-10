@@ -33,11 +33,16 @@
     /// </summary>
     public bool IsBehind;
 
-    protected override void OnAfterTreeRender( bool firstTime )
+    public override void Tick()
     {
-        if ( !firstTime ) return;
+        if ( Object.MarkerPanelTypeOverride is null ) return;
+        if ( CustomPanel.IsValid() ) return;
+        TryCreateCustomPanel();
+    }
 
-        if ( !Object.IsValid() ) return;
+    private void TryCreateCustomPanel()
+    {
+        if ( CustomPanel.IsValid() ) return;
         if ( Object.MarkerPanelTypeOverride is null ) return;
 
         var desc = TypeLibrary.GetType( Object.MarkerPanelTypeOverride );
@@ -48,6 +53,12 @@
 
         CustomPanel = inst;
         CustomPanel.Parent = this;
+    }
+
+    protected override void OnAfterTreeRender( bool firstTime )
+    {
+        if ( !Object.IsValid() ) return;
+        TryCreateCustomPanel();
     }
 
     private static Vector2 ScreenSafezone = new( 0.05f, 0.95f );
