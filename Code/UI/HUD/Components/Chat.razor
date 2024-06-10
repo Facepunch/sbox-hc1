@@ -9,6 +9,9 @@
 
 @attribute [StyleSheet]
 
+@if (!MainHUD.IsHudEnabled)
+    return;
+
 <root class="absolute inset-0">
     <canvas>
         <div class="chat-container hud flex column with-deadzone bottom-left with-px">
@@ -120,7 +123,7 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( ChatMode, Open );
+        return HashCode.Combine( ChatMode, Open, MainHUD.IsHudEnabled );
     }
 
     protected override void OnUpdate()

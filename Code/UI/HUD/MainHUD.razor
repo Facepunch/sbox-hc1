@@ -3,6 +3,9 @@
 
 @implements IKillListener
 
+@if (!IsHudEnabled)
+    return;
+
 <root>
     <canvas>
         <Crosshair />
@@ -40,11 +43,24 @@
 
 @code 
 {
+    public static bool IsHudEnabled { get; set; } = true;
+
+    [DeveloperCommand( "Toggle HUD" )]
+    private static void Command_ToggleHUD()
+    {
+        IsHudEnabled = !IsHudEnabled;
+    }
+
     public KillFeed KillFeed { get; set; }
 
 
     public void OnPlayerKilled( DamageEvent damageEvent )
     {
         KillFeed.OnPlayerKilled( damageEvent );
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( IsHudEnabled );
     }
 }
