@@ -59,7 +59,7 @@ public partial class BombPlantComponent : InputWeaponComponent
 	}
 
 	[Broadcast]
-	private void StartPlant()
+	private void BroadcastPlant()
 	{
 		if ( Networking.IsHost )
 		{
@@ -68,9 +68,18 @@ public partial class BombPlantComponent : InputWeaponComponent
 
 			var player = Weapon.PlayerController;
 			player.IsFrozen = true;
-
-			RadioSounds.Play( player.TeamComponent.Team, "Hidden", "Planting bomb" );
 		}
+	}
+
+	private void StartPlant()
+	{
+		// Send the radio sound to everyone
+		if ( Weapon.PlayerController.IsLocallyControlled )
+		{
+			RadioSounds.Play( Weapon.PlayerController.TeamComponent.Team, "Hidden", "Planting bomb" );
+		}
+
+		BroadcastPlant();
 	}
 
 	private void FinishPlant()
