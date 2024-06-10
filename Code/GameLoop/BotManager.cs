@@ -60,4 +60,14 @@ public sealed class BotManager : SingletonComponent<BotManager>
 			Instance.AddBot();
 		}
 	}
+
+	[DeveloperCommand( "Kick all Bots" )]
+	private static void Command_Kick_Bots()
+	{
+		foreach ( var player in GameUtils.AllPlayers )
+		{
+			if ( player.IsBot )
+				player.GameObject.Destroy();
+		}
+	}
 }

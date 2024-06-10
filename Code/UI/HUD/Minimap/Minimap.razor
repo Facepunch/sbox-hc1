@@ -52,7 +52,7 @@
             <!-- POV Marker -->
             @if ( GameUtils.Viewer is null || GameUtils.Viewer.HealthComponent.State == LifeState.Alive )
             {
-                <div class="marker @(SpectateSystem.Instance?.IsFreecam ?? false ? "" : "viewer")" style="@WorldToMap(ViewPos) @RotationToMap(ViewYaw) background-tint: @TeamColor.Hex" />
+                <div class="marker @(SpectateSystem.Instance?.IsFreecam ?? false ? "" : "viewer")" style="@WorldToMap(ViewPos) @RotationToMap(ViewYaw) background-tint: @ViewerColor.Hex" />
             }
 
         </div>
@@ -64,6 +64,7 @@
     public MinimapRenderer Renderer => Game.ActiveScene.GetAllComponents<MinimapRenderer>().FirstOrDefault();
 
     public Color TeamColor => GameUtils.Viewer?.GameObject?.GetTeam().GetColor() ?? Color.White;
+    public Color ViewerColor => GameUtils.Viewer?.PlayerColor ?? Color.White;
 
     public Vector3 ViewPos => GameUtils.Viewer?.Transform.Position ?? SpectateSystem.Instance.FreecamController.Transform.Position;
     public float ViewYaw => GameUtils.Viewer?.EyeAngles.yaw ?? SpectateSystem.Instance.FreecamController.Transform.Rotation.Angles().yaw;

@@ -43,6 +43,11 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 	[RequireComponent] public Spottable Spottable { get; set; }
 
 	/// <summary>
+	/// Unique Ids of this player
+	/// </summary>
+	[RequireComponent] public PlayerId PlayerId { get; set; }
+
+	/// <summary>
 	/// A reference to the View Model's camera. This will be disabled by the View Model.
 	/// </summary>
 	[Property] public CameraComponent ViewModelCamera { get; set; }

@@ -3,7 +3,7 @@
 
 @attribute [StyleSheet]
 
-<root class="@AvatarClasses">
+<root class="@AvatarClasses" style="@(IsFriendly ? $"box-shadow: 0 0 0 2px {Player.PlayerColor.Hex}" : "")">
     @if ( !Player.IsValid() ) return;
 
     <div class="avatar">
@@ -39,6 +39,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Player, IsFriendly, Player.HealthComponent.Health, Player.HealthComponent.State);
+        return HashCode.Combine(Player, IsFriendly, Player.HealthComponent.Health, Player.HealthComponent.State, Player.PlayerColor);
     }
 }

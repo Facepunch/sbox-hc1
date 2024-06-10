@@ -20,8 +20,12 @@ public partial class PlayerController
 	/// <summary>
 	/// What should this player be called?
 	/// </summary>
-	/// <returns></returns>
 	public string GetPlayerName() => IsBot ? $"BOT {BotManager.Instance.GetName( BotId )}" : Network.OwnerConnection?.DisplayName ?? "";
+
+	/// <summary>
+	/// Unique colour or team colour of this player
+	/// </summary>
+	public Color PlayerColor => PlayerColors.Instance.GetColor(this);
 
 	/// <summary>
 	/// Called when possessed.

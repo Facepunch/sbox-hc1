@@ -24,7 +24,7 @@
     </span>
 
     <span class="col playername gap-sm">
-        <img class="avatar" src="avatar:@(Connection.SteamId)" />
+        <img class="avatar" src="avatar:@(Connection.SteamId)" style="@(IsFriendly ? $"box-shadow: 0 0 0 2px {Player.PlayerColor.Hex};" : "box-shadow: none;")" />
         <label>
             @Player.GetPlayerName()
         </label>
@@ -66,7 +66,7 @@
     protected override int BuildHash()
     {
         var a = HashCode.Combine(KillDeathRatio, Score.Score, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead);
-        var b = HashCode.Combine(Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb, IsPartyMember);
+        var b = HashCode.Combine(Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb, IsPartyMember, Player.PlayerColor);
 
         return HashCode.Combine(a, b);
     }

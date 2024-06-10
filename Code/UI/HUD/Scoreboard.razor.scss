@@ -43,6 +43,14 @@ Scoreboard
                 height: 24px;
                 aspect-ratio: 1;
             }
+            
+            &.dead
+            {
+                .avatar
+                {
+                    filter: saturate( 0.2 ) brightness(50%);
+                }
+            }
 
             &.local
             {
@@ -56,12 +64,6 @@ Scoreboard
                 Icon {
                     background-image-tint: black;
                 }
-            }
-
-            &.dead
-            {
-                opacity: 0.5;
-                filter: saturate( 0.2 );
             }
 
             .col

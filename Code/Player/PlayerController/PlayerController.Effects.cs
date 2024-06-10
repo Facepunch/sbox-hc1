@@ -35,6 +35,12 @@ public partial class PlayerController
 	private bool IsOutlineVisible()
 	{
 		var localPlayer = GameUtils.Viewer;
+		if ( localPlayer == this )
+			return false;
+
+		if ( SpectateSystem.Instance.IsSpectating )
+			return true;
+
 		if ( !localPlayer.IsValid() )
 			return false;
 
@@ -62,7 +68,11 @@ public partial class PlayerController
 		Outline.Width = 0.2f;
 		Outline.Color = Color.Transparent;
 		Outline.InsideColor = HealthComponent.IsGodMode ? Color.White.WithAlpha( 0.1f ) : Color.Transparent;
-		Outline.ObscuredColor = GameUtils.Viewer is { TeamComponent.Team: var localTeam } && localTeam == TeamComponent.Team
-			? TeamComponent.Team.GetColor() : Color.Transparent;
+
+		if ( SpectateSystem.Instance.IsSpectating )
+			Outline.ObscuredColor = TeamComponent.Team.GetColor();
+		else
+			Outline.ObscuredColor = GameUtils.Viewer is { TeamComponent.Team: var localTeam } && localTeam == TeamComponent.Team
+				? PlayerColor : Color.Transparent;
 	}
 }
