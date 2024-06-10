@@ -1,6 +1,6 @@
 ﻿namespace Facepunch;
 
-[CodeGenerator( CodeGeneratorFlags.Instance | CodeGeneratorFlags.WrapPropertySet, "Facepunch.ChangeAttribute.OnPropertySet" )]
+[CodeGenerator( CodeGeneratorFlags.Instance | CodeGeneratorFlags.WrapPropertySet, "Facepunch.ChangeAttribute.OnPropertySet", 10 )]
 public class ChangeAttribute : Attribute
 {
 	public string Callback { get; set; }
