@@ -55,7 +55,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		if ( UnzoomSound is not null && Weapon.IsValid() )
 			Sound.Play( UnzoomSound, Weapon.GameObject.Transform.Position );
 
-		ZoomLevel = 0;
+		if ( ZoomLevel != 0 ) ZoomLevel = 0;
 
 		if ( Weapon.IsValid() )
 		{
@@ -73,8 +73,8 @@ public class ScopeWeaponComponent : InputWeaponComponent
 
 	private void OnZoomChanged( int oldValue, int newValue )
 	{
-		if ( oldValue == 0 ) StartZoom();
-		else if ( newValue == 0) EndZoom();
+		if ( oldValue == 0 && newValue != 0 ) StartZoom();
+		else if ( newValue == 0 && oldValue != 0 ) EndZoom();
 	}
 
 	public void RenderEffect( SceneCamera camera )
