@@ -29,6 +29,9 @@ public partial class PlayerController
 	[Property, Group( "Friction" )] public float SlowWalkFriction { get; set; } = 4.0f;
 	[Property, Group( "Friction" )] public float CrouchingFriction { get; set; } = 4.0f;
 
+	[Property, Group( "Fall Damage" )] public float MinimumFallVelocity { get; set; } = 500f;
+	[Property, Group( "Fall Damage" )] public float FallDamageScale { get; set; } = 0.2f;
+
 	/// <summary>
 	/// Noclip movement speed
 	/// </summary>
@@ -319,20 +322,14 @@ public partial class PlayerController
 
 		if ( !wasOnGround && isOnGround && GetGlobal<PlayerGlobals>().EnableFallDamage )
 		{
-			var vel = _previousVelocity.z;
-			var jumpFromPos = _jumpPosition;
-			var positionNow = Transform.Position;
+			var minimumVelocity = MinimumFallVelocity;
+			var vel = MathF.Abs( _previousVelocity.z );
 
-			// jumped up somehow?
-			if ( positionNow.z >= jumpFromPos.z ) return;
-
-			var fallDamageScale = 125;
-			var zDist = MathF.Abs( positionNow.z - jumpFromPos.z );
-
-			var scale = zDist.LerpInverse( 0, 500f, true );
-			if ( scale < 0.35f ) return;
-
-			GameObject.TakeDamage( DamageEvent.From( this, fallDamageScale * scale, null, Transform.Position ) with { Tags = "fall_damage" } );
+			if ( vel > minimumVelocity )
+			{
+				var velPastAmount = vel - minimumVelocity;
+				GameObject.TakeDamage( DamageEvent.From( this, velPastAmount * FallDamageScale, null, Transform.Position ) with { Tags = "fall_damage" } );
+			}
 		}
 	}
 
