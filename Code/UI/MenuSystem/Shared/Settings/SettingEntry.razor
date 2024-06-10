@@ -4,6 +4,13 @@
 @inherits Panel
 @namespace Facepunch.UI
 
+<style>
+    .box {
+        width: 24px;
+        height: 24px;
+    }
+</style>
+
 <root class="">
     @if ( Description is not null )
     {
@@ -26,15 +33,27 @@
                 }
             </div>
         }
-
-        @if ( Description.PropertyType == typeof( bool ) )
+        else if ( Description.PropertyType == typeof( bool ) )
         {
             <div class="with-background with-padding border-bottom">
                 <label class="name">@Description.Title</label>
                 <div class="grow" />
                 <Checkbox Value:bind=@Value />
             </div>
+        }
+        else if ( Description.PropertyType == typeof( Color ) ) 
+        {
+            <div class="with-background with-padding border-bottom">
+                <label class="name">@Description.Title</label>
+                <div class="grow" />
+                <div class="value-area">
+                    <div class="box" style="background-color: @Value;"/>
+                </div>
+            </div>
 
+            <div class="control with-background">
+                <TextEntry Value:bind="@Value" />
+            </div>
         }
     }
     else

@@ -39,6 +39,9 @@ public class GameSettings
 
 	[Title( "Crosshair Distance" ), Group( "Crosshair" ), Range( 2, 50, 1 )]
 	public float CrosshairDistance { get; set; } = 15;
+
+	[Title( "Crosshair Color" ), Group( "Crosshair" )]
+	public Color CrosshairColor { get; set; } = Color.White;
 }
 
 public partial class GameSettingsSystem

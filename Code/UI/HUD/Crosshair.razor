@@ -18,7 +18,7 @@
 
         @if ( GameSettingsSystem.Current.ShowCrosshairDot )
         {
-            <div class="dot element" />
+            <div @ref="Dot" class="dot element" />
         }
     }
 
@@ -32,6 +32,7 @@
     public Panel Right { get; set; }
     public Panel Top { get; set; }
     public Panel Bottom { get; set; }
+    public Panel Dot { get; set; }
 
     public Panel Hitmarker { get; set; }
 
@@ -101,8 +102,6 @@
             }
         }
 
-        Log.Info(dist);
-
         return dist;
     }
 
@@ -139,6 +138,14 @@
 
         Bottom.Style.Top = distance;
         Bottom.Style.Height = length;
+
+        Left.Style.BackgroundColor = GameSettingsSystem.Current.CrosshairColor;
+        Top.Style.BackgroundColor = GameSettingsSystem.Current.CrosshairColor;
+        Bottom.Style.BackgroundColor = GameSettingsSystem.Current.CrosshairColor;
+        Right.Style.BackgroundColor = GameSettingsSystem.Current.CrosshairColor;
+
+        if ( Dot.IsValid() )
+            Dot.Style.BackgroundColor = GameSettingsSystem.Current.CrosshairColor;
     }
 
     public override void Tick()
