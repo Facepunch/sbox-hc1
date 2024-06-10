@@ -8,6 +8,9 @@ public sealed class PlayerFootsteps : Component
 	[Property] public PlayerController Player { get; set; }
 	[Property] SkinnedModelRenderer Source { get; set; }
 
+	[Property] public float FootstepBaseDecibels { get; set; } = 70f;
+	[Property] public float FootstepScale { get; set; } = 1f;
+
 	protected override void OnEnabled()
 	{
 		if ( Source is null )
@@ -55,5 +58,7 @@ public sealed class PlayerFootsteps : Component
 
 		var handle = Sound.Play( sound, tr.HitPosition + tr.Normal * 5 );
 		handle.Volume *= e.Volume;
+		handle.Occlusion = false;
+		handle.Decibels = FootstepBaseDecibels * FootstepScale;
 	}
 }
