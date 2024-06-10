@@ -34,26 +34,23 @@ public partial class PlayerController
 
 	private bool IsOutlineVisible()
 	{
-		var localPlayer = GameUtils.Viewer;
-		if ( localPlayer == this )
+		if ( (this as IPawn).IsPossessed )
 			return false;
 
-		if ( SpectateSystem.Instance.IsSpectating )
-			return true;
-
-		if ( !localPlayer.IsValid() )
-			return false;
-
-		if ( localPlayer == this )
+		if ( HealthComponent.State != LifeState.Alive )
 			return false;
 
 		if ( TeamComponent.Team == Team.Unassigned )
 			return false;
 
+		if ( SpectateSystem.Instance.IsSpectating )
+			return true;
+
 		if ( HealthComponent.IsGodMode )
 			return true;
 
-		return HealthComponent.State == LifeState.Alive && TeamComponent.Team == localPlayer.TeamComponent.Team;
+		var localPlayer = GameUtils.Viewer;
+		return localPlayer.IsValid() && TeamComponent.Team == localPlayer.TeamComponent.Team;
 	}
 
 	private void UpdateOutline()
