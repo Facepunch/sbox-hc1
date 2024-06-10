@@ -23,6 +23,29 @@ public sealed class CameraController : Component
 	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = false;
 	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
 
+	bool AudioListenerModeToggled = false;
+	[DeveloperCommand( "Toggle Audio Mode" )]
+	static void ToggleAudioListenerMode()
+	{
+		var player = GameUtils.Viewer;
+		if ( player.CameraController.AudioListenerModeToggled )
+		{
+			// Return the audio listener to the camera 
+			player.CameraController.AudioListener?.Destroy();
+			player.CameraController.AudioListener = player.CameraController.Components.Create<AudioListener>();
+		}
+		else
+		{
+			player.CameraController.AudioListener?.Destroy();
+
+			using var scene = Game.ActiveScene.Push();
+
+			var gameObject = new GameObject();
+			gameObject.Transform.Position = player.Transform.Position;
+			player.CameraController.AudioListener = gameObject.Components.Create<AudioListener>();
+		}
+	}
+
 	[Property] public float ThirdPersonDistance { get; set; } = 128f;
 
 	private CameraMode _mode;
