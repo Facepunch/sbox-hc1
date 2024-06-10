@@ -36,7 +36,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		if ( ScopeOverlay is not null )
 			renderHook = camera.Camera.AddHookAfterTransparent( "Scope", 100, RenderEffect );
 
-		if( ZoomSound is not null )
+		if ( ZoomSound is not null )
 			Sound.Play( ZoomSound, Weapon.GameObject.Transform.Position );
 
 		Weapon.Tags.Add( "aiming" );
