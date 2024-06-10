@@ -37,12 +37,19 @@
     {
         if ( Object.MarkerPanelTypeOverride is null ) return;
         if ( CustomPanel.IsValid() ) return;
+
         TryCreateCustomPanel();
+    }
+
+    protected override void OnAfterTreeRender( bool firstTime )
+    {
+        if ( firstTime ) TryCreateCustomPanel();
     }
 
     private void TryCreateCustomPanel()
     {
-        if ( CustomPanel.IsValid() ) return;
+        CustomPanel?.Delete( true );
+
         if ( Object.MarkerPanelTypeOverride is null ) return;
 
         var desc = TypeLibrary.GetType( Object.MarkerPanelTypeOverride );
@@ -53,12 +60,8 @@
 
         CustomPanel = inst;
         CustomPanel.Parent = this;
-    }
 
-    protected override void OnAfterTreeRender( bool firstTime )
-    {
-        if ( !Object.IsValid() ) return;
-        TryCreateCustomPanel();
+        StateHasChanged();
     }
 
     private static Vector2 ScreenSafezone = new( 0.05f, 0.95f );
@@ -116,10 +119,5 @@
         var opacity = 1f;
         var dist = MathF.Max( CenterDistance.x, CenterDistance.y );
         return opacity - ( 1 - dist * 2f );
-    }
-
-    protected override int BuildHash()
-    {
-        return HashCode.Combine( CustomPanel, IsBehind );
     }
 }
