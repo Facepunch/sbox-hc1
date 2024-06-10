@@ -25,7 +25,7 @@ public partial class PlayerController
 	/// <summary>
 	/// Unique colour or team colour of this player
 	/// </summary>
-	public Color PlayerColor => PlayerColors.Instance.GetColor(this);
+	public Color PlayerColor => PlayerColors.Instance?.GetColor(this) ?? TeamComponent.Team.GetColor();
 
 	/// <summary>
 	/// Called when possessed.
