@@ -16,8 +16,6 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 	{
 		if ( Weapons is null ) return Task.CompletedTask;
 
-		Log.Info( $"PrePlayerSpawn for {player}" );
-
 		foreach ( var weapon in Weapons )
 		{
 			if ( !player.Inventory.HasWeaponInSlot( weapon.Slot ) )

@@ -52,6 +52,8 @@
 
         if ( Object.MarkerPanelTypeOverride is null ) return;
 
+        Log.Info( $"MarkerPanelTypeOverride: {Object.MarkerPanelTypeOverride}" );
+
         var desc = TypeLibrary.GetType( Object.MarkerPanelTypeOverride );
         if ( desc is null ) return;
 
@@ -60,6 +62,8 @@
 
         CustomPanel = inst;
         CustomPanel.Parent = this;
+
+        Log.Info( $"MarkerPanelTypeOverride: Custom marker was created {inst}" );
 
         StateHasChanged();
     }

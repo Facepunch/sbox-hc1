@@ -317,7 +317,7 @@ public partial class PlayerInventory : Component
 		if ( makeActive )
 			Player.SetCurrentWeapon( weaponComponent );
 		
-		Log.Info( $"Spawned weapon {weaponGameObject} for {Player}" );
+		// Log.Info( $"Spawned weapon {weaponGameObject} for {Player}" );
 
 		if ( weaponComponent.Resource.Slot == WeaponSlot.Special )
 		{

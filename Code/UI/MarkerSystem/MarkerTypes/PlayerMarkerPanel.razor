@@ -116,6 +116,14 @@
         return true;
     }
 
+    protected override void OnAfterTreeRender( bool firstTime )
+    {
+        if ( firstTime ) 
+        {
+            Log.Info( $"MarkerPanelTypeOverride: Created PlayerMarkerPanel for \"{Player.GetPlayerName()}\"" );
+        }
+    }
+
     protected override int BuildHash()
     {
         return System.HashCode.Combine( Time.Now );
