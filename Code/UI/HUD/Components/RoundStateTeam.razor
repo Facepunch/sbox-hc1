@@ -38,9 +38,11 @@
 
     private string TeamColor => Team.GetColor().Hex;
 
+    public int PlayerHash => Players?.GetHashCode<PlayerController>( x => x?.SteamId.GetHashCode() ?? 0 ) ?? 0;
+
     protected override int BuildHash()
     {
-        return HashCode.Combine(Score, Team, Players, IconPosition, TeamColor);
+        return HashCode.Combine( Score, Team, Players, IconPosition, TeamColor, PlayerHash );
     }
 
     private string BuildStyle()
