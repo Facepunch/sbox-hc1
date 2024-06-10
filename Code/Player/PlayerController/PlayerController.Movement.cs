@@ -320,7 +320,7 @@ public partial class PlayerController
 			_jumpPosition = Transform.Position;
 		}
 
-		if ( !wasOnGround && isOnGround && GetGlobal<PlayerGlobals>().EnableFallDamage )
+		if ( !wasOnGround && isOnGround && GetGlobal<PlayerGlobals>().EnableFallDamage && !IsNoclipping )
 		{
 			var minimumVelocity = MinimumFallVelocity;
 			var vel = MathF.Abs( _previousVelocity.z );
