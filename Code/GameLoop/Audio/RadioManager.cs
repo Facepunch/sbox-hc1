@@ -44,7 +44,7 @@ public partial class RadioManager : Component,
 
 	void IKillListener.OnPlayerKilled( DamageEvent damageEvent )
 	{
-		var victimTeam = damageEvent.Attacker.GameObject.GetTeam();
+		var victimTeam = damageEvent.Victim.GameObject.GetTeam();
 
 		if ( PlayDeathSounds )
 			RadioSounds.Play( victimTeam, RadioSound.TeammateDies );
