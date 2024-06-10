@@ -99,6 +99,34 @@ public partial class PlayerController
 	private Vector3 _jumpPosition;
 	private bool _isTouchingLadder;
 	private Vector3 _ladderNormal;
+	private float _eyeHeightOffset;
+
+	private void UpdateEyes()
+	{
+		var eyeHeightOffset = GetEyeHeightOffset();
+
+		var target = eyeHeightOffset;
+		var trace = TraceBBox( Transform.Position, Transform.Position, 0, 10f );
+		if ( trace.Hit && target > _smoothEyeHeight )
+		{
+			// We hit something, that means we can't increase our eye height because something's in the way.
+			eyeHeightOffset = _smoothEyeHeight;
+			IsCrouching = true;
+		}
+		else
+		{
+			eyeHeightOffset = target;
+		}
+
+		_eyeHeightOffset = eyeHeightOffset;
+
+		if ( PlayerBoxCollider.IsValid() )
+		{
+			// Bit shit, but it works
+			PlayerBoxCollider.Center = new( 0, 0, 32 + _smoothEyeHeight );
+			PlayerBoxCollider.Scale = new( 32, 32, 64 + _smoothEyeHeight );
+		}
+	}
 
 	private void OnUpdateMovement()
 	{
@@ -108,31 +136,6 @@ public partial class PlayerController
 		// Eye input
 		if ( (this as IPawn).IsPossessed && cc.IsValid() )
 		{
-			var eyeHeightOffset = GetEyeHeightOffset();
-
-			var target = eyeHeightOffset;
-			var trace = TraceBBox( Transform.Position, Transform.Position, 0, 10f );
-			if ( trace.Hit && target > _smoothEyeHeight )
-			{
-				// We hit something, that means we can't increase our eye height because something's in the way.
-				eyeHeightOffset = _smoothEyeHeight;
-				IsCrouching = true;
-			}
-			else
-			{
-				eyeHeightOffset = target;
-			}
-
-			_smoothEyeHeight = _smoothEyeHeight.LerpTo( eyeHeightOffset, Time.Delta * 10f );
-			CharacterController.Height = Height + _smoothEyeHeight;
-
-			if ( PlayerBoxCollider.IsValid() )
-			{
-				// Bit shit, but it works
-				PlayerBoxCollider.Center = new( 0, 0, 32 + _smoothEyeHeight );
-				PlayerBoxCollider.Scale = new( 32, 32, 64 + _smoothEyeHeight );
-			}
-
 			if ( IsLocallyControlled )
 			{
 				EyeAngles += Input.AnalogLook * AimDampening;
@@ -151,13 +154,9 @@ public partial class PlayerController
 		if ( Body.IsValid() )
 		{
 			var targetAngle = new Angles( 0, EyeAngles.yaw, 0 ).ToRotation();
-
 			rotateDifference = Body.Transform.Rotation.Distance( targetAngle );
 
-			if ( rotateDifference > 50.0f || (cc != null && cc.Velocity.Length > 10.0f) )
-			{
-				Body.Transform.Rotation = Rotation.Lerp( Body.Transform.Rotation, targetAngle, Time.Delta * 10.0f );
-			}
+			Body.Transform.Rotation = Rotation.Lerp( Body.Transform.Rotation, targetAngle, Time.Delta * 50.0f );
 		}
 
 		var wasGrounded = IsGrounded;
@@ -173,11 +172,12 @@ public partial class PlayerController
 			AnimationHelper.WithVelocity( cc.Velocity );
 			AnimationHelper.WithWishVelocity( WishVelocity );
 			AnimationHelper.IsGrounded = IsGrounded;
-			AnimationHelper.FootShuffle = rotateDifference;
 			AnimationHelper.WithLook( EyeAngles.Forward, 1, 1, 1.0f );
 			AnimationHelper.MoveStyle = AnimationHelper.MoveStyles.Run;
-			AnimationHelper.DuckLevel = IsCrouching ? 100 : 0;
+			AnimationHelper.DuckLevel = ( MathF.Abs( _smoothEyeHeight ) / 32.0f );
 			AnimationHelper.HoldType = CurrentHoldType;
+			AnimationHelper.AimBodyWeight = 0.1f;
+			AnimationHelper.Handedness = AnimationHelper.Hand.Right;
 		}
 
 		AimDampening = 1.0f;

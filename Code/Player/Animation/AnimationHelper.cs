@@ -6,7 +6,6 @@ public sealed class AnimationHelper : Component
 
 	[Property] public GameObject EyeSource { get; set; }
 
-	[Property] public GameObject LookAtObject { get; set; }
 
 	[Property, Range( 0.5f, 1.5f )] public float Height { get; set; } = 1.0f;
 
@@ -34,14 +33,6 @@ public sealed class AnimationHelper : Component
 
 	protected override void OnUpdate()
 	{
-		if ( LookAtObject.IsValid() )
-		{
-			var eyePos = GetEyeWorldTransform.Position;
-
-			var dir = (LookAtObject.Transform.Position - eyePos).Normal;
-			WithLook( dir, 1, 0.5f, 0.1f );
-		}
-
 		Target.Set( "scale_height", Height );
 
 		// SetIk( "left_hand", ... );
@@ -159,7 +150,7 @@ public sealed class AnimationHelper : Component
 	public float AimBodyWeight
 	{
 		get => Target.GetFloat( "aim_body_weight" );
-		set => Target.Set( "aim_headaim_body_weight_weight", value );
+		set => Target.Set( "aim_body_weight", value );
 	}
 
 
