@@ -90,7 +90,7 @@
         <label class="name">@(Player.HealthComponent.Health.ToString( "0" ))%</label>
         <label class="name">@Player.GetPlayerName()</label>
         <div class="weapons row">
-            @foreach (var wpn in Player.Inventory.Weapons.Where( CanShowWeapon ) )
+            @foreach (var wpn in Player.Inventory.Weapons.Where( CanShowWeapon ).OrderBy( x => x.Resource.Slot ) )
             {
                 <img class="icon" src="@wpn.Resource.Icon"/>
             }
