@@ -6,11 +6,10 @@ public class ScopeWeaponComponent : InputWeaponComponent
 {
 	[Property] public Material ScopeOverlay { get; set; }
 	[Property] public SoundEvent ZoomSound { get; set; }
-	[Property] public SoundEvent UnzoomSound { get; set;}
-	
+	[Property] public SoundEvent UnzoomSound { get; set; }
+
 	IDisposable renderHook;
 
-	[Sync, Change( nameof( OnZoomChanged ))]
 	private int ZoomLevel { get; set; } = 0;
 	public bool IsZooming => ZoomLevel > 0;
 	private float BlurLerp { get; set; } = 1.0f;
@@ -20,7 +19,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 	[Property] private float AngleOffsetScale { get; set; } = 0.01f;
 	[Property] public List<int> ZoomLevels { get; set; } = new();
 
-	protected void StartZoom()
+	protected void StartZoom( int level = 0 )
 	{
 		renderHook?.Dispose();
 		renderHook = null;
@@ -39,6 +38,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		if ( ZoomSound is not null )
 			Sound.Play( ZoomSound, Weapon.GameObject.Transform.Position );
 
+		ZoomLevel = level;
 		Weapon.Tags.Add( "aiming" );
 
 		if ( Weapon.ViewModel.IsValid() )
@@ -55,7 +55,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		if ( UnzoomSound is not null && Weapon.IsValid() )
 			Sound.Play( UnzoomSound, Weapon.GameObject.Transform.Position );
 
-		if ( ZoomLevel != 0 ) ZoomLevel = 0;
+		ZoomLevel = 0;
 
 		if ( Weapon.IsValid() )
 		{
@@ -69,12 +69,6 @@ public class ScopeWeaponComponent : InputWeaponComponent
 
 		AnglesLerp = new Angles();
 		BlurLerp = 1.0f;
-	}
-
-	private void OnZoomChanged( int oldValue, int newValue )
-	{
-		if ( oldValue == 0 && newValue != 0 ) StartZoom();
-		else if ( newValue == 0 && oldValue != 0 ) EndZoom();
 	}
 
 	public void RenderEffect( SceneCamera camera )
@@ -91,18 +85,18 @@ public class ScopeWeaponComponent : InputWeaponComponent
 	{
 		if ( ZoomLevel < ZoomLevels.Count )
 		{
-			ZoomLevel++;
+			StartZoom( ZoomLevel + 1 );
 		}
 		else
 		{
-			ZoomLevel = 0;
+			EndZoom();
 		}
 	}
 
 	protected virtual bool CanAim()
 	{
 		if ( Tags.Has( "reloading" ) ) return false;
-		
+
 		return true;
 	}
 
@@ -120,18 +114,11 @@ public class ScopeWeaponComponent : InputWeaponComponent
 
 	protected override void OnUpdate()
 	{
-		var camera = Weapon?.PlayerController?.CameraController;
-
-		if ( !Weapon.IsValid() )
-			return;
-
-		if ( !Weapon.PlayerController.IsValid() )
-			return;
-
-		if ( !camera.IsValid() )
-			return;
-
 		if ( !IsZooming )
+			return;
+
+		var camera = Weapon?.PlayerController?.CameraController;
+		if ( !camera.IsValid() )
 			return;
 
 		if ( !CanAim() )
@@ -142,10 +129,9 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		if ( Weapon.PlayerController.CurrentWeapon != Weapon )
 		{
 			EndZoom();
-			return;
 		}
 
-		camera.AddFieldOfViewOffset( ZoomLevels[ZoomLevel - 1] );
+		camera.AddFieldOfViewOffset( ZoomLevels[Math.Clamp( ZoomLevel - 1, 0, ZoomLevels.Count )] );
 		Weapon.PlayerController.AimDampening /= (ZoomLevel * ZoomLevel) + 1;
 
 		{
@@ -167,7 +153,8 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			var delta = angles - LastAngles;
 
 			AnglesLerp = AnglesLerp.LerpTo( delta, Time.Delta * 10.0f );
-			LastAngles= angles;
+			LastAngles = angles;
 		}
+
 	}
 };
