@@ -36,7 +36,7 @@ public abstract class InputWeaponComponent : WeaponComponent, Weapon.IDeployment
 
 	public void OnDeployed( Weapon weapon )
 	{
-		if ( Weapon.PlayerController.IsLocallyControlled )
+		if ( Weapon?.PlayerController?.IsLocallyControlled ?? false )
 		{
 			RunningWhileDeployed = InputActions.Any( x => Input.Down( x ) );
 		}

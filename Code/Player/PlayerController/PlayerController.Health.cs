@@ -23,7 +23,10 @@ public partial class PlayerController
 	{
 		AnimationHelper.ProceduralHitReaction( damageEvent.Damage / 100f, damageEvent.Force );
 
-		var position = damageEvent.Attacker.Transform.Position;
+		if ( !damageEvent.Attacker.IsValid() ) 
+			return;
+
+		var position = damageEvent.Attacker?.Transform.Position ?? Vector3.Zero;
 
 		// Is this the local player?
 		if ( IsViewer )
