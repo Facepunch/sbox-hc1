@@ -125,15 +125,19 @@ public partial class HealthComponent : Component, IRespawnable
 		}
 	}
 
-	private void OnKilled( DamageEvent damageEvent )
+	[Broadcast( NetPermission.HostOnly )]
+	private void BroadcastKill( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, string hitbox = "", string tags = "" )
 	{
+		var attacker = Scene.Directory.FindComponentByGuid( attackerId );
+		var inflictor = Scene.Directory.FindComponentByGuid( inflictorId );
+
+		var damageEvent = DamageEvent.From( attacker, damage, inflictor, position, force, hitbox, tags ) with { Victim = GameUtils.GetPlayerFromComponent( this ) };
+
 		foreach ( var listener in Scene.GetAllComponents<IKillListener>() )
 		{
 			listener.OnPlayerKilled( damageEvent );
 		}
 	}
-
-	[Property] public float HeadshotMultiplier { get; set; } = 2f;
 
 	private string GetFirstWord( string text )
 	{
@@ -182,13 +186,11 @@ public partial class HealthComponent : Component, IRespawnable
 			{
 				State = LifeState.Dead;
 
-				OnKilled( damageEvent );
+				BroadcastKill( damage, position, force, attackerId, inflictorId, hitbox, tags );
 			}
 		}
 
 		Log.Info( damageEvent );
-
-		Log.Info( $"{GameObject.Name}.OnDamage( {damage} ): {Health}, {State}" );
 
 		var receivers = GameObject.Root.Components.GetAll<IDamageListener>();
 		foreach ( var x in receivers )
