@@ -107,12 +107,12 @@
     }
 
     private ChatModes ChatMode = ChatModes.Team;
-    private TextEntry InputBox;
+    private TextEntry InputBox { get; set; }
 
     public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded, ChatModes chatMode, MessageType type, Color color, string tags = null, string location = null);
     private List<Entry> Entries = new();
 
-    private bool Open => InputBox.HasFocus;
+    private bool Open => InputBox?.HasFocus ?? false;
 
     public static Chat Instance { get; set; }
 
