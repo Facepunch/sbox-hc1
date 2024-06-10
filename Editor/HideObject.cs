@@ -15,5 +15,6 @@ public class HideObject
 			thing.Enabled = !thing.Enabled;
 		}
 
+		SceneEditorSession.Active.FullUndoSnapshot( "Toggle Selection" );
 	}
 }
