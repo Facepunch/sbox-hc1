@@ -106,7 +106,10 @@ public partial class PlayerController
 		
 		TimeSinceLastRespawn = 0f;
 
-		GameMode.Instance?.SendSpawnConfirmation( Id );
+		if ( !IsProxy )
+		{
+			GameMode.Instance?.SendSpawnConfirmation( Id );
+		}
 
 		if ( IsProxy || IsBot )
 			return;
