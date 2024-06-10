@@ -27,6 +27,12 @@ public class GameSettings
 
 	[Title( "View Bob" ), Group( "Game" ), Range( 0, 100, 5f )]
 	public float ViewBob { get; set; } = 100f;
+
+	[Title( "Show Dot" ), Group( "Crosshair" )]
+	public bool ShowCrosshairDot { get; set; } = true;
+
+	[Title( "Dynamic" ), Group( "Crosshair" )]
+	public bool DynamicCrosshair { get; set; } = true;
 }
 
 public partial class GameSettingsSystem

@@ -15,7 +15,11 @@
         <div @ref="Right" class="right element"></div>
         <div @ref="Top" class="top element"></div>
         <div @ref="Bottom" class="bottom element"></div>
-        <div class="dot element" />
+
+        @if ( GameSettingsSystem.Current.ShowCrosshairDot )
+        {
+            <div class="dot element" />
+        }
     }
 
 
@@ -56,7 +60,7 @@
     private ScopeWeaponComponent Scope => Weapon?.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
     private RecoilWeaponComponent Recoil => Weapon?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
 
-    float BaseDistance => 15 + (( Player?.Spread ?? 0 ) * 250f);
+    float BaseDistance => 15;
     // 10px base size
     float BaseElementSize => 10;
 
@@ -78,26 +82,39 @@
     public float Distance => GetDistance();
 
     private float LerpedDistance = 15;
+    private float SpreadDistance => ((Player?.Spread ?? 0) * 250f);
 
     float GetDistance()
     {
         var dist = BaseDistance;
 
-        // velocity
-        dist += VelocityScale * VelocityScaleFactor;
-
-        if ( Recoil.IsValid() )
+        if ( GameSettingsSystem.Current.DynamicCrosshair )
         {
-            dist += Recoil.Current.AsVector3().Length * 175;
+            dist += SpreadDistance;
+
+            // velocity
+            dist += VelocityScale * VelocityScaleFactor;
+
+            if ( Recoil.IsValid() )
+            {
+                dist += Recoil.Current.AsVector3().Length * 175;
+            }
         }
+
+        Log.Info(dist);
+
         return dist;
     }
 
     Length? GetLength()
     {
         var size = BaseElementSize;
-        var dist = GetDistance() - BaseDistance;
-        size += dist * 0.2f;
+
+        if (GameSettingsSystem.Current.DynamicCrosshair)
+        {
+            var dist = GetDistance() - (BaseDistance + SpreadDistance);
+            size += dist * 0.2f;
+        }
 
         return Length.Pixels( size );
     }
