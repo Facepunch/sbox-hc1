@@ -62,6 +62,15 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	private bool _wasDeployed { get; set; }
 	private bool _hasStarted { get; set; }
 
+	[DeveloperCommand( "Toggle View Model" )]
+	private static void ToggleViewModel()
+	{
+		var player = GameUtils.Viewer;
+
+		player.CurrentWeapon.ViewModel.ModelRenderer.Enabled = !player.CurrentWeapon.ViewModel.ModelRenderer.Enabled;
+		player.CurrentWeapon.ViewModel.Arms.Enabled = !player.CurrentWeapon.ViewModel.Arms.Enabled;
+	}
+
 	/// <summary>
 	/// Updates the render mode, if we're locally controlling a player, we want to hide the world model.
 	/// </summary>
