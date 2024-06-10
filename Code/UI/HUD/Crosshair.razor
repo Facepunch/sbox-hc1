@@ -60,9 +60,9 @@
     private ScopeWeaponComponent Scope => Weapon?.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
     private RecoilWeaponComponent Recoil => Weapon?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
 
-    float BaseDistance => 15;
+    float BaseDistance => GameSettingsSystem.Current.CrosshairDistance;
     // 10px base size
-    float BaseElementSize => 10;
+    float BaseElementSize => GameSettingsSystem.Current.CrosshairLength;
 
     public void Trigger( DamageEvent damageEvent )
     {
@@ -126,7 +126,7 @@
         LerpedDistance = LerpedDistance.LerpTo( Distance, Time.Delta * 7.5f );
 
         var length = GetLength();
-        var distance = LerpedDistance;
+        var distance = LerpedDistance + BaseElementSize;
 
         Left.Style.Left = -distance;
         Left.Style.Width = length;
