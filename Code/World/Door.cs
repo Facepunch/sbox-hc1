@@ -96,7 +96,7 @@ public sealed class Door : Component, IUse, IRoundStartListener
 		var handle = Sound.Play( resource, Transform.Position );
 		if ( !handle.IsValid() ) return;
 		
-		handle.Occlusion = false;
+		// handle.Occlusion = false;
 	}
 
 	public void OnUse( PlayerController player )
