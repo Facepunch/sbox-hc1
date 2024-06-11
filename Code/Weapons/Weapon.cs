@@ -55,6 +55,11 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	[Property, Group( "GameObjects" )] public GameObject EjectionPort { get; set; }
 
 	/// <summary>
+	/// Who owns this gun?
+	/// </summary>
+	[Property] public PlayerController Owner { get; set; }
+
+	/// <summary>
 	/// Is this weapon currently deployed by the player?
 	/// </summary>
 	[Sync, Change( nameof( OnIsDeployedPropertyChanged ))]

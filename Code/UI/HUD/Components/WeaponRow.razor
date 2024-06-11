@@ -13,10 +13,18 @@
                 <div class="image" style="background-image:url(@Weapon.Resource.Icon);" />
             </div>
 
-            @if ( IsActive )
-            {
-                <label class="gunname">@Weapon.Resource.Name</label>
-            }
+            <span style="gap: 4px; align-items: flex-end;">
+                @if (IsActive)
+                {
+                    @if ( Weapon.Owner != GameUtils.Viewer )
+                    {
+                        <label style="font-size: 14px; color: lightgrey">@(Weapon.Owner.GetPlayerName())'s</label>
+                    }
+
+                    <label class="gunname">@Weapon.Resource.Name</label>
+                }
+            </span>
+
             </div>
         }
         else

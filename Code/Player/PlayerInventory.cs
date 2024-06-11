@@ -313,6 +313,7 @@ public partial class PlayerInventory : Component
 		} );
 		var weaponComponent = weaponGameObject.Components.Get<Weapon>( FindMode.EverythingInSelfAndDescendants );
 		weaponGameObject.NetworkSpawn( Player.Network.OwnerConnection );
+		weaponComponent.Owner = Player;
 
 		if ( makeActive )
 			Player.SetCurrentWeapon( weaponComponent );
