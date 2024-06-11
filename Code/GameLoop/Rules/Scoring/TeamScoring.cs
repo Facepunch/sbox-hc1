@@ -2,7 +2,7 @@
 using Facepunch;
 using Facepunch.UI;
 
-public sealed class TeamScoring : Component, IGameStartListener, IGameEndListener
+public sealed class TeamScoring : Component, IGameStartListener, IGameEndListener, ITeamSwapListener
 {
 	[HostSync]
 	public NetDictionary<Team, int> Scores { get; private set; } = new();
@@ -18,6 +18,20 @@ public sealed class TeamScoring : Component, IGameStartListener, IGameEndListene
 	public void IncrementScore( Team team, int amount = 1 )
 	{
 		Scores[team] = Scores.GetValueOrDefault( team ) + amount;
+	}
+
+	public void Flip()
+	{
+		var ctScores = Scores.GetValueOrDefault( Team.CounterTerrorist );
+		var tScores = Scores.GetValueOrDefault( Team.Terrorist );
+
+		Scores[Team.Terrorist] = ctScores;
+		Scores[Team.CounterTerrorist] = tScores;
+	}
+
+	void ITeamSwapListener.OnTeamSwap()
+	{
+		Flip();
 	}
 
 	Task IGameEndListener.OnGameEnd()
