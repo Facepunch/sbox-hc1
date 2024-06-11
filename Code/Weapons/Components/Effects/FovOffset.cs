@@ -1,5 +1,6 @@
 namespace Facepunch;
 
+[Title( "On Shot - FOV Offset" ), Icon( "pending" ), Group( "Weapon Components" )]
 public class FovOffset : WeaponComponent, IShotListener
 {
 	[Property] public float Length { get; set; } = 0.3f;

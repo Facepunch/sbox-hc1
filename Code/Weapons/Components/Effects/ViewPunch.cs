@@ -1,5 +1,6 @@
 namespace Facepunch;
 
+[Title( "On Shot - View Punch" ), Category( "Weapon Components" ), Icon( "pending" )]
 public class ViewPunch : WeaponComponent, IShotListener
 {
 	[Property] public float Lifetime { get; set; } = 0.3f;

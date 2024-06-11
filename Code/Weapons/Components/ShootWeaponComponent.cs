@@ -1,9 +1,7 @@
-using System.Linq;
-using static Sandbox.PhysicsGroupDescription.BodyPart;
-
 namespace Facepunch;
 
 [Icon( "track_changes" )]
+[Title( "Bullet" ), Group( "Weapon Components" )]
 public partial class ShootWeaponComponent : InputWeaponComponent
 {
 	[Property, Group( "Bullet" )] public float BaseDamage { get; set; } = 25.0f;

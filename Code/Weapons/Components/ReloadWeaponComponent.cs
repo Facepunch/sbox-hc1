@@ -1,7 +1,6 @@
-using System.Threading.Tasks;
-
 namespace Facepunch;
 
+[Title( "Reload" ), Group( "Weapon Components" )]
 public partial class ReloadWeaponComponent : InputWeaponComponent, Weapon.IDeploymentListener
 {
 	/// <summary>

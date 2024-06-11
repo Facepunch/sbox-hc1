@@ -1,7 +1,6 @@
-using Sandbox;
-
 namespace Facepunch;
 
+[Title( "2D Scope" ), Group( "Weapon Components" )]
 public class ScopeWeaponComponent : InputWeaponComponent
 {
 	[Property] public Material ScopeOverlay { get; set; }

@@ -6,7 +6,7 @@ public interface IViewModelOffset
 	public Angles AngleOffset { get; }
 }
 
-[Title( "Aim Offset (Aim Component)" ), Group( "Weapon Components" )]
+[Title( "ADS (w/ Aim Offset)" ), Group( "Weapon Components" )]
 public partial class ManualOffset : AimWeaponComponent, IViewModelOffset
 {
 	[Property] public Vector3 AimOffset { get; set; }

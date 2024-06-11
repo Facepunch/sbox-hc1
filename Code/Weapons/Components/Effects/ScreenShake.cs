@@ -1,5 +1,6 @@
 namespace Facepunch;
 
+[Title( "On Shot - Screen Shake" ), Category( "Weapon Components" ), Icon( "pending" )]
 public class ScreenShakeOnShot : WeaponComponent, IShotListener
 {
 	[Property] public float Length { get; set; } = 0.3f;

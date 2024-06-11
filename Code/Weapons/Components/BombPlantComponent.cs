@@ -1,6 +1,7 @@
 ﻿using Facepunch;
 
 [Icon( "yard" )]
+[Title( "Bomb Planting" ), Group( "Weapon Components" )]
 public partial class BombPlantComponent : InputWeaponComponent
 {
 	/// <summary>

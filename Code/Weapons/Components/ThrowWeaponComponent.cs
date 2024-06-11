@@ -1,5 +1,6 @@
 namespace Facepunch;
 
+[Title( "Throw Weapon" ), Group( "Weapon Components" )]
 public partial class ThrowWeaponComponent : InputWeaponComponent, Weapon.IDeploymentListener
 {
 	[Property] public float CookTime { get; set; } = 0.5f;
