@@ -262,7 +262,7 @@ public partial class PlayerController
 		return 10f;
 	}
 
-    private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking;
+    private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking && WishMove.x > 0.2f;
 	TimeSince TimeSinceSprintChanged { get; set; } = 100;
 
 	private void OnSprintChanged( bool before, bool after )
