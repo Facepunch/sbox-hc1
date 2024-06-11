@@ -13,6 +13,11 @@ public partial class PlayerController
 	[Property] public GameObject ViewModelGameObject { get; set; }
 
 	/// <summary>
+	/// How much spread should we add based on how fast the player is moving
+	/// </summary>
+	[Property, Group( "Spread" )] public float VelocitySpreadScale { get; set; } = 0.1f;
+
+	/// <summary>
 	/// How inaccurate are things like gunshots?
 	/// </summary>
 	public float Spread { get; set; }
@@ -23,7 +28,7 @@ public partial class PlayerController
 
 		var spread = 0f;
 		var velLimit = 350f;
-		var velSpreadScale = 0.25f;
+		var velSpreadScale = VelocitySpreadScale;
 		var airSpreadMult = 2f;
 
 		var velLen = CharacterController.Velocity.Length;
