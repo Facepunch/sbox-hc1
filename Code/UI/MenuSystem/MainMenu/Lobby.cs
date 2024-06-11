@@ -19,22 +19,7 @@ public partial struct Lobby
 	public ulong OwnerId => _lobby?.OwnerId ?? 0;
 	public ulong LobbyId => _lobby?.LobbyId ?? 0;
 	public bool IsFull => _lobby?.IsFull ?? (Members >= MaxMembers);
-
-	/// <summary>
-	/// Is this lobby a dev env?
-	/// </summary>
-	public bool IsEditorLobby
-	{
-		get
-		{
-			if ( _lobby?.Data.TryGetValue( "dev", out string dev ) ?? false )
-			{
-				return Convert.ToInt16( dev ) == 1;
-			}
-
-			return true;
-		}
-	}
+	public bool IsEditorLobby => _lobby?.IsEditorLobby() ?? false;
 
 	public Lobby( LobbyInformation lobby )
 	{
@@ -42,4 +27,18 @@ public partial struct Lobby
 	}
 
 	public Lobby() { }
+}
+
+
+public static class LobbyInformationExtensions
+{
+	public static bool IsEditorLobby( this LobbyInformation lobby )
+	{
+		if ( lobby.Data.TryGetValue( "dev", out string dev ) )
+		{
+			return Convert.ToInt16( dev ) == 1;
+		}
+
+		return false;
+	}
 }
