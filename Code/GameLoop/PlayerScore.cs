@@ -1,9 +1,11 @@
-﻿namespace Facepunch.UI;
+﻿using Sandbox.Events;
+
+namespace Facepunch.UI;
 
 /// <summary>
 /// Handles all the player score values.
 /// </summary>
-public sealed class PlayerScore : Component, IKillListener, IBombDefusedListener, IBombDetonatedListener, IBombPlantedListener
+public sealed class PlayerScore : Component, IGameEventHandler<KillEvent>, IBombDefusedListener, IBombDetonatedListener, IBombPlantedListener
 {
 	[HostSync, Property, ReadOnly] 
 	public int Kills { get; set; } = 0;
@@ -37,14 +39,16 @@ public sealed class PlayerScore : Component, IKillListener, IBombDefusedListener
 	// Other CTs alive when the bomb is defused
 	private const int DefuseTeamAliveScore = 1;
 
-	public void OnPlayerKilled( DamageEvent damageEvent )
+	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
 	{
-		if ( !damageEvent.Attacker.IsValid() ) return;
-		if ( !damageEvent.Victim.IsValid() ) return;
+		var damageInfo = eventArgs.DamageInfo;
+
+		if ( !damageInfo.Attacker.IsValid() ) return;
+		if ( !damageInfo.Victim.IsValid() ) return;
 
 		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
-		var killerPlayer = GameUtils.GetPlayerFromComponent( damageEvent.Attacker );
-		var victimPlayer = GameUtils.GetPlayerFromComponent( damageEvent.Victim );
+		var killerPlayer = GameUtils.GetPlayerFromComponent( damageInfo.Attacker );
+		var victimPlayer = GameUtils.GetPlayerFromComponent( damageInfo.Victim );
 
 		bool isFriendly = killerPlayer.TeamComponent.Team == victimPlayer.TeamComponent.Team;
 		bool isSuicide = killerPlayer == victimPlayer;

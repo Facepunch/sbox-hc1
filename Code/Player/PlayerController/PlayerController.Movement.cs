@@ -380,9 +380,19 @@ public partial class PlayerController
 			if ( vel > minimumVelocity )
 			{
 				var velPastAmount = vel - minimumVelocity;
-				GameObject.TakeDamage( DamageEvent.From( this, velPastAmount * FallDamageScale, null, Transform.Position ) with { Tags = "fall_damage" } );
+
+				using ( Rpc.FilterInclude( Connection.Host ) )
+				{
+					TakeFallDamage( velPastAmount * FallDamageScale );
+				}
 			}
 		}
+	}
+
+	[Broadcast]
+	private void TakeFallDamage( float damage )
+	{
+		GameObject.TakeDamage( new DamageInfo( this, damage, null, Transform.Position, Flags: DamageFlags.FallDamage ) );
 	}
 
 	private void CheckLadder()

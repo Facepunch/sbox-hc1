@@ -1,6 +1,7 @@
 ﻿using Facepunch;
+using Sandbox.Events;
 
-public sealed class TeamDeathmatchScoring : Component, IKillListener, IPlayerSpawnListener, IRoundStartListener
+public sealed class TeamDeathmatchScoring : Component, IGameEventHandler<KillEvent>, IPlayerSpawnListener, IRoundStartListener
 {
 	[RequireComponent] public TeamScoring TeamScoring { get; private set; }
 
@@ -9,12 +10,14 @@ public sealed class TeamDeathmatchScoring : Component, IKillListener, IPlayerSpa
 		GameMode.Instance.ShowStatusText( "Deathmatch" );
 	}
 
-	void IKillListener.OnPlayerKilled( DamageEvent damageEvent )
+	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
 	{
-		if ( GameUtils.GetPlayerFromComponent( damageEvent.Attacker ) is not { } killerPlayer )
+		var damageInfo = eventArgs.DamageInfo;
+
+		if ( GameUtils.GetPlayerFromComponent( damageInfo.Attacker ) is not { } killerPlayer )
 			return;
 
-		if ( GameUtils.GetPlayerFromComponent( damageEvent.Victim ) is not { } victimPlayer )
+		if ( GameUtils.GetPlayerFromComponent( damageInfo.Victim ) is not { } victimPlayer )
 			return;
 
 		if ( killerPlayer.IsFriendly( victimPlayer ) )

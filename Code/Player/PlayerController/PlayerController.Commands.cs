@@ -7,7 +7,7 @@ public partial class PlayerController
 	{
 		var player = GameUtils.Viewer;
 		if ( player.IsValid() )
-			player.HealthComponent.TakeDamage( 50, Vector3.Zero, Vector3.Zero, player.HealthComponent.Id );
+			player.HealthComponent.TakeDamage( new DamageInfo( player, 50 ) );
 	}
 
 	[DeveloperCommand( "-10 HP", "Player" )]
@@ -15,7 +15,7 @@ public partial class PlayerController
 	{
 		var player = GameUtils.Viewer;
 		if ( player.IsValid() )
-			player.HealthComponent.TakeDamage( 10, Vector3.Zero, Vector3.Zero, player.HealthComponent.Id );
+			player.HealthComponent.TakeDamage( new DamageInfo( player, 10 ) );
 	}
 
 	[DeveloperCommand( "Heal", "Player" )]

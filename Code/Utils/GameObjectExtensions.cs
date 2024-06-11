@@ -1,3 +1,4 @@
+using Sandbox.Diagnostics;
 using Scene = Sandbox.Scene;
 
 namespace Facepunch;
@@ -5,21 +6,17 @@ namespace Facepunch;
 public static partial class GameObjectExtensions
 {
 	/// <summary>
-	/// Take damage.
+	/// Take damage. Only the host can call this.
 	/// </summary>
 	/// <param name="go"></param>
-	/// <param name="damageEvent"></param>
-	public static void TakeDamage( this GameObject go, DamageEvent damageEvent )
+	/// <param name="damageInfo"></param>
+	public static void TakeDamage( this GameObject go, DamageInfo damageInfo )
 	{
+		Assert.True( Networking.IsHost );
+
 		foreach ( var damageable in go.Root.Components.GetAll<HealthComponent>() )
 		{
-			damageable.TakeDamage( damageEvent.Damage,
-						 damageEvent.Position,
-						 damageEvent.Force,
-						 damageEvent.Attacker?.Id ?? default,
-						 damageEvent.Inflictor?.Id ?? default,
-						 damageEvent.Hitboxes,
-						 damageEvent.Tags );
+			damageable.TakeDamage( damageInfo );
 		}
 	}
 

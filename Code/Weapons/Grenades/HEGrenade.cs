@@ -23,7 +23,7 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 	protected override void Explode()
 	{
 		if ( Networking.IsHost )
-			Explosion.AtPoint( Transform.Position, DamageRadius, MaxDamage, ThrowerId, Id, DamageFalloff );
+			Explosion.AtPoint( Transform.Position, DamageRadius, MaxDamage, Player, this, DamageFalloff );
 
 		var screenShaker = ScreenShaker.Main;
 		var viewer = GameUtils.Viewer;
@@ -47,7 +47,7 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 				screenShaker.Add( shake );
 			}
 		}
-		
+
 		base.Explode();
 	}
 

@@ -1,3 +1,8 @@
+using Facepunch.UI;
+using Sandbox;
+using Sandbox.Diagnostics;
+using Sandbox.Events;
+
 namespace Facepunch;
 
 /// <summary>
@@ -125,102 +130,114 @@ public partial class HealthComponent : Component, IRespawnable
 		}
 	}
 
+	public void TakeDamage( DamageInfo damageInfo )
+	{
+		Assert.True( Networking.IsHost );
+
+		damageInfo = WithThisAsVictim( damageInfo );
+		damageInfo = ModifyDamage( damageInfo );
+
+		BroadcastDamage( damageInfo );
+
+		if ( IsGodMode ) return;
+
+		ApplyDamage( damageInfo );
+
+		if ( Health > 0f || State != LifeState.Alive ) return;
+
+		State = LifeState.Dead;
+
+		BroadcastKill( damageInfo );
+	}
+
+	private DamageInfo WithThisAsVictim( DamageInfo damageInfo )
+	{
+		var extraFlags = DamageFlags.None;
+		var hitbox = damageInfo.Hitbox;
+
+		if ( Armor > 0f ) extraFlags |= DamageFlags.Armor;
+		if ( HasHelmet ) extraFlags |= DamageFlags.Helmet;
+
+		if ( damageInfo.WasExplosion || damageInfo.WasMelee ) hitbox = HitboxTags.UpperBody;
+		if ( damageInfo.WasFallDamage ) hitbox = HitboxTags.Leg;
+
+		return damageInfo with
+		{
+			Victim = this,
+			Hitbox = hitbox,
+			Flags = damageInfo.Flags | extraFlags
+		};
+	}
+
+	private DamageInfo ModifyDamage( DamageInfo damageInfo )
+	{
+		var modifyEvent = new ModifyDamageEvent( damageInfo );
+
+		Scene.Dispatch( modifyEvent );
+
+		return modifyEvent.DamageInfo;
+	}
+
+	private void BroadcastDamage( DamageInfo damageInfo )
+	{
+		Log.Info( damageInfo );
+
+		BroadcastDamage( damageInfo.Damage, damageInfo.Position, damageInfo.Force,
+			damageInfo.Attacker?.Id ?? default, damageInfo.Inflictor?.Id ?? default,
+			damageInfo.Hitbox, damageInfo.Flags );
+	}
+
+	private void ApplyDamage( DamageInfo damageInfo )
+	{
+		Health = Math.Max( 0f, Health - damageInfo.Damage );
+		Armor = Math.Max( 0f, Armor - damageInfo.ArmorDamage );
+
+		if ( damageInfo.RemoveHelmet || Armor <= 0f )
+		{
+			HasHelmet = false;
+		}
+	}
+
+	private void BroadcastKill( DamageInfo damageInfo )
+	{
+		BroadcastKill( damageInfo.Damage, damageInfo.Position, damageInfo.Force,
+			damageInfo.Attacker?.Id ?? default, damageInfo.Inflictor?.Id ?? default,
+			damageInfo.Hitbox, damageInfo.Flags );
+	}
+
 	[Broadcast( NetPermission.HostOnly )]
-	private void BroadcastKill( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, string hitbox = "", string tags = "" )
+	private void BroadcastDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, HitboxTags hitbox = default, DamageFlags flags = default )
 	{
 		var attacker = Scene.Directory.FindComponentByGuid( attackerId );
 		var inflictor = Scene.Directory.FindComponentByGuid( inflictorId );
 
-		var damageEvent = DamageEvent.From( attacker, damage, inflictor, position, force, hitbox, tags ) with { Victim = GameUtils.GetPlayerFromComponent( this ) };
-
-		foreach ( var listener in Scene.GetAllComponents<IKillListener>() )
+		var damageInfo = new DamageInfo( attacker, damage, inflictor, position, force, hitbox, flags )
 		{
-			listener.OnPlayerKilled( damageEvent );
+			Victim = GameUtils.GetPlayerFromComponent( this )
+		};
+
+		GameObject.Root.Dispatch( new DamageTakenEvent( damageInfo ) );
+
+		if ( damageInfo.Attacker.IsValid() )
+		{
+			damageInfo.Attacker.GameObject.Root.Dispatch( new DamageGivenEvent( damageInfo ) );
 		}
 	}
 
-	private string GetFirstWord( string text )
+	[Broadcast( NetPermission.HostOnly )]
+	private void BroadcastKill( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, HitboxTags hitbox = default, DamageFlags flags = default )
 	{
-		var candidate = text.Trim();
-		if ( !candidate.Any( char.IsWhiteSpace ) )
-			return text;
-
-		return candidate.Split( ' ' ).FirstOrDefault();
-	}
-
-	[Broadcast]
-	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, string hitbox = "", string tags = "" )
-	{
-		var firstHitbox = GetFirstWord( hitbox );
-
 		var attacker = Scene.Directory.FindComponentByGuid( attackerId );
 		var inflictor = Scene.Directory.FindComponentByGuid( inflictorId );
 
-		var damageEvent = DamageEvent.From( attacker, damage, inflictor, position, force, hitbox, tags ) with { Victim = GameUtils.GetPlayerFromComponent( this ) };
-
-		// Edge case, but it's okay.
-		if ( firstHitbox == "head" && HasHelmet )
-			firstHitbox += " helmet";
-
-		if ( GetGlobal<PlayerGlobals>().GetDamageMultiplier( firstHitbox ) is { } damageMultiplier
-			&& !tags.Contains( "melee" ) )
+		var damageInfo = new DamageInfo( attacker, damage, inflictor, position, force, hitbox, flags )
 		{
-			damageEvent.Damage *= damageMultiplier;
-		}
+			Victim = GameUtils.GetPlayerFromComponent( this )
+		};
 
-		damageEvent.Damage = damageEvent.Damage.CeilToInt();
-
-		// Only the host should control the damage state
-		if ( Networking.IsHost )
-		{
-			if ( !IsGodMode )
-			{
-				// Let armor try its hand
-				damageEvent.Damage = CalculateArmorDamage( damageEvent.Damage );
-
-				Health -= damageEvent.Damage;
-			}
-
-			// Did we die?
-			if ( Health <= 0f && State == LifeState.Alive )
-			{
-				State = LifeState.Dead;
-
-				BroadcastKill( damage, position, force, attackerId, inflictorId, hitbox, tags );
-			}
-		}
-
-		Log.Info( damageEvent );
-
-		var receivers = GameObject.Root.Components.GetAll<IDamageListener>();
-		foreach ( var x in receivers )
-		{
-			x.OnDamageTaken( damageEvent );
-		}
-
-		if ( attacker.IsValid() )
-		{
-			var givers = attacker.GameObject.Root.Components.GetAll<IDamageListener>();
-			foreach ( var x in givers )
-			{
-				x.OnDamageGiven( damageEvent );
-			}
-		}
-
-		if ( hitbox.Contains( "head" ) )
-		{
-			// Helmet negates headshot damage
-			if ( HasHelmet )
-			{
-				if ( !IsGodMode && Networking.IsHost )
-				{
-					HasHelmet = false;
-				}
-			}
-		}
+		Scene.Dispatch( new KillEvent( damageInfo ) );
 	}
 }
-
 
 /// <summary>
 /// The component's life state.
