@@ -26,7 +26,7 @@ public partial class PlayerController
 		if ( !damageEvent.Attacker.IsValid() ) 
 			return;
 
-		var position = damageEvent.Attacker?.Transform.Position ?? Vector3.Zero;
+		var position = damageEvent.Position;
 
 		// Is this the local player?
 		if ( IsViewer )
@@ -46,11 +46,6 @@ public partial class PlayerController
 			if ( !IsViewer )
 			{
 				var go = hasHelmet ? HeadshotWithHelmetEffect?.Clone( position ) : HeadshotEffect?.Clone( position );
-
-				if ( go.IsValid() )
-				{
-					// we did it
-				}
 			}
 
 			var headshotSound = hasHelmet ? HeadshotWithHelmetSound : HeadshotSound;
