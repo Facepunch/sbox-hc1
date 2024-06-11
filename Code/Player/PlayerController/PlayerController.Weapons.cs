@@ -17,6 +17,9 @@ public partial class PlayerController
 	/// </summary>
 	[Property, Group( "Spread" )] public float VelocitySpreadScale { get; set; } = 0.1f;
 	[Property, Group( "Spread" )] public float AimSpreadScale { get; set; } = 0.5f;
+	[Property, Group( "Spread" )] public float CrouchSpreadScale { get; set; } = 0.5f;
+	[Property, Group( "Spread" )] public float AirSpreadScale { get; set; } = 2.0f;
+	[Property, Group( "Spread" )] public float SpreadVelocityLimit { get; set; } = 350f;
 
 	/// <summary>
 	/// How inaccurate are things like gunshots?
@@ -25,26 +28,15 @@ public partial class PlayerController
 
 	private void UpdateRecoilAndSpread()
 	{
-		var recoil = CurrentWeapon?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
-
 		var spread = 0f;
-		var velLimit = 350f;
-		var velSpreadScale = VelocitySpreadScale;
-		if ( CurrentWeapon?.Tags.Has( "aiming" ) ?? false ) velSpreadScale *= AimSpreadScale;
-		var airSpreadMult = 2f;
+		var scale = VelocitySpreadScale;
+		if ( CurrentWeapon?.Tags.Has( "aiming" ) ?? false ) scale *= AimSpreadScale;
 
 		var velLen = CharacterController.Velocity.Length;
-		spread += velLen.Remap( 0, velLimit, 0, 1, true ) * velSpreadScale;
+		spread += velLen.Remap( 0, SpreadVelocityLimit, 0, 1, true ) * scale;
 
-		if ( recoil.IsValid() )
-		{
-			var recoilScale = 0.5f;
-			if ( IsCrouching ) recoilScale *= 0.5f;
-
-			spread += recoil.Current.AsVector3().Length * recoilScale;
-		}
-
-		if ( !IsGrounded ) spread *= airSpreadMult;
+		if ( IsCrouching && IsGrounded ) spread *= CrouchSpreadScale;
+		if ( !IsGrounded ) spread *= AirSpreadScale;
 
 		Spread = spread;
 	}
