@@ -1,17 +1,14 @@
-using Sandbox.Diagnostics;
-
 namespace Facepunch;
 
 public static class Explosion
-{
-	private static float GetExplosionDamage( float radius, float distance, float damage )
+{	
+	public static void AtPoint( Vector3 point, float radius, float baseDamage, Guid attackerId = default, Guid inflictorId = default, Curve falloff = default )
 	{
-		var t = 1f - Math.Clamp( distance / radius, 0f, 1f );
-		return damage * t * t;
-	}
-	
-	public static void AtPoint( Vector3 point, float radius, float baseDamage, Guid attackerId = default, Guid inflictorId = default )
-	{
+		if ( falloff.Frames.Count == 0 )
+		{
+			falloff = new Curve( new Curve.Frame( 1.0f, 1.0f ), new Curve.Frame( 0.0f, 0.0f ) );
+		}
+
 		var scene = Game.ActiveScene;
 		if ( !scene.IsValid() ) return;
 
@@ -38,8 +35,9 @@ public static class Explosion
 					continue;
 			}
 
+
 			var distance = obj.Transform.Position.Distance( point );
-			var damage = GetExplosionDamage( radius, distance, baseDamage );
+			var damage = baseDamage * falloff.Evaluate( distance / radius );
 			var direction = (obj.Transform.Position - point).Normal;
 			var force = direction * distance * 50f;
 			

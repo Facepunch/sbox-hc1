@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "d4376410-2b70-439c-8139-75ffdfaf8679",
+    "__guid": "82bb2c6e-f94a-4f0e-a889-794fa75c70e7",
     "Flags": 0,
     "Name": "he_grenade",
     "Enabled": true,
@@ -9,7 +9,15 @@
     "Components": [
       {
         "__type": "Facepunch.HEGrenade",
-        "__guid": "bff82dae-11a3-4ad7-b65c-c61acb93fe32",
+        "__guid": "0362f13d-bff9-4d7f-8ace-420365c0f139",
+        "DamageFalloff": [
+          {
+            "y": 1
+          },
+          {
+            "x": 1
+          }
+        ],
         "DamageRadius": 450,
         "Lifetime": 3,
         "MaxDamage": 90,
@@ -20,7 +28,7 @@
       },
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "2fe7d02b-24c8-4472-832b-da47c895c9eb",
+        "__guid": "75e67e75-b87e-4d70-87c3-f95a8f0b17df",
         "AngularDamping": 0.5,
         "Gravity": true,
         "LinearDamping": 0.5,
@@ -32,7 +40,7 @@
       },
       {
         "__type": "Sandbox.SphereCollider",
-        "__guid": "6b82b36b-95ea-4f10-ad0c-e989c378e8b2",
+        "__guid": "3a712977-f806-4524-af04-ac20036f0b60",
         "Center": "0,0,1.5",
         "IsTrigger": false,
         "Radius": 2,
@@ -41,12 +49,12 @@
       },
       {
         "__type": "DestroyBetweenRounds",
-        "__guid": "f7afacba-fd6d-407f-b116-647254f87093"
+        "__guid": "a5ea0348-38f4-40e8-aa0e-fbaeb323bc43"
       }
     ],
     "Children": [
       {
-        "__guid": "9f6f8f45-06db-484d-9330-f5b0188432ed",
+        "__guid": "9b665f7b-5c12-4ffd-8b55-8c448170a5aa",
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
@@ -55,7 +63,7 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "b4a547c0-1d96-4e51-b33a-c046f77ef86d",
+            "__guid": "7190a58d-34ba-4b06-abb5-1cdfc768f4fc",
             "BodyGroups": 18446744073709551615,
             "Model": "weapons/throwable/he_grenade/v_he_grenade.vmdl",
             "RenderType": "On",
