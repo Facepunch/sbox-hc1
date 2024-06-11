@@ -25,6 +25,8 @@ public sealed class CameraController : Component, IDamageListener
 
 	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = true;
 	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
+	
+	[Property] public ScreenShaker ScreenShaker { get; set; }
 
 	bool AudioListenerModeToggled = false;
 	[DeveloperCommand( "Drop Audio Listener", "Player" )]
@@ -179,6 +181,8 @@ public sealed class CameraController : Component, IDamageListener
 		}
 
 		ApplyCameraEffects();
+
+		ScreenShaker?.Apply( Camera );
 	}
 
 	RealTimeSince TimeSinceDamageTaken = 1;

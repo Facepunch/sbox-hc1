@@ -35,7 +35,6 @@ public static class Explosion
 					continue;
 			}
 
-
 			var distance = obj.Transform.Position.Distance( point );
 			var damage = baseDamage * falloff.Evaluate( distance / radius );
 			var direction = (obj.Transform.Position - point).Normal;
