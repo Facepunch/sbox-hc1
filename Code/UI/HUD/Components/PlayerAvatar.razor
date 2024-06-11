@@ -10,16 +10,21 @@
         <img class="image" src="avatar:@Player.Network.OwnerConnection.SteamId" />
     </div>
 
-    @if ( Player.HealthComponent.State == LifeState.Alive && IsFriendly )
+    @if ( ShowHealth && Player.HealthComponent.State == LifeState.Alive && IsFriendly )
     {
         <div class="health">
             <div class="health-inner" style="width:@(Player.HealthComponent.Health)%" />
         </div>
     }
 
-    @if( Player.Inventory.HasBomb && Player.IsFriendly( GameUtils.LocalPlayer ) )
+    @if( ShowBomb && Player.Inventory.HasBomb && Player.IsFriendly( GameUtils.LocalPlayer ) )
     {
         <Icon File="/ui/bomb.png" size="24" class="bomb-indicator"></Icon>
+    }
+
+    @if ( IsDead )
+    {
+        <div style="background-image: url( ui/dead.png )" class="overlay" />
     }
 </root>
 
@@ -28,11 +33,15 @@
     public PlayerController Player { get; set; }
     public bool IsFriendly => GameUtils.LocalPlayer?.GameObject?.IsFriendly( Player?.GameObject ) ?? false;
 
+    public bool ShowBomb { get; set; } = true;
+    public bool ShowHealth { get; set; } = true;
+    private bool IsDead => Player?.HealthComponent.State != LifeState.Alive;
+
     private string AvatarClasses
     {
         get
         {
-            if ( Player?.HealthComponent.State != LifeState.Alive ) return "dead";
+            if ( IsDead ) return "dead";
             return "";
         }
     }

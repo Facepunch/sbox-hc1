@@ -24,16 +24,20 @@ RoundStateDisplay
     }
 }
 
-PlayerAvatar {
+PlayerAvatar
+{
     width: 48px;
     height: 48px;
     background-color: black;
+    justify-content: center;
 
-    .avatar {
+    .avatar
+    {
         border: 1px solid black;
     }
 
-    .health {
+    .health
+    {
         bottom: 0;
         position: absolute;
         width: 100%;
@@ -41,13 +45,17 @@ PlayerAvatar {
         background-color: black;
         padding: 1px;
 
-        .health-inner {
+        .health-inner
+        {
             background-color: rgba( white, 0.2 );
         }
     }
 
-    &.dead {
-        .avatar {
+    &.dead
+    {
+        opacity: 0.5;
+        .avatar
+        {
             filter: saturate( 0.2 ) brightness(50%);
         }
     }

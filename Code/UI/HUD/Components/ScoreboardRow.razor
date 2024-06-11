@@ -24,7 +24,8 @@
     </span>
 
     <span class="col playername gap-sm">
-        <img class="avatar" src="avatar:@(Connection.SteamId)" style="@(IsFriendly ? $"box-shadow: 0 0 0 2px {Player.PlayerColor.Hex};" : "box-shadow: none;")" />
+        
+        <PlayerAvatar ShowHealth=@false ShowBomb=@false class="avatar" Player=@Player />
         <label>
             @Player.GetPlayerName()
         </label>

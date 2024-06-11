@@ -10,6 +10,11 @@ Scoreboard
         pointer-events: all;
     }
 
+    PlayerAvatar {
+        width: 24px;
+        height: 24px;
+    }
+
     separator {
         flex-grow: 1;
         height: 1px;
@@ -36,13 +41,6 @@ Scoreboard
             background-color: rgba( black, 0.75 );
             width: 100%;
             align-items: center;
-
-            .avatar
-            {
-                width: 24px;
-                height: 24px;
-                aspect-ratio: 1;
-            }
             
             &.dead
             {
