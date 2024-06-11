@@ -9,7 +9,7 @@ public enum CameraMode
 	ThirdPerson
 }
 
-public sealed class CameraController : Component
+public sealed class CameraController : Component, IDamageListener
 {
 	/// <summary>
 	/// A reference to the camera component we're going to be doing stuff with.
@@ -19,6 +19,9 @@ public sealed class CameraController : Component
 	[Property] public AudioListener AudioListener { get; set; }
 	[Property] public ColorAdjustments ColorAdjustments { get; set; }
 	[Property] public PlayerController Player { get; set; }
+
+	[Property] public ChromaticAberration ChromaticAberration { get; set; }
+	[Property] public Pixelate Pixelate { get; set; }
 
 	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = false;
 	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
@@ -169,7 +172,28 @@ public sealed class CameraController : Component
 		{
 			Camera.Transform.LocalPosition = Vector3.Backward * 0.0f;
 		}
-		Camera.Transform.LocalRotation = Rotation.Identity;	
+		Camera.Transform.LocalRotation = Rotation.Identity;
+
+		ApplyCameraEffects();
+	}
+
+	RealTimeSince TimeSinceDamageTaken = 1;
+
+	void IDamageListener.OnDamageTaken( DamageEvent damageEvent )
+	{
+		TimeSinceDamageTaken = 0;
+	}
+
+	void IDamageListener.OnDamageGiven( DamageEvent damageEvent )
+	{
+	}
+
+	void ApplyCameraEffects()
+	{
+		var timeSinceDamage = TimeSinceDamageTaken.Relative;
+		var shortDamageUi = timeSinceDamage.LerpInverse( 0.1f, 0.0f, true );
+		ChromaticAberration.Scale = shortDamageUi * 1f;
+		Pixelate.Scale = shortDamageUi * 0.2f;
 	}
 
 	void ApplyRecoil()
