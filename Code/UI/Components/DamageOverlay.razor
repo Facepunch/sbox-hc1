@@ -1,0 +1,32 @@
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+
+<root>
+    <div @ref="Overlay" class="overlay mask-scope" />
+</root>
+
+@code
+{
+    public Panel Overlay { get; set; }
+
+    public PlayerController Viewer => GameUtils.Viewer;
+
+    float GetOpacity()
+    {
+        if ( !Viewer.IsValid() ) return 0f;
+        var hp = Viewer.HealthComponent.Health;
+        var hpDelta = ( hp / Viewer.HealthComponent.MaxHealth );
+        var cos = MathF.Cos( Time.Now * 5f ) / 2f + 0.5f;
+        var pulse = cos * ( ( 1 - hpDelta ) * 0.2f );
+        if ( hpDelta > 0.4f ) pulse = 0;
+        return 1 - ( hpDelta ) - pulse;
+    }
+
+    public override void Tick()
+    {
+        if ( Overlay.IsValid() )
+        {
+            Overlay.Style.Opacity = GetOpacity();
+        }
+    }
+}
