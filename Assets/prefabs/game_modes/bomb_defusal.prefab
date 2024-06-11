@@ -14,7 +14,8 @@
         "Description": "",
         "MaxBalance": 16000,
         "State": "PreGame",
-        "Title": "Bomb Defusal"
+        "Title": "Bomb Defusal",
+        "UnlimitedMoney": false
       },
       {
         "__type": "WaitForPlayers",
@@ -101,7 +102,9 @@
       },
       {
         "__type": "Facepunch.RadioManager",
-        "__guid": "dd9886aa-2706-4f9b-a28b-acceeb7f2374"
+        "__guid": "dd9886aa-2706-4f9b-a28b-acceeb7f2374",
+        "PlayDeathSounds": true,
+        "PlayEnemyLeftSounds": true
       },
       {
         "__type": "RoundBasedTeamScoring",
@@ -140,7 +143,9 @@
       },
       {
         "__type": "Facepunch.KillGameOnEnd",
-        "__guid": "4e466631-9e5d-476f-9153-0a7c8d9223fe"
+        "__guid": "4e466631-9e5d-476f-9153-0a7c8d9223fe",
+        "DurationSeconds": 5,
+        "ShowDelaySeconds": 5
       },
       {
         "__type": "Facepunch.DefuseWinCondition",
@@ -155,6 +160,14 @@
       {
         "__type": "Facepunch.TeamVoiceChatFilter",
         "__guid": "192a1caf-7692-47e2-bbb0-aa6db2352579"
+      },
+      {
+        "__type": "Facepunch.KillSound",
+        "__guid": "1d4be055-ae6b-49c3-848a-0c698d2f0bf3",
+        "BaseSoundPitch": 0.7,
+        "KillSoundEvent": "sounds/kill_sound.sound",
+        "MaxCount": 5,
+        "SoundPitchPerCount": 0.1
       }
     ],
     "Children": []
