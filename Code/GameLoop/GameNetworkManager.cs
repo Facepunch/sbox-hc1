@@ -19,7 +19,18 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	{
 		PlayerId.Init();
 
-		if ( !IsMultiplayer ) return;
+		if ( !IsMultiplayer )
+		{
+			var player = PlayerPrefab.Clone();
+
+			var playerComponent = player.Components.Get<PlayerController>();
+			if ( !playerComponent.IsValid() )
+				return;
+
+			OnPlayerJoined( playerComponent, Connection.Local );
+
+			return;
+		}
 
 		//
 		// Create a lobby if we're not connected
