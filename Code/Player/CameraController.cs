@@ -172,7 +172,6 @@ public sealed class CameraController : Component, IDamageListener
 		{
 			Camera.Transform.LocalPosition = Vector3.Backward * 0.0f;
 		}
-		Camera.Transform.LocalRotation = Rotation.Identity;
 
 		ApplyCameraEffects();
 	}
