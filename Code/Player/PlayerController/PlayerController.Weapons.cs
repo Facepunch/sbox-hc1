@@ -16,6 +16,7 @@ public partial class PlayerController
 	/// How much spread should we add based on how fast the player is moving
 	/// </summary>
 	[Property, Group( "Spread" )] public float VelocitySpreadScale { get; set; } = 0.1f;
+	[Property, Group( "Spread" )] public float AimSpreadScale { get; set; } = 0.5f;
 
 	/// <summary>
 	/// How inaccurate are things like gunshots?
@@ -29,6 +30,7 @@ public partial class PlayerController
 		var spread = 0f;
 		var velLimit = 350f;
 		var velSpreadScale = VelocitySpreadScale;
+		if ( CurrentWeapon?.Tags.Has( "aiming" ) ?? false ) velSpreadScale *= AimSpreadScale;
 		var airSpreadMult = 2f;
 
 		var velLen = CharacterController.Velocity.Length;
