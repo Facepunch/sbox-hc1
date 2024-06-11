@@ -336,32 +336,6 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	}
 
 	/// <summary>
-	/// Gets the current bullet spread which is accumulated by the player's movement speed, or if they're in the air.
-	/// </summary>
-	/// <returns></returns>
-	float GetBulletSpread()
-	{
-		var recoil = Weapon.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
-
-		var spread = BulletSpread;
-
-		var velLen = Weapon.PlayerController.CharacterController.Velocity.Length;
-		spread += velLen.Remap( 0, PlayerVelocityLimit, 0, 1, true ) * VelocitySpreadScale;
-
-		if ( recoil.IsValid() )
-		{
-			var recoilScale = 0.5f;
-			if ( Weapon.PlayerController.IsCrouching ) recoilScale *= 0.5f;
-
-			spread += recoil.Current.AsVector3().Length * recoilScale;
-		}
-
-		if ( !Weapon.PlayerController.IsGrounded ) spread *= InAirSpreadMultiplier;
-
-		return spread;
-	}
-
-	/// <summary>
 	/// Runs a trace with all the data we have supplied it, and returns the result
 	/// </summary>
 	/// <returns></returns>
@@ -374,7 +348,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		var rot = Rotation.LookAt( WeaponRay.Forward );
 
 		var forward = rot.Forward;
-		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * Weapon.PlayerController.Spread * 0.25f;
+		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * ( BulletSpread + Weapon.PlayerController.Spread ) * 0.25f;
 		forward = forward.Normal;
 
 		var end = WeaponRay.Position + forward * MaxRange;
