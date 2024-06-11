@@ -87,7 +87,7 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 	{
 		OnUpdateMovement();
 
-		_smoothEyeHeight = _smoothEyeHeight.LerpTo( _eyeHeightOffset, Time.Delta * 10f );
+		_smoothEyeHeight = _smoothEyeHeight.LerpTo( _eyeHeightOffset * CrouchAmount, Time.Delta * 10f );
 		CharacterController.Height = Height + _smoothEyeHeight;
 
 		if ( IsLocallyControlled )

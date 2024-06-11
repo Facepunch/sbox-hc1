@@ -47,6 +47,8 @@ public partial class PlayerController
 	/// </summary>
 	[Sync] public bool IsCrouching { get; set; }
 
+	public float CrouchAmount { get; set; }
+
 	/// <summary>
 	/// Is the player slow walking?
 	/// </summary>
@@ -243,6 +245,16 @@ public partial class PlayerController
 		cc.Move();
 	}
 
+	TimeSince TimeSinceCrouchPressed = 10f;
+	TimeSince TimeSinceCrouchReleased = 10f;
+
+	private float CrouchLerpSpeed()
+	{
+		if ( TimeSinceCrouchPressed < 1f && TimeSinceCrouchReleased < 1f ) return 0.5f;
+
+		return 10f;
+	}
+
 	private void BuildInput()
 	{
 		if ( InMenu )
@@ -250,7 +262,16 @@ public partial class PlayerController
 
 		IsSlowWalking = Input.Down( "Run" );
 		IsCrouching = Input.Down( "Duck" );
+		
 		IsUsing = Input.Down( "Use" );
+
+		if ( Input.Pressed( "Duck" ) )
+			TimeSinceCrouchPressed = 0;
+
+		if ( Input.Released( "Duck" ) )
+			TimeSinceCrouchReleased = 0;
+
+		CrouchAmount = CrouchAmount.LerpTo( IsCrouching ? 1 : 0, Time.Delta * CrouchLerpSpeed() );
 
 		// Check if our current weapon has the planting tag and if so force us to crouch.
 		var currentWeapon = CurrentWeapon;
