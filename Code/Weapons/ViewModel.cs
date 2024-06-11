@@ -134,7 +134,7 @@ public partial class ViewModel : Component, IWeapon
 
 	void ApplyAnimationParameters()
 	{
-		ModelRenderer.Set( "b_sprint", false );
+		ModelRenderer.Set( "b_sprint", PlayerController.IsSprinting );
 		ModelRenderer.Set( "b_grounded", PlayerController.IsGrounded );
 
 		// Ironsights

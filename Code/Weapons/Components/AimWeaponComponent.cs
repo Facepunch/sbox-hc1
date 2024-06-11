@@ -14,6 +14,8 @@ public partial class AimWeaponFunction : InputWeaponComponent
 
 	protected virtual bool CanAim()
 	{
+		if ( !Weapon.PlayerController.IsGrounded ) return false;
+		if ( Weapon.PlayerController.IsSprinting ) return false;
 		if ( Tags.Has( "no_aiming" ) ) return false;
 		if ( Tags.Has( "reloading" ) ) return false;
 		if ( Weapon.PlayerController.Tags.Has( "no_aiming" ) ) return false;

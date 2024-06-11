@@ -23,7 +23,7 @@ public sealed class CameraController : Component, IDamageListener
 	[Property] public ChromaticAberration ChromaticAberration { get; set; }
 	[Property] public Pixelate Pixelate { get; set; }
 
-	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = false;
+	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = true;
 	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
 
 	bool AudioListenerModeToggled = false;
@@ -114,6 +114,8 @@ public sealed class CameraController : Component, IDamageListener
 
 	Rotation lerpedRotation = Rotation.Identity;
 
+	private float LerpBobSpeed = 0;
+
 	/// <summary>
 	/// Bob the view!
 	/// This could be better, but it doesn't matter really.
@@ -125,13 +127,16 @@ public sealed class CameraController : Component, IDamageListener
 
 		var bobSpeed = Player.CharacterController.Velocity.Length.LerpInverse( 0, 300 );
 		if ( !Player.IsGrounded ) bobSpeed *= 0.1f;
+		if ( !Player.IsSprinting ) bobSpeed *= 0.3f;
 
-		walkBob += Time.Delta * 10.0f * bobSpeed;
+		LerpBobSpeed = LerpBobSpeed.LerpTo( bobSpeed, Time.Delta * 10f );
+
+		walkBob += Time.Delta * 10.0f * LerpBobSpeed;
 		var yaw = MathF.Sin( walkBob ) * 0.5f;
 		var pitch = MathF.Cos( -walkBob * 2f ) * 0.5f;
 
-		Boom.Transform.LocalRotation *= Rotation.FromYaw( -yaw * bobSpeed );
-		Boom.Transform.LocalRotation *= Rotation.FromPitch( -pitch * bobSpeed * 0.5f );
+		Boom.Transform.LocalRotation *= Rotation.FromYaw( -yaw * LerpBobSpeed );
+		Boom.Transform.LocalRotation *= Rotation.FromPitch( -pitch * LerpBobSpeed * 0.5f );
 	}
 
 	protected override void OnStart()

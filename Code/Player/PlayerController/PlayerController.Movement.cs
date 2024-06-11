@@ -12,6 +12,8 @@ public partial class PlayerController
 	/// </summary>
 	[Property] public BoxCollider PlayerBoxCollider { get; set; }
 
+	[RequireComponent] public TagBinder TagBinder { get; set; }
+
 	/// <summary>
 	/// How tall are we?
 	/// </summary>
@@ -53,6 +55,11 @@ public partial class PlayerController
 	/// Is the player slow walking?
 	/// </summary>
 	[Sync] public bool IsSlowWalking { get; set; }
+
+	/// <summary>
+	/// Are we sprinting?
+	/// </summary>
+	[Sync] public bool IsSprinting { get; set; }
 
 	/// <summary>
 	/// Is the player noclipping?
@@ -255,12 +262,29 @@ public partial class PlayerController
 		return 10f;
 	}
 
+    private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking;
+	TimeSince TimeSinceSprintChanged { get; set; } = 100;
+
+	private void OnSprintChanged( bool before, bool after )
+	{
+		TimeSinceSprintChanged = 0;
+	}
+
 	private void BuildInput()
 	{
 		if ( InMenu )
 			return;
 
-		IsSlowWalking = Input.Down( "Run" );
+		IsSlowWalking = Input.Down( "Walk" );
+
+		bool wasSprinting = IsSprinting;
+        IsSprinting = WantsToSprint;
+
+		if ( wasSprinting != IsSprinting )
+		{
+			OnSprintChanged( wasSprinting, IsSprinting );
+		}
+
 		IsCrouching = Input.Down( "Duck" );
 		
 		IsUsing = Input.Down( "Use" );
@@ -450,6 +474,7 @@ public partial class PlayerController
 		if ( !IsGrounded ) CharacterController.Acceleration = global.AirAcceleration;
 		else if ( IsSlowWalking ) CharacterController.Acceleration = global.SlowWalkAcceleration;
 		else if ( IsCrouching ) CharacterController.Acceleration = global.CrouchingAcceleration;
+		else if ( IsSprinting ) CharacterController.Acceleration = 7f;
 		else
 			CharacterController.Acceleration = global.BaseAcceleration;
 	}
@@ -461,18 +486,24 @@ public partial class PlayerController
 		return 0f;
 	}
 
+	private float GetSpeedPenalty()
+	{
+		var wpn = CurrentWeapon;
+		if ( !wpn.IsValid() ) return 0;
+		return wpn.SpeedPenalty;
+	}
+
 	private float GetWalkSpeed()
 	{
 		var spd = WalkSpeed;
-		var wpn = CurrentWeapon;
-		if ( !wpn.IsValid() ) return spd;
-		return spd - wpn.SpeedPenalty;
+		return WalkSpeed - GetSpeedPenalty();
 	}
 
 	private float GetWishSpeed()
 	{
 		if ( IsSlowWalking ) return 100f;
 		if ( IsCrouching ) return 100f;
+		if ( IsSprinting ) return 300f - ( GetSpeedPenalty() * 0.5f );
 		return GetWalkSpeed();
 	}
 
