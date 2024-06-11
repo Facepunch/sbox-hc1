@@ -4,17 +4,9 @@ public partial class AimWeaponComponent : InputWeaponComponent
 {
 	[Sync] public bool IsAiming { get; set; }
 
-	public virtual bool IsWeaponAiming()
-	{
-		return IsDown();
-		// For testing, can toggle this 
-		// return true;
-	}
-
-
 	protected override void OnEnabled()
 	{
-		BindTag( "aiming", () => IsWeaponAiming() );
+		BindTag( "aiming", () => IsAiming );
 	}
 
 	protected virtual bool CanAim()
@@ -36,6 +28,6 @@ public partial class AimWeaponComponent : InputWeaponComponent
 			return;
 		}
 
-		IsAiming = IsWeaponAiming();
+		IsAiming = IsDown();
 	}
 }
