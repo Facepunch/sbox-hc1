@@ -9,7 +9,7 @@
 <root class="hidden flex absolute inset-0 align-center justify-center">
     <table class="with-background with-padding-lg">
         <div class="title">
-            <label class="important">@Status</label>
+            <label class="important">@(Name) - @(Status)</label>
             <label class="important">@(Time?.ToString(@"m\:ss"))</label>
         </div>
 
@@ -77,6 +77,7 @@
 @code
 {
     public string Status => GameMode.Instance?.DisplayedStatus;
+    public string Name => GameMode.Instance?.Title;
     public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
 
     public IEnumerable<PlayerController> PlayerList => Scene.GetAllComponents<PlayerController>();
