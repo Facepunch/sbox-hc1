@@ -78,9 +78,6 @@ public sealed class CameraController : Component, IDamageListener
 
 	public void SetActive( bool isActive )
 	{
-		if ( Camera.Enabled == isActive )
-			return;
-
 		Camera.Enabled = isActive;
 		AudioListener.Enabled = isActive;
 
