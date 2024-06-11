@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "a8c620cd-6a24-4884-a867-6e0ac0a1c673",
+    "__guid": "5d24c812-5f26-4f7a-b8bf-44aec1414ab7",
     "Flags": 0,
     "Name": "w_mp5",
     "Tags": "player",
@@ -10,30 +10,30 @@
     "Components": [
       {
         "__type": "Facepunch.Weapon",
-        "__guid": "b61c68b7-75e8-4792-81cb-59cf9215f3f5",
+        "__guid": "dd399ba7-d391-4373-a6d6-fa89fa5c3762",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "HoldType": "Rifle",
         "ModelRenderer": {
           "_type": "component",
-          "component_id": "c225f845-2257-46c6-b276-3e6be5932ffb",
-          "go": "643c9309-858b-4461-b5f3-62b449cacee4",
+          "component_id": "b21f854f-9b17-4a68-b55d-ea13f45665d3",
+          "go": "fcbe8363-c74a-48be-850b-648d9fc75efb",
           "component_type": "SkinnedModelRenderer"
         },
         "Muzzle": {
           "_type": "gameobject",
-          "go": "0ff21607-c672-4972-b653-3118dca3681d"
+          "go": "e76a7ea6-45cb-45b1-8ebe-e93681249a79"
         },
         "Resource": "weapons/mp5/mp5.wpn",
         "SpeedPenalty": 30
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "2cd7a475-8136-43f1-a4ef-a82e3f658c64"
+        "__guid": "2703172f-7c5a-4126-80bb-4062f8229b14"
       }
     ],
     "Children": [
       {
-        "__guid": "643c9309-858b-4461-b5f3-62b449cacee4",
+        "__guid": "fcbe8363-c74a-48be-850b-648d9fc75efb",
         "Flags": 0,
         "Name": "Model",
         "Position": "3.535849,0,-7.21",
@@ -44,7 +44,7 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "c225f845-2257-46c6-b276-3e6be5932ffb",
+            "__guid": "b21f854f-9b17-4a68-b55d-ea13f45665d3",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
@@ -55,7 +55,7 @@
         ],
         "Children": [
           {
-            "__guid": "0ff21607-c672-4972-b653-3118dca3681d",
+            "__guid": "e76a7ea6-45cb-45b1-8ebe-e93681249a79",
             "Flags": 0,
             "Name": "Muzzle",
             "Position": "13.29764,0,8.152003",
@@ -67,7 +67,7 @@
         ]
       },
       {
-        "__guid": "53b07dbd-df0c-412c-b47a-ab9af5297440",
+        "__guid": "9df5c94f-1518-4cfd-9100-7e58d28a486f",
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
@@ -76,18 +76,18 @@
         "Components": [
           {
             "__type": "Facepunch.AmmoComponent",
-            "__guid": "e8db06af-8151-42ea-ae40-5a0774daf510",
+            "__guid": "4664c1b3-261f-4328-afa8-cdd9a1969093",
             "Ammo": 30,
             "HasAmmo": true,
             "MaxAmmo": 30
           },
           {
             "__type": "Facepunch.ShootWeaponComponent",
-            "__guid": "6876658e-0da7-47b3-8b9c-23a492238691",
+            "__guid": "9721acc5-a51a-434c-9b85-d5f828d2cce9",
             "AmmoComponent": {
               "_type": "component",
-              "component_id": "e8db06af-8151-42ea-ae40-5a0774daf510",
-              "go": "53b07dbd-df0c-412c-b47a-ab9af5297440",
+              "component_id": "4664c1b3-261f-4328-afa8-cdd9a1969093",
+              "go": "9df5c94f-1518-4cfd-9100-7e58d28a486f",
               "component_type": "AmmoComponent"
             },
             "BaseDamage": 12,
@@ -133,11 +133,11 @@
           },
           {
             "__type": "Facepunch.ReloadWeaponComponent",
-            "__guid": "9bb10323-9d5f-43a1-9918-499fbd4ad6be",
+            "__guid": "7b9bd7e1-3327-4b0b-9f93-1c2b9042270c",
             "AmmoComponent": {
               "_type": "component",
-              "component_id": "e8db06af-8151-42ea-ae40-5a0774daf510",
-              "go": "53b07dbd-df0c-412c-b47a-ab9af5297440",
+              "component_id": "4664c1b3-261f-4328-afa8-cdd9a1969093",
+              "go": "9df5c94f-1518-4cfd-9100-7e58d28a486f",
               "component_type": "AmmoComponent"
             },
             "EmptyReloadSounds": {
@@ -162,12 +162,26 @@
           },
           {
             "__type": "Facepunch.RecoilWeaponComponent",
-            "__guid": "0f606b57-83b2-4741-86f8-741431fb38aa",
+            "__guid": "99d8f4f2-39c9-4734-acda-6fd71c34aeca",
             "HorizontalSpread": "2.00,-2.00,1",
-            "PlayerVelocityLimit": 200,
-            "RecoilResetTime": 0.3,
-            "VelocitySpreadScale": 0.25,
+            "RecoilPattern": {
+              "Points": []
+            },
+            "ResetTime": 0.3,
+            "Scale": "2,5",
+            "UseRecoilPattern": false,
             "VerticalSpread": "3.50,0.00,0"
+          },
+          {
+            "__type": "Facepunch.AimWeaponFunction",
+            "__guid": "a8a661f6-2b89-4068-bf40-e53c6fbe4161",
+            "AimAngles": "0,0,0",
+            "AimOffset": "0,0,0",
+            "InputActions": [
+              "Attack2"
+            ],
+            "InputType": "Down",
+            "RequiresAllInputActions": false
           }
         ]
       }
