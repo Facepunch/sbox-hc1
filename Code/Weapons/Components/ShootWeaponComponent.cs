@@ -221,6 +221,11 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 		DoShootEffects();
 
+		foreach ( var listener in Components.GetAll<IShotListener>() )
+		{
+			listener.OnShot();
+		}
+
 		for ( int i = 0; i < BulletCount; i++ )
 		{
 			int count = 0;

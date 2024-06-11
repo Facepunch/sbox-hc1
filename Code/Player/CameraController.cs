@@ -110,6 +110,8 @@ public sealed class CameraController : Component, IDamageListener
 		{
 			ViewBob();
 		}
+
+		Update();
 	}
 
 	float walkBob = 0;
@@ -148,13 +150,10 @@ public sealed class CameraController : Component, IDamageListener
 		base.OnStart();
 	}
 
-	protected override void OnUpdate()
+	protected void Update()
 	{
 		var baseFov = GameSettingsSystem.Current.FieldOfView;
-
-		TargetFieldOfView = TargetFieldOfView.LerpTo( baseFov + FieldOfViewOffset, Time.Delta * 5f );
 		FieldOfViewOffset = 0;
-		Camera.FieldOfView = TargetFieldOfView;
 
 		if ( ColorAdjustments is not null )
 		{
@@ -165,7 +164,7 @@ public sealed class CameraController : Component, IDamageListener
 
 		ApplyRecoil();
 
-		if (MaxBoomLength > 0)
+		if ( MaxBoomLength > 0 )
 		{
 			var tr = Scene.Trace.Ray( new Ray( Boom.Transform.Position, Boom.Transform.Rotation.Backward ), MaxBoomLength )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
@@ -177,14 +176,15 @@ public sealed class CameraController : Component, IDamageListener
 		}
 		else
 		{
-			Camera.Transform.LocalPosition = Vector3.Backward * 0.0f;
+			Camera.Transform.LocalPosition = Vector3.Backward * 0f;
 		}
 
 		ApplyCameraEffects();
-
 		ScreenShaker?.Apply( Camera );
-	}
 
+		TargetFieldOfView = TargetFieldOfView.LerpTo( baseFov + FieldOfViewOffset, Time.Delta * 5f );
+		Camera.FieldOfView = TargetFieldOfView;
+	}
 	RealTimeSince TimeSinceDamageTaken = 1;
 
 	void IDamageListener.OnDamageTaken( DamageEvent damageEvent )
@@ -206,9 +206,6 @@ public sealed class CameraController : Component, IDamageListener
 
 	void ApplyRecoil()
 	{
-		if ( !Player.IsViewer )
-			return;
-
 		if ( Player.CurrentWeapon.IsValid() && Player.CurrentWeapon?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } fn )
 			Player.EyeAngles += fn.Current;
 	}

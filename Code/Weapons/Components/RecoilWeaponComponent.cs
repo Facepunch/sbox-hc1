@@ -30,7 +30,6 @@ public partial class RecoilWeaponComponent : WeaponComponent
 			var point = RecoilPattern.GetPoint( ref currentFrame );
 
 			var newAngles = new Angles( -point.y * Scale.y, -point.x * Scale.x, 0 ) * timeDelta;
-
 			Current = Current + newAngles;
 			currentFrame++;
 		}

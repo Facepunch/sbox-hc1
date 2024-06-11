@@ -157,14 +157,14 @@
           {
             "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "5d5607cf-e7df-4fa1-9672-f63c10a6a95f",
-            "HorizontalSpread": "2.00,-2.00,1",
+            "HorizontalSpread": "-5.00,5.00,1",
             "RecoilPattern": {
               "Points": []
             },
             "ResetTime": 0.3,
             "Scale": "2,5",
             "UseRecoilPattern": false,
-            "VerticalSpread": "20.00,0.00,0"
+            "VerticalSpread": "10.00,0.00,0"
           },
           {
             "__type": "Facepunch.ScopeWeaponComponent",
@@ -182,6 +182,33 @@
               60
             ],
             "ZoomSound": "sounds/weapons/m700/m700_zoom.sound"
+          },
+          {
+            "__type": "Facepunch.ViewPunch",
+            "__guid": "7825e1e5-532d-4709-8785-8d823e6a7c94",
+            "AnglesOffset": "-15,7,-2",
+            "Curve": [
+              {
+                "mode": "Split"
+              },
+              {
+                "x": 0.15,
+                "y": 1,
+                "in": 1.7971016,
+                "out": -1.7971016
+              },
+              {
+                "x": 1
+              }
+            ],
+            "Lifetime": 1,
+            "PositionOffset": "1,0.4,1.5"
+          },
+          {
+            "__type": "Facepunch.ScreenShakeOnShot",
+            "__guid": "6f389bf6-cb11-49d5-90cc-79434694b106",
+            "Length": 0.8,
+            "Size": 5
           }
         ]
       }
