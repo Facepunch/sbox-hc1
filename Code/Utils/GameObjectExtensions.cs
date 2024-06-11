@@ -26,11 +26,7 @@ public static partial class GameObjectExtensions
 	public static void CopyPropertiesTo( this Component src, Component dst )
 	{
 		var json = src.Serialize().AsObject();
-
 		json.Remove( "__guid" );
-
-		Log.Info( json );
-
 		dst.DeserializeImmediately( json );
 	}
 
