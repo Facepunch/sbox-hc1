@@ -459,6 +459,7 @@ public partial class PlayerController
 	/// Get the current friction.
 	/// </summary>
 	/// <returns></returns>
+	// TODO: expose to global
 	private float GetFriction()
 	{
 		if ( !IsGrounded ) return 0.1f;
@@ -474,11 +475,13 @@ public partial class PlayerController
 		if ( !IsGrounded ) CharacterController.Acceleration = global.AirAcceleration;
 		else if ( IsSlowWalking ) CharacterController.Acceleration = global.SlowWalkAcceleration;
 		else if ( IsCrouching ) CharacterController.Acceleration = global.CrouchingAcceleration;
+		// TODO: expose to global
 		else if ( IsSprinting ) CharacterController.Acceleration = 7f;
 		else
 			CharacterController.Acceleration = global.BaseAcceleration;
 	}
 
+	// TODO: expose to global
 	float GetEyeHeightOffset()
 	{
 		if ( IsCrouching ) return -32f;
@@ -499,9 +502,11 @@ public partial class PlayerController
 		return WalkSpeed - GetSpeedPenalty();
 	}
 
+	// TODO: expose to global
 	private float GetWishSpeed()
 	{
 		if ( IsSlowWalking ) return 100f;
+		if ( CurrentWeapon?.Tags.Has( "aiming" ) ?? false ) return 100f;
 		if ( IsCrouching ) return 100f;
 		if ( IsSprinting ) return 300f - ( GetSpeedPenalty() * 0.5f );
 		return GetWalkSpeed();
