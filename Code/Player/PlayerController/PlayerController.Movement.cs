@@ -32,6 +32,7 @@ public partial class PlayerController
 	[Property, Group( "Friction" )] public float CrouchingFriction { get; set; } = 4.0f;
 
 	[Property, Group( "Fall Damage" )] public float MinimumFallVelocity { get; set; } = 500f;
+	[Property, Group( "Fall Damage" )] public float MinimumFallSoundVelocity { get; set; } = 300f;
 	[Property, Group( "Fall Damage" )] public float FallDamageScale { get; set; } = 0.2f;
 
 	/// <summary>
@@ -370,6 +371,11 @@ public partial class PlayerController
 			var minimumVelocity = MinimumFallVelocity;
 			var vel = MathF.Abs( _previousVelocity.z );
 
+			if ( vel > MinimumFallSoundVelocity )
+			{
+				var handle = Sound.Play( "player.heavy_land.gear", Transform.Position );
+				handle.ListenLocal = IsViewer;
+			}
 			if ( vel > minimumVelocity )
 			{
 				var velPastAmount = vel - minimumVelocity;

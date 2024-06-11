@@ -10,6 +10,7 @@ public sealed class PlayerFootsteps : Component
 
 	[Property] public float FootstepBaseDecibels { get; set; } = 70f;
 	[Property] public float FootstepScale { get; set; } = 1f;
+	[Property] public SoundEvent SprintFootstep { get; set; }
 
 	protected override void OnEnabled()
 	{
@@ -56,9 +57,20 @@ public sealed class PlayerFootsteps : Component
 		var sound = e.FootId == 0 ? tr.Surface.Sounds.FootLeft : tr.Surface.Sounds.FootRight;
 		if ( sound is null ) return;
 
-		var handle = Sound.Play( sound, tr.HitPosition + tr.Normal * 5 );
-		handle.Volume *= e.Volume;
-		handle.Occlusion = false;
-		handle.Decibels = FootstepBaseDecibels * FootstepScale;
+		if ( !Player.IsSprinting )
+		{
+			var handle = Sound.Play( sound, tr.HitPosition + tr.Normal * 5 );
+			handle.Volume *= e.Volume;
+			handle.Occlusion = false;
+			handle.Decibels = FootstepBaseDecibels * FootstepScale;
+			handle.ListenLocal = Player.IsViewer;
+		}
+		else
+		{
+			var handle = Sound.Play( SprintFootstep, Player.Transform.Position );
+			handle.Occlusion = false;
+			handle.Decibels = FootstepBaseDecibels * FootstepScale;
+			handle.ListenLocal = Player.IsViewer;
+		}
 	}
 }
