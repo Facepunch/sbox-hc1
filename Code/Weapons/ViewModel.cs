@@ -44,6 +44,21 @@ public partial class ViewModel : Component, IWeapon
 	/// </summary>
 	public CameraComponent ViewModelCamera { get; set; }
 
+	IEnumerable<IViewModelOffset> Offsets => Weapon.Components.GetAll<IViewModelOffset>( FindMode.EverythingInSelfAndDescendants );
+
+	/// <summary>
+	/// Does this viewmodel have any offests for aiming?
+	/// </summary>
+	bool HasAimOffset => Offsets.Count() > 0;
+
+	/// <summary>
+	/// The ironsights parameter, which could be different based on if we have any aim offsets.
+	/// </summary>
+	int Ironsights
+	{
+		get => HasAimOffset ? 1 : 2;
+	}
+
 	protected override void OnStart()
 	{
 		if ( IsThrowable )
@@ -73,6 +88,16 @@ public partial class ViewModel : Component, IWeapon
 
 		camera.Transform.LocalPosition += bone.Position * scale;
 		camera.Transform.LocalRotation *= bone.Rotation * scale;
+	}
+
+	void ApplyOffsets()
+	{
+		foreach ( var offset in Offsets )
+		{
+			// Log.Info( $"Offsetting by {offset.PositionOffset}" );
+			localPosition += offset.PositionOffset;
+			localRotation *= offset.AngleOffset.ToRotation();
+		}
 	}
 
 	void ApplyInertia()
@@ -138,7 +163,7 @@ public partial class ViewModel : Component, IWeapon
 		ModelRenderer.Set( "b_grounded", PlayerController.IsGrounded );
 
 		// Ironsights
-		ModelRenderer.Set( "ironsights", Weapon.Tags.Has( "aiming" ) ? 2 : 0 );
+		ModelRenderer.Set( "ironsights", Weapon.Tags.Has( "aiming" ) ? Ironsights : 0 );
 		ModelRenderer.Set( "ironsights_fire_scale", Weapon.Tags.Has( "aiming" ) ? 0.2f : 0f );
 
 		// Handedness
@@ -188,6 +213,7 @@ public partial class ViewModel : Component, IWeapon
 		ApplyVelocity();
 		ApplyAnimationTransform();
 		ApplyInertia();
+		ApplyOffsets();
 
 		var baseFov = GameSettingsSystem.Current.FieldOfView;
 

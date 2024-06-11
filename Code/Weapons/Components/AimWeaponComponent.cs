@@ -1,15 +1,20 @@
 namespace Facepunch;
 
-public partial class AimWeaponFunction : InputWeaponComponent
+public partial class AimWeaponComponent : InputWeaponComponent
 {
 	[Sync] public bool IsAiming { get; set; }
 
-	[Property] public Vector3 AimOffset { get; set; }
-	[Property] public Angles AimAngles { get; set; }
+	public virtual bool IsWeaponAiming()
+	{
+		return IsDown();
+		// For testing, can toggle this 
+		// return true;
+	}
+
 
 	protected override void OnEnabled()
 	{
-		BindTag( "aiming", () => IsAiming );
+		BindTag( "aiming", () => IsWeaponAiming() );
 	}
 
 	protected virtual bool CanAim()
@@ -31,6 +36,6 @@ public partial class AimWeaponFunction : InputWeaponComponent
 			return;
 		}
 
-		IsAiming = IsDown();
+		IsAiming = IsWeaponAiming();
 	}
 }

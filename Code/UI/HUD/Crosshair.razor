@@ -148,6 +148,9 @@
             Dot.Style.BackgroundColor = GameSettingsSystem.Current.CrosshairColor;
     }
 
+    [ConVar( "hc1_crosshair_override" )]
+    public static bool CrosshairOverride { get; set; } = false;
+
     public override void Tick()
     {
         var player = Player;
@@ -155,7 +158,7 @@
         bool visible = player.IsValid() && player.HealthComponent.State == LifeState.Alive;
 
         if ( Weapon.IsValid() && Weapon.Tags.Has( "aiming" ) )
-            visible = false;
+            visible = CrosshairOverride;
 
         SetClass( "visible", visible );
 
