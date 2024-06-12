@@ -104,14 +104,12 @@ public sealed class CameraController : Component, IDamageListener
 				Player.EyeAngles.ToRotation(), Time.Delta / Scene.NetworkRate );
 		}
 
-		Boom.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
-
 		if ( ShouldViewBob )
 		{
 			ViewBob();
 		}
 
-		Update();
+		Update( eyeHeight );
 	}
 
 	float walkBob = 0;
@@ -150,7 +148,7 @@ public sealed class CameraController : Component, IDamageListener
 		base.OnStart();
 	}
 
-	protected void Update()
+	protected void Update( float eyeHeight )
 	{
 		var baseFov = GameSettingsSystem.Current.FieldOfView;
 		FieldOfViewOffset = 0;
@@ -176,7 +174,8 @@ public sealed class CameraController : Component, IDamageListener
 		}
 		else
 		{
-			Camera.Transform.LocalPosition = Vector3.Backward * 0f;
+			Camera.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
+			// Camera.Transform.LocalPosition = Vector3.Backward * 0f;
 		}
 
 		ApplyCameraEffects();
