@@ -7,8 +7,8 @@ namespace Facepunch.UI;
 /// </summary>
 public sealed class PlayerScore : Component,
 	IGameEventHandler<KillEvent>,
-	IBombDefusedListener,
-	IBombDetonatedListener,
+	IGameEventHandler<BombDefusedEvent>,
+	IGameEventHandler<BombDetonatedEvent>,
 	IGameEventHandler<BombPlantedEvent>
 {
 	[HostSync, Property, ReadOnly] 
@@ -100,10 +100,10 @@ public sealed class PlayerScore : Component,
 		}
 	}
 
-	public void OnBombDefused( PlayerController defuser, GameObject bomb, BombSite bombSite )
+	void IGameEventHandler<BombDefusedEvent>.OnGameEvent( BombDefusedEvent eventArgs )
 	{
 		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
-		var defuserPlayer = GameUtils.GetPlayerFromComponent( defuser );
+		var defuserPlayer = eventArgs.Defuser;
 
 		if ( defuserPlayer == thisPlayer )
 		{
@@ -120,7 +120,7 @@ public sealed class PlayerScore : Component,
 		}
 	}
 
-	public void OnBombDetonated( GameObject bomb, BombSite bombSite )
+	void IGameEventHandler<BombDetonatedEvent>.OnGameEvent( BombDetonatedEvent eventArgs )
 	{
 		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
 

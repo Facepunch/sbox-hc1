@@ -1,4 +1,5 @@
 using Sandbox.Diagnostics;
+using Sandbox.Events;
 
 namespace Facepunch;
 
@@ -322,10 +323,7 @@ public partial class PlayerInventory : Component
 
 		if ( weaponComponent.Resource.Slot == WeaponSlot.Special )
 		{
-			foreach ( var listener in Game.ActiveScene.GetAllComponents<IBombDroppedListener>() )
-			{
-				listener.OnBombPickedUp();
-			}
+			Scene.Dispatch( new BombPickedUpEvent() );
 		}
 
 		return weaponComponent;

@@ -4,10 +4,11 @@ using Sandbox.Events;
 public sealed class BombDefusalScenario : Component,
 	IGameEventHandler<PostGameStartEvent>,
 	IGameEventHandler<PostRoundStartEvent>,
-	IBombDroppedListener,
+	IGameEventHandler<BombDroppedEvent>,
+	IGameEventHandler<BombPickedUpEvent>,
 	IGameEventHandler<BombPlantedEvent>,
-	IBombDetonatedListener,
-	IBombDefusedListener,
+	IGameEventHandler<BombDetonatedEvent>,
+	IGameEventHandler<BombDefusedEvent>,
 	IGameEventHandler<PreRoundEndEvent>,
 	IGameEventHandler<DuringRoundEvent>,
 	ITeamAssignedListener,
@@ -111,7 +112,8 @@ public sealed class BombDefusalScenario : Component,
 		GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "Defend" );
 	}
 
-	void IBombDroppedListener.OnBombDropped()
+
+	void IGameEventHandler<BombDroppedEvent>.OnGameEvent( BombDroppedEvent eventArgs )
 	{
 		if ( GameMode.Instance.State == GameState.DuringRound )
 		{
@@ -119,7 +121,7 @@ public sealed class BombDefusalScenario : Component,
 		}
 	}
 
-	void IBombDroppedListener.OnBombPickedUp()
+	void IGameEventHandler<BombPickedUpEvent>.OnGameEvent( BombPickedUpEvent eventArgs )
 	{
 		if ( GameMode.Instance.State == GameState.DuringRound )
 		{
@@ -147,16 +149,16 @@ public sealed class BombDefusalScenario : Component,
 		GameMode.Instance.HideTimer();
 	}
 
-	void IBombDetonatedListener.OnBombDetonated( GameObject bomb, BombSite bombSite )
+	void IGameEventHandler<BombDetonatedEvent>.OnGameEvent( BombDetonatedEvent eventArgs )
 	{
 		BombHasDetonated = true;
 	}
 
-	void IBombDefusedListener.OnBombDefused( PlayerController defuser, GameObject bomb, BombSite bombSite )
+	void IGameEventHandler<BombDefusedEvent>.OnGameEvent( BombDefusedEvent eventArgs )
 	{
 		BombWasDefused = true;
 
-		defuser?.Inventory.GiveCash( BombDefusedPlayerBonus );
+		eventArgs.Defuser?.Inventory.GiveCash( BombDefusedPlayerBonus );
 	}
 
 	void IGameEventHandler<PreRoundEndEvent>.OnGameEvent( PreRoundEndEvent eventArgs )

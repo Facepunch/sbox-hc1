@@ -9,7 +9,7 @@ namespace Facepunch;
 public partial class MusicManager : Component,
 	IGameEventHandler<PostRoundStartEvent>,
 	IGameEventHandler<BombPlantedEvent>,
-	IBombDefusedListener
+	IGameEventHandler<BombDefusedEvent>
 {
 	public static MusicManager Instance { get; private set; }
 
@@ -35,7 +35,7 @@ public partial class MusicManager : Component,
 
 	}
 
-	void IBombDefusedListener.OnBombDefused( PlayerController planter, GameObject bomb, BombSite bombSite )
+	void IGameEventHandler<BombDefusedEvent>.OnGameEvent( BombDefusedEvent eventArgs )
 	{
 
 	}

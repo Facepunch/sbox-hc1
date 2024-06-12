@@ -8,7 +8,7 @@ namespace Facepunch;
 public partial class RadioManager : Component,
 	IGameEventHandler<PostRoundStartEvent>,
 	IGameEventHandler<BombPlantedEvent>,
-	IBombDefusedListener,
+	IGameEventHandler<BombDefusedEvent>,
 	IGameEventHandler<KillEvent>
 {
 	public static RadioManager Instance { get; private set; }
@@ -33,7 +33,7 @@ public partial class RadioManager : Component,
 		RadioSounds.Play( Team.CounterTerrorist, RadioSound.BombPlanted );
 	}
 
-	void IBombDefusedListener.OnBombDefused( PlayerController planter, GameObject bomb, BombSite bombSite )
+	void IGameEventHandler<BombDefusedEvent>.OnGameEvent( BombDefusedEvent eventArgs )
 	{
 		RadioSounds.Play( Team.Terrorist, RadioSound.BombDefused );
 		RadioSounds.Play( Team.CounterTerrorist, RadioSound.BombDefused );

@@ -2,6 +2,7 @@
 using Facepunch;
 using Sandbox.Utility;
 using Sandbox;
+using Sandbox.Events;
 using DamageInfo = Facepunch.DamageInfo;
 
 public sealed class TimedExplosive : Component, IUse, IMinimapIcon
@@ -125,10 +126,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 
 		explosion.NetworkSpawn();
 
-		foreach ( var listener in Scene.GetAllComponents<IBombDetonatedListener>() )
-		{
-			listener.OnBombDetonated( GameObject, BombSite );
-		}
+		Scene.Dispatch( new BombDetonatedEvent( GameObject, BombSite ) );
 
 		if ( BombSite is not null )
 		{
@@ -201,10 +199,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 			IsDefused = true;
 			DefusingPlayer.IsFrozen = false;
 
-			foreach ( var listener in Scene.GetAllComponents<IBombDefusedListener>() )
-			{
-				listener.OnBombDefused( DefusingPlayer, GameObject, BombSite );
-			}
+			Scene.Dispatch( new BombDefusedEvent( DefusingPlayer, GameObject, BombSite ) );
 		}
 
 		Wires.Points[1] = null;

@@ -1,3 +1,5 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 public partial class DroppedWeapon : Component, IUse, Component.ICollisionListener
@@ -29,10 +31,7 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 
 		if ( resource.Slot == WeaponSlot.Special )
 		{
-			foreach ( var listener in Game.ActiveScene.GetAllComponents<IBombDroppedListener>() )
-			{
-				listener.OnBombDropped();
-			}
+			Game.ActiveScene.Dispatch( new BombDroppedEvent() );
 
 			Spottable spottable = go.Components.Get<Spottable>();
 			spottable.Team = Team.Terrorist;
