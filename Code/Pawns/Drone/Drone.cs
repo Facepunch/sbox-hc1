@@ -20,7 +20,7 @@ public partial class Drone : Component, IPawn
 
 	[RequireComponent] public DroneSounds DroneSounds { get; set; }
 
-	[Sync] public Angles EyeAngles { get; set; }
+	public Angles EyeAngles => Transform.Rotation.Angles();
 
 	/// <summary>
 	/// Is this player the currently possessed controller
