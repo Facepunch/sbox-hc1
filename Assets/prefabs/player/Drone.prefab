@@ -1,0 +1,182 @@
+{
+  "RootObject": {
+    "__guid": "d7e3a5b5-e9e0-4a9e-b42e-87df7e59991b",
+    "Flags": 0,
+    "Name": "drone",
+    "Tags": "noblockaudio",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.Drone",
+        "__guid": "8a194157-b852-4ddd-be48-c58c14931f47",
+        "Camera": {
+          "_type": "component",
+          "component_id": "852d06cc-7d1f-489e-83b9-82fc1e6e71b5",
+          "go": "8a503ece-5f41-4d8a-bb29-04a1f4e804b7",
+          "component_type": "DroneCamera"
+        },
+        "Model": {
+          "_type": "component",
+          "component_id": "d9d7105f-5147-4a07-87f2-ef20e48bddcf",
+          "go": "acbd53a6-325d-4471-a75a-02a57ea091cc",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "Rigidbody": {
+          "_type": "component",
+          "component_id": "bb946ee0-afb8-4c03-98da-7952742a6940",
+          "go": "d7e3a5b5-e9e0-4a9e-b42e-87df7e59991b",
+          "component_type": "Rigidbody"
+        },
+        "Turbines": [
+          {
+            "_type": "gameobject",
+            "go": "baf9ce54-3d23-4a1f-b5d8-2357cbca27c9"
+          },
+          {
+            "_type": "gameobject",
+            "go": "36733d62-84e4-4537-800f-b0219db945d2"
+          },
+          {
+            "_type": "gameobject",
+            "go": "ead219e3-7555-480b-a88b-06c1ce90f1a4"
+          },
+          {
+            "_type": "gameobject",
+            "go": "ebff2285-7b20-4b64-9e36-7f215c54f853"
+          }
+        ]
+      },
+      {
+        "__type": "Facepunch.DroneSounds",
+        "__guid": "b79d2800-95fd-4e11-987f-04e5d87dd3f5",
+        "Drone": {
+          "_type": "component",
+          "component_id": "8a194157-b852-4ddd-be48-c58c14931f47",
+          "go": "d7e3a5b5-e9e0-4a9e-b42e-87df7e59991b",
+          "component_type": "Drone"
+        },
+        "DroneSound": "sounds/vehicles/fpv_drone/drone_fly_loop.sound"
+      },
+      {
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "bb946ee0-afb8-4c03-98da-7952742a6940",
+        "AngularDamping": 0,
+        "Gravity": true,
+        "LinearDamping": 0,
+        "Locking": {},
+        "MassOverride": 0,
+        "MotionEnabled": true,
+        "RigidbodyFlags": 0,
+        "StartAsleep": false
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "8d833fa2-a74d-4565-be04-a4b0908f049a",
+        "Center": "0,0,0",
+        "IsTrigger": false,
+        "Scale": "40,40,10",
+        "Static": false
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "acbd53a6-325d-4471-a75a-02a57ea091cc",
+        "Flags": 0,
+        "Name": "Model",
+        "Scale": "0.4,0.4,0.4",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "d9d7105f-5147-4a07-87f2-ef20e48bddcf",
+            "BodyGroups": 18446744073709551615,
+            "CreateBoneObjects": true,
+            "Model": "entities/drone/drone.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "baf9ce54-3d23-4a1f-b5d8-2357cbca27c9",
+            "Flags": 1028,
+            "Name": "turbine_a",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "36733d62-84e4-4537-800f-b0219db945d2",
+            "Flags": 1028,
+            "Name": "turbine_b",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "ead219e3-7555-480b-a88b-06c1ce90f1a4",
+            "Flags": 1028,
+            "Name": "turbine_c",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "ebff2285-7b20-4b64-9e36-7f215c54f853",
+            "Flags": 1028,
+            "Name": "turbine_d",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          }
+        ]
+      },
+      {
+        "__guid": "8a503ece-5f41-4d8a-bb29-04a1f4e804b7",
+        "Flags": 0,
+        "Name": "Camera",
+        "Position": "13.1521,0,3.183319",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.DroneCamera",
+            "__guid": "852d06cc-7d1f-489e-83b9-82fc1e6e71b5"
+          },
+          {
+            "__type": "Sandbox.CameraComponent",
+            "__guid": "f4507cdc-59f5-4bde-91d7-03dba75ddd3e",
+            "BackgroundColor": "0.33333,0.46275,0.52157,1",
+            "ClearFlags": "All",
+            "FieldOfView": 60,
+            "IsMainCamera": true,
+            "Orthographic": false,
+            "OrthographicHeight": 1204,
+            "Priority": 1,
+            "RenderExcludeTags": "",
+            "RenderTags": "",
+            "TargetEye": "None",
+            "Viewport": "0,0,1,1",
+            "ZFar": 10000,
+            "ZNear": 10
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "rust.drone"
+  ],
+  "__version": 1
+}
