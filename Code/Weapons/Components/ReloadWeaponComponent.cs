@@ -40,6 +40,11 @@ public partial class ReloadWeaponComponent : InputWeaponComponent, Weapon.IDeplo
 	{
 		if ( IsProxy ) return;
 
+		if ( SingleReload && IsReloading && Input.Pressed( "Attack1" ) )
+		{
+			_queueCancel = true;
+		}
+
 		if ( IsReloading && TimeUntilReload )
 		{
 			EndReload();
@@ -71,6 +76,8 @@ public partial class ReloadWeaponComponent : InputWeaponComponent, Weapon.IDeplo
 		if ( !AmmoComponent.HasAmmo ) return EmptyReloadSounds;
 		return TimedReloadSounds;
 	}
+
+	bool _queueCancel = false;
 
 	[Broadcast( NetPermission.OwnerOnly )]
 	void StartReload()
@@ -114,7 +121,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent, Weapon.IDeplo
 				AmmoComponent.Ammo = AmmoComponent.Ammo.Clamp( 0, AmmoComponent.MaxAmmo );
 
 				// Reload more!
-				if ( AmmoComponent.Ammo < AmmoComponent.MaxAmmo )
+				if ( !_queueCancel && AmmoComponent.Ammo < AmmoComponent.MaxAmmo )
 					StartReload();
 				else
 					IsReloading = false;
