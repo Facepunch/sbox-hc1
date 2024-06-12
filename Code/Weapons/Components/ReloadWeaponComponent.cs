@@ -82,6 +82,8 @@ public partial class ReloadWeaponComponent : InputWeaponComponent, Weapon.IDeplo
 	[Broadcast( NetPermission.OwnerOnly )]
 	void StartReload()
 	{
+		_queueCancel = false;
+
 		if ( !IsProxy )
 		{
 			IsReloading = true;
