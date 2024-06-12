@@ -19,18 +19,6 @@ public partial class PlayerController
 	/// </summary>
 	[Property, Group( "Config" )] public float Height { get; set; } = 64f;
 
-	/// <summary>
-	/// How quickly does the player move by default?
-	/// </summary>
-	[Property, Group( "Config" )] public float WalkSpeed { get; set; } = 125f;
-
-	/// <summary>
-	/// How much friction does the player have?
-	/// </summary>
-	[Property, Group( "Friction" )] public float BaseFriction { get; set; } = 4.0f;
-	[Property, Group( "Friction" )] public float SlowWalkFriction { get; set; } = 4.0f;
-	[Property, Group( "Friction" )] public float CrouchingFriction { get; set; } = 4.0f;
-
 	[Property, Group( "Fall Damage" )] public float MinimumFallVelocity { get; set; } = 500f;
 	[Property, Group( "Fall Damage" )] public float MinimumFallSoundVelocity { get; set; } = 300f;
 	[Property, Group( "Fall Damage" )] public float FallDamageScale { get; set; } = 0.2f;
@@ -41,6 +29,8 @@ public partial class PlayerController
 	/// Noclip movement speed
 	/// </summary>
 	[Property] public float NoclipSpeed { get; set; } = 1000f;
+
+	public PlayerGlobals Global => GetGlobal<PlayerGlobals>();
 
 	/// <summary>
 	/// Look direction of this player. Smoothly interpolated for networked players.
@@ -210,9 +200,8 @@ public partial class PlayerController
 
 	private float GetMaxAcceleration()
 	{
-		var global = GetGlobal<PlayerGlobals>();
-		if ( !IsGrounded ) return global.AirMaxAcceleration;
-		return global.MaxAcceleration;
+		if ( !IsGrounded ) return Global.AirMaxAcceleration;
+		return Global.MaxAcceleration;
 	}
 
 	private void ApplyMovement()
@@ -221,7 +210,7 @@ public partial class PlayerController
 
 		CheckLadder();
 
-		var gravity = GetGlobal<PlayerGlobals>().Gravity;
+		var gravity = Global.Gravity;
 
 		if ( _isTouchingLadder )
 		{
@@ -271,9 +260,9 @@ public partial class PlayerController
 	private float CrouchLerpSpeed()
 	{
 		if ( TimeSinceCrouchPressed < 1f && TimeSinceCrouchReleased < 1f )
-			return 0.5f;
+			return Global.SlowCrouchLerpSpeed;
 
-		return 10f;
+		return Global.CrouchLerpSpeed;
 	}
 
     private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking && WishMove.x > 0.2f;
@@ -326,10 +315,10 @@ public partial class PlayerController
 
 		if ( CharacterController.IsOnGround && !IsFrozen && !InMenu )
 		{
-			var bhop = GetGlobal<PlayerGlobals>().BunnyHopping;
+			var bhop = Global.BunnyHopping;
 			if ( bhop ? Input.Down( "Jump" ) : Input.Pressed( "Jump" ) )
 			{
-				CharacterController.Punch( Vector3.Up * GetGlobal<PlayerGlobals>().JumpPower * 1f );
+				CharacterController.Punch( Vector3.Up * Global.JumpPower * 1f );
 				BroadcastPlayerJumped();
 			}
 		}
@@ -384,7 +373,7 @@ public partial class PlayerController
 			_jumpPosition = Transform.Position;
 		}
 
-		if ( !wasOnGround && isOnGround && GetGlobal<PlayerGlobals>().EnableFallDamage && !IsNoclipping )
+		if ( !wasOnGround && isOnGround && Global.EnableFallDamage && !IsNoclipping )
 		{
 			var minimumVelocity = MinimumFallVelocity;
 			var vel = MathF.Abs( _previousVelocity.z );
@@ -511,22 +500,20 @@ public partial class PlayerController
 	private float GetFriction()
 	{
 		if ( !IsGrounded ) return 0.1f;
-		if ( IsSlowWalking ) return SlowWalkFriction;
-		if ( IsCrouching ) return CrouchingFriction;
-		return BaseFriction;
+		if ( IsSlowWalking ) return Global.SlowWalkFriction;
+		if ( IsCrouching ) return Global.CrouchingFriction;
+		if ( IsSprinting ) return Global.SprintingFriction;
+		return Global.WalkFriction;
 	}
 
 	private void ApplyAcceleration()
 	{
-		var global = GetGlobal<PlayerGlobals>();
-
-		if ( !IsGrounded ) CharacterController.Acceleration = global.AirAcceleration;
-		else if ( IsSlowWalking ) CharacterController.Acceleration = global.SlowWalkAcceleration;
-		else if ( IsCrouching ) CharacterController.Acceleration = global.CrouchingAcceleration;
-		// TODO: expose to global
-		else if ( IsSprinting ) CharacterController.Acceleration = 7f;
+		if ( !IsGrounded ) CharacterController.Acceleration = Global.AirAcceleration;
+		else if ( IsSlowWalking ) CharacterController.Acceleration = Global.SlowWalkAcceleration;
+		else if ( IsCrouching ) CharacterController.Acceleration = Global.CrouchingAcceleration;
+		else if ( IsSprinting ) CharacterController.Acceleration = Global.SprintingAcceleration;
 		else
-			CharacterController.Acceleration = global.BaseAcceleration;
+			CharacterController.Acceleration = Global.BaseAcceleration;
 	}
 
 	// TODO: expose to global
@@ -544,25 +531,17 @@ public partial class PlayerController
 		return wpn.SpeedPenalty;
 	}
 
-	private float GetWalkSpeed()
-	{
-		var spd = WalkSpeed;
-		return WalkSpeed - GetSpeedPenalty();
-	}
-
-	// TODO: expose to global
 	private float GetWishSpeed()
 	{
-		if ( IsSlowWalking ) return 100f;
-		if ( IsCrouching ) return 100f;
-		if ( IsSprinting ) return 300f - ( GetSpeedPenalty() * 0.5f );
-		return GetWalkSpeed();
+		if ( IsSlowWalking ) return Global.SlowWalkSpeed;
+		if ( IsCrouching ) return Global.CrouchingSpeed;
+		if ( IsSprinting ) return Global.SprintingSpeed - ( GetSpeedPenalty() * 0.5f );
+		return Global.WalkSpeed - GetSpeedPenalty();
 	}
 
 	private void DebugUpdate()
 	{
 		DebugText.Update();
-
 		DebugText.Write( $"Player", Color.White, 20 );
 		DebugText.Write( $"Velocity: {CharacterController.Velocity}" );
 		DebugText.Write( $"Speed: {CharacterController.Velocity.Length}" );

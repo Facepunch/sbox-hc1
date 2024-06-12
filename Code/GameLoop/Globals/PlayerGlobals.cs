@@ -90,9 +90,28 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEven
 	[Property, Group( "Movement" )] public float BaseAcceleration { get; set; } = 8f;
 	[Property, Group( "Movement" )] public float SlowWalkAcceleration { get; set; } = 10;
 	[Property, Group( "Movement" )] public float CrouchingAcceleration { get; set; } = 10;
+	[Property, Group( "Movement" )] public float SprintingAcceleration { get; set; } = 7f;
 
+	// Acceleration
 	[Property, Group( "Movement" )] public float MaxAcceleration { get; set; } = 40f;
 	[Property, Group( "Movement" )] public float AirMaxAcceleration { get; set; } = 80f;
+
+	// Speed
+	[Property, Group( "Movement" )] public float WalkSpeed { get; set; } = 260f;
+	[Property, Group( "Movement" )] public float SlowWalkSpeed { get; set; } = 100f;
+	[Property, Group( "Movement" )] public float CrouchingSpeed { get; set; } = 100f;
+	[Property, Group( "Movement" )] public float SprintingSpeed { get; set; } = 300f;
+
+	// Friction
+	[Property, Group( "Movement" )] public float WalkFriction { get; set; } = 4f;
+	[Property, Group( "Movement" )] public float SlowWalkFriction { get; set; } = 4f;
+	[Property, Group( "Movement" )] public float CrouchingFriction { get; set; } = 4f;
+	[Property, Group( "Movement" )] public float SprintingFriction { get; set; } = 8f;
+
+
+	// Crouch
+	[Property, Group( "Movement" )] public float CrouchLerpSpeed { get; set; } = 10f;
+	[Property, Group( "Movement" )] public float SlowCrouchLerpSpeed { get; set; } = 0.5f;
 
 	/// <summary>
 	/// Apply armor and helmet damage modifications.
