@@ -100,15 +100,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		Camera.Transform.LocalPosition = Vector3.Zero;
 		Camera.Transform.LocalRotation = Rotation.Identity;
 
-		if ( Player.IsLocallyControlled )
-		{
-			Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
-		}
-		else
-		{
-			Boom.Transform.Rotation = Rotation.Lerp( Boom.Transform.Rotation,
-				Player.EyeAngles.ToRotation(), Time.Delta / Scene.NetworkRate );
-		}
+		Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
 
 		if ( MaxBoomLength > 0 )
 		{

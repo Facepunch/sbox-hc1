@@ -43,9 +43,19 @@ public partial class PlayerController
 	[Property] public float NoclipSpeed { get; set; } = 1000f;
 
 	/// <summary>
-	/// Where are we looking?
+	/// Look direction of this player. Smoothly interpolated for networked players.
 	/// </summary>
-	[Sync] public Angles EyeAngles { get; set; }
+	public Angles EyeAngles
+	{
+		get => _smoothEyeAngles;
+		set 
+		{
+			if (!IsProxy) _smoothEyeAngles = value;
+			_rawEyeAngles = value;
+		}
+	}
+	[Sync] private Angles _rawEyeAngles { get; set; }
+	private Angles _smoothEyeAngles;
 
 	/// <summary>
 	/// Is the player crouching?
@@ -148,6 +158,11 @@ public partial class PlayerController
 		var cc = CharacterController;
 		CurrentHoldType = CurrentWeapon.IsValid() ? CurrentWeapon.GetHoldType() : AnimationHelper.HoldTypes.None;
 
+		if ( !IsLocallyControlled ) 
+		{
+			_smoothEyeAngles = Angles.Lerp( _smoothEyeAngles, _rawEyeAngles, Time.Delta / Scene.NetworkRate );
+		}
+
 		// Eye input
 		if ( (this as IPawn).IsPossessed && cc.IsValid() )
 		{
@@ -164,14 +179,9 @@ public partial class PlayerController
 			CameraController.SetActive( false );
 		}
 
-		var rotateDifference = 0f;
-
 		if ( Body.IsValid() )
 		{
-			var targetAngle = new Angles( 0, EyeAngles.yaw, 0 ).ToRotation();
-			rotateDifference = Body.Transform.Rotation.Distance( targetAngle );
-
-			Body.Transform.Rotation = Rotation.Lerp( Body.Transform.Rotation, targetAngle, Time.Delta * 50.0f );
+			Body.Transform.Rotation = Rotation.FromYaw( EyeAngles.yaw );
 		}
 
 		var wasGrounded = IsGrounded;
