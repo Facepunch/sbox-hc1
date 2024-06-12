@@ -1,6 +1,8 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
-public partial class EquippmentDropper : Component, IKillListener
+public partial class EquippmentDropper : Component, IGameEventHandler<KillEvent>
 {
 	[RequireComponent] DefaultEquipment DefaultEquipment { get; set; }
 
@@ -20,9 +22,9 @@ public partial class EquippmentDropper : Component, IKillListener
 		return true;
 	}
 
-	void IKillListener.OnPlayerKilled( DamageEvent damageEvent )
+	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
 	{
-		var player = GameUtils.GetPlayerFromComponent( damageEvent.Victim );
+		var player = GameUtils.GetPlayerFromComponent( eventArgs.DamageInfo.Victim );
 		if ( !player.IsValid() )
 			return;
 

@@ -1,3 +1,5 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 /// <summary>
@@ -7,7 +9,7 @@ public partial class RadioManager : Component,
 	IRoundStartListener, 
 	IBombPlantedListener, 
 	IBombDefusedListener,
-	IKillListener
+	IGameEventHandler<KillEvent>
 {
 	public static RadioManager Instance { get; private set; }
 
@@ -42,9 +44,10 @@ public partial class RadioManager : Component,
 		return GameUtils.GetPlayers( team ).Where( x => x.HealthComponent.State == LifeState.Alive ).Count();
 	}
 
-	void IKillListener.OnPlayerKilled( DamageEvent damageEvent )
+	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
 	{
-		var victimTeam = damageEvent.Victim.GameObject.GetTeam();
+		var damageInfo = eventArgs.DamageInfo;
+		var victimTeam = damageInfo.Victim.GameObject.GetTeam();
 
 		if ( PlayDeathSounds )
 			RadioSounds.Play( victimTeam, RadioSound.TeammateDies );
@@ -52,7 +55,7 @@ public partial class RadioManager : Component,
 		if ( !PlayEnemyLeftSounds )
 			return;
 
-		if ( damageEvent.Attacker.IsValid() )
+		if ( damageInfo.Attacker.IsValid() )
 		{
 			if ( GetAliveCount( victimTeam ) == 2 )
 			{

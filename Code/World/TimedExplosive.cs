@@ -2,6 +2,7 @@
 using Facepunch;
 using Sandbox.Utility;
 using Sandbox;
+using DamageInfo = Facepunch.DamageInfo;
 
 public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 {
@@ -143,7 +144,9 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 					continue;
 				}
 
-				health.TakeDamage( damage, Transform.Position, diff.Normal * damage * 100f, Guid.Empty, Id );
+				health.TakeDamage( new DamageInfo( null, damage, this,
+					Transform.Position, diff.Normal * damage * 100f,
+					HitboxTags.UpperBody, DamageFlags.Explosion ) );
 			}
 		}
 

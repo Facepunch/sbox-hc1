@@ -243,21 +243,28 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 				var damage = CalculateDamageFalloff( BaseDamage, tr.Distance );
 
-				var hitbox = "";
-				if ( tr.Hitbox is not null )
+				// Inflict damage on whatever we find.
+
+				using ( Rpc.FilterInclude( Connection.Host ) )
 				{
-					hitbox = string.Join( " ", tr.Hitbox.Tags.TryGetAll() );
+					InflictDamage( tr.GameObject!.Id, damage, tr.EndPosition, tr.Direction, tr.GetHitboxTags() );
 				}
 
-				// Inflict damage on whatever we find.
-				//tr.GameObject.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, hitbox );
-				tr.GameObject.TakeDamage( DamageEvent.From( Weapon.PlayerController, damage, Weapon, tr.EndPosition, tr.Direction * tr.Distance, hitbox ) );
 				count++;
 			}
 		}
 
 		// If we have a recoil function, let it know.
 		Weapon.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants )?.Shoot();
+	}
+
+	[Broadcast]
+	private void InflictDamage( Guid targetObjectId, float damage, Vector3 pos, Vector3 dir, HitboxTags hitbox )
+	{
+		var target = Scene.Directory.FindByGuid( targetObjectId );
+
+		// target?.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, hitbox );
+		target?.TakeDamage( new DamageInfo( Weapon.PlayerController, damage, Weapon, pos, dir * damage, hitbox ) );
 	}
 
 	private float CalculateDamageFalloff( float damage, float distance )

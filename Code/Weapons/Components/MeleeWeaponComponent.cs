@@ -93,15 +93,23 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 			DoEffects();
 			CreateImpactEffects( tr.GameObject, tr.Surface, tr.EndPosition, tr.Normal );
 
-			var hitbox = "";
-			if ( tr.Hitbox is not null )
-			{
-				hitbox = string.Join( " ", tr.Hitbox.Tags.TryGetAll() );
-			}
-
 			// Inflict damage on whatever we find.
-			tr.GameObject.TakeDamage( DamageEvent.From( Weapon.PlayerController, BaseDamage, Weapon, tr.EndPosition, tr.Direction * tr.Distance, hitbox, "melee" ) );
+
+			using ( Rpc.FilterInclude( Connection.Host ) )
+			{
+				InflictKnifeDamage( tr.GameObject.Id, tr.EndPosition, tr.Direction );
+			}
 		}
+	}
+
+	[Broadcast]
+	private void InflictKnifeDamage( Guid targetObjectId, Vector3 pos, Vector3 dir )
+	{
+		var obj = Scene.Directory.FindByGuid( targetObjectId );
+
+		// TODO: backstab detection
+
+		obj?.TakeDamage( new DamageInfo( Weapon.PlayerController, BaseDamage, Weapon, pos, dir * 64f, HitboxTags.UpperBody, DamageFlags.Melee ) );
 	}
 
 	protected virtual Ray WeaponRay => Weapon.PlayerController.AimRay;

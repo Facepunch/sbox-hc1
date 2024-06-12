@@ -1,5 +1,6 @@
 using Facepunch.UI;
 using Sandbox;
+using Sandbox.Events;
 
 namespace Facepunch;
 
@@ -9,7 +10,7 @@ public enum CameraMode
 	ThirdPerson
 }
 
-public sealed class CameraController : Component, IDamageListener
+public sealed class CameraController : Component, IGameEventHandler<DamageTakenEvent>
 {
 	/// <summary>
 	/// A reference to the camera component we're going to be doing stuff with.
@@ -186,13 +187,9 @@ public sealed class CameraController : Component, IDamageListener
 	}
 	RealTimeSince TimeSinceDamageTaken = 1;
 
-	void IDamageListener.OnDamageTaken( DamageEvent damageEvent )
+	void IGameEventHandler<DamageTakenEvent>.OnGameEvent( DamageTakenEvent eventArgs )
 	{
 		TimeSinceDamageTaken = 0;
-	}
-
-	void IDamageListener.OnDamageGiven( DamageEvent damageEvent )
-	{
 	}
 
 	void ApplyCameraEffects()

@@ -1,32 +1,36 @@
 using Facepunch.UI;
+using Sandbox.Events;
 
 namespace Facepunch;
 
-public partial class PlayerController
+public partial class PlayerController : IGameEventHandler<DamageGivenEvent>, IGameEventHandler<DamageTakenEvent>
 {
 	/// <summary>
 	/// Called when YOU inflict damage on something
 	/// </summary>
-	void IDamageListener.OnDamageGiven( DamageEvent damageEvent )
+	void IGameEventHandler<DamageGivenEvent>.OnGameEvent( DamageGivenEvent eventArgs )
 	{
 		// Did we cause this damage?
 		if ( IsViewer )
 		{
-			Crosshair.Instance?.Trigger( damageEvent );
+			Crosshair.Instance?.Trigger( eventArgs.DamageInfo );
 		}
 	}
 
 	/// <summary>
 	/// Called when YOU take damage from something
 	/// </summary>
-	void IDamageListener.OnDamageTaken( DamageEvent damageEvent )
+	void IGameEventHandler<DamageTakenEvent>.OnGameEvent( DamageTakenEvent eventArgs )
 	{
-		AnimationHelper.ProceduralHitReaction( damageEvent.Damage / 100f, damageEvent.Force );
+		var damageInfo = eventArgs.DamageInfo;
 
-		if ( !damageEvent.Attacker.IsValid() ) 
+		var position = damageInfo.Attacker?.Transform.Position ?? Vector3.Zero;
+		var force = damageInfo.Force.IsNearZeroLength ? Random.Shared.VectorInSphere() : damageInfo.Force;
+
+		AnimationHelper.ProceduralHitReaction( damageInfo.Damage / 100f, force );
+
+		if ( !damageInfo.Attacker.IsValid() ) 
 			return;
-
-		var position = damageEvent.Position;
 
 		// Is this the local player?
 		if ( IsViewer )
@@ -35,20 +39,18 @@ public partial class PlayerController
 		}
 
 		Body.DamageTakenPosition = position;
-		Body.DamageTakenForce = damageEvent.Force.Normal * damageEvent.Damage * Game.Random.Float( 5f, 20f );
+		Body.DamageTakenForce = force.Normal * damageInfo.Damage * Game.Random.Float( 5f, 20f );
 
 		// Headshot effects
-		if ( damageEvent.Hitboxes.Contains( "head" ) )
+		if ( damageInfo.Hitbox.HasFlag( HitboxTags.Head ) )
 		{
-			var hasHelmet = HealthComponent.HasHelmet;
-
 			// Non-local viewer
 			if ( !IsViewer )
 			{
-				var go = hasHelmet ? HeadshotWithHelmetEffect?.Clone( position ) : HeadshotEffect?.Clone( position );
+				var go = damageInfo.HasHelmet ? HeadshotWithHelmetEffect?.Clone( position ) : HeadshotEffect?.Clone( position );
 			}
 
-			var headshotSound = hasHelmet ? HeadshotWithHelmetSound : HeadshotSound;
+			var headshotSound = damageInfo.HasHelmet ? HeadshotWithHelmetSound : HeadshotSound;
 			if ( headshotSound is not null )
 			{
 				Sound.Play( headshotSound, position );

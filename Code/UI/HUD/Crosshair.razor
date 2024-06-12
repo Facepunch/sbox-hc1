@@ -65,15 +65,15 @@
     // 10px base size
     float BaseElementSize => GameSettingsSystem.Current.CrosshairLength;
 
-    public void Trigger( DamageEvent damageEvent )
+    public void Trigger( DamageInfo damageInfo )
     {
-        if ( damageEvent.Attacker is PlayerController attacker )
+        if ( damageInfo.Attacker is PlayerController attacker )
         {
             var hc = attacker.HealthComponent;
             var isKill = hc.Health <= 0f;
             TimeUntilHitmarkerRemove = isKill ? 0.5f : 0.2f;
             Hitmarker.SetClass( "is-kill", isKill );
-            Hitmarker.SetClass( "is-headshot", damageEvent.Hitboxes.Contains( "head" ) );
+            Hitmarker.SetClass( "is-headshot", damageInfo.Hitbox.HasFlag( HitboxTags.Head ) );
         }
     }
 

@@ -1,6 +1,8 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
-public sealed partial class PlayerController : Component, IPawn, IRespawnable, IDamageListener, Weapon.IDeploymentListener
+public sealed partial class PlayerController : Component, IPawn, IRespawnable, Weapon.IDeploymentListener
 {
 	/// <summary>
 	/// The player's body

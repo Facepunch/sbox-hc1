@@ -1,9 +1,12 @@
+using Sandbox;
+using Sandbox.Events;
+
 namespace Facepunch;
 
 /// <summary>
 /// A list of globals that are relevant to the player. Health, armor, VFX that we don't want to hardcode somewhere.
 /// </summary>
-public class PlayerGlobals : GlobalComponent
+public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEvent>
 {
 	/// <summary>
 	/// What's the player's max HP?
@@ -33,28 +36,36 @@ public class PlayerGlobals : GlobalComponent
 	[Property, Group( "Damage" )] public float BaseArmorReduction { get; set; } = 0.775f;
 
 	/// <summary>
-	/// How much should we scale the damage by if the player is hit in certain areas?
+	/// How much should we scale damage by if the player is wearing a helmet?
+	/// </summary>
+	[Property, Group( "Damage" )] public float BaseHelmetReduction { get; set; } = 0.775f;
+
+	public class HitboxConfig
+	{
+		public HitboxTags Tags { get; set; }
+
+		public float DamageScale { get; set; } = 1f;
+		public bool ArmorProtects { get; set; }
+		public bool HelmetProtects { get; set; }
+	}
+
+	/// <summary>
+	/// Custom damage scales / armor info for each hitbox tag. Uses the first match in the list.
 	/// </summary>
 	[Property, Group( "Damage" )]
-	Dictionary<string, float> HitboxDamage { get; set; } = new()
+	public List<HitboxConfig> Hitboxes { get; set; } = new()
 	{
-		{ "head helmet", 1f },
-		{ "head", 5f },
+		new HitboxConfig { Tags = HitboxTags.Head, DamageScale = 5f, HelmetProtects = true },
+		new HitboxConfig { Tags = HitboxTags.UpperBody | HitboxTags.Arm, ArmorProtects = true },
+		new HitboxConfig { Tags = HitboxTags.LowerBody, DamageScale = 1.25f },
+		new HitboxConfig { Tags = HitboxTags.Leg, DamageScale = 0.75f }
 	};
 
 	/// <summary>
-	/// Safe accessor for <see cref="HitboxDamage"/>
+	/// If true, pop off helmets on headshots.
 	/// </summary>
-	/// <param name="hitbox"></param>
-	/// <returns></returns>
-	public float GetDamageMultiplier( string hitbox )
-	{
-		if ( HitboxDamage.TryGetValue( hitbox, out var mult ) )
-		{
-			return mult;
-		}
-		return 1f;
-	}
+	[Property, Group( "Damage" )]
+	public bool RemoveHelmetOnHeadshot { get; set; } = true;
 
 	/// <summary>
 	/// The current gravity.
@@ -82,4 +93,38 @@ public class PlayerGlobals : GlobalComponent
 
 	[Property, Group( "Movement" )] public float MaxAcceleration { get; set; } = 40f;
 	[Property, Group( "Movement" )] public float AirMaxAcceleration { get; set; } = 80f;
+
+	/// <summary>
+	/// Apply armor and helmet damage modifications.
+	/// </summary>
+	[Early]
+	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
+	{
+		var damageInfo = eventArgs.DamageInfo;
+
+		if ( damageInfo.WasFallDamage && !EnableFallDamage )
+		{
+			eventArgs.DamageInfo = eventArgs.DamageInfo with { Damage = 0f };
+			return;
+		}
+
+		if ( Hitboxes.FirstOrDefault( x => (x.Tags & eventArgs.DamageInfo.Hitbox) != 0 ) is not { } config )
+		{
+			// We don't have any special rules for this hitbox
+
+			return;
+		}
+
+		eventArgs.DamageInfo = eventArgs.DamageInfo with { Damage = eventArgs.DamageInfo.Damage * config.DamageScale };
+
+		if ( config.HelmetProtects && damageInfo.HasHelmet )
+		{
+			eventArgs.DamageInfo = eventArgs.DamageInfo with { RemoveHelmet = true };
+			eventArgs.ApplyArmor( BaseHelmetReduction );
+		}
+		else if ( config.ArmorProtects && damageInfo.HasArmor )
+		{
+			eventArgs.ApplyArmor( BaseArmorReduction );
+		}
+	}
 }

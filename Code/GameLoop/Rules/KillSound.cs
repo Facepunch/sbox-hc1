@@ -1,6 +1,8 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
-public sealed class KillSound : Component, IKillListener, IRoundStartListener
+public sealed class KillSound : Component, IGameEventHandler<KillEvent>, IRoundStartListener
 {
 	[Property] public SoundEvent KillSoundEvent { get; set; }
 	[Property] public float BaseSoundPitch { get; set; } = 0.7f;
@@ -20,9 +22,9 @@ public sealed class KillSound : Component, IKillListener, IRoundStartListener
 		if ( count >= MaxCount ) count = 0;
 	}
 
-	void IKillListener.OnPlayerKilled( DamageEvent damageEvent )
+	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
 	{
-		if ( damageEvent.Attacker == GameUtils.Viewer )
+		if ( eventArgs.DamageInfo.Attacker == GameUtils.Viewer )
 		{
 			var snd = Sound.Play( KillSoundEvent );
 			snd.Pitch = BaseSoundPitch + (count * SoundPitchPerCount);
