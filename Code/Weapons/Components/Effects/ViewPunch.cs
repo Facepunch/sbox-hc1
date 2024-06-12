@@ -1,7 +1,10 @@
+using Sandbox.Events;
+using static Facepunch.ShootWeaponComponent;
+
 namespace Facepunch;
 
 [Title( "On Shot - View Punch" ), Category( "Weapon Components" ), Icon( "pending" )]
-public class ViewPunch : WeaponComponent, IShotListener
+public class ViewPunch : WeaponComponent, IGameEventHandler<WeaponShotEvent>
 {
 	[Property] public float Lifetime { get; set; } = 0.3f;
 	[Property] public Vector3 PositionOffset { get; set; } = new( 0.5f, 0.2f, 0.75f );
@@ -26,7 +29,7 @@ public class ViewPunch : WeaponComponent, IShotListener
 		return new Angles( pitch, yaw, roll );
 	}
 
-	void IShotListener.OnShot()
+	void IGameEventHandler<WeaponShotEvent>.OnGameEvent( WeaponShotEvent eventArgs )
 	{
 		var shake = new ScreenShake.Punch( 
 			Lifetime, 

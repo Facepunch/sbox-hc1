@@ -1,3 +1,5 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 [Icon( "track_changes" )]
@@ -205,6 +207,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		}
 	}
 
+	public record WeaponShotEvent();
+
 	/// <summary>
 	/// Shoot the gun!
 	/// </summary>
@@ -219,10 +223,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 		DoShootEffects();
 
-		foreach ( var listener in Components.GetAll<IShotListener>() )
-		{
-			listener.OnShot();
-		}
+		GameObject.Dispatch<WeaponShotEvent>( default );
 
 		for ( int i = 0; i < BulletCount; i++ )
 		{
