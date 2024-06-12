@@ -81,7 +81,8 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 			(this as IPawn).Possess();
 		}
 
-		TagBinder.BindTag( "no_shooting", () => IsSprinting || TimeSinceSprintChanged < 0.25f );
+		// TODO: expose these parameters please
+		TagBinder.BindTag( "no_shooting", () => IsSprinting || TimeSinceSprintChanged < 0.25f || TimeSinceWeaponDeployed < 0.66f );
 		TagBinder.BindTag( "no_aiming", () => IsSprinting || TimeSinceSprintChanged < 0.25f || TimeSinceGroundedChanged < 0.25f );
 
 		if ( IsBot )

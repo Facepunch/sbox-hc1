@@ -82,6 +82,8 @@ public partial class PlayerController :
 		CurrentWeapon?.Holster();
 	}
 
+	public TimeSince TimeSinceWeaponDeployed { get; private set; }
+
 	public void SetCurrentWeapon( Weapon weapon )
 	{
 		if ( IsProxy )
@@ -91,6 +93,8 @@ public partial class PlayerController :
 
 			return;
 		}
+
+		TimeSinceWeaponDeployed = 0;
 
 		weapon.Deploy();
 	}
