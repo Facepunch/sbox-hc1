@@ -25,11 +25,17 @@ public sealed class KillSound : Component, IGameEventHandler<KillEvent>,
 
 	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
 	{
-		if ( eventArgs.DamageInfo.Attacker == GameUtils.Viewer )
-		{
-			var snd = Sound.Play( KillSoundEvent );
-			snd.Pitch = BaseSoundPitch + (count * SoundPitchPerCount);
-			AddCount();
-		}
+		var attacker = GameUtils.GetPlayerFromComponent( eventArgs.DamageInfo.Attacker );
+		var victim = GameUtils.GetPlayerFromComponent( eventArgs.DamageInfo.Victim );
+
+		if ( attacker != GameUtils.Viewer || !attacker.IsValid() || !victim.IsValid() )
+			return;
+
+		if ( attacker.IsFriendly( victim ) )
+			return;
+
+		var snd = Sound.Play( KillSoundEvent );
+		snd.Pitch = BaseSoundPitch + (count * SoundPitchPerCount);
+		AddCount();
 	}
 }
