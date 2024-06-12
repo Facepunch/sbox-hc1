@@ -53,6 +53,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 	}
 
 	[Property] public float ThirdPersonDistance { get; set; } = 128f;
+	[Property] public float AimFovOffset { get; set; } = -5f;
 
 	private CameraMode _mode;
 	public CameraMode Mode
@@ -153,6 +154,11 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 	{
 		var baseFov = GameSettingsSystem.Current.FieldOfView;
 		FieldOfViewOffset = 0;
+
+		if ( Player.CurrentWeapon?.Tags.Has( "aiming" ) ?? false )
+		{
+			FieldOfViewOffset += AimFovOffset;
+		}
 
 		if ( ColorAdjustments is not null )
 		{
