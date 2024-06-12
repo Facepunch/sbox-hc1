@@ -1,10 +1,7 @@
 ﻿
 using Facepunch;
 
-public interface IBombPlantedListener
-{
-	public void OnBombPlanted( PlayerController planter, GameObject bomb, BombSite bombSite ) { }
-}
+public record BombPlantedEvent( PlayerController Planter, GameObject Bomb, BombSite BombSite );
 
 public interface IBombDefusedListener
 {

@@ -1,11 +1,15 @@
 using Sandbox.Audio;
+using Sandbox.Events;
 
 namespace Facepunch;
 
 /// <summary>
 /// Handles certain events and plays radio sounds.
 /// </summary>
-public partial class MusicManager : Component, IRoundStartListener, IBombPlantedListener, IBombDefusedListener
+public partial class MusicManager : Component,
+	IRoundStartListener,
+	IGameEventHandler<BombPlantedEvent>,
+	IBombDefusedListener
 {
 	public static MusicManager Instance { get; private set; }
 
@@ -26,7 +30,7 @@ public partial class MusicManager : Component, IRoundStartListener, IBombPlanted
 		PlaySound( "sounds/music/round_intro/round_start.sound" );
 	}
 
-	void IBombPlantedListener.OnBombPlanted( PlayerController planter, GameObject bomb, BombSite bombSite )
+	void IGameEventHandler<BombPlantedEvent>.OnGameEvent( BombPlantedEvent eventArgs )
 	{
 
 	}

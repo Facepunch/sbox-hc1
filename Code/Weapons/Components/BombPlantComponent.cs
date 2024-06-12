@@ -1,4 +1,5 @@
 ﻿using Facepunch;
+using Sandbox.Events;
 
 [Icon( "yard" )]
 [Title( "Bomb Planting" ), Group( "Weapon Components" )]
@@ -106,10 +107,7 @@ public partial class BombPlantComponent : InputWeaponComponent
 		planted.Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
 		planted.NetworkSpawn();
 
-		foreach ( var listener in Scene.GetAllComponents<IBombPlantedListener>())
-		{
-			listener.OnBombPlanted( player, planted, CurrentBombSite );
-		}
+		Scene.Dispatch( new BombPlantedEvent( player, planted, CurrentBombSite ) );
 	}
 	
 	[Broadcast]

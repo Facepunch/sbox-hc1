@@ -5,7 +5,11 @@ namespace Facepunch.UI;
 /// <summary>
 /// Handles all the player score values.
 /// </summary>
-public sealed class PlayerScore : Component, IGameEventHandler<KillEvent>, IBombDefusedListener, IBombDetonatedListener, IBombPlantedListener
+public sealed class PlayerScore : Component,
+	IGameEventHandler<KillEvent>,
+	IBombDefusedListener,
+	IBombDetonatedListener,
+	IGameEventHandler<BombPlantedEvent>
 {
 	[HostSync, Property, ReadOnly] 
 	public int Kills { get; set; } = 0;
@@ -84,10 +88,10 @@ public sealed class PlayerScore : Component, IGameEventHandler<KillEvent>, IBomb
 		}
 	}
 
-	public void OnBombPlanted( PlayerController planter, GameObject bomb, BombSite bombSite )
+	void IGameEventHandler<BombPlantedEvent>.OnGameEvent( BombPlantedEvent eventArgs )
 	{
 		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
-		var planterPlayer = GameUtils.GetPlayerFromComponent( planter );
+		var planterPlayer = eventArgs.Planter;
 
 		if ( planterPlayer == thisPlayer )
 		{

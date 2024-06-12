@@ -1,10 +1,11 @@
 ﻿using Facepunch;
+using Sandbox.Events;
 
 public sealed class BombDefusalScenario : Component,
 	IGameStartListener,
 	IRoundStartListener,
 	IBombDroppedListener,
-	IBombPlantedListener,
+	IGameEventHandler<BombPlantedEvent>,
 	IBombDetonatedListener,
 	IBombDefusedListener,
 	IRoundEndListener,
@@ -120,18 +121,18 @@ public sealed class BombDefusalScenario : Component,
 		GameMode.Instance.ShowStatusText( Team.Terrorist, "Plant the Bomb" );
 	}
 
-	void IBombPlantedListener.OnBombPlanted( PlayerController planter, GameObject bomb, BombSite bombSite )
+	void IGameEventHandler<BombPlantedEvent>.OnGameEvent( BombPlantedEvent eventArgs )
 	{
 		IsBombPlanted = true;
 		BombHasDetonated = false;
 		BombWasDefused = false;
 
-		BombPlanter = planter;
+		BombPlanter = eventArgs.Planter;
 
 		RoundTimeLimit.Enabled = false;
 		TeamEliminated.IgnoreTeam = Team.Terrorist;
 
-		planter?.Inventory.GiveCash( BombPlantedPlayerBonus );
+		eventArgs.Planter?.Inventory.GiveCash( BombPlantedPlayerBonus );
 
 		GameMode.Instance.ShowToast( "Bomb has been planted" );
 
