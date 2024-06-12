@@ -180,43 +180,9 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	[Authority]
 	public void SendSpawnConfirmation( Guid playerGuid )
 	{
-		var player = Scene.Directory.FindComponentByGuid( playerGuid ) as PlayerController;
-		if ( player.IsValid() )
-		{
-			_ = SpawnPlayer( player );
-		}
-	}
+		var player = Scene.Directory.FindComponentByGuid( playerGuid ) as PlayerController
+			?? throw new Exception( $"Unknown {nameof(PlayerController)} Id: {playerGuid}" );
 
-	public Task SpawnPlayer( PlayerController player )
-	{
-		Assert.True( Networking.IsHost );
-		
-		return Dispatch<IPlayerSpawnListener>(
-			x => x.PrePlayerSpawn( player ),
-			x => x.OnPlayerSpawn( player ),
-			x => x.PostPlayerSpawn( player ) );
-	}
-
-	private async Task Dispatch<T>( Action<T> pre, Func<T, Task> on, Action<T> post )
-	{
-		var components = Scene.GetAllComponents<T>().ToArray();
-
-		foreach ( var comp in components )
-		{
-			pre( comp );
-		}
-
-		await Task.WhenAll( components.Select( on ) );
-
-		foreach ( var comp in components )
-		{
-			post( comp );
-		}
-	}
-
-	private T GetSingleOrThrow<T>()
-	{
-		return Components.GetInDescendantsOrSelf<T>()
-			?? throw new Exception( $"Missing required component {typeof( T ).Name}." );
+		Scene.Dispatch( new PlayerSpawnedEvent( player ) );
 	}
 }

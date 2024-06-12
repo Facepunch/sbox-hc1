@@ -66,49 +66,27 @@ public record DuringGameEndEvent;
 /// </summary>
 public record PostGameEndEvent;
 
-public interface IPlayerSpawnListener
-{
-	/// <summary>
-	/// Called on the host before <see cref="OnPlayerSpawn"/>.
-	/// </summary>
-	public void PrePlayerSpawn( PlayerController player ) { }
+/// <summary>
+/// Called on the host when a new player joins, before NetworkSpawn is called.
+/// </summary>
+public record PlayerConnectedEvent( PlayerController Player );
 
-	/// <summary>
-	/// Called on the host when <paramref name="player"/> respawns.
-	/// </summary>
-	public Task OnPlayerSpawn( PlayerController player ) => Task.CompletedTask;
+/// <summary>
+/// Called on the host when a new player joins, after NetworkSpawn is called.
+/// </summary>
+public record PlayerJoinedEvent( PlayerController Player );
 
-	/// <summary>
-	/// Called on the host after <see cref="OnPlayerSpawn"/>.
-	/// </summary>
-	public void PostPlayerSpawn( PlayerController player ) { }
-}
+/// <summary>
+/// Called on the host when a player (re)spawns.
+/// </summary>
+public record PlayerSpawnedEvent( PlayerController Player );
 
-public interface IPlayerJoinedListener
-{
-	/// <summary>
-	/// Called on the host when a new player joins, before NetworkSpawn is called.
-	/// </summary>
-	public void OnConnect( PlayerController player ) { }
+/// <summary>
+/// Called on the host when a player is assigned to a team.
+/// </summary>
+public record TeamAssignedEvent( PlayerController Player, Team Team );
 
-	/// <summary>
-	/// Called on the host when a new player joins, after NetworkSpawn is called.
-	/// </summary>
-	public void OnJoined( PlayerController player ) { }
-}
-
-public interface ITeamAssignedListener
-{
-	/// <summary>
-	/// Called on the host when a player is assigned to a team.
-	/// </summary>
-	public void OnTeamAssigned( PlayerController player, Team team ) { }
-}
-
-public interface ITeamSwapListener
-{
-	/// <summary>
-	/// Called on the host when both teams swap.
-	/// </summary>
-	public void OnTeamSwap() { }
-}
+/// <summary>
+/// Called on the host when both teams swap.
+/// </summary>
+public record TeamsSwappedEvent;

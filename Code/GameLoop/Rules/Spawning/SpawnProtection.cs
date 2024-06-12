@@ -1,18 +1,20 @@
 ﻿using Facepunch;
+using Sandbox.Events;
 
 /// <summary>
 /// Makes respawned players invulnerable for a given duration, or until they move / shoot.
 /// </summary>
-public sealed class SpawnProtection : Component, IPlayerSpawnListener
+public sealed class SpawnProtection : Component,
+	IGameEventHandler<PlayerSpawnedEvent>
 {
 	private readonly Dictionary<PlayerController, TimeSince> _spawnProtectedSince = new();
 
 	[Property, HostSync]
 	public float MaxDurationSeconds { get; set; } = 10f;
 
-	void IPlayerSpawnListener.PostPlayerSpawn( PlayerController player )
+	void IGameEventHandler<PlayerSpawnedEvent>.OnGameEvent(PlayerSpawnedEvent eventArgs )
 	{
-		Enable( player );
+		Enable( eventArgs.Player );
 	}
 
 	public void DisableAll()

@@ -3,7 +3,6 @@ using Sandbox.Events;
 
 public sealed class TeamDeathmatchScoring : Component,
 	IGameEventHandler<KillEvent>,
-	IPlayerSpawnListener,
 	IGameEventHandler<PostRoundStartEvent>
 {
 	[RequireComponent] public TeamScoring TeamScoring { get; private set; }

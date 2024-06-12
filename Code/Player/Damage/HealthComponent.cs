@@ -64,7 +64,7 @@ public partial class HealthComponent : Component, IRespawnable
 
 	protected void OnHasHelmetChanged( bool oldValue, bool newValue )
 	{
-		GameObject.Root.Dispatch( new HelmetChangedEvent( oldValue, newValue ) );
+		GameObject.Root.Dispatch( new HelmetChangedEvent( newValue ) );
 	}
 
 	/// <summary>
@@ -261,4 +261,4 @@ public interface IRespawnable
 	public void Kill() { }
 }
 
-public record class HelmetChangedEvent( bool hadHelmet, bool hasHelmet );
+public record HelmetChangedEvent( bool HasHelmet );

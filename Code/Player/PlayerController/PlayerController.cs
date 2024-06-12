@@ -197,9 +197,6 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, W
 
 		TeamComponent.Team = team;
 
-		foreach ( var listener in Scene.GetAllComponents<ITeamAssignedListener>() )
-		{
-			listener.OnTeamAssigned( this, team );
-		}
+		Scene.Dispatch( new TeamAssignedEvent( this, team ) );
 	}
 }

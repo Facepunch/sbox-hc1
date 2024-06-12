@@ -1,5 +1,6 @@
 using Sandbox.Network;
 using System.Threading.Tasks;
+using Sandbox.Events;
 
 namespace Facepunch;
 
@@ -63,23 +64,17 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 
 	public void OnPlayerJoined( PlayerController player, Connection channel )
 	{
-		foreach ( var listener in Scene.GetAllComponents<IPlayerJoinedListener>() )
-		{
-			listener.OnConnect( player );
-		}
+		Scene.Dispatch( new PlayerConnectedEvent( player ) );
 
 		var spawnPoint = GameUtils.GetRandomSpawnPoint( player.TeamComponent.Team );
 		player.Teleport( spawnPoint );
 		player.Initialize();
 		player.GameObject.NetworkSpawn( channel );
-		
-		foreach ( var listener in Scene.GetAllComponents<IPlayerJoinedListener>() )
-		{
-			listener.OnJoined( player );
-		}
+
+		Scene.Dispatch( new PlayerJoinedEvent( player ) );
 		
 		if ( player.HealthComponent.State == LifeState.Alive )
-			GameMode.Instance?.SpawnPlayer( player );
+			GameMode.Instance?.SendSpawnConfirmation( player.Id );
 	}
 
 	[ConCmd( "lobby_list" )]

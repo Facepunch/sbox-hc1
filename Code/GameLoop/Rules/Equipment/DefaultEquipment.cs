@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Facepunch;
+﻿using Sandbox.Events;
 
-public sealed class DefaultEquipment : Component, IPlayerSpawnListener
+public sealed class DefaultEquipment : Component,
+	IGameEventHandler<PlayerSpawnedEvent>
 {
 	/// <summary>
 	/// A weapon set that we'll give the player when they spawn.
@@ -12,9 +12,11 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 	[Property] public bool Helmet { get; set; }
 	[Property] public bool RefillAmmo { get; set; } = true;
 
-	Task IPlayerSpawnListener.OnPlayerSpawn( PlayerController player )
+	void IGameEventHandler<PlayerSpawnedEvent>.OnGameEvent( PlayerSpawnedEvent eventArgs )
 	{
-		if ( Weapons is null ) return Task.CompletedTask;
+		if ( Weapons is null ) return;
+
+		var player = eventArgs.Player;
 
 		foreach ( var weapon in Weapons )
 		{
@@ -31,7 +33,5 @@ public sealed class DefaultEquipment : Component, IPlayerSpawnListener
 		{
 			player.Inventory.RefillAmmo();
 		}
-
-		return Task.CompletedTask;
 	}
 }

@@ -6,8 +6,7 @@ using Sandbox.Events;
 /// Gives a special weapon to one player on the specified team.
 /// </summary>
 public sealed class SpecialWeaponAllocator : Component,
-	IGameEventHandler<PreRoundStartEvent>,
-	IPlayerSpawnListener
+	IGameEventHandler<PreRoundStartEvent>
 {
 	/// <summary>
 	/// We'll give this weapon to one player on the specified team.

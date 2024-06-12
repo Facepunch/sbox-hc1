@@ -6,7 +6,7 @@ using Sandbox.Events;
 public sealed class TeamScoring : Component,
 	IGameEventHandler<PostGameStartEvent>,
 	IGameEventHandler<PreGameEndEvent>,
-	ITeamSwapListener
+	IGameEventHandler<TeamsSwappedEvent>
 {
 	[HostSync]
 	public NetDictionary<Team, int> Scores { get; private set; } = new();
@@ -33,7 +33,7 @@ public sealed class TeamScoring : Component,
 		Scores[Team.CounterTerrorist] = tScores;
 	}
 
-	void ITeamSwapListener.OnTeamSwap()
+	void IGameEventHandler<TeamsSwappedEvent>.OnGameEvent( TeamsSwappedEvent eventArgs )
 	{
 		Flip();
 	}

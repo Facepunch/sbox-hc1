@@ -11,8 +11,8 @@ public sealed class BombDefusalScenario : Component,
 	IGameEventHandler<BombDefusedEvent>,
 	IGameEventHandler<PreRoundEndEvent>,
 	IGameEventHandler<DuringRoundEvent>,
-	ITeamAssignedListener,
-	ITeamSwapListener
+	IGameEventHandler<TeamAssignedEvent>,
+	IGameEventHandler<TeamsSwappedEvent>
 {
 	[RequireComponent] public RoundTimeLimit RoundTimeLimit { get; private set; }
 	[RequireComponent] public TeamEliminated TeamEliminated { get; private set; }
@@ -95,15 +95,15 @@ public sealed class BombDefusalScenario : Component,
 		LossStreakLevel.Clear();
 	}
 
-	void ITeamSwapListener.OnTeamSwap()
+	void IGameEventHandler<TeamAssignedEvent>.OnGameEvent( TeamAssignedEvent eventArgs )
 	{
-		LossStreakLevel.Clear();
+		eventArgs.Player.Inventory.Clear();
+		eventArgs.Player.Inventory.SetCash( StartMoney );
 	}
 
-	void ITeamAssignedListener.OnTeamAssigned( PlayerController player, Team team )
+	void IGameEventHandler<TeamsSwappedEvent>.OnGameEvent( TeamsSwappedEvent eventArgs )
 	{
-		player.Inventory.Clear();
-		player.Inventory.SetCash( StartMoney );
+		LossStreakLevel.Clear();
 	}
 
 	void IGameEventHandler<PostRoundStartEvent>.OnGameEvent( PostRoundStartEvent eventArgs )
@@ -111,7 +111,6 @@ public sealed class BombDefusalScenario : Component,
 		GameMode.Instance.ShowStatusText( Team.Terrorist, "Plant the Bomb" );
 		GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "Defend" );
 	}
-
 
 	void IGameEventHandler<BombDroppedEvent>.OnGameEvent( BombDroppedEvent eventArgs )
 	{

@@ -6,11 +6,12 @@ using Sandbox.Events;
 /// </summary>
 public sealed class TeamAssigner : Component,
 	IGameEventHandler<PostRoundEndEvent>,
-	IPlayerJoinedListener
+	IGameEventHandler<PlayerConnectedEvent>,
+	IGameEventHandler<PlayerJoinedEvent>
 {
 	[Property] public int MaxTeamSize { get; set; } = 5;
 
-	void IPlayerJoinedListener.OnConnect( PlayerController player )
+	void IGameEventHandler<PlayerConnectedEvent>.OnGameEvent( PlayerConnectedEvent eventArgs )
 	{
 		var ts = GameUtils.GetPlayers( Team.Terrorist ).ToList();
 		var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).ToList();
@@ -32,13 +33,13 @@ public sealed class TeamAssigner : Component,
 		}
 
 		// Set the team directly to avoid callbacks for ITeamAssignedListener listeners right now.
-		player.TeamComponent.Team = assignTeam;
+		eventArgs.Player.TeamComponent.Team = assignTeam;
 	}
 
-	void IPlayerJoinedListener.OnJoined( PlayerController player )
+	void IGameEventHandler<PlayerJoinedEvent>.OnGameEvent( PlayerJoinedEvent eventArgs )
 	{
 		// Calling this will invoke callbacks for any ITeamAssignedListener listeners.
-		player.AssignTeam( player.TeamComponent.Team );
+		eventArgs.Player.AssignTeam( eventArgs.Player.TeamComponent.Team );
 	}
 
 	// assigning teams on join now instead, turn this into balance teams?

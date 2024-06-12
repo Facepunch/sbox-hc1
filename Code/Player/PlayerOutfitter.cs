@@ -242,7 +242,7 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IGame
 		if ( PlayerController?.HealthComponent?.State != LifeState.Alive )
 			return;
 
-		if ( eventArgs.hasHelmet )
+		if ( eventArgs.HasHelmet )
 		{
 			UpdateCurrent();
 		}

@@ -38,9 +38,6 @@ public class HalfTimeTeamSwap : Component,
 			player.AssignTeam( Team.Terrorist );
 		}
 
-		foreach ( var listener in Scene.GetAllComponents<ITeamSwapListener>() )
-		{
-			listener.OnTeamSwap();
-		}
+		Scene.Dispatch( new TeamsSwappedEvent() );
 	}
 }
