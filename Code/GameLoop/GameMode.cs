@@ -17,13 +17,13 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	/// <summary>
 	/// Current game state (controlled by the host.)
 	/// </summary>
-	[Property, HostSync]
+	[Property, HostSync, Obsolete]
 	public GameState State { get; private set; }
 
-	[HostSync]
+	[HostSync, Obsolete]
 	public GameState NextState { get; private set; } = GameState.GameStart;
 
-	[HostSync]
+	[HostSync, Obsolete]
 	public float NextStateTime { get; private set; }
 
 	[Property]
@@ -59,6 +59,7 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 		Log.Info( "We became the host, taking over the game loop..." );
 	}
 
+	[Obsolete]
 	public void StartRound( float delaySeconds )
 	{
 		Assert.True( Networking.IsHost );
@@ -67,6 +68,7 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 		Transition( GameState.DuringRound, delaySeconds );
 	}
 
+	[Obsolete]
 	public void EndRound()
 	{
 		Assert.True( Networking.IsHost );
@@ -75,6 +77,7 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 		Transition( GameState.RoundEnd );
 	}
 
+	[Obsolete]
 	public void EndGame()
 	{
 		Assert.True( Networking.IsHost );
@@ -86,6 +89,7 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	/// <summary>
 	/// Schedules a transition after the given delay, overriding any previously scheduled transition.
 	/// </summary>
+	[Obsolete]
 	public void Transition( GameState nextState, float delaySeconds = 0f )
 	{
 		Assert.True( Networking.IsHost );
@@ -172,6 +176,17 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 				Scene.Dispatch( new DuringGameEndEvent() );
 				break;
 		}
+	}
+
+	/// <summary>
+	/// Gets the given component from within the game mode's object hierarchy, or null if not found / enabled.
+	/// </summary>
+	public T Get<T>()
+		where T : Component
+	{
+		// TODO: cache, invalidate on state change
+
+		return Components.GetInDescendantsOrSelf<T>();
 	}
 
 	/// <summary>

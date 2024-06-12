@@ -1,8 +1,16 @@
 ﻿using Sandbox.Events;
 
+namespace Facepunch.GameRules;
+
 public sealed class DefaultEquipment : Component,
 	IGameEventHandler<PlayerSpawnedEvent>
 {
+	[Property]
+	public bool BothTeams { get; set; } = true;
+
+	[Property, ShowIf( nameof(BothTeams), false )]
+	public Team Team { get; set; } = Team.Terrorist;
+
 	/// <summary>
 	/// A weapon set that we'll give the player when they spawn.
 	/// </summary>

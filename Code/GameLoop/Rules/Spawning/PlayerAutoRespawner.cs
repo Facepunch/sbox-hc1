@@ -1,27 +1,18 @@
 ﻿using Facepunch;
 using Sandbox.Events;
 
+namespace Facepunch.GameRules;
+
 /// <summary>
 /// Respawn players after a delay.
 /// </summary>
 public sealed class PlayerAutoRespawner : Component,
-	IGameEventHandler<PostGameStartEvent>
+	IGameEventHandler<UpdateStateEventArgs>
 {
 	[Property, HostSync] public float RespawnDelaySeconds { get; set; } = 3f;
-	[Property, HostSync] public bool DisableOnGameStart { get; set; }
 
-	void IGameEventHandler<PostGameStartEvent>.OnGameEvent( PostGameStartEvent eventArgs )
+	void IGameEventHandler<UpdateStateEventArgs>.OnGameEvent( UpdateStateEventArgs eventArgs )
 	{
-		if ( DisableOnGameStart )
-		{
-			Enabled = false;
-		}
-	}
-
-	protected override void OnFixedUpdate()
-	{
-		if ( !Networking.IsHost ) return;
-
 		foreach ( var player in GameUtils.AllPlayers )
 		{
 			if ( player.HealthComponent.State != LifeState.Dead )

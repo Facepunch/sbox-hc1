@@ -1,43 +1,34 @@
-﻿using Facepunch.UI;
-using Facepunch;
-using System.Threading.Tasks;
+﻿using Facepunch;
 using Sandbox.Events;
 
+namespace Facepunch.GameRules;
+
 /// <summary>
-/// Keep the players frozen for a few seconds at the start of each round.
+/// Keep players frozen while this state is active.
 /// </summary>
-public sealed class FreezeTime : Component,
-	IGameEventHandler<PreRoundStartEvent>,
-	IGameEventHandler<PostRoundStartEvent>
+public sealed class FreezePlayers : Component,
+	IGameEventHandler<EnterStateEventArgs>,
+	IGameEventHandler<LeaveStateEventArgs>,
+	IGameEventHandler<PlayerSpawnedEvent>
 {
-	[Property, Sync]
-	public float DurationSeconds { get; set; } = 15f;
-
-	[Sync]
-	public float StartTime { get; set; }
-
-	void IGameEventHandler<PreRoundStartEvent>.OnGameEvent( PreRoundStartEvent eventArgs )
+	void IGameEventHandler<EnterStateEventArgs>.OnGameEvent( EnterStateEventArgs eventArgs )
 	{
 		foreach ( var player in GameUtils.ActivePlayers )
 		{
 			player.IsFrozen = true;
 		}
-
-		StartTime = Time.Now;
-
-		GameMode.Instance.ShowCountDownTimer( StartTime, DurationSeconds );
-		GameMode.Instance.ShowStatusText( "PREPARE" );
-
-		GameMode.Instance.StartRound( DurationSeconds );
 	}
 
-	void IGameEventHandler<PostRoundStartEvent>.OnGameEvent( PostRoundStartEvent eventArgs )
+	void IGameEventHandler<LeaveStateEventArgs>.OnGameEvent( LeaveStateEventArgs eventArgs )
 	{
-		GameMode.Instance.HideStatusText();
-
 		foreach ( var player in GameUtils.ActivePlayers )
 		{
 			player.IsFrozen = false;
 		}
+	}
+
+	void IGameEventHandler<PlayerSpawnedEvent>.OnGameEvent( PlayerSpawnedEvent eventArgs )
+	{
+		eventArgs.Player.IsFrozen = true;
 	}
 }

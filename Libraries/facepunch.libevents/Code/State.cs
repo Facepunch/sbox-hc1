@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sandbox.Events;
 
@@ -36,6 +37,52 @@ public sealed class StateComponent : Component
 	/// </summary>
 	[Property, HideIf( nameof( DefaultNextState ), null )]
 	public float DefaultDuration { get; set; }
+
+	/// <summary>
+	/// Event dispatched on the host when this state is entered.
+	/// </summary>
+	[Property]
+	public event Action? OnEnterState;
+
+	/// <summary>
+	/// Event dispatched on the host while this state is active.
+	/// </summary>
+	[Property]
+	public event Action? OnUpdateState;
+
+	/// <summary>
+	/// Event dispatched on the host when this state is exited.
+	/// </summary>
+	[Property]
+	public event Action? OnLeaveState;
+
+	internal void Enter( bool dispatch )
+	{
+		Enabled = true;
+
+		if ( dispatch )
+		{
+			OnEnterState?.Invoke();
+			GameObject.Dispatch( new EnterStateEventArgs( this ) );
+		}
+	}
+
+	internal void Update()
+	{
+		OnUpdateState?.Invoke();
+		Scene.Dispatch( new UpdateStateEventArgs( this ) );
+	}
+
+	internal void Leave( bool dispatch )
+	{
+		if ( dispatch )
+		{
+			OnLeaveState?.Invoke();
+			GameObject.Dispatch( new LeaveStateEventArgs( this ) );
+		}
+
+		Enabled = false;
+	}
 
 	/// <summary>
 	/// Queue up a transition to the given state. This will occur at the end of

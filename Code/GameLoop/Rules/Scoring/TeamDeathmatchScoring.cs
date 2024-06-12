@@ -7,7 +7,6 @@ public sealed class TeamDeathmatchScoring : Component,
 {
 	[RequireComponent] public TeamScoring TeamScoring { get; private set; }
 
-	[After<FreezeTime>]
 	void IGameEventHandler<PostRoundStartEvent>.OnGameEvent( PostRoundStartEvent eventArgs )
 	{
 		GameMode.Instance.ShowStatusText( "Deathmatch" );

@@ -33,7 +33,7 @@ public sealed class RoundTimeLimit : Component,
 			return;
 		}
 
-		if ( GameMode.Instance.Components.GetInDescendantsOrSelf<RoundBasedTeamScoring>() is { } scoring )
+		if ( GameMode.Instance.Get<RoundBasedTeamScoring>() is { } scoring )
 		{
 			scoring.RoundWinner = DefaultWinningTeam;
 		}

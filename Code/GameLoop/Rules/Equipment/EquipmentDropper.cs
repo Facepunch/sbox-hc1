@@ -1,11 +1,13 @@
 using Sandbox.Events;
 
-namespace Facepunch;
+namespace Facepunch.GameRules;
 
-public partial class EquippmentDropper : Component, IGameEventHandler<KillEvent>
+/// <summary>
+/// Players drop their held weapon when killed.
+/// </summary>
+public partial class EquipmentDropper : Component,
+	IGameEventHandler<KillEvent>
 {
-	[RequireComponent] DefaultEquipment DefaultEquipment { get; set; }
-
 	/// <summary>
 	/// Can we drop this weapon?
 	/// </summary>
@@ -13,7 +15,7 @@ public partial class EquippmentDropper : Component, IGameEventHandler<KillEvent>
 	/// <returns></returns>
 	private bool CanDrop( Weapon weapon )
 	{
-		if ( DefaultEquipment.Weapons.Contains( weapon.Resource ) )
+		if ( GameMode.Instance.Get<DefaultEquipment>()?.Weapons.Contains( weapon.Resource ) is true )
 			return false;
 
 		if ( weapon.Resource.Slot == WeaponSlot.Melee ) 

@@ -102,7 +102,7 @@ public sealed class StateMachineComponent : Component
 
 		while ( toDeactivate.TryDequeue( out var next ) )
 		{
-			Leave( next, dispatch );
+			next.Leave( dispatch );
 
 			if ( toDeactivate.All( x => x.GameObject != next.GameObject ) && toActivate.All( x => x.GameObject != next.GameObject ) )
 			{
@@ -114,28 +114,8 @@ public sealed class StateMachineComponent : Component
 		{
 			next.GameObject.Enabled = true;
 
-			Enter( next, dispatch );
+			next.Enter( dispatch );
 		}
-	}
-
-	private void Enter( StateComponent state, bool dispatch )
-	{
-		state.Enabled = true;
-
-		if ( dispatch )
-		{
-			state.GameObject.Dispatch( new EnterStateEventArgs( state ) );
-		}
-	}
-
-	private void Leave( StateComponent state, bool dispatch )
-	{
-		if ( dispatch )
-		{
-			state.GameObject.Dispatch( new LeaveStateEventArgs( state ) );
-		}
-
-		state.Enabled = false;
 	}
 
 	protected override void OnFixedUpdate()
@@ -150,7 +130,7 @@ public sealed class StateMachineComponent : Component
 			return;
 		}
 
-		Scene.Dispatch( new UpdateStateEventArgs( current ) );
+		current.Update();
 
 		if ( NextState is not { } next || !(Time.Now >= NextStateTime) )
 		{

@@ -1,14 +1,16 @@
-﻿using Facepunch;
-using System.Threading.Tasks;
-using Sandbox.Events;
+﻿using Sandbox.Events;
+
+namespace Facepunch.GameRules;
 
 /// <summary>
-/// Wait for enough players to connect before starting, or start anyway if we waited too long.
+/// Skip to the next state if enough players are connected.
 /// </summary>
 public sealed class WaitForPlayers : Component,
-	IGameEventHandler<PreGameStartEvent>,
-	IGameEventHandler<DuringGameStartEvent>
+	IGameEventHandler<EnterStateEventArgs>,
+	IGameEventHandler<UpdateStateEventArgs>
 {
+	[RequireComponent] public StateComponent State { get; private set; }
+
 	[DeveloperCommand( "Pause Game Start", "Game Loop" )]
 	public static void DevToggle()
 	{
@@ -16,12 +18,6 @@ public sealed class WaitForPlayers : Component,
 			?.Components.GetInDescendantsOrSelf<WaitForPlayers>()
 			?.Toggle();
 	}
-
-	[Property, HostSync]
-	public float DurationSeconds { get; set; } = 60f;
-
-	[Property, HostSync]
-	public float GameStartDelaySeconds { get; set; } = 5f;
 
 	[Property, HostSync]
 	public int MinPlayerCount { get; set; } = 2;
@@ -32,35 +28,22 @@ public sealed class WaitForPlayers : Component,
 	[HostSync]
 	public float StartTime { get; set; }
 
-	public float Remaining => DurationSeconds - Time.Now + StartTime;
+	public float Remaining => State.DefaultDuration - Time.Now + StartTime;
 
-	void IGameEventHandler<PreGameStartEvent>.OnGameEvent( PreGameStartEvent eventArgs )
+	void IGameEventHandler<EnterStateEventArgs>.OnGameEvent( EnterStateEventArgs eventArgs )
 	{
-		Restart();
+		StartTime = Time.Now;
+		IsPostponed = false;
 	}
 
-	void IGameEventHandler<DuringGameStartEvent>.OnGameEvent( DuringGameStartEvent eventArgs )
+	void IGameEventHandler<UpdateStateEventArgs>.OnGameEvent( UpdateStateEventArgs eventArgs )
 	{
-		if ( GameMode.Instance.NextState == GameState.RoundStart )
-		{
-			return;
-		}
-
 		if ( IsPostponed || GameUtils.AllPlayers.Count() < MinPlayerCount && Remaining > 0f )
 		{
 			return;
 		}
 
-		GameMode.Instance.ShowToast( "Match Starting..." );
-		GameMode.Instance.ShowStatusText( "Starting in" );
-		GameMode.Instance.ShowCountDownTimer( Time.Now, GameStartDelaySeconds );
-
-		foreach ( var player in GameUtils.ActivePlayers )
-		{
-			player.IsFrozen = true;
-		}
-
-		GameMode.Instance.Transition( GameState.RoundStart, GameStartDelaySeconds );
+		eventArgs.State.Transition();
 	}
 
 	private void Toggle()
@@ -79,10 +62,6 @@ public sealed class WaitForPlayers : Component,
 
 	private void Restart()
 	{
-		StartTime = Time.Now;
-		IsPostponed = false;
-
-		GameMode.Instance.ShowStatusText( "Waiting..." );
-		GameMode.Instance.ShowCountDownTimer( StartTime, DurationSeconds );
+		State.Transition( State );
 	}
 }
