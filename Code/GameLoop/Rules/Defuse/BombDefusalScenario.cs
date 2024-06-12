@@ -2,14 +2,14 @@
 using Sandbox.Events;
 
 public sealed class BombDefusalScenario : Component,
-	IGameStartListener,
-	IRoundStartListener,
+	IGameEventHandler<PostGameStartEvent>,
+	IGameEventHandler<PostRoundStartEvent>,
 	IBombDroppedListener,
 	IGameEventHandler<BombPlantedEvent>,
 	IBombDetonatedListener,
 	IBombDefusedListener,
-	IRoundEndListener,
-	IRoundEndCondition,
+	IGameEventHandler<PreRoundEndEvent>,
+	IGameEventHandler<DuringRoundEvent>,
 	ITeamAssignedListener,
 	ITeamSwapListener
 {
@@ -89,7 +89,7 @@ public sealed class BombDefusalScenario : Component,
 		LossStreakLevel[team] = Math.Clamp( LossStreakLevel.GetValueOrDefault( team ) + sign, 0, MaxLossStreakLevel );
 	}
 
-	void IGameStartListener.PostGameStart()
+	void IGameEventHandler<PostGameStartEvent>.OnGameEvent( PostGameStartEvent eventArgs )
 	{
 		LossStreakLevel.Clear();
 	}
@@ -105,20 +105,26 @@ public sealed class BombDefusalScenario : Component,
 		player.Inventory.SetCash( StartMoney );
 	}
 
-	void IRoundStartListener.PostRoundStart()
+	void IGameEventHandler<PostRoundStartEvent>.OnGameEvent( PostRoundStartEvent eventArgs )
 	{
 		GameMode.Instance.ShowStatusText( Team.Terrorist, "Plant the Bomb" );
 		GameMode.Instance.ShowStatusText( Team.CounterTerrorist, "Defend" );
 	}
 
-	void IBombDroppedListener.OnBombDropped( )
+	void IBombDroppedListener.OnBombDropped()
 	{
-		GameMode.Instance.ShowStatusText( Team.Terrorist, "Recover the Bomb" );
+		if ( GameMode.Instance.State == GameState.DuringRound )
+		{
+			GameMode.Instance.ShowStatusText( Team.Terrorist, "Recover the Bomb" );
+		}
 	}
 
 	void IBombDroppedListener.OnBombPickedUp()
 	{
-		GameMode.Instance.ShowStatusText( Team.Terrorist, "Plant the Bomb" );
+		if ( GameMode.Instance.State == GameState.DuringRound )
+		{
+			GameMode.Instance.ShowStatusText( Team.Terrorist, "Plant the Bomb" );
+		}
 	}
 
 	void IGameEventHandler<BombPlantedEvent>.OnGameEvent( BombPlantedEvent eventArgs )
@@ -153,7 +159,7 @@ public sealed class BombDefusalScenario : Component,
 		defuser?.Inventory.GiveCash( BombDefusedPlayerBonus );
 	}
 
-	void IRoundEndListener.PreRoundEnd()
+	void IGameEventHandler<PreRoundEndEvent>.OnGameEvent( PreRoundEndEvent eventArgs )
 	{
 		if ( Scoring.RoundWinner == Team.Terrorist )
 		{
@@ -179,25 +185,22 @@ public sealed class BombDefusalScenario : Component,
 		TeamEliminated.IgnoreTeam = Team.Unassigned;
 	}
 
-	public bool ShouldRoundEnd()
+	void IGameEventHandler<DuringRoundEvent>.OnGameEvent( DuringRoundEvent eventArgs )
 	{
 		if ( !IsBombPlanted )
 		{
-			return false;
+			return;
 		}
 
 		if ( BombWasDefused )
 		{
 			Scoring.RoundWinner = Team.CounterTerrorist;
-			return true;
+			GameMode.Instance.EndRound();
 		}
-
-		if ( BombHasDetonated )
+		else if ( BombHasDetonated )
 		{
 			Scoring.RoundWinner = Team.Terrorist;
-			return true;
+			GameMode.Instance.EndRound();
 		}
-
-		return false;
 	}
 }

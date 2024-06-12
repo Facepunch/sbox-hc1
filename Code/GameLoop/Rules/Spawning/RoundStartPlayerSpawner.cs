@@ -1,12 +1,13 @@
-﻿using System.Threading.Tasks;
-using Facepunch;
+﻿using Facepunch;
+using Sandbox.Events;
 
 /// <summary>
 /// Respawn all players at the start of each round.
 /// </summary>
-public sealed class RoundStartPlayerSpawner : Component, IRoundStartListener
+public sealed class RoundStartPlayerSpawner : Component,
+	IGameEventHandler<PreRoundStartEvent>
 {
-	Task IRoundStartListener.OnRoundStart()
+	void IGameEventHandler<PreRoundStartEvent>.OnGameEvent( PreRoundStartEvent eventArgs )
 	{
 		foreach ( var player in GameUtils.ActivePlayers )
 		{
@@ -17,7 +18,5 @@ public sealed class RoundStartPlayerSpawner : Component, IRoundStartListener
 
 			player.Respawn();
 		}
-
-		return Task.CompletedTask;
 	}
 }

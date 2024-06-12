@@ -1,14 +1,16 @@
 ﻿using Facepunch;
+using Sandbox.Events;
 
 /// <summary>
 /// Respawn players after a delay.
 /// </summary>
-public sealed class PlayerAutoRespawner : Component, IGameStartListener
+public sealed class PlayerAutoRespawner : Component,
+	IGameEventHandler<PostGameStartEvent>
 {
 	[Property, HostSync] public float RespawnDelaySeconds { get; set; } = 3f;
 	[Property, HostSync] public bool DisableOnGameStart { get; set; }
 
-	void IGameStartListener.PostGameStart()
+	void IGameEventHandler<PostGameStartEvent>.OnGameEvent( PostGameStartEvent eventArgs )
 	{
 		if ( DisableOnGameStart )
 		{

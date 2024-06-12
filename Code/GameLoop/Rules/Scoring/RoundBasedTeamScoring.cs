@@ -1,7 +1,10 @@
 ﻿using Facepunch;
-using System.Threading.Tasks;
+using Sandbox.Events;
 
-public sealed class RoundBasedTeamScoring : Component, IGameStartListener, IRoundStartListener, IRoundEndListener
+public sealed class RoundBasedTeamScoring : Component,
+	IGameEventHandler<PreGameStartEvent>,
+	IGameEventHandler<PreRoundStartEvent>,
+	IGameEventHandler<PreRoundEndEvent>
 {
 	[RequireComponent] public TeamScoring TeamScoring { get; private set; }
 
@@ -9,17 +12,17 @@ public sealed class RoundBasedTeamScoring : Component, IGameStartListener, IRoun
 
 	[HostSync] public NetList<Team> RoundWinHistory { get; private set; } = new();
 
-	void IGameStartListener.PreGameStart()
+	void IGameEventHandler<PreGameStartEvent>.OnGameEvent( PreGameStartEvent eventArgs )
 	{
 		RoundWinHistory.Clear();
 	}
 
-	void IRoundStartListener.PreRoundStart()
+	void IGameEventHandler<PreRoundStartEvent>.OnGameEvent( PreRoundStartEvent eventArgs )
 	{
 		RoundWinner = Team.Unassigned;
 	}
 
-	Task IRoundEndListener.OnRoundEnd()
+	void IGameEventHandler<PreRoundEndEvent>.OnGameEvent( PreRoundEndEvent eventArgs )
 	{
 		RoundWinHistory.Add( RoundWinner );
 		TeamScoring.IncrementScore( RoundWinner );
@@ -44,7 +47,5 @@ public sealed class RoundBasedTeamScoring : Component, IGameStartListener, IRoun
 				RadioSounds.Play( Team.Terrorist, RadioSound.RoundLost );
 				break;
 		}
-
-		return Task.CompletedTask;
 	}
 }

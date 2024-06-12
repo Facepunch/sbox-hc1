@@ -1,9 +1,12 @@
 ﻿using Facepunch;
+using Sandbox.Events;
 
 /// <summary>
 /// Split players into two balanced teams.
 /// </summary>
-public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListener, IPlayerJoinedListener
+public sealed class TeamAssigner : Component,
+	IGameEventHandler<PostRoundEndEvent>,
+	IPlayerJoinedListener
 {
 	[Property] public int MaxTeamSize { get; set; } = 5;
 
@@ -40,7 +43,7 @@ public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListe
 
 	// assigning teams on join now instead, turn this into balance teams?
 	/*
-	void IGameStartListener.PostGameStart()
+	void IGameEventHandler<PostGameStartEvent>.OnGameEvent( PostGameStartEvent eventArgs )
 	{
 		Log.Info( nameof( TeamAssigner ) );
 
@@ -61,7 +64,7 @@ public sealed class TeamAssigner : Component, IGameStartListener, IRoundEndListe
 	}
 	*/
 
-	void IRoundEndListener.PostRoundEnd()
+	void IGameEventHandler<PostRoundEndEvent>.OnGameEvent( PostRoundEndEvent eventArgs )
 	{
 		// Put spectators on a team at the end of each round
 		var ts = GameUtils.GetPlayers( Team.Terrorist ).ToList();

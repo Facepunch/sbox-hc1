@@ -1,13 +1,16 @@
 ﻿using Facepunch;
+using Sandbox.Events;
 
-public class HalfTimeTeamSwap : Component, IRoundEndListener, IRoundStartListener
+public class HalfTimeTeamSwap : Component,
+	IGameEventHandler<PreRoundStartEvent>,
+	IGameEventHandler<PostRoundEndEvent>
 {
 	[RequireComponent] public RoundCounter RoundCounter { get; private set; }
 	[RequireComponent] public RoundLimit RoundLimit { get; private set; }
 
 	public int FirstHalfRoundCount => RoundLimit.MaxRounds / 2;
 
-	void IRoundStartListener.PreRoundStart()
+	void IGameEventHandler<PreRoundStartEvent>.OnGameEvent( PreRoundStartEvent eventArgs )
 	{
 		if ( RoundCounter.Round == FirstHalfRoundCount - 1 )
 		{
@@ -15,7 +18,7 @@ public class HalfTimeTeamSwap : Component, IRoundEndListener, IRoundStartListene
 		}
 	}
 
-	void IRoundEndListener.PostRoundEnd()
+	void IGameEventHandler<PostRoundEndEvent>.OnGameEvent( PostRoundEndEvent eventArgs )
 	{
 		if ( RoundCounter.Round != FirstHalfRoundCount )
 		{

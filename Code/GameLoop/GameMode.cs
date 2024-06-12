@@ -1,6 +1,7 @@
 ﻿using Facepunch;
 using System.Threading.Tasks;
 using Sandbox.Diagnostics;
+using Sandbox.Events;
 
 /// <summary>
 /// Handles the main game loop, using components that listen to state change
@@ -19,13 +20,17 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	[Property, HostSync]
 	public GameState State { get; private set; }
 
+	[HostSync]
+	public GameState NextState { get; private set; } = GameState.GameStart;
+
+	[HostSync]
+	public float NextStateTime { get; private set; }
+
 	[Property]
 	public string Title { get; set; }
 
 	[Property]
 	public string Description { get; set; }
-
-	private Task _gameLoopTask;
 
 	protected override void OnAwake()
 	{
@@ -49,121 +54,124 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 		base.OnAwake();
 	}
 
-	protected override void OnStart()
-	{
-		base.OnStart();
-
-		if ( IsProxy )
-			return;
-
-		_ = ResumeGame();
-	}
-
 	void INetworkListener.OnBecameHost( Connection previousHost )
 	{
 		Log.Info( "We became the host, taking over the game loop..." );
-		_ = ResumeGame();
 	}
 
-	private Task ResumeGame()
+	public void StartRound( float delaySeconds )
 	{
-		return _gameLoopTask ??= GameLoop();
+		Assert.True( Networking.IsHost );
+		Assert.True( State == GameState.RoundStart );
+
+		Transition( GameState.DuringRound, delaySeconds );
 	}
-	
-	private async Task GameLoop()
+
+	public void EndRound()
 	{
-		while ( State != GameState.Ended )
+		Assert.True( Networking.IsHost );
+		Assert.True( State == GameState.DuringRound );
+
+		Transition( GameState.RoundEnd );
+	}
+
+	public void EndGame()
+	{
+		Assert.True( Networking.IsHost );
+		Assert.True( State == GameState.RoundEnd );
+
+		Transition( GameState.GameEnd, 3f );
+	}
+
+	/// <summary>
+	/// Schedules a transition after the given delay, overriding any previously scheduled transition.
+	/// </summary>
+	public void Transition( GameState nextState, float delaySeconds = 0f )
+	{
+		Assert.True( Networking.IsHost );
+
+		NextState = nextState;
+		NextStateTime = Time.Now + delaySeconds;
+	}
+
+	private void TransitionNow( GameState oldState, GameState newState )
+	{
+		Assert.True( Networking.IsHost );
+
+		switch ( oldState )
 		{
-			switch ( State )
-			{
-				case GameState.PreGame:
-					await StartGame();
+			case GameState.GameStart:
+				Scene.Dispatch( new PostGameStartEvent() );
+				break;
 
-					State = GameState.PreRound;
-					break;
+			case GameState.RoundStart:
+				Scene.Dispatch( new PostRoundStartEvent() );
+				break;
 
-				case GameState.PreRound:
-					await StartRound();
+			case GameState.RoundEnd:
+				Scene.Dispatch( new PostRoundEndEvent() );
+				break;
 
-					State = GameState.DuringRound;
-					break;
+			case GameState.GameEnd:
+				Scene.Dispatch( new PostGameEndEvent() );
+				break;
+		}
 
-				case GameState.DuringRound:
-					await Task.FixedUpdate();
+		State = NextState;
+		NextState = GameState.None;
+		NextStateTime = float.PositiveInfinity;
 
-					State = ShouldRoundEnd()
-						? GameState.PostRound
-						: GameState.DuringRound;
-					break;
+		switch ( newState )
+		{
+			case GameState.GameStart:
+				Scene.Dispatch( new PreGameStartEvent() );
+				break;
 
-				case GameState.PostRound:
-					await EndRound();
+			case GameState.RoundStart:
+				Scene.Dispatch( new PreRoundStartEvent() );
+				break;
 
-					State = ShouldGameEnd()
-						? GameState.PostGame
-						: GameState.PreRound;
-					break;
+			case GameState.RoundEnd:
+				Scene.Dispatch( new PreRoundEndEvent() );
+				break;
 
-				case GameState.PostGame:
-					await EndGame();
-
-					State = GameState.Ended;
-					break;
-			}
+			case GameState.GameEnd:
+				Scene.Dispatch( new PreGameEndEvent() );
+				break;
 		}
 	}
 
-	private Task StartGame()
+	protected override void OnFixedUpdate()
 	{
-		ShowStatusText( "Preparing..." );
-		HideTimer();
+		if ( !Networking.IsHost ) return;
 
-		return Dispatch<IGameStartListener>(
-			x => x.PreGameStart(),
-			x => x.OnGameStart(),
-			x => x.PostGameStart() );
-	}
+		if ( Time.Now > NextStateTime )
+		{
+			TransitionNow( State, NextState );
+		}
 
-	private Task StartRound()
-	{
-		ShowStatusText( "Starting Round..." );
-		HideTimer();
+		switch ( State )
+		{
+			case GameState.GameStart:
+				Scene.Dispatch( new DuringGameStartEvent() );
+				break;
 
-		return Dispatch<IRoundStartListener>(
-			x => x.PreRoundStart(),
-			x => x.OnRoundStart(),
-			x => x.PostRoundStart() );
-	}
+			case GameState.RoundStart:
+				Scene.Dispatch( new DuringRoundStartEvent() );
+				break;
 
-	private Task EndRound()
-	{
-		return Dispatch<IRoundEndListener>(
-			x => x.PreRoundEnd(),
-			x => x.OnRoundEnd(),
-			x => x.PostRoundEnd() );
-	}
+			case GameState.DuringRound:
+				Scene.Dispatch( new DuringRoundEvent() );
+				break;
 
-	private Task EndGame()
-	{
-		ShowStatusText( "Ending Game..." );
-		HideTimer();
+			case GameState.RoundEnd:
+				Scene.Dispatch( new DuringRoundEndEvent() );
+				break;
 
-		return Dispatch<IGameEndListener>(
-			x => x.PreGameEnd(),
-			x => x.OnGameEnd(),
-			x => x.PostGameEnd() );
-	}
-
-	private bool ShouldGameEnd()
-	{
-		return Components.GetAll<IGameEndCondition>()
-			.Any( x => x.ShouldGameEnd() );
-	}
-
-	private bool ShouldRoundEnd()
-	{
-		return Components.GetAll<IRoundEndCondition>()
-			.Any( x => x.ShouldRoundEnd() );
+			case GameState.GameEnd:
+				Scene.Dispatch( new DuringGameEndEvent() );
+				break;
+		}
 	}
 
 	/// <summary>

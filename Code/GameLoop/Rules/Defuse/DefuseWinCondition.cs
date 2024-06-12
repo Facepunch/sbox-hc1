@@ -1,9 +1,13 @@
-﻿namespace Facepunch;
+﻿using Sandbox.Events;
+
+namespace Facepunch;
 
 /// <summary>
 /// End the game after a fixed number of rounds.
 /// </summary>
-public sealed class DefuseWinCondition : Component, IGameEndCondition, IGameEndListener, IRoundStartListener
+public sealed class DefuseWinCondition : Component,
+	IGameEventHandler<PostRoundStartEvent>,
+	IGameEventHandler<PostRoundEndEvent>
 {
 	[RequireComponent]
 	public RoundLimit RoundLimit { get; private set; }
@@ -22,7 +26,7 @@ public sealed class DefuseWinCondition : Component, IGameEndCondition, IGameEndL
 		return TeamScoring.Scores.GetValueOrDefault( team );
 	}
 
-	void IRoundStartListener.PostRoundStart()
+	void IGameEventHandler<PostRoundStartEvent>.OnGameEvent( PostRoundStartEvent eventArgs )
 	{
 		if ( GetWonRounds( Team.Terrorist ) == RoundsToMatchPoint || GetWonRounds( Team.CounterTerrorist ) == RoundsToMatchPoint )
 		{
@@ -30,18 +34,16 @@ public sealed class DefuseWinCondition : Component, IGameEndCondition, IGameEndL
 		}
 	}
 
-	public bool ShouldGameEnd()
+	void IGameEventHandler<PostRoundEndEvent>.OnGameEvent( PostRoundEndEvent eventArgs )
 	{
 		if ( GetWonRounds( Team.CounterTerrorist ) >= RoundsToWin )
 		{
-			return true;
+			GameMode.Instance.EndGame();
 		}
 
 		if ( GetWonRounds( Team.Terrorist ) >= RoundsToWin )
 		{
-			return true;
+			GameMode.Instance.EndGame();
 		}
-
-		return false;
 	}
 }

@@ -1,6 +1,9 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
-public sealed class Door : Component, IUse, IRoundStartListener
+public sealed class Door : Component, IUse,
+	IGameEventHandler<PreRoundStartEvent>
 {
 	/// <summary>
 	/// Animation curve to use, X is the time between 0-1 and Y is how much the door is open to its target angle from 0-1.
@@ -76,7 +79,7 @@ public sealed class Door : Component, IUse, IRoundStartListener
 		return State is DoorState.Open or DoorState.Closed;
 	}
 	
-	void IRoundStartListener.PreRoundStart()
+	void IGameEventHandler<PreRoundStartEvent>.OnGameEvent( PreRoundStartEvent eventArgs )
 	{
 		Transform.Local = StartTransform;
 		State = DefaultState;

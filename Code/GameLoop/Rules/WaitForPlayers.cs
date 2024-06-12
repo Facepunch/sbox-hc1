@@ -1,10 +1,13 @@
 ﻿using Facepunch;
 using System.Threading.Tasks;
+using Sandbox.Events;
 
 /// <summary>
 /// Wait for enough players to connect before starting, or start anyway if we waited too long.
 /// </summary>
-public sealed class WaitForPlayers : Component, IGameStartListener
+public sealed class WaitForPlayers : Component,
+	IGameEventHandler<PreGameStartEvent>,
+	IGameEventHandler<DuringGameStartEvent>
 {
 	[DeveloperCommand( "Pause Game Start", "Game Loop" )]
 	public static void DevToggle()
@@ -31,13 +34,21 @@ public sealed class WaitForPlayers : Component, IGameStartListener
 
 	public float Remaining => DurationSeconds - Time.Now + StartTime;
 
-	async Task IGameStartListener.OnGameStart()
+	void IGameEventHandler<PreGameStartEvent>.OnGameEvent( PreGameStartEvent eventArgs )
 	{
 		Restart();
+	}
 
-		while ( IsPostponed || GameUtils.AllPlayers.Count() < MinPlayerCount && Remaining > 0f )
+	void IGameEventHandler<DuringGameStartEvent>.OnGameEvent( DuringGameStartEvent eventArgs )
+	{
+		if ( GameMode.Instance.NextState == GameState.RoundStart )
 		{
-			await Task.DelaySeconds( 1f );
+			return;
+		}
+
+		if ( IsPostponed || GameUtils.AllPlayers.Count() < MinPlayerCount && Remaining > 0f )
+		{
+			return;
 		}
 
 		GameMode.Instance.ShowToast( "Match Starting..." );
@@ -49,7 +60,7 @@ public sealed class WaitForPlayers : Component, IGameStartListener
 			player.IsFrozen = true;
 		}
 
-		await Task.DelaySeconds( GameStartDelaySeconds );
+		GameMode.Instance.Transition( GameState.RoundStart, GameStartDelaySeconds );
 	}
 
 	private void Toggle()

@@ -1,11 +1,14 @@
 ﻿using Facepunch.UI;
 using Facepunch;
 using System.Threading.Tasks;
+using Sandbox.Events;
 
 /// <summary>
 /// Keep the players frozen for a few seconds at the start of each round.
 /// </summary>
-public sealed class FreezeTime : Component, IRoundStartListener
+public sealed class FreezeTime : Component,
+	IGameEventHandler<PreRoundStartEvent>,
+	IGameEventHandler<PostRoundStartEvent>
 {
 	[Property, Sync]
 	public float DurationSeconds { get; set; } = 15f;
@@ -13,34 +16,28 @@ public sealed class FreezeTime : Component, IRoundStartListener
 	[Sync]
 	public float StartTime { get; set; }
 
-	void IRoundStartListener.PreRoundStart()
+	void IGameEventHandler<PreRoundStartEvent>.OnGameEvent( PreRoundStartEvent eventArgs )
 	{
 		foreach ( var player in GameUtils.ActivePlayers )
 		{
 			player.IsFrozen = true;
 		}
-	}
 
-	void IRoundStartListener.PostRoundStart()
-	{
-		foreach ( var player in GameUtils.ActivePlayers )
-		{
-			player.IsFrozen = false;
-		}
-	}
-
-	async Task IRoundStartListener.OnRoundStart()
-	{
 		StartTime = Time.Now;
 
 		GameMode.Instance.ShowCountDownTimer( StartTime, DurationSeconds );
 		GameMode.Instance.ShowStatusText( "PREPARE" );
 
-		while ( Time.Now < StartTime + DurationSeconds )
-		{
-			await Task.FixedUpdate();
-		}
+		GameMode.Instance.StartRound( DurationSeconds );
+	}
 
+	void IGameEventHandler<PostRoundStartEvent>.OnGameEvent( PostRoundStartEvent eventArgs )
+	{
 		GameMode.Instance.HideStatusText();
+
+		foreach ( var player in GameUtils.ActivePlayers )
+		{
+			player.IsFrozen = false;
+		}
 	}
 }

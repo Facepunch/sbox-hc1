@@ -1,10 +1,10 @@
 ﻿
 public enum GameState
 {
-	PreGame,
-	PreRound,
+	None,
+	GameStart,
+	RoundStart,
 	DuringRound,
-	PostRound,
-	PostGame,
-	Ended
+	RoundEnd,
+	GameEnd
 }

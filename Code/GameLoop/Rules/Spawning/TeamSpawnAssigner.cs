@@ -1,9 +1,12 @@
 ﻿using Facepunch;
+using Sandbox.Events;
 
 /// <summary>
 /// Assign a spawn point for each player at the start of each round, based on their team.
 /// </summary>
-public sealed class TeamSpawnAssigner : Component, IRoundStartListener, ISpawnAssigner
+public sealed class TeamSpawnAssigner : Component,
+	IGameEventHandler<PreRoundStartEvent>,
+	ISpawnAssigner
 {
 	/// <summary>
 	/// Use spawns that include at least one of these tags.
@@ -13,7 +16,8 @@ public sealed class TeamSpawnAssigner : Component, IRoundStartListener, ISpawnAs
 
 	private Dictionary<PlayerController, Transform> AssignedSpawns { get; } = new();
 
-	void IRoundStartListener.PreRoundStart()
+	[Before<RoundStartPlayerSpawner>]
+	void IGameEventHandler<PreRoundStartEvent>.OnGameEvent( PreRoundStartEvent eventArgs )
 	{
 		AssignedSpawns.Clear();
 

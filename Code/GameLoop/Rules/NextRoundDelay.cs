@@ -1,19 +1,20 @@
 ﻿using System.Threading.Tasks;
 using Facepunch;
 using Facepunch.UI;
+using Sandbox.Events;
 
 /// <summary>
 /// Wait a bit before starting the next round.
 /// </summary>
-public class NextRoundDelay : Component, IRoundEndListener
+public class NextRoundDelay : Component,
+	IGameEventHandler<PreRoundEndEvent>
 {
 	[Property, Sync]
 	public float DurationSeconds { get; set; } = 5f;
 
-	Task IRoundEndListener.OnRoundEnd()
+	[Early]
+	void IGameEventHandler<PreRoundEndEvent>.OnGameEvent( PreRoundEndEvent eventArgs )
 	{
-		GameMode.Instance.HideTimer();
-
-		return Task.DelaySeconds( DurationSeconds );
+		GameMode.Instance.Transition( GameState.RoundStart, DurationSeconds );
 	}
 }

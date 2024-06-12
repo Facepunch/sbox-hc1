@@ -1,10 +1,13 @@
 ﻿
 using Facepunch;
+using Sandbox.Events;
 
 /// <summary>
 /// End the round if one team is eliminated.
 /// </summary>
-public sealed class TeamEliminated : Component, IRoundStartListener, IRoundEndCondition
+public sealed class TeamEliminated : Component,
+	IGameEventHandler<PostRoundStartEvent>,
+	IGameEventHandler<DuringRoundEvent>
 {
 	[RequireComponent] public RoundBasedTeamScoring Scoring { get; private set; }
 
@@ -16,7 +19,7 @@ public sealed class TeamEliminated : Component, IRoundStartListener, IRoundEndCo
 	[Property, HostSync]
 	public Team IgnoreTeam { get; set; }
 
-	void IRoundStartListener.PostRoundStart()
+	void IGameEventHandler<PostRoundStartEvent>.OnGameEvent( PostRoundStartEvent eventArgs )
 	{
 		_bothTeamsHadPlayers = GameUtils.GetPlayers( Team.CounterTerrorist ).Any()
 			&& GameUtils.GetPlayers( Team.Terrorist ).Any();
@@ -32,12 +35,12 @@ public sealed class TeamEliminated : Component, IRoundStartListener, IRoundEndCo
 		return ctsEliminated && tsEliminated ? Team.Unassigned : ctsEliminated ? Team.Terrorist : Team.CounterTerrorist;
 	}
 
-	public bool ShouldRoundEnd()
+	void IGameEventHandler<DuringRoundEvent>.OnGameEvent( DuringRoundEvent eventArgs )
 	{
 		if ( !_bothTeamsHadPlayers && !GameUtils.InactivePlayers.Any() )
 		{
 			// Let you test stuff in single player
-			return false;
+			return;
 		}
 
 		var ctsEliminated = IgnoreTeam != Team.CounterTerrorist && IsTeamEliminated( Team.CounterTerrorist );
@@ -45,11 +48,11 @@ public sealed class TeamEliminated : Component, IRoundStartListener, IRoundEndCo
 
 		if ( !ctsEliminated && !tsEliminated )
 		{
-			return false;
+			return;
 		}
 
 		Scoring.RoundWinner = GetRoundWinner( ctsEliminated, tsEliminated );
 
-		return true;
+		GameMode.Instance.EndRound();
 	}
 }

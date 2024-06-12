@@ -1,10 +1,13 @@
 ﻿using System.Threading.Tasks;
 using Facepunch;
+using Sandbox.Events;
 
 /// <summary>
 /// Gives a special weapon to one player on the specified team.
 /// </summary>
-public sealed class SpecialWeaponAllocator : Component, IRoundStartListener, IPlayerSpawnListener
+public sealed class SpecialWeaponAllocator : Component,
+	IGameEventHandler<PreRoundStartEvent>,
+	IPlayerSpawnListener
 {
 	/// <summary>
 	/// We'll give this weapon to one player on the specified team.
@@ -18,17 +21,20 @@ public sealed class SpecialWeaponAllocator : Component, IRoundStartListener, IPl
 	[Property]
 	public Team Team { get; set; }
 
-	Task IRoundStartListener.OnRoundStart()
+	[After<RoundStartPlayerSpawner>]
+	void IGameEventHandler<PreRoundStartEvent>.OnGameEvent( PreRoundStartEvent eventArgs )
 	{
 		if ( Weapon is null )
 		{
-			return Task.CompletedTask;
+			return;
 		}
 
 		var playersOnTeam = GameUtils.GetPlayers( Team ).Shuffle();
 
 		if ( playersOnTeam.Count == 0 )
-			return Task.CompletedTask;
+		{
+			return;
+		}
 
 		Log.Info( $"Trying to spawn {Weapon} on {playersOnTeam[0]}" );
 
@@ -46,7 +52,5 @@ public sealed class SpecialWeaponAllocator : Component, IRoundStartListener, IPl
 		{
 			weapon.Components.GetOrCreate<DestroyBetweenRounds>();
 		}
-		
-		return Task.CompletedTask;
 	}
 }

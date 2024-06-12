@@ -1,8 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Facepunch;
 using Facepunch.UI;
+using Sandbox.Events;
 
-public sealed class TeamScoring : Component, IGameStartListener, IGameEndListener, ITeamSwapListener
+public sealed class TeamScoring : Component,
+	IGameEventHandler<PostGameStartEvent>,
+	IGameEventHandler<PreGameEndEvent>,
+	ITeamSwapListener
 {
 	[HostSync]
 	public NetDictionary<Team, int> Scores { get; private set; } = new();
@@ -10,7 +14,7 @@ public sealed class TeamScoring : Component, IGameStartListener, IGameEndListene
 	public int MyTeamScore => Scores.GetValueOrDefault( GameUtils.LocalPlayer?.GameObject.GetTeam() ?? Team.Unassigned );
 	public int OpposingTeamScore => Scores.GetValueOrDefault( GameUtils.LocalPlayer?.GameObject.GetTeam().GetOpponents() ?? Team.Unassigned );
 
-	void IGameStartListener.PostGameStart()
+	void IGameEventHandler<PostGameStartEvent>.OnGameEvent( PostGameStartEvent eventArgs )
 	{
 		Scores.Clear();
 	}
@@ -34,7 +38,7 @@ public sealed class TeamScoring : Component, IGameStartListener, IGameEndListene
 		Flip();
 	}
 
-	Task IGameEndListener.OnGameEnd()
+	void IGameEventHandler<PreGameEndEvent>.OnGameEvent( PreGameEndEvent eventArgs )
 	{
 		foreach ( var player in GameUtils.ActivePlayers )
 		{
@@ -53,7 +57,5 @@ public sealed class TeamScoring : Component, IGameStartListener, IGameEndListene
 		{
 			GameMode.Instance.ShowToast( "Scores are Tied!" );
 		}
-
-		return Task.CompletedTask;
 	}
 }

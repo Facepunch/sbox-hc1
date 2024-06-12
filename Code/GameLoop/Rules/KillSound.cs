@@ -2,7 +2,8 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public sealed class KillSound : Component, IGameEventHandler<KillEvent>, IRoundStartListener
+public sealed class KillSound : Component, IGameEventHandler<KillEvent>,
+	IGameEventHandler<PostRoundStartEvent>
 {
 	[Property] public SoundEvent KillSoundEvent { get; set; }
 	[Property] public float BaseSoundPitch { get; set; } = 0.7f;
@@ -11,7 +12,7 @@ public sealed class KillSound : Component, IGameEventHandler<KillEvent>, IRoundS
 
 	int count = 0;
 
-	void IRoundStartListener.PostRoundStart()
+	void IGameEventHandler<PostRoundStartEvent>.OnGameEvent( PostRoundStartEvent eventArgs )
 	{
 		count = 0;
 	}

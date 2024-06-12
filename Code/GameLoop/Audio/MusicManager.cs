@@ -7,7 +7,7 @@ namespace Facepunch;
 /// Handles certain events and plays radio sounds.
 /// </summary>
 public partial class MusicManager : Component,
-	IRoundStartListener,
+	IGameEventHandler<PostRoundStartEvent>,
 	IGameEventHandler<BombPlantedEvent>,
 	IBombDefusedListener
 {
@@ -25,7 +25,7 @@ public partial class MusicManager : Component,
 		x.TargetMixer = Mixer.FindMixerByName( "Music" );
 	}
 
-	void IRoundStartListener.PostRoundStart()
+	void IGameEventHandler<PostRoundStartEvent>.OnGameEvent( PostRoundStartEvent eventArgs )
 	{
 		PlaySound( "sounds/music/round_intro/round_start.sound" );
 	}
