@@ -243,6 +243,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 				}
 
 				var damage = CalculateDamageFalloff( BaseDamage, tr.Distance );
+				damage = damage.CeilToInt();
 
 				// Inflict damage on whatever we find.
 
