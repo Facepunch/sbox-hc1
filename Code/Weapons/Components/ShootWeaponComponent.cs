@@ -148,6 +148,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		p.Particles = ParticleSystem.Load( particle );
 		gameObject.Transform.ClearInterpolation();
 
+		// Clean these up between rounds
+		gameObject.Components.Create<DestroyBetweenRounds>();
+
 		// Clear off in a suitable amount of time.
 		gameObject.DestroyAsync( decay );
 
@@ -184,6 +187,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		var decalRenderer = gameObject.Components.Create<DecalRenderer>();
 		decalRenderer.Material = material;
 		decalRenderer.Size = new( size, size, depth );
+
+		// Clean these up between rounds
+		GameObject.Components.Create<DestroyBetweenRounds>();
 
 		// Creates a destruction component to destroy the gameobject after a while
 		gameObject.DestroyAsync( destroyTime );
