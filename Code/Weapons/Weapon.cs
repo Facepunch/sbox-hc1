@@ -53,7 +53,12 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	/// <summary>
 	/// Who owns this gun?
 	/// </summary>
-	[Property] public PlayerController Owner { get; set; }
+	public PlayerController Owner
+	{
+		get => Scene.Directory.FindComponentByGuid( OwnerId ) as PlayerController;
+	}
+
+	[Sync] public Guid OwnerId { get; set; }
 
 	/// <summary>
 	/// Is this weapon currently deployed by the player?
