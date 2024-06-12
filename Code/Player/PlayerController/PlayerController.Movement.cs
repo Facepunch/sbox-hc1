@@ -360,10 +360,14 @@ public partial class PlayerController
 		OnJump?.Invoke();
 	}
 
+	public TimeSince TimeSinceGroundedChanged { get; private set; }
+
 	private void GroundedChanged( bool wasOnGround, bool isOnGround )
 	{
 		if ( !IsLocallyControlled )
 			return;
+
+		TimeSinceGroundedChanged = 0;
 
 		if ( wasOnGround && !isOnGround )
 		{

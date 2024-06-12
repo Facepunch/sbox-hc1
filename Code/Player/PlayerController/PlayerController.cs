@@ -81,8 +81,8 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, W
 			(this as IPawn).Possess();
 		}
 
-		// TODO: per-weapon
 		TagBinder.BindTag( "no_shooting", () => IsSprinting || TimeSinceSprintChanged < 0.25f );
+		TagBinder.BindTag( "no_aiming", () => IsSprinting || TimeSinceSprintChanged < 0.25f || TimeSinceGroundedChanged < 0.25f );
 
 		if ( IsBot )
 			GameObject.Name += " (Bot)";
