@@ -405,10 +405,12 @@ public partial class PlayerController
 		}
 	}
 
+	[Property, Group( "Effects" )] public SoundEvent LandSound { get; set; }
+
 	[Broadcast]
 	private void PlayFallSound()
 	{
-		var handle = Sound.Play( "footstep-concrete-land", Transform.Position );
+		var handle = Sound.Play( LandSound, Transform.Position );
 		handle.ListenLocal = IsViewer;
 	}
 
