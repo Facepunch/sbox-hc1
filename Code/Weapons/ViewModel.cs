@@ -221,8 +221,8 @@ public partial class ViewModel : Component, IWeapon
 		FieldOfViewOffset = 0;
 		ViewModelCamera.FieldOfView = TargetFieldOfView;
 
-		lerpedlocalRotation = Rotation.Lerp( lerpedlocalRotation, localRotation, Time.Delta * 5f );
-		lerpedLocalPosition = lerpedLocalPosition.LerpTo( localPosition, Time.Delta * 7f );
+		lerpedlocalRotation = Rotation.Lerp( lerpedlocalRotation, localRotation, Time.Delta * 10f );
+		lerpedLocalPosition = lerpedLocalPosition.LerpTo( localPosition, Time.Delta * 10f );
 
 		Transform.LocalRotation = lerpedlocalRotation;
 		Transform.LocalPosition = lerpedLocalPosition;
