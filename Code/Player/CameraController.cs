@@ -96,6 +96,10 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 	/// <param name="eyeHeight"></param>
 	internal void UpdateFromEyes( float eyeHeight )
 	{
+		// All transform effects are additive to camera local position, so we need to reset it before anything is applied
+		Camera.Transform.LocalPosition = Vector3.Zero;
+		Camera.Transform.LocalRotation = Rotation.Identity;
+
 		if ( Player.IsLocallyControlled )
 		{
 			Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
@@ -104,6 +108,17 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		{
 			Boom.Transform.Rotation = Rotation.Lerp( Boom.Transform.Rotation,
 				Player.EyeAngles.ToRotation(), Time.Delta / Scene.NetworkRate );
+		}
+
+		if ( MaxBoomLength > 0 )
+		{
+			var tr = Scene.Trace.Ray( new Ray( Boom.Transform.Position, Boom.Transform.Rotation.Backward ), MaxBoomLength )
+				.IgnoreGameObjectHierarchy( GameObject.Root )
+				.WithoutTags( "trigger", "player" )
+				.Run();
+
+			Camera.Transform.LocalPosition = Vector3.Backward * (tr.Hit ? tr.Distance - 5.0f : MaxBoomLength);
+			Camera.Transform.LocalPosition += Vector3.Right * 20f;
 		}
 
 		if ( ShouldViewBob )
@@ -179,21 +194,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		ApplyRecoil();
 		ApplyScope();
 
-		if ( MaxBoomLength > 0 )
-		{
-			var tr = Scene.Trace.Ray( new Ray( Boom.Transform.Position, Boom.Transform.Rotation.Backward ), MaxBoomLength )
-			.IgnoreGameObjectHierarchy( GameObject.Root )
-			.WithoutTags( "trigger", "player" )
-			.Run();
-
-			Camera.Transform.LocalPosition = Vector3.Backward * (tr.Hit ? tr.Distance - 5.0f : MaxBoomLength);
-			Camera.Transform.LocalPosition += Vector3.Right * 20f;
-		}
-		else
-		{
-			Camera.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
-			// Camera.Transform.LocalPosition = Vector3.Backward * 0f;
-		}
+		Boom.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
 
 		ApplyCameraEffects();
 		ScreenShaker?.Apply( Camera );
