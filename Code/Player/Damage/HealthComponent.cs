@@ -64,10 +64,7 @@ public partial class HealthComponent : Component, IRespawnable
 
 	protected void OnHasHelmetChanged( bool oldValue, bool newValue )
 	{
-		foreach ( var listener in GameObject.Root.Components.GetAll<IArmorListener>() )
-		{
-			listener?.OnHelmetChanged( newValue );
-		}
+		GameObject.Root.Dispatch( new HelmetChangedEvent( oldValue, newValue ) );
 	}
 
 	/// <summary>
@@ -264,8 +261,4 @@ public interface IRespawnable
 	public void Kill() { }
 }
 
-public interface IArmorListener
-{
-	public void OnHelmetChanged( bool hasHelmet ) { }
-	public void OnArmorChanged( float oldValue, float newValue ) { }
-}
+public record class HelmetChangedEvent( bool hadHelmet, bool hasHelmet );

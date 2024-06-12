@@ -1,4 +1,6 @@
-﻿namespace Facepunch;
+﻿using Sandbox.Events;
+
+namespace Facepunch;
 
 /// <summary>
 /// An outfit for the player.
@@ -105,7 +107,7 @@ public sealed class TeamOutfits
 /// <summary>
 /// A component that handles what a player wears.
 /// </summary>
-public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IArmorListener
+public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IGameEventHandler<HelmetChangedEvent>
 {
 	/// <summary>
 	/// The player's body component.
@@ -234,13 +236,13 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IArmo
 	/// <summary>
 	/// Called when the player's helmet state has changed.
 	/// </summary>
-	/// <param name="hasHelmet"></param>
-	void IArmorListener.OnHelmetChanged( bool hasHelmet )
+	/// <param name="eventArgs"></param>
+	void IGameEventHandler<HelmetChangedEvent>.OnGameEvent( HelmetChangedEvent eventArgs )
 	{
 		if ( PlayerController.HealthComponent.State != LifeState.Alive )
 			return;
 
-		if ( hasHelmet )
+		if ( eventArgs.hasHelmet )
 		{
 			UpdateCurrent();
 		}
@@ -258,7 +260,7 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IArmo
 
 				if ( !helmetRenderer.IsValid() )
 					return;
-				
+
 				helmetRenderer.GameObject.SetParent( null );
 				helmetRenderer.GameObject.Tags.Add( "no_player" );
 				helmetRenderer.BoneMergeTarget = null;
