@@ -7,9 +7,14 @@ namespace Facepunch;
 public abstract class WeaponComponent : Component
 {
 	/// <summary>
-	/// The weapon. It's going to be a component on the same <see cref="GameObject"/>.
+	/// The weapon.
 	/// </summary>
 	protected Weapon Weapon { get; set; }
+
+	/// <summary>
+	/// The player.
+	/// </summary>
+	protected PlayerController Player { get; set; }
 
 	protected void BindTag( string tag, Func<bool> predicate ) => Weapon.BindTag( tag, predicate );
 
@@ -17,6 +22,7 @@ public abstract class WeaponComponent : Component
 	{
 		// Cache the weapon on awake
 		Weapon = Components.Get<Weapon>( FindMode.EverythingInSelfAndAncestors );
+		Player = Weapon.PlayerController;
 
 		base.OnAwake();
 	}

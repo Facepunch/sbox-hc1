@@ -12,11 +12,14 @@ public partial class AimWeaponComponent : InputWeaponComponent
 
 	protected virtual bool CanAim()
 	{
-		if ( !Weapon.PlayerController.IsGrounded ) return false;
-		if ( Weapon.PlayerController.IsSprinting ) return false;
+		// Self checks first
 		if ( Tags.Has( "no_aiming" ) ) return false;
 		if ( Tags.Has( "reloading" ) ) return false;
-		if ( Weapon.PlayerController.Tags.Has( "no_aiming" ) ) return false;
+
+		// Player controller
+		if ( !Player?.IsGrounded ?? false ) return false;
+		if ( Player?.IsSprinting ?? false ) return false;
+		if ( Player?.Tags.Has( "no_aiming" ) ?? false ) return false;
 
 		return true;
 	}
