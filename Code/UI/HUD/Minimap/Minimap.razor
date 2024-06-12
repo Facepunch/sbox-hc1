@@ -66,8 +66,8 @@
     public Color TeamColor => GameUtils.Viewer?.GameObject?.GetTeam().GetColor() ?? Color.White;
     public Color ViewerColor => GameUtils.Viewer?.PlayerColor ?? Color.White;
 
-    public Vector3 ViewPos => GameUtils.Viewer?.Transform.Position ?? SpectateSystem.Instance.FreecamController.Transform.Position;
-    public float ViewYaw => GameUtils.Viewer?.EyeAngles.yaw ?? SpectateSystem.Instance.FreecamController.Transform.Rotation.Angles().yaw;
+    public Vector3 ViewPos => GameUtils.Viewer?.Transform.Position ?? SpectateSystem.Instance?.FreecamController?.Transform.Position ?? Vector3.Zero;
+    public float ViewYaw => GameUtils.Viewer?.EyeAngles.yaw ?? SpectateSystem.Instance?.FreecamController?.Transform.Rotation.Angles().yaw ?? 0;
 
     public float Zoom => 2;
 
