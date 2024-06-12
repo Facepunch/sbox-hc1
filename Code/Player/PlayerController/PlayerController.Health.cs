@@ -24,6 +24,9 @@ public partial class PlayerController : IGameEventHandler<DamageGivenEvent>, IGa
 	{
 		var damageInfo = eventArgs.DamageInfo;
 
+		var attacker = GameUtils.GetPlayerFromComponent( eventArgs.DamageInfo.Attacker );
+		var victim = GameUtils.GetPlayerFromComponent( eventArgs.DamageInfo.Victim );
+
 		var position = damageInfo.Attacker?.Transform.Position ?? Vector3.Zero;
 		var force = damageInfo.Force.IsNearZeroLength ? Random.Shared.VectorInSphere() : damageInfo.Force;
 
@@ -53,7 +56,8 @@ public partial class PlayerController : IGameEventHandler<DamageGivenEvent>, IGa
 			var headshotSound = damageInfo.HasHelmet ? HeadshotWithHelmetSound : HeadshotSound;
 			if ( headshotSound is not null )
 			{
-				Sound.Play( headshotSound, position );
+				var handle = Sound.Play( headshotSound, position );
+				handle.ListenLocal = attacker == GameUtils.Viewer || victim == GameUtils.Viewer;
 			}
 		}
 		else
