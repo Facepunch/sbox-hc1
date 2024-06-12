@@ -35,6 +35,8 @@ public partial class PlayerController
 	[Property, Group( "Fall Damage" )] public float MinimumFallSoundVelocity { get; set; } = 300f;
 	[Property, Group( "Fall Damage" )] public float FallDamageScale { get; set; } = 0.2f;
 
+	[Property, Group( "Sprint" )] public float SprintMovementDampening { get; set; } = 0.35f;
+
 	/// <summary>
 	/// Noclip movement speed
 	/// </summary>
@@ -447,6 +449,12 @@ public partial class PlayerController
 			return;
 
 		WishMove += Input.AnalogMove;
+
+		// Sprint behavior
+		if ( WishMove.x > 0.2f && IsSprinting )
+		{
+			WishMove = WishMove.WithY( WishMove.y * SprintMovementDampening );
+		}
 	}
 
 	private void BuildWishVelocity()
