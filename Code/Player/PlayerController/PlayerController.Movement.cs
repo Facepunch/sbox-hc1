@@ -408,7 +408,7 @@ public partial class PlayerController
 	[Broadcast]
 	private void PlayFallSound()
 	{
-		var handle = Sound.Play( "player.heavy_land.gear", Transform.Position );
+		var handle = Sound.Play( "footstep-concrete-land", Transform.Position );
 		handle.ListenLocal = IsViewer;
 	}
 
