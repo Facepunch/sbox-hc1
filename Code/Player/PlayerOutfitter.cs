@@ -239,7 +239,7 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IGame
 	/// <param name="eventArgs"></param>
 	void IGameEventHandler<HelmetChangedEvent>.OnGameEvent( HelmetChangedEvent eventArgs )
 	{
-		if ( PlayerController.HealthComponent.State != LifeState.Alive )
+		if ( PlayerController?.HealthComponent?.State != LifeState.Alive )
 			return;
 
 		if ( eventArgs.hasHelmet )
