@@ -15,7 +15,7 @@ public partial class GameUtils
 	/// <summary>
 	/// The <see cref="PlayerController"/> we're in the perspective of if there is one.
 	/// </summary>
-	public static PlayerController Viewer => Game.ActiveScene.GetSystem<PawnSystem>().Viewer as PlayerController;
+	public static PlayerController Viewer => Game.ActiveScene?.GetSystem<PawnSystem>()?.Viewer as PlayerController;
 
 	/// <summary>
 	/// All players, both assigned to a team and spectating.
