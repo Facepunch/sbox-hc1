@@ -111,6 +111,12 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		EndZoom();
 	}
 
+	public float GetFOV()
+	{
+		if ( ZoomLevel < 1 ) return 0f;
+		return ZoomLevels[Math.Clamp( ZoomLevel - 1, 0, ZoomLevels.Count )];
+	}
+
 	protected override void OnUpdate()
 	{
 		if ( !IsZooming )
@@ -130,7 +136,6 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			EndZoom();
 		}
 
-		camera.AddFieldOfViewOffset( ZoomLevels[Math.Clamp( ZoomLevel - 1, 0, ZoomLevels.Count )] );
 		Weapon.PlayerController.AimDampening /= (ZoomLevel * ZoomLevel) + 1;
 
 		{

@@ -150,7 +150,16 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		base.OnStart();
 	}
 
-	protected void Update( float eyeHeight )
+	private void ApplyScope()
+	{
+		if ( Player?.CurrentWeapon?.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } scope )
+		{
+			var fov = scope.GetFOV();
+			FieldOfViewOffset -= fov;
+		}
+	}
+
+	private void Update( float eyeHeight )
 	{
 		var baseFov = GameSettingsSystem.Current.FieldOfView;
 		FieldOfViewOffset = 0;
@@ -168,6 +177,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		}
 
 		ApplyRecoil();
+		ApplyScope();
 
 		if ( MaxBoomLength > 0 )
 		{
