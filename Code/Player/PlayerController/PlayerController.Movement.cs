@@ -289,7 +289,7 @@ public partial class PlayerController
 		if ( InMenu )
 			return;
 
-		IsSlowWalking = Input.Down( "Walk" );
+		IsSlowWalking = Input.Down( "Walk" ) || ( CurrentWeapon?.Tags.Has( "aiming" ) ?? false );
 
 		bool wasSprinting = IsSprinting;
         IsSprinting = WantsToSprint;
@@ -554,7 +554,6 @@ public partial class PlayerController
 	private float GetWishSpeed()
 	{
 		if ( IsSlowWalking ) return 100f;
-		if ( CurrentWeapon?.Tags.Has( "aiming" ) ?? false ) return 100f;
 		if ( IsCrouching ) return 100f;
 		if ( IsSprinting ) return 300f - ( GetSpeedPenalty() * 0.5f );
 		return GetWalkSpeed();
