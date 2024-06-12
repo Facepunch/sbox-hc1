@@ -1,7 +1,10 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 [Title( "Throw Weapon" ), Group( "Weapon Components" )]
-public partial class ThrowWeaponComponent : InputWeaponComponent, Weapon.IDeploymentListener
+public partial class ThrowWeaponComponent : InputWeaponComponent,
+	IGameEventHandler<WeaponHolsteredEvent>
 {
 	[Property] public float CookTime { get; set; } = 0.5f;
 	[Property] public GameObject Prefab { get; set; }
@@ -20,7 +23,7 @@ public partial class ThrowWeaponComponent : InputWeaponComponent, Weapon.IDeploy
 	private TimeSince TimeSinceAction { get; set; }
 	private bool HasThrownOnHost { get; set; }
 
-	void Weapon.IDeploymentListener.OnHolstered( Weapon weapon )
+	void IGameEventHandler<WeaponHolsteredEvent>.OnGameEvent( WeaponHolsteredEvent eventArgs )
 	{
 		if ( IsProxy ) return;
 		if ( ThrowState == State.Thrown ) return;

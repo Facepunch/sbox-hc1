@@ -1,19 +1,15 @@
+using Sandbox.Events;
+
 namespace Facepunch;
+
+public record WeaponDeployedEvent( Weapon Weapon );
+public record WeaponHolsteredEvent( Weapon Weapon );
 
 /// <summary>
 /// A weapon component.
 /// </summary>
 public partial class Weapon : Component, Component.INetworkListener, IWeapon
 {
-	/// <summary>
-	/// Subscribe to changes in the weapon's deployed state.
-	/// </summary>
-	public interface IDeploymentListener
-	{
-		public void OnDeployed( Weapon weapon ) { }
-		public void OnHolstered( Weapon weapon ) { }
-	}
-	
 	/// <summary>
 	/// A reference to the weapon's <see cref="WeaponData"/>.
 	/// </summary>
@@ -310,10 +306,8 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 		
 		if ( ModelRenderer.IsValid() )
 			ModelRenderer.Enabled = true;
-		
-		var listeners = GameObject.Root.Components.GetAll<IDeploymentListener>();
-		foreach ( var listener in listeners )
-			listener.OnDeployed( this );
+
+		GameObject.Root.Dispatch( new WeaponDeployedEvent( this ) );
 	}
 
 	protected virtual void OnHolstered()
@@ -322,10 +316,8 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 			ModelRenderer.Enabled = false;
 		
 		ClearViewModel();
-
-		var listeners = GameObject.Root.Components.GetAll<IDeploymentListener>();
-		foreach ( var listener in listeners )
-			listener.OnHolstered( this );
+		
+		GameObject.Root.Dispatch( new WeaponHolsteredEvent( this ) );
 	}
 
 	protected override void OnDestroy()

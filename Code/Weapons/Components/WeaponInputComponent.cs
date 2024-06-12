@@ -1,9 +1,12 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 /// <summary>
 /// A weapon component that reacts to input actions.
 /// </summary>
-public abstract class InputWeaponComponent : WeaponComponent, Weapon.IDeploymentListener
+public abstract class InputWeaponComponent : WeaponComponent,
+	IGameEventHandler<WeaponDeployedEvent>
 {
 	public enum InputListenerType
 	{
@@ -34,7 +37,7 @@ public abstract class InputWeaponComponent : WeaponComponent, Weapon.IDeployment
 
 	bool RunningWhileDeployed { get; set; }
 
-	public void OnDeployed( Weapon weapon )
+	void IGameEventHandler<WeaponDeployedEvent>.OnGameEvent( WeaponDeployedEvent eventArgs )
 	{
 		if ( Weapon?.PlayerController?.IsLocallyControlled ?? false )
 		{

@@ -1,7 +1,10 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 [Title( "Reload" ), Group( "Weapon Components" )]
-public partial class ReloadWeaponComponent : InputWeaponComponent, Weapon.IDeploymentListener
+public partial class ReloadWeaponComponent : InputWeaponComponent,
+	IGameEventHandler<WeaponHolsteredEvent>
 {
 	/// <summary>
 	/// How long does it take to reload?
@@ -51,7 +54,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent, Weapon.IDeplo
 		}
 	}
 
-	void Weapon.IDeploymentListener.OnHolstered( Weapon weapon )
+	void IGameEventHandler<WeaponHolsteredEvent>.OnGameEvent( WeaponHolsteredEvent eventArgs )
 	{
 		if ( !IsProxy && IsReloading )
 		{

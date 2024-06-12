@@ -1,6 +1,10 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
-public partial class PlayerController
+public partial class PlayerController :
+	IGameEventHandler<WeaponDeployedEvent>,
+	IGameEventHandler<WeaponHolsteredEvent>
 {
 	/// <summary>
 	/// What weapon are we using?
@@ -41,14 +45,14 @@ public partial class PlayerController
 		Spread = spread;
 	}
 
-	void Weapon.IDeploymentListener.OnDeployed( Weapon weapon )
+	void IGameEventHandler<WeaponDeployedEvent>.OnGameEvent( WeaponDeployedEvent eventArgs )
 	{
-		CurrentWeapon = weapon;
+		CurrentWeapon = eventArgs.Weapon;
 	}
 
-	void Weapon.IDeploymentListener.OnHolstered( Weapon weapon )
+	void IGameEventHandler<WeaponHolsteredEvent>.OnGameEvent( WeaponHolsteredEvent eventArgs )
 	{
-		if ( weapon == CurrentWeapon )
+		if ( eventArgs.Weapon == CurrentWeapon )
 			CurrentWeapon = null;
 	}
 

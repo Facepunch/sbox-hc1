@@ -1,3 +1,5 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 public class MountPoint
@@ -6,7 +8,9 @@ public class MountPoint
 	[KeyProperty] public List<GameObject> GameObjects { get; set; } = new();
 }
 
-public sealed class EquipmentHolsters : Component, Weapon.IDeploymentListener
+public sealed class EquipmentHolsters : Component,
+	IGameEventHandler<WeaponDeployedEvent>,
+	IGameEventHandler<WeaponHolsteredEvent>
 {
 	[Property] public List<MountPoint> MountPoints { get; set; } = new();
 
@@ -17,23 +21,23 @@ public sealed class EquipmentHolsters : Component, Weapon.IDeploymentListener
 		return mount;
 	}
 
-	void Weapon.IDeploymentListener.OnDeployed( Weapon weapon )
+	void IGameEventHandler<WeaponDeployedEvent>.OnGameEvent( WeaponDeployedEvent eventArgs )
 	{
-		var newParent = weapon?.PlayerController?.Inventory?.WeaponGameObject;
+		var newParent = eventArgs.Weapon?.PlayerController?.Inventory?.WeaponGameObject;
 		if ( !newParent.IsValid() )
 			return;
 
-		weapon.GameObject.SetParent( newParent, false );
+		eventArgs.Weapon.GameObject.SetParent( newParent, false );
 	}
 
-	void Weapon.IDeploymentListener.OnHolstered( Weapon weapon )
+	void IGameEventHandler<WeaponHolsteredEvent>.OnGameEvent( WeaponHolsteredEvent eventArgs )
 	{
-		var mount = GetMount( weapon );
+		var mount = GetMount( eventArgs.Weapon );
 		if ( mount is null )
 			return;
 
-		weapon.ModelRenderer.Enabled = true;
-		weapon.GameObject.SetParent( mount.GameObjects.FirstOrDefault(), false );
-		weapon.GameObject.Transform.ClearInterpolation();
+		eventArgs.Weapon.ModelRenderer.Enabled = true;
+		eventArgs.Weapon.GameObject.SetParent( mount.GameObjects.FirstOrDefault(), false );
+		eventArgs.Weapon.GameObject.Transform.ClearInterpolation();
 	}
 }
