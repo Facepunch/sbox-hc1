@@ -27,7 +27,7 @@ public partial class PlayerController : IGameEventHandler<DamageGivenEvent>, IGa
 		var attacker = GameUtils.GetPlayerFromComponent( eventArgs.DamageInfo.Attacker );
 		var victim = GameUtils.GetPlayerFromComponent( eventArgs.DamageInfo.Victim );
 
-		var position = damageInfo.Attacker?.Transform.Position ?? Vector3.Zero;
+		var position = eventArgs.DamageInfo.Position;
 		var force = damageInfo.Force.IsNearZeroLength ? Random.Shared.VectorInSphere() : damageInfo.Force;
 
 		AnimationHelper.ProceduralHitReaction( damageInfo.Damage / 100f, force );
