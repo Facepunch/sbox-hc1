@@ -50,7 +50,7 @@ public partial class PlayerController
 			Body.DamageTakenForce = Vector3.Zero;
 		}
 
-		if ( IsProxy || IsBot )
+		if ( IsProxy )
 			return;
 
 		Holster();
@@ -114,13 +114,16 @@ public partial class PlayerController
 			GameMode.Instance?.SendSpawnConfirmation( Id );
 		}
 
-		if ( IsProxy || IsBot )
+		if ( IsProxy )
 			return;
 
-		(this as IPawn).Possess();
-		
 		// Conna: we're not spectating if we just respawned.
 		IsSpectating = false;
+
+		if ( !IsBot )
+		{
+			(this as IPawn).Possess();
+		}
 	}
 
 	public void Teleport( Transform transform )
