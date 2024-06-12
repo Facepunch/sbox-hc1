@@ -362,6 +362,9 @@ public partial class PlayerController
 
 	private void GroundedChanged( bool wasOnGround, bool isOnGround )
 	{
+		if ( !IsLocallyControlled )
+			return;
+
 		if ( wasOnGround && !isOnGround )
 		{
 			_jumpPosition = Transform.Position;
@@ -374,8 +377,7 @@ public partial class PlayerController
 
 			if ( vel > MinimumFallSoundVelocity )
 			{
-				var handle = Sound.Play( "player.heavy_land.gear", Transform.Position );
-				handle.ListenLocal = IsViewer;
+				PlayFallSound();
 			}
 			if ( vel > minimumVelocity )
 			{
@@ -387,6 +389,13 @@ public partial class PlayerController
 				}
 			}
 		}
+	}
+
+	[Broadcast]
+	private void PlayFallSound()
+	{
+		var handle = Sound.Play( "player.heavy_land.gear", Transform.Position );
+		handle.ListenLocal = IsViewer;
 	}
 
 	[Broadcast]
