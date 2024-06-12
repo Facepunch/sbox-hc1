@@ -9,11 +9,10 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 	public static DroppedWeapon Create( WeaponData resource, Vector3 positon, Rotation? rotation = null, Weapon heldWeapon = null )
 	{
 		var go = new GameObject();
-		go.Tags.Set( "no_player", true );
 		go.Transform.Position = positon;
 		go.Transform.Rotation = rotation ?? Rotation.Identity;
 		go.Name = resource.Name;
-		go.Tags.Add("pickup");
+		go.Tags.Add( "pickup" );
 
 		var droppedWeapon = go.Components.Create<DroppedWeapon>();
 		droppedWeapon.Resource = resource;
@@ -77,7 +76,7 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 	void ICollisionListener.OnCollisionStart( Collision collision )
 	{
 		if ( !Networking.IsHost ) return;
-		
+
 		// Conna: this is longer than Daenerys Targaryen's full title.
 		if ( collision.Other.GameObject.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } player )
 		{
@@ -91,7 +90,7 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 			if ( player.TimeSinceLastRespawn < 2f )
 				return;
 			
-			if ( player.Inventory.CanTakeWeapon( Resource ) == PlayerInventory.PickupResult.Pickup )
+			if ( player.Inventory.CanTakeWeapon( Resource ) != PlayerInventory.PickupResult.Pickup )
 				return;
 
 			// Don't auto-pickup if we already have a weapon in this slot.
