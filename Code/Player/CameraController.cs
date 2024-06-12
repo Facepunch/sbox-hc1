@@ -100,7 +100,17 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		Camera.Transform.LocalPosition = Vector3.Zero;
 		Camera.Transform.LocalRotation = Rotation.Identity;
 
-		Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
+		if ( Mode == CameraMode.ThirdPerson && !Player.IsLocallyControlled )
+		{
+			// orbit cam: spectating only
+			var angles = Boom.Transform.Rotation.Angles();
+			angles += Input.AnalogLook;
+			Boom.Transform.Rotation = angles.WithPitch( angles.pitch.Clamp( -90, 90 ) ).ToRotation();
+		}
+		else
+		{
+			Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
+		}
 
 		if ( MaxBoomLength > 0 )
 		{
@@ -110,7 +120,6 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 				.Run();
 
 			Camera.Transform.LocalPosition = Vector3.Backward * (tr.Hit ? tr.Distance - 5.0f : MaxBoomLength);
-			Camera.Transform.LocalPosition += Vector3.Right * 20f;
 		}
 
 		if ( ShouldViewBob )
