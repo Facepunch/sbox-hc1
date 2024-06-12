@@ -4,23 +4,20 @@
 
 @attribute [StyleSheet]
 
-@if ( !Player.IsValid() ) return;
-
 <root class="flex justify-center align-center row">
     <img class="hud with-padding" src="@TeamBanner" />
 </root>
 
 @code
 {
-    public PlayerController Player => GameUtils.Viewer;
-    public TeamComponent TeamComponent => Player.Components.Get<TeamComponent>();
+    public Team Team => GameUtils.Viewer?.Team ?? Team.Unassigned;
 
     public PlayerController LocalPlayer => GameUtils.LocalPlayer;
 
     protected override int BuildHash()
     {
-        return !Player.IsValid() ? 0 : HashCode.Combine( TeamComponent, TeamComponent.Team, LocalPlayer.IsSpectating );
+        return HashCode.Combine( Team, LocalPlayer?.IsSpectating );
     }
 
-    private string TeamBanner => TeamComponent.Team.GetBannerPath();
+    private string TeamBanner => Team.GetBannerPath();
 }

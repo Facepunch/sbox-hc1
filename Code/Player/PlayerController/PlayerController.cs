@@ -69,6 +69,16 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 	/// </summary>
 	public SkinnedModelRenderer BodyRenderer => Body.Components.Get<SkinnedModelRenderer>();
 
+	/// <summary>
+	/// IPawn
+	/// </summary>
+	Team IPawn.Team => TeamComponent.Team;
+
+	/// <summary>
+	/// IPawn
+	/// </summary>
+	CameraComponent IPawn.Camera => CameraController.Camera;
+
 	public bool InBuyMenu { get; private set; }
 	public bool InMenu => InBuyMenu;
 	

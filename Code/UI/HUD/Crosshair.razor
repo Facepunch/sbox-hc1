@@ -2,6 +2,9 @@
 @inherits Panel
 @attribute [StyleSheet]
 
+@if (!Player.IsValid())
+    return;
+
 <root>
     <div class="guide"/>
 
@@ -36,7 +39,7 @@
 
     public Panel Hitmarker { get; set; }
 
-    PlayerController Player => GameUtils.Viewer;
+    PlayerController Player => GameUtils.Viewer as PlayerController;
     Weapon Weapon => Player?.CurrentWeapon;
 
     private TimeUntil TimeUntilHitmarkerRemove = 0f;
@@ -182,7 +185,7 @@
             var targetPlayer = currentTrace.GameObject.Root.Components.Get<PlayerController>();
             if (targetPlayer.IsValid())
             {
-                var friendly = targetPlayer.IsFriendly(GameUtils.Viewer);
+                var friendly = targetPlayer.IsFriendly( Player );
                 IsFriendly = friendly;
                 IsEnemy = !friendly;
             }

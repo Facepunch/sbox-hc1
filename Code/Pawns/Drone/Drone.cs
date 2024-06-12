@@ -20,6 +20,8 @@ public partial class Drone : Component, IPawn
 
 	[RequireComponent] public DroneSounds DroneSounds { get; set; }
 
+	[Sync] public Angles EyeAngles { get; set; }
+
 	/// <summary>
 	/// Is this player the currently possessed controller
 	/// </summary>
@@ -40,6 +42,7 @@ public partial class Drone : Component, IPawn
 		if ( !IsProxy )
 		{
 			(this as IPawn).Possess();
+			(this as IPawn).HealthComponent.Health = 100f;
 		}
 	}
 
@@ -128,6 +131,9 @@ public partial class Drone : Component, IPawn
 	}
 
 	ulong IPawn.SteamId { get; set; }
+
+	CameraComponent IPawn.Camera => Camera.CameraComponent;
+
 	void IPawn.OnDePossess() { }
 	void IPawn.OnPossess() { }
 

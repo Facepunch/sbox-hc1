@@ -57,7 +57,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 			const int max = (int)CameraMode.ThirdPerson + 1;
 			CameraMode = (CameraMode)((((int)CameraMode) + 1) % max);
 
-			GameUtils.Viewer.CameraController.Mode = CameraMode;
+			( GameUtils.Viewer as PlayerController ).CameraController.Mode = CameraMode;
 		}
 	}
 
@@ -98,7 +98,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 		if ( GameUtils.Viewer is not null )
 		{
 			// Entering freecam, position ourselves at the last guy's POV
-			var lastTransform = GameUtils.Viewer.Transform;
+			var lastTransform = GameUtils.Viewer.GameObject.Transform;
 			FreecamController.ViewAngles = GameUtils.Viewer.EyeAngles.ToRotation();
 			FreecamController.Transform.Position = lastTransform.Position - (Transform.Rotation.Forward * 128.0f);
 		}

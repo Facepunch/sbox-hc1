@@ -56,10 +56,6 @@
           "UnlimitedMoney": false
         },
         {
-          "__type": "PostponeGameForever",
-          "__guid": "c59db1b9-4561-4d25-9a45-f23c66bf7c3a"
-        },
-        {
           "__type": "DefaultEquipment",
           "__guid": "463af880-b1a7-4de0-931f-58e97ed62ff2",
           "Armor": 0,
@@ -77,7 +73,11 @@
         },
         {
           "__type": "Facepunch.BotManager",
-          "__guid": "4cb2b22f-95b9-486a-b0ef-b71051627e00"
+          "__guid": "4cb2b22f-95b9-486a-b0ef-b71051627e00",
+          "Drone": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player/drone.prefab"
+          }
         },
         {
           "__type": "RandomSpawnAssigner",
@@ -161,34 +161,6 @@
           "Viewport": "0,0,1,1",
           "ZFar": 10000,
           "ZNear": 10
-        },
-        {
-          "__type": "Sandbox.Pixelate",
-          "__guid": "da2a8819-63cf-4102-b99e-163712ab3901",
-          "Scale": 0.1
-        },
-        {
-          "__type": "Sandbox.ChromaticAberration",
-          "__guid": "28bf2f93-19c6-4dbb-9afc-aa760512a8c3",
-          "Offset": "4,6,0",
-          "Scale": 0.33
-        },
-        {
-          "__type": "Sandbox.ColorAdjustments",
-          "__guid": "51129829-f3a0-45e7-9a28-2fb210635e7d",
-          "Brightness": 1,
-          "Contrast": 1,
-          "HueRotate": 0,
-          "Saturation": 0.55
-        },
-        {
-          "__type": "Sandbox.Vignette",
-          "__guid": "72af19f9-51d4-4cf2-8c7a-ac08cba4ca81",
-          "Center": "0.5,0.5",
-          "Color": "0,0,0,1",
-          "Intensity": 0.49,
-          "Roundness": 1,
-          "Smoothness": 1
         }
       ]
     },
@@ -1684,7 +1656,7 @@
       "__guid": "7d175a49-e17c-4844-9962-5c609039a793",
       "Flags": 0,
       "Name": "Unassigned Spawn",
-      "Position": "44.42922,159.1817,40.90297",
+      "Position": "44.42922,16,40.90297",
       "Rotation": "0,0,-0.9817033,0.1904173",
       "Enabled": true,
       "NetworkMode": 2,
@@ -1752,6 +1724,7 @@
       "Flags": 0,
       "Name": "MinimapRenderer",
       "Position": "-256,-1984,0",
+      "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "Components": [
@@ -4562,7 +4535,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-06-12T22:25:32.4179374\u002B01:00",
+  "LastSaved": "2024-06-12T22:26:18.0861605\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "facepunch.concrete_simple",

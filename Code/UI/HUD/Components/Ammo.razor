@@ -16,7 +16,7 @@
     public PlayerInventory Inventory => Player.Inventory;
 
     /// The player
-    public PlayerController Player => GameUtils.Viewer;
+    public PlayerController Player => GameUtils.Viewer as PlayerController;
 
     private AmmoComponent AmmoComponent => Player?.CurrentWeapon?.Components.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
 

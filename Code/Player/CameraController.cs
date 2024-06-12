@@ -33,7 +33,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 	[DeveloperCommand( "Drop Audio Listener", "Player" )]
 	static void ToggleAudioListenerMode()
 	{
-		var player = GameUtils.Viewer;
+		var player = GameUtils.Viewer as PlayerController;
 		if ( player.CameraController.AudioListenerModeToggled )
 		{
 			// Return the audio listener to the camera 

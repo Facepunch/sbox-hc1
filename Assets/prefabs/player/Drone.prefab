@@ -11,18 +11,22 @@
       {
         "__type": "Facepunch.Drone",
         "__guid": "8a194157-b852-4ddd-be48-c58c14931f47",
+        "AltitudeAcceleration": 1000,
         "Camera": {
           "_type": "component",
-          "component_id": "852d06cc-7d1f-489e-83b9-82fc1e6e71b5",
-          "go": "8a503ece-5f41-4d8a-bb29-04a1f4e804b7",
+          "component_id": "efa5dd07-38ee-4b91-932e-ef9e9f83201f",
+          "go": "fd9b9b62-c289-4ff5-b908-a65bb12e8b1a",
           "component_type": "DroneCamera"
         },
+        "LeanMaxVelocity": 1000,
+        "LeanWeight": 0.5,
         "Model": {
           "_type": "component",
           "component_id": "d9d7105f-5147-4a07-87f2-ef20e48bddcf",
           "go": "acbd53a6-325d-4471-a75a-02a57ea091cc",
           "component_type": "SkinnedModelRenderer"
         },
+        "MovementAcceleration": 2500,
         "Rigidbody": {
           "_type": "component",
           "component_id": "bb946ee0-afb8-4c03-98da-7952742a6940",
@@ -46,7 +50,19 @@
             "_type": "gameobject",
             "go": "ebff2285-7b20-4b64-9e36-7f215c54f853"
           }
-        ]
+        ],
+        "UprightDot": 0.5,
+        "UprightSpeed": 5000,
+        "YawSpeed": 3000
+      },
+      {
+        "__type": "Facepunch.HealthComponent",
+        "__guid": "4078a8a3-0850-481a-98a2-b8781bd82417",
+        "Armor": 0,
+        "HasHelmet": false,
+        "Health": 0,
+        "IsGodMode": false,
+        "State": "Alive"
       },
       {
         "__type": "Facepunch.DroneSounds",
@@ -137,21 +153,22 @@
         ]
       },
       {
-        "__guid": "8a503ece-5f41-4d8a-bb29-04a1f4e804b7",
+        "__guid": "fd9b9b62-c289-4ff5-b908-a65bb12e8b1a",
         "Flags": 0,
         "Name": "Camera",
-        "Position": "13.1521,0,3.183319",
+        "Position": "12.32678,0,0",
+        "Tags": "maincamera",
         "Enabled": true,
         "NetworkMode": 2,
         "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Facepunch.DroneCamera",
-            "__guid": "852d06cc-7d1f-489e-83b9-82fc1e6e71b5"
+            "__guid": "efa5dd07-38ee-4b91-932e-ef9e9f83201f"
           },
           {
             "__type": "Sandbox.CameraComponent",
-            "__guid": "f4507cdc-59f5-4bde-91d7-03dba75ddd3e",
+            "__guid": "7ceb7dec-f6b5-4017-9f2b-0ac2ec6e0127",
             "BackgroundColor": "0.33333,0.46275,0.52157,1",
             "ClearFlags": "All",
             "FieldOfView": 60,
@@ -165,6 +182,34 @@
             "Viewport": "0,0,1,1",
             "ZFar": 10000,
             "ZNear": 10
+          },
+          {
+            "__type": "Sandbox.Pixelate",
+            "__guid": "8f590518-21f6-48ea-95d5-144082fb507a",
+            "Scale": 0.1
+          },
+          {
+            "__type": "Sandbox.ChromaticAberration",
+            "__guid": "ed37a89e-fa96-44c3-84ee-17ed1a8daaee",
+            "Offset": "4,6,0",
+            "Scale": 0.33
+          },
+          {
+            "__type": "Sandbox.ColorAdjustments",
+            "__guid": "343946f5-c912-4fe3-826e-e4785fc926e2",
+            "Brightness": 1,
+            "Contrast": 1,
+            "HueRotate": 0,
+            "Saturation": 0.55
+          },
+          {
+            "__type": "Sandbox.Vignette",
+            "__guid": "f7024375-5e4a-40ad-862f-fca7349940e2",
+            "Center": "0.5,0.5",
+            "Color": "0,0,0,1",
+            "Intensity": 0.49,
+            "Roundness": 1,
+            "Smoothness": 1
           }
         ]
       }

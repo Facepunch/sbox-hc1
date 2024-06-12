@@ -23,7 +23,7 @@
 
 @code
 {
-    public PlayerController Player => GameUtils.Viewer;
+    public PlayerController Player => GameUtils.Viewer as PlayerController;
     public PlayerInventory Inventory => Player.Inventory;
     public Weapon CurrentWeapon => Player?.CurrentWeapon;
 

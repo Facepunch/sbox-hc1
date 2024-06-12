@@ -11,7 +11,7 @@
 @code
 {
     /// The player
-    public PlayerController Player => GameUtils.Viewer;
+    public PlayerController Player => GameUtils.Viewer as PlayerController;
 
     protected override int BuildHash()
     {

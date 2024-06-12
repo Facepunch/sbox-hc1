@@ -83,7 +83,7 @@
 @code
 {
     public PlayerInventory Inventory => Player.Inventory;
-    public PlayerController Player => GameUtils.Viewer;
+    public PlayerController Player => GameUtils.Viewer as PlayerController;
 
     private void BuyWeapon( WeaponData weaponData )
     {

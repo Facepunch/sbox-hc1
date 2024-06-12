@@ -87,7 +87,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <summary>
 	/// Is this player an enemy of the viewer?
 	/// </summary>
-	bool IsEnemy => GameUtils.Viewer is not null && GameUtils.Viewer.TeamComponent.Team != Player.TeamComponent.Team;
+	bool IsEnemy => GameUtils.Viewer is not null && GameUtils.Viewer.Team != Player.TeamComponent.Team;
 
 	/// <summary>
 	/// Did we spot this player recently?

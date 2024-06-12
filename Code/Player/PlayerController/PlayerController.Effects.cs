@@ -50,7 +50,7 @@ public partial class PlayerController
 			return true;
 
 		var localPlayer = GameUtils.Viewer;
-		return localPlayer.IsValid() && TeamComponent.Team == localPlayer.TeamComponent.Team;
+		return localPlayer.IsValid() && TeamComponent.Team == localPlayer.Team;
 	}
 
 	private void UpdateOutline()
@@ -69,7 +69,7 @@ public partial class PlayerController
 		if ( SpectateSystem.Instance.IsSpectating )
 			Outline.ObscuredColor = TeamComponent.Team.GetColor();
 		else
-			Outline.ObscuredColor = GameUtils.Viewer is { TeamComponent.Team: var localTeam } && localTeam == TeamComponent.Team
+			Outline.ObscuredColor = GameUtils.Viewer is { Team: var localTeam } && localTeam == TeamComponent.Team
 				? PlayerColor : Color.Transparent;
 	}
 }

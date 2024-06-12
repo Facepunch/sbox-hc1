@@ -41,7 +41,7 @@
 
 @code
 {
-    public PlayerController Player => GameUtils.Viewer;
+    public PlayerController Player => GameUtils.Viewer as PlayerController;
 
     public SpectateSystem SpectateSystem => SpectateSystem.Instance;
 

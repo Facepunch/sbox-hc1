@@ -5,7 +5,27 @@ public interface IPawn : IValid
 	public void OnPossess();
 	public void OnDePossess();
 
+	/// <summary>
+	/// What team does this pawn belong to?
+	/// </summary>
+	public Team Team => Team.Unassigned;
+
+	/// <summary>
+	/// What's the pawn's eye angles?
+	/// </summary>
+	public Angles EyeAngles { get; }
+
+	/// <summary>
+	/// The pawn's camera. Has to have one.
+	/// </summary>
+	public CameraComponent Camera { get; }
+
 	public ulong SteamId { get; set; }
+
+	/// <summary>
+	/// The pawn's gameobject
+	/// </summary>
+	public GameObject GameObject { get; }
 
 	/// <summary>
 	/// Do we have network rights over this pawn?
@@ -41,6 +61,11 @@ public interface IPawn : IValid
 		Game.ActiveScene.GetSystem<PawnSystem>()
 			.DePossess( this );
 	}
+
+	/// <summary>
+	/// An accessor for health component if we have one.
+	/// </summary>
+	public HealthComponent HealthComponent => GameObject.Components.Get<HealthComponent>();
 }
 
 /// <summary>

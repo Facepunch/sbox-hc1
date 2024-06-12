@@ -8,9 +8,10 @@ public sealed class SpectateController : Component, IPawn
 	public ulong SteamId { get; set; }
 
 	[Property] public float FlySpeed = 10f;
-	[Property] public GameObject Camera;
+	[Property] public CameraComponent Camera { get; set; }
 
 	public Angles ViewAngles { get; set; }
+	Angles IPawn.EyeAngles => ViewAngles;
 
 	protected override void OnAwake()
 	{

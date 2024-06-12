@@ -30,7 +30,7 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 		
 		if ( screenShaker.IsValid() && viewer.IsValid() )
 		{
-			var distance = viewer.Transform.Position.Distance( Transform.Position );
+			var distance = viewer.GameObject.Transform.Position.Distance( Transform.Position );
 			var falloff = DamageFalloff;
 			
 			if ( falloff.Frames.Count == 0 )

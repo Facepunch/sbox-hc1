@@ -106,7 +106,7 @@
 @code
 {
     public PlayerController Player => Object?.GameObject?.Components?.Get<PlayerController>();
-    private PlayerController Viewer => GameUtils.Viewer;
+    private PlayerController Viewer => GameUtils.Viewer as PlayerController;
     private PlayerController LocalPlayer => GameUtils.LocalPlayer;
 
     private bool CanShowWeapon( Weapon weapon )

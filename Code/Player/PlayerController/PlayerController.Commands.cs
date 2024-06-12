@@ -7,7 +7,7 @@ public partial class PlayerController
 	{
 		var player = GameUtils.Viewer;
 		if ( player.IsValid() )
-			player.HealthComponent.TakeDamage( new DamageInfo( player, 50 ) );
+			player.HealthComponent.TakeDamage( new DamageInfo( player as Component, 50 ) );
 	}
 
 	[DeveloperCommand( "-10 HP", "Player" )]
@@ -15,7 +15,7 @@ public partial class PlayerController
 	{
 		var player = GameUtils.Viewer;
 		if ( player.IsValid() )
-			player.HealthComponent.TakeDamage( new DamageInfo( player, 10 ) );
+			player.HealthComponent.TakeDamage( new DamageInfo( player as Component, 10 ) );
 	}
 
 	[DeveloperCommand( "Heal", "Player" )]
@@ -31,8 +31,7 @@ public partial class PlayerController
 	[DeveloperCommand( "Suicide", "Player" ), ConCmd( "kill" )]
 	private static void Command_Suicide()
 	{
-		var player = GameUtils.Viewer;
-		if ( player.IsValid() )
+		if ( GameUtils.Viewer is PlayerController player )
 		{
 			player.Kill();
 		}
@@ -41,8 +40,7 @@ public partial class PlayerController
 	[DeveloperCommand( "Give $1k", "Player" )]
 	private static void Command_GiveGrand()
 	{
-		var player = GameUtils.Viewer;
-		if ( player.IsValid() )
+		if ( GameUtils.Viewer is PlayerController player )
 		{
 			player.Inventory.GiveCash(1000);
 		}

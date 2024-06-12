@@ -50,7 +50,7 @@ public abstract class ScreenShake
 		{
 			var c = Curve.Evaluate( Progress );
 
-			var cc = GameUtils.Viewer.CameraController;
+			var cc = (GameUtils.Viewer as PlayerController)?.CameraController;
 			cc.AddFieldOfViewOffset( Amount * c );
 
 			return LifeTime < Length;

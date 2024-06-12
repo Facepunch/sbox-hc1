@@ -70,4 +70,30 @@ public sealed class BotManager : SingletonComponent<BotManager>
 				player.GameObject.Destroy();
 		}
 	}
+
+	// TODO: TEMPORARY LOCATION, DELETE WHEN DONE
+	[Property] public GameObject Drone { get; set; }
+	private IPawn DronePawn { get; set; }
+
+	[DeveloperCommand( "Toggle Drone", "Drone Stuff" )]
+	private static void Command_Become_Drone()
+	{
+		if ( GameUtils.Viewer is Drone )
+		{
+			// Switch back to player
+			(GameUtils.LocalPlayer as IPawn).Possess();
+		}
+		else
+		{
+			if ( Instance.DronePawn.IsValid() )
+			{
+				Instance.DronePawn.Possess();
+				return;
+			}
+
+			var newInst = Instance.Drone.Clone();
+			newInst.NetworkSpawn();
+			Instance.DronePawn = newInst.Components.Get<IPawn>();
+		}
+	}
 }
