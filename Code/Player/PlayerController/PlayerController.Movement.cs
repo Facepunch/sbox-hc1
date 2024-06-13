@@ -1,3 +1,5 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 public partial class PlayerController
@@ -141,6 +143,19 @@ public partial class PlayerController
 			PlayerBoxCollider.Center = new( 0, 0, 32 + _smoothEyeHeight );
 			PlayerBoxCollider.Scale = new( 32, 32, 64 + _smoothEyeHeight );
 		}
+	}
+
+	TimeUntil TimeUntilAccelerationRecovered = 0;
+	float AccelerationAddedScale = 0;
+
+	private void ApplyAcceleration()
+	{
+		var relative = TimeUntilAccelerationRecovered.Fraction.Clamp( 0, 1 );
+		var acceleration = GetAcceleration();
+
+		acceleration *= ( relative + AccelerationAddedScale ).Clamp( 0, 1 );
+
+		CharacterController.Acceleration = acceleration;
 	}
 
 	private void OnUpdateMovement()
@@ -386,6 +401,9 @@ public partial class PlayerController
 			{
 				var velPastAmount = vel - minimumVelocity;
 
+				TimeUntilAccelerationRecovered = 1f;
+				AccelerationAddedScale = 0f;
+
 				using ( Rpc.FilterInclude( Connection.Host ) )
 				{
 					TakeFallDamage( velPastAmount * FallDamageScale );
@@ -506,14 +524,14 @@ public partial class PlayerController
 		return Global.WalkFriction;
 	}
 
-	private void ApplyAcceleration()
+	private float GetAcceleration()
 	{
-		if ( !IsGrounded ) CharacterController.Acceleration = Global.AirAcceleration;
-		else if ( IsSlowWalking ) CharacterController.Acceleration = Global.SlowWalkAcceleration;
-		else if ( IsCrouching ) CharacterController.Acceleration = Global.CrouchingAcceleration;
-		else if ( IsSprinting ) CharacterController.Acceleration = Global.SprintingAcceleration;
-		else
-			CharacterController.Acceleration = Global.BaseAcceleration;
+		if ( !IsGrounded ) return Global.AirAcceleration;
+		else if ( IsSlowWalking ) return Global.SlowWalkAcceleration;
+		else if ( IsCrouching ) return Global.CrouchingAcceleration;
+		else if ( IsSprinting ) return Global.SprintingAcceleration;
+
+		return Global.BaseAcceleration;
 	}
 
 	// TODO: expose to global

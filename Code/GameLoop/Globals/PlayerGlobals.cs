@@ -108,10 +108,13 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEven
 	[Property, Group( "Movement" )] public float CrouchingFriction { get; set; } = 4f;
 	[Property, Group( "Movement" )] public float SprintingFriction { get; set; } = 4f;
 
-
 	// Crouch
 	[Property, Group( "Movement" )] public float CrouchLerpSpeed { get; set; } = 10f;
 	[Property, Group( "Movement" )] public float SlowCrouchLerpSpeed { get; set; } = 0.5f;
+
+	// Damage Acceleration
+	[Property, Group( "Damage Acceleration" )] public float TakeDamageAccelerationDampenTime { get; set; } = 1f;
+	[Property, Group( "Damage Acceleration" )] public float TakeDamageAccelerationOffset { get; set; } = 0.3f;
 
 	/// <summary>
 	/// Apply armor and helmet damage modifications.

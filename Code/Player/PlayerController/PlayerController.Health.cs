@@ -41,6 +41,9 @@ public partial class PlayerController : IGameEventHandler<DamageGivenEvent>, IGa
 			DamageIndicator.Current?.OnHit( position );
 		}
 
+		TimeUntilAccelerationRecovered = Global.TakeDamageAccelerationDampenTime;
+		AccelerationAddedScale = Global.TakeDamageAccelerationOffset;
+
 		Body.DamageTakenPosition = position;
 		Body.DamageTakenForce = force.Normal * damageInfo.Damage * Game.Random.Float( 5f, 20f );
 
