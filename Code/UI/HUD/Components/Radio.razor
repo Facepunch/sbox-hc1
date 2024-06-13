@@ -75,6 +75,9 @@
 
     private void CheckForCategoryInput()
     {
+        if ( MySounds is null )
+            return;
+
         int i = 0;
         foreach ( var category in MySounds.TeamSounds )
         {
@@ -90,6 +93,13 @@
 
     public override void Tick()
     {
+        if ( GameUtils.Viewer.IsValid() && GameUtils.Viewer?.HealthComponent?.State != LifeState.Alive && IsOpen )
+        {
+            IsOpen = false;
+            StateHasChanged();
+            return;
+        }
+
         if ( Input.Pressed( "Radio" ) )
         {
             if ( !string.IsNullOrEmpty( SelectedCategory ) )
