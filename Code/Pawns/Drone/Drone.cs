@@ -87,7 +87,7 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 			currentInput.yaw = -Input.AnalogLook.yaw;
 		}
 
-		spinAngle += 10000.0f * Time.Delta;
+		spinAngle += 5000.0f * Time.Delta;
 		spinAngle %= 360.0f;
 
 		for ( int i = 0; i < Turbines.Count; i++ )
