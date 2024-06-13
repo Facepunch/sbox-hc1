@@ -64,15 +64,26 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 		ApplyForces();
 	}
 
-	public void Kill()
+	void Depossess()
 	{
 		if ( !IsProxy && GameUtils.Viewer == this )
 		{
 			(this as IPawn).DePossess();
 		}
+	}
+
+	public void Kill()
+	{
+		Depossess();
 
 		Explosion?.Clone( Transform.Position );
         Tags.Set( "invis", true );
+	}
+
+	protected override void OnDestroy()
+	{
+		// Just in case
+		Depossess();
 	}
 
 	protected override void OnUpdate()

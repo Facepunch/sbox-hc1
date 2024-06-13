@@ -97,6 +97,9 @@ public sealed class BotManager : SingletonComponent<BotManager>
 			var drone = newInst.Components.Get<Drone>();
 			drone.TeamComponent.Team = GameUtils.LocalPlayer.TeamComponent.Team;
 
+			var transform = GameUtils.LocalPlayer.Transform;
+			drone.Transform.Position = transform.Position + transform.Rotation.Forward * 50f + Vector3.Up * 50f;
+
 			Instance.DronePawn = drone;
 			
 		}
