@@ -127,7 +127,7 @@ public partial class PlayerController
 
 		if ( !IsBot )
 		{
-			(this as IPawn).Possess();
+			PlayerState.Possess();
 		}
 	}
 

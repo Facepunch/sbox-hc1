@@ -60,7 +60,7 @@ public partial class PlayerController : IGameEventHandler<DamageGivenEvent>, IGa
 			if ( headshotSound is not null )
 			{
 				var handle = Sound.Play( headshotSound, position );
-				handle.ListenLocal = attacker == GameUtils.Viewer || victim == GameUtils.Viewer;
+				handle.ListenLocal = attacker.IsViewer || victim.IsViewer;
 			}
 		}
 		else

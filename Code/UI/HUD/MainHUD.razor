@@ -6,6 +6,9 @@
 @if (!IsHudEnabled)
     return;
 
+@if (GameUtils.Viewer is null)
+    return;
+
 <root>
     <DamageOverlay />
 
@@ -57,7 +60,7 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( IsHudEnabled );
+        return HashCode.Combine( IsHudEnabled, GameUtils.Viewer is null );
     }
 
     public void OnGameEvent( KillEvent eventArgs )

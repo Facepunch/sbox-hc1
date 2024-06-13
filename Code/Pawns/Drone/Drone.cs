@@ -66,7 +66,7 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 
 	void Depossess()
 	{
-		if ( !IsProxy && GameUtils.Viewer == this )
+		if ( !IsProxy && IsViewer )
 		{
 			(this as IPawn).DePossess();
 		}

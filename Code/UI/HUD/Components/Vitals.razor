@@ -3,7 +3,7 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-@if ( !Viewer.IsValid() || ( Player.IsValid() && Player.IsSpectating ) ) return;
+@if ( !Player.IsValid() || Player.IsSpectating ) return;
 
 <root class="@BuildClass()">
 
@@ -28,10 +28,9 @@
 
 @code
 {
-    public PlayerController Player => GameUtils.Viewer as PlayerController;
-    public IPawn Viewer => GameUtils.Viewer;
-    public HealthComponent HealthComponent => Viewer?.HealthComponent;
-    public ArmorComponent ArmorComponent => Viewer?.GameObject?.Components.Get<ArmorComponent>();
+    public PlayerController Player => GameUtils.Viewer.Player;
+    public HealthComponent HealthComponent => Player.HealthComponent;
+    public ArmorComponent ArmorComponent => Player.GameObject?.Components.Get<ArmorComponent>();
     public int Health => HealthComponent?.Health.CeilToInt() ?? 0;
     public int Armor => ArmorComponent?.Armor.CeilToInt() ?? 0;
     public bool HasHelmet => ArmorComponent?.HasHelmet ?? false;

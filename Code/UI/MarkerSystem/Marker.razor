@@ -91,7 +91,7 @@
         if ( !Scene.IsValid() ) 
             return;
 
-        var camera = GameUtils.Viewer?.Camera ?? Scene.Camera;
+        var camera = GameUtils.Viewer.Player?.CameraController.Camera ?? Scene.Camera;
         if ( !camera.IsValid() )
             return;
 

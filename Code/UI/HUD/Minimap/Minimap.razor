@@ -12,7 +12,7 @@
 
                     @foreach (var volume in Game.ActiveScene.GetAllComponents<IMinimapVolume>())
                     {
-                        if (!volume.IsValid() || (GameUtils.Viewer is PlayerController player && !volume.IsVisible( player )))
+                        if (!volume.IsValid() || (GameUtils.CurrentPawn is PlayerController player && !volume.IsVisible( player )))
                             continue;
                             
                         <div class="volume" style="@GetBox(volume) @GetBoxStyles(volume)" >
@@ -26,7 +26,7 @@
         <div class="markers">
             @foreach (var element in Game.ActiveScene.GetAllComponents<IMinimapElement>())
             {
-                if (!element.IsValid() || (GameUtils.Viewer is PlayerController player && !element.IsVisible( player)) )
+                if (!element.IsValid() || (GameUtils.CurrentPawn is PlayerController player && !element.IsVisible(player)))
                 continue;
 
                 if ( element is IMinimapIcon icon && !string.IsNullOrEmpty( icon.IconPath ) )
@@ -50,7 +50,7 @@
             }
 
             <!-- POV Marker -->
-            @if ( GameUtils.Viewer is null || GameUtils.Viewer?.HealthComponent?.State == LifeState.Alive )
+            @if (GameUtils.CurrentPawn is null || GameUtils.CurrentPawn?.HealthComponent?.State == LifeState.Alive)
             {
                 <div class="marker @(SpectateSystem.Instance?.IsFreecam ?? false ? "" : "viewer")" style="@WorldToMap(ViewPos) @RotationToMap(ViewYaw) background-tint: @ViewerColor.Hex" />
             }
@@ -63,13 +63,13 @@
 {
     public MinimapRenderer Renderer => Game.ActiveScene.GetAllComponents<MinimapRenderer>().FirstOrDefault();
 
-    public Color TeamColor => GameUtils.Viewer?.GameObject?.GetTeam().GetColor() ?? Color.White;
-    private PlayerController Player => GameUtils.Viewer as PlayerController;
+    public Color TeamColor => GameUtils.CurrentPawn?.GameObject?.GetTeam().GetColor() ?? Color.White;
+    private PlayerController Player => GameUtils.Viewer.Player;
 
     public Color ViewerColor => Player?.PlayerColor ?? Color.White;
 
-    public Vector3 ViewPos => GameUtils.Viewer?.GameObject?.Transform.Position ?? SpectateSystem.Instance?.FreecamController?.Transform.Position ?? Vector3.Zero;
-    public float ViewYaw => GameUtils.Viewer?.EyeAngles.yaw ?? SpectateSystem.Instance?.FreecamController?.Transform.Rotation.Angles().yaw ?? 0;
+    public Vector3 ViewPos => GameUtils.CurrentPawn?.GameObject?.Transform.Position ?? SpectateSystem.Instance?.FreecamController?.Transform.Position ?? Vector3.Zero;
+    public float ViewYaw => GameUtils.CurrentPawn?.EyeAngles.yaw ?? SpectateSystem.Instance?.FreecamController?.Transform.Rotation.Angles().yaw ?? 0;
 
     public float Zoom => 2;
 

@@ -6,7 +6,7 @@
 
 @if ( !SpectateSystem.IsValid() || !SpectateSystem.IsSpectating ) return;
 
-@if (GameUtils.Viewer == GameUtils.LocalPlayer) return;
+@if (GameUtils.Viewer.IsLocalPlayer) return;
 
 <root class="hud with-deadzone flex column">
     <div class="flex row">
@@ -41,7 +41,7 @@
 
 @code
 {
-    public PlayerController Player => GameUtils.Viewer as PlayerController;
+    public PlayerController Player => GameUtils.Viewer.Player;
 
     public SpectateSystem SpectateSystem => SpectateSystem.Instance;
 

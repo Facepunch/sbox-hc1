@@ -88,7 +88,7 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 		{
 			// Set this as our local player and possess it.
 			GameUtils.LocalPlayer = this;
-			(this as IPawn).Possess();
+			PlayerState.Possess();
 		}
 
 		// TODO: expose these parameters please

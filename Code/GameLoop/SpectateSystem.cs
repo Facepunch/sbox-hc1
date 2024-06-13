@@ -51,41 +51,44 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 		}
 		else if ( Input.Pressed( "SpectatorMode" ) )
 		{
-			if ( IsFreecam || GameUtils.Viewer == GameUtils.LocalPlayer )
+			if ( IsFreecam || GameUtils.Viewer.IsLocalPlayer )
 				return;
 
 			const int max = (int)CameraMode.ThirdPerson + 1;
 			CameraMode = (CameraMode)((((int)CameraMode) + 1) % max);
 
-			( GameUtils.Viewer as PlayerController ).CameraController.Mode = CameraMode;
+			GameUtils.Viewer.Player.CameraController.Mode = CameraMode;
 		}
 	}
 
 	private void SpectateNextPlayer( bool direction )
 	{
-		var players = Scene.GetAllComponents<PlayerController>().ToList();
+		var players = Scene.GetAllComponents<PlayerState>();
 		
 		var idxCur = 0;
 		for ( var i = 0; i < players.Count(); i++ )
 		{
-			if ( players.ElementAt( i ) == GameUtils.Viewer )
+			if ( players.ElementAt( i ).IsViewer )
 				idxCur = i;
 		}
 
-		var count = players.Count;
+		var count = players.Count();
 		for ( var i = 1; i <= count; i++ )
 		{
 			var idx = (idxCur + (direction ? i : -i) + count) % count;
-			var element = players.ElementAt( idx );
-			
-			if ( element.IsSpectating )
+			var playerState = players.ElementAt( idx );
+
+			if ( playerState.Player is null )
+				continue;
+
+			if ( playerState.Player.IsSpectating )
 				continue;
 
 			// Already spectating this guy, no need to reposess (and reset the viewmodel etc)
 			if ( idx == idxCur )
 				return;
 
-			((IPawn)element).Possess();
+			playerState.Possess();
 			return;
 		}
 
@@ -99,7 +102,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 		{
 			// Entering freecam, position ourselves at the last guy's POV
 			var lastTransform = GameUtils.Viewer.GameObject.Transform;
-			FreecamController.ViewAngles = GameUtils.Viewer.EyeAngles.ToRotation();
+			FreecamController.ViewAngles = GameUtils.Viewer.Player.EyeAngles.ToRotation();
 			FreecamController.Transform.Position = lastTransform.Position - (Transform.Rotation.Forward * 128.0f);
 		}
 

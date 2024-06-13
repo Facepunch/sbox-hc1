@@ -96,6 +96,8 @@ public partial class PawnSystem : GameObjectSystem
 		{
 			pawn.SteamId = Connection.Local.SteamId;
 		}
+
+		GameUtils.LocalPlayer.PlayerState.NotifyPossessed( pawn );
 	}
 
 	public void DePossess( IPawn pawn )

@@ -16,7 +16,7 @@
             <span style="gap: 4px; align-items: flex-end;">
                 @if (IsActive)
                 {
-                    @if ( Weapon?.Owner != GameUtils.Viewer && ( Weapon?.Owner?.IsValid() ?? false ) )
+                    @if ( Weapon?.Owner != GameUtils.Viewer.Player && ( Weapon?.Owner?.IsValid() ?? false ) )
                     {
                         <label style="font-size: 14px; color: lightgrey">@(Weapon?.Owner?.DisplayName)'s</label>
                     }

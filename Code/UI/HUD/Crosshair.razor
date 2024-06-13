@@ -39,7 +39,7 @@
 
     public Panel Hitmarker { get; set; }
 
-    PlayerController Player => GameUtils.Viewer as PlayerController;
+    PlayerController Player => GameUtils.Viewer.Player;
     Weapon Weapon => Player?.CurrentWeapon;
 
     private TimeUntil TimeUntilHitmarkerRemove = 0f;

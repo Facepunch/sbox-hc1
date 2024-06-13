@@ -13,9 +13,14 @@ public partial class GameUtils
 	public static PlayerController LocalPlayer = null;
 
 	/// <summary>
-	/// The <see cref="PlayerController"/> we're in the perspective of if there is one.
+	/// The <see cref="PlayerState"/> we're in the perspective of.
 	/// </summary>
-	public static IPawn Viewer => Game.ActiveScene?.GetSystem<PawnSystem>()?.Viewer;
+	public static PlayerState Viewer => PlayerState.CurrentView;
+
+	/// <summary>
+	/// The <see cref="IPawn"/> we're in the perspective of if there is one.
+	/// </summary>
+	public static IPawn CurrentPawn => Game.ActiveScene?.GetSystem<PawnSystem>()?.Viewer;
 
 	/// <summary>
 	/// All players, both assigned to a team and spectating.

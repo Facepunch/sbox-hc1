@@ -78,7 +78,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 	[DeveloperCommand( "Toggle Drone", "Drone Stuff" )]
 	private static void Command_Become_Drone()
 	{
-		if ( GameUtils.Viewer is Drone )
+		if ( GameUtils.CurrentPawn is Drone )
 		{
 			// Switch back to player
 			(GameUtils.LocalPlayer as IPawn).Possess();

@@ -10,13 +10,11 @@
 
 @code
 {
-    public Team Team => GameUtils.Viewer?.Team ?? Team.Unassigned;
-
-    public PlayerController LocalPlayer => GameUtils.LocalPlayer;
+    public Team Team => GameUtils.Viewer.Player.TeamComponent?.Team ?? Team.Unassigned;
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( Team, LocalPlayer?.IsSpectating );
+        return HashCode.Combine( Team );
     }
 
     private string TeamBanner => Team.GetBannerPath();

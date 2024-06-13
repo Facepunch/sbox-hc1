@@ -7,6 +7,8 @@ public partial class PlayerController
 	/// </summary>
 	[Sync] public ulong SteamId { get; set; }
 
+	[RequireComponent] public PlayerState PlayerState { get; set; }
+
 	/// <summary>
 	/// A shorthand accessor to say if we're controlling this player.
 	/// </summary>
