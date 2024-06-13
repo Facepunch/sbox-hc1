@@ -7,6 +7,11 @@ public sealed class RoundBasedTeamScoring : Component,
 {
 	[HostSync] public NetList<Team> RoundWinHistory { get; private set; } = new();
 
+	public void AddRoundResult( Team team )
+	{
+		RoundWinHistory.Add( team );
+	}
+
 	void IGameEventHandler<ResetScoresEvent>.OnGameEvent( ResetScoresEvent eventArgs )
 	{
 		RoundWinHistory.Clear();
@@ -33,6 +38,6 @@ public sealed class IncrementTeamScore : Component,
 		var roundBasedTeamScoring = GameMode.Instance.Get<RoundBasedTeamScoring>();
 
 		teamScoring?.IncrementScore( Team );
-		roundBasedTeamScoring?.RoundWinHistory.Add( Team );
+		roundBasedTeamScoring?.AddRoundResult( Team );
 	}
 }

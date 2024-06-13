@@ -18,6 +18,7 @@ public sealed class DefaultEquipment : Component,
 
 	[Property] public int Armor { get; set; }
 	[Property] public bool Helmet { get; set; }
+	[Property] public bool DefuseKit { get; set; }
 	[Property] public bool RefillAmmo { get; set; } = true;
 
 	void IGameEventHandler<PlayerSpawnedEvent>.OnGameEvent( PlayerSpawnedEvent eventArgs )
@@ -38,6 +39,11 @@ public sealed class DefaultEquipment : Component,
 
 		player.ArmorComponent.Armor = Math.Max( player.ArmorComponent.Armor, Armor );
 		player.ArmorComponent.HasHelmet |= Helmet;
+
+		if ( DefuseKit && player.TeamComponent.Team == Team.CounterTerrorist )
+		{
+			player.Inventory.HasDefuseKit = true;
+		}
 
 		if ( RefillAmmo )
 		{
