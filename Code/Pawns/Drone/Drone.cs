@@ -72,9 +72,7 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 		}
 
 		Explosion?.Clone( Transform.Position );
-
-		Model.Enabled = false;
-		// TODO: destroy
+        Tags.Set( "invis", true );
 	}
 
 	protected override void OnUpdate()
@@ -87,16 +85,25 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 			currentInput.yaw = -Input.AnalogLook.yaw;
 		}
 
-		spinAngle += 5000.0f * Time.Delta;
-		spinAngle %= 360.0f;
+        // nasty cleanup
+        if ( !IsProxy )
+        {
+            if ( HealthComponent.TimeSinceLifeStateChanged > 1f && HealthComponent.State != LifeState.Alive )
+            {
+                GameObject?.Destroy();
+            }
+        }
 
-		for ( int i = 0; i < Turbines.Count; i++ )
-		{
-			var turbine = Turbines[i];
-			var pos = turbinePositions[i];
-			turbine.Transform.Rotation = Rotation.From( new Angles( 0, spinAngle, 0 ) );
-			turbine.Transform.LocalPosition = pos;
-		}
+        spinAngle += 5000.0f * Time.Delta;
+        spinAngle %= 360.0f;
+
+        for ( int i = 0; i < Turbines.Count; i++ )
+        {
+	        var turbine = Turbines[i];
+	        var pos = turbinePositions[i];
+	        turbine.Transform.Rotation = Rotation.From( new Angles( 0, spinAngle, 0 ) );
+	        turbine.Transform.LocalPosition = pos;
+        }
 	}
 
 	protected void ApplyForces()
