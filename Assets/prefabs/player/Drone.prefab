@@ -166,11 +166,18 @@
         "Components": [
           {
             "__type": "Facepunch.DroneCamera",
-            "__guid": "efa5dd07-38ee-4b91-932e-ef9e9f83201f"
+            "__guid": "efa5dd07-38ee-4b91-932e-ef9e9f83201f",
+            "Listener": {
+              "_type": "component",
+              "component_id": "e2d5d5b5-8235-44c0-a91e-0165d5f6a809",
+              "go": "fd9b9b62-c289-4ff5-b908-a65bb12e8b1a",
+              "component_type": "AudioListener"
+            }
           },
           {
             "__type": "Sandbox.CameraComponent",
             "__guid": "7ceb7dec-f6b5-4017-9f2b-0ac2ec6e0127",
+            "__enabled": false,
             "BackgroundColor": "0.33333,0.46275,0.52157,1",
             "ClearFlags": "All",
             "FieldOfView": 60,
@@ -184,6 +191,12 @@
             "Viewport": "0,0,1,1",
             "ZFar": 10000,
             "ZNear": 10
+          },
+          {
+            "__type": "Sandbox.AudioListener",
+            "__guid": "e2d5d5b5-8235-44c0-a91e-0165d5f6a809",
+            "__enabled": false,
+            "UseCameraDirection": true
           },
           {
             "__type": "Sandbox.Pixelate",

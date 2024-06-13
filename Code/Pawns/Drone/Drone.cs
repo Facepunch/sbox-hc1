@@ -175,8 +175,15 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 
 	CameraComponent IPawn.Camera => Camera.CameraComponent;
 
-	void IPawn.OnDePossess() { }
-	void IPawn.OnPossess() { }
+	void IPawn.OnDePossess()
+	{
+		Camera.SetActive( false );
+	}
+
+	void IPawn.OnPossess()
+	{ 
+		Camera.SetActive( true );
+	}
 
 	bool IMinimapElement.IsVisible( IPawn viewer )
 	{

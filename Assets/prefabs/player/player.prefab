@@ -19,7 +19,6 @@
           "go": "d5948881-7e0d-4ca0-8054-85c77a3cc5af",
           "component_type": "AnimationHelper"
         },
-        "BaseFriction": 5,
         "BloodEffect": {
           "_type": "gameobject",
           "prefab": "prefabs/impact_fx/impact_blood_mist.prefab"
@@ -31,7 +30,6 @@
           "go": "d5948881-7e0d-4ca0-8054-85c77a3cc5af",
           "component_type": "PlayerBody"
         },
-        "CrouchingFriction": 4,
         "CrouchSpreadScale": 0.5,
         "FallDamageScale": 0.2,
         "Head": {
@@ -65,7 +63,6 @@
           "go": "3e4e2095-635e-4b89-a9c9-fc3b4d321b84",
           "component_type": "BoxCollider"
         },
-        "SlowWalkFriction": 4,
         "SpreadVelocityLimit": 350,
         "SprintMovementDampening": 0.35,
         "UseDistance": 72,
@@ -79,8 +76,7 @@
         "ViewModelGameObject": {
           "_type": "gameobject",
           "go": "6770fe00-37da-4717-b4a1-f7e6636ade5d"
-        },
-        "WalkSpeed": 260
+        }
       },
       {
         "__type": "Facepunch.CameraController",
@@ -143,10 +139,14 @@
         "UseCollisionRules": false
       },
       {
+        "__type": "Facepunch.ArmorComponent",
+        "__guid": "d13fd687-bd5f-46f6-adac-4cf1921899a0",
+        "Armor": 0,
+        "HasHelmet": false
+      },
+      {
         "__type": "Facepunch.HealthComponent",
         "__guid": "b0ad035b-94a2-4e02-8850-15baffda666b",
-        "Armor": 0,
-        "HasHelmet": false,
         "Health": 100,
         "IsGodMode": false,
         "State": "Alive"
