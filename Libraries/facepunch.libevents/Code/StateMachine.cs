@@ -13,8 +13,8 @@ namespace Sandbox.Events;
 /// </para>
 /// <para>
 /// The currently active state is controlled by the host, and synchronised over the network. When a transition occurs,
-/// a <see cref="LeaveStateEventArgs"/> is dispatched on the old state's containing object, followed by a
-/// <see cref="EnterStateEventArgs"/> event on the object containing the new state. These events are only dispatched
+/// a <see cref="LeaveStateEvent"/> is dispatched on the old state's containing object, followed by a
+/// <see cref="EnterStateEvent"/> event on the object containing the new state. These events are only dispatched
 /// on the host.
 /// </para>
 /// </summary>

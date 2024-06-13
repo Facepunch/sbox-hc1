@@ -5,7 +5,7 @@
 @if ( !Player.IsValid() ) return;
 
 <root class="row" style="padding-top: 16px;">
-    <InputHint Action="BuyMenu" class="small @(!Player.CanBuy() ? "hidden" : "")" Size="@InputGlyphSize.Small" />
+    <InputHint Action="BuyMenu" class="small @(!Player.CanUseBuyMenu ? "hidden" : "")" Size="@InputGlyphSize.Small" />
     <label class="important @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">$@Inventory.Balance.ToString("N0")</label>
 </root>
 
@@ -21,6 +21,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( Inventory?.Balance, Player?.CanBuy(), GameMode.Instance?.UnlimitedMoney );
+        return HashCode.Combine( Inventory?.Balance, Player?.CanUseBuyMenu, GameMode.Instance?.UnlimitedMoney );
     }   
 }

@@ -44,4 +44,4 @@ public partial class ArmorComponent : Component, IGameEventHandler<ModifyDamageE
 	}
 }
 
-public record HelmetChangedEvent( bool HasHelmet );
+public record HelmetChangedEvent( bool HasHelmet ) : IGameEvent;

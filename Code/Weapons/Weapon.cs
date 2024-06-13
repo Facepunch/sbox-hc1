@@ -2,8 +2,8 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public record WeaponDeployedEvent( Weapon Weapon );
-public record WeaponHolsteredEvent( Weapon Weapon );
+public record WeaponDeployedEvent( Weapon Weapon ) : IGameEvent;
+public record WeaponHolsteredEvent( Weapon Weapon ) : IGameEvent;
 
 /// <summary>
 /// A weapon component.

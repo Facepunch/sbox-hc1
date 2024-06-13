@@ -13,9 +13,9 @@
     }
 
     <div class="flex column with-background with-padding with-px-lg h-full align-center justify-center" style="min-width: 195px; height: 75px;">
-        @if (GameMode.Instance?.Components.Get<BombDefusalScenario>() is BombDefusalScenario { IsBombPlanted: true })
+        @if ( GameMode.Instance?.Get<ShowStatusIcon>() is { IconPath: { } path } )
         {
-            <Icon File="/ui/items/c4.png" size="64" />
+            <Icon File="@path" size="64" />
         }
         else
         {
@@ -83,7 +83,7 @@
             return;
         }
 
-        if (GameMode.Instance?.Components.GetInDescendantsOrSelf<TeamScoring>() is { } teamScoring)
+        if (GameMode.Instance?.Get<TeamScoring>() is { } teamScoring)
         {
             MyTeamScore = teamScoring.Scores.GetValueOrDefault(MyTeam);
             EnemyTeamScore = teamScoring.Scores.GetValueOrDefault(EnemyTeam);

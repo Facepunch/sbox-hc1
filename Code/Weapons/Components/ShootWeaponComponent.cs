@@ -2,7 +2,7 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public record WeaponShotEvent;
+public record WeaponShotEvent : IGameEvent;
 
 [Icon( "track_changes" )]
 [Title( "Bullet" ), Group( "Weapon Components" )]

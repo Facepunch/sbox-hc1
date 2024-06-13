@@ -30,14 +30,13 @@
 </style>
 
 @if ( !RoundLimit.IsValid() ) return;
-@if ( !TeamSwapper.IsValid() ) return;
 @if ( !TeamScoring.IsValid() ) return;
 @if ( !GameUtils.LocalPlayer.IsValid() ) return;
 
 <root style="padding-top: 10px;">
     @for ( int i = 0; i < RoundLimit.MaxRounds; i++ )
     {
-        @if (i == TeamSwapper.FirstHalfRoundCount)
+        @if ( i == RoundLimit.FirstHalfRounds )
         {
             <div class="half"/>
         }
@@ -47,7 +46,7 @@
                 <img src="@GetWinner( i ).GetIconPath()" />
             }
 
-            @if ( i == ( WinningRound - 1 ) )
+            @if ( i == WinningRound - 1 )
             {
                 <Icon File="/ui/crown.png" size="24"/>
             }
@@ -57,14 +56,14 @@
 
 @code
 {
-    RoundCounter RoundCounter => GameMode.Instance?.Components.GetInDescendantsOrSelf<RoundCounter>();
-    HalfTimeTeamSwap TeamSwapper => GameMode.Instance?.Components.GetInDescendantsOrSelf<HalfTimeTeamSwap>();
-    RoundLimit RoundLimit => GameMode.Instance?.Components.GetInDescendantsOrSelf<RoundLimit>();
-    TeamScoring TeamScoring => GameMode.Instance?.Components.GetInDescendantsOrSelf<TeamScoring>();
-    RoundBasedTeamScoring RoundScoring => GameMode.Instance?.Components.GetInDescendantsOrSelf<RoundBasedTeamScoring>();
-    DefuseWinCondition WinCondition => GameMode.Instance?.Components.GetInDescendantsOrSelf<DefuseWinCondition>();
+    RoundCounter RoundCounter => GameMode.Instance?.Get<RoundCounter>();
+    SwapTeams TeamSwapper => GameMode.Instance?.Get<SwapTeams>();
+    RoundLimit RoundLimit => GameMode.Instance?.Get<RoundLimit>();
+    TeamScoring TeamScoring => GameMode.Instance?.Get<TeamScoring>();
+    RoundBasedTeamScoring RoundScoring => GameMode.Instance?.Get<RoundBasedTeamScoring>();
+    TeamEarlyWinCondition WinCondition => GameMode.Instance?.Get<TeamEarlyWinCondition>();
     
-    int WinningRound => WinCondition.RoundsToWin + TeamScoring.OpposingTeamScore;
+    int WinningRound => WinCondition.TargetScore + TeamScoring.OpposingTeamScore;
 
     private Team GetWinner( int round )
     {

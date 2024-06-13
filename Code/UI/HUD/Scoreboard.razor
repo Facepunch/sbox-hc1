@@ -36,7 +36,7 @@
 
                     <separator style="background-color: @group.Key.GetColor().Hex" />
 
-                    @if ( GameMode.Instance.Components.GetInDescendantsOrSelf<TeamScoring>() is { } scoring )
+                    @if ( GameMode.Instance.Get<TeamScoring>() is { } scoring )
                     {
                         <label class="emphasis">@scoring.Scores.GetValueOrDefault(group.Key)</label>
 		            }

@@ -22,7 +22,8 @@
             "Enabled": true,
             "NetworkMode": 1,
             "NetworkInterpolation": true,
-            "__Prefab": "prefabs/game_modes/team_deathmatch.prefab"
+            "__Prefab": "prefabs/game_modes/team_deathmatch.prefab",
+            "__PrefabVariables": {}
           },
           {
             "__guid": "db36f630-582d-43ef-92a1-b7edddf9407b",
@@ -31,16 +32,38 @@
             "Enabled": true,
             "NetworkMode": 1,
             "NetworkInterpolation": true,
-            "__Prefab": "prefabs/game_modes/bomb_defusal.prefab"
+            "__Prefab": "prefabs/game_modes/bomb_defusal.prefab",
+            "__PrefabVariables": {
+              "FreezeTime": 5,
+              "RoundTime": 120,
+              "WaitForPlayersTime": 60,
+              "MinimumPlayers": 2,
+              "MaxTeamSize": 10,
+              "MaxRounds": 30,
+              "BuyTime": 30,
+              "Title": "Casual Defuse",
+              "Description": ""
+            }
           },
           {
-            "__guid": "b04d6cd3-2656-4489-b830-d9e3cfe72ed0",
+            "__guid": "4db4b542-ddcd-4904-b78c-97b0685afca3",
             "Flags": 0,
             "Name": "Competitive Defuse",
             "Enabled": true,
             "NetworkMode": 1,
             "NetworkInterpolation": true,
-            "__Prefab": "prefabs/game_modes/bomb_defusal_5v5.prefab"
+            "__Prefab": "prefabs/game_modes/bomb_defusal.prefab",
+            "__PrefabVariables": {
+              "FreezeTime": 15,
+              "RoundTime": 120,
+              "WaitForPlayersTime": 120,
+              "MinimumPlayers": 10,
+              "MaxTeamSize": 5,
+              "MaxRounds": 30,
+              "BuyTime": 15,
+              "Title": "Competitive Defuse",
+              "Description": ""
+            }
           }
         ]
       },
@@ -113,7 +136,7 @@
             "__guid": "843ab22f-5541-4fb8-bc8c-759f41e35140",
             "FreecamController": {
               "_type": "component",
-              "component_id": "266e71d3-d990-4224-9287-1ca19ad76619",
+              "component_id": "cdd42212-ce56-4fa7-b859-3a5a4fe3e480",
               "go": "89e9bfbf-5479-448a-be07-24914e1c82c3",
               "component_type": "SpectateController"
             }
@@ -128,7 +151,8 @@
             "Enabled": true,
             "NetworkMode": 2,
             "NetworkInterpolation": true,
-            "__Prefab": "prefabs/player/spectate.prefab"
+            "__Prefab": "prefabs/player/spectate.prefab",
+            "__PrefabVariables": {}
           }
         ]
       },
@@ -170,7 +194,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

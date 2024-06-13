@@ -3,10 +3,10 @@
 namespace Facepunch;
 
 /// <summary>
-/// Tracks wether something has been seen by the enemy team.
+/// Tracks whether something has been seen by the enemy team.
 /// </summary>
 public sealed class Spottable : Component,
-	IGameEventHandler<PreRoundStartEvent>
+	IGameEventHandler<BetweenRoundCleanupEvent>
 {
 	/// <summary>
 	/// The team this belongs to.
@@ -69,7 +69,7 @@ public sealed class Spottable : Component,
 		HasBeenSpotted = true;
 	}
 
-	void IGameEventHandler<PreRoundStartEvent>.OnGameEvent( PreRoundStartEvent eventArgs )
+	void IGameEventHandler<BetweenRoundCleanupEvent>.OnGameEvent( BetweenRoundCleanupEvent eventArgs )
 	{
 		LastSpotted = 999;
 		HasBeenSpotted = false;

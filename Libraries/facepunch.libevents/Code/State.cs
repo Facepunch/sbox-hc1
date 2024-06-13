@@ -63,14 +63,14 @@ public sealed class StateComponent : Component
 		if ( dispatch )
 		{
 			OnEnterState?.Invoke();
-			GameObject.Dispatch( new EnterStateEventArgs( this ) );
+			GameObject.Dispatch( new EnterStateEvent( this ) );
 		}
 	}
 
 	internal void Update()
 	{
 		OnUpdateState?.Invoke();
-		Scene.Dispatch( new UpdateStateEventArgs( this ) );
+		Scene.Dispatch( new UpdateStateEvent( this ) );
 	}
 
 	internal void Leave( bool dispatch )
@@ -78,7 +78,7 @@ public sealed class StateComponent : Component
 		if ( dispatch )
 		{
 			OnLeaveState?.Invoke();
-			GameObject.Dispatch( new LeaveStateEventArgs( this ) );
+			GameObject.Dispatch( new LeaveStateEvent( this ) );
 		}
 
 		Enabled = false;
@@ -123,16 +123,28 @@ public sealed class StateComponent : Component
 /// Event dispatched on the host when a <see cref="StateMachineComponent"/> changes state.
 /// Only invoked on components on the same object as the new state.
 /// </summary>
-public record EnterStateEventArgs( StateComponent State );
+public record EnterStateEvent( StateComponent State ) : IGameEvent;
+
+/// <inheritdoc cref="EnterStateEvent"/>
+[Title( "Enter State Event" ), Group( "State Machines" ), Icon( "electric_bolt" )]
+public sealed class EnterStateEventComponent : GameEventComponent<EnterStateEvent> { }
 
 /// <summary>
 /// Event dispatched on the host when a <see cref="StateMachineComponent"/> changes state.
 /// Only invoked on components on the same object as the old state.
 /// </summary>
-public record LeaveStateEventArgs( StateComponent State );
+public record LeaveStateEvent( StateComponent State ) : IGameEvent;
+
+/// <inheritdoc cref="LeaveStateEvent"/>
+[Title( "Leave State Event" ), Group( "State Machines" ), Icon( "electric_bolt" )]
+public sealed class LeaveStateEventComponent : GameEventComponent<LeaveStateEvent> { }
 
 /// <summary>
 /// Event dispatched on the host every fixed update while a <see cref="StateComponent"/> is active.
 /// Only invoked on components on the same object as the state.
 /// </summary>
-public record UpdateStateEventArgs( StateComponent State );
+public record UpdateStateEvent( StateComponent State ) : IGameEvent;
+
+/// <inheritdoc cref="UpdateStateEvent"/>
+[Title( "Update State Event" ), Group( "State Machines" ), Icon( "electric_bolt" )]
+public sealed class UpdateStateEventComponent : GameEventComponent<UpdateStateEvent> { }
