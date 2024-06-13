@@ -60,7 +60,7 @@
     @if ( !LocalPlayer.IsValid() )
         return;
 
-    @if ( Player == LocalPlayer )
+    @if ( Player == LocalPlayer && Viewer == LocalPlayer )
         return;
 
     @if ( !Marker.IsValid() ) return;
