@@ -40,6 +40,42 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEven
 	/// </summary>
 	[Property, Group( "Damage" )] public float BaseHelmetReduction { get; set; } = 0.775f;
 
+	/// <summary>
+	/// How much spread should we have when aiming down the sights?
+	/// </summary>
+	[Property, Group( "Damage" )] public float AimSpread { get; set; } = 0f;
+
+	/// <summary>
+	/// How much spread do we apply when aiming WHEN moving?
+	/// </summary>
+	[Property, Group( "Damage" )] public float AimVelocitySpreadScale { get; set; } = 0.5f;
+
+	/// <summary>
+	/// The base amount of spread all weapons have.
+	/// </summary>
+	[Property, Group( "Spread" )] public float BaseSpreadAmount { get; set; } = 0.05f;
+
+	/// <summary>
+	/// What's our upper limit when applying spread based on velocity?
+	/// </summary>
+	[Property, Group( "Spread" )] public float SpreadVelocityLimit { get; set; } = 350f;
+
+	/// <summary>
+	/// How much spread should we add based on how fast the player is moving
+	/// </summary>
+	[Property, Group( "Spread" )] public float VelocitySpreadScale { get; set; } = 0.1f;
+
+	/// <summary>
+	/// How much spread should we scale by when we're crouching?
+	/// </summary>
+	[Property, Group( "Spread" )] public float CrouchSpreadScale { get; set; } = 0.5f;
+
+	/// <summary>
+	/// How much spread should we scale by when we're in the air?
+	/// </summary>
+	[Property, Group( "Spread" )] public float AirSpreadScale { get; set; } = 2.0f;
+
+
 	public class HitboxConfig
 	{
 		public HitboxTags Tags { get; set; }

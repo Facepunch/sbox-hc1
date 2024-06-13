@@ -17,30 +17,23 @@ public partial class PlayerController :
 	[Property] public GameObject ViewModelGameObject { get; set; }
 
 	/// <summary>
-	/// How much spread should we add based on how fast the player is moving
-	/// </summary>
-	[Property, Group( "Spread" )] public float VelocitySpreadScale { get; set; } = 0.1f;
-	[Property, Group( "Spread" )] public float AimSpreadScale { get; set; } = 0.5f;
-	[Property, Group( "Spread" )] public float CrouchSpreadScale { get; set; } = 0.5f;
-	[Property, Group( "Spread" )] public float AirSpreadScale { get; set; } = 2.0f;
-	[Property, Group( "Spread" )] public float SpreadVelocityLimit { get; set; } = 350f;
-
-	/// <summary>
 	/// How inaccurate are things like gunshots?
 	/// </summary>
 	public float Spread { get; set; }
 
 	private void UpdateRecoilAndSpread()
 	{
-		var spread = 0f;
-		var scale = VelocitySpreadScale;
-		if ( CurrentWeapon?.Tags.Has( "aiming" ) ?? false ) scale *= AimSpreadScale;
+		bool isAiming = CurrentWeapon?.Tags.Has( "aiming" ) ?? false;
+		var spread = Global.BaseSpreadAmount;
+		var scale = Global.VelocitySpreadScale;
+		if ( isAiming ) spread *= Global.AimSpread;
+		if ( isAiming ) scale *= Global.AimVelocitySpreadScale;
 
 		var velLen = CharacterController.Velocity.Length;
-		spread += velLen.Remap( 0, SpreadVelocityLimit, 0, 1, true ) * scale;
+		spread += velLen.Remap( 0, Global.SpreadVelocityLimit, 0, 1, true ) * scale;
 
-		if ( IsCrouching && IsGrounded ) spread *= CrouchSpreadScale;
-		if ( !IsGrounded ) spread *= AirSpreadScale;
+		if ( IsCrouching && IsGrounded ) spread *= Global.CrouchSpreadScale;
+		if ( !IsGrounded ) spread *= Global.AirSpreadScale;
 
 		Spread = spread;
 	}
