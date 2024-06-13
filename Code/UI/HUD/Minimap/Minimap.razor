@@ -50,7 +50,7 @@
             }
 
             <!-- POV Marker -->
-            @if ( GameUtils.Viewer is null || GameUtils.Viewer.HealthComponent.State == LifeState.Alive )
+            @if ( GameUtils.Viewer is null || GameUtils.Viewer?.HealthComponent?.State == LifeState.Alive )
             {
                 <div class="marker @(SpectateSystem.Instance?.IsFreecam ?? false ? "" : "viewer")" style="@WorldToMap(ViewPos) @RotationToMap(ViewYaw) background-tint: @ViewerColor.Hex" />
             }

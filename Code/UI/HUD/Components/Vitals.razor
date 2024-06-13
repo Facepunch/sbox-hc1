@@ -27,10 +27,10 @@
 {
     public PlayerController Player => GameUtils.Viewer as PlayerController;
     public IPawn Viewer => GameUtils.Viewer;
-    public HealthComponent HealthComponent => Viewer.HealthComponent;
-    public int Health => HealthComponent.Health.CeilToInt();
-    public int Armor => HealthComponent.Armor.CeilToInt();
-    public bool HasHelmet => HealthComponent.HasHelmet;
+    public HealthComponent HealthComponent => Viewer?.HealthComponent;
+    public int Health => HealthComponent?.Health.CeilToInt() ?? 0;
+    public int Armor => HealthComponent?.Armor.CeilToInt() ?? 0;
+    public bool HasHelmet => HealthComponent?.HasHelmet ?? false;
 
     protected override int BuildHash()
     {
