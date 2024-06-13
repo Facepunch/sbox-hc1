@@ -39,8 +39,8 @@ public partial class ArmorComponent : Component, IGameEventHandler<ModifyDamageE
 	[Early]
 	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
 	{
-		if ( Armor > 0f ) eventArgs.DamageInfo = eventArgs.DamageInfo with { Flags = eventArgs.DamageInfo.Flags | DamageFlags.Armor };
-		if ( HasHelmet ) eventArgs.DamageInfo = eventArgs.DamageInfo with { Flags = eventArgs.DamageInfo.Flags | DamageFlags.Helmet };
+		if ( Armor > 0f ) eventArgs.AddFlag( DamageFlags.Armor );
+		if ( HasHelmet ) eventArgs.AddFlag( DamageFlags.Helmet );
 	}
 }
 

@@ -115,6 +115,24 @@ public class ModifyDamageEvent
 
 		DamageInfo = DamageInfo with { Damage = reduced, ArmorDamage = DamageInfo.Damage - reduced };
 	}
+
+	/// <summary>
+	/// Adds a flag to this damage event.
+	/// </summary>
+	/// <param name="flag"></param>
+	public void AddFlag( DamageFlags flag )
+	{
+		DamageInfo = DamageInfo with { Flags = DamageInfo.Flags | flag };
+	}
+
+	/// <summary>
+	/// Removes a flag from this damage event.
+	/// </summary>
+	/// <param name="flag"></param>
+	public void WithoutFlag( DamageFlags flag )
+	{
+		DamageInfo = DamageInfo with { Flags = DamageInfo.Flags & flag };
+	}
 }
 
 /// <summary>
