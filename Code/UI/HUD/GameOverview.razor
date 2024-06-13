@@ -61,7 +61,7 @@
     RoundBasedTeamScoring RoundScoring => GameMode.Instance?.Get<RoundBasedTeamScoring>();
     TeamEarlyWinCondition WinCondition => GameMode.Instance?.Get<TeamEarlyWinCondition>();
     
-    int WinningRound => WinCondition.TargetScore + TeamScoring.OpposingTeamScore + 1;
+    int WinningRound => WinCondition.TargetScore + TeamScoring.OpposingTeamScore;
 
     private Team GetWinner( int round )
     {
