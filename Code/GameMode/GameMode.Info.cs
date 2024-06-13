@@ -39,10 +39,21 @@ partial class GameMode
 
 		path = $"{path}/{name}";
 
+		// TODO: actually support prefab variables properly, instead of hard coding "Title" and "Description"
+
+		string titleOverride = null;
+		string descriptionOverride = null;
+
 		if ( go.TryGetPropertyValue( "__Prefab", out var prefabNode )
 			&& prefabNode?.GetValue<string>() is { } prefabPath
 			&& ResourceLibrary.TryGet<PrefabFile>( prefabPath, out var prefabFile ) )
 		{
+			if ( go.TryGetPropertyValue( "__PrefabVariables", out var variables ) )
+			{
+				titleOverride = variables?["Title"]?.GetValue<string>();
+				descriptionOverride = variables?["Description"]?.GetValue<string>();
+			}
+
 			go = prefabFile.RootObject;
 		}
 
@@ -56,7 +67,15 @@ partial class GameMode
 					continue;
 				}
 
-				infos.Add( (GameModeInfo)Json.FromNode( component, typeof(GameModeInfo) ) with { Path = path } );
+				var info = (GameModeInfo)Json.FromNode( component, typeof(GameModeInfo) ) with { Path = path };
+
+				info = info with
+				{
+					Title = titleOverride ?? info.Title,
+					Description = descriptionOverride ?? info.Title
+				};
+
+				infos.Add( info );
 			}
 		}
 
