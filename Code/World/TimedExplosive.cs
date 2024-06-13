@@ -67,7 +67,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 
 	public PlayerController DefusingPlayer { get; private set; }
 
-	MinimapIconType IMinimapIcon.IconType => MinimapIconType.PlantedC4;
+	string IMinimapIcon.IconPath => "ui/minimaps/icon-map_bomb.png";
 
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;
 

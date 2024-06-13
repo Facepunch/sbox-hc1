@@ -46,16 +46,16 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <summary>
 	/// What type of icon are we using on the minimap?
 	/// </summary>
-	MinimapIconType IMinimapIcon.IconType
+	string IMinimapIcon.IconPath
 	{
 		get
 		{
-			if ( IsEnemy ) return IsMissing ? MinimapIconType.PlayerEnemyMissing : MinimapIconType.PlayerEnemy;
-			if ( !IsAlive ) return MinimapIconType.PlayerDead;
-
-			return MinimapIconType.Player;
+			if ( IsEnemy ) return IsMissing ? "ui/minimaps/enemy_missing.png" : "ui/minimaps/enemy_icon.png";
+			if ( !IsAlive ) return "ui/minimaps/icon-map_skull.png";
+			return "ui/minimaps/player_icon.png";
 		}
 	}
+
 
 	/// <summary>
 	/// Is this a directional icon?

@@ -13,7 +13,7 @@ public sealed class DecoyGrenade : BaseGrenade, ICustomMinimapIcon
 	TimeUntil TimeUntilShot = 0;
 	TimeSince TimeSinceShot = 1;
 
-	MinimapIconType IMinimapIcon.IconType => MinimapIconType.PlayerEnemy;
+	string IMinimapIcon.IconPath => "ui/minimaps/enemy_icon.png";
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;
 	string ICustomMinimapIcon.CustomStyle => "background-image-tint: rgba(255, 0, 0, 1 );";
 	bool IMinimapElement.IsVisible( IPawn viewer ) => TimeSinceShot < 0.5f && IsEnemy;

@@ -1,7 +1,7 @@
 ﻿
 namespace Facepunch;
 
-internal class BuyZone : Component, ICustomMinimapIcon, IMinimapVolume
+internal class BuyZone : Component, IMinimapIcon, IMinimapVolume
 {
 	[Property]
 	public Team Team { get; set; }
@@ -11,9 +11,11 @@ internal class BuyZone : Component, ICustomMinimapIcon, IMinimapVolume
 
 	public Vector3 Size => Components.Get<BoxCollider>().Scale;
 
-	MinimapIconType IMinimapIcon.IconType => MinimapIconType.Buyzone;
+	string IMinimapIcon.IconPath => Team.GetIconPath();
+
+	int IMinimapIcon.IconOrder => 15;
+
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;
-	string ICustomMinimapIcon.CustomStyle => $"background-image: url( '{Team.GetIconPath()}' );";
 
 	bool IMinimapElement.IsVisible( IPawn viewer ) => true;
 }

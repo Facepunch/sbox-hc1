@@ -35,8 +35,6 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 
 			Spottable spottable = go.Components.Get<Spottable>();
 			spottable.Team = Team.Terrorist;
-
-			droppedWeapon.IconType = MinimapIconType.DroppedC4;
 		}
 
 		if ( heldWeapon is not null )

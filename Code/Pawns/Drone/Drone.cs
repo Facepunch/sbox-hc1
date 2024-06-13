@@ -177,8 +177,7 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 	Team IPawn.Team => TeamComponent.Team;
 
 	string ICustomMinimapIcon.CustomStyle => $"background-image-tint: {TeamComponent.Team.GetColor().Hex}";
-
-	MinimapIconType IMinimapIcon.IconType => MinimapIconType.Drone;
+	string IMinimapIcon.IconPath => "ui/icons/drone.png";
 
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;
 
