@@ -69,7 +69,7 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 			_componentCache.Clear();
 		}
 
-		if ( !_componentCache.TryGetValue( typeof(T), out var component ) || component is { IsValid: false } )
+		if ( !_componentCache.TryGetValue( typeof(T), out var component ) || component is { IsValid: false } || component is { Active: false } )
 		{
 			component = Components.GetInDescendantsOrSelf<T>() as Component;
 			_componentCache[typeof(T)] = component;
