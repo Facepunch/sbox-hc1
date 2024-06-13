@@ -63,7 +63,7 @@ public sealed class PlayerOutfit
 			container.Toggle( hat.Clothing );
 
 		// Do we have a helmet?
-		if ( outfitter.PlayerController.HealthComponent.HasHelmet )
+		if ( outfitter.PlayerController.ArmorComponent.HasHelmet )
 		{
 			// Turn on our helmet override
 			container.Toggle( Helmet );

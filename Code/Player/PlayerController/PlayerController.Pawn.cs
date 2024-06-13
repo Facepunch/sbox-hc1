@@ -18,9 +18,9 @@ public partial class PlayerController
 	public bool IsViewer => (this as IPawn).IsPossessed;
 
 	/// <summary>
-	/// What should this player be called?
+	/// What are we called?
 	/// </summary>
-	public string GetPlayerName() => IsBot ? $"BOT {BotManager.Instance.GetName( BotId )}" : Network.OwnerConnection?.DisplayName ?? "";
+	public string DisplayName => IsBot ? $"BOT {BotManager.Instance.GetName( BotId )}" : Network.OwnerConnection?.DisplayName ?? "";
 
 	/// <summary>
 	/// Unique colour or team colour of this player

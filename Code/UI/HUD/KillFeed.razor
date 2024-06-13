@@ -8,7 +8,7 @@
         <div class="entry @(entry.IsLocal ? "local" : "")">
             @if ( entry.DamageInfo.Attacker.IsValid() )
             {
-                <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.DamageInfo.Attacker ) />
+                <PlayerPanel Pawn=@GameUtils.GetPawn( entry.DamageInfo.Attacker ) />
             }
 
             <div class="method">
@@ -31,10 +31,7 @@
                 }
             </div>
 
-            @if ( entry.DamageInfo.Victim.IsValid() )
-            {
-                <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.DamageInfo.Victim ) />
-            }
+            <PlayerPanel Pawn=@GameUtils.GetPawn( entry.DamageInfo.Victim ) />
         </div>
     }
 </root>
@@ -44,8 +41,8 @@
     public record Entry( DamageInfo DamageInfo, RealTimeSince TimeSinceAdded )
     {
         public bool IsLocal => 
-            (GameUtils.GetPlayerFromComponent( DamageInfo.Attacker )?.IsLocallyControlled ?? false) ||
-            (GameUtils.GetPlayerFromComponent( DamageInfo.Victim )?.IsLocallyControlled ?? false);
+            (GameUtils.GetPawn( DamageInfo.Attacker )?.IsLocallyControlled ?? false) ||
+            (GameUtils.GetPawn( DamageInfo.Victim )?.IsLocallyControlled ?? false);
     }
 
     private List<Entry> Entries { get; set; } = new();

@@ -10,6 +10,11 @@ public sealed class SpectateController : Component, IPawn
 	[Property] public float FlySpeed = 10f;
 	[Property] public CameraComponent Camera { get; set; }
 
+	/// <summary>
+	/// What are we called?
+	/// </summary>
+	public string DisplayName => Network.OwnerConnection.DisplayName + " (spectator)";
+
 	public Angles ViewAngles { get; set; }
 	Angles IPawn.EyeAngles => ViewAngles;
 

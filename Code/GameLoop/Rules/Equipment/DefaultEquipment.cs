@@ -26,8 +26,8 @@ public sealed class DefaultEquipment : Component,
 
 		player.Inventory.SwitchToBestWeapon();
 
-		player.HealthComponent.Armor = Math.Max( player.HealthComponent.Armor, Armor );
-		player.HealthComponent.HasHelmet |= Helmet;
+		player.ArmorComponent.Armor = Math.Max( player.ArmorComponent.Armor, Armor );
+		player.ArmorComponent.HasHelmet |= Helmet;
 
 		if ( RefillAmmo )
 		{

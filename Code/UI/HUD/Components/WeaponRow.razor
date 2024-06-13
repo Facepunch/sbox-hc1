@@ -18,7 +18,7 @@
                 {
                     @if ( Weapon?.Owner != GameUtils.Viewer && ( Weapon?.Owner?.IsValid() ?? false ) )
                     {
-                        <label style="font-size: 14px; color: lightgrey">@(Weapon?.Owner?.GetPlayerName())'s</label>
+                        <label style="font-size: 14px; color: lightgrey">@(Weapon?.Owner?.DisplayName)'s</label>
                     }
 
                     <label class="gunname">@Weapon.Resource.Name</label>

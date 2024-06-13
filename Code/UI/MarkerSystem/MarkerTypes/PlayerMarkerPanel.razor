@@ -88,7 +88,7 @@
     {
         <div class="dot" />
         <label class="name">@(Player.HealthComponent.Health.ToString( "0" ))%</label>
-        <label class="name">@Player.GetPlayerName()</label>
+        <label class="name">@Player.DisplayName</label>
         <div class="weapons row">
             @foreach (var wpn in Player.Inventory.Weapons.Where( CanShowWeapon ).OrderBy( x => x.Resource.Slot ) )
             {
@@ -120,7 +120,7 @@
     {
         if ( firstTime ) 
         {
-            Log.Info( $"MarkerPanelTypeOverride: Created PlayerMarkerPanel for \"{Player.GetPlayerName()}\"" );
+            Log.Info( $"MarkerPanelTypeOverride: Created PlayerMarkerPanel for \"{Player.DisplayName}\"" );
         }
     }
 

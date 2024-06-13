@@ -23,7 +23,7 @@
             {
                 <div class="flex gap-sm align-center">
                     <Icon file="/ui/teams/spectator.png" size="16" />
-                    <label class="small grey">@(string.Join(", ", group.Select(x => x.GetPlayerName()))</label>
+                    <label class="small grey">@(string.Join(", ", group.Select(x => x.DisplayName))</label>
                 </div>
             }
             else

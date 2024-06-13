@@ -2,13 +2,30 @@ namespace Facepunch;
 
 public interface IPawn : IValid
 {
-	public void OnPossess();
-	public void OnDePossess();
-
 	/// <summary>
 	/// What team does this pawn belong to?
 	/// </summary>
 	public Team Team => Team.Unassigned;
+
+	/// <summary>
+	/// An accessor for health component if we have one.
+	/// </summary>
+	public HealthComponent HealthComponent => GameObject.Components.Get<HealthComponent>();
+
+	/// <summary>
+	/// Are we possessing this pawn right now? (Clientside)
+	/// </summary>
+	public bool IsPossessed => Game.ActiveScene.GetSystem<PawnSystem>().Viewer == this;
+
+	/// <summary>
+	/// Is this pawn locally controlled by us?
+	/// </summary>
+	public bool IsLocallyControlled => IsPossessed && !IsProxy;
+
+	/// <summary>
+	/// What's our name?
+	/// </summary>
+	public string DisplayName { get; }
 
 	/// <summary>
 	/// What's the pawn's eye angles?
@@ -20,6 +37,9 @@ public interface IPawn : IValid
 	/// </summary>
 	public CameraComponent Camera { get; }
 
+	/// <summary>
+	/// Who's the owner?
+	/// </summary>
 	public ulong SteamId { get; set; }
 
 	/// <summary>
@@ -31,18 +51,6 @@ public interface IPawn : IValid
 	/// Do we have network rights over this pawn?
 	/// </summary>
 	public bool IsProxy { get; }
-
-	/// <summary>
-	/// Are we possessing this pawn right now? (Clientside)
-	/// </summary>
-	public bool IsPossessed
-	{
-		get
-		{
-			// Is the viewer the same as this Pawn?
-			return Game.ActiveScene.GetSystem<PawnSystem>().Viewer == this;
-		}
-	}
 
 	/// <summary>
 	/// Possess the pawn.
@@ -62,10 +70,8 @@ public interface IPawn : IValid
 			.DePossess( this );
 	}
 
-	/// <summary>
-	/// An accessor for health component if we have one.
-	/// </summary>
-	public HealthComponent HealthComponent => GameObject.Components.Get<HealthComponent>();
+	public void OnPossess();
+	public void OnDePossess();
 }
 
 /// <summary>

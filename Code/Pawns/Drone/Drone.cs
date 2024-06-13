@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Facepunch;
 
-public partial class Drone : Component, IPawn
+public partial class Drone : Component, IPawn, IRespawnable
 {
 	[Property, Group( "Components" )] public DroneCamera Camera { get; set; }
 	[Property, Group( "Components" )] public Rigidbody Rigidbody { get; set; }
@@ -20,12 +20,22 @@ public partial class Drone : Component, IPawn
 
 	[RequireComponent] public DroneSounds DroneSounds { get; set; }
 
+	/// <summary>
+	/// What to spawn when we explode?
+	/// </summary>
+	[Property] public GameObject Explosion { get; set; }
+
 	public Angles EyeAngles => Transform.Rotation.Angles();
 
 	/// <summary>
 	/// Is this player the currently possessed controller
 	/// </summary>
 	public bool IsViewer => (this as IPawn).IsPossessed;
+
+	/// <summary>
+	/// What are we called?
+	/// </summary>
+	public string DisplayName => Network.OwnerConnection.DisplayName + "'s drone";
 
 	// should just set the bone positions 
 	private readonly Vector3[] turbinePositions = new Vector3[]
@@ -52,6 +62,19 @@ public partial class Drone : Component, IPawn
 	protected override void OnFixedUpdate()
 	{
 		ApplyForces();
+	}
+
+	public void Kill()
+	{
+		if ( !IsProxy && GameUtils.Viewer == this )
+		{
+			(this as IPawn).DePossess();
+		}
+
+		Explosion?.Clone( Transform.Position );
+
+		Model.Enabled = false;
+		// TODO: destroy
 	}
 
 	protected override void OnUpdate()

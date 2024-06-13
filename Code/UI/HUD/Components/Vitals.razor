@@ -9,7 +9,10 @@
 
     <div class="inner with-padding flex row gap justify-start">
         <div class="flex column">
-            <Donut Value="@(Armor)" size="48" icon="@(HasHelmet ? "/ui/helmet.png" : "/ui/armor.png")" />
+            @if ( ArmorComponent.IsValid() )
+            {
+                <Donut Value="@(Armor)" size="48" icon="@(HasHelmet ? "/ui/helmet.png" : "/ui/armor.png")" />
+            }
         </div>
 
         <div class="flex column">
@@ -28,9 +31,10 @@
     public PlayerController Player => GameUtils.Viewer as PlayerController;
     public IPawn Viewer => GameUtils.Viewer;
     public HealthComponent HealthComponent => Viewer?.HealthComponent;
+    public ArmorComponent ArmorComponent => Viewer?.GameObject?.Components.Get<ArmorComponent>();
     public int Health => HealthComponent?.Health.CeilToInt() ?? 0;
-    public int Armor => HealthComponent?.Armor.CeilToInt() ?? 0;
-    public bool HasHelmet => HealthComponent?.HasHelmet ?? false;
+    public int Armor => ArmorComponent?.Armor.CeilToInt() ?? 0;
+    public bool HasHelmet => ArmorComponent?.HasHelmet ?? false;
 
     protected override int BuildHash()
     {

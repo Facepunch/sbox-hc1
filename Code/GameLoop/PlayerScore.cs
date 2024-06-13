@@ -51,8 +51,11 @@ public sealed class PlayerScore : Component,
 		if ( !damageInfo.Victim.IsValid() ) return;
 
 		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
+
 		var killerPlayer = GameUtils.GetPlayerFromComponent( damageInfo.Attacker );
 		var victimPlayer = GameUtils.GetPlayerFromComponent( damageInfo.Victim );
+
+		if ( !victimPlayer.IsValid() ) return;
 
 		bool isFriendly = killerPlayer.TeamComponent.Team == victimPlayer.TeamComponent.Team;
 		bool isSuicide = killerPlayer == victimPlayer;

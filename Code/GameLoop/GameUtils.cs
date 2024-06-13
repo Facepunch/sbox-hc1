@@ -71,6 +71,16 @@ public partial class GameUtils
 		return !component.GameObject.IsValid() ? null : component.GameObject.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants );
 	}
 
+	/// <summary>
+	/// Get a player from a component that belongs to a player or their descendants.
+	/// </summary>
+	public static IPawn GetPawn( Component component )
+	{
+		if ( component is IPawn pawn ) return pawn;
+		if ( !component.IsValid() ) return null;
+		return !component.GameObject.IsValid() ? null : component.GameObject.Root.Components.Get<IPawn>( FindMode.EnabledInSelfAndDescendants );
+	}
+
 	public static Weapon GetWeaponFromComponent( Component inflictor )
 	{
 		if ( inflictor is Weapon weapon )

@@ -39,7 +39,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 		{
 			Position = Transform.Position + Vector3.Up * 70 + DistOffset,
 			Rotation = Transform.Rotation,
-			DisplayText = Player.GetPlayerName()
+			DisplayText = Player.DisplayName
 		};
 	}
 

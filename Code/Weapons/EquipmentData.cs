@@ -49,10 +49,10 @@ public class ArmorEquipment : EquipmentData
 
 	protected override void OnPurchase( PlayerController player )
 	{
-		player.HealthComponent.Armor = player.HealthComponent.MaxArmor;
+		player.ArmorComponent.Armor = player.ArmorComponent.MaxArmor;
 	}
 
-	public override bool IsOwned( PlayerController player ) => player.HealthComponent.Armor == player.HealthComponent.MaxArmor;
+	public override bool IsOwned( PlayerController player ) => player.ArmorComponent.Armor == player.ArmorComponent.MaxArmor;
 }
 
 public class ArmorWithHelmetEquipment : EquipmentData
@@ -66,7 +66,7 @@ public class ArmorWithHelmetEquipment : EquipmentData
 
 	public override int GetPrice( PlayerController player )
 	{
-		if ( player.HealthComponent.Armor == player.HealthComponent.MaxArmor )
+		if ( player.ArmorComponent.Armor == player.ArmorComponent.MaxArmor )
 			return 350;
 
 		return 1000;
@@ -74,8 +74,8 @@ public class ArmorWithHelmetEquipment : EquipmentData
 
 	protected override void OnPurchase( PlayerController player )
 	{
-		player.HealthComponent.Armor = player.HealthComponent.MaxArmor;
-		player.HealthComponent.HasHelmet = true;
+		player.ArmorComponent.Armor = player.ArmorComponent.MaxArmor;
+		player.ArmorComponent.HasHelmet = true;
 
 		// Reset the player's outfit
 		player.Outfitter.OnResetState( player );
@@ -83,7 +83,7 @@ public class ArmorWithHelmetEquipment : EquipmentData
 
 	public override bool IsOwned( PlayerController player )
 	{
-		return player.HealthComponent.Armor == player.HealthComponent.MaxArmor && player.HealthComponent.HasHelmet;
+		return player.ArmorComponent.Armor == player.ArmorComponent.MaxArmor && player.ArmorComponent.HasHelmet;
 	}
 }
 
