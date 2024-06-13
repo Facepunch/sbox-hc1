@@ -20,6 +20,9 @@ public sealed class PlayerScore : Component,
 	[HostSync, Property, ReadOnly] 
 	public int Score { get; set; } = 0;
 
+	[HostSync]
+	public bool WasBombPlanter { get; private set; }
+
 	private const int KillScore = 2;
 	private const int AssistScore = 1;
 	private const int TeamKillScore = -1;
@@ -100,6 +103,11 @@ public sealed class PlayerScore : Component,
 		{
 			// Planter is the current player
 			Score += PlantScore;
+			WasBombPlanter = true;
+		}
+		else
+		{
+			WasBombPlanter = false;
 		}
 	}
 
@@ -127,15 +135,13 @@ public sealed class PlayerScore : Component,
 	{
 		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
 
-		if ( GameMode.Instance?.Get<BombDefusalScenario>() is not { } scenario )
-			return;
-
-		var planterPlayer = scenario.BombPlanter;
+		var planterPlayer = GameUtils.ActivePlayers
+			.FirstOrDefault( x => x.Components.Get<PlayerScore>() is { WasBombPlanter: true } );
 		var planterPlayerComponent = GameUtils.GetPlayerFromComponent( planterPlayer );
 
 		if ( planterPlayerComponent == thisPlayer )
 		{
-			if ( planterPlayer.HealthComponent.State == LifeState.Alive )
+			if ( planterPlayer?.HealthComponent.State == LifeState.Alive )
 			{
 				// Planter is alive when the bomb explodes
 				Score += BombExplodePlanterAliveScore;
@@ -146,7 +152,7 @@ public sealed class PlayerScore : Component,
 				Score += BombExplodePlanterDeadScore;
 			}
 		}
-		else if ( planterPlayerComponent.TeamComponent.Team == thisPlayer.TeamComponent.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
+		else if ( planterPlayerComponent?.TeamComponent.Team == thisPlayer.TeamComponent.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
 		{
 			// Teammate is alive when the bomb explodes
 			Score += BombExplodeTeamAliveScore;

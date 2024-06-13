@@ -51,3 +51,18 @@ public sealed class DefaultEquipment : Component,
 		}
 	}
 }
+
+/// <summary>
+/// Clear all player equipment when entering this state.
+/// </summary>
+public sealed class ClearEquipment : Component,
+	IGameEventHandler<EnterStateEvent>
+{
+	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
+	{
+		foreach ( var player in GameUtils.ActivePlayers )
+		{
+			player.Inventory.Clear();
+		}
+	}
+}

@@ -18,7 +18,7 @@ public sealed class RoundLimit : Component,
 	public string FinalRoundFirstHalfMessage { get; set; } = "Final round of the first half";
 	[Property] public string FinalRoundMessage { get; set; } = "Final round";
 
-	public int FirstHalfRounds => HalfTimeState is null ? 0 : MaxRounds / 2 + 1;
+	public int FirstHalfRounds => HalfTimeState is null ? 0 : MaxRounds / 2;
 
 	void IGameEventHandler<RoundCounterIncrementedEvent>.OnGameEvent( RoundCounterIncrementedEvent eventArgs )
 	{
