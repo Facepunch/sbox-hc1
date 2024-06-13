@@ -8,7 +8,7 @@ partial class DroppedWeapon : IMinimapIcon
 
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;
 
-	bool IMinimapElement.IsVisible( PlayerController viewer )
+	bool IMinimapElement.IsVisible( IPawn viewer )
 	{
 		// only showing C4 right now
 		if ( Spottable is not null )
@@ -17,6 +17,6 @@ partial class DroppedWeapon : IMinimapIcon
 				return true;
 		}
 
-		return viewer.TeamComponent.Team == Team.Terrorist;
+		return viewer.Team == Team.Terrorist;
 	}
 }

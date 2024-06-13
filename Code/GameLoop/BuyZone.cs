@@ -15,5 +15,5 @@ internal class BuyZone : Component, ICustomMinimapIcon, IMinimapVolume
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;
 	string ICustomMinimapIcon.CustomStyle => $"background-image: url( '{Team.GetIconPath()}' );";
 
-	bool IMinimapElement.IsVisible( PlayerController viewer ) => true;
+	bool IMinimapElement.IsVisible( IPawn viewer ) => true;
 }

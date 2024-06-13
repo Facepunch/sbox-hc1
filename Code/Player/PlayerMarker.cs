@@ -99,7 +99,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// </summary>
 	/// <param name="viewer"></param>
 	/// <returns></returns>
-	bool IMinimapElement.IsVisible( PlayerController viewer )
+	bool IMinimapElement.IsVisible( IPawn viewer )
 	{
 		if ( Player.Tags.Has( "invis" ) )
 			return false;
@@ -114,6 +114,6 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 				return true;
 		}
 
-		return viewer.TeamComponent.Team == Player.TeamComponent.Team;
+		return viewer.Team == Player.TeamComponent.Team;
 	}
 }

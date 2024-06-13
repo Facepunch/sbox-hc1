@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-
 namespace Facepunch;
 
-public partial class Drone : Component, IPawn, IRespawnable
+public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 {
 	[Property, Group( "Components" )] public DroneCamera Camera { get; set; }
 	[Property, Group( "Components" )] public Rigidbody Rigidbody { get; set; }
@@ -19,6 +17,8 @@ public partial class Drone : Component, IPawn, IRespawnable
 	[Property, Group( "Config" )] public float LeanMaxVelocity { get; set; } = 1000;
 
 	[RequireComponent] public DroneSounds DroneSounds { get; set; }
+	[RequireComponent] public TeamComponent TeamComponent { get; set; }
+	[RequireComponent] public HealthComponent HealthComponent { get; set; }
 
 	/// <summary>
 	/// What to spawn when we explode?
@@ -159,6 +159,28 @@ public partial class Drone : Component, IPawn, IRespawnable
 
 	void IPawn.OnDePossess() { }
 	void IPawn.OnPossess() { }
+
+	bool IMinimapElement.IsVisible( IPawn viewer )
+	{
+		if ( Tags.Has( "invis" ) )
+			return false;
+
+		if ( HealthComponent.State == LifeState.Alive )
+		{
+			if ( (this as IPawn).IsPossessed )
+				return false;
+		}
+
+		return viewer.Team == TeamComponent.Team;
+	}
+
+	Team IPawn.Team => TeamComponent.Team;
+
+	string ICustomMinimapIcon.CustomStyle => $"background-image-tint: {TeamComponent.Team.GetColor().Hex}";
+
+	MinimapIconType IMinimapIcon.IconType => MinimapIconType.Drone;
+
+	Vector3 IMinimapElement.WorldPosition => Transform.Position;
 
 	private struct DroneInputState
 	{

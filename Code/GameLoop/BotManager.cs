@@ -93,7 +93,12 @@ public sealed class BotManager : SingletonComponent<BotManager>
 
 			var newInst = Instance.Drone.Clone();
 			newInst.NetworkSpawn();
-			Instance.DronePawn = newInst.Components.Get<IPawn>();
+
+			var drone = newInst.Components.Get<Drone>();
+			drone.TeamComponent.Team = GameUtils.LocalPlayer.TeamComponent.Team;
+
+			Instance.DronePawn = drone;
+			
 		}
 	}
 }

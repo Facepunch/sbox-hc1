@@ -4,7 +4,7 @@ using Facepunch;
 partial class BombSite : IMinimapLabel, IMinimapVolume
 {
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;
-	bool IMinimapElement.IsVisible( PlayerController viewer ) => true;
+	bool IMinimapElement.IsVisible( IPawn viewer ) => true;
 
 	Color IMinimapVolume.Color => "rgba( #992d32, 0.25 )";
 	Vector3 IMinimapVolume.Size => Components.Get<BoxCollider>().Scale;

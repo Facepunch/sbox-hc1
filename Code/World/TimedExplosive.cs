@@ -238,11 +238,11 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 		player.IsFrozen = true;
 	}
 
-	bool IMinimapElement.IsVisible( PlayerController viewer )
+	bool IMinimapElement.IsVisible( IPawn viewer )
 	{
 		if ( Spottable.IsSpotted )
 			return true;
 
-		return viewer.TeamComponent.Team == Team.Terrorist;
+		return viewer.Team == Team.Terrorist;
 	}
 }

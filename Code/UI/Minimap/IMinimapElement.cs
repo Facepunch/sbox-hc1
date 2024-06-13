@@ -9,14 +9,15 @@ public enum MinimapIconType
 	Player,
 	PlayerDead,
 	PlayerEnemy,
-	PlayerEnemyMissing
+	PlayerEnemyMissing,
+	Drone
 }
 
 public interface IMinimapElement : IValid
 {
 	public Vector3 WorldPosition { get; }
 
-	public bool IsVisible( PlayerController viewer );
+	public bool IsVisible( IPawn viewer );
 }
 
 // Icons
@@ -64,6 +65,7 @@ public static class MinimapExtensionMethods
 			MinimapIconType.PlayerDead => "dead",
 			MinimapIconType.PlayerEnemy => "enemy",
 			MinimapIconType.PlayerEnemyMissing => "enemy-missing",
+			MinimapIconType.Drone => "drone",
 			_ => "",
 		};
 	}
