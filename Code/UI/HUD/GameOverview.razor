@@ -56,8 +56,6 @@
 
 @code
 {
-    RoundCounter RoundCounter => GameMode.Instance?.Get<RoundCounter>();
-    SwapTeams TeamSwapper => GameMode.Instance?.Get<SwapTeams>();
     RoundLimit RoundLimit => GameMode.Instance?.Get<RoundLimit>();
     TeamScoring TeamScoring => GameMode.Instance?.Get<TeamScoring>();
     RoundBasedTeamScoring RoundScoring => GameMode.Instance?.Get<RoundBasedTeamScoring>();
@@ -80,6 +78,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( RoundScoring?.RoundWinHistory?.Count() ?? 0 );
+        return HashCode.Combine( RoundLimit.IsValid(), TeamScoring.IsValid(), RoundScoring?.RoundWinHistory?.Count() ?? 0 );
     }
 }
