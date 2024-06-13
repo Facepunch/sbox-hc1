@@ -49,7 +49,7 @@ public partial class RadioManager : Component,
 		var damageInfo = eventArgs.DamageInfo;
 		var victimTeam = damageInfo.Victim.GameObject.GetTeam();
 
-		if ( PlayDeathSounds )
+		if ( PlayDeathSounds && GameUtils.GetPlayerFromComponent( damageInfo.Victim ) is { } player )
 			RadioSounds.Play( victimTeam, RadioSound.TeammateDies );
 
 		if ( !PlayEnemyLeftSounds )
