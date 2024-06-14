@@ -61,7 +61,6 @@ public partial class PlayerController
 		Holster();
 
 		_previousVelocity = Vector3.Zero;
-		InBuyMenu = false;
 		IsSpectating = true;
 		CameraController.Mode = CameraMode.ThirdPerson;
 	}
@@ -95,7 +94,6 @@ public partial class PlayerController
 
 		CameraController.Mode = CameraMode.ThirdPerson;
 		IsSpectating = true;
-		InBuyMenu = false;
 	}
 
 	[Broadcast( NetPermission.HostOnly )]

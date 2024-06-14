@@ -64,6 +64,14 @@
         "BombDefuseReward": 300,
         "BombPlantReward": 300,
         "BombPlantTeamReward": 800
+      },
+      {
+        "__type": "Facepunch.BotManager",
+        "__guid": "8f2a629c-0d39-4eb1-a17a-03df62cfcc4b",
+        "Drone": {
+          "_type": "gameobject",
+          "prefab": "prefabs/player/drone.prefab"
+        }
       }
     ],
     "Children": [
@@ -135,6 +143,7 @@
               {
                 "__type": "Facepunch.EnableBuyMenu",
                 "__guid": "84ff0616-05f1-4774-a390-ce9525baab9a",
+                "InBuyZoneOnly": false,
                 "TimeLimit": 0
               },
               {
@@ -393,6 +402,7 @@
                       {
                         "__type": "Facepunch.EnableBuyMenu",
                         "__guid": "7f496705-e715-4463-8b37-2ea16b08e703",
+                        "InBuyZoneOnly": false,
                         "TimeLimit": 0
                       }
                     ]
@@ -488,6 +498,7 @@
                       {
                         "__type": "Facepunch.EnableBuyMenu",
                         "__guid": "c9c2faf2-0ea5-48d5-9fef-e501a9fcf3d5",
+                        "InBuyZoneOnly": true,
                         "TimeLimit": 15
                       },
                       {

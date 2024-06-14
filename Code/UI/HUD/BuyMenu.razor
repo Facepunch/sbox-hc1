@@ -4,7 +4,7 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="flex absolute inset-0 align-center justify-center hidden @(Player.InBuyMenu ? "visible" : "")">
+<root class="flex absolute inset-0 align-center justify-center hidden @(IsOpen ? "visible" : "")">
     <div class="flex column with-padding gap-sm">
 
         <div class="with-background with-padding">
@@ -115,8 +115,28 @@
         return Inventory.Balance >= equipmentData.GetPrice(Player);
     }
 
+    private bool IsOpen = false;
+
+    void Toggle()
+    {
+        IsOpen = !IsOpen;
+    }
+
+    public override void Tick()
+    {
+        if ( Input.Pressed( "BuyMenu" ) && BuySystem.IsEnabled() )
+        {
+            Toggle();
+        }
+
+        if ( !BuySystem.IsEnabled() )
+        {
+            IsOpen = false;
+        }
+    }
+
     protected override int BuildHash()
     {
-        return !Player.IsValid() ? 0 : HashCode.Combine( Inventory.Weapons.Count(), Player.InBuyMenu );
+        return !Player.IsValid() ? 0 : HashCode.Combine( Inventory.Weapons.Count(), IsOpen );
     }
 }

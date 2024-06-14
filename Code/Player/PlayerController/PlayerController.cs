@@ -1,3 +1,4 @@
+using Sandbox;
 using Sandbox.Events;
 
 namespace Facepunch;
@@ -79,24 +80,6 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 	/// </summary>
 	CameraComponent IPawn.Camera => CameraController.Camera;
 
-	public bool InBuyMenu { get; private set; }
-	public bool InMenu => InBuyMenu;
-
-	/// <summary>
-	/// If true, we can open the buy menu and purchase stuff as long as we're in a buy zone.
-	/// </summary>
-	[HostSync] public bool BuyMenuEnabled { get; set; }
-
-	/// <summary>
-	/// If true, the whole map counts as a buy zone for us.
-	/// </summary>
-	[HostSync] public bool CanBuyAnywhere { get; set; }
-
-	/// <summary>
-	/// If true, we can open the buy menu and purchase stuff.
-	/// </summary>
-	public bool CanUseBuyMenu => BuyMenuEnabled && (CanBuyAnywhere || IsInBuyzone);
-
 	protected override void OnStart()
 	{
 		if ( !IsProxy && !IsBot )
@@ -160,7 +143,6 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 		_previousVelocity = cc.Velocity;
 
 		UpdateUse();
-		UIUpdate();
 		BuildWishInput();
 		BuildWishVelocity();
 		BuildInput();
@@ -168,44 +150,6 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 		UpdateRecoilAndSpread();
 		ApplyAcceleration();
 		ApplyMovement();
-	}
-	
-	// I don't think this belongs here either. Should just be able to do this in the UI system.
-	private void UIUpdate()
-	{
-		if ( InBuyMenu )
-		{
-			if ( Input.EscapePressed || Input.Pressed( "BuyMenu" ) || !CanUseBuyMenu )
-			{
-				InBuyMenu = false;
-			}
-		}
-		else if ( Input.Pressed( "BuyMenu" ) )
-		{
-			if ( CanUseBuyMenu )
-			{
-				InBuyMenu = true;
-			}
-		}
-	}
-
-	// Same with this, I don't like it.
-	public bool IsInBuyzone
-	{
-		get
-		{
-			if ( CanBuyAnywhere )
-				return true;
-
-			var zone = GetZone<BuyZone>();
-			if ( zone is null )
-				return false;
-
-			if ( zone.Team == Team.Unassigned )
-				return true;
-
-			return zone.Team == TeamComponent.Team;
-		}
 	}
 
 	public void AssignTeam( Team team )

@@ -290,9 +290,6 @@ public partial class PlayerController
 
 	private void BuildInput()
 	{
-		if ( InMenu )
-			return;
-
 		IsSlowWalking = Input.Down( "Walk" ) || ( CurrentWeapon?.Tags.Has( "aiming" ) ?? false );
 
 		bool wasSprinting = IsSprinting;
@@ -328,7 +325,7 @@ public partial class PlayerController
 			TimeSinceLastInput = 0f;
 		}
 
-		if ( CharacterController.IsOnGround && !IsFrozen && !InMenu )
+		if ( CharacterController.IsOnGround && !IsFrozen )
 		{
 			var bhop = Global.BunnyHopping;
 			if ( bhop ? Input.Down( "Jump" ) : Input.Pressed( "Jump" ) )
@@ -486,7 +483,7 @@ public partial class PlayerController
 	{
 		WishMove = 0f;
 
-		if ( IsFrozen || InMenu )
+		if ( IsFrozen )
 			return;
 
 		WishMove += Input.AnalogMove;

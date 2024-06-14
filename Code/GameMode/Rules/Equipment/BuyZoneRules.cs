@@ -5,30 +5,12 @@ namespace Facepunch;
 /// <summary>
 /// While this state is active, players can buy anywhere.
 /// </summary>
-public sealed class BuyAnywhere : Component,
-	IGameEventHandler<EnterStateEvent>,
-	IGameEventHandler<LeaveStateEvent>,
-	IGameEventHandler<PlayerSpawnedEvent>
+public sealed class BuyAnywhere : Component, IGameEventHandler<CanOpenBuyMenuEvent>
 {
-	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
+	[Late]
+	void IGameEventHandler<CanOpenBuyMenuEvent>.OnGameEvent( CanOpenBuyMenuEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.ActivePlayers )
-		{
-			player.CanBuyAnywhere = true;
-		}
-	}
-
-	void IGameEventHandler<LeaveStateEvent>.OnGameEvent( LeaveStateEvent eventArgs )
-	{
-		foreach ( var player in GameUtils.ActivePlayers )
-		{
-			player.CanBuyAnywhere = false;
-		}
-	}
-
-	void IGameEventHandler<PlayerSpawnedEvent>.OnGameEvent( PlayerSpawnedEvent eventArgs )
-	{
-		eventArgs.Player.CanBuyAnywhere = true;
+		eventArgs.CanOpen = true;
 	}
 }
 
@@ -37,9 +19,7 @@ public sealed class BuyAnywhere : Component,
 /// </summary>
 public sealed class EnableBuyMenu : Component,
 	IGameEventHandler<EnterStateEvent>,
-	IGameEventHandler<UpdateStateEvent>,
-	IGameEventHandler<LeaveStateEvent>,
-	IGameEventHandler<PlayerSpawnedEvent>
+	IGameEventHandler<CanOpenBuyMenuEvent>
 {
 	/// <summary>
 	/// Disable the buy menu after this time limit, if greater than zero.
@@ -52,32 +32,18 @@ public sealed class EnableBuyMenu : Component,
 
 	public float DisableTime => TimeLimit <= 0f ? float.PositiveInfinity : StartTime + TimeLimit;
 
+	[Property] public bool InBuyZoneOnly { get; set; }
+
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
 		StartTime = Time.Now;
 	}
 
-	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
-	{
+	void IGameEventHandler<CanOpenBuyMenuEvent>.OnGameEvent( CanOpenBuyMenuEvent eventArgs )
+	{ 
 		var enabled = Time.Now < DisableTime;
-
-		foreach ( var player in GameUtils.ActivePlayers )
-		{
-			player.BuyMenuEnabled = enabled;
-		}
-	}
-
-	void IGameEventHandler<LeaveStateEvent>.OnGameEvent( LeaveStateEvent eventArgs )
-	{
-		foreach ( var player in GameUtils.ActivePlayers )
-		{
-			player.BuyMenuEnabled = false;
-		}
-	}
-
-	void IGameEventHandler<PlayerSpawnedEvent>.OnGameEvent( PlayerSpawnedEvent eventArgs )
-	{
-		eventArgs.Player.BuyMenuEnabled = Time.Now < DisableTime;
+		eventArgs.CanOpen = enabled;
+		if ( InBuyZoneOnly && !BuySystem.IsInBuyZone() ) eventArgs.CanOpen = false; 
 	}
 }
 
@@ -87,26 +53,28 @@ public sealed class EnableBuyMenu : Component,
 public sealed class EnableBuyMenuDuringSpawnProtection : Component,
 	IGameEventHandler<SpawnProtectionStart>,
 	IGameEventHandler<SpawnProtectionEnd>,
-	IGameEventHandler<LeaveStateEvent>
+	IGameEventHandler<LeaveStateEvent>,
+	IGameEventHandler<CanOpenBuyMenuEvent>
 {
+	bool InSpawnProtection { get; set; } = false;
+
 	public void OnGameEvent( SpawnProtectionStart eventArgs )
 	{
-		eventArgs.Player.CanBuyAnywhere = true;
-		eventArgs.Player.BuyMenuEnabled = true;
+		InSpawnProtection = true;
 	}
 
 	public void OnGameEvent( SpawnProtectionEnd eventArgs )
 	{
-		eventArgs.Player.CanBuyAnywhere = false;
-		eventArgs.Player.BuyMenuEnabled = false;
+		InSpawnProtection = false;
 	}
 
 	public void OnGameEvent( LeaveStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.ActivePlayers )
-		{
-			player.CanBuyAnywhere = false;
-			player.BuyMenuEnabled = false;
-		}
+		InSpawnProtection = false;
+	}
+
+	public void OnGameEvent( CanOpenBuyMenuEvent eventArgs )
+	{
+		eventArgs.CanOpen = InSpawnProtection;
 	}
 }
