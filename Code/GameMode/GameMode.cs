@@ -14,9 +14,6 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	/// </summary>
 	public static string ActivePath { get; set; }
 
-	[HostSync, Obsolete]
-	public float NextStateTime { get; private set; }
-
 	[Property]
 	public string Title { get; set; }
 

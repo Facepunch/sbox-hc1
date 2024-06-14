@@ -8,7 +8,8 @@ partial class GameMode
 	{
 		None,
 		CountUp,
-		CountDown
+		CountDown,
+		StateCountDown
 	}
 
 	public string DisplayedStatus => TeamStatusText.GetValueOrDefault( GameUtils.LocalPlayer?.TeamComponent.Team ?? Team.Unassigned );
@@ -16,7 +17,8 @@ partial class GameMode
 	public TimeSpan? DisplayedTime => TimerMode switch
 	{
 		DisplayedTimerMode.CountUp => TimeSpan.FromSeconds( Math.Clamp( Time.Now - TimerStart, 0f, TimerDuration ) ),
-		DisplayedTimerMode.CountDown => TimeSpan.FromSeconds( Math.Clamp( TimerStart + TimerDuration - Time.Now, 0f, TimerDuration ) ),
+		DisplayedTimerMode.CountDown => TimeSpan.FromSeconds( Math.Clamp( TimerStart + TimerDuration - Time.Now + 1f, 0f, TimerDuration ) ),
+		DisplayedTimerMode.StateCountDown => TimeSpan.FromSeconds( Math.Max( StateMachine.NextStateTime - Time.Now + 1f, 0f ) ),
 		_ => null
 	};
 
@@ -34,6 +36,15 @@ partial class GameMode
 		TimerMode = DisplayedTimerMode.CountUp;
 		TimerStart = startTime;
 		TimerDuration = float.PositiveInfinity;
+	}
+
+	public void ShowStateCountDownTimer()
+	{
+		Assert.True( Networking.IsHost );
+
+		TimerMode = DisplayedTimerMode.StateCountDown;
+		TimerStart = 0f;
+		TimerDuration = 0f;
 	}
 
 	public void ShowCountDownTimer( float startTime, float duration )

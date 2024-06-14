@@ -12,7 +12,7 @@ public sealed class ShowCountDown : Component,
 {
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		GameMode.Instance.ShowCountDownTimer( Time.Now, eventArgs.State.DefaultDuration );
+		GameMode.Instance.ShowStateCountDownTimer();
 	}
 
 	void IGameEventHandler<LeaveStateEvent>.OnGameEvent( LeaveStateEvent eventArgs )
