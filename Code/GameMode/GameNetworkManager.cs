@@ -72,9 +72,6 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		player.GameObject.NetworkSpawn( channel );
 
 		Scene.Dispatch( new PlayerJoinedEvent( player ) );
-
-		if ( player.TeamComponent.Team != Team.Unassigned )
-			player.AssignTeam( player.TeamComponent.Team );
 		
 		if ( player.HealthComponent.State == LifeState.Alive )
 			GameMode.Instance?.SendSpawnConfirmation( player.Id );
