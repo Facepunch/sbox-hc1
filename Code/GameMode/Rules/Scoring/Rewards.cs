@@ -33,3 +33,35 @@ public sealed class KillRewards : Component, IGameEventHandler<KillEvent>
 		}
 	}
 }
+
+public sealed class DefuseObjectiveRewards : Component,
+	IGameEventHandler<BombPlantedEvent>,
+	IGameEventHandler<BombDefusedEvent>
+{
+	[Property, HostSync]
+	public int BombPlantReward { get; set; } = 300;
+
+	[Property, HostSync]
+	public int BombDefuseReward { get; set; } = 300;
+
+	/// <summary>
+	/// Team reward for <see cref="Team.Terrorist"/>s if the bomb was planted but the round was lost.
+	/// </summary>
+	[Property, HostSync]
+	public int BombPlantTeamReward { get; set; } = 800;
+
+	void IGameEventHandler<BombPlantedEvent>.OnGameEvent( BombPlantedEvent eventArgs )
+	{
+		eventArgs.Planter?.Inventory.GiveCash( BombPlantReward );
+	}
+
+	void IGameEventHandler<BombDefusedEvent>.OnGameEvent( BombDefusedEvent eventArgs )
+	{
+		eventArgs.Defuser?.Inventory.GiveCash( BombDefuseReward );
+
+		foreach ( var player in GameUtils.GetPlayers( Team.Terrorist ) )
+		{
+			player.Inventory.GiveCash( BombPlantTeamReward );
+		}
+	}
+}
