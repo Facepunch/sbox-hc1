@@ -27,7 +27,7 @@ public sealed class KillRewards : Component, IGameEventHandler<KillEvent>
 		{
 			killerPlayer.Inventory.GiveCash( -FriendlyFirePenalty );
 		}
-		else if ( damageInfo.Inflictor is Weapon weapon )
+		else if ( damageInfo.Inflictor is Equipment weapon )
 		{
 			killerPlayer.Inventory.GiveCash( weapon.Resource.KillReward );
 		}

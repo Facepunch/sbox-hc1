@@ -4,7 +4,7 @@ namespace Facepunch;
 
 [Title( "Reload" ), Group( "Weapon Components" )]
 public partial class ReloadWeaponComponent : InputWeaponComponent,
-	IGameEventHandler<WeaponHolsteredEvent>
+	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	/// <summary>
 	/// How long does it take to reload?
@@ -54,7 +54,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 		}
 	}
 
-	void IGameEventHandler<WeaponHolsteredEvent>.OnGameEvent( WeaponHolsteredEvent eventArgs )
+	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
 	{
 		if ( !IsProxy && IsReloading )
 		{
@@ -94,8 +94,8 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 		}
 
 		// Tags will be better so we can just react to stimuli.
-		Weapon.ViewModel?.ModelRenderer.Set( "b_reload", true );
-		Weapon.PlayerController?.BodyRenderer.Set( "b_reload", true );
+		Equipment.ViewModel?.ModelRenderer.Set( "b_reload", true );
+		Equipment.PlayerController?.BodyRenderer.Set( "b_reload", true );
 
 		foreach ( var kv in GetReloadSounds() )
 		{
@@ -111,8 +111,8 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 			IsReloading = false;
 
 		// Tags will be better so we can just react to stimuli.
-		Weapon.ViewModel?.ModelRenderer.Set( "b_reload", false );
-		Weapon.PlayerController?.BodyRenderer.Set( "b_reload", false );
+		Equipment.ViewModel?.ModelRenderer.Set( "b_reload", false );
+		Equipment.PlayerController?.BodyRenderer.Set( "b_reload", false );
 	}
 
 	[Broadcast( NetPermission.OwnerOnly )]
@@ -140,7 +140,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 		}
 
 		// Tags will be better so we can just react to stimuli.
-		Weapon.ViewModel?.ModelRenderer.Set( "b_reload", false );
+		Equipment.ViewModel?.ModelRenderer.Set( "b_reload", false );
 	}
 
 	[Property] public Dictionary<float, SoundEvent> TimedReloadSounds { get; set; } = new();

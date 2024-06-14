@@ -90,7 +90,7 @@
         <label class="name">@(Player.HealthComponent.Health.ToString( "0" ))%</label>
         <label class="name">@Player.DisplayName</label>
         <div class="weapons row">
-            @foreach (var wpn in Player.Inventory.Weapons.Where( CanShowWeapon ).OrderBy( x => x.Resource.Slot ) )
+            @foreach (var wpn in Player.Inventory.Equipment.Where( CanShowWeapon ).OrderBy( x => x.Resource.Slot ) )
             {
                 <img class="icon" src="@wpn.Resource.Icon"/>
             }
@@ -109,10 +109,10 @@
     private PlayerController Viewer => GameUtils.Viewer.Player;
     private PlayerController LocalPlayer => GameUtils.LocalPlayer;
 
-    private bool CanShowWeapon( Weapon weapon )
+    private bool CanShowWeapon( Equipment equipment )
     {
-        if ( weapon.Resource.Slot == EquipmentSlot.Melee ) return false;
-        if ( weapon.Resource.Slot == EquipmentSlot.Special ) return false;
+        if ( equipment.Resource.Slot == EquipmentSlot.Melee ) return false;
+        if ( equipment.Resource.Slot == EquipmentSlot.Special ) return false;
         return true;
     }
 

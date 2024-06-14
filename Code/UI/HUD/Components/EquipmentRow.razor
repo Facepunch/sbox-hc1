@@ -1,0 +1,59 @@
+@namespace Facepunch.UI
+@inherits Panel
+
+<root class="@(IsActive ? "is-active" : "")">
+
+    @if ( Equipment.IsValid() )
+    {
+        @if ( !string.IsNullOrEmpty( Equipment.Resource.Icon ) )
+        {
+            <div class="column">
+
+            <div class="icon">
+                <div class="image" style="background-image:url(@Equipment.Resource.Icon);" />
+            </div>
+
+            <span style="gap: 4px; align-items: flex-end;">
+                @if (IsActive)
+                {
+                    @if ( Equipment?.Owner != GameUtils.Viewer.Player && ( Equipment?.Owner?.IsValid() ?? false ) )
+                    {
+                        <label style="font-size: 14px; color: lightgrey">@(Equipment?.Owner?.DisplayName)'s</label>
+                    }
+
+                    <label class="gunname">@Equipment.Resource.Name</label>
+                }
+            </span>
+
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <label class="gunname">@Equipment.Resource.Name</label>
+            </div>
+        }
+    }
+</root>
+
+@code
+{
+    /// <summary>
+    ///  The equipment's slot
+    /// </summary>
+    public EquipmentSlot Slot => Equipment?.Resource.Slot ?? default;
+
+    /// <summary>
+    /// The player's equipment.
+    /// </summary>
+    public Equipment Equipment { get; set; }
+
+    private AmmoComponent AmmoComponent => Equipment?.Components.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
+    public PlayerController Player => Equipment?.PlayerController;
+    public bool IsActive => Player?.CurrentEquipment == Equipment;
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( IsActive, Equipment, AmmoComponent?.Ammo );
+    }   
+}

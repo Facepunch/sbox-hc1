@@ -44,14 +44,14 @@ public partial class BombPlantComponent : InputWeaponComponent
 		BindTag( "planting", () => IsPlanting );
 	}
 
-	private BombSite CurrentBombSite => Weapon.PlayerController.GetZone<BombSite>();
+	private BombSite CurrentBombSite => Equipment.PlayerController.GetZone<BombSite>();
 
 	/// <summary>
 	/// Can we plant right now?
 	/// </summary>
 	public bool CanPlant()
 	{
-		if ( !Weapon.PlayerController.IsGrounded )
+		if ( !Equipment.PlayerController.IsGrounded )
 			return false;
 
 		if ( CurrentBombSite is null )
@@ -68,7 +68,7 @@ public partial class BombPlantComponent : InputWeaponComponent
 			TimeSincePlantStart = 0f;
 			IsPlanting = true;
 
-			var player = Weapon.PlayerController;
+			var player = Equipment.PlayerController;
 			player.IsFrozen = true;
 		}
 	}
@@ -76,9 +76,9 @@ public partial class BombPlantComponent : InputWeaponComponent
 	private void StartPlant()
 	{
 		// Send the radio sound to everyone
-		if ( Weapon.PlayerController.IsLocallyControlled )
+		if ( Equipment.PlayerController.IsLocallyControlled )
 		{
-			RadioSounds.Play( Weapon.PlayerController.TeamComponent.Team, "Hidden", "Planting bomb" );
+			RadioSounds.Play( Equipment.PlayerController.TeamComponent.Team, "Hidden", "Planting bomb" );
 		}
 
 		BroadcastPlant();
@@ -86,7 +86,7 @@ public partial class BombPlantComponent : InputWeaponComponent
 
 	private void FinishPlant()
 	{
-		PlantBombOnHost( Weapon.PlayerController.Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
+		PlantBombOnHost( Equipment.PlayerController.Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
 	}
 
 	[Broadcast]
@@ -94,9 +94,9 @@ public partial class BombPlantComponent : InputWeaponComponent
 	{
 		if ( !Networking.IsHost ) return;
 
-		var player = Weapon.PlayerController;
+		var player = Equipment.PlayerController;
 
-		player.Inventory.RemoveWeapon( Weapon );
+		player.Inventory.RemoveWeapon( Equipment );
 		player.IsFrozen = false;
 		
 		if ( PlantedObjectPrefab is null ) return;
@@ -118,7 +118,7 @@ public partial class BombPlantComponent : InputWeaponComponent
 			IsPlanting = false;
 			TimeSincePlantCancel = 0f;
 
-			var player = Weapon.PlayerController;
+			var player = Equipment.PlayerController;
 			player.IsFrozen = false;
 		}
 	}
@@ -178,7 +178,7 @@ public partial class BombPlantComponent : InputWeaponComponent
 
 			if ( PlantingBeepSound is not null )
 			{
-				Sound.Play( PlantingBeepSound, Weapon.GameObject.Transform.Position );
+				Sound.Play( PlantingBeepSound, Equipment.GameObject.Transform.Position );
 			}
 		}
 	}

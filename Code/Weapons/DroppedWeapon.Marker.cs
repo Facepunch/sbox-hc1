@@ -1,6 +1,6 @@
 ﻿namespace Facepunch;
 
-partial class DroppedWeapon : IMinimapIcon
+partial class DroppedEquipment : IMinimapIcon
 {
 	[RequireComponent] public Spottable Spottable { get; private set; }
 

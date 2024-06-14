@@ -42,11 +42,11 @@ public sealed class SpecialWeaponAllocator : Component,
 		// Conna: this is a special weapon for a specific team. Remove it for everyone.
 		foreach ( var player in GameUtils.AllPlayers )
 		{
-			player.Inventory.RemoveWeapon( Weapon );
+			player.Inventory.Remove( Weapon );
 		}
 
 		// Conna: now give it to that specific player only.
-		var weapon = playerToGiveTo.Inventory.GiveWeapon( Weapon, false );
+		var weapon = playerToGiveTo.Inventory.Give( Weapon, false );
 		if ( weapon.IsValid() )
 		{
 			weapon.Components.GetOrCreate<DestroyBetweenRounds>();

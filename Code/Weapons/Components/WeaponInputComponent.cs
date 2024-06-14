@@ -5,8 +5,8 @@ namespace Facepunch;
 /// <summary>
 /// A weapon component that reacts to input actions.
 /// </summary>
-public abstract class InputWeaponComponent : WeaponComponent,
-	IGameEventHandler<WeaponDeployedEvent>
+public abstract class InputWeaponComponent : EquipmentComponent,
+	IGameEventHandler<EquipmentDeployedEvent>
 {
 	public enum InputListenerType
 	{
@@ -37,9 +37,9 @@ public abstract class InputWeaponComponent : WeaponComponent,
 
 	bool RunningWhileDeployed { get; set; }
 
-	void IGameEventHandler<WeaponDeployedEvent>.OnGameEvent( WeaponDeployedEvent eventArgs )
+	void IGameEventHandler<EquipmentDeployedEvent>.OnGameEvent( EquipmentDeployedEvent eventArgs )
 	{
-		if ( Weapon?.PlayerController?.IsLocallyControlled ?? false )
+		if ( Equipment?.PlayerController?.IsLocallyControlled ?? false )
 		{
 			RunningWhileDeployed = InputActions.Any( x => Input.Down( x ) );
 		}
@@ -95,18 +95,18 @@ public abstract class InputWeaponComponent : WeaponComponent,
 
 	protected override void OnFixedUpdate()
 	{
-		if ( !Weapon.IsValid() )
+		if ( !Equipment.IsValid() )
 			return;
 		
 		// Don't execute weapon components on weapons that aren't deployed.
-		if ( !Weapon.IsDeployed )
+		if ( !Equipment.IsDeployed )
 			return;
 		
-		if ( !Weapon.PlayerController.IsValid() )
+		if ( !Equipment.PlayerController.IsValid() )
 			return;
 		
 		// We only care about input actions coming from the owning object.
-		if ( !Weapon.PlayerController.IsLocallyControlled )
+		if ( !Equipment.PlayerController.IsLocallyControlled )
 			return;
 
 		if ( InputActions.All( x => !Input.Down( x ) ) )

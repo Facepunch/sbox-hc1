@@ -13,7 +13,7 @@ public partial class EquipmentDropper : Component,
 	/// </summary>
 	/// <param name="weapon"></param>
 	/// <returns></returns>
-	private bool CanDrop( Weapon weapon )
+	private bool CanDrop( Equipment weapon )
 	{
 		if ( GameMode.Instance.Get<DefaultEquipment>()?.Weapons.Contains( weapon.Resource ) is true )
 			return false;
@@ -30,13 +30,13 @@ public partial class EquipmentDropper : Component,
 		if ( !player.IsValid() )
 			return;
 
-		var droppables = player.Inventory.Weapons
+		var droppables = player.Inventory.Equipment
 			.Where( CanDrop )
 			.ToList();
 
 		for ( var i = droppables.Count - 1; i >= 0; i-- )
 		{
-			player.Inventory.DropWeapon( droppables[i].Id );
+			player.Inventory.Drop( droppables[i].Id );
 		}
 
 		player.Inventory.Clear();

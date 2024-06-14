@@ -168,7 +168,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 
 	private void ApplyScope()
 	{
-		if ( Player?.CurrentWeapon?.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } scope )
+		if ( Player?.CurrentEquipment?.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } scope )
 		{
 			var fov = scope.GetFOV();
 			FieldOfViewOffset -= fov;
@@ -180,7 +180,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		var baseFov = GameSettingsSystem.Current.FieldOfView;
 		FieldOfViewOffset = 0;
 
-		if ( Player.CurrentWeapon?.Tags.Has( "aiming" ) ?? false )
+		if ( Player.CurrentEquipment?.Tags.Has( "aiming" ) ?? false )
 		{
 			FieldOfViewOffset += AimFovOffset;
 		}
@@ -220,7 +220,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 
 	void ApplyRecoil()
 	{
-		if ( Player.CurrentWeapon.IsValid() && Player.CurrentWeapon?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } fn )
+		if ( Player.CurrentEquipment.IsValid() && Player.CurrentEquipment?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } fn )
 			Player.EyeAngles += fn.Current;
 	}
 

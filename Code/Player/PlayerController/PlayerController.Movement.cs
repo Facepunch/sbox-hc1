@@ -161,7 +161,7 @@ public partial class PlayerController
 	private void OnUpdateMovement()
 	{
 		var cc = CharacterController;
-		CurrentHoldType = CurrentWeapon.IsValid() ? CurrentWeapon.GetHoldType() : AnimationHelper.HoldTypes.None;
+		CurrentHoldType = CurrentEquipment.IsValid() ? CurrentEquipment.GetHoldType() : AnimationHelper.HoldTypes.None;
 
 		if ( !IsLocallyControlled ) 
 		{
@@ -290,7 +290,7 @@ public partial class PlayerController
 
 	private void BuildInput()
 	{
-		IsSlowWalking = Input.Down( "Walk" ) || ( CurrentWeapon?.Tags.Has( "aiming" ) ?? false );
+		IsSlowWalking = Input.Down( "Walk" ) || ( CurrentEquipment?.Tags.Has( "aiming" ) ?? false );
 
 		bool wasSprinting = IsSprinting;
         IsSprinting = WantsToSprint;
@@ -311,7 +311,7 @@ public partial class PlayerController
 			TimeSinceCrouchReleased = 0;
 
 		// Check if our current weapon has the planting tag and if so force us to crouch.
-		var currentWeapon = CurrentWeapon;
+		var currentWeapon = CurrentEquipment;
 		if ( currentWeapon.IsValid() && currentWeapon.Tags.Has( "planting" ) )
 			IsCrouching = true;
 
@@ -541,7 +541,7 @@ public partial class PlayerController
 
 	private float GetSpeedPenalty()
 	{
-		var wpn = CurrentWeapon;
+		var wpn = CurrentEquipment;
 		if ( !wpn.IsValid() ) return 0;
 		return wpn.SpeedPenalty;
 	}

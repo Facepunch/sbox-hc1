@@ -31,11 +31,11 @@ public sealed class DefaultEquipment : Component,
 
 		foreach ( var weapon in Weapons )
 		{
-			if ( !player.Inventory.HasWeaponInSlot( weapon.Slot ) )
-				player.Inventory.GiveWeapon( weapon, false );
+			if ( !player.Inventory.HasInSlot( weapon.Slot ) )
+				player.Inventory.Give( weapon, false );
 		}
 
-		player.Inventory.SwitchToBestWeapon();
+		player.Inventory.SwitchToBest();
 
 		player.ArmorComponent.Armor = Math.Max( player.ArmorComponent.Armor, Armor );
 		player.ArmorComponent.HasHelmet |= Helmet;

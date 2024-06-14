@@ -86,11 +86,11 @@ public partial class GameUtils
 		return !component.GameObject.IsValid() ? null : component.GameObject.Root.Components.Get<IPawn>( FindMode.EnabledInSelfAndDescendants );
 	}
 
-	public static Weapon GetWeaponFromComponent( Component inflictor )
+	public static Equipment FindEquipment( Component inflictor )
 	{
-		if ( inflictor is Weapon weapon )
+		if ( inflictor is Equipment equipment )
 		{
-			return weapon;
+			return equipment;
 		}
 
 		return null;

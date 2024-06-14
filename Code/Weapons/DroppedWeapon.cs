@@ -2,13 +2,13 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public partial class DroppedWeapon : Component, IUse, Component.ICollisionListener
+public partial class DroppedEquipment : Component, IUse, Component.ICollisionListener
 {
 	[Property] public EquipmentResource Resource { get; set; }
 
 	public Rigidbody Rigidbody { get; private set; }
 
-	public static DroppedWeapon Create( EquipmentResource resource, Vector3 positon, Rotation? rotation = null, Weapon heldWeapon = null )
+	public static DroppedEquipment Create( EquipmentResource resource, Vector3 positon, Rotation? rotation = null, Equipment heldWeapon = null )
 	{
 		var go = new GameObject();
 		go.Transform.Position = positon;
@@ -16,7 +16,7 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 		go.Name = resource.Name;
 		go.Tags.Add( "pickup" );
 
-		var droppedWeapon = go.Components.Create<DroppedWeapon>();
+		var droppedWeapon = go.Components.Create<DroppedEquipment>();
 		droppedWeapon.Resource = resource;
 
 		var renderer = go.Components.Create<SkinnedModelRenderer>();
@@ -50,7 +50,7 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 
 	public bool CanUse( PlayerController player )
 	{
-		return player.Inventory.CanTakeWeapon( Resource ) != PlayerInventory.PickupResult.None;
+		return player.Inventory.CanTake( Resource ) != PlayerInventory.PickupResult.None;
 	}
 
 	private bool _isUsed;
@@ -60,7 +60,7 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 		if ( _isUsed ) return;
 		_isUsed = true;
 
-		var weapon = player.Inventory.GiveWeapon( Resource );
+		var weapon = player.Inventory.Give( Resource );
 
 		foreach ( var state in weapon.Components.GetAll<IDroppedWeaponState>() )
 		{
@@ -87,11 +87,11 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 			if ( player.TimeSinceLastRespawn < 2f )
 				return;
 			
-			if ( player.Inventory.CanTakeWeapon( Resource ) != PlayerInventory.PickupResult.Pickup )
+			if ( player.Inventory.CanTake( Resource ) != PlayerInventory.PickupResult.Pickup )
 				return;
 
 			// Don't auto-pickup if we already have a weapon in this slot.
-			if ( player.Inventory.HasWeaponInSlot( Resource.Slot ) )
+			if ( player.Inventory.HasInSlot( Resource.Slot ) )
 				return;
 
 			OnUse( player );

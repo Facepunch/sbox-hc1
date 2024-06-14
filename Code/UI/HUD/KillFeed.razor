@@ -12,7 +12,7 @@
             }
 
             <div class="method">
-                @if ( GameUtils.GetWeaponFromComponent( entry.DamageInfo.Inflictor ) is { } weapon )
+                @if ( GameUtils.FindEquipment( entry.DamageInfo.Inflictor ) is { } weapon )
                 {
                     <div class="icon" style="background-image: url( @weapon.Resource.Icon );" />
 

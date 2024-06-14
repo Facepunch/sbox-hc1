@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public interface IWeapon : IValid
+public interface IEquipment : IValid
 {
 	public SkinnedModelRenderer ModelRenderer { get; set; }
 	public GameObject Muzzle { get; set; }

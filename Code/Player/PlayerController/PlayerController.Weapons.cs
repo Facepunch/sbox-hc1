@@ -3,13 +3,13 @@ using Sandbox.Events;
 namespace Facepunch;
 
 public partial class PlayerController :
-	IGameEventHandler<WeaponDeployedEvent>,
-	IGameEventHandler<WeaponHolsteredEvent>
+	IGameEventHandler<EquipmentDeployedEvent>,
+	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	/// <summary>
 	/// What weapon are we using?
 	/// </summary>
-	[Property, ReadOnly] public Weapon CurrentWeapon { get; private set; }
+	[Property, ReadOnly] public Equipment CurrentEquipment { get; private set; }
 
 	/// <summary>
 	/// A <see cref="GameObject"/> that will hold our ViewModel.
@@ -23,7 +23,7 @@ public partial class PlayerController :
 
 	private void UpdateRecoilAndSpread()
 	{
-		bool isAiming = CurrentWeapon?.Tags.Has( "aiming" ) ?? false;
+		bool isAiming = CurrentEquipment?.Tags.Has( "aiming" ) ?? false;
 		var spread = Global.BaseSpreadAmount;
 		var scale = Global.VelocitySpreadScale;
 		if ( isAiming ) spread *= Global.AimSpread;
@@ -38,28 +38,28 @@ public partial class PlayerController :
 		Spread = spread;
 	}
 
-	void IGameEventHandler<WeaponDeployedEvent>.OnGameEvent( WeaponDeployedEvent eventArgs )
+	void IGameEventHandler<EquipmentDeployedEvent>.OnGameEvent( EquipmentDeployedEvent eventArgs )
 	{
-		CurrentWeapon = eventArgs.Weapon;
+		CurrentEquipment = eventArgs.Equipment;
 	}
 
-	void IGameEventHandler<WeaponHolsteredEvent>.OnGameEvent( WeaponHolsteredEvent eventArgs )
+	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
 	{
-		if ( eventArgs.Weapon == CurrentWeapon )
-			CurrentWeapon = null;
+		if ( eventArgs.Equipment == CurrentEquipment )
+			CurrentEquipment = null;
 	}
 
 	[Authority]
 	private void SetCurrentWeapon( Guid weaponId )
 	{
-		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Weapon;
-		SetCurrentWeapon( weapon );
+		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Equipment;
+		SetCurrentEquipment( weapon );
 	}
 
 	[Authority]
 	private void ClearCurrentWeapon()
 	{
-		CurrentWeapon?.Holster();
+		CurrentEquipment?.Holster();
 	}
 
 	public void Holster()
@@ -72,12 +72,12 @@ public partial class PlayerController :
 			return;
 		}
 
-		CurrentWeapon?.Holster();
+		CurrentEquipment?.Holster();
 	}
 
 	public TimeSince TimeSinceWeaponDeployed { get; private set; }
 
-	public void SetCurrentWeapon( Weapon weapon )
+	public void SetCurrentEquipment( Equipment weapon )
 	{
 		if ( IsProxy )
 		{
@@ -94,7 +94,7 @@ public partial class PlayerController :
 
 	public void ClearViewModel()
 	{
-		foreach ( var weapon in Inventory.Weapons )
+		foreach ( var weapon in Inventory.Equipment )
 		{
 			weapon.ClearViewModel();
 		}
@@ -105,7 +105,7 @@ public partial class PlayerController :
 		if ( CameraController.Mode != CameraMode.FirstPerson )
 			return;
 
-		var weapon = CurrentWeapon;
+		var weapon = CurrentEquipment;
 		if ( weapon.IsValid() )
 			weapon.CreateViewModel( playDeployEffects );
 	}

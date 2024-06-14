@@ -2,21 +2,21 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public record WeaponDeployedEvent( Weapon Weapon ) : IGameEvent;
-public record WeaponHolsteredEvent( Weapon Weapon ) : IGameEvent;
+public record EquipmentDeployedEvent( Equipment Equipment ) : IGameEvent;
+public record EquipmentHolsteredEvent( Equipment Equipment ) : IGameEvent;
 
 /// <summary>
-/// A weapon component.
+/// An equipment component.
 /// </summary>
-public partial class Weapon : Component, Component.INetworkListener, IWeapon
+public partial class Equipment : Component, Component.INetworkListener, IEquipment
 {
 	/// <summary>
-	/// A reference to the weapon's <see cref="EquipmentResource"/>.
+	/// A reference to the equipment's <see cref="EquipmentResource"/>.
 	/// </summary>
 	[Property] public EquipmentResource Resource { get; set; }
 
 	/// <summary>
-	/// A tag binder for this weapon.
+	/// A tag binder for this equipment.
 	/// </summary>
 	[RequireComponent] public TagBinder TagBinder { get; set; }
 
@@ -28,12 +28,12 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	internal void BindTag( string tag, Func<bool> predicate ) => TagBinder.BindTag( tag, predicate );
 
 	/// <summary>
-	/// A reference to the weapon's model renderer.
+	/// A reference to the equipment's model renderer.
 	/// </summary>
 	[Property] public SkinnedModelRenderer ModelRenderer { get; set; }
 
 	/// <summary>
-	/// The default holdtype for this weapon.
+	/// The default holdtype for this equipment.
 	/// </summary>
 	[Property] protected AnimationHelper.HoldTypes HoldType { get; set; } = AnimationHelper.HoldTypes.Rifle;
 
@@ -43,7 +43,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	[Property, Group( "Sounds" )] public SoundEvent DeploySound { get; set; }
 
 	/// <summary>
-	/// How slower do we walk with this weapon out?
+	/// How slower do we walk with this equipment out?
 	/// </summary>
 	[Property, Group( "Movement" )] public float SpeedPenalty { get; set; } = 0f;
 
@@ -61,7 +61,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	[Sync] public Guid OwnerId { get; set; }
 
 	/// <summary>
-	/// Is this weapon currently deployed by the player?
+	/// Is this equipment currently deployed by the player?
 	/// </summary>
 	[Sync, Change( nameof( OnIsDeployedPropertyChanged ))]
 	public bool IsDeployed { get; private set; }
@@ -73,8 +73,8 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	{
 		var player = GameUtils.Viewer.Player;
 
-		player.CurrentWeapon.ViewModel.ModelRenderer.Enabled = !player.CurrentWeapon.ViewModel.ModelRenderer.Enabled;
-		player.CurrentWeapon.ViewModel.Arms.Enabled = !player.CurrentWeapon.ViewModel.Arms.Enabled;
+		player.CurrentEquipment.ViewModel.ModelRenderer.Enabled = !player.CurrentEquipment.ViewModel.ModelRenderer.Enabled;
+		player.CurrentEquipment.ViewModel.Arms.Enabled = !player.CurrentEquipment.ViewModel.Arms.Enabled;
 	}
 
 	/// <summary>
@@ -91,7 +91,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	private ViewModel viewModel;
 
 	/// <summary>
-	/// A reference to the weapon's <see cref="Facepunch.ViewModel"/> if it has one.
+	/// A reference to the equipment's <see cref="Facepunch.ViewModel"/> if it has one.
 	/// </summary>
 	public ViewModel ViewModel
 	{
@@ -102,14 +102,14 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 
 			if ( viewModel.IsValid() )
 			{
-				viewModel.Weapon = this;
+				viewModel.Equipment = this;
 				viewModel.ViewModelCamera = PlayerController.ViewModelCamera;
 			}
 		}
 	}
 
 	/// <summary>
-	/// Get the weapon's owner - namely the player controller
+	/// Get the equipment's owner - namely the player controller
 	/// </summary>
 	public PlayerController PlayerController => Components.Get<PlayerController>( FindMode.EverythingInAncestors );
 
@@ -134,33 +134,33 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 		var player = GameUtils.AllPlayers.FirstOrDefault( x => x.Network.OwnerConnection == connection );
 		if ( !player.IsValid() ) return;
 		
-		var droppedWeapon = DroppedWeapon.Create( Resource, player.Transform.Position + Vector3.Up * 32f, Rotation.Identity, this );
-		droppedWeapon.GameObject.NetworkSpawn();
+		var dropped = DroppedEquipment.Create( Resource, player.Transform.Position + Vector3.Up * 32f, Rotation.Identity, this );
+		dropped.GameObject.NetworkSpawn();
 	}
 
 	/// <summary>
-	/// Deploy this weapon.
+	/// Deploy this equipment.
 	/// </summary>
 	[Authority]
 	public void Deploy()
 	{
 		if ( IsDeployed )
 			return;
-		
-		// We must first holster all other weapons.
+
+		// We must first holster all other equipment items.
 		if ( PlayerController.IsValid() )
 		{
-			var weapons = PlayerController.Inventory.Weapons.ToList();
+			var equipment = PlayerController.Inventory.Equipment.ToList();
 
-			foreach ( var weapon in weapons )
-				weapon.Holster();
+			foreach ( var item in equipment )
+				item.Holster();
 		}
 		
 		IsDeployed = true;
 	}
-	
+
 	/// <summary>
-	/// Holster this weapon.
+	/// Holster this equipment.
 	/// </summary>
 	[Authority]
 	public void Holster()
@@ -172,7 +172,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	}
 
 	/// <summary>
-	/// Allow weapons to override holdtypes at any notice.
+	/// Allow equipment to override holdtypes at any notice.
 	/// </summary>
 	/// <returns></returns>
 	public virtual AnimationHelper.HoldTypes GetHoldType()
@@ -181,7 +181,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	}
 
 	/// <summary>
-	/// Called when trying to shoot the weapon with the "Attack1" input action.
+	/// Called when trying to shoot the equipment with the "Attack1" input action.
 	/// </summary>
 	/// <returns></returns>
 	public virtual bool PrimaryAttack()
@@ -199,7 +199,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 	}
 
 	/// <summary>
-	/// Called when trying to shoot the weapon with the "Attack2" input action.
+	/// Called when trying to shoot the equipment with the "Attack2" input action.
 	/// </summary>
 	/// <returns></returns>
 	public virtual bool SecondaryAttack()
@@ -263,7 +263,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 
 		if ( resource.ViewModelPrefab.IsValid() )
 		{
-			// Create the weapon prefab and put it on the weapon gameobject.
+			// Create the equipment prefab and put it on the equipment gameobject.
 			var viewModelGameObject = resource.ViewModelPrefab.Clone( new CloneConfig()
 			{
 				Transform = new(),
@@ -273,7 +273,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 
 			var viewModelComponent = viewModelGameObject.Components.Get<ViewModel>();
 
-			// Weapon needs to know about the ViewModel
+			// equipment needs to know about the ViewModel
 			ViewModel = viewModelComponent;
 
 			viewModelGameObject.BreakFromPrefab();
@@ -312,7 +312,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 		if ( ModelRenderer.IsValid() )
 			ModelRenderer.Enabled = true;
 
-		GameObject.Root.Dispatch( new WeaponDeployedEvent( this ) );
+		GameObject.Root.Dispatch( new EquipmentDeployedEvent( this ) );
 	}
 
 	protected virtual void OnHolstered()
@@ -322,7 +322,7 @@ public partial class Weapon : Component, Component.INetworkListener, IWeapon
 		
 		ClearViewModel();
 		
-		GameObject.Root.Dispatch( new WeaponHolsteredEvent( this ) );
+		GameObject.Root.Dispatch( new EquipmentHolsteredEvent( this ) );
 	}
 
 	protected override void OnDestroy()

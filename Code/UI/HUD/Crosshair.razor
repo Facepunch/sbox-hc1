@@ -40,7 +40,7 @@
     public Panel Hitmarker { get; set; }
 
     PlayerController Player => GameUtils.Viewer.Player;
-    Weapon Weapon => Player?.CurrentWeapon;
+    Equipment Equipment => Player?.CurrentEquipment;
 
     private TimeUntil TimeUntilHitmarkerRemove = 0f;
     private float HitMarkerDuration => 0.1f;
@@ -60,9 +60,9 @@
 
     string HitmarkerClasses => !TimeUntilHitmarkerRemove ? "is-visible" : string.Empty;
 
-    private ShootWeaponComponent Shoot => Weapon?.Components.Get<ShootWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
-    private ScopeWeaponComponent Scope => Weapon?.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
-    private RecoilWeaponComponent Recoil => Weapon?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
+    private ShootWeaponComponent Shoot => Equipment?.Components.Get<ShootWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
+    private ScopeWeaponComponent Scope => Equipment?.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
+    private RecoilWeaponComponent Recoil => Equipment?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
 
     float BaseDistance => GameSettingsSystem.Current.CrosshairDistance;
     // 10px base size
@@ -160,7 +160,7 @@
 
         bool visible = player.IsValid() && player.HealthComponent.State == LifeState.Alive && player.CameraController.Mode == CameraMode.FirstPerson;
 
-        if ( Weapon.IsValid() && Weapon.Tags.Has( "aiming" ) )
+        if ( Equipment.IsValid() && Equipment.Tags.Has( "aiming" ) )
             visible = CrosshairOverride;
 
         SetClass( "visible", visible );
@@ -171,7 +171,7 @@
 
         var camera = player.CameraController.Camera;
         var range = 100000f;
-        var muzzle = Weapon?.ViewModel?.ModelRenderer.GetAttachment( "muzzle" );
+        var muzzle = Equipment?.ViewModel?.ModelRenderer.GetAttachment("muzzle");
         var origin = muzzle.HasValue ? muzzle.Value.Position : camera.Transform.Position;
 
         var currentTrace = player.Scene.Trace.Ray( origin, camera.Transform.Rotation.Forward * range )

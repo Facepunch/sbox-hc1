@@ -5,8 +5,8 @@
 /// </summary>
 public interface IDroppedWeaponState
 {
-	void CopyToDroppedWeapon( DroppedWeapon dropped );
-	void CopyFromDroppedWeapon( DroppedWeapon dropped );
+	void CopyToDroppedWeapon( DroppedEquipment dropped );
+	void CopyFromDroppedWeapon( DroppedEquipment dropped );
 }
 
 /// <summary>
@@ -16,14 +16,14 @@ public interface IDroppedWeaponState
 public interface IDroppedWeaponState<T> : IDroppedWeaponState
 	where T : Component, IDroppedWeaponState<T>, new()
 {
-	void IDroppedWeaponState.CopyToDroppedWeapon( DroppedWeapon dropped )
+	void IDroppedWeaponState.CopyToDroppedWeapon( DroppedEquipment dropped )
 	{
 		var state = dropped.Components.GetOrCreate<T>();
 
 		((T)this).CopyPropertiesTo( state );
 	}
 
-	void IDroppedWeaponState.CopyFromDroppedWeapon( DroppedWeapon dropped )
+	void IDroppedWeaponState.CopyFromDroppedWeapon( DroppedEquipment dropped )
 	{
 		if ( dropped.Components.Get<T>() is {} state )
 		{
