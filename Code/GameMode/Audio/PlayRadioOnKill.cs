@@ -5,25 +5,11 @@ namespace Facepunch;
 /// <summary>
 /// Handles certain events and plays radio sounds.
 /// </summary>
-public sealed class RadioManager : Component,
-	IGameEventHandler<BombPlantedEvent>,
-	IGameEventHandler<BombDefusedEvent>,
+public sealed class PlayRadioOnKill : Component,
 	IGameEventHandler<KillEvent>
 {
 	[Property] public bool PlayEnemyLeftSounds { get; set; } = true;
 	[Property] public bool PlayDeathSounds { get; set; } = true;
-
-	void IGameEventHandler<BombPlantedEvent>.OnGameEvent( BombPlantedEvent eventArgs )
-	{
-		RadioSounds.Play( Team.Terrorist, RadioSound.BombPlanted );
-		RadioSounds.Play( Team.CounterTerrorist, RadioSound.BombPlanted );
-	}
-
-	void IGameEventHandler<BombDefusedEvent>.OnGameEvent( BombDefusedEvent eventArgs )
-	{
-		RadioSounds.Play( Team.Terrorist, RadioSound.BombDefused );
-		RadioSounds.Play( Team.CounterTerrorist, RadioSound.BombDefused );
-	}
 
 	private int GetAliveCount( Team team )
 	{

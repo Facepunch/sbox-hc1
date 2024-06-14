@@ -45,3 +45,50 @@ public sealed class TeamScoring : Component,
 		Flip();
 	}
 }
+
+/// <summary>
+/// Transitions to specified states if one team's score is higher than the other's.
+/// </summary>
+public sealed class CompareTeamScores : Component,
+	IGameEventHandler<EnterStateEvent>,
+	IGameEventHandler<UpdateStateEvent>
+{
+	/// <summary>
+	/// Minimum difference between scores to trigger a transition.
+	/// </summary>
+	[Property]
+	public int MinMargin { get; set; } = 1;
+
+	[Property]
+	public StateComponent TerroristVictoryState { get; set; }
+
+	[Property]
+	public StateComponent CounterTerroristVictoryState { get; set; }
+
+	private void CheckScores()
+	{
+		var teamScoring = GameMode.Instance.Get<TeamScoring>( true );
+
+		var tScore = teamScoring.Scores.GetValueOrDefault( Team.Terrorist );
+		var ctScore = teamScoring.Scores.GetValueOrDefault( Team.CounterTerrorist );
+
+		if ( tScore >= ctScore + MinMargin )
+		{
+			GameMode.Instance.StateMachine.Transition( TerroristVictoryState );
+		}
+		else if ( ctScore >= tScore + MinMargin )
+		{
+			GameMode.Instance.StateMachine.Transition( CounterTerroristVictoryState );
+		}
+	}
+
+	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
+	{
+		CheckScores();
+	}
+
+	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
+	{
+		CheckScores();
+	}
+}
