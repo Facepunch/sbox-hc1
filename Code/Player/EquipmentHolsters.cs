@@ -4,7 +4,7 @@ namespace Facepunch;
 
 public class MountPoint
 {
-	[KeyProperty] public WeaponSlot Slot { get; set; }
+	[KeyProperty] public EquipmentSlot Slot { get; set; }
 	[KeyProperty] public List<GameObject> GameObjects { get; set; } = new();
 }
 

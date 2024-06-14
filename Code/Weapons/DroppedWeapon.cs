@@ -4,11 +4,11 @@ namespace Facepunch;
 
 public partial class DroppedWeapon : Component, IUse, Component.ICollisionListener
 {
-	[Property] public WeaponData Resource { get; set; }
+	[Property] public EquipmentResource Resource { get; set; }
 
 	public Rigidbody Rigidbody { get; private set; }
 
-	public static DroppedWeapon Create( WeaponData resource, Vector3 positon, Rotation? rotation = null, Weapon heldWeapon = null )
+	public static DroppedWeapon Create( EquipmentResource resource, Vector3 positon, Rotation? rotation = null, Weapon heldWeapon = null )
 	{
 		var go = new GameObject();
 		go.Transform.Position = positon;
@@ -29,7 +29,7 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 
 		go.Components.Create<DestroyBetweenRounds>();
 
-		if ( resource.Slot == WeaponSlot.Special )
+		if ( resource.Slot == EquipmentSlot.Special )
 		{
 			Game.ActiveScene.Dispatch( new BombDroppedEvent() );
 

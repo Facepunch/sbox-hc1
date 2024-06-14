@@ -14,7 +14,7 @@ public sealed class DefaultEquipment : Component,
 	/// <summary>
 	/// A weapon set that we'll give the player when they spawn.
 	/// </summary>
-	[Property] public List<WeaponData> Weapons { get; set; }
+	[Property] public List<EquipmentResource> Weapons { get; set; }
 
 	[Property] public int Armor { get; set; }
 	[Property] public bool Helmet { get; set; }

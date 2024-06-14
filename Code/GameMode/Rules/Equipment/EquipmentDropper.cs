@@ -18,7 +18,7 @@ public partial class EquipmentDropper : Component,
 		if ( GameMode.Instance.Get<DefaultEquipment>()?.Weapons.Contains( weapon.Resource ) is true )
 			return false;
 
-		if ( weapon.Resource.Slot == WeaponSlot.Melee ) 
+		if ( weapon.Resource.Slot == EquipmentSlot.Melee ) 
 			return false;
 
 		return true;

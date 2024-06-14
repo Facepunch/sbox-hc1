@@ -1,5 +1,5 @@
 {
-  "__guid": "90a2c641-2bda-4f1b-9cca-8dd10ef5e1cc",
+  "__guid": "e0a94a8f-f2bc-490d-b533-a32a7f589e5e",
   "GameObjects": [
     {
       "__guid": "00344a8c-fa5e-45ae-b12a-10bb781a1dc3",
@@ -48,23 +48,24 @@
       "NetworkInterpolation": true,
       "Components": [
         {
-          "__type": "GameMode",
+          "__type": "Facepunch.GameMode",
           "__guid": "50684379-eb29-47e7-a139-226bfec4007d",
-          "BuyAnywhere": true,
           "MaxBalance": 16000,
-          "State": "None",
           "UnlimitedMoney": false
         },
         {
-          "__type": "DefaultEquipment",
+          "__type": "Facepunch.DefaultEquipment",
           "__guid": "463af880-b1a7-4de0-931f-58e97ed62ff2",
           "Armor": 0,
+          "BothTeams": true,
+          "DefuseKit": false,
           "Helmet": false,
           "RefillAmmo": true,
+          "Team": "Terrorist",
           "Weapons": [
-            "weapons/knife/knife.wpn",
-            "weapons/usp/usp.wpn",
-            "weapons/m4a1/m4a1.wpn"
+            "weapons/knife/knife.equip",
+            "weapons/usp/usp.equip",
+            "weapons/m4a1/m4a1.equip"
           ]
         },
         {
@@ -80,16 +81,15 @@
           }
         },
         {
-          "__type": "RandomSpawnAssigner",
+          "__type": "Facepunch.RandomSpawnAssigner",
           "__guid": "6815ffa8-dc2f-4e9a-8ac6-06b7b9d0bec2",
           "MinEnemyDistance": 512,
           "SkipLineOfSightTestDistance": 2048,
           "SpawnTags": []
         },
         {
-          "__type": "PlayerAutoRespawner",
+          "__type": "Facepunch.PlayerAutoRespawner",
           "__guid": "1256da46-f61e-4b97-842e-a3a226fdea06",
-          "DisableOnGameStart": false,
           "RespawnDelaySeconds": 1
         }
       ],
@@ -4535,7 +4535,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-06-12T22:26:18.0861605\u002B01:00",
+  "LastSaved": "2024-06-14T17:16:45.8684611\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "facepunch.concrete_simple",
@@ -4543,7 +4543,7 @@
     "facepunch.floor_grass_a",
     "facepunch.floor_gravel_sand_a",
     "facepunch.metal_brushed",
-    "facepunch.wooden_door_frame_single_01b"
+    "facepunch.wooden_door_frame_double_02b"
   ],
   "__version": 1
 }

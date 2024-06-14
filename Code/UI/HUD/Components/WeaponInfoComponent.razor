@@ -27,7 +27,7 @@
     public PlayerInventory Inventory => Player.Inventory;
     public Weapon CurrentWeapon => Player?.CurrentWeapon;
 
-    public string GroupClasses( WeaponSlot slot )
+    public string GroupClasses( EquipmentSlot slot )
     {
         var wpn = CurrentWeapon;
         if (!wpn.IsValid()) return "";
@@ -37,7 +37,7 @@
         return "";
     }
 
-    public int SlotIndex( WeaponSlot slot )
+    public int SlotIndex( EquipmentSlot slot )
     {
         return (int)slot;
     }

@@ -12,7 +12,7 @@ public sealed class SpecialWeaponAllocator : Component,
 	/// We'll give this weapon to one player on the specified team.
 	/// </summary>
 	[Property]
-	public WeaponData Weapon { get; set; }
+	public EquipmentResource Weapon { get; set; }
 
 	/// <summary>
 	/// Which team to give the special weapon to.

@@ -11,9 +11,9 @@ public record WeaponHolsteredEvent( Weapon Weapon ) : IGameEvent;
 public partial class Weapon : Component, Component.INetworkListener, IWeapon
 {
 	/// <summary>
-	/// A reference to the weapon's <see cref="WeaponData"/>.
+	/// A reference to the weapon's <see cref="EquipmentResource"/>.
 	/// </summary>
-	[Property] public WeaponData Resource { get; set; }
+	[Property] public EquipmentResource Resource { get; set; }
 
 	/// <summary>
 	/// A tag binder for this weapon.

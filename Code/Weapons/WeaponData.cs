@@ -1,7 +1,9 @@
-
 using Facepunch;
 
-public enum WeaponSlot
+/// <summary>
+/// What slot is this equipment for?
+/// </summary>
+public enum EquipmentSlot
 {
 	Undefined = 0,
 	
@@ -31,55 +33,58 @@ public enum WeaponSlot
 	Special = 5
 }
 
-[GameResource( "hc1/Weapon Data", "wpn", "A resource containing basic information about a weapon.", IconBgColor = "#5877E0", Icon = "track_changes" )]
-public partial class WeaponData : GameResource
+/// <summary>
+/// A resource definition for a piece of equipment. This could be a weapon, or a deployable, or a gadget, or a grenade.. Anything really.
+/// </summary>
+[GameResource( "hc1/Equipment Item", "equip", "", IconBgColor = "#5877E0", Icon = "track_changes" )]
+public partial class EquipmentResource : GameResource
 {
-	public static HashSet<WeaponData> All { get; set; } = new();
+	public static HashSet<EquipmentResource> All { get; set; } = new();
 
 	[Category( "Base" )]
-	public string Name { get; set; } = "My Weapon";
+	public string Name { get; set; } = "My Equipment";
 	
 	[Category( "Base" )]
 	public string Description { get; set; } = "";
 
 	[Category( "Base" )]
-	public WeaponSlot Slot { get; set; }
+	public EquipmentSlot Slot { get; set; }
 
 	/// <summary>
-	/// If set, only this team can buy the weapon.
+	/// If set, only this team can buy the equipment.
 	/// </summary>
 	[Category( "Base" )]
 	public Team Team { get; set; }
 
 	/// <summary>
-	/// If false, only <see cref="Team"/> can pick up this weapon.
+	/// If false, only <see cref="Team"/> can pick up this equipment.
 	/// </summary>
 	[Category( "Base" ), HideIf( nameof(Team), Team.Unassigned )]
 	public bool CanOtherTeamPickUp { get; set; } = true;
 
 	/// <summary>
-	/// If true, owner will drop this weapon if they disconnect.
+	/// If true, owner will drop this equipment if they disconnect.
 	/// </summary>
 	[Category( "Base" )]
 	public bool DropOnDisconnect { get; set; } = false;
 
 	/// <summary>
-	/// The weapon's icon
+	/// The equipment's icon
 	/// </summary>
 	[Group( "Base" ), ImageAssetPath] public string Icon { get; set; }
 
 	/// <summary>
-	/// Is this weapon shown in the buy menu
+	/// Is this equipment shown in the buy menu
 	/// </summary>
 	[Category( "Economy" )] public bool IsPurchasable { get; set; } = true;
 
 	/// <summary>
-	/// How much is this weapon to buy in the buy menu?
+	/// How much is this equipment to buy in the buy menu?
 	/// </summary>
 	[Category( "Economy" )] public int Price { get; set; } = 0;
 
 	/// <summary>
-	/// How much money do you get per kill with this weapon?
+	/// How much money do you get per kill with this equipment?
 	/// </summary>
 	[Category( "Economy" )] public int KillReward { get; set; } = 300;
 
@@ -90,13 +95,13 @@ public partial class WeaponData : GameResource
 	public GameObject MainPrefab { get; set; }
 
 	/// <summary>
-	/// The prefab to create when making a viewmodel for this weapon.
+	/// The prefab to create when making a viewmodel for this equipment.
 	/// </summary>
 	[Category( "Prefabs" )]
 	public GameObject ViewModelPrefab { get; set; }
 
 	/// <summary>
-	/// The weapon's model
+	/// The equipment's model
 	/// </summary>
 	[Category( "Information" )]
 	public Model WorldModel { get; set; }
@@ -110,7 +115,7 @@ public partial class WeaponData : GameResource
 	{
 		if ( All.Contains( this ) )
 		{
-			Log.Warning( "Tried to add two of the same weapon (?)" );
+			Log.Warning( "Tried to add two of the same equipment (?)" );
 			return;
 		}
 

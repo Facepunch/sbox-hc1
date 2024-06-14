@@ -111,8 +111,8 @@
 
     private bool CanShowWeapon( Weapon weapon )
     {
-        if ( weapon.Resource.Slot == WeaponSlot.Melee ) return false;
-        if ( weapon.Resource.Slot == WeaponSlot.Special ) return false;
+        if ( weapon.Resource.Slot == EquipmentSlot.Melee ) return false;
+        if ( weapon.Resource.Slot == EquipmentSlot.Special ) return false;
         return true;
     }
 

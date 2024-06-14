@@ -1,6 +1,6 @@
 ﻿using Facepunch;
 
-public abstract class EquipmentData
+public abstract class BuyMenuItem
 {
 	public string Id { get; protected init; }
 	public string Name { get; protected init; }
@@ -20,9 +20,9 @@ public abstract class EquipmentData
 		OnPurchase( player );
 	}
 
-	public static IEnumerable<EquipmentData> GetAll()
+	public static IEnumerable<BuyMenuItem> GetAll()
 	{
-		return new List<EquipmentData>
+		return new List<BuyMenuItem>
 		{
 			new ArmorEquipment( "kevlar", "Kevlar", "/ui/equipment/armor.png" ),
 			new ArmorWithHelmetEquipment( "kevlar_helmet", "Kevlar + Helmet", "/ui/equipment/helmet.png" ),
@@ -30,13 +30,13 @@ public abstract class EquipmentData
 		};
 	}
 
-	public static EquipmentData GetById( string id )
+	public static BuyMenuItem GetById( string id )
 	{
 		return GetAll().FirstOrDefault( x => x.Id == id );
 	}
 }
 
-public class ArmorEquipment : EquipmentData
+public class ArmorEquipment : BuyMenuItem
 {
 	public ArmorEquipment( string id, string name, string icon )
 	{
@@ -55,7 +55,7 @@ public class ArmorEquipment : EquipmentData
 	public override bool IsOwned( PlayerController player ) => player.ArmorComponent.Armor == player.ArmorComponent.MaxArmor;
 }
 
-public class ArmorWithHelmetEquipment : EquipmentData
+public class ArmorWithHelmetEquipment : BuyMenuItem
 {
 	public ArmorWithHelmetEquipment( string id, string name, string icon )
 	{
@@ -87,7 +87,7 @@ public class ArmorWithHelmetEquipment : EquipmentData
 	}
 }
 
-public class DefuseKitEquipment : EquipmentData
+public class DefuseKitEquipment : BuyMenuItem
 {
 	public DefuseKitEquipment( string id, string name, string icon )
 	{

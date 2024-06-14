@@ -84,7 +84,7 @@ public partial class PlayerInventory : Component
 		if ( !weapon.IsValid() )
 			return;
 
-		if ( weapon.Resource.Slot == WeaponSlot.Melee )
+		if ( weapon.Resource.Slot == EquipmentSlot.Melee )
 			return;
 
 		if ( !Networking.IsHost )
@@ -123,9 +123,9 @@ public partial class PlayerInventory : Component
 			return;
 		}
 
-		foreach ( var slot in Enum.GetValues<WeaponSlot>() )
+		foreach ( var slot in Enum.GetValues<EquipmentSlot>() )
 		{
-			if ( slot == WeaponSlot.Undefined )
+			if ( slot == EquipmentSlot.Undefined )
 				continue;
 
 			if ( !Input.Pressed( $"Slot{(int)slot}" ) )
@@ -178,21 +178,21 @@ public partial class PlayerInventory : Component
 		if ( !Weapons.Any() )
 			return;
 
-		if ( HasWeaponInSlot( WeaponSlot.Primary ) )
+		if ( HasWeaponInSlot( EquipmentSlot.Primary ) )
 		{
-			SwitchToSlot( WeaponSlot.Primary );
+			SwitchToSlot( EquipmentSlot.Primary );
 			return;
 		}
 
-		if ( HasWeaponInSlot( WeaponSlot.Secondary ) )
+		if ( HasWeaponInSlot( EquipmentSlot.Secondary ) )
 		{
-			SwitchToSlot( WeaponSlot.Secondary );
+			SwitchToSlot( EquipmentSlot.Secondary );
 			return;
 		}
 
-		if ( HasWeaponInSlot( WeaponSlot.Melee ) )
+		if ( HasWeaponInSlot( EquipmentSlot.Melee ) )
 		{
-			SwitchToSlot( WeaponSlot.Melee );
+			SwitchToSlot( EquipmentSlot.Melee );
 			return;
 		}
 
@@ -205,7 +205,7 @@ public partial class PlayerInventory : Component
 		Player.SetCurrentWeapon( null );
 	}
 
-	public void SwitchToSlot( WeaponSlot slot )
+	public void SwitchToSlot( EquipmentSlot slot )
 	{
 		Assert.True( !IsProxy || Networking.IsHost );
 
@@ -266,14 +266,14 @@ public partial class PlayerInventory : Component
 	/// <summary>
 	/// Removes the given weapon (by its resource data) and destroys it.
 	/// </summary>
-	public void RemoveWeapon( WeaponData resource )
+	public void RemoveWeapon( EquipmentResource resource )
 	{
 		var weapon = Weapons.FirstOrDefault( w => w.Resource == resource );
 		if ( !weapon.IsValid() ) return;
 		RemoveWeapon( weapon );
 	}
 
-	public Weapon GiveWeapon( WeaponData resource, bool makeActive = true )
+	public Weapon GiveWeapon( EquipmentResource resource, bool makeActive = true )
 	{
 		Assert.True( Networking.IsHost );
 
@@ -321,7 +321,7 @@ public partial class PlayerInventory : Component
 		
 		// Log.Info( $"Spawned weapon {weaponGameObject} for {Player}" );
 
-		if ( weaponComponent.Resource.Slot == WeaponSlot.Special )
+		if ( weaponComponent.Resource.Slot == EquipmentSlot.Special )
 		{
 			Scene.Dispatch( new BombPickedUpEvent() );
 		}
@@ -329,12 +329,12 @@ public partial class PlayerInventory : Component
 		return weaponComponent;
 	}
 
-	public bool HasWeapon( WeaponData resource )
+	public bool HasWeapon( EquipmentResource resource )
 	{
 		return Weapons.Any( weapon => weapon.Enabled && weapon.Resource == resource );
 	}
 
-	public bool HasWeaponInSlot( WeaponSlot slot )
+	public bool HasWeaponInSlot( EquipmentSlot slot )
 	{
 		return Weapons.Any( weapon => weapon.Enabled && weapon.Resource.Slot == slot );
 	}
@@ -346,7 +346,7 @@ public partial class PlayerInventory : Component
 		Swap
 	}
 
-	public PickupResult CanTakeWeapon( WeaponData resource )
+	public PickupResult CanTakeWeapon( EquipmentResource resource )
 	{
 		if ( resource.Team != Team.Unassigned
 			&& resource.Team != Player.TeamComponent.Team
@@ -357,7 +357,7 @@ public partial class PlayerInventory : Component
 
 		switch ( resource.Slot )
 		{
-			case WeaponSlot.Utility:
+			case EquipmentSlot.Utility:
 				var can = !HasWeapon( resource );
 				return can ? PickupResult.Pickup : PickupResult.Swap;
 
@@ -403,21 +403,21 @@ public partial class PlayerInventory : Component
 	{
 		Assert.True( Networking.IsHost );
 
-		var weaponData = ResourceLibrary.Get<WeaponData>(resourceId);
+		var resource = ResourceLibrary.Get<EquipmentResource>(resourceId);
 
-		if ( weaponData == null )
+		if ( resource == null )
 		{
-			Log.Warning( $"Attempted purchase but WeaponData (Id: {weaponData}) not known!" );
+			Log.Warning( $"Attempted purchase but EquipmentResource (Id: {resource}) not known!" );
 			return;
 		}
 
-		if ( Balance < weaponData.Price )
+		if ( Balance < resource.Price )
 			return;
 
-		if ( GiveWeapon( weaponData ) is null )
+		if ( GiveWeapon( resource ) is null )
 			return;
 
-		Balance -= weaponData.Price;
+		Balance -= resource.Price;
 	}
 
 	public void BuyEquipment( string equipmentId )
@@ -431,7 +431,7 @@ public partial class PlayerInventory : Component
 	{
 		Assert.True( Networking.IsHost );
 
-		var equipmentData = EquipmentData.GetById( equipmentId );
+		var equipmentData = BuyMenuItem.GetById( equipmentId );
 
 		if ( equipmentData == null )
 		{
