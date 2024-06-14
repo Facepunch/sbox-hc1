@@ -1,0 +1,501 @@
+{
+  "RootObject": {
+    "__guid": "f4fe73a9-6aa7-4002-8b52-a120444c3473",
+    "Flags": 0,
+    "Name": "cash_grab",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.GameMode",
+        "__guid": "3d316172-22ea-48e3-b3c5-244ef04d8ba8",
+        "Description": "",
+        "MaxBalance": 16000,
+        "Title": "Cash Grab",
+        "UnlimitedMoney": false
+      },
+      {
+        "__type": "Facepunch.TeamScoring",
+        "__guid": "f57b65e7-8078-403a-9e17-e6de2aadd336"
+      },
+      {
+        "__type": "Facepunch.RoundBasedTeamScoring",
+        "__guid": "a1dc363e-9102-428a-ad8e-fd84c4735d95"
+      },
+      {
+        "__type": "Facepunch.RoundCounter",
+        "__guid": "0bcf0905-c31b-4fd3-9e30-ca45eab602ef"
+      },
+      {
+        "__type": "Facepunch.TeamSpawnAssigner",
+        "__guid": "fe095be3-3702-44db-9d46-fd191f054ea3",
+        "SpawnTags": []
+      },
+      {
+        "__type": "Facepunch.DefaultEquipment",
+        "__guid": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
+        "Armor": 0,
+        "BothTeams": true,
+        "DefuseKit": false,
+        "Helmet": false,
+        "RefillAmmo": true,
+        "Team": "Terrorist",
+        "Weapons": [
+          "weapons/knife/knife.equip",
+          "weapons/usp/usp.equip"
+        ]
+      },
+      {
+        "__type": "Facepunch.LossBonus",
+        "__guid": "353eec32-ccda-493e-a835-b9a50afa4b45",
+        "MaxRounds": 4,
+        "ValuePerRound": 500
+      },
+      {
+        "__type": "Facepunch.KillRewards",
+        "__guid": "e1fc0b81-cf76-4a3a-802a-c7569b4c8ba4",
+        "AllowFriendlyFire": false,
+        "FriendlyFirePenalty": 300
+      },
+      {
+        "__type": "Facepunch.DefuseObjectiveRewards",
+        "__guid": "e8ecb68b-0016-4b18-9649-4a5fb9b6efd3",
+        "BombDefuseReward": 300,
+        "BombPlantReward": 300,
+        "BombPlantTeamReward": 800
+      },
+      {
+        "__type": "Facepunch.BotManager",
+        "__guid": "8f2a629c-0d39-4eb1-a17a-03df62cfcc4b",
+        "Drone": {
+          "_type": "gameobject",
+          "prefab": "prefabs/player/drone.prefab"
+        }
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "b6b85172-89e8-451f-9238-354ca3680f2d",
+        "Flags": 0,
+        "Name": "States",
+        "Enabled": true,
+        "NetworkMode": 1,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Events.StateMachineComponent",
+            "__guid": "2cb1d53c-1e80-4518-9ce8-fa5dc765c5e6",
+            "CurrentState": {
+              "_type": "component",
+              "component_id": "edbe1e51-c4ca-4673-b67a-5674096a8220",
+              "go": "e804d5d6-339a-49c8-8aac-c8092d86e483",
+              "component_type": "StateComponent"
+            }
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "e804d5d6-339a-49c8-8aac-c8092d86e483",
+            "Flags": 0,
+            "Name": "Waiting",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Events.StateComponent",
+                "__guid": "edbe1e51-c4ca-4673-b67a-5674096a8220",
+                "DefaultDuration": 60,
+                "DefaultNextState": {
+                  "_type": "component",
+                  "component_id": "b593cc58-e030-4625-abcf-236e7e7b6384",
+                  "go": "a89eed29-39eb-408d-9eac-bab4cf475c86",
+                  "component_type": "StateComponent"
+                }
+              },
+              {
+                "__type": "Facepunch.TeamAssigner",
+                "__guid": "49a0734b-7af2-4771-81c2-876a43fa7a61",
+                "AllowLateJoiners": true,
+                "MaxTeamSize": 5
+              },
+              {
+                "__type": "Facepunch.WaitForPlayers",
+                "__guid": "7e92a240-73c1-4860-9025-6e4f64c27b4f",
+                "MinPlayerCount": 2,
+                "SkipPlayerCount": 10
+              },
+              {
+                "__type": "Facepunch.ShowStatusText",
+                "__guid": "025a017a-a04a-48e7-80b0-20aa407a69b8",
+                "BothTeams": true,
+                "StatusText": "Waiting",
+                "Team": "Unassigned"
+              },
+              {
+                "__type": "Facepunch.ShowCountDown",
+                "__guid": "d56b1c52-df76-49c0-a972-d08c080ba023"
+              },
+              {
+                "__type": "Facepunch.BuyAnywhere",
+                "__guid": "5c2efba4-ed4e-4fb6-a8e8-de2c91b7f886"
+              },
+              {
+                "__type": "Facepunch.EnableBuyMenu",
+                "__guid": "84ff0616-05f1-4774-a390-ce9525baab9a",
+                "InBuyZoneOnly": false,
+                "TimeLimit": 0
+              },
+              {
+                "__type": "Facepunch.PlayerAutoRespawner",
+                "__guid": "941f07d5-e38a-4836-8162-85dcc2038650",
+                "RespawnDelaySeconds": 3
+              }
+            ]
+          },
+          {
+            "__guid": "a89eed29-39eb-408d-9eac-bab4cf475c86",
+            "Flags": 0,
+            "Name": "Preparing",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Events.StateComponent",
+                "__guid": "b593cc58-e030-4625-abcf-236e7e7b6384",
+                "DefaultDuration": 5,
+                "DefaultNextState": {
+                  "_type": "component",
+                  "component_id": "8869030b-e87b-4e23-af06-8447c49c2510",
+                  "go": "dbc1901b-5f09-4268-aaba-1030d02e6a49",
+                  "component_type": "StateComponent"
+                }
+              },
+              {
+                "__type": "Facepunch.ShowCountDown",
+                "__guid": "d1112904-6e20-4e1e-9ad3-a20de1f1a1a6"
+              },
+              {
+                "__type": "Facepunch.ShowStatusText",
+                "__guid": "a2c66f8c-58fb-476f-8a2a-b7bdc1c2c9f4",
+                "BothTeams": true,
+                "StatusText": "Starting",
+                "Team": "Unassigned"
+              },
+              {
+                "__type": "Facepunch.ShowToast",
+                "__guid": "b4ac207d-d982-44eb-af14-9dc91e6ffe81",
+                "Message": "Preparing to start...",
+                "Type": "Generic"
+              },
+              {
+                "__type": "Facepunch.FreezePlayers",
+                "__guid": "9dabf43b-2795-4877-a135-327a1630d0ce"
+              }
+            ]
+          },
+          {
+            "__guid": "dbc1901b-5f09-4268-aaba-1030d02e6a49",
+            "Flags": 0,
+            "Name": "Play Game",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Events.StateComponent",
+                "__guid": "8869030b-e87b-4e23-af06-8447c49c2510",
+                "DefaultDuration": 0,
+                "DefaultNextState": {
+                  "_type": "component",
+                  "component_id": "9269103b-219e-4886-89b9-efcfce1f1ee1",
+                  "go": "3092e09d-2b87-48a4-bd44-e77deca7778b",
+                  "component_type": "StateComponent"
+                }
+              },
+              {
+                "__type": "ResetScores",
+                "__guid": "dd0d2444-b755-4db1-8074-3067912a6e62"
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "3092e09d-2b87-48a4-bd44-e77deca7778b",
+                "Flags": 0,
+                "Name": "Spawn Cash Point",
+                "Enabled": true,
+                "NetworkMode": 1,
+                "NetworkInterpolation": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.Events.StateComponent",
+                    "__guid": "9269103b-219e-4886-89b9-efcfce1f1ee1",
+                    "DefaultDuration": 10,
+                    "DefaultNextState": {
+                      "_type": "component",
+                      "component_id": "929710e7-773e-4ab4-8a0f-cb58c2dfc61f",
+                      "go": "bad8e914-d96f-42c8-bbf0-36e24f489af1",
+                      "component_type": "StateComponent"
+                    }
+                  },
+                  {
+                    "__type": "Facepunch.ShowCountDown",
+                    "__guid": "7a47794f-e2fb-4532-b363-31eda8cc4c6d"
+                  },
+                  {
+                    "__type": "Facepunch.ShowStatusText",
+                    "__guid": "4f728898-385b-480f-8c57-c143b8d8c5cc",
+                    "BothTeams": true,
+                    "StatusText": "Open in..",
+                    "Team": "Unassigned"
+                  },
+                  {
+                    "__type": "Facepunch.PlayerAutoRespawner",
+                    "__guid": "6bccc323-93ec-4e6f-b9f4-ab11f9bbb12e",
+                    "RespawnDelaySeconds": 3
+                  },
+                  {
+                    "__type": "Facepunch.EnableBuyMenuDuringSpawnProtection",
+                    "__guid": "71351369-a2cc-44b3-9cb3-a5588ad86dd9"
+                  }
+                ]
+              },
+              {
+                "__guid": "bad8e914-d96f-42c8-bbf0-36e24f489af1",
+                "Flags": 0,
+                "Name": "Open Cash Point",
+                "Enabled": true,
+                "NetworkMode": 1,
+                "NetworkInterpolation": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.Events.StateComponent",
+                    "__guid": "929710e7-773e-4ab4-8a0f-cb58c2dfc61f",
+                    "DefaultDuration": 60,
+                    "DefaultNextState": {
+                      "_type": "component",
+                      "component_id": "b7fa9b17-ef65-4360-9599-85297e5b91af",
+                      "go": "8e80c85c-e3f5-400f-aae6-3a5e35d62a56",
+                      "component_type": "StateComponent"
+                    }
+                  },
+                  {
+                    "__type": "Facepunch.ShowStatusText",
+                    "__guid": "fdda461c-5c4f-4c83-933e-1593a8218595",
+                    "BothTeams": true,
+                    "StatusText": "Get the cash",
+                    "Team": "Unassigned"
+                  },
+                  {
+                    "__type": "Facepunch.ShowCountDown",
+                    "__guid": "e6018631-48b9-4a8b-be88-a3b37ae79ce4"
+                  }
+                ]
+              },
+              {
+                "__guid": "c68cdc95-af6b-4ab4-9881-d3a2801a379b",
+                "Flags": 0,
+                "Name": "Cash Grabbed - Activate Extract",
+                "Enabled": true,
+                "NetworkMode": 1,
+                "NetworkInterpolation": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.Events.StateComponent",
+                    "__guid": "753fb84b-7c99-4448-a25e-6d2c789c6a51",
+                    "DefaultDuration": 60,
+                    "DefaultNextState": {
+                      "_type": "component",
+                      "component_id": "b7fa9b17-ef65-4360-9599-85297e5b91af",
+                      "go": "8e80c85c-e3f5-400f-aae6-3a5e35d62a56",
+                      "component_type": "StateComponent"
+                    }
+                  }
+                ]
+              },
+              {
+                "__guid": "8e80c85c-e3f5-400f-aae6-3a5e35d62a56",
+                "Flags": 0,
+                "Name": "Extract Failed",
+                "Enabled": true,
+                "NetworkMode": 1,
+                "NetworkInterpolation": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.Events.StateComponent",
+                    "__guid": "b7fa9b17-ef65-4360-9599-85297e5b91af",
+                    "DefaultDuration": 10,
+                    "DefaultNextState": {
+                      "_type": "component",
+                      "component_id": "9269103b-219e-4886-89b9-efcfce1f1ee1",
+                      "go": "3092e09d-2b87-48a4-bd44-e77deca7778b",
+                      "component_type": "StateComponent"
+                    }
+                  },
+                  {
+                    "__type": "Facepunch.ShowCountDown",
+                    "__guid": "13ff49c3-e61d-488f-88cd-820182646cea"
+                  },
+                  {
+                    "__type": "Facepunch.ShowStatusText",
+                    "__guid": "ed660b5f-01c6-4095-8a03-6ef304b32b31",
+                    "BothTeams": true,
+                    "StatusText": "Failure..",
+                    "Team": "Unassigned"
+                  },
+                  {
+                    "__type": "Facepunch.EnableBuyMenuDuringSpawnProtection",
+                    "__guid": "887a1452-57bf-4189-b3c1-5544b0bb01c5"
+                  },
+                  {
+                    "__type": "Facepunch.PlayerAutoRespawner",
+                    "__guid": "42c68dff-25ac-480c-a775-b79b3386f8da",
+                    "RespawnDelaySeconds": 3
+                  }
+                ]
+              },
+              {
+                "__guid": "c08b0726-6ac1-4339-a69b-1e6a2c5f7853",
+                "Flags": 0,
+                "Name": "Extract Finished",
+                "Enabled": true,
+                "NetworkMode": 1,
+                "NetworkInterpolation": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.Events.StateComponent",
+                    "__guid": "beb54b28-8955-4a78-9f9e-5cc4cb227a8a",
+                    "DefaultDuration": 15,
+                    "DefaultNextState": {
+                      "_type": "component",
+                      "component_id": "9269103b-219e-4886-89b9-efcfce1f1ee1",
+                      "go": "3092e09d-2b87-48a4-bd44-e77deca7778b",
+                      "component_type": "StateComponent"
+                    }
+                  },
+                  {
+                    "__type": "Facepunch.ShowCountDown",
+                    "__guid": "5dacfc81-fd71-4638-8751-3f0c30c162ce"
+                  },
+                  {
+                    "__type": "Facepunch.ShowStatusText",
+                    "__guid": "788d1806-34d9-4ae8-bb30-224f51befaaf",
+                    "BothTeams": true,
+                    "StatusText": "Incoming..",
+                    "Team": "Unassigned"
+                  },
+                  {
+                    "__type": "Facepunch.EnableBuyMenuDuringSpawnProtection",
+                    "__guid": "003b2c7b-2278-4849-aeb8-1f56bc23efbc"
+                  },
+                  {
+                    "__type": "Facepunch.PlayerAutoRespawner",
+                    "__guid": "12a97954-1e65-40d9-95bf-96011179928b",
+                    "RespawnDelaySeconds": 3
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "__guid": "7b6daed5-5d86-4294-b269-65868fd14bdc",
+            "Flags": 0,
+            "Name": "Post Game",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Events.StateComponent",
+                "__guid": "f9e6010f-47d4-4ed7-8b24-ecfd9853c9e7",
+                "DefaultDuration": 10,
+                "DefaultNextState": {
+                  "_type": "component",
+                  "component_id": "edbe1e51-c4ca-4673-b67a-5674096a8220",
+                  "go": "e804d5d6-339a-49c8-8aac-c8092d86e483",
+                  "component_type": "StateComponent"
+                }
+              },
+              {
+                "__type": "Facepunch.FreezePlayers",
+                "__guid": "93420f8a-c6a8-419a-9164-07e17e4f0710"
+              },
+              {
+                "__type": "Facepunch.KillGameOnEnd",
+                "__guid": "b45d3134-482f-4105-b263-5fa6d24ec7ff",
+                "Message": "The game is over - returning to menu"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "__variables": [
+      {
+        "Id": "WaitForPlayersTime",
+        "Title": "Wait For Players Time",
+        "Group": "Setup",
+        "Targets": [
+          {
+            "Id": "edbe1e51-c4ca-4673-b67a-5674096a8220",
+            "Property": "DefaultDuration"
+          }
+        ]
+      },
+      {
+        "Id": "MinimumPlayers",
+        "Title": "Minimum Players",
+        "Group": "Setup",
+        "Targets": [
+          {
+            "Id": "7e92a240-73c1-4860-9025-6e4f64c27b4f",
+            "Property": "MinPlayerCount"
+          }
+        ]
+      },
+      {
+        "Id": "MaxTeamSize",
+        "Title": "Max Team Size",
+        "Group": "Setup",
+        "Targets": [
+          {
+            "Id": "49a0734b-7af2-4771-81c2-876a43fa7a61",
+            "Property": "MaxTeamSize"
+          }
+        ]
+      },
+      {
+        "Id": "Title",
+        "Title": "Title",
+        "Group": "Display",
+        "Order": -100,
+        "Targets": [
+          {
+            "Id": "3d316172-22ea-48e3-b3c5-244ef04d8ba8",
+            "Property": "Title"
+          }
+        ]
+      },
+      {
+        "Id": "Description",
+        "Title": "Description",
+        "Group": "Display",
+        "Order": -100,
+        "Targets": [
+          {
+            "Id": "3d316172-22ea-48e3-b3c5-244ef04d8ba8",
+            "Property": "Description"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
