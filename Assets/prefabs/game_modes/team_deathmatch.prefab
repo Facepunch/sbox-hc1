@@ -43,10 +43,6 @@
         "__guid": "c82d52b1-a9e2-4e71-9bbe-496694888959",
         "AllowLateJoiners": true,
         "MaxTeamSize": 10
-      },
-      {
-        "__type": "Facepunch.TeamDeathmatchScoring",
-        "__guid": "d52bbd18-f00b-459c-afe6-f11977a004c5"
       }
     ],
     "Children": [
@@ -92,7 +88,8 @@
               {
                 "__type": "Facepunch.WaitForPlayers",
                 "__guid": "19d65ae4-28c5-47b5-80fc-8240b0d78368",
-                "MinPlayerCount": 2
+                "MinPlayerCount": 2,
+                "SkipPlayerCount": 10
               },
               {
                 "__type": "Facepunch.ShowStatusText",
@@ -106,12 +103,9 @@
                 "__guid": "45305a9c-ebba-480b-b65c-a573a56843ae"
               },
               {
-                "__type": "Facepunch.BuyAnywhere",
-                "__guid": "c18c3901-f047-4c9f-ac0c-f41d66f5a1d0"
-              },
-              {
                 "__type": "Facepunch.EnableBuyMenu",
                 "__guid": "ea635d1f-635b-48d4-9e6b-92c52aa96a0b",
+                "InBuyZoneOnly": false,
                 "TimeLimit": 0
               },
               {
@@ -219,10 +213,6 @@
                 "__guid": "39bfe2ad-98a5-4fc8-aab8-cbc29f1ffd05"
               },
               {
-                "__type": "Facepunch.BuyAnywhere",
-                "__guid": "4f4d42bc-314c-4657-8876-270e5c299733"
-              },
-              {
                 "__type": "Facepunch.EnableBuyMenuDuringSpawnProtection",
                 "__guid": "196af5b3-533e-47f7-b9ce-3fbfcd6860cb"
               },
@@ -235,7 +225,7 @@
                   "go": "41dcf6fc-64e0-406a-badf-6b879c370c0b",
                   "component_type": "StateComponent"
                 },
-                "TargetScore": 5,
+                "TargetScore": 100,
                 "TerroristVictoryState": {
                   "_type": "component",
                   "component_id": "0b8d88b7-2fa4-4405-8896-36a411363e3a",
@@ -252,6 +242,10 @@
                 "__type": "Facepunch.SpawnProtection",
                 "__guid": "020a8d1e-fc64-4a6a-b8ab-9797113f26a2",
                 "MaxDurationSeconds": 10
+              },
+              {
+                "__type": "Facepunch.TeamDeathmatchScoring",
+                "__guid": "51495847-64a3-463e-8145-a8992dae1ec2"
               }
             ],
             "Children": [

@@ -3,18 +3,6 @@ using Sandbox.Events;
 namespace Facepunch;
 
 /// <summary>
-/// While this state is active, players can buy anywhere.
-/// </summary>
-public sealed class BuyAnywhere : Component, IGameEventHandler<CanOpenBuyMenuEvent>
-{
-	[Late]
-	void IGameEventHandler<CanOpenBuyMenuEvent>.OnGameEvent( CanOpenBuyMenuEvent eventArgs )
-	{
-		eventArgs.CanOpen = true;
-	}
-}
-
-/// <summary>
 /// Enable the buy menu at the start of this state, and optionally disable it after a time limit.
 /// </summary>
 public sealed class EnableBuyMenu : Component,
@@ -39,10 +27,12 @@ public sealed class EnableBuyMenu : Component,
 		StartTime = Time.Now;
 	}
 
+	[Early]
 	void IGameEventHandler<CanOpenBuyMenuEvent>.OnGameEvent( CanOpenBuyMenuEvent eventArgs )
 	{ 
 		var enabled = Time.Now < DisableTime;
 		eventArgs.CanOpen = enabled;
+
 		if ( InBuyZoneOnly && !BuySystem.IsInBuyZone() ) eventArgs.CanOpen = false; 
 	}
 }
@@ -51,30 +41,10 @@ public sealed class EnableBuyMenu : Component,
 /// Enable the buy menu for players that are spawn protected.
 /// </summary>
 public sealed class EnableBuyMenuDuringSpawnProtection : Component,
-	IGameEventHandler<SpawnProtectionStart>,
-	IGameEventHandler<SpawnProtectionEnd>,
-	IGameEventHandler<LeaveStateEvent>,
 	IGameEventHandler<CanOpenBuyMenuEvent>
 {
-	bool InSpawnProtection { get; set; } = false;
-
-	public void OnGameEvent( SpawnProtectionStart eventArgs )
-	{
-		InSpawnProtection = true;
-	}
-
-	public void OnGameEvent( SpawnProtectionEnd eventArgs )
-	{
-		InSpawnProtection = false;
-	}
-
-	public void OnGameEvent( LeaveStateEvent eventArgs )
-	{
-		InSpawnProtection = false;
-	}
-
 	public void OnGameEvent( CanOpenBuyMenuEvent eventArgs )
 	{
-		eventArgs.CanOpen = InSpawnProtection;
+		eventArgs.CanOpen = GameUtils.LocalPlayer?.HealthComponent.IsGodMode ?? false;
 	}
 }
