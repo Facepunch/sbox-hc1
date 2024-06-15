@@ -1,4 +1,8 @@
+using Sandbox.Events;
+
 namespace Facepunch;
+
+public record CashPointBagExtractedEvent( PlayerController Player, ExtractionPoint ExtractionPoint ) : IGameEvent;
 
 /// <summary>
 /// An extraction point, associated with a <see cref="CashPoint"/>
@@ -35,7 +39,21 @@ public partial class ExtractionPoint : Component, ICustomMinimapIcon, Component.
 
 	void ITriggerListener.OnTriggerEnter( Collider other )
 	{
-		// TODO: do we have the bag?
-		// if so, delete it, do game state stuff..
+		var tracker = GameMode.Instance.Get<CashPointTracker>();
+
+		if ( CashPoint.State == CashPoint.CashPointState.Open )
+		{
+			var player = other.GameObject.Root.Components.Get<PlayerController>();
+			if ( player.IsValid() )
+			{
+				var inventory = player.Inventory;
+
+				if ( inventory.Has( tracker.Resource ) )
+				{
+					inventory.Remove( tracker.Resource );
+					Scene.Dispatch( new CashPointBagExtractedEvent( player, this ) );
+				}
+			}
+		}
 	}
 }

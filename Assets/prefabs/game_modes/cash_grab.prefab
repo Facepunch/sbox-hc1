@@ -20,14 +20,6 @@
         "__guid": "f57b65e7-8078-403a-9e17-e6de2aadd336"
       },
       {
-        "__type": "Facepunch.RoundBasedTeamScoring",
-        "__guid": "a1dc363e-9102-428a-ad8e-fd84c4735d95"
-      },
-      {
-        "__type": "Facepunch.RoundCounter",
-        "__guid": "0bcf0905-c31b-4fd3-9e30-ca45eab602ef"
-      },
-      {
         "__type": "Facepunch.TeamSpawnAssigner",
         "__guid": "fe095be3-3702-44db-9d46-fd191f054ea3",
         "SpawnTags": []
@@ -47,25 +39,6 @@
         ]
       },
       {
-        "__type": "Facepunch.LossBonus",
-        "__guid": "353eec32-ccda-493e-a835-b9a50afa4b45",
-        "MaxRounds": 4,
-        "ValuePerRound": 500
-      },
-      {
-        "__type": "Facepunch.KillRewards",
-        "__guid": "e1fc0b81-cf76-4a3a-802a-c7569b4c8ba4",
-        "AllowFriendlyFire": false,
-        "FriendlyFirePenalty": 300
-      },
-      {
-        "__type": "Facepunch.DefuseObjectiveRewards",
-        "__guid": "e8ecb68b-0016-4b18-9649-4a5fb9b6efd3",
-        "BombDefuseReward": 300,
-        "BombPlantReward": 300,
-        "BombPlantTeamReward": 800
-      },
-      {
         "__type": "Facepunch.BotManager",
         "__guid": "8f2a629c-0d39-4eb1-a17a-03df62cfcc4b",
         "Drone": {
@@ -80,7 +53,8 @@
       },
       {
         "__type": "Facepunch.CashPointTracker",
-        "__guid": "e332fee9-5d50-4b95-a3be-02e37ffd14a5"
+        "__guid": "e332fee9-5d50-4b95-a3be-02e37ffd14a5",
+        "Resource": "weapons/special/cash_bag/cash_bag.equip"
       }
     ],
     "Children": [
@@ -276,6 +250,12 @@
                   {
                     "__type": "Facepunch.SetCashPoint",
                     "__guid": "d15b2d12-5f1b-41be-9242-ac48422a9e9f"
+                  },
+                  {
+                    "__type": "Facepunch.ShowToast",
+                    "__guid": "a8926308-e3fb-4018-a03c-9582e7725946",
+                    "Message": "Prepare for cash point ",
+                    "Type": "Generic"
                   }
                 ]
               },
@@ -311,7 +291,19 @@
                   },
                   {
                     "__type": "Facepunch.ActivateCashPoint",
-                    "__guid": "18b9dcdb-8d91-47fd-9831-94957f2e7a53"
+                    "__guid": "18b9dcdb-8d91-47fd-9831-94957f2e7a53",
+                    "PickedUpState": {
+                      "_type": "component",
+                      "component_id": "753fb84b-7c99-4448-a25e-6d2c789c6a51",
+                      "go": "c68cdc95-af6b-4ab4-9881-d3a2801a379b",
+                      "component_type": "StateComponent"
+                    }
+                  },
+                  {
+                    "__type": "Facepunch.ShowToast",
+                    "__guid": "c4817903-29da-4c69-b695-1cc9e96b5824",
+                    "Message": "The cash point is open",
+                    "Type": "Generic"
                   }
                 ]
               },
@@ -331,6 +323,33 @@
                       "_type": "component",
                       "component_id": "b7fa9b17-ef65-4360-9599-85297e5b91af",
                       "go": "8e80c85c-e3f5-400f-aae6-3a5e35d62a56",
+                      "component_type": "StateComponent"
+                    }
+                  },
+                  {
+                    "__type": "Facepunch.ShowCountDown",
+                    "__guid": "aba57ea8-c55e-440c-8b16-3280e816ddf3"
+                  },
+                  {
+                    "__type": "Facepunch.ShowStatusText",
+                    "__guid": "66509ab2-237f-4c5b-92a1-531476899470",
+                    "BothTeams": true,
+                    "StatusText": "Extract",
+                    "Team": "Unassigned"
+                  },
+                  {
+                    "__type": "Facepunch.ShowToast",
+                    "__guid": "dcc61ffe-d989-4036-b87d-5d7914f8b50e",
+                    "Message": "The cash was grabbed",
+                    "Type": "Generic"
+                  },
+                  {
+                    "__type": "Facepunch.ListenForExtract",
+                    "__guid": "1d45da54-9c32-4924-b304-0ab4a5536865",
+                    "ToState": {
+                      "_type": "component",
+                      "component_id": "beb54b28-8955-4a78-9f9e-5cc4cb227a8a",
+                      "go": "c08b0726-6ac1-4339-a69b-1e6a2c5f7853",
                       "component_type": "StateComponent"
                     }
                   }
@@ -374,6 +393,14 @@
                     "__type": "Facepunch.PlayerAutoRespawner",
                     "__guid": "42c68dff-25ac-480c-a775-b79b3386f8da",
                     "RespawnDelaySeconds": 3
+                  },
+                  {
+                    "__type": "Facepunch.DisableCashPoints",
+                    "__guid": "b9b97911-8700-4003-a47b-8b6ef0e7fbd1"
+                  },
+                  {
+                    "__type": "Facepunch.CleanUpCashPoint",
+                    "__guid": "a5a1bf8c-e3f6-4dbb-80c5-4e101959673a"
                   }
                 ]
               },
@@ -415,6 +442,20 @@
                     "__type": "Facepunch.PlayerAutoRespawner",
                     "__guid": "12a97954-1e65-40d9-95bf-96011179928b",
                     "RespawnDelaySeconds": 3
+                  },
+                  {
+                    "__type": "Facepunch.ShowToast",
+                    "__guid": "4d25c178-986d-43aa-a84f-04974e7a758c",
+                    "Message": "The Cash Was Extracted",
+                    "Type": "Generic"
+                  },
+                  {
+                    "__type": "Facepunch.DisableCashPoints",
+                    "__guid": "870a4d70-21cd-44f7-bf82-7303dc66ad0d"
+                  },
+                  {
+                    "__type": "Facepunch.CleanUpCashPoint",
+                    "__guid": "75a8a832-e430-4597-a07f-ae1e525e593b"
                   }
                 ]
               }
