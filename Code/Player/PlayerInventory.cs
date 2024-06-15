@@ -1,4 +1,5 @@
 using Sandbox.Diagnostics;
+using Sandbox.Events;
 
 namespace Facepunch;
 
@@ -10,22 +11,22 @@ public partial class PlayerInventory : Component
 	[RequireComponent] PlayerController Player { get; set; }
 
 	/// <summary>
-	/// What weapons do we have right now?
+	/// What equipment do we have right now?
 	/// </summary>
-	public IEnumerable<Weapon> Weapons => Player.Components.GetAll<Weapon>( FindMode.EverythingInSelfAndDescendants );
+	public IEnumerable<Equipment> Equipment => Player.Components.GetAll<Equipment>( FindMode.EverythingInSelfAndDescendants );
 
 	/// <summary>
 	/// Does this player have a bomb on them?
 	/// </summary>
-	public bool HasBomb => Weapons.Any( x => x.Components.Get<BombPlantComponent>( FindMode.EnabledInSelfAndDescendants ) != null );
+	public bool HasBomb => Equipment.Any( x => x.Components.Get<BombPlantComponent>( FindMode.EnabledInSelfAndDescendants ) != null );
 
 	/// <summary>
-	/// A <see cref="GameObject"/> that will hold all of our weapons.
+	/// A <see cref="GameObject"/> that will hold all of our equipment.
 	/// </summary>
 	[Property] public GameObject WeaponGameObject { get; set; }
 
 	/// <summary>
-	/// Can we unequip the current weapon so we have no weapons out?
+	/// Can we unequip the current weapon so we have no equipment out?
 	/// </summary>
 	[Property] public bool CanUnequipCurrentWeapon { get; set; } = false;
 
@@ -50,14 +51,14 @@ public partial class PlayerInventory : Component
 	/// <summary>
 	/// Gets the player's current weapon.
 	/// </summary>
-	public Weapon CurrentWeapon => Player.CurrentWeapon;
+	public Equipment Current => Player.CurrentEquipment;
 	
 	public void Clear()
 	{
 		if ( !Networking.IsHost )
 			return;
 		
-		foreach ( var wpn in Weapons )
+		foreach ( var wpn in Equipment )
 		{
 			wpn.GameObject.Destroy();
 			wpn.Enabled = false;
@@ -67,7 +68,7 @@ public partial class PlayerInventory : Component
 	[Authority( NetPermission.HostOnly )]
 	public void RefillAmmo()
 	{
-		foreach ( var wpn in Weapons )
+		foreach ( var wpn in Equipment )
 		{
 			if ( wpn.Components.Get<AmmoComponent>( FindMode.EnabledInSelfAndDescendants ) is { } ammo )
 			{
@@ -77,13 +78,13 @@ public partial class PlayerInventory : Component
 	}
 
 	[Broadcast]
-	public void DropWeapon( Guid weaponId )
+	public void Drop( Guid weaponId )
 	{
-		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Weapon;
+		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Equipment;
 		if ( !weapon.IsValid() )
 			return;
 
-		if ( weapon.Resource.Slot == WeaponSlot.Melee )
+		if ( weapon.Resource.Slot == EquipmentSlot.Melee )
 			return;
 
 		if ( !Networking.IsHost )
@@ -98,7 +99,7 @@ public partial class PlayerInventory : Component
 		var rotation = Rotation.From( 0, Player.EyeAngles.yaw + 90, 90 );
 
 		var baseVelocity = Player.CharacterController.Velocity;
-		var droppedWeapon = DroppedWeapon.Create( weapon.Resource, position, rotation, weapon );
+		var droppedWeapon = DroppedEquipment.Create( weapon.Resource, position, rotation, weapon );
 
 		if ( !tr.Hit )
 		{
@@ -116,15 +117,15 @@ public partial class PlayerInventory : Component
 		if ( !Player.IsLocallyControlled )
 			return;
 
-		if ( Input.Pressed( "Drop" ) && CurrentWeapon.IsValid() )
+		if ( Input.Pressed( "Drop" ) && Current.IsValid() )
 		{
-			DropWeapon( CurrentWeapon.Id );
+			Drop( Current.Id );
 			return;
 		}
 
-		foreach ( var slot in Enum.GetValues<WeaponSlot>() )
+		foreach ( var slot in Enum.GetValues<EquipmentSlot>() )
 		{
-			if ( slot == WeaponSlot.Undefined )
+			if ( slot == EquipmentSlot.Undefined )
 				continue;
 
 			if ( !Input.Pressed( $"Slot{(int)slot}" ) )
@@ -142,7 +143,7 @@ public partial class PlayerInventory : Component
 
 		if ( wheel.y == 0f ) return;
 
-		var availableWeapons = Weapons.OrderBy( x => x.Resource.Slot ).ToList();
+		var availableWeapons = Equipment.OrderBy( x => x.Resource.Slot ).ToList();
 		if ( availableWeapons.Count == 0 )
 			return;
 
@@ -166,179 +167,174 @@ public partial class PlayerInventory : Component
 			currentSlot = 0;
 
 		var weaponToSwitchTo = availableWeapons[currentSlot];
-		if ( weaponToSwitchTo == CurrentWeapon )
+		if ( weaponToSwitchTo == Current )
 			return;
 
-		SwitchWeapon( weaponToSwitchTo );
+		Switch( weaponToSwitchTo );
 	}
 
-	public void SwitchToBestWeapon()
+	public void SwitchToBest()
 	{
-		if ( !Weapons.Any() )
+		if ( !Equipment.Any() )
 			return;
 
-		if ( HasWeaponInSlot( WeaponSlot.Primary ) )
+		if ( HasInSlot( EquipmentSlot.Primary ) )
 		{
-			SwitchToSlot( WeaponSlot.Primary );
+			SwitchToSlot( EquipmentSlot.Primary );
 			return;
 		}
 
-		if ( HasWeaponInSlot( WeaponSlot.Secondary ) )
+		if ( HasInSlot( EquipmentSlot.Secondary ) )
 		{
-			SwitchToSlot( WeaponSlot.Secondary );
+			SwitchToSlot( EquipmentSlot.Secondary );
 			return;
 		}
 
-		if ( HasWeaponInSlot( WeaponSlot.Melee ) )
+		if ( HasInSlot( EquipmentSlot.Melee ) )
 		{
-			SwitchToSlot( WeaponSlot.Melee );
+			SwitchToSlot( EquipmentSlot.Melee );
 			return;
 		}
 
-		SwitchWeapon( Weapons.FirstOrDefault() );
+		Switch( Equipment.FirstOrDefault() );
 	}
 
 	public void HolsterCurrent()
 	{
 		Assert.True( !IsProxy || Networking.IsHost );
-		Player.SetCurrentWeapon( null );
+		Player.SetCurrentEquipment( null );
 	}
 
-	public void SwitchToSlot( WeaponSlot slot )
+	public void SwitchToSlot( EquipmentSlot slot )
 	{
 		Assert.True( !IsProxy || Networking.IsHost );
 
-		var weapons = Weapons
+		var equipment = Equipment
 			.Where( x => x.Resource.Slot == slot )
 			.ToArray();
 
-		if ( weapons.Length == 0 )
+		if ( equipment.Length == 0 )
 			return;
 
-		if ( weapons.Length == 1 && CurrentWeapon == weapons[0] && CanUnequipCurrentWeapon )
+		if ( equipment.Length == 1 && Current == equipment[0] && CanUnequipCurrentWeapon )
 		{
 			HolsterCurrent();
 			return;
 		}
 
-		var index = Array.IndexOf( weapons, CurrentWeapon );
-		SwitchWeapon( weapons[(index + 1) % weapons.Length] );
+		var index = Array.IndexOf( equipment, Current );
+		Switch( equipment[(index + 1) % equipment.Length] );
 	}
 
 	/// <summary>
 	/// Tries to set the player's current weapon to a specific one, which has to be in the player's inventory.
 	/// </summary>
-	/// <param name="weapon"></param>
-	public void SwitchWeapon( Weapon weapon )
+	/// <param name="equipment"></param>
+	public void Switch( Equipment equipment )
 	{
 		Assert.True( !IsProxy || Networking.IsHost );
 		
-		if ( !Weapons.Contains( weapon ) )
+		if ( !Equipment.Contains( equipment ) )
 			return;
 		
-		Player.SetCurrentWeapon( weapon );
+		Player.SetCurrentEquipment( equipment );
 	}
 
 	/// <summary>
 	/// Removes the given weapon and destroys it.
 	/// </summary>
-	public void RemoveWeapon( Weapon weapon )
+	public void RemoveWeapon( Equipment equipment )
 	{
 		Assert.True( Networking.IsHost );
 		
-		if ( !Weapons.Contains( weapon ) ) return;
+		if ( !Equipment.Contains( equipment ) ) return;
 
-		if ( CurrentWeapon == weapon )
+		if ( Current == equipment )
 		{
-			var otherWeapons = Weapons.Where( x => x != weapon );
-			var orderedBySlot = otherWeapons.OrderBy( x => x.Resource.Slot );
+			var otherEquipment = Equipment.Where( x => x != equipment );
+			var orderedBySlot = otherEquipment.OrderBy( x => x.Resource.Slot );
 			var targetWeapon = orderedBySlot.FirstOrDefault();
 
 			if ( targetWeapon.IsValid() )
-				SwitchWeapon( targetWeapon );
+				Switch( targetWeapon );
 		}
 
-		weapon.GameObject.Destroy();
-		weapon.Enabled = false;
+		equipment.GameObject.Destroy();
+		equipment.Enabled = false;
 	}
 	
 	/// <summary>
 	/// Removes the given weapon (by its resource data) and destroys it.
 	/// </summary>
-	public void RemoveWeapon( WeaponData resource )
+	public void Remove( EquipmentResource resource )
 	{
-		var weapon = Weapons.FirstOrDefault( w => w.Resource == resource );
-		if ( !weapon.IsValid() ) return;
-		RemoveWeapon( weapon );
+		var equipment = Equipment.FirstOrDefault( w => w.Resource == resource );
+		if ( !equipment.IsValid() ) return;
+		RemoveWeapon( equipment );
 	}
 
-	public Weapon GiveWeapon( WeaponData resource, bool makeActive = true )
+	public Equipment Give( EquipmentResource resource, bool makeActive = true )
 	{
 		Assert.True( Networking.IsHost );
 
-		// If we're in charge, let's make some weapons.
+		// If we're in charge, let's make some equipment.
 		if ( resource == null )
 		{
-			Log.Warning( "A player loadout without a weapon? Nonsense." );
+			Log.Warning( "A player loadout without a equipment? Nonsense." );
 			return null;
 		}
 
-		var pickupResult = CanTakeWeapon( resource );
+		var pickupResult = CanTake( resource );
 
 		if ( pickupResult == PickupResult.None )
 			return null;
 
-		// Don't let us have the exact same weapon
-		if ( HasWeapon( resource ) )
+		// Don't let us have the exact same equipment
+		if ( Has( resource ) )
 			return null;
 
 		if ( pickupResult == PickupResult.Swap )
 		{
-			var slotCurrent = Weapons.FirstOrDefault( weapon => weapon.Enabled && weapon.Resource.Slot == resource.Slot );
+			var slotCurrent = Equipment.FirstOrDefault( equipment => equipment.Enabled && equipment.Resource.Slot == resource.Slot );
 			if ( slotCurrent.IsValid() )
-				DropWeapon( slotCurrent.Id );
+				Drop( slotCurrent.Id );
 		}
 
 		if ( !resource.MainPrefab.IsValid() )
 		{
-			Log.Error( $"Weapon doesn't have a prefab? {resource}, {resource.MainPrefab}, {resource.ViewModelPrefab}" );
+			Log.Error( $"equipment doesn't have a prefab? {resource}, {resource.MainPrefab}, {resource.ViewModelPrefab}" );
 			return null;
 		}
 
-		// Create the weapon prefab and put it on the weapon GameObject.
-		var weaponGameObject = resource.MainPrefab.Clone( new CloneConfig()
+		// Create the equipment prefab and put it on the GameObject.
+		var gameObject = resource.MainPrefab.Clone( new CloneConfig()
 		{
 			Transform = new(),
 			Parent = WeaponGameObject
 		} );
-		var weaponComponent = weaponGameObject.Components.Get<Weapon>( FindMode.EverythingInSelfAndDescendants );
-		weaponGameObject.NetworkSpawn( Player.Network.OwnerConnection );
-		weaponComponent.Owner = Player;
+		var component = gameObject.Components.Get<Equipment>( FindMode.EverythingInSelfAndDescendants );
+		gameObject.NetworkSpawn( Player.Network.OwnerConnection );
+		component.OwnerId = Player.Id;
 
 		if ( makeActive )
-			Player.SetCurrentWeapon( weaponComponent );
-		
-		// Log.Info( $"Spawned weapon {weaponGameObject} for {Player}" );
+			Player.SetCurrentEquipment( component );
 
-		if ( weaponComponent.Resource.Slot == WeaponSlot.Special )
+		if ( component.Resource.Slot == EquipmentSlot.Special )
 		{
-			foreach ( var listener in Game.ActiveScene.GetAllComponents<IBombDroppedListener>() )
-			{
-				listener.OnBombPickedUp();
-			}
+			Scene.Dispatch( new BombPickedUpEvent() );
 		}
 
-		return weaponComponent;
+		return component;
 	}
 
-	public bool HasWeapon( WeaponData resource )
+	public bool Has( EquipmentResource resource )
 	{
-		return Weapons.Any( weapon => weapon.Enabled && weapon.Resource == resource );
+		return Equipment.Any( weapon => weapon.Enabled && weapon.Resource == resource );
 	}
 
-	public bool HasWeaponInSlot( WeaponSlot slot )
+	public bool HasInSlot( EquipmentSlot slot )
 	{
-		return Weapons.Any( weapon => weapon.Enabled && weapon.Resource.Slot == slot );
+		return Equipment.Any( weapon => weapon.Enabled && weapon.Resource.Slot == slot );
 	}
 
 	public enum PickupResult
@@ -348,7 +344,7 @@ public partial class PlayerInventory : Component
 		Swap
 	}
 
-	public PickupResult CanTakeWeapon( WeaponData resource )
+	public PickupResult CanTake( EquipmentResource resource )
 	{
 		if ( resource.Team != Team.Unassigned
 			&& resource.Team != Player.TeamComponent.Team
@@ -359,12 +355,12 @@ public partial class PlayerInventory : Component
 
 		switch ( resource.Slot )
 		{
-			case WeaponSlot.Utility:
-				var can = !HasWeapon( resource );
+			case EquipmentSlot.Utility:
+				var can = !Has( resource );
 				return can ? PickupResult.Pickup : PickupResult.Swap;
 
 			default:
-				return !HasWeaponInSlot( resource.Slot ) ? PickupResult.Pickup : PickupResult.Swap;
+				return !HasInSlot( resource.Slot ) ? PickupResult.Pickup : PickupResult.Swap;
 		}
 	}
 
@@ -394,46 +390,46 @@ public partial class PlayerInventory : Component
 		Balance = Math.Clamp( Balance + amount, 0, GameMode.Instance.MaxBalance );
 	}
 
-	public void BuyWeapon( int resourceId )
+	public void Purchase( int resourceId )
 	{
 		using var _ = Rpc.FilterInclude( Connection.Host );
-		BuyWeaponHost( resourceId );
+		PurchaseAsHost( resourceId );
 	}
 
 	[Broadcast]
-	private void BuyWeaponHost( int resourceId )
+	private void PurchaseAsHost( int resourceId )
 	{
 		Assert.True( Networking.IsHost );
 
-		var weaponData = ResourceLibrary.Get<WeaponData>(resourceId);
+		var resource = ResourceLibrary.Get<EquipmentResource>(resourceId);
 
-		if ( weaponData == null )
+		if ( resource == null )
 		{
-			Log.Warning( $"Attempted purchase but WeaponData (Id: {weaponData}) not known!" );
+			Log.Warning( $"Attempted purchase but EquipmentResource (Id: {resource}) not known!" );
 			return;
 		}
 
-		if ( Balance < weaponData.Price )
+		if ( Balance < resource.Price )
 			return;
 
-		if ( GiveWeapon( weaponData ) is null )
+		if ( Give( resource ) is null )
 			return;
 
-		Balance -= weaponData.Price;
+		Balance -= resource.Price;
 	}
 
-	public void BuyEquipment( string equipmentId )
+	public void TryPurchaseBuyMenuItem( string equipmentId )
 	{
 		using var _ = Rpc.FilterInclude( Connection.Host );
-		BuyEquipmentHost( equipmentId );
+		PurchaseBuyMenuItem( equipmentId );
 	}
 
 	[Broadcast]
-	private void BuyEquipmentHost( string equipmentId )
+	private void PurchaseBuyMenuItem( string equipmentId )
 	{
 		Assert.True( Networking.IsHost );
 
-		var equipmentData = EquipmentData.GetById( equipmentId );
+		var equipmentData = BuyMenuItem.GetById( equipmentId );
 
 		if ( equipmentData == null )
 		{

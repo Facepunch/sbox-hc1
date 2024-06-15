@@ -20,17 +20,23 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 		MaxDistance = 512f,
 	};
 
+
+	/// <summary>
+	/// Custom marker panel
+	/// </summary>
+	Type IMarkerObject.MarkerPanelTypeOverride => typeof( UI.GrenadeMarkerPanel );
+
 	protected override void Explode()
 	{
 		if ( Networking.IsHost )
-			Explosion.AtPoint( Transform.Position, DamageRadius, MaxDamage, ThrowerId, Id, DamageFalloff );
+			Explosion.AtPoint( Transform.Position, DamageRadius, MaxDamage, Player, this, DamageFalloff );
 
 		var screenShaker = ScreenShaker.Main;
 		var viewer = GameUtils.Viewer;
 		
 		if ( screenShaker.IsValid() && viewer.IsValid() )
 		{
-			var distance = viewer.Transform.Position.Distance( Transform.Position );
+			var distance = viewer.GameObject.Transform.Position.Distance( Transform.Position );
 			var falloff = DamageFalloff;
 			
 			if ( falloff.Frames.Count == 0 )
@@ -47,12 +53,7 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 				screenShaker.Add( shake );
 			}
 		}
-		
+
 		base.Explode();
 	}
-
-	/// <summary>
-	/// Custom marker panel
-	/// </summary>
-	Type IMarkerObject.MarkerPanelTypeOverride => typeof( UI.GrenadeMarkerPanel );
 }

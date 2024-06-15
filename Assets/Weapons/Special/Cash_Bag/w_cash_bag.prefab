@@ -1,0 +1,66 @@
+{
+  "RootObject": {
+    "__guid": "537a3752-47c2-491f-b7a8-84d06247b15b",
+    "Flags": 0,
+    "Name": "w_cash_bag",
+    "Tags": "player",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.Equipment",
+        "__guid": "fe1fe626-a1a6-40ab-b2f5-1ce554531845",
+        "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "HoldType": "HoldItem",
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "5abbb3cb-4005-418f-970c-50342f9b3759",
+          "go": "fccf584a-67cf-4b26-ae4b-c0fafa897f5e",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "Resource": "weapons/special/cash_bag/cash_bag.equip",
+        "SpeedPenalty": 20
+      },
+      {
+        "__type": "Facepunch.TagBinder",
+        "__guid": "8acf7f5b-f598-4b06-bee2-07501c3e874f"
+      },
+      {
+        "__type": "Facepunch.CashBag",
+        "__guid": "10b1d5c6-275e-4baa-a6b3-b7965e6a6bcb"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "fccf584a-67cf-4b26-ae4b-c0fafa897f5e",
+        "Flags": 0,
+        "Name": "Model",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "5abbb3cb-4005-418f-970c-50342f9b3759",
+            "BodyGroups": 18446744073709551615,
+            "CreateBoneObjects": false,
+            "Model": "models/dev/duffelbag/dufflebag_money.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.dufflebag_money"
+  ],
+  "__version": 1
+}

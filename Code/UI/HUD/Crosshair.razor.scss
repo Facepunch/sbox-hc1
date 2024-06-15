@@ -10,6 +10,21 @@ Crosshair
         background-color: rgba( white, 0.75 );
         position: absolute;
         box-shadow: 1px 1px 1px rgba( black, 1 );
+        opacity: 0;
+    }
+
+
+    &.visible
+    {
+        .element
+        {
+            opacity: 1;
+        }
+
+        .dot
+        {
+            opacity: 1;
+        }
     }
 
     i
@@ -62,13 +77,6 @@ Crosshair
         {
             background-color: rgb( 219, 83, 83 );
         }
-    }
-
-    opacity: 0;
-
-    &.visible
-    {
-        opacity: 1;
     }
 
     .hitmarker

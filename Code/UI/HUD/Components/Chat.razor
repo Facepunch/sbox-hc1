@@ -1,11 +1,12 @@
 ﻿@using Sandbox;
 @using Sandbox.UI;
+@using Sandbox.Events;
 @using Facepunch.UI;
 @using Facepunch;
 
 @inherits PanelComponent
 @implements Component.INetworkListener
-@implements ITeamAssignedListener
+@implements IGameEventHandler<TeamAssignedEvent>
 
 @attribute [StyleSheet]
 
@@ -216,14 +217,14 @@
         StateHasChanged();
     }
 
-    void ITeamAssignedListener.OnTeamAssigned( PlayerController player, Team team )
+    void IGameEventHandler<TeamAssignedEvent>.OnGameEvent( TeamAssignedEvent eventArgs )
     {
         if ( IsProxy ) return;
 
-        if ( team == Team.Unassigned )
-            AddSystemText( $"{@player.GetPlayerName()} is spectating" );
+        if ( eventArgs.Team == Team.Unassigned )
+            AddSystemText( $"{eventArgs.Player.DisplayName} is spectating" );
         else
-            AddSystemText( $"{@player.GetPlayerName()} is joining the {team.GetName()}" );
+            AddSystemText( $"{eventArgs.Player.DisplayName} is joining the {eventArgs.Team.GetName()}" );
     }
 
     void Component.INetworkListener.OnDisconnected( Connection channel )

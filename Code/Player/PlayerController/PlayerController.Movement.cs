@@ -1,3 +1,5 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 public partial class PlayerController
@@ -19,18 +21,6 @@ public partial class PlayerController
 	/// </summary>
 	[Property, Group( "Config" )] public float Height { get; set; } = 64f;
 
-	/// <summary>
-	/// How quickly does the player move by default?
-	/// </summary>
-	[Property, Group( "Config" )] public float WalkSpeed { get; set; } = 125f;
-
-	/// <summary>
-	/// How much friction does the player have?
-	/// </summary>
-	[Property, Group( "Friction" )] public float BaseFriction { get; set; } = 4.0f;
-	[Property, Group( "Friction" )] public float SlowWalkFriction { get; set; } = 4.0f;
-	[Property, Group( "Friction" )] public float CrouchingFriction { get; set; } = 4.0f;
-
 	[Property, Group( "Fall Damage" )] public float MinimumFallVelocity { get; set; } = 500f;
 	[Property, Group( "Fall Damage" )] public float MinimumFallSoundVelocity { get; set; } = 300f;
 	[Property, Group( "Fall Damage" )] public float FallDamageScale { get; set; } = 0.2f;
@@ -42,10 +32,22 @@ public partial class PlayerController
 	/// </summary>
 	[Property] public float NoclipSpeed { get; set; } = 1000f;
 
+	public PlayerGlobals Global => GetGlobal<PlayerGlobals>();
+
 	/// <summary>
-	/// Where are we looking?
+	/// Look direction of this player. Smoothly interpolated for networked players.
 	/// </summary>
-	[Sync] public Angles EyeAngles { get; set; }
+	public Angles EyeAngles
+	{
+		get => _smoothEyeAngles;
+		set 
+		{
+			if (!IsProxy) _smoothEyeAngles = value;
+			_rawEyeAngles = value;
+		}
+	}
+	[Sync] private Angles _rawEyeAngles { get; set; }
+	private Angles _smoothEyeAngles;
 
 	/// <summary>
 	/// Is the player crouching?
@@ -143,10 +145,28 @@ public partial class PlayerController
 		}
 	}
 
+	TimeUntil TimeUntilAccelerationRecovered = 0;
+	float AccelerationAddedScale = 0;
+
+	private void ApplyAcceleration()
+	{
+		var relative = TimeUntilAccelerationRecovered.Fraction.Clamp( 0, 1 );
+		var acceleration = GetAcceleration();
+
+		acceleration *= ( relative + AccelerationAddedScale ).Clamp( 0, 1 );
+
+		CharacterController.Acceleration = acceleration;
+	}
+
 	private void OnUpdateMovement()
 	{
 		var cc = CharacterController;
-		CurrentHoldType = CurrentWeapon.IsValid() ? CurrentWeapon.GetHoldType() : AnimationHelper.HoldTypes.None;
+		CurrentHoldType = CurrentEquipment.IsValid() ? CurrentEquipment.GetHoldType() : AnimationHelper.HoldTypes.None;
+
+		if ( !IsLocallyControlled ) 
+		{
+			_smoothEyeAngles = Angles.Lerp( _smoothEyeAngles, _rawEyeAngles, Time.Delta / Scene.NetworkRate );
+		}
 
 		// Eye input
 		if ( (this as IPawn).IsPossessed && cc.IsValid() )
@@ -164,14 +184,9 @@ public partial class PlayerController
 			CameraController.SetActive( false );
 		}
 
-		var rotateDifference = 0f;
-
 		if ( Body.IsValid() )
 		{
-			var targetAngle = new Angles( 0, EyeAngles.yaw, 0 ).ToRotation();
-			rotateDifference = Body.Transform.Rotation.Distance( targetAngle );
-
-			Body.Transform.Rotation = Rotation.Lerp( Body.Transform.Rotation, targetAngle, Time.Delta * 50.0f );
+			Body.Transform.Rotation = Rotation.FromYaw( EyeAngles.yaw );
 		}
 
 		var wasGrounded = IsGrounded;
@@ -200,9 +215,8 @@ public partial class PlayerController
 
 	private float GetMaxAcceleration()
 	{
-		var global = GetGlobal<PlayerGlobals>();
-		if ( !IsGrounded ) return global.AirMaxAcceleration;
-		return global.MaxAcceleration;
+		if ( !IsGrounded ) return Global.AirMaxAcceleration;
+		return Global.MaxAcceleration;
 	}
 
 	private void ApplyMovement()
@@ -211,7 +225,7 @@ public partial class PlayerController
 
 		CheckLadder();
 
-		var gravity = GetGlobal<PlayerGlobals>().Gravity;
+		var gravity = Global.Gravity;
 
 		if ( _isTouchingLadder )
 		{
@@ -260,9 +274,10 @@ public partial class PlayerController
 
 	private float CrouchLerpSpeed()
 	{
-		if ( TimeSinceCrouchPressed < 1f && TimeSinceCrouchReleased < 1f ) return 0.5f;
+		if ( TimeSinceCrouchPressed < 1f && TimeSinceCrouchReleased < 1f )
+			return Global.SlowCrouchLerpSpeed;
 
-		return 10f;
+		return Global.CrouchLerpSpeed;
 	}
 
     private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking && WishMove.x > 0.2f;
@@ -275,10 +290,7 @@ public partial class PlayerController
 
 	private void BuildInput()
 	{
-		if ( InMenu )
-			return;
-
-		IsSlowWalking = Input.Down( "Walk" );
+		IsSlowWalking = Input.Down( "Walk" ) || ( CurrentEquipment?.Tags.Has( "aiming" ) ?? false );
 
 		bool wasSprinting = IsSprinting;
         IsSprinting = WantsToSprint;
@@ -298,10 +310,8 @@ public partial class PlayerController
 		if ( Input.Released( "Duck" ) )
 			TimeSinceCrouchReleased = 0;
 
-		CrouchAmount = CrouchAmount.LerpTo( IsCrouching ? 1 : 0, Time.Delta * CrouchLerpSpeed() );
-
 		// Check if our current weapon has the planting tag and if so force us to crouch.
-		var currentWeapon = CurrentWeapon;
+		var currentWeapon = CurrentEquipment;
 		if ( currentWeapon.IsValid() && currentWeapon.Tags.Has( "planting" ) )
 			IsCrouching = true;
 
@@ -315,12 +325,12 @@ public partial class PlayerController
 			TimeSinceLastInput = 0f;
 		}
 
-		if ( CharacterController.IsOnGround && !IsFrozen && !InMenu )
+		if ( CharacterController.IsOnGround && !IsFrozen )
 		{
-			var bhop = GetGlobal<PlayerGlobals>().BunnyHopping;
+			var bhop = Global.BunnyHopping;
 			if ( bhop ? Input.Down( "Jump" ) : Input.Pressed( "Jump" ) )
 			{
-				CharacterController.Punch( Vector3.Up * GetGlobal<PlayerGlobals>().JumpPower * 1f );
+				CharacterController.Punch( Vector3.Up * Global.JumpPower * 1f );
 				BroadcastPlayerJumped();
 			}
 		}
@@ -361,29 +371,57 @@ public partial class PlayerController
 		OnJump?.Invoke();
 	}
 
+	public TimeSince TimeSinceGroundedChanged { get; private set; }
+
 	private void GroundedChanged( bool wasOnGround, bool isOnGround )
 	{
+		if ( !IsLocallyControlled )
+			return;
+
+		TimeSinceGroundedChanged = 0;
+
 		if ( wasOnGround && !isOnGround )
 		{
 			_jumpPosition = Transform.Position;
 		}
 
-		if ( !wasOnGround && isOnGround && GetGlobal<PlayerGlobals>().EnableFallDamage && !IsNoclipping )
+		if ( !wasOnGround && isOnGround && Global.EnableFallDamage && !IsNoclipping )
 		{
 			var minimumVelocity = MinimumFallVelocity;
 			var vel = MathF.Abs( _previousVelocity.z );
 
 			if ( vel > MinimumFallSoundVelocity )
 			{
-				var handle = Sound.Play( "player.heavy_land.gear", Transform.Position );
-				handle.ListenLocal = IsViewer;
+				PlayFallSound();
 			}
 			if ( vel > minimumVelocity )
 			{
 				var velPastAmount = vel - minimumVelocity;
-				GameObject.TakeDamage( DamageEvent.From( this, velPastAmount * FallDamageScale, null, Transform.Position ) with { Tags = "fall_damage" } );
+
+				TimeUntilAccelerationRecovered = 1f;
+				AccelerationAddedScale = 0f;
+
+				using ( Rpc.FilterInclude( Connection.Host ) )
+				{
+					TakeFallDamage( velPastAmount * FallDamageScale );
+				}
 			}
 		}
+	}
+
+	[Property, Group( "Effects" )] public SoundEvent LandSound { get; set; }
+
+	[Broadcast]
+	private void PlayFallSound()
+	{
+		var handle = Sound.Play( LandSound, Transform.Position );
+		handle.ListenLocal = IsViewer;
+	}
+
+	[Broadcast]
+	private void TakeFallDamage( float damage )
+	{
+		GameObject.TakeDamage( new DamageInfo( this, damage, null, Transform.Position, Flags: DamageFlags.FallDamage ) );
 	}
 
 	private void CheckLadder()
@@ -445,7 +483,7 @@ public partial class PlayerController
 	{
 		WishMove = 0f;
 
-		if ( IsFrozen || InMenu )
+		if ( IsFrozen )
 			return;
 
 		WishMove += Input.AnalogMove;
@@ -477,22 +515,20 @@ public partial class PlayerController
 	private float GetFriction()
 	{
 		if ( !IsGrounded ) return 0.1f;
-		if ( IsSlowWalking ) return SlowWalkFriction;
-		if ( IsCrouching ) return CrouchingFriction;
-		return BaseFriction;
+		if ( IsSlowWalking ) return Global.SlowWalkFriction;
+		if ( IsCrouching ) return Global.CrouchingFriction;
+		if ( IsSprinting ) return Global.SprintingFriction;
+		return Global.WalkFriction;
 	}
 
-	private void ApplyAcceleration()
+	private float GetAcceleration()
 	{
-		var global = GetGlobal<PlayerGlobals>();
+		if ( !IsGrounded ) return Global.AirAcceleration;
+		else if ( IsSlowWalking ) return Global.SlowWalkAcceleration;
+		else if ( IsCrouching ) return Global.CrouchingAcceleration;
+		else if ( IsSprinting ) return Global.SprintingAcceleration;
 
-		if ( !IsGrounded ) CharacterController.Acceleration = global.AirAcceleration;
-		else if ( IsSlowWalking ) CharacterController.Acceleration = global.SlowWalkAcceleration;
-		else if ( IsCrouching ) CharacterController.Acceleration = global.CrouchingAcceleration;
-		// TODO: expose to global
-		else if ( IsSprinting ) CharacterController.Acceleration = 7f;
-		else
-			CharacterController.Acceleration = global.BaseAcceleration;
+		return Global.BaseAcceleration;
 	}
 
 	// TODO: expose to global
@@ -505,31 +541,22 @@ public partial class PlayerController
 
 	private float GetSpeedPenalty()
 	{
-		var wpn = CurrentWeapon;
+		var wpn = CurrentEquipment;
 		if ( !wpn.IsValid() ) return 0;
 		return wpn.SpeedPenalty;
 	}
 
-	private float GetWalkSpeed()
-	{
-		var spd = WalkSpeed;
-		return WalkSpeed - GetSpeedPenalty();
-	}
-
-	// TODO: expose to global
 	private float GetWishSpeed()
 	{
-		if ( IsSlowWalking ) return 100f;
-		if ( CurrentWeapon?.Tags.Has( "aiming" ) ?? false ) return 100f;
-		if ( IsCrouching ) return 100f;
-		if ( IsSprinting ) return 300f - ( GetSpeedPenalty() * 0.5f );
-		return GetWalkSpeed();
+		if ( IsSlowWalking ) return Global.SlowWalkSpeed;
+		if ( IsCrouching ) return Global.CrouchingSpeed;
+		if ( IsSprinting ) return Global.SprintingSpeed - ( GetSpeedPenalty() * 0.5f );
+		return Global.WalkSpeed - GetSpeedPenalty();
 	}
 
 	private void DebugUpdate()
 	{
 		DebugText.Update();
-
 		DebugText.Write( $"Player", Color.White, 20 );
 		DebugText.Write( $"Velocity: {CharacterController.Velocity}" );
 		DebugText.Write( $"Speed: {CharacterController.Velocity.Length}" );

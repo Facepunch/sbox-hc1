@@ -20,12 +20,12 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 	{
 		get
 		{
-			if ( IsProxy || !Weapon.ViewModel.IsValid() )
+			if ( IsProxy || !Equipment.ViewModel.IsValid() )
 			{
-				return Weapon.ModelRenderer;
+				return Equipment.ModelRenderer;
 			}
 
-			return Weapon.ViewModel.ModelRenderer;
+			return Equipment.ViewModel.ModelRenderer;
 		}
 	}
 
@@ -37,17 +37,17 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 	{
 		if ( SwingSound is not null )
 		{
-			if ( Sound.Play( SwingSound, Weapon.Transform.Position ) is SoundHandle snd )
+			if ( Sound.Play( SwingSound, Equipment.Transform.Position ) is SoundHandle snd )
 			{
 				snd.ListenLocal = !IsProxy;
 			}
 		}
 
 		// Third person
-		Weapon?.PlayerController?.BodyRenderer?.Set( "b_attack", true );
+		Equipment?.PlayerController?.BodyRenderer?.Set( "b_attack", true );
 
 		// First person
-		Weapon?.ViewModel?.ModelRenderer.Set( "b_attack", true );
+		Equipment?.ViewModel?.ModelRenderer.Set( "b_attack", true );
 	}
 
 	private void CreateImpactEffects( GameObject hitObject, Surface surface, Vector3 pos, Vector3 normal )
@@ -93,18 +93,26 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 			DoEffects();
 			CreateImpactEffects( tr.GameObject, tr.Surface, tr.EndPosition, tr.Normal );
 
-			var hitbox = "";
-			if ( tr.Hitbox is not null )
-			{
-				hitbox = string.Join( " ", tr.Hitbox.Tags.TryGetAll() );
-			}
-
 			// Inflict damage on whatever we find.
-			tr.GameObject.TakeDamage( DamageEvent.From( Weapon.PlayerController, BaseDamage, Weapon, tr.EndPosition, tr.Direction * tr.Distance, hitbox, "melee" ) );
+
+			using ( Rpc.FilterInclude( Connection.Host ) )
+			{
+				InflictKnifeDamage( tr.GameObject.Id, tr.EndPosition, tr.Direction );
+			}
 		}
 	}
 
-	protected virtual Ray WeaponRay => Weapon.PlayerController.AimRay;
+	[Broadcast]
+	private void InflictKnifeDamage( Guid targetObjectId, Vector3 pos, Vector3 dir )
+	{
+		var obj = Scene.Directory.FindByGuid( targetObjectId );
+
+		// TODO: backstab detection
+
+		obj?.TakeDamage( new DamageInfo( Equipment.PlayerController, BaseDamage, Equipment, pos, dir * 64f, HitboxTags.UpperBody, DamageFlags.Melee ) );
+	}
+
+	protected virtual Ray WeaponRay => Equipment.PlayerController.AimRay;
 
 	/// <summary>
 	/// Runs a trace with all the data we have supplied it, and returns the result

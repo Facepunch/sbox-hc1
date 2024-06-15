@@ -8,169 +8,1171 @@
     "NetworkInterpolation": true,
     "Components": [
       {
-        "__type": "GameMode",
+        "__type": "Facepunch.GameMode",
         "__guid": "3d316172-22ea-48e3-b3c5-244ef04d8ba8",
-        "BuyAnywhere": false,
         "Description": "",
         "MaxBalance": 16000,
-        "State": "PreGame",
-        "Title": "Casual Defuse",
+        "Title": "Defuse",
         "UnlimitedMoney": false
       },
       {
-        "__type": "WaitForPlayers",
-        "__guid": "17acf21e-6519-464a-99de-9cebf256dd89",
-        "DurationSeconds": 60,
-        "GameStartDelaySeconds": 5,
-        "MinPlayerCount": 2
+        "__type": "Facepunch.TeamScoring",
+        "__guid": "f57b65e7-8078-403a-9e17-e6de2aadd336"
       },
       {
-        "__type": "TeamAssigner",
-        "__guid": "4b0d1e68-abbe-488d-b6ed-de79d5710911",
-        "MaxTeamSize": 10
+        "__type": "Facepunch.RoundBasedTeamScoring",
+        "__guid": "a1dc363e-9102-428a-ad8e-fd84c4735d95"
       },
       {
-        "__type": "TeamSpawnAssigner",
-        "__guid": "d62349f5-1fb4-4984-8893-b7d24469f326",
+        "__type": "Facepunch.RoundCounter",
+        "__guid": "0bcf0905-c31b-4fd3-9e30-ca45eab602ef"
+      },
+      {
+        "__type": "Facepunch.TeamSpawnAssigner",
+        "__guid": "fe095be3-3702-44db-9d46-fd191f054ea3",
         "SpawnTags": []
       },
       {
-        "__type": "RoundStartPlayerSpawner",
-        "__guid": "635f68da-8885-4207-90be-61f3cd3ea900"
-      },
-      {
-        "__type": "FreezeTime",
-        "__guid": "ebd72618-c298-4028-859b-53b50fabe382",
-        "DurationSeconds": 5
-      },
-      {
-        "__type": "RoundCounter",
-        "__guid": "d878d02f-675d-4764-bccf-5e29216d5a00"
-      },
-      {
-        "__type": "RoundTimeLimit",
-        "__guid": "e82153f1-ceb3-4fd0-ac74-62e5b08fef72",
-        "DefaultWinningTeam": "CounterTerrorist",
-        "TimeLimitSeconds": 120
-      },
-      {
-        "__type": "TeamEliminated",
-        "__guid": "fde0230b-64a7-478f-b95b-1103becbcfd4",
-        "IgnoreTeam": "Unassigned"
-      },
-      {
-        "__type": "RoundLimit",
-        "__guid": "6fcd3850-98f1-4df6-81b6-ea8d414af107",
-        "MaxRounds": 20
-      },
-      {
-        "__type": "NextRoundDelay",
-        "__guid": "5eaa6b01-45af-4185-b564-48e632ad921f",
-        "DurationSeconds": 5
-      },
-      {
-        "__type": "DefaultEquipment",
-        "__guid": "5a1f9f56-13f2-4c0b-8bbe-0142619e9d5c",
+        "__type": "Facepunch.DefaultEquipment",
+        "__guid": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
         "Armor": 0,
+        "BothTeams": true,
+        "DefuseKit": false,
         "Helmet": false,
         "RefillAmmo": true,
+        "Team": "Terrorist",
         "Weapons": [
-          "weapons/knife/knife.wpn",
-          "weapons/usp/usp.wpn"
+          "weapons/knife/knife.equip",
+          "weapons/usp/usp.equip"
         ]
       },
       {
-        "__type": "BombDefusalScenario",
-        "__guid": "f6bd989d-c258-4e5a-889b-e6351e0d3890",
-        "BaseLossTeamIncome": 1400,
-        "BombDefusedTeamIncome": 3500,
-        "BombDetonatedTeamIncome": 3500,
-        "DefaultWinTeamIncome": 3250,
-        "LossBonusIncrement": 500,
-        "MaxLossStreakLevel": 4,
-        "StartMoney": 800
+        "__type": "Facepunch.LossBonus",
+        "__guid": "353eec32-ccda-493e-a835-b9a50afa4b45",
+        "MaxRounds": 4,
+        "ValuePerRound": 500
       },
       {
-        "__type": "SpecialWeaponAllocator",
-        "__guid": "e834d46a-fa6f-42f8-a4aa-7ba816187577",
-        "Team": "Terrorist",
-        "Weapon": "weapons/c4/c4.wpn"
-      },
-      {
-        "__type": "TeamScoring",
-        "__guid": "82c20899-ff89-4bec-bb8a-56c6d422e66c"
-      },
-      {
-        "__type": "Facepunch.RadioManager",
-        "__guid": "dd9886aa-2706-4f9b-a28b-acceeb7f2374",
-        "PlayDeathSounds": true,
-        "PlayEnemyLeftSounds": true
-      },
-      {
-        "__type": "RoundBasedTeamScoring",
-        "__guid": "3c836768-800a-435e-b031-cc02147b5611"
-      },
-      {
-        "__type": "PreRoundCleanup",
-        "__guid": "580e0f2e-59a9-4c0b-a944-22796c21f3af"
-      },
-      {
-        "__type": "HalfTimeTeamSwap",
-        "__guid": "f7bef2f7-5819-41a6-b7ef-fba3f2b4e14a"
-      },
-      {
-        "__type": "KillRewards",
-        "__guid": "6727930e-7bc8-4fd0-adf1-3851b671026a",
+        "__type": "Facepunch.KillRewards",
+        "__guid": "e1fc0b81-cf76-4a3a-802a-c7569b4c8ba4",
         "AllowFriendlyFire": false,
         "FriendlyFirePenalty": 300
       },
       {
-        "__type": "Facepunch.EquippmentDropper",
-        "__guid": "ed9815cf-c36f-44f7-b378-f7bd09213eb7"
+        "__type": "Facepunch.DefuseObjectiveRewards",
+        "__guid": "e8ecb68b-0016-4b18-9649-4a5fb9b6efd3",
+        "BombDefuseReward": 300,
+        "BombPlantReward": 300,
+        "BombPlantTeamReward": 800
       },
       {
         "__type": "Facepunch.BotManager",
-        "__guid": "daa55be9-e50a-4bb6-b22a-33faf081753c"
-      },
-      {
-        "__type": "Facepunch.MusicManager",
-        "__guid": "b83c776a-c356-4817-8ce9-89426e2e4ec3"
-      },
-      {
-        "__type": "Facepunch.BuyZoneTime",
-        "__guid": "c9c6085e-6c5a-41de-b1fb-3c6dcf9967c6",
-        "BuyTime": 30
-      },
-      {
-        "__type": "Facepunch.KillGameOnEnd",
-        "__guid": "4e466631-9e5d-476f-9153-0a7c8d9223fe",
-        "DurationSeconds": 5,
-        "ShowDelaySeconds": 5
-      },
-      {
-        "__type": "Facepunch.DefuseWinCondition",
-        "__guid": "1791def2-c610-465e-9d30-f11d87034ac7"
-      },
-      {
-        "__type": "PlayerAutoRespawner",
-        "__guid": "5351031c-4036-46dc-916c-0fe38bf1d703",
-        "DisableOnGameStart": true,
-        "RespawnDelaySeconds": 3
-      },
-      {
-        "__type": "Facepunch.TeamVoiceChatFilter",
-        "__guid": "192a1caf-7692-47e2-bbb0-aa6db2352579"
-      },
-      {
-        "__type": "Facepunch.KillSound",
-        "__guid": "1d4be055-ae6b-49c3-848a-0c698d2f0bf3",
-        "BaseSoundPitch": 0.7,
-        "KillSoundEvent": "sounds/kill_sound.sound",
-        "MaxCount": 5,
-        "SoundPitchPerCount": 0.1
+        "__guid": "8f2a629c-0d39-4eb1-a17a-03df62cfcc4b",
+        "Drone": {
+          "_type": "gameobject",
+          "prefab": "prefabs/player/drone.prefab"
+        }
       }
     ],
-    "Children": []
+    "Children": [
+      {
+        "__guid": "b6b85172-89e8-451f-9238-354ca3680f2d",
+        "Flags": 0,
+        "Name": "States",
+        "Enabled": true,
+        "NetworkMode": 1,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Events.StateMachineComponent",
+            "__guid": "2cb1d53c-1e80-4518-9ce8-fa5dc765c5e6",
+            "CurrentState": {
+              "_type": "component",
+              "component_id": "edbe1e51-c4ca-4673-b67a-5674096a8220",
+              "go": "e804d5d6-339a-49c8-8aac-c8092d86e483",
+              "component_type": "StateComponent"
+            }
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "e804d5d6-339a-49c8-8aac-c8092d86e483",
+            "Flags": 0,
+            "Name": "Waiting",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Events.StateComponent",
+                "__guid": "edbe1e51-c4ca-4673-b67a-5674096a8220",
+                "DefaultDuration": 60,
+                "DefaultNextState": {
+                  "_type": "component",
+                  "component_id": "b593cc58-e030-4625-abcf-236e7e7b6384",
+                  "go": "a89eed29-39eb-408d-9eac-bab4cf475c86",
+                  "component_type": "StateComponent"
+                }
+              },
+              {
+                "__type": "Facepunch.TeamAssigner",
+                "__guid": "49a0734b-7af2-4771-81c2-876a43fa7a61",
+                "AllowLateJoiners": true,
+                "MaxTeamSize": 5
+              },
+              {
+                "__type": "Facepunch.WaitForPlayers",
+                "__guid": "7e92a240-73c1-4860-9025-6e4f64c27b4f",
+                "MinPlayerCount": 2,
+                "SkipPlayerCount": 10
+              },
+              {
+                "__type": "Facepunch.ShowStatusText",
+                "__guid": "025a017a-a04a-48e7-80b0-20aa407a69b8",
+                "BothTeams": true,
+                "StatusText": "Waiting",
+                "Team": "Unassigned"
+              },
+              {
+                "__type": "Facepunch.ShowCountDown",
+                "__guid": "d56b1c52-df76-49c0-a972-d08c080ba023"
+              },
+              {
+                "__type": "Facepunch.EnableBuyMenu",
+                "__guid": "84ff0616-05f1-4774-a390-ce9525baab9a",
+                "InBuyZoneOnly": false,
+                "TimeLimit": 0
+              },
+              {
+                "__type": "Facepunch.PlayerAutoRespawner",
+                "__guid": "941f07d5-e38a-4836-8162-85dcc2038650",
+                "RespawnDelaySeconds": 3
+              },
+              {
+                "__type": "Facepunch.DefaultBalance",
+                "__guid": "f9e53ea8-60fc-44a6-a844-0ad36bd116cd",
+                "Value": 16000
+              }
+            ]
+          },
+          {
+            "__guid": "a89eed29-39eb-408d-9eac-bab4cf475c86",
+            "Flags": 0,
+            "Name": "Preparing",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Events.StateComponent",
+                "__guid": "b593cc58-e030-4625-abcf-236e7e7b6384",
+                "DefaultDuration": 5,
+                "DefaultNextState": {
+                  "_type": "component",
+                  "component_id": "8869030b-e87b-4e23-af06-8447c49c2510",
+                  "go": "dbc1901b-5f09-4268-aaba-1030d02e6a49",
+                  "component_type": "StateComponent"
+                }
+              },
+              {
+                "__type": "Facepunch.ShowCountDown",
+                "__guid": "d1112904-6e20-4e1e-9ad3-a20de1f1a1a6"
+              },
+              {
+                "__type": "Facepunch.ShowStatusText",
+                "__guid": "a2c66f8c-58fb-476f-8a2a-b7bdc1c2c9f4",
+                "BothTeams": true,
+                "StatusText": "Starting",
+                "Team": "Unassigned"
+              },
+              {
+                "__type": "Facepunch.ShowToast",
+                "__guid": "b4ac207d-d982-44eb-af14-9dc91e6ffe81",
+                "Message": "Preparing to start...",
+                "Type": "Generic"
+              },
+              {
+                "__type": "Facepunch.FreezePlayers",
+                "__guid": "9dabf43b-2795-4877-a135-327a1630d0ce"
+              }
+            ]
+          },
+          {
+            "__guid": "dbc1901b-5f09-4268-aaba-1030d02e6a49",
+            "Flags": 0,
+            "Name": "Play Game",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Events.StateComponent",
+                "__guid": "8869030b-e87b-4e23-af06-8447c49c2510",
+                "DefaultDuration": 0,
+                "DefaultNextState": {
+                  "_type": "component",
+                  "component_id": "4d547204-8240-4e3c-9a86-05be1381fde1",
+                  "go": "9040f7cb-6fbb-4756-9849-1303d6e71b82",
+                  "component_type": "StateComponent"
+                }
+              },
+              {
+                "__type": "Facepunch.EquipmentDropper",
+                "__guid": "ac41427a-b724-477d-9538-6b6dd052ea51"
+              },
+              {
+                "__type": "Facepunch.DefaultBalance",
+                "__guid": "dbaa1631-46a7-4019-accc-de8a0445800b",
+                "Value": 800
+              },
+              {
+                "__type": "ResetScores",
+                "__guid": "dd0d2444-b755-4db1-8074-3067912a6e62"
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "9040f7cb-6fbb-4756-9849-1303d6e71b82",
+                "Flags": 0,
+                "Name": "Start Half",
+                "Enabled": true,
+                "NetworkMode": 1,
+                "NetworkInterpolation": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.Events.StateComponent",
+                    "__guid": "4d547204-8240-4e3c-9a86-05be1381fde1",
+                    "DefaultDuration": 0,
+                    "DefaultNextState": {
+                      "_type": "component",
+                      "component_id": "9269103b-219e-4886-89b9-efcfce1f1ee1",
+                      "go": "3092e09d-2b87-48a4-bd44-e77deca7778b",
+                      "component_type": "StateComponent"
+                    }
+                  },
+                  {
+                    "__type": "Facepunch.ResetBalance",
+                    "__guid": "25968e4f-e4ca-4e63-b1cc-d677d1213541",
+                    "Value": 800
+                  },
+                  {
+                    "__type": "Facepunch.ClearEquipment",
+                    "__guid": "b1e935ca-df43-44a4-83ae-3af7bee18dd9"
+                  }
+                ]
+              },
+              {
+                "__guid": "3092e09d-2b87-48a4-bd44-e77deca7778b",
+                "Flags": 0,
+                "Name": "Play Round",
+                "Enabled": true,
+                "NetworkMode": 1,
+                "NetworkInterpolation": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.Events.StateComponent",
+                    "__guid": "9269103b-219e-4886-89b9-efcfce1f1ee1",
+                    "DefaultDuration": 0,
+                    "DefaultNextState": {
+                      "_type": "component",
+                      "component_id": "d56b939f-aca3-4c38-87fe-71cca36f462d",
+                      "go": "f051c22c-30ad-417a-b1d5-92058c9b2d21",
+                      "component_type": "StateComponent"
+                    }
+                  },
+                  {
+                    "__type": "Facepunch.RoundLimit",
+                    "__guid": "7c1720b4-9c06-4399-9ad9-dc8c9236680e",
+                    "FinalRoundFirstHalfMessage": "Final round of the first half",
+                    "FinalRoundMessage": "Final round",
+                    "HalfTimeState": {
+                      "_type": "component",
+                      "component_id": "75be0391-97e4-4f45-8049-37e04e249881",
+                      "go": "83b2287d-8fa6-40d2-8fc3-89d593b38ae6",
+                      "component_type": "StateComponent"
+                    },
+                    "MaxRounds": 30,
+                    "NextState": {
+                      "_type": "component",
+                      "component_id": "f9e6010f-47d4-4ed7-8b24-ecfd9853c9e7",
+                      "go": "7b6daed5-5d86-4294-b269-65868fd14bdc",
+                      "component_type": "StateComponent"
+                    }
+                  },
+                  {
+                    "__type": "Facepunch.TeamEarlyWinCondition",
+                    "__guid": "d5c89b98-a4e2-4148-9890-4c6dcb56d60a",
+                    "TargetScore": 16
+                  }
+                ],
+                "Children": [
+                  {
+                    "__guid": "f051c22c-30ad-417a-b1d5-92058c9b2d21",
+                    "Flags": 0,
+                    "Name": "Cleanup",
+                    "Enabled": true,
+                    "NetworkMode": 1,
+                    "NetworkInterpolation": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.Events.StateComponent",
+                        "__guid": "d56b939f-aca3-4c38-87fe-71cca36f462d",
+                        "DefaultDuration": 0,
+                        "DefaultNextState": {
+                          "_type": "component",
+                          "component_id": "a205b96a-8a6b-48cf-86b7-11a98c3170e0",
+                          "go": "5fbad405-d206-4094-be63-ad939c75f830",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.BetweenRoundCleanup",
+                        "__guid": "597af6de-1ecc-43f1-9f3e-dd11ee0c0036"
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "5fbad405-d206-4094-be63-ad939c75f830",
+                    "Flags": 0,
+                    "Name": "Respawn Players",
+                    "Enabled": true,
+                    "NetworkMode": 1,
+                    "NetworkInterpolation": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.Events.StateComponent",
+                        "__guid": "a205b96a-8a6b-48cf-86b7-11a98c3170e0",
+                        "DefaultDuration": 0,
+                        "DefaultNextState": {
+                          "_type": "component",
+                          "component_id": "38e754d5-a42e-4ffd-adcf-545b2f90a92a",
+                          "go": "4403ed17-c00e-44a3-bb43-c2002a17f7dd",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.RespawnPlayers",
+                        "__guid": "1b1b0c27-e7c8-42c3-b0dd-25a7529129f5"
+                      },
+                      {
+                        "__type": "Facepunch.SpecialWeaponAllocator",
+                        "__guid": "fa1b2714-75f6-4567-9c19-912127850841",
+                        "Team": "Terrorist",
+                        "Weapon": "weapons/c4/c4.equip"
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "4403ed17-c00e-44a3-bb43-c2002a17f7dd",
+                    "Flags": 0,
+                    "Name": "Freeze Time",
+                    "Enabled": true,
+                    "NetworkMode": 1,
+                    "NetworkInterpolation": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.Events.StateComponent",
+                        "__guid": "38e754d5-a42e-4ffd-adcf-545b2f90a92a",
+                        "DefaultDuration": 10,
+                        "DefaultNextState": {
+                          "_type": "component",
+                          "component_id": "3cddef63-18fe-4ba1-9005-b76e10d8199e",
+                          "go": "7f2bada1-c911-467f-8648-feca0748483f",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.ShowCountDown",
+                        "__guid": "4147f4b3-7d06-4393-8a66-78d9d1a166f1"
+                      },
+                      {
+                        "__type": "Facepunch.ShowStatusText",
+                        "__guid": "cb568ad0-a5ea-471e-8a1c-186b7a6e4a17",
+                        "BothTeams": true,
+                        "StatusText": "Prepare",
+                        "Team": "Unassigned"
+                      },
+                      {
+                        "__type": "Facepunch.FreezePlayers",
+                        "__guid": "e2ddbaad-7772-4437-8e93-be2b6896ed0c"
+                      },
+                      {
+                        "__type": "Facepunch.EnableBuyMenu",
+                        "__guid": "7f496705-e715-4463-8b37-2ea16b08e703",
+                        "InBuyZoneOnly": false,
+                        "TimeLimit": 0
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "7f2bada1-c911-467f-8648-feca0748483f",
+                    "Flags": 0,
+                    "Name": "Before Plant",
+                    "Enabled": true,
+                    "NetworkMode": 1,
+                    "NetworkInterpolation": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.Events.StateComponent",
+                        "__guid": "3cddef63-18fe-4ba1-9005-b76e10d8199e",
+                        "DefaultDuration": 120,
+                        "DefaultNextState": {
+                          "_type": "component",
+                          "component_id": "81da66d0-027a-43f8-9306-88dfafa3a3f8",
+                          "go": "e876e4bc-4c3c-470e-9786-6a750381c4c6",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.TeamEliminated",
+                        "__guid": "6277f054-b587-4141-8e1b-2c62c118e49a",
+                        "BothTeamsEliminatedState": {
+                          "_type": "component",
+                          "component_id": "20fa6051-a73b-4087-9a12-2f45bb6fcbcc",
+                          "go": "fd005496-e87a-4ba9-b8cf-349050d2c97a",
+                          "component_type": "StateComponent"
+                        },
+                        "CounterTerroristsEliminatedState": {
+                          "_type": "component",
+                          "component_id": "f2651786-cf22-4cf7-92f8-0379f1d456d0",
+                          "go": "23e64397-5b55-4997-9f69-dcc8adc02cd5",
+                          "component_type": "StateComponent"
+                        },
+                        "TerroristsEliminatedState": {
+                          "_type": "component",
+                          "component_id": "20fa6051-a73b-4087-9a12-2f45bb6fcbcc",
+                          "go": "fd005496-e87a-4ba9-b8cf-349050d2c97a",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.BombPlantedEventComponent",
+                        "__guid": "fff5d192-d6a7-4392-b17c-1fec9b2437dc",
+                        "NextState": {
+                          "_type": "component",
+                          "component_id": "ffa72673-9c28-4bf8-a0f2-b8eb3e73944b",
+                          "go": "e2155f6e-7202-4fde-9e9f-972fb87dac92",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.ShowCountDown",
+                        "__guid": "208d0f2e-a3de-4cbf-a808-70f7182bb2c3"
+                      },
+                      {
+                        "__type": "Facepunch.ShowStatusText",
+                        "__guid": "8fa8c162-65eb-40b3-918f-144e17e90978",
+                        "BothTeams": false,
+                        "StatusText": "Plant the Bomb",
+                        "Team": "Terrorist"
+                      },
+                      {
+                        "__type": "Facepunch.ShowStatusText",
+                        "__guid": "3bfa5bfa-222c-4b88-92b4-58c8b097c492",
+                        "BothTeams": false,
+                        "StatusText": "Defend",
+                        "Team": "CounterTerrorist"
+                      },
+                      {
+                        "__type": "Facepunch.ShowStatusText",
+                        "__guid": "35583140-7654-4aba-a8e3-84e829282f6d",
+                        "BothTeams": false,
+                        "StatusText": "In Progress",
+                        "Team": "Unassigned"
+                      },
+                      {
+                        "__type": "Facepunch.PlayRadio",
+                        "__guid": "369890a1-3d7f-431c-94d8-ae9367587cf1",
+                        "BothTeams": true,
+                        "Sound": "RoundStarted",
+                        "Team": "Terrorist"
+                      },
+                      {
+                        "__type": "Facepunch.PlaySound",
+                        "__guid": "02986e9a-2563-489f-b028-1d284b6f7ffe",
+                        "SoundEvent": "sounds/music/round_intro/round_start.sound"
+                      },
+                      {
+                        "__type": "Facepunch.EnableBuyMenu",
+                        "__guid": "c9c2faf2-0ea5-48d5-9fef-e501a9fcf3d5",
+                        "InBuyZoneOnly": true,
+                        "TimeLimit": 15
+                      },
+                      {
+                        "__type": "Facepunch.PlayRadioOnKill",
+                        "__guid": "47d83a15-5ecb-4246-a531-7b03df7c3eb7",
+                        "PlayDeathSounds": true,
+                        "PlayEnemyLeftSounds": true
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "e2155f6e-7202-4fde-9e9f-972fb87dac92",
+                    "Flags": 0,
+                    "Name": "After Plant",
+                    "Enabled": true,
+                    "NetworkMode": 1,
+                    "NetworkInterpolation": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.Events.StateComponent",
+                        "__guid": "ffa72673-9c28-4bf8-a0f2-b8eb3e73944b",
+                        "DefaultDuration": 0
+                      },
+                      {
+                        "__type": "Facepunch.BombDetonatedEventComponent",
+                        "__guid": "218ad0e2-5183-47a4-90b5-3911c286884f",
+                        "NextState": {
+                          "_type": "component",
+                          "component_id": "346f5964-c987-4952-a09f-8e25298daba2",
+                          "go": "bd4a6f9a-e3ee-46f8-80cb-d4f55e7905b1",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.BombDefusedEventComponent",
+                        "__guid": "5f88a79a-af54-48f6-8e73-578a10f5b982",
+                        "NextState": {
+                          "_type": "component",
+                          "component_id": "3c4a1d80-3d92-41bf-9051-c1abd609227a",
+                          "go": "c8ec8313-d118-49cf-9480-6b2e7ef80ae8",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.TeamEliminated",
+                        "__guid": "1745a8a5-d0cb-4502-aa59-f93105f316cc",
+                        "BothTeamsEliminatedState": {
+                          "_type": "component",
+                          "component_id": "346f5964-c987-4952-a09f-8e25298daba2",
+                          "go": "bd4a6f9a-e3ee-46f8-80cb-d4f55e7905b1",
+                          "component_type": "StateComponent"
+                        },
+                        "CounterTerroristsEliminatedState": {
+                          "_type": "component",
+                          "component_id": "346f5964-c987-4952-a09f-8e25298daba2",
+                          "go": "bd4a6f9a-e3ee-46f8-80cb-d4f55e7905b1",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.ShowStatusIcon",
+                        "__guid": "d0a63684-f740-460e-aa80-687424d55ec0",
+                        "IconPath": "/ui/items/c4.png"
+                      },
+                      {
+                        "__type": "Facepunch.PlayRadio",
+                        "__guid": "77404e61-6aab-4f31-b216-2752c7c767c0",
+                        "BothTeams": true,
+                        "Sound": "BombPlanted",
+                        "Team": "Terrorist"
+                      },
+                      {
+                        "__type": "Facepunch.PlayRadioOnKill",
+                        "__guid": "89a4b468-7aa5-4741-ac9b-4998eb0cefed",
+                        "PlayDeathSounds": true,
+                        "PlayEnemyLeftSounds": true
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "e6a53ace-1071-45c4-b4fd-8db2c437262c",
+                    "Flags": 0,
+                    "Name": "T Victory",
+                    "Enabled": true,
+                    "NetworkMode": 1,
+                    "NetworkInterpolation": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.Events.StateComponent",
+                        "__guid": "385d9bf9-8adc-4b89-88af-dda216c9d38e",
+                        "DefaultDuration": 0
+                      },
+                      {
+                        "__type": "Facepunch.IncrementTeamScore",
+                        "__guid": "438e2d35-d858-4a8b-967d-ddda466e9e92",
+                        "Team": "Terrorist"
+                      },
+                      {
+                        "__type": "Facepunch.ShowStatusText",
+                        "__guid": "1a8d535e-eb43-4044-9bb4-55666c89a752",
+                        "BothTeams": false,
+                        "StatusText": "Victory",
+                        "Team": "Terrorist"
+                      },
+                      {
+                        "__type": "Facepunch.ShowStatusText",
+                        "__guid": "6be94b5a-91f5-4576-b07a-ca143773d035",
+                        "BothTeams": false,
+                        "StatusText": "Defeat",
+                        "Team": "CounterTerrorist"
+                      },
+                      {
+                        "__type": "Facepunch.ShowStatusText",
+                        "__guid": "1d2befa3-ad2f-4cc5-8a3d-2b6a6e9d5d74",
+                        "BothTeams": false,
+                        "StatusText": "Round Over",
+                        "Team": "Unassigned"
+                      }
+                    ],
+                    "Children": [
+                      {
+                        "__guid": "23e64397-5b55-4997-9f69-dcc8adc02cd5",
+                        "Flags": 0,
+                        "Name": "CTs Eliminated",
+                        "Enabled": true,
+                        "NetworkMode": 1,
+                        "NetworkInterpolation": true,
+                        "Components": [
+                          {
+                            "__type": "Sandbox.Events.StateComponent",
+                            "__guid": "f2651786-cf22-4cf7-92f8-0379f1d456d0",
+                            "DefaultDuration": 0,
+                            "DefaultNextState": {
+                              "_type": "component",
+                              "component_id": "0081680c-818f-4289-8c45-95be3a423250",
+                              "go": "128dd230-e63e-465b-95ba-15018638e31f",
+                              "component_type": "StateComponent"
+                            }
+                          },
+                          {
+                            "__type": "Facepunch.GiveTeamIncome",
+                            "__guid": "f4254054-0124-4bb0-a795-d7dd6187b665",
+                            "Team": "Terrorist",
+                            "Value": 3250
+                          },
+                          {
+                            "__type": "Facepunch.GiveTeamIncome",
+                            "__guid": "d1721277-8f52-43e6-8706-6e58084a2d40",
+                            "Team": "CounterTerrorist",
+                            "Value": 1400
+                          }
+                        ]
+                      },
+                      {
+                        "__guid": "bd4a6f9a-e3ee-46f8-80cb-d4f55e7905b1",
+                        "Flags": 0,
+                        "Name": "Bomb Detonated",
+                        "Enabled": true,
+                        "NetworkMode": 1,
+                        "NetworkInterpolation": true,
+                        "Components": [
+                          {
+                            "__type": "Sandbox.Events.StateComponent",
+                            "__guid": "346f5964-c987-4952-a09f-8e25298daba2",
+                            "DefaultDuration": 0,
+                            "DefaultNextState": {
+                              "_type": "component",
+                              "component_id": "0081680c-818f-4289-8c45-95be3a423250",
+                              "go": "128dd230-e63e-465b-95ba-15018638e31f",
+                              "component_type": "StateComponent"
+                            }
+                          },
+                          {
+                            "__type": "Facepunch.GiveTeamIncome",
+                            "__guid": "0b470ea5-433f-4e86-954b-6eaf4e5daf35",
+                            "Team": "Terrorist",
+                            "Value": 3500
+                          },
+                          {
+                            "__type": "Facepunch.GiveTeamIncome",
+                            "__guid": "17770cec-1343-4b87-bf5e-41eb641c70c3",
+                            "Team": "CounterTerrorist",
+                            "Value": 1400
+                          }
+                        ]
+                      },
+                      {
+                        "__guid": "128dd230-e63e-465b-95ba-15018638e31f",
+                        "Flags": 0,
+                        "Name": "Toast",
+                        "Enabled": true,
+                        "NetworkMode": 1,
+                        "NetworkInterpolation": true,
+                        "Components": [
+                          {
+                            "__type": "Sandbox.Events.StateComponent",
+                            "__guid": "0081680c-818f-4289-8c45-95be3a423250",
+                            "DefaultDuration": 5,
+                            "DefaultNextState": {
+                              "_type": "component",
+                              "component_id": "81da66d0-027a-43f8-9306-88dfafa3a3f8",
+                              "go": "e876e4bc-4c3c-470e-9786-6a750381c4c6",
+                              "component_type": "StateComponent"
+                            }
+                          },
+                          {
+                            "__type": "Facepunch.ShowToast",
+                            "__guid": "e8744fa0-b90b-4d9a-9d31-f905725c82ec",
+                            "Message": "Anarchists Win!",
+                            "Type": "TerroristsWin"
+                          },
+                          {
+                            "__type": "Facepunch.PlayRadio",
+                            "__guid": "c7630538-0160-4d93-8c3a-6643524d8b39",
+                            "BothTeams": false,
+                            "Sound": "RoundWon",
+                            "Team": "Terrorist"
+                          },
+                          {
+                            "__type": "Facepunch.PlayRadio",
+                            "__guid": "fed1922f-4144-4ee2-a296-a3910253a101",
+                            "BothTeams": false,
+                            "Sound": "RoundLost",
+                            "Team": "CounterTerrorist"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "c4175b34-32ea-4bd7-8ab4-9464ecc9f906",
+                    "Flags": 0,
+                    "Name": "CT Victory",
+                    "Enabled": true,
+                    "NetworkMode": 1,
+                    "NetworkInterpolation": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.Events.StateComponent",
+                        "__guid": "e782b3b5-7699-4fc2-baca-11cc0ccfe3b5",
+                        "DefaultDuration": 0
+                      },
+                      {
+                        "__type": "Facepunch.IncrementTeamScore",
+                        "__guid": "2b78331a-868e-4f99-b3fa-1fc8ff2034c1",
+                        "Team": "CounterTerrorist"
+                      },
+                      {
+                        "__type": "Facepunch.ShowStatusText",
+                        "__guid": "76cc6aa2-74e6-4a75-bcae-1ed029d6179e",
+                        "BothTeams": false,
+                        "StatusText": "Victory",
+                        "Team": "CounterTerrorist"
+                      },
+                      {
+                        "__type": "Facepunch.ShowStatusText",
+                        "__guid": "0c7baf15-3ff9-4f84-899f-9804bc7b5226",
+                        "BothTeams": false,
+                        "StatusText": "Defeat",
+                        "Team": "Terrorist"
+                      },
+                      {
+                        "__type": "Facepunch.ShowStatusText",
+                        "__guid": "8dbbbafb-a7ec-4140-88ae-29cf800f2bd7",
+                        "BothTeams": false,
+                        "StatusText": "Round Over",
+                        "Team": "Unassigned"
+                      }
+                    ],
+                    "Children": [
+                      {
+                        "__guid": "fd005496-e87a-4ba9-b8cf-349050d2c97a",
+                        "Flags": 0,
+                        "Name": "Ts Eliminated",
+                        "Enabled": true,
+                        "NetworkMode": 1,
+                        "NetworkInterpolation": true,
+                        "Components": [
+                          {
+                            "__type": "Sandbox.Events.StateComponent",
+                            "__guid": "20fa6051-a73b-4087-9a12-2f45bb6fcbcc",
+                            "DefaultDuration": 0,
+                            "DefaultNextState": {
+                              "_type": "component",
+                              "component_id": "f77a6dfc-d833-47b5-8b7d-a67b1303f961",
+                              "go": "5ab96d95-505a-48b6-bb43-524d45893aaf",
+                              "component_type": "StateComponent"
+                            }
+                          },
+                          {
+                            "__type": "Facepunch.GiveTeamIncome",
+                            "__guid": "e443653c-eae6-4e45-aac1-dad13ac2ad35",
+                            "Team": "CounterTerrorist",
+                            "Value": 3250
+                          },
+                          {
+                            "__type": "Facepunch.GiveTeamIncome",
+                            "__guid": "75ef5955-5346-4233-a002-367e1dca71c1",
+                            "Team": "Terrorist",
+                            "Value": 1400
+                          }
+                        ]
+                      },
+                      {
+                        "__guid": "c8ec8313-d118-49cf-9480-6b2e7ef80ae8",
+                        "Flags": 0,
+                        "Name": "Bomb Defused",
+                        "Enabled": true,
+                        "NetworkMode": 1,
+                        "NetworkInterpolation": true,
+                        "Components": [
+                          {
+                            "__type": "Sandbox.Events.StateComponent",
+                            "__guid": "3c4a1d80-3d92-41bf-9051-c1abd609227a",
+                            "DefaultDuration": 2,
+                            "DefaultNextState": {
+                              "_type": "component",
+                              "component_id": "f77a6dfc-d833-47b5-8b7d-a67b1303f961",
+                              "go": "5ab96d95-505a-48b6-bb43-524d45893aaf",
+                              "component_type": "StateComponent"
+                            }
+                          },
+                          {
+                            "__type": "Facepunch.PlayRadio",
+                            "__guid": "372309d2-b21e-49c5-91d5-b8087cd7a743",
+                            "BothTeams": true,
+                            "Sound": "BombDefused",
+                            "Team": "Terrorist"
+                          },
+                          {
+                            "__type": "Facepunch.GiveTeamIncome",
+                            "__guid": "af98f2ea-530a-45d7-a125-bb8e22014429",
+                            "Team": "CounterTerrorist",
+                            "Value": 3500
+                          },
+                          {
+                            "__type": "Facepunch.GiveTeamIncome",
+                            "__guid": "f633c914-8fc0-4fa9-9bf3-14afc7b55c78",
+                            "Team": "Terrorist",
+                            "Value": 2200
+                          }
+                        ]
+                      },
+                      {
+                        "__guid": "5ab96d95-505a-48b6-bb43-524d45893aaf",
+                        "Flags": 0,
+                        "Name": "Toast",
+                        "Enabled": true,
+                        "NetworkMode": 1,
+                        "NetworkInterpolation": true,
+                        "Components": [
+                          {
+                            "__type": "Sandbox.Events.StateComponent",
+                            "__guid": "f77a6dfc-d833-47b5-8b7d-a67b1303f961",
+                            "DefaultDuration": 5,
+                            "DefaultNextState": {
+                              "_type": "component",
+                              "component_id": "81da66d0-027a-43f8-9306-88dfafa3a3f8",
+                              "go": "e876e4bc-4c3c-470e-9786-6a750381c4c6",
+                              "component_type": "StateComponent"
+                            }
+                          },
+                          {
+                            "__type": "Facepunch.ShowToast",
+                            "__guid": "38c146d2-4976-497a-8575-2d676c9779fc",
+                            "Message": "Operators Win!",
+                            "Type": "CounterTerroristsWin"
+                          },
+                          {
+                            "__type": "Facepunch.PlayRadio",
+                            "__guid": "63ac63f8-cd20-401f-8d73-4a13d738a793",
+                            "BothTeams": false,
+                            "Sound": "RoundWon",
+                            "Team": "CounterTerrorist"
+                          },
+                          {
+                            "__type": "Facepunch.PlayRadio",
+                            "__guid": "f8643bca-89bc-44f8-b645-9da4e855fde3",
+                            "BothTeams": false,
+                            "Sound": "RoundLost",
+                            "Team": "Terrorist"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "e876e4bc-4c3c-470e-9786-6a750381c4c6",
+                    "Flags": 0,
+                    "Name": "End Round",
+                    "Enabled": true,
+                    "NetworkMode": 1,
+                    "NetworkInterpolation": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.Events.StateComponent",
+                        "__guid": "81da66d0-027a-43f8-9306-88dfafa3a3f8",
+                        "DefaultDuration": 0,
+                        "DefaultNextState": {
+                          "_type": "component",
+                          "component_id": "9269103b-219e-4886-89b9-efcfce1f1ee1",
+                          "go": "3092e09d-2b87-48a4-bd44-e77deca7778b",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.IncrementRoundCounter",
+                        "__guid": "05e1ae65-18c1-4b93-907e-d0d9cfbf3588"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "__guid": "83b2287d-8fa6-40d2-8fc3-89d593b38ae6",
+                "Flags": 0,
+                "Name": "End Half",
+                "Enabled": true,
+                "NetworkMode": 1,
+                "NetworkInterpolation": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.Events.StateComponent",
+                    "__guid": "75be0391-97e4-4f45-8049-37e04e249881",
+                    "DefaultDuration": 5,
+                    "DefaultNextState": {
+                      "_type": "component",
+                      "component_id": "540328b1-bdd9-4c32-b515-3824c42c2227",
+                      "go": "17dbb5a8-4d87-4040-9536-8ed42df16c01",
+                      "component_type": "StateComponent"
+                    }
+                  },
+                  {
+                    "__type": "Facepunch.FreezePlayers",
+                    "__guid": "a9dafd0c-3d57-4cc5-b8ac-c7ff621d935f"
+                  },
+                  {
+                    "__type": "Facepunch.ShowCountDown",
+                    "__guid": "8b5b2b41-64b4-4718-ad43-d9d10ac391cf"
+                  },
+                  {
+                    "__type": "Facepunch.ShowStatusText",
+                    "__guid": "a389eb52-11f7-43a1-a605-82ff84f08afb",
+                    "BothTeams": true,
+                    "StatusText": "Half Time",
+                    "Team": "Unassigned"
+                  },
+                  {
+                    "__type": "Facepunch.ShowToast",
+                    "__guid": "3a8b06e0-1c8f-4f76-af80-47d0f1d072cb",
+                    "Message": "Preparing to swap teams",
+                    "Type": "Generic"
+                  }
+                ]
+              },
+              {
+                "__guid": "17dbb5a8-4d87-4040-9536-8ed42df16c01",
+                "Flags": 0,
+                "Name": "Swap Teams",
+                "Enabled": true,
+                "NetworkMode": 1,
+                "NetworkInterpolation": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.Events.StateComponent",
+                    "__guid": "540328b1-bdd9-4c32-b515-3824c42c2227",
+                    "DefaultDuration": 0,
+                    "DefaultNextState": {
+                      "_type": "component",
+                      "component_id": "4d547204-8240-4e3c-9a86-05be1381fde1",
+                      "go": "9040f7cb-6fbb-4756-9849-1303d6e71b82",
+                      "component_type": "StateComponent"
+                    }
+                  },
+                  {
+                    "__type": "Facepunch.SwapTeams",
+                    "__guid": "2c48ca2b-1924-47fb-ace4-2180e88ebc34"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "__guid": "7b6daed5-5d86-4294-b269-65868fd14bdc",
+            "Flags": 0,
+            "Name": "Post Game",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Events.StateComponent",
+                "__guid": "f9e6010f-47d4-4ed7-8b24-ecfd9853c9e7",
+                "DefaultDuration": 10,
+                "DefaultNextState": {
+                  "_type": "component",
+                  "component_id": "edbe1e51-c4ca-4673-b67a-5674096a8220",
+                  "go": "e804d5d6-339a-49c8-8aac-c8092d86e483",
+                  "component_type": "StateComponent"
+                }
+              },
+              {
+                "__type": "Facepunch.FreezePlayers",
+                "__guid": "93420f8a-c6a8-419a-9164-07e17e4f0710"
+              },
+              {
+                "__type": "Facepunch.KillGameOnEnd",
+                "__guid": "b45d3134-482f-4105-b263-5fa6d24ec7ff",
+                "Message": "The game is over - returning to menu"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "__variables": [
+      {
+        "Id": "FreezeTime",
+        "Title": "Freeze Time",
+        "Group": "Round",
+        "Targets": [
+          {
+            "Id": "38e754d5-a42e-4ffd-adcf-545b2f90a92a",
+            "Property": "DefaultDuration"
+          }
+        ]
+      },
+      {
+        "Id": "RoundTime",
+        "Title": "Round Time",
+        "Group": "Round",
+        "Targets": [
+          {
+            "Id": "3cddef63-18fe-4ba1-9005-b76e10d8199e",
+            "Property": "DefaultDuration"
+          }
+        ]
+      },
+      {
+        "Id": "WaitForPlayersTime",
+        "Title": "Wait For Players Time",
+        "Group": "Setup",
+        "Targets": [
+          {
+            "Id": "edbe1e51-c4ca-4673-b67a-5674096a8220",
+            "Property": "DefaultDuration"
+          }
+        ]
+      },
+      {
+        "Id": "MinimumPlayers",
+        "Title": "Minimum Players",
+        "Group": "Setup",
+        "Targets": [
+          {
+            "Id": "7e92a240-73c1-4860-9025-6e4f64c27b4f",
+            "Property": "MinPlayerCount"
+          }
+        ]
+      },
+      {
+        "Id": "MaxTeamSize",
+        "Title": "Max Team Size",
+        "Group": "Setup",
+        "Targets": [
+          {
+            "Id": "49a0734b-7af2-4771-81c2-876a43fa7a61",
+            "Property": "MaxTeamSize"
+          }
+        ]
+      },
+      {
+        "Id": "MaxRounds",
+        "Title": "Max Rounds",
+        "Group": "Round",
+        "Targets": [
+          {
+            "Id": "7c1720b4-9c06-4399-9ad9-dc8c9236680e",
+            "Property": "MaxRounds"
+          }
+        ]
+      },
+      {
+        "Id": "BuyTime",
+        "Title": "Buy Time",
+        "Group": "Round",
+        "Targets": [
+          {
+            "Id": "c9c2faf2-0ea5-48d5-9fef-e501a9fcf3d5",
+            "Property": "TimeLimit"
+          }
+        ]
+      },
+      {
+        "Id": "Title",
+        "Title": "Title",
+        "Group": "Display",
+        "Order": -100,
+        "Targets": [
+          {
+            "Id": "3d316172-22ea-48e3-b3c5-244ef04d8ba8",
+            "Property": "Title"
+          }
+        ]
+      },
+      {
+        "Id": "Description",
+        "Title": "Description",
+        "Group": "Display",
+        "Order": -100,
+        "Targets": [
+          {
+            "Id": "3d316172-22ea-48e3-b3c5-244ef04d8ba8",
+            "Property": "Description"
+          }
+        ]
+      },
+      {
+        "Id": "StartMoney",
+        "Title": "Start Money",
+        "Group": "Equipment",
+        "Targets": [
+          {
+            "Id": "25968e4f-e4ca-4e63-b1cc-d677d1213541",
+            "Property": "Value"
+          },
+          {
+            "Id": "dbaa1631-46a7-4019-accc-de8a0445800b",
+            "Property": "Value"
+          }
+        ]
+      },
+      {
+        "Id": "StartArmor",
+        "Title": "Start Armor",
+        "Group": "Equipment",
+        "Targets": [
+          {
+            "Id": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
+            "Property": "Armor"
+          }
+        ]
+      },
+      {
+        "Id": "StartHelmet",
+        "Title": "Start With Helmet",
+        "Group": "Equipment",
+        "Targets": [
+          {
+            "Id": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
+            "Property": "Helmet"
+          }
+        ]
+      },
+      {
+        "Id": "StartDefuseKit",
+        "Title": "Start With Defuse Kit",
+        "Group": "Equipment",
+        "Targets": [
+          {
+            "Id": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
+            "Property": "DefuseKit"
+          }
+        ]
+      },
+      {
+        "Id": "EarlyWinRounds",
+        "Title": "Early Win Rounds",
+        "Group": "Round",
+        "Targets": [
+          {
+            "Id": "d5c89b98-a4e2-4148-9890-4c6dcb56d60a",
+            "Property": "TargetScore"
+          }
+        ]
+      }
+    ]
   },
   "ShowInMenu": false,
   "MenuPath": null,

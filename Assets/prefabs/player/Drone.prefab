@@ -1,0 +1,248 @@
+{
+  "RootObject": {
+    "__guid": "d7e3a5b5-e9e0-4a9e-b42e-87df7e59991b",
+    "Flags": 0,
+    "Name": "drone",
+    "Tags": "noblockaudio",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.Drone",
+        "__guid": "8a194157-b852-4ddd-be48-c58c14931f47",
+        "AltitudeAcceleration": 1000,
+        "Camera": {
+          "_type": "component",
+          "component_id": "efa5dd07-38ee-4b91-932e-ef9e9f83201f",
+          "go": "fd9b9b62-c289-4ff5-b908-a65bb12e8b1a",
+          "component_type": "DroneCamera"
+        },
+        "Explosion": {
+          "_type": "gameobject",
+          "prefab": "prefabs/equipment/decoy_grenade_explode.prefab"
+        },
+        "LeanMaxVelocity": 1000,
+        "LeanWeight": 0.5,
+        "Model": {
+          "_type": "component",
+          "component_id": "d9d7105f-5147-4a07-87f2-ef20e48bddcf",
+          "go": "acbd53a6-325d-4471-a75a-02a57ea091cc",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "MovementAcceleration": 2500,
+        "Rigidbody": {
+          "_type": "component",
+          "component_id": "bb946ee0-afb8-4c03-98da-7952742a6940",
+          "go": "d7e3a5b5-e9e0-4a9e-b42e-87df7e59991b",
+          "component_type": "Rigidbody"
+        },
+        "Turbines": [
+          {
+            "_type": "gameobject",
+            "go": "baf9ce54-3d23-4a1f-b5d8-2357cbca27c9"
+          },
+          {
+            "_type": "gameobject",
+            "go": "36733d62-84e4-4537-800f-b0219db945d2"
+          },
+          {
+            "_type": "gameobject",
+            "go": "ead219e3-7555-480b-a88b-06c1ce90f1a4"
+          },
+          {
+            "_type": "gameobject",
+            "go": "ebff2285-7b20-4b64-9e36-7f215c54f853"
+          }
+        ],
+        "UprightDot": 0.5,
+        "UprightSpeed": 5000,
+        "YawSpeed": 3000
+      },
+      {
+        "__type": "Facepunch.HealthComponent",
+        "__guid": "4078a8a3-0850-481a-98a2-b8781bd82417",
+        "Health": 0,
+        "IsGodMode": false,
+        "State": "Alive"
+      },
+      {
+        "__type": "Facepunch.DroneSounds",
+        "__guid": "b79d2800-95fd-4e11-987f-04e5d87dd3f5",
+        "Drone": {
+          "_type": "component",
+          "component_id": "8a194157-b852-4ddd-be48-c58c14931f47",
+          "go": "d7e3a5b5-e9e0-4a9e-b42e-87df7e59991b",
+          "component_type": "Drone"
+        },
+        "DroneSound": "sounds/vehicles/fpv_drone/drone_fly_loop.sound"
+      },
+      {
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "bb946ee0-afb8-4c03-98da-7952742a6940",
+        "AngularDamping": 0,
+        "Gravity": true,
+        "LinearDamping": 0,
+        "Locking": {},
+        "MassOverride": 0,
+        "MotionEnabled": true,
+        "RigidbodyFlags": 0,
+        "StartAsleep": false
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "8d833fa2-a74d-4565-be04-a4b0908f049a",
+        "Center": "0,0,0",
+        "IsTrigger": false,
+        "Scale": "40,40,10",
+        "Static": false
+      },
+      {
+        "__type": "Facepunch.TeamComponent",
+        "__guid": "f8b4fecd-d7d8-4917-b865-020134bf0507",
+        "Team": "Unassigned"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "acbd53a6-325d-4471-a75a-02a57ea091cc",
+        "Flags": 0,
+        "Name": "Model",
+        "Rotation": "0,0,1,0.0000001947072",
+        "Scale": "0.4,0.4,0.4",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "d9d7105f-5147-4a07-87f2-ef20e48bddcf",
+            "BodyGroups": 18446744073709551615,
+            "CreateBoneObjects": true,
+            "Model": "entities/drone/drone.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "baf9ce54-3d23-4a1f-b5d8-2357cbca27c9",
+            "Flags": 1028,
+            "Name": "turbine_a",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "36733d62-84e4-4537-800f-b0219db945d2",
+            "Flags": 1028,
+            "Name": "turbine_b",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "ead219e3-7555-480b-a88b-06c1ce90f1a4",
+            "Flags": 1028,
+            "Name": "turbine_c",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "ebff2285-7b20-4b64-9e36-7f215c54f853",
+            "Flags": 1028,
+            "Name": "turbine_d",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          }
+        ]
+      },
+      {
+        "__guid": "fd9b9b62-c289-4ff5-b908-a65bb12e8b1a",
+        "Flags": 0,
+        "Name": "Camera",
+        "Position": "12.32678,0,0",
+        "Tags": "maincamera",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.DroneCamera",
+            "__guid": "efa5dd07-38ee-4b91-932e-ef9e9f83201f",
+            "Listener": {
+              "_type": "component",
+              "component_id": "e2d5d5b5-8235-44c0-a91e-0165d5f6a809",
+              "go": "fd9b9b62-c289-4ff5-b908-a65bb12e8b1a",
+              "component_type": "AudioListener"
+            }
+          },
+          {
+            "__type": "Sandbox.CameraComponent",
+            "__guid": "7ceb7dec-f6b5-4017-9f2b-0ac2ec6e0127",
+            "__enabled": false,
+            "BackgroundColor": "0.33333,0.46275,0.52157,1",
+            "ClearFlags": "All",
+            "FieldOfView": 60,
+            "IsMainCamera": true,
+            "Orthographic": false,
+            "OrthographicHeight": 1204,
+            "Priority": 1,
+            "RenderExcludeTags": "",
+            "RenderTags": "",
+            "TargetEye": "None",
+            "Viewport": "0,0,1,1",
+            "ZFar": 10000,
+            "ZNear": 10
+          },
+          {
+            "__type": "Sandbox.AudioListener",
+            "__guid": "e2d5d5b5-8235-44c0-a91e-0165d5f6a809",
+            "__enabled": false,
+            "UseCameraDirection": true
+          },
+          {
+            "__type": "Sandbox.Pixelate",
+            "__guid": "8f590518-21f6-48ea-95d5-144082fb507a",
+            "Scale": 0.1
+          },
+          {
+            "__type": "Sandbox.ChromaticAberration",
+            "__guid": "ed37a89e-fa96-44c3-84ee-17ed1a8daaee",
+            "Offset": "4,6,0",
+            "Scale": 0.33
+          },
+          {
+            "__type": "Sandbox.ColorAdjustments",
+            "__guid": "343946f5-c912-4fe3-826e-e4785fc926e2",
+            "Brightness": 1,
+            "Contrast": 1,
+            "HueRotate": 0,
+            "Saturation": 0.55
+          },
+          {
+            "__type": "Sandbox.Vignette",
+            "__guid": "f7024375-5e4a-40ad-862f-fca7349940e2",
+            "Center": "0.5,0.5",
+            "Color": "0,0,0,1",
+            "Intensity": 0.49,
+            "Roundness": 1,
+            "Smoothness": 1
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "rust.drone"
+  ],
+  "__version": 1
+}

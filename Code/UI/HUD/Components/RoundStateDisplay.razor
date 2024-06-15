@@ -13,9 +13,9 @@
     }
 
     <div class="flex column with-background with-padding with-px-lg h-full align-center justify-center" style="min-width: 195px; height: 75px;">
-        @if (GameMode.Instance.Components.Get<BombDefusalScenario>() is BombDefusalScenario { IsBombPlanted: true })
+        @if ( GameMode.Instance?.Get<ShowStatusIcon>() is { IconPath: { } path } )
         {
-            <Icon File="/ui/items/c4.png" size="64" />
+            <Icon File="@path" size="64" />
         }
         else
         {
@@ -42,8 +42,8 @@
     private Team MyTeam => GameUtils.LocalPlayer?.TeamComponent?.Team ?? Team.Unassigned;
     private Team EnemyTeam => MyTeam.GetOpponents();
 
-    private int MyTeamScore { get; set; } = 0;
-    private int EnemyTeamScore { get; set; } = 0;
+    private string MyTeamScore { get; set; } = "0";
+    private string EnemyTeamScore { get; set; } = "0";
 
     private IEnumerable<PlayerController> MyTeamPlayers { get; set; }
     private IEnumerable<PlayerController> EnemyTeamPlayers { get; set; }
@@ -83,10 +83,10 @@
             return;
         }
 
-        if (GameMode.Instance?.Components.GetInDescendantsOrSelf<TeamScoring>() is { } teamScoring)
+        if ( GameMode.Instance?.Get<TeamScoring>() is { } teamScoring )
         {
-            MyTeamScore = teamScoring.Scores.GetValueOrDefault(MyTeam);
-            EnemyTeamScore = teamScoring.Scores.GetValueOrDefault(EnemyTeam);
+            MyTeamScore = teamScoring.MyTeamScoreFormatted;
+            EnemyTeamScore = teamScoring.OpposingTeamScoreFormatted;
         }
 
         MyTeamPlayers = GameUtils.GetPlayers(MyTeam);

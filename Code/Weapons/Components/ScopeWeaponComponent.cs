@@ -23,26 +23,26 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		renderHook?.Dispose();
 		renderHook = null;
 
-		if ( !Weapon.IsValid() )
+		if ( !Equipment.IsValid() )
 			return;
 
-		if ( !Weapon.PlayerController.IsValid() )
+		if ( !Equipment.PlayerController.IsValid() )
 			return;
 
-		var camera = Weapon.PlayerController.CameraController;
+		var camera = Equipment.PlayerController.CameraController;
 
 		if ( ScopeOverlay is not null )
 			renderHook = camera.Camera.AddHookAfterTransparent( "Scope", 100, RenderEffect );
 
 		if ( ZoomSound is not null )
-			Sound.Play( ZoomSound, Weapon.GameObject.Transform.Position );
+			Sound.Play( ZoomSound, Equipment.GameObject.Transform.Position );
 
 		ZoomLevel = level;
-		Weapon.Tags.Add( "aiming" );
+		Equipment.Tags.Add( "aiming" );
 
-		if ( Weapon.ViewModel.IsValid() )
+		if ( Equipment.ViewModel.IsValid() )
 		{
-			Weapon.ViewModel.GameObject.Enabled = false;
+			Equipment.ViewModel.GameObject.Enabled = false;
 		}
 	}
 
@@ -51,18 +51,18 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		if ( renderHook is not null )
 			renderHook.Dispose();
 
-		if ( UnzoomSound is not null && Weapon.IsValid() )
-			Sound.Play( UnzoomSound, Weapon.GameObject.Transform.Position );
+		if ( UnzoomSound is not null && Equipment.IsValid() )
+			Sound.Play( UnzoomSound, Equipment.GameObject.Transform.Position );
 
 		ZoomLevel = 0;
 
-		if ( Weapon.IsValid() )
+		if ( Equipment.IsValid() )
 		{
-			Weapon.Tags.Remove( "aiming" );
+			Equipment.Tags.Remove( "aiming" );
 
-			if ( Weapon.ViewModel.IsValid() )
+			if ( Equipment.ViewModel.IsValid() )
 			{
-				Weapon.ViewModel.GameObject.Enabled = true;
+				Equipment.ViewModel.GameObject.Enabled = true;
 			}
 		}
 
@@ -111,12 +111,18 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		EndZoom();
 	}
 
+	public float GetFOV()
+	{
+		if ( ZoomLevel < 1 ) return 0f;
+		return ZoomLevels[Math.Clamp( ZoomLevel - 1, 0, ZoomLevels.Count )];
+	}
+
 	protected override void OnUpdate()
 	{
 		if ( !IsZooming )
 			return;
 
-		var camera = Weapon?.PlayerController?.CameraController;
+		var camera = Equipment?.PlayerController?.CameraController;
 		if ( !camera.IsValid() )
 			return;
 
@@ -125,18 +131,17 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			EndZoom();
 		}
 
-		if ( Weapon.PlayerController.CurrentWeapon != Weapon )
+		if ( Equipment.PlayerController.CurrentEquipment != Equipment )
 		{
 			EndZoom();
 		}
 
-		camera.AddFieldOfViewOffset( ZoomLevels[Math.Clamp( ZoomLevel - 1, 0, ZoomLevels.Count )] );
-		Weapon.PlayerController.AimDampening /= (ZoomLevel * ZoomLevel) + 1;
+		Equipment.PlayerController.AimDampening /= (ZoomLevel * ZoomLevel) + 1;
 
 		{
-			var cc = Weapon.PlayerController.CharacterController;
+			var cc = Equipment.PlayerController.CharacterController;
 
-			float velocity = Weapon.PlayerController.CharacterController.Velocity.Length / 25.0f;
+			float velocity = Equipment.PlayerController.CharacterController.Velocity.Length / 25.0f;
 			float blur = 1.0f / (velocity + 1.0f);
 			blur = MathX.Clamp( blur, 0.1f, 1.0f );
 
@@ -148,7 +153,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			else
 				BlurLerp = BlurLerp.LerpTo( blur, Time.Delta * 10.0f );
 
-			var angles = Weapon.PlayerController.EyeAngles;
+			var angles = Equipment.PlayerController.EyeAngles;
 			var delta = angles - LastAngles;
 
 			AnglesLerp = AnglesLerp.LerpTo( delta, Time.Delta * 10.0f );

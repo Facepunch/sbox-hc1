@@ -2,49 +2,38 @@ namespace Facepunch;
 
 public partial class PlayerController
 {
-	[DeveloperCommand( "-50 HP", "Player" )]
-	private static void Command_Hurt()
+	[DeveloperCommand( "-10 HP (head)", "Player" )]
+	private static void Command_HurtTenHead()
 	{
-		var player = GameUtils.Viewer;
-		if ( player.IsValid() )
-			player.HealthComponent.TakeDamage( 50, Vector3.Zero, Vector3.Zero, player.HealthComponent.Id );
+		var player = GameUtils.LocalPlayer;
+		player.HealthComponent.TakeDamage( new DamageInfo( player as Component, 10, Hitbox: HitboxTags.Head ) );
 	}
 
-	[DeveloperCommand( "-10 HP", "Player" )]
-	private static void Command_HurtTen()
+	[DeveloperCommand( "-10 HP (chest)", "Player" )]
+	private static void Command_HurtTenChest()
 	{
-		var player = GameUtils.Viewer;
-		if ( player.IsValid() )
-			player.HealthComponent.TakeDamage( 10, Vector3.Zero, Vector3.Zero, player.HealthComponent.Id );
+		var player = GameUtils.LocalPlayer;
+		player.HealthComponent.TakeDamage( new DamageInfo( player as Component, 10, Hitbox: HitboxTags.Chest ) );
 	}
 
 	[DeveloperCommand( "Heal", "Player" )]
 	private static void Command_Heal()
 	{
-		var player = GameUtils.Viewer;
-		if ( player.IsValid() )
-		{
-			player.HealthComponent.Health = player.HealthComponent.MaxHealth;
-		}
+		var player = GameUtils.LocalPlayer;
+		player.HealthComponent.Health = player.HealthComponent.MaxHealth;
 	}
 
 	[DeveloperCommand( "Suicide", "Player" ), ConCmd( "kill" )]
 	private static void Command_Suicide()
 	{
-		var player = GameUtils.Viewer;
-		if ( player.IsValid() )
-		{
-			player.Kill();
-		}
+		var player = GameUtils.LocalPlayer;
+		player.Kill();
 	}
 
 	[DeveloperCommand( "Give $1k", "Player" )]
 	private static void Command_GiveGrand()
 	{
-		var player = GameUtils.Viewer;
-		if ( player.IsValid() )
-		{
-			player.Inventory.GiveCash(1000);
-		}
+		var player = GameUtils.LocalPlayer;
+		player.Inventory.GiveCash(1000);
 	}
 }

@@ -1,3 +1,8 @@
+using Facepunch.UI;
+using Sandbox;
+using Sandbox.Diagnostics;
+using Sandbox.Events;
+
 namespace Facepunch;
 
 /// <summary>
@@ -27,11 +32,6 @@ public partial class HealthComponent : Component, IRespawnable
 	public RespawnState RespawnState { get; set; }
 
 	/// <summary>
-	/// How much to reduce damage by when we have armor.
-	/// </summary>
-	private float ArmorReduction => 0.775f;
-
-	/// <summary>
 	/// A list of all Respawnable things on this GameObject
 	/// </summary>
 	protected IEnumerable<IRespawnable> Respawnables => GameObject.Root.Components.GetAll<IRespawnable>(FindMode.EnabledInSelfAndDescendants);
@@ -42,28 +42,13 @@ public partial class HealthComponent : Component, IRespawnable
 	[Property, ReadOnly, HostSync, Change( nameof( OnHealthPropertyChanged ))]
 	public float Health { get; set; }
 
-	[Property, ReadOnly, HostSync]
-	public float Armor { get; set; }
-
 	public float MaxHealth => GetGlobal<PlayerGlobals>().MaxHealth;
-	public float MaxArmor => GetGlobal<PlayerGlobals>().MaxArmor;
-
-	[Property, ReadOnly, HostSync, Change( nameof( OnHasHelmetChanged ) )]
-	public bool HasHelmet { get; set; }
 
 	/// <summary>
 	/// What's our life state?
 	/// </summary>
 	[Property, ReadOnly, Group( "Life State" ), HostSync, Change( nameof( OnStatePropertyChanged )) ]
 	public LifeState State { get; set; }
-
-	protected void OnHasHelmetChanged( bool oldValue, bool newValue )
-	{
-		foreach ( var listener in GameObject.Root.Components.GetAll<IArmorListener>() )
-		{
-			listener?.OnHelmetChanged( newValue );
-		}
-	}
 
 	/// <summary>
 	/// Called when <see cref="Health"/> is changed across the network.
@@ -92,135 +77,101 @@ public partial class HealthComponent : Component, IRespawnable
 				break;
 		}
 	}
-	
-	/// <summary>
-	/// Calculate how much damage we soak in from armor, and remove armor
-	/// </summary>
-	/// <param name="damage"></param>
-	/// <returns></returns>
-	public float CalculateArmorDamage( float damage )
+
+	public void TakeDamage( DamageInfo damageInfo )
 	{
-		if ( Armor <= 0 )
-			return damage;
-		
-		Armor -= damage;
-		Armor = Armor.Clamp( 0f, 100f );
-		
-		return damage * GetGlobal<PlayerGlobals>().BaseArmorReduction;
+		Assert.True( Networking.IsHost );
+
+		damageInfo = WithThisAsVictim( damageInfo );
+		damageInfo = ModifyDamage( damageInfo );
+
+		BroadcastDamage( damageInfo );
+
+		if ( IsGodMode ) return;
+
+		Health = Math.Max( 0f, Health - damageInfo.Damage );
+
+		if ( Health > 0f || State != LifeState.Alive ) return;
+
+		State = LifeState.Dead;
+
+		BroadcastKill( damageInfo );
 	}
 
-	[DeveloperCommand( "Toggle Kevlar + Helmet", "Player" )]
-	private static void Dev_ToggleKevlarAndHelmet()
+	private DamageInfo WithThisAsVictim( DamageInfo damageInfo )
 	{
-		var player = GameUtils.Viewer;
-		if ( player.HealthComponent.HasHelmet )
+		var extraFlags = DamageFlags.None;
+		var hitbox = damageInfo.Hitbox;
+
+		if ( damageInfo.WasExplosion || damageInfo.WasMelee ) hitbox = HitboxTags.UpperBody;
+		if ( damageInfo.WasFallDamage ) hitbox = HitboxTags.Leg;
+
+		return damageInfo with
 		{
-			player.HealthComponent.Armor = 0;
-			player.HealthComponent.HasHelmet = false;
-		}
-		else
+			Victim = this,
+			Hitbox = hitbox,
+			Flags = damageInfo.Flags | extraFlags
+		};
+	}
+
+	private DamageInfo ModifyDamage( DamageInfo damageInfo )
+	{
+		var modifyEvent = new ModifyDamageEvent( damageInfo );
+
+		Scene.Dispatch( modifyEvent );
+
+		return modifyEvent.DamageInfo;
+	}
+
+	private void BroadcastDamage( DamageInfo damageInfo )
+	{
+		Log.Info( damageInfo );
+
+		BroadcastDamage( damageInfo.Damage, damageInfo.Position, damageInfo.Force,
+			damageInfo.Attacker?.Id ?? default, damageInfo.Inflictor?.Id ?? default,
+			damageInfo.Hitbox, damageInfo.Flags );
+	}
+
+	private void BroadcastKill( DamageInfo damageInfo )
+	{
+		BroadcastKill( damageInfo.Damage, damageInfo.Position, damageInfo.Force,
+			damageInfo.Attacker?.Id ?? default, damageInfo.Inflictor?.Id ?? default,
+			damageInfo.Hitbox, damageInfo.Flags );
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	private void BroadcastDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, HitboxTags hitbox = default, DamageFlags flags = default )
+	{
+		var attacker = Scene.Directory.FindComponentByGuid( attackerId );
+		var inflictor = Scene.Directory.FindComponentByGuid( inflictorId );
+
+		var damageInfo = new DamageInfo( attacker, damage, inflictor, position, force, hitbox, flags )
 		{
-			player.HealthComponent.Armor = player.HealthComponent.MaxArmor;
-			player.HealthComponent.HasHelmet = true;
+			Victim = GameUtils.GetPlayerFromComponent( this )
+		};
+
+		GameObject.Root.Dispatch( new DamageTakenEvent( damageInfo ) );
+
+		if ( damageInfo.Attacker.IsValid() )
+		{
+			damageInfo.Attacker.GameObject.Root.Dispatch( new DamageGivenEvent( damageInfo ) );
 		}
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
-	private void BroadcastKill( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, string hitbox = "", string tags = "" )
+	private void BroadcastKill( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, HitboxTags hitbox = default, DamageFlags flags = default )
 	{
 		var attacker = Scene.Directory.FindComponentByGuid( attackerId );
 		var inflictor = Scene.Directory.FindComponentByGuid( inflictorId );
 
-		var damageEvent = DamageEvent.From( attacker, damage, inflictor, position, force, hitbox, tags ) with { Victim = GameUtils.GetPlayerFromComponent( this ) };
-
-		foreach ( var listener in Scene.GetAllComponents<IKillListener>() )
+		var damageInfo = new DamageInfo( attacker, damage, inflictor, position, force, hitbox, flags )
 		{
-			listener.OnPlayerKilled( damageEvent );
-		}
-	}
+			Victim = this
+		};
 
-	private string GetFirstWord( string text )
-	{
-		var candidate = text.Trim();
-		if ( !candidate.Any( char.IsWhiteSpace ) )
-			return text;
-
-		return candidate.Split( ' ' ).FirstOrDefault();
-	}
-
-	[Broadcast]
-	public void TakeDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, string hitbox = "", string tags = "" )
-	{
-		var firstHitbox = GetFirstWord( hitbox );
-
-		var attacker = Scene.Directory.FindComponentByGuid( attackerId );
-		var inflictor = Scene.Directory.FindComponentByGuid( inflictorId );
-
-		var damageEvent = DamageEvent.From( attacker, damage, inflictor, position, force, hitbox, tags ) with { Victim = GameUtils.GetPlayerFromComponent( this ) };
-
-		// Edge case, but it's okay.
-		if ( firstHitbox == "head" && HasHelmet )
-			firstHitbox += " helmet";
-
-		if ( GetGlobal<PlayerGlobals>().GetDamageMultiplier( firstHitbox ) is { } damageMultiplier
-			&& !tags.Contains( "melee" ) )
-		{
-			damageEvent.Damage *= damageMultiplier;
-		}
-
-		damageEvent.Damage = damageEvent.Damage.CeilToInt();
-
-		// Only the host should control the damage state
-		if ( Networking.IsHost )
-		{
-			if ( !IsGodMode )
-			{
-				// Let armor try its hand
-				damageEvent.Damage = CalculateArmorDamage( damageEvent.Damage );
-
-				Health -= damageEvent.Damage;
-			}
-
-			// Did we die?
-			if ( Health <= 0f && State == LifeState.Alive )
-			{
-				State = LifeState.Dead;
-
-				BroadcastKill( damage, position, force, attackerId, inflictorId, hitbox, tags );
-			}
-		}
-
-		Log.Info( damageEvent );
-
-		var receivers = GameObject.Root.Components.GetAll<IDamageListener>();
-		foreach ( var x in receivers )
-		{
-			x.OnDamageTaken( damageEvent );
-		}
-
-		if ( attacker.IsValid() )
-		{
-			var givers = attacker.GameObject.Root.Components.GetAll<IDamageListener>();
-			foreach ( var x in givers )
-			{
-				x.OnDamageGiven( damageEvent );
-			}
-		}
-
-		if ( hitbox.Contains( "head" ) )
-		{
-			// Helmet negates headshot damage
-			if ( HasHelmet )
-			{
-				if ( !IsGodMode && Networking.IsHost )
-				{
-					HasHelmet = false;
-				}
-			}
-		}
+		Scene.Dispatch( new KillEvent( damageInfo ) );
 	}
 }
-
 
 /// <summary>
 /// The component's life state.
@@ -245,10 +196,4 @@ public interface IRespawnable
 {
 	public void Respawn() { }
 	public void Kill() { }
-}
-
-public interface IArmorListener
-{
-	public void OnHelmetChanged( bool hasHelmet ) { }
-	public void OnArmorChanged( float oldValue, float newValue ) { }
 }

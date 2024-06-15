@@ -39,23 +39,23 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 		{
 			Position = Transform.Position + Vector3.Up * 70 + DistOffset,
 			Rotation = Transform.Rotation,
-			DisplayText = Player.GetPlayerName()
+			DisplayText = Player.DisplayName
 		};
 	}
 
 	/// <summary>
 	/// What type of icon are we using on the minimap?
 	/// </summary>
-	MinimapIconType IMinimapIcon.IconType
+	string IMinimapIcon.IconPath
 	{
 		get
 		{
-			if ( IsEnemy ) return IsMissing ? MinimapIconType.PlayerEnemyMissing : MinimapIconType.PlayerEnemy;
-			if ( !IsAlive ) return MinimapIconType.PlayerDead;
-
-			return MinimapIconType.Player;
+			if ( IsEnemy ) return IsMissing ? "ui/minimaps/enemy_missing.png" : "ui/minimaps/enemy_icon.png";
+			if ( !IsAlive ) return "ui/minimaps/icon-map_skull.png";
+			return "ui/minimaps/player_icon.png";
 		}
 	}
+
 
 	/// <summary>
 	/// Is this a directional icon?
@@ -87,7 +87,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <summary>
 	/// Is this player an enemy of the viewer?
 	/// </summary>
-	bool IsEnemy => GameUtils.Viewer is not null && GameUtils.Viewer.TeamComponent.Team != Player.TeamComponent.Team;
+	bool IsEnemy => GameUtils.Viewer.Player.TeamComponent.Team != Player.TeamComponent.Team;
 
 	/// <summary>
 	/// Did we spot this player recently?
@@ -99,7 +99,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// </summary>
 	/// <param name="viewer"></param>
 	/// <returns></returns>
-	bool IMinimapElement.IsVisible( PlayerController viewer )
+	bool IMinimapElement.IsVisible( IPawn viewer )
 	{
 		if ( Player.Tags.Has( "invis" ) )
 			return false;
@@ -114,6 +114,6 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 				return true;
 		}
 
-		return viewer.TeamComponent.Team == Player.TeamComponent.Team;
+		return viewer.Team == Player.TeamComponent.Team;
 	}
 }

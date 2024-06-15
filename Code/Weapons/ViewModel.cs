@@ -4,12 +4,12 @@ namespace Facepunch;
 /// A weapon's viewmodel. It's responsibility is to listen to events from a weapon.
 /// It should only exist on the client for the currently possessed pawn.
 /// </summary>
-public partial class ViewModel : Component, IWeapon
+public partial class ViewModel : Component, IEquipment
 {
 	/// <summary>
-	/// A reference to the <see cref="Weapon"/> we want to listen to.
+	/// A reference to the <see cref="Equipment"/> we want to listen to.
 	/// </summary>
-	public Weapon Weapon { get; set; }
+	public Equipment Equipment { get; set; }
 
 	/// <summary>
 	/// A reference to the viewmodel's arms.
@@ -24,7 +24,7 @@ public partial class ViewModel : Component, IWeapon
 	/// <summary>
 	/// Looks up the tree to find the player controller.
 	/// </summary>
-	PlayerController PlayerController => Weapon.PlayerController;
+	PlayerController PlayerController => Equipment.PlayerController;
 
 	[Property, Group( "GameObjects" )] public GameObject Muzzle { get; set; }
 	[Property, Group( "GameObjects" )] public GameObject EjectionPort { get; set; }
@@ -44,7 +44,7 @@ public partial class ViewModel : Component, IWeapon
 	/// </summary>
 	public CameraComponent ViewModelCamera { get; set; }
 
-	IEnumerable<IViewModelOffset> Offsets => Weapon.Components.GetAll<IViewModelOffset>( FindMode.EverythingInSelfAndDescendants );
+	IEnumerable<IViewModelOffset> Offsets => Equipment.Components.GetAll<IViewModelOffset>( FindMode.EverythingInSelfAndDescendants );
 
 	/// <summary>
 	/// Does this viewmodel have any offests for aiming?
@@ -82,7 +82,7 @@ public partial class ViewModel : Component, IWeapon
 		if ( !ModelRenderer.Enabled ) return;
 
 		var bone = ModelRenderer.SceneModel.GetBoneLocalTransform( "camera" );
-		var camera = Weapon.PlayerController.CameraGameObject;
+		var camera = Equipment.PlayerController.CameraGameObject;
 
 		var scale = GameSettingsSystem.Current.ViewBob / 100f;
 
@@ -102,7 +102,7 @@ public partial class ViewModel : Component, IWeapon
 
 	void ApplyInertia()
 	{
-		var camera = Weapon.PlayerController.CameraGameObject;
+		var camera = Equipment.PlayerController.CameraGameObject;
 		var inRot = camera.Transform.Rotation;
 
 		// Need to fetch data from the camera for the first frame
@@ -142,7 +142,7 @@ public partial class ViewModel : Component, IWeapon
 		var moveLen = moveVel.Length;
 
 		var wishLook = PlayerController.WishMove.Normal * 1f;
-		if ( Weapon?.Tags.Has( "aiming" ) ?? false ) wishLook = 0;
+		if ( Equipment?.Tags.Has( "aiming" ) ?? false ) wishLook = 0;
 
 		if ( PlayerController.IsSlowWalking || PlayerController.IsCrouching ) moveLen *= 0.2f;
 
@@ -163,14 +163,14 @@ public partial class ViewModel : Component, IWeapon
 		ModelRenderer.Set( "b_grounded", PlayerController.IsGrounded );
 
 		// Ironsights
-		ModelRenderer.Set( "ironsights", Weapon.Tags.Has( "aiming" ) ? Ironsights : 0 );
-		ModelRenderer.Set( "ironsights_fire_scale", Weapon.Tags.Has( "aiming" ) ? 0.2f : 0f );
+		ModelRenderer.Set( "ironsights", Equipment.Tags.Has( "aiming" ) ? Ironsights : 0 );
+		ModelRenderer.Set( "ironsights_fire_scale", Equipment.Tags.Has( "aiming" ) ? 0.2f : 0f );
 
 		// Handedness
 		ModelRenderer.Set( "b_twohanded", true );
 
 		// Weapon state
-		ModelRenderer.Set( "b_empty", !Weapon.Components.Get<AmmoComponent>( FindMode.EnabledInSelfAndDescendants )?.HasAmmo ?? false );
+		ModelRenderer.Set( "b_empty", !Equipment.Components.Get<AmmoComponent>( FindMode.EnabledInSelfAndDescendants )?.HasAmmo ?? false );
 	}
 	
 	public enum ThrowableTypeEnum
@@ -185,7 +185,7 @@ public partial class ViewModel : Component, IWeapon
 
 	private void ApplyThrowableAnimations()
 	{
-		var throwFn = Weapon.Components.Get<ThrowWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
+		var throwFn = Equipment.Components.Get<ThrowWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
 
 		ModelRenderer.Set( "b_idle", throwFn.ThrowState == ThrowWeaponComponent.State.Idle );
 		ModelRenderer.Set( "b_pull", throwFn.ThrowState == ThrowWeaponComponent.State.Cook );

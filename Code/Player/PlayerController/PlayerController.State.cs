@@ -10,6 +10,11 @@ public partial class PlayerController
 	[RequireComponent] public HealthComponent HealthComponent { get; private set; }
 
 	/// <summary>
+	/// The player's health component
+	/// </summary>
+	[RequireComponent] public ArmorComponent ArmorComponent { get; private set; }
+
+	/// <summary>
 	/// The player's inventory, items, etc.
 	/// </summary>
 	[RequireComponent] public PlayerInventory Inventory { get; private set; }
@@ -37,8 +42,8 @@ public partial class PlayerController
 		if ( Networking.IsHost )
 		{
 			HealthComponent.State = LifeState.Dead;
-			HealthComponent.HasHelmet = false;
-			HealthComponent.Armor = 0f;
+			ArmorComponent.HasHelmet = false;
+			ArmorComponent.Armor = 0f;
 		}
 
 		if ( enableRagdoll )
@@ -50,13 +55,12 @@ public partial class PlayerController
 			Body.DamageTakenForce = Vector3.Zero;
 		}
 
-		if ( IsProxy || IsBot )
+		if ( IsProxy )
 			return;
 
 		Holster();
 
 		_previousVelocity = Vector3.Zero;
-		InBuyMenu = false;
 		IsSpectating = true;
 		CameraController.Mode = CameraMode.ThirdPerson;
 	}
@@ -80,8 +84,8 @@ public partial class PlayerController
 		Assert.True( Networking.IsHost );
 
 		HealthComponent.State = LifeState.Dead;
-		HealthComponent.HasHelmet = false;
-		HealthComponent.Armor = 0f;
+		ArmorComponent.HasHelmet = false;
+		ArmorComponent.Armor = 0f;
 		HealthComponent.RespawnState = RespawnState.None;
 
 		GameObject.Tags.Set( "invis", true );
@@ -90,13 +94,12 @@ public partial class PlayerController
 
 		CameraController.Mode = CameraMode.ThirdPerson;
 		IsSpectating = true;
-		InBuyMenu = false;
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
 	public void Respawn()
 	{
-		// Log.Info( $"Respawn( {GameObject.Name} ({GetPlayerName()}, {TeamComponent.Team}) )" );
+		// Log.Info( $"Respawn( {GameObject.Name} ({DisplayName}, {TeamComponent.Team}) )" );
 
 		ResetBody();
 
@@ -114,13 +117,16 @@ public partial class PlayerController
 			GameMode.Instance?.SendSpawnConfirmation( Id );
 		}
 
-		if ( IsProxy || IsBot )
+		if ( IsProxy )
 			return;
 
-		(this as IPawn).Possess();
-		
 		// Conna: we're not spectating if we just respawned.
 		IsSpectating = false;
+
+		if ( !IsBot )
+		{
+			PlayerState.Possess();
+		}
 	}
 
 	public void Teleport( Transform transform )

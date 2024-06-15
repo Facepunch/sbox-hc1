@@ -1,5 +1,6 @@
 using Facepunch.UI;
 using Sandbox;
+using Sandbox.Events;
 
 namespace Facepunch;
 
@@ -9,7 +10,7 @@ public enum CameraMode
 	ThirdPerson
 }
 
-public sealed class CameraController : Component, IDamageListener
+public sealed class CameraController : Component, IGameEventHandler<DamageTakenEvent>
 {
 	/// <summary>
 	/// A reference to the camera component we're going to be doing stuff with.
@@ -32,7 +33,7 @@ public sealed class CameraController : Component, IDamageListener
 	[DeveloperCommand( "Drop Audio Listener", "Player" )]
 	static void ToggleAudioListenerMode()
 	{
-		var player = GameUtils.Viewer;
+		var player = GameUtils.Viewer.Player;
 		if ( player.CameraController.AudioListenerModeToggled )
 		{
 			// Return the audio listener to the camera 
@@ -52,6 +53,7 @@ public sealed class CameraController : Component, IDamageListener
 	}
 
 	[Property] public float ThirdPersonDistance { get; set; } = 128f;
+	[Property] public float AimFovOffset { get; set; } = -5f;
 
 	private CameraMode _mode;
 	public CameraMode Mode
@@ -94,24 +96,38 @@ public sealed class CameraController : Component, IDamageListener
 	/// <param name="eyeHeight"></param>
 	internal void UpdateFromEyes( float eyeHeight )
 	{
-		if ( Player.IsLocallyControlled )
+		// All transform effects are additive to camera local position, so we need to reset it before anything is applied
+		Camera.Transform.LocalPosition = Vector3.Zero;
+		Camera.Transform.LocalRotation = Rotation.Identity;
+
+		if ( Mode == CameraMode.ThirdPerson && !Player.IsLocallyControlled )
 		{
-			Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
+			// orbit cam: spectating only
+			var angles = Boom.Transform.Rotation.Angles();
+			angles += Input.AnalogLook;
+			Boom.Transform.Rotation = angles.WithPitch( angles.pitch.Clamp( -90, 90 ) ).ToRotation();
 		}
 		else
 		{
-			Boom.Transform.Rotation = Rotation.Lerp( Boom.Transform.Rotation,
-				Player.EyeAngles.ToRotation(), Time.Delta / Scene.NetworkRate );
+			Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
 		}
 
-		Boom.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
+		if ( MaxBoomLength > 0 )
+		{
+			var tr = Scene.Trace.Ray( new Ray( Boom.Transform.Position, Boom.Transform.Rotation.Backward ), MaxBoomLength )
+				.IgnoreGameObjectHierarchy( GameObject.Root )
+				.WithoutTags( "trigger", "player" )
+				.Run();
+
+			Camera.Transform.LocalPosition = Vector3.Backward * (tr.Hit ? tr.Distance - 5.0f : MaxBoomLength);
+		}
 
 		if ( ShouldViewBob )
 		{
 			ViewBob();
 		}
 
-		Update();
+		Update( eyeHeight );
 	}
 
 	float walkBob = 0;
@@ -150,10 +166,24 @@ public sealed class CameraController : Component, IDamageListener
 		base.OnStart();
 	}
 
-	protected void Update()
+	private void ApplyScope()
+	{
+		if ( Player?.CurrentEquipment?.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } scope )
+		{
+			var fov = scope.GetFOV();
+			FieldOfViewOffset -= fov;
+		}
+	}
+
+	private void Update( float eyeHeight )
 	{
 		var baseFov = GameSettingsSystem.Current.FieldOfView;
 		FieldOfViewOffset = 0;
+
+		if ( Player.CurrentEquipment?.Tags.Has( "aiming" ) ?? false )
+		{
+			FieldOfViewOffset += AimFovOffset;
+		}
 
 		if ( ColorAdjustments is not null )
 		{
@@ -163,21 +193,9 @@ public sealed class CameraController : Component, IDamageListener
 		}
 
 		ApplyRecoil();
+		ApplyScope();
 
-		if ( MaxBoomLength > 0 )
-		{
-			var tr = Scene.Trace.Ray( new Ray( Boom.Transform.Position, Boom.Transform.Rotation.Backward ), MaxBoomLength )
-			.IgnoreGameObjectHierarchy( GameObject.Root )
-			.WithoutTags( "trigger", "player" )
-			.Run();
-
-			Camera.Transform.LocalPosition = Vector3.Backward * (tr.Hit ? tr.Distance - 5.0f : MaxBoomLength);
-			Camera.Transform.LocalPosition += Vector3.Right * 20f;
-		}
-		else
-		{
-			Camera.Transform.LocalPosition = Vector3.Backward * 0f;
-		}
+		Boom.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
 
 		ApplyCameraEffects();
 		ScreenShaker?.Apply( Camera );
@@ -187,13 +205,9 @@ public sealed class CameraController : Component, IDamageListener
 	}
 	RealTimeSince TimeSinceDamageTaken = 1;
 
-	void IDamageListener.OnDamageTaken( DamageEvent damageEvent )
+	void IGameEventHandler<DamageTakenEvent>.OnGameEvent( DamageTakenEvent eventArgs )
 	{
 		TimeSinceDamageTaken = 0;
-	}
-
-	void IDamageListener.OnDamageGiven( DamageEvent damageEvent )
-	{
 	}
 
 	void ApplyCameraEffects()
@@ -206,7 +220,7 @@ public sealed class CameraController : Component, IDamageListener
 
 	void ApplyRecoil()
 	{
-		if ( Player.CurrentWeapon.IsValid() && Player.CurrentWeapon?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } fn )
+		if ( Player.CurrentEquipment.IsValid() && Player.CurrentEquipment?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } fn )
 			Player.EyeAngles += fn.Current;
 	}
 

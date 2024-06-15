@@ -6,22 +6,22 @@
     @foreach ( var entry in Entries )
     {
         <div class="entry @(entry.IsLocal ? "local" : "")">
-            @if ( entry.DamageEvent.Attacker.IsValid() )
+            @if ( entry.DamageInfo.Attacker.IsValid() )
             {
-                <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.DamageEvent.Attacker ) />
+                <PlayerPanel Pawn=@GameUtils.GetPawn( entry.DamageInfo.Attacker ) />
             }
 
             <div class="method">
-                @if ( GameUtils.GetWeaponFromComponent( entry.DamageEvent.Inflictor ) is {} weapon )
+                @if ( GameUtils.FindEquipment( entry.DamageInfo.Inflictor ) is { } weapon )
                 {
                     <div class="icon" style="background-image: url( @weapon.Resource.Icon );" />
 
-                    @if ( entry.DamageEvent.Hitboxes.Contains( "head" ) )
+                    @if ( entry.DamageInfo.Hitbox.HasFlag( HitboxTags.Head ) )
                     {
                         <Icon class="headshot" File="/ui/headshot.png" size="32" />
                     }
                 }
-                else if ( entry.DamageEvent.Inflictor is TimedExplosive bomb )
+                else if ( entry.DamageInfo.Inflictor is TimedExplosive bomb )
                 {
                     <Icon File="/ui/bomb.png" size="32"></Icon>
                 }
@@ -31,30 +31,27 @@
                 }
             </div>
 
-            @if ( entry.DamageEvent.Victim.IsValid() )
-            {
-                <PlayerPanel Player=@GameUtils.GetPlayerFromComponent( entry.DamageEvent.Victim ) />
-            }
+            <PlayerPanel Pawn=@GameUtils.GetPawn( entry.DamageInfo.Victim ) />
         </div>
     }
 </root>
 
 @code
 {
-    public record Entry( DamageEvent DamageEvent, RealTimeSince TimeSinceAdded )
+    public record Entry( DamageInfo DamageInfo, RealTimeSince TimeSinceAdded )
     {
         public bool IsLocal => 
-            (GameUtils.GetPlayerFromComponent(DamageEvent.Attacker)?.IsLocallyControlled ?? false) ||
-            (GameUtils.GetPlayerFromComponent(DamageEvent.Victim)?.IsLocallyControlled ?? false);
+            (GameUtils.GetPawn( DamageInfo.Attacker )?.IsLocallyControlled ?? false) ||
+            (GameUtils.GetPawn( DamageInfo.Victim )?.IsLocallyControlled ?? false);
     }
 
     private List<Entry> Entries { get; set; } = new();
 
     private float Lifetime => 10f;
 
-    public void OnPlayerKilled( DamageEvent damageEvent )
+    public void OnPlayerKilled( DamageInfo damageInfo )
     {
-        var entry = new Entry( damageEvent, 0 );
+        var entry = new Entry( damageInfo, 0 );
         Entries.Add( entry );
         StateHasChanged();
     }

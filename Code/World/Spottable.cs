@@ -1,9 +1,12 @@
-﻿namespace Facepunch;
+﻿using Sandbox.Events;
+
+namespace Facepunch;
 
 /// <summary>
-/// Tracks wether something has been seen by the enemy team.
+/// Tracks whether something has been seen by the enemy team.
 /// </summary>
-public sealed class Spottable : Component, IRoundStartListener
+public sealed class Spottable : Component,
+	IGameEventHandler<BetweenRoundCleanupEvent>
 {
 	/// <summary>
 	/// The team this belongs to.
@@ -66,7 +69,7 @@ public sealed class Spottable : Component, IRoundStartListener
 		HasBeenSpotted = true;
 	}
 
-	void IRoundStartListener.PreRoundStart()
+	void IGameEventHandler<BetweenRoundCleanupEvent>.OnGameEvent( BetweenRoundCleanupEvent eventArgs )
 	{
 		LastSpotted = 999;
 		HasBeenSpotted = false;

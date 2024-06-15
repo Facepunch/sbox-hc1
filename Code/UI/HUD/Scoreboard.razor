@@ -23,7 +23,7 @@
             {
                 <div class="flex gap-sm align-center">
                     <Icon file="/ui/teams/spectator.png" size="16" />
-                    <label class="small grey">@(string.Join(", ", group.Select(x => x.GetPlayerName()))</label>
+                    <label class="small grey">@(string.Join(", ", group.Select(x => x.DisplayName))</label>
                 </div>
             }
             else
@@ -36,9 +36,9 @@
 
                     <separator style="background-color: @group.Key.GetColor().Hex" />
 
-                    @if ( GameMode.Instance.Components.GetInDescendantsOrSelf<TeamScoring>() is { } scoring )
+                    @if ( GameMode.Instance.Get<TeamScoring>() is { } scoring )
                     {
-                        <label class="emphasis">@scoring.Scores.GetValueOrDefault(group.Key)</label>
+                        <label class="emphasis">@scoring.GetFormattedScore(group.Key)</label>
 		            }
                 </span>
 

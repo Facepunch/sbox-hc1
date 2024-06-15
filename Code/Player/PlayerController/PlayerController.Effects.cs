@@ -49,7 +49,7 @@ public partial class PlayerController
 		if ( HealthComponent.IsGodMode )
 			return true;
 
-		var localPlayer = GameUtils.Viewer;
+		var localPlayer = GameUtils.Viewer.Player;
 		return localPlayer.IsValid() && TeamComponent.Team == localPlayer.TeamComponent.Team;
 	}
 
@@ -69,7 +69,7 @@ public partial class PlayerController
 		if ( SpectateSystem.Instance.IsSpectating )
 			Outline.ObscuredColor = TeamComponent.Team.GetColor();
 		else
-			Outline.ObscuredColor = GameUtils.Viewer is { TeamComponent.Team: var localTeam } && localTeam == TeamComponent.Team
+			Outline.ObscuredColor = GameUtils.Viewer.Player.TeamComponent.Team == TeamComponent.Team
 				? PlayerColor : Color.Transparent;
 	}
 }

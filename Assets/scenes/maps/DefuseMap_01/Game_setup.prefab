@@ -12,7 +12,7 @@
         "Flags": 0,
         "Name": "Game Modes",
         "Enabled": true,
-        "NetworkMode": 2,
+        "NetworkMode": 1,
         "NetworkInterpolation": true,
         "Children": [
           {
@@ -22,7 +22,8 @@
             "Enabled": true,
             "NetworkMode": 1,
             "NetworkInterpolation": true,
-            "__Prefab": "prefabs/game_modes/team_deathmatch.prefab"
+            "__Prefab": "prefabs/game_modes/team_deathmatch.prefab",
+            "__PrefabVariables": {}
           },
           {
             "__guid": "db36f630-582d-43ef-92a1-b7edddf9407b",
@@ -31,16 +32,73 @@
             "Enabled": true,
             "NetworkMode": 1,
             "NetworkInterpolation": true,
-            "__Prefab": "prefabs/game_modes/bomb_defusal.prefab"
+            "__Prefab": "prefabs/game_modes/bomb_defusal.prefab",
+            "__PrefabVariables": {
+              "FreezeTime": 5,
+              "RoundTime": 120,
+              "WaitForPlayersTime": 60,
+              "MinimumPlayers": 2,
+              "MaxTeamSize": 10,
+              "MaxRounds": 30,
+              "BuyTime": 30,
+              "Title": "Casual Defuse",
+              "Description": "",
+              "StartMoney": 1000,
+              "StartArmor": 100,
+              "StartHelmet": true,
+              "StartDefuseKit": true,
+              "EarlyWinRounds": 30
+            }
           },
           {
-            "__guid": "b04d6cd3-2656-4489-b830-d9e3cfe72ed0",
+            "__guid": "4db4b542-ddcd-4904-b78c-97b0685afca3",
             "Flags": 0,
             "Name": "Competitive Defuse",
             "Enabled": true,
             "NetworkMode": 1,
             "NetworkInterpolation": true,
-            "__Prefab": "prefabs/game_modes/bomb_defusal_5v5.prefab"
+            "__Prefab": "prefabs/game_modes/bomb_defusal.prefab",
+            "__PrefabVariables": {
+              "FreezeTime": 15,
+              "RoundTime": 120,
+              "WaitForPlayersTime": 120,
+              "MinimumPlayers": 10,
+              "MaxTeamSize": 5,
+              "MaxRounds": 30,
+              "BuyTime": 15,
+              "Title": "Competitive Defuse",
+              "Description": "",
+              "StartMoney": 800,
+              "StartArmor": 0,
+              "StartHelmet": false,
+              "StartDefuseKit": false,
+              "EarlyWinRounds": 16
+            }
+          },
+          {
+            "__guid": "76f6dd0a-19f6-4649-83df-5e5def8158a9",
+            "Flags": 0,
+            "Name": "Cash Grab",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "__Prefab": "prefabs/game_modes/cash_grab.prefab",
+            "__PrefabVariables": {
+              "FreezeTime": 10,
+              "RoundTime": 120,
+              "WaitForPlayersTime": 60,
+              "MinimumPlayers": 2,
+              "MaxTeamSize": 5,
+              "MaxRounds": 30,
+              "BuyTime": 15,
+              "Title": "Cash Grab",
+              "Description": "",
+              "StartMoney": 800,
+              "StartArmor": 0,
+              "StartHelmet": false,
+              "StartDefuseKit": false,
+              "EarlyWinRounds": 16
+            }
           }
         ]
       },
@@ -113,7 +171,7 @@
             "__guid": "843ab22f-5541-4fb8-bc8c-759f41e35140",
             "FreecamController": {
               "_type": "component",
-              "component_id": "266e71d3-d990-4224-9287-1ca19ad76619",
+              "component_id": "b0cef8cc-1c5b-4c08-a81b-e87703fa786c",
               "go": "89e9bfbf-5479-448a-be07-24914e1c82c3",
               "component_type": "SpectateController"
             }
@@ -128,7 +186,8 @@
             "Enabled": true,
             "NetworkMode": 2,
             "NetworkInterpolation": true,
-            "__Prefab": "prefabs/player/spectate.prefab"
+            "__Prefab": "prefabs/player/spectate.prefab",
+            "__PrefabVariables": {}
           }
         ]
       },
@@ -170,7 +229,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

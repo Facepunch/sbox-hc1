@@ -1,7 +1,10 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 [Title( "Throw Weapon" ), Group( "Weapon Components" )]
-public partial class ThrowWeaponComponent : InputWeaponComponent, Weapon.IDeploymentListener
+public partial class ThrowWeaponComponent : InputWeaponComponent,
+	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	[Property] public float CookTime { get; set; } = 0.5f;
 	[Property] public GameObject Prefab { get; set; }
@@ -20,7 +23,7 @@ public partial class ThrowWeaponComponent : InputWeaponComponent, Weapon.IDeploy
 	private TimeSince TimeSinceAction { get; set; }
 	private bool HasThrownOnHost { get; set; }
 
-	void Weapon.IDeploymentListener.OnHolstered( Weapon weapon )
+	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
 	{
 		if ( IsProxy ) return;
 		if ( ThrowState == State.Thrown ) return;
@@ -51,8 +54,8 @@ public partial class ThrowWeaponComponent : InputWeaponComponent, Weapon.IDeploy
 		if ( Networking.IsHost && HasThrownOnHost && TimeSinceAction > 0.25f )
 		{
 			// We want to remove the weapon on the host only.
-			var player = Weapon.PlayerController;
-			player.Inventory.RemoveWeapon( Weapon );
+			var player = Equipment.PlayerController;
+			player.Inventory.RemoveWeapon( Equipment );
 			return;
 		}
 		
@@ -75,7 +78,7 @@ public partial class ThrowWeaponComponent : InputWeaponComponent, Weapon.IDeploy
 	[Broadcast]
 	protected void Throw()
 	{
-		var player = Weapon.PlayerController;
+		var player = Equipment.PlayerController;
 		
 		if ( !IsProxy )
 		{
@@ -84,7 +87,7 @@ public partial class ThrowWeaponComponent : InputWeaponComponent, Weapon.IDeploy
 				.WithoutTags( "trigger" )
 				.Run();
 
-			var position = tr.Hit ? tr.HitPosition + tr.Normal * Weapon.Resource.WorldModel.Bounds.Size.Length : player.AimRay.Position + player.AimRay.Forward * 32f;
+			var position = tr.Hit ? tr.HitPosition + tr.Normal * Equipment.Resource.WorldModel.Bounds.Size.Length : player.AimRay.Position + player.AimRay.Forward * 32f;
 			var rotation = Rotation.From( 0, player.EyeAngles.yaw + 90f, 90f );
 			var baseVelocity = player.CharacterController.Velocity;
 			var dropped = Prefab.Clone( position, rotation );

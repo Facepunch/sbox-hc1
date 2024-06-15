@@ -1,8 +1,8 @@
 namespace Facepunch;
 
 public static class Explosion
-{	
-	public static void AtPoint( Vector3 point, float radius, float baseDamage, Guid attackerId = default, Guid inflictorId = default, Curve falloff = default )
+{
+	public static void AtPoint( Vector3 point, float radius, float baseDamage, Component attacker = null, Component inflictor = null, Curve falloff = default )
 	{
 		if ( falloff.Frames.Count == 0 )
 		{
@@ -13,7 +13,6 @@ public static class Explosion
 		if ( !scene.IsValid() ) return;
 
 		var objectsInArea = scene.FindInPhysics( new Sphere( point, radius ) );
-		var inflictor = scene.Directory.FindComponentByGuid( inflictorId );
 		var inflictorRoot = inflictor?.GameObject?.Root;
 
 		var trace = scene.Trace
@@ -40,7 +39,7 @@ public static class Explosion
 			var direction = (obj.Transform.Position - point).Normal;
 			var force = direction * distance * 50f;
 			
-			hc.TakeDamage( damage, point, force, attackerId, inflictorId );
+			hc.TakeDamage( new DamageInfo( attacker, damage, inflictor, point, force, Flags: DamageFlags.Explosion ) );
 		}
 	}
 }

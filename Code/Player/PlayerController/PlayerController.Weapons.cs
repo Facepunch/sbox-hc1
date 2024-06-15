@@ -1,25 +1,20 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
-public partial class PlayerController
+public partial class PlayerController :
+	IGameEventHandler<EquipmentDeployedEvent>,
+	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	/// <summary>
 	/// What weapon are we using?
 	/// </summary>
-	[Property, ReadOnly] public Weapon CurrentWeapon { get; private set; }
+	[Property, ReadOnly] public Equipment CurrentEquipment { get; private set; }
 
 	/// <summary>
 	/// A <see cref="GameObject"/> that will hold our ViewModel.
 	/// </summary>
 	[Property] public GameObject ViewModelGameObject { get; set; }
-
-	/// <summary>
-	/// How much spread should we add based on how fast the player is moving
-	/// </summary>
-	[Property, Group( "Spread" )] public float VelocitySpreadScale { get; set; } = 0.1f;
-	[Property, Group( "Spread" )] public float AimSpreadScale { get; set; } = 0.5f;
-	[Property, Group( "Spread" )] public float CrouchSpreadScale { get; set; } = 0.5f;
-	[Property, Group( "Spread" )] public float AirSpreadScale { get; set; } = 2.0f;
-	[Property, Group( "Spread" )] public float SpreadVelocityLimit { get; set; } = 350f;
 
 	/// <summary>
 	/// How inaccurate are things like gunshots?
@@ -28,41 +23,43 @@ public partial class PlayerController
 
 	private void UpdateRecoilAndSpread()
 	{
-		var spread = 0f;
-		var scale = VelocitySpreadScale;
-		if ( CurrentWeapon?.Tags.Has( "aiming" ) ?? false ) scale *= AimSpreadScale;
+		bool isAiming = CurrentEquipment?.Tags.Has( "aiming" ) ?? false;
+		var spread = Global.BaseSpreadAmount;
+		var scale = Global.VelocitySpreadScale;
+		if ( isAiming ) spread *= Global.AimSpread;
+		if ( isAiming ) scale *= Global.AimVelocitySpreadScale;
 
 		var velLen = CharacterController.Velocity.Length;
-		spread += velLen.Remap( 0, SpreadVelocityLimit, 0, 1, true ) * scale;
+		spread += velLen.Remap( 0, Global.SpreadVelocityLimit, 0, 1, true ) * scale;
 
-		if ( IsCrouching && IsGrounded ) spread *= CrouchSpreadScale;
-		if ( !IsGrounded ) spread *= AirSpreadScale;
+		if ( IsCrouching && IsGrounded ) spread *= Global.CrouchSpreadScale;
+		if ( !IsGrounded ) spread *= Global.AirSpreadScale;
 
 		Spread = spread;
 	}
 
-	void Weapon.IDeploymentListener.OnDeployed( Weapon weapon )
+	void IGameEventHandler<EquipmentDeployedEvent>.OnGameEvent( EquipmentDeployedEvent eventArgs )
 	{
-		CurrentWeapon = weapon;
+		CurrentEquipment = eventArgs.Equipment;
 	}
 
-	void Weapon.IDeploymentListener.OnHolstered( Weapon weapon )
+	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
 	{
-		if ( weapon == CurrentWeapon )
-			CurrentWeapon = null;
+		if ( eventArgs.Equipment == CurrentEquipment )
+			CurrentEquipment = null;
 	}
 
 	[Authority]
 	private void SetCurrentWeapon( Guid weaponId )
 	{
-		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Weapon;
-		SetCurrentWeapon( weapon );
+		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Equipment;
+		SetCurrentEquipment( weapon );
 	}
 
 	[Authority]
 	private void ClearCurrentWeapon()
 	{
-		CurrentWeapon?.Holster();
+		CurrentEquipment?.Holster();
 	}
 
 	public void Holster()
@@ -75,10 +72,12 @@ public partial class PlayerController
 			return;
 		}
 
-		CurrentWeapon?.Holster();
+		CurrentEquipment?.Holster();
 	}
 
-	public void SetCurrentWeapon( Weapon weapon )
+	public TimeSince TimeSinceWeaponDeployed { get; private set; }
+
+	public void SetCurrentEquipment( Equipment weapon )
 	{
 		if ( IsProxy )
 		{
@@ -88,12 +87,14 @@ public partial class PlayerController
 			return;
 		}
 
+		TimeSinceWeaponDeployed = 0;
+
 		weapon.Deploy();
 	}
 
 	public void ClearViewModel()
 	{
-		foreach ( var weapon in Inventory.Weapons )
+		foreach ( var weapon in Inventory.Equipment )
 		{
 			weapon.ClearViewModel();
 		}
@@ -104,7 +105,7 @@ public partial class PlayerController
 		if ( CameraController.Mode != CameraMode.FirstPerson )
 			return;
 
-		var weapon = CurrentWeapon;
+		var weapon = CurrentEquipment;
 		if ( weapon.IsValid() )
 			weapon.CreateViewModel( playDeployEffects );
 	}

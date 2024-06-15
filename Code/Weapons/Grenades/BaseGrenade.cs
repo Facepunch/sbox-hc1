@@ -11,7 +11,7 @@ public abstract class BaseGrenade : Component
 	/// <summary>
 	/// Is this player an enemy of the viewer?
 	/// </summary>
-	public bool IsEnemy => GameUtils.Viewer is not null && GameUtils.Viewer.TeamComponent.Team != Player.TeamComponent.Team;
+	public bool IsEnemy => GameUtils.Viewer.Player.TeamComponent.Team != Player.TeamComponent.Team;
 
 	private TimeSince TimeSinceCreated { get; set; }
 

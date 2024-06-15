@@ -1,45 +1,47 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
-public partial class DroppedWeapon : Component, IUse, Component.ICollisionListener
+public record EquipmentDroppedEvent( DroppedEquipment Dropped, PlayerController Player ) : IGameEvent;
+public record EquipmentPickedUpEvent( PlayerController Player, DroppedEquipment Dropped, Equipment Equipment ) : IGameEvent;
+
+public partial class DroppedEquipment : Component, IUse, Component.ICollisionListener
 {
-	[Property] public WeaponData Resource { get; set; }
+	[Property] public EquipmentResource Resource { get; set; }
 
 	public Rigidbody Rigidbody { get; private set; }
 
-	public static DroppedWeapon Create( WeaponData resource, Vector3 positon, Rotation? rotation = null, Weapon heldWeapon = null )
+	public static DroppedEquipment Create( EquipmentResource resource, Vector3 positon, Rotation? rotation = null, Equipment heldWeapon = null )
 	{
 		var go = new GameObject();
-		go.Tags.Set( "no_player", true );
 		go.Transform.Position = positon;
 		go.Transform.Rotation = rotation ?? Rotation.Identity;
 		go.Name = resource.Name;
-		go.Tags.Add("pickup");
+		go.Tags.Add( "pickup" );
 
-		var droppedWeapon = go.Components.Create<DroppedWeapon>();
+		var droppedWeapon = go.Components.Create<DroppedEquipment>();
 		droppedWeapon.Resource = resource;
 
 		var renderer = go.Components.Create<SkinnedModelRenderer>();
 		renderer.Model = resource.WorldModel;
 
 		var collider = go.Components.Create<BoxCollider>();
-		collider.Scale = new( 8, 2, 8 );
+		collider.Scale = resource.DroppedSize;
+		collider.Center = resource.DroppedCenter;
 
 		droppedWeapon.Rigidbody = go.Components.Create<Rigidbody>();
 
 		go.Components.Create<DestroyBetweenRounds>();
 
-		if ( resource.Slot == WeaponSlot.Special )
+		if ( resource.Slot == EquipmentSlot.Special )
 		{
-			foreach ( var listener in Game.ActiveScene.GetAllComponents<IBombDroppedListener>() )
-			{
-				listener.OnBombDropped();
-			}
+			Game.ActiveScene.Dispatch( new BombDroppedEvent() );
 
 			Spottable spottable = go.Components.Get<Spottable>();
 			spottable.Team = Team.Terrorist;
-
-			droppedWeapon.IconType = MinimapIconType.DroppedC4;
 		}
+
+		Game.ActiveScene.Dispatch( new EquipmentDroppedEvent( droppedWeapon, heldWeapon?.Owner ) );
 
 		if ( heldWeapon is not null )
 		{
@@ -54,7 +56,7 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 
 	public bool CanUse( PlayerController player )
 	{
-		return player.Inventory.CanTakeWeapon( Resource ) != PlayerInventory.PickupResult.None;
+		return player.Inventory.CanTake( Resource ) != PlayerInventory.PickupResult.None;
 	}
 
 	private bool _isUsed;
@@ -64,12 +66,19 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 		if ( _isUsed ) return;
 		_isUsed = true;
 
-		var weapon = player.Inventory.GiveWeapon( Resource );
+		var weapon = player.Inventory.Give( Resource );
 
-		foreach ( var state in weapon.Components.GetAll<IDroppedWeaponState>() )
+		foreach ( var state in Components.GetAll<IDroppedWeaponState>() )
 		{
-			state.CopyFromDroppedWeapon( this );
+			var type = state.GetType();
+
+			var component = weapon.Components.Get( type );
+			if ( !component.IsValid() ) component = weapon.Components.Create( TypeLibrary.GetType( type ) );
+
+			(component as IDroppedWeaponState).CopyFromDroppedWeapon( this );
 		}
+
+		Game.ActiveScene.Dispatch( new EquipmentPickedUpEvent( player, this, weapon ) );
 
 		GameObject.Destroy();
 	}
@@ -77,7 +86,7 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 	void ICollisionListener.OnCollisionStart( Collision collision )
 	{
 		if ( !Networking.IsHost ) return;
-		
+
 		// Conna: this is longer than Daenerys Targaryen's full title.
 		if ( collision.Other.GameObject.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } player )
 		{
@@ -91,11 +100,11 @@ public partial class DroppedWeapon : Component, IUse, Component.ICollisionListen
 			if ( player.TimeSinceLastRespawn < 2f )
 				return;
 			
-			if ( player.Inventory.CanTakeWeapon( Resource ) == PlayerInventory.PickupResult.Pickup )
+			if ( player.Inventory.CanTake( Resource ) != PlayerInventory.PickupResult.Pickup )
 				return;
 
 			// Don't auto-pickup if we already have a weapon in this slot.
-			if ( player.Inventory.HasWeaponInSlot( Resource.Slot ) )
+			if ( player.Inventory.HasInSlot( Resource.Slot ) )
 				return;
 
 			OnUse( player );

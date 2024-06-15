@@ -1,6 +1,9 @@
+using Sandbox;
+using Sandbox.Events;
+
 namespace Facepunch;
 
-public sealed partial class PlayerController : Component, IPawn, IRespawnable, IDamageListener, Weapon.IDeploymentListener
+public sealed partial class PlayerController : Component, IPawn, IRespawnable
 {
 	/// <summary>
 	/// The player's body
@@ -67,20 +70,28 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 	/// </summary>
 	public SkinnedModelRenderer BodyRenderer => Body.Components.Get<SkinnedModelRenderer>();
 
-	public bool InBuyMenu { get; private set; }
-	public bool InMenu => InBuyMenu;
-	
+	/// <summary>
+	/// IPawn
+	/// </summary>
+	Team IPawn.Team => TeamComponent.Team;
+
+	/// <summary>
+	/// IPawn
+	/// </summary>
+	CameraComponent IPawn.Camera => CameraController.Camera;
+
 	protected override void OnStart()
 	{
 		if ( !IsProxy && !IsBot )
 		{
 			// Set this as our local player and possess it.
 			GameUtils.LocalPlayer = this;
-			(this as IPawn).Possess();
+			PlayerState.Possess();
 		}
 
-		// TODO: per-weapon
-		TagBinder.BindTag( "no_shooting", () => IsSprinting || TimeSinceSprintChanged < 0.25f );
+		// TODO: expose these parameters please
+		TagBinder.BindTag( "no_shooting", () => IsSprinting || TimeSinceSprintChanged < 0.25f || TimeSinceWeaponDeployed < 0.66f );
+		TagBinder.BindTag( "no_aiming", () => IsSprinting || TimeSinceSprintChanged < 0.25f || TimeSinceGroundedChanged < 0.25f );
 
 		if ( IsBot )
 			GameObject.Name += " (Bot)";
@@ -90,7 +101,8 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 	{
 		OnUpdateMovement();
 
-		_smoothEyeHeight = _smoothEyeHeight.LerpTo( _eyeHeightOffset * CrouchAmount, Time.Delta * 10f );
+		CrouchAmount = CrouchAmount.LerpTo( IsCrouching ? 1 : 0, Time.Delta * CrouchLerpSpeed() );
+		_smoothEyeHeight = _smoothEyeHeight.LerpTo( _eyeHeightOffset * (IsCrouching ? CrouchAmount : 1), Time.Delta * 10f );
 		CharacterController.Height = Height + _smoothEyeHeight;
 
 		if ( IsLocallyControlled )
@@ -131,7 +143,6 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 		_previousVelocity = cc.Velocity;
 
 		UpdateUse();
-		UIUpdate();
 		BuildWishInput();
 		BuildWishVelocity();
 		BuildInput();
@@ -139,52 +150,6 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 		UpdateRecoilAndSpread();
 		ApplyAcceleration();
 		ApplyMovement();
-	}
-	
-	// I don't think this belongs here either. Should just be able to do this in the UI system.
-	private void UIUpdate()
-	{
-		if ( InBuyMenu )
-		{
-			if ( Input.EscapePressed || Input.Pressed( "BuyMenu" ) || !CanBuy() )
-			{
-				InBuyMenu = false;
-			}
-		}
-		else if ( Input.Pressed( "BuyMenu" ) )
-		{
-			if ( CanBuy() )
-			{
-				InBuyMenu = true;
-			}
-		}
-	}
-
-	// Can we do this differently? I don't like it.
-	public bool CanBuy()
-	{
-		if ( GameMode.Instance?.Components.Get<BuyZoneTime>() is { } buyZoneTime )
-		{
-			return IsInBuyzone() && buyZoneTime.CanBuy();
-		}
-
-		return IsInBuyzone();
-	}
-
-	// Same with this, I don't like it.
-	public bool IsInBuyzone()
-	{
-		if ( GameMode.Instance.BuyAnywhere )
-			return true;
-
-		var zone = GetZone<BuyZone>();
-		if ( zone is null )
-			return false;
-
-		if ( zone.Team == Team.Unassigned )
-			return true;
-
-		return zone.Team == TeamComponent.Team;
 	}
 
 	public void AssignTeam( Team team )
@@ -194,9 +159,6 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable, I
 
 		TeamComponent.Team = team;
 
-		foreach ( var listener in Scene.GetAllComponents<ITeamAssignedListener>() )
-		{
-			listener.OnTeamAssigned( this, team );
-		}
+		Scene.Dispatch( new TeamAssignedEvent( this, team ) );
 	}
 }

@@ -1,4 +1,8 @@
+using Sandbox.Events;
+
 namespace Facepunch;
+
+public record WeaponShotEvent : IGameEvent;
 
 [Icon( "track_changes" )]
 [Title( "Bullet" ), Group( "Weapon Components" )]
@@ -65,7 +69,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	/// <summary>
 	/// Accessor for the aim ray.
 	/// </summary>
-	protected Ray WeaponRay => Weapon.PlayerController.AimRay;
+	protected Ray WeaponRay => Equipment.PlayerController.AimRay;
 
 	/// <summary>
 	/// How long since we shot?
@@ -75,14 +79,14 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	/// <summary>
 	/// Fetches the desired model renderer that we'll focus effects on like trail effects, muzzle flashes, etc.
 	/// </summary>
-	protected IWeapon Effector
+	protected IEquipment Effector
 	{
 		get
 		{
-			if ( IsProxy || !Weapon.ViewModel.IsValid() )
-				return Weapon;
+			if ( IsProxy || !Equipment.ViewModel.IsValid() )
+				return Equipment;
 
-			return Weapon.ViewModel;
+			return Equipment.ViewModel;
 		}
 	}
 
@@ -122,18 +126,18 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 		if ( ShootSound is not null )
 		{
-			if ( Sound.Play( ShootSound, Weapon.Transform.Position ) is { } snd )
+			if ( Sound.Play( ShootSound, Equipment.Transform.Position ) is { } snd )
 			{
-				snd.ListenLocal = Weapon.PlayerController?.IsViewer ?? false;
+				snd.ListenLocal = Equipment.PlayerController?.IsViewer ?? false;
 				Log.Trace( $"ShootWeaponComponent: ShootSound {ShootSound.ResourceName}" );
 			}
 		}
 
 		// Third person
-		Weapon.PlayerController?.BodyRenderer.Set( "b_attack", true );
+		Equipment.PlayerController?.BodyRenderer.Set( "b_attack", true );
 
 		// First person
-		Weapon.ViewModel?.ModelRenderer.Set( "b_attack", true );
+		Equipment.ViewModel?.ModelRenderer.Set( "b_attack", true );
 	}
 
 	private LegacyParticleSystem CreateParticleSystem( string particle, Vector3 pos, Rotation rot, float decay = 5f )
@@ -145,6 +149,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		var p = gameObject.Components.Create<LegacyParticleSystem>();
 		p.Particles = ParticleSystem.Load( particle );
 		gameObject.Transform.ClearInterpolation();
+
+		// Clean these up between rounds
+		gameObject.Components.Create<DestroyBetweenRounds>();
 
 		// Clear off in a suitable amount of time.
 		gameObject.DestroyAsync( decay );
@@ -183,6 +190,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		decalRenderer.Material = material;
 		decalRenderer.Size = new( size, size, depth );
 
+		// Clean these up between rounds
+		GameObject.Components.Create<DestroyBetweenRounds>();
+
 		// Creates a destruction component to destroy the gameobject after a while
 		gameObject.DestroyAsync( destroyTime );
 
@@ -219,10 +229,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 		DoShootEffects();
 
-		foreach ( var listener in Components.GetAll<IShotListener>() )
-		{
-			listener.OnShot();
-		}
+		GameObject.Dispatch( new WeaponShotEvent() );
 
 		for ( int i = 0; i < BulletCount; i++ )
 		{
@@ -242,22 +249,30 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 				}
 
 				var damage = CalculateDamageFalloff( BaseDamage, tr.Distance );
-
-				var hitbox = "";
-				if ( tr.Hitbox is not null )
-				{
-					hitbox = string.Join( " ", tr.Hitbox.Tags.TryGetAll() );
-				}
+				damage = damage.CeilToInt();
 
 				// Inflict damage on whatever we find.
-				//tr.GameObject.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, hitbox );
-				tr.GameObject.TakeDamage( DamageEvent.From( Weapon.PlayerController, damage, Weapon, tr.EndPosition, tr.Direction * tr.Distance, hitbox ) );
+
+				using ( Rpc.FilterInclude( Connection.Host ) )
+				{
+					InflictDamage( tr.GameObject!.Id, damage, tr.EndPosition, tr.Direction, tr.GetHitboxTags() );
+				}
+
 				count++;
 			}
 		}
 
 		// If we have a recoil function, let it know.
-		Weapon.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants )?.Shoot();
+		Equipment.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants )?.Shoot();
+	}
+
+	[Broadcast]
+	private void InflictDamage( Guid targetObjectId, float damage, Vector3 pos, Vector3 dir, HitboxTags hitbox )
+	{
+		var target = Scene.Directory.FindByGuid( targetObjectId );
+
+		// target?.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, hitbox );
+		target?.TakeDamage( new DamageInfo( Equipment.PlayerController, damage, Equipment, pos, dir * damage, hitbox ) );
 	}
 
 	private float CalculateDamageFalloff( float damage, float distance )
@@ -289,7 +304,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		var effectPath = "particles/gameplay/guns/trail/trail_smoke.vpcf";
 		if ( count > 0 ) effectPath = "particles/gameplay/guns/trail/rico_trail_smoke.vpcf";
 
-		var origin = count == 0 ? Effector?.Muzzle?.Transform.Position ?? Weapon.Transform.Position : startPosition;
+		var origin = count == 0 ? Effector?.Muzzle?.Transform.Position ?? Equipment.Transform.Position : startPosition;
 		var ps = CreateParticleSystem( effectPath, origin, Rotation.Identity, 1f );
 		ps.SceneObject.SetControlPoint( 0, origin );
 		ps.SceneObject.SetControlPoint( 1, endPosition );
@@ -307,13 +322,13 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	{
 		if ( DryFireSound is not null )
 		{
-			var snd = Sound.Play( DryFireSound, Weapon.Transform.Position );
+			var snd = Sound.Play( DryFireSound, Equipment.Transform.Position );
 			snd.ListenLocal = !IsProxy;
 			Log.Trace( $"ShootWeaponComponent: ShootSound {DryFireSound.ResourceName}" );
 		}
 
 		// First person
-		Weapon.ViewModel?.ModelRenderer.Set( "b_attack_dry", true );
+		Equipment.ViewModel?.ModelRenderer.Set( "b_attack_dry", true );
 	}
 
 	protected SceneTraceResult DoTraceBullet( Vector3 start, Vector3 end, float radius )
@@ -351,7 +366,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		var rot = Rotation.LookAt( WeaponRay.Forward );
 
 		var forward = rot.Forward;
-		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * ( BulletSpread + Weapon.PlayerController.Spread ) * 0.25f;
+		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * ( BulletSpread + Equipment.PlayerController.Spread ) * 0.25f;
 		forward = forward.Normal;
 
 		var end = WeaponRay.Position + forward * MaxRange;
@@ -402,15 +417,15 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	public bool CanShoot()
 	{
 		// Do we still have a weapon?
-		if ( !Weapon.IsValid() ) return false;
-		if ( !Weapon.PlayerController.IsValid() ) return false;
+		if ( !Equipment.IsValid() ) return false;
+		if ( !Equipment.PlayerController.IsValid() ) return false;
 		
 		// Player
-		if ( Weapon.PlayerController.IsFrozen )
+		if ( Equipment.PlayerController.IsFrozen )
 			return false;
 
 		// Weapon
-		if ( Weapon.Tags.Has( "reloading" ) || Weapon.Tags.Has( "no_shooting" ) )
+		if ( Equipment.Tags.Has( "reloading" ) || Equipment.Tags.Has( "no_shooting" ) )
 			return false;
 
 		// Delay checks

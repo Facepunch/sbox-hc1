@@ -9,7 +9,8 @@
       "Enabled": true,
       "NetworkMode": 1,
       "NetworkInterpolation": true,
-      "__Prefab": "scenes/maps/defusemap_01/game_setup.prefab"
+      "__Prefab": "scenes/maps/defusemap_01/game_setup.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "bebe743a-8c55-43e0-96dd-7f301310c49e",
@@ -34,8 +35,8 @@
               "__type": "Sandbox.GradientFog",
               "__guid": "d3b2fe6e-2d8c-43ad-a917-00e6ecaf750c",
               "Color": "0.73025,0.90233,0.87078,0.15",
-              "EndDistance": 2048,
-              "FalloffExponent": 1,
+              "EndDistance": 4096,
+              "FalloffExponent": 2,
               "Height": 1024,
               "StartDistance": 1024,
               "VerticalFalloffExponent": 2
@@ -85,7 +86,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "scenes/maps/defusemap_01/bombsite_a.prefab"
+      "__Prefab": "scenes/maps/defusemap_01/bombsite_a.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "fe1eb2d5-443e-4eaa-9e02-f2a75ce659bb",
@@ -1014,7 +1016,7 @@
           "__guid": "158cdb9a-9bfa-4ed5-b689-2bc620761e4e",
           "Flags": 0,
           "Name": "Deathmatch Spawn (26)",
-          "Position": "-1696,448,0.0006352182",
+          "Position": "-1696,448,7.117007",
           "Rotation": "0,0,-1,0",
           "Tags": "deathmatch",
           "Enabled": true,
@@ -1865,29 +1867,6 @@
       ]
     },
     {
-      "__guid": "adfdd870-5d57-4f21-b2e9-55bdb1a0f24b",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (2)",
-      "Position": "-1200,368,159.9995",
-      "Rotation": "-0.7071069,-0.7071066,-0.0000001376788,-0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "950020f2-03f9-4caa-8f6c-903ca10b2040",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_a.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,32",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
       "__guid": "bbcef1a8-93dd-4a5e-b328-0846f06e73ed",
       "Flags": 0,
       "Name": "decal_cross",
@@ -1911,33 +1890,10 @@
       ]
     },
     {
-      "__guid": "790d4517-7761-447a-951b-7d1b63d64820",
-      "Flags": 0,
-      "Name": "decal_arrow",
-      "Position": "-928,-304,43.99999",
-      "Rotation": "-0.7071068,0.00000005960464,0.7071068,0.00000005960464",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "a88f1ebc-5406-4d9d-8f07-157f8a73b6e9",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,32",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
       "__guid": "cd0b6719-6c73-4956-a41c-debeafd91cd2",
       "Flags": 0,
       "Name": "decal_arrow (2)",
-      "Position": "-208,248,80.00005",
+      "Position": "-435.8733,187.5946,80.00005",
       "Rotation": "-0.7071071,-0.7071067,0,0.00000002980232",
       "Enabled": true,
       "NetworkMode": 2,
@@ -1960,8 +1916,9 @@
       "__guid": "3063b9f8-c36b-4cd0-acf7-37d623ce2ac9",
       "Flags": 0,
       "Name": "decal_arrow (1)",
-      "Position": "-1312,-432,127.9999",
+      "Position": "-1296,-432,112",
       "Rotation": "-0.7071068,0.7071068,0.00000005960464,0.00000005960464",
+      "Scale": "2.00792,1.681481,1.729761",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -1980,29 +1937,6 @@
       ]
     },
     {
-      "__guid": "5bd68048-972f-4708-828e-c09f031adb76",
-      "Flags": 0,
-      "Name": "Object",
-      "Position": "-1538.291,-575.9993,124.9541",
-      "Rotation": "-0.7071067,0,0,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.TextRenderer",
-          "__guid": "5aaf8f71-9286-41ee-9a25-3744ab93c78b",
-          "Color": "1,1,1,1",
-          "FontFamily": "Poppins",
-          "FontSize": 48.57,
-          "FontWeight": 800,
-          "Scale": 0.58,
-          "Text": "DOOR\uD83D\uDEAA",
-          "TextAlignment": "Center"
-        }
-      ]
-    },
-    {
       "__guid": "b45d1ab7-1417-453b-96d1-ffbcec117a63",
       "Flags": 0,
       "Name": "door (5)",
@@ -2011,7 +1945,8 @@
       "Enabled": true,
       "NetworkMode": 1,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/door.prefab"
+      "__Prefab": "prefabs/door.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "aa0eca05-1ca1-4b95-8ff9-c2ae67f19d60",
@@ -2022,7 +1957,8 @@
       "Enabled": true,
       "NetworkMode": 1,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/door.prefab"
+      "__Prefab": "prefabs/door.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "ae698869-c92a-4f06-92c4-0142b94621d1",
@@ -2033,7 +1969,8 @@
       "Enabled": true,
       "NetworkMode": 1,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/door.prefab"
+      "__Prefab": "prefabs/door.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "0edddbbf-d902-40f2-9488-d7ff495b1713",
@@ -2044,7 +1981,8 @@
       "Enabled": true,
       "NetworkMode": 1,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/door.prefab"
+      "__Prefab": "prefabs/door.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "c4780326-d35c-421e-a66a-ad55f535f276",
@@ -2055,7 +1993,8 @@
       "Enabled": true,
       "NetworkMode": 1,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/door.prefab"
+      "__Prefab": "prefabs/door.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "ece19909-a608-4163-9b70-2045d0014c85",
@@ -2066,7 +2005,8 @@
       "Enabled": true,
       "NetworkMode": 1,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/door.prefab"
+      "__Prefab": "prefabs/door.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "e1ef9109-5782-4d95-a82e-e1a29dec9864",
@@ -2077,7 +2017,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "scenes/maps/defusemap_01/bombsite_b.prefab"
+      "__Prefab": "scenes/maps/defusemap_01/bombsite_b.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "848fb04f-4388-41fb-af6d-0653ca335057",
@@ -2175,7 +2116,7 @@
       "__guid": "fc0103b2-b762-45b0-a557-f955fe492368",
       "Flags": 0,
       "Name": "decal_bombsite_a (14)",
-      "Position": "-1728,-1248,256.0001",
+      "Position": "-1072,-1232,127.9996",
       "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
       "Enabled": true,
       "NetworkMode": 2,
@@ -2188,7 +2129,7 @@
           "CutoffAngleSoftness": 5,
           "Material": "materials/decals/decal_bombsite_a.vmat",
           "Mod2XBlending": false,
-          "Size": "64,64,256",
+          "Size": "64,64,23",
           "TintColor": "1,1,1,1",
           "TriPlanar": false
         }
@@ -2382,7 +2323,7 @@
       "__guid": "9019b685-525f-4eda-bda6-aee2f1da0e38",
       "Flags": 0,
       "Name": "decal_bombsite_a (15)",
-      "Position": "-1728,-1248,192.0001",
+      "Position": "-1072,-1232,63.99962",
       "Rotation": "0.0000002753576,0.0000002753575,-0.7071067,-0.7071069",
       "Enabled": true,
       "NetworkMode": 2,
@@ -2395,7 +2336,7 @@
           "CutoffAngleSoftness": 5,
           "Material": "materials/decals/decal_arrow.vmat",
           "Mod2XBlending": false,
-          "Size": "64,32,256",
+          "Size": "64,32,23",
           "TintColor": "1,1,1,1",
           "TriPlanar": false
         }
@@ -2681,7 +2622,7 @@
       "__guid": "8dc5f9db-8442-4cde-b983-a850ac6b6492",
       "Flags": 0,
       "Name": "decal_bombsite_b",
-      "Position": "-3520,-1472,1216",
+      "Position": "-3778.046,-786.8232,477.5735",
       "Rotation": "0.7071068,-0.7071066,-0.0000001376788,0.0000001376788",
       "Enabled": true,
       "NetworkMode": 2,
@@ -2694,7 +2635,7 @@
           "CutoffAngleSoftness": 5,
           "Material": "materials/decals/decal_bombsite_b.vmat",
           "Mod2XBlending": false,
-          "Size": "256,255,256",
+          "Size": "128,128,128",
           "TintColor": "1,1,1,1",
           "TriPlanar": false
         }
@@ -2716,52 +2657,6 @@
           "CutoffAngle": 60,
           "CutoffAngleSoftness": 5,
           "Material": "materials/decals/decal_bombsite_b.vmat",
-          "Mod2XBlending": false,
-          "Size": "256,255,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "43da332c-4849-4b13-a8f1-1247de6ae8f7",
-      "Flags": 0,
-      "Name": "decal_bombsite_b (3)",
-      "Position": "-1696,832,864",
-      "Rotation": "0.9999999,0.00000005960464,-0.00000000000002131628,0.0000001947072",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "c2139613-cfaa-4cd7-a1eb-ff1e8c36359e",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_a.vmat",
-          "Mod2XBlending": false,
-          "Size": "256,255,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "83275943-0f0b-43d0-a008-e3196bfafd38",
-      "Flags": 0,
-      "Name": "decal_bombsite_b (4)",
-      "Position": "-1440,608,864",
-      "Rotation": "0.7071067,0.7071067,0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "e479ad6b-eefa-4657-b5c9-1d16ba900152",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_a.vmat",
           "Mod2XBlending": false,
           "Size": "256,255,256",
           "TintColor": "1,1,1,1",
@@ -3083,8 +2978,8 @@
           "__guid": "dd8b1af2-17d6-417b-90fc-6b2245f5f7a1",
           "Flags": 0,
           "Name": "A-SITE",
-          "Position": "-960,-70.67699,256",
-          "Scale": "1,0.8193942,1",
+          "Position": "-1040,-70.67699,256",
+          "Scale": "0.936186,0.8193942,1",
           "Tags": "zone",
           "Enabled": true,
           "NetworkMode": 2,
@@ -3103,6 +2998,37 @@
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "b85651c4-1249-45b2-b760-5648e76d5821",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "40349d5c-6659-4615-817b-db23cc536d2c",
+          "Flags": 0,
+          "Name": "WAREHOUSE",
+          "Position": "-96,-400,256",
+          "Scale": "0.8152414,2.193416,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "f75d8f7c-3fa2-420f-89e1-5263da9b604b"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "9abec523-4821-4215-a21e-664ba19eafa8",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "WAREHOUSE"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "2793fece-b572-4d0c-9b1d-e13637b20015",
               "Center": "0,0,0",
               "IsTrigger": true,
               "Scale": "1079,1102.402,550.9339",
@@ -3773,6 +3699,1020 @@
           "Static": true
         }
       ]
+    },
+    {
+      "__guid": "792454b8-0e76-422c-917a-ab016f89b289",
+      "Flags": 0,
+      "Name": "CalloutsText",
+      "Position": "-1086.195,544.9749,136.0843",
+      "Rotation": "0,0,0.6404365,0.7680111",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.TextRenderer",
+          "__guid": "9a20d94c-b601-4a84-afae-d1251172d162",
+          "Color": "0.45103,0.47149,0.5297,1",
+          "FontFamily": "Poppins",
+          "FontSize": 64,
+          "FontWeight": 800,
+          "Scale": 0.3,
+          "Text": "Cubby",
+          "TextAlignment": "Center"
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "c0b68da5-d266-44ed-8e70-ad459fead869",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1523.12,-746.0148,-41.90285",
+          "Rotation": "0.2732917,0.329966,-0.5817534,0.6913735",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "9d77894a-5a2c-4465-a8ce-c1c1eb6418b4",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "VAN",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "7ded4199-03a7-40f1-95f9-abf77f498156",
+          "Flags": 0,
+          "Name": "Text (1)",
+          "Position": "-797.503,-688.2557,82.31075",
+          "Rotation": "0.002579272,0.003093005,-0.6404314,0.7680051",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "e69d9225-b8fb-4828-a837-eb98fff936bb",
+              "Color": "0.68037,0.70979,0.7907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "GATE",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "acc59dcc-5368-414d-9b9f-56142d7e7515",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1174.296,247.6633,43.14117",
+          "Rotation": "0.002579271,0.003093004,-0.6404313,0.7680051",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "fafbb8a5-c46c-48b3-ba1e-aa90d01e2984",
+              "Color": "0.68037,0.70979,0.7907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.5,
+              "Text": "LEDGE",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "aeb443ff-5c08-4eb7-b3f3-f5ccca4dcc27",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-655.9741,923.9442,87.49106",
+          "Rotation": "-0.003093004,0.002579272,-0.7680054,-0.6404312",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "d1be2708-3fd9-4f3a-ac56-0d99b85c6f20",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 33,
+              "FontWeight": 800,
+              "Scale": 0.5,
+              "Text": "A CONNECTOR",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "60f9b1ff-ce1e-43c3-b6f8-cfce47ab805c",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-989.5072,1484.153,87.11069",
+          "Rotation": "0.002579271,0.003093005,0.6404311,-0.7680056",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "3b13a9b1-774d-4b81-9772-1bfbbe736331",
+              "Color": "0.67442,0.67442,0.67442,1",
+              "FontFamily": "Poppins",
+              "FontSize": 33,
+              "FontWeight": 800,
+              "Scale": 0.5,
+              "Text": "A CONNECTOR",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "8765e862-3118-46db-b807-02dbc63d263d",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-774.6986,676.8491,89.0731",
+          "Rotation": "0.003715108,-0.001554765,-0.9212316,-0.3889949",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "c539eba5-674a-4e4a-8eb0-82889d520f78",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.4,
+              "Text": "CATWALK",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "99e8ccc4-e5fe-46db-ab5f-1947ebe219fa",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "209.3876,811.4128,72.30922",
+          "Rotation": "0.0003632661,-0.004010904,-0.09020868,-0.9959152",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "df3fc1e0-3b6d-4e06-abe6-d17108c84f41",
+              "Color": "0.68037,0.70979,0.7907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.4,
+              "Text": "CATWALK",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "c02ea4a4-2f83-4f5c-9e36-f123ef62e400",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-647.6131,1766.095,30.4247",
+          "Rotation": "-0.004010905,-0.0003632676,0.9959155,-0.09020907",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "7a968c5a-6561-4848-b989-c7761d65188c",
+              "Color": "0.68037,0.70979,0.7907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.4,
+              "Text": "MID",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "f6f1dec4-be46-4a16-af7b-8334bbf1d239",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1408.636,1649.863,59.57227",
+          "Rotation": "-0.0003632684,0.004010905,0.09020928,0.9959155",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "d326ad85-23fe-4d31-8eff-943d9029f964",
+              "Color": "0.68037,0.70979,0.7907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.4,
+              "Text": "MID",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "2864ac9c-0e1c-4cde-bc4b-63cf96cec5be",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1692.893,1755.271,-53.07747",
+          "Rotation": "-0.4815758,0.4015817,0.5982703,0.4988905",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "7b3559c8-7ccc-4e20-a3d2-a91f27cf1612",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.5,
+              "Text": "RAMP",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "f6c08d6b-e2b5-4732-8438-4c1ada5c6297",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1986.771,1985.185,117.2418",
+          "Rotation": "-0.0004495759,0.004972588,0.9959118,-0.09020829",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "6bd3856b-8a65-4959-a9b2-4fc6f664a2f1",
+              "Color": "0.67907,0.67907,0.67907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "BOOTH",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "fd5f34c2-57a0-4c08-8aa7-ccd9a7dd9d07",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1676.811,2488.409,86.813",
+          "Rotation": "-0.004972589,-0.000449575,0.09020856,0.9959119",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "47bf885d-2ee0-48d1-b709-167327542a99",
+              "Color": "0.67907,0.67907,0.67907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 111.24,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "B SITE",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "89d89344-2d58-4d7f-b3d5-9720f38d96a2",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-2336.677,2646.156,180.6458",
+          "Rotation": "0.0004495741,-0.004972588,-0.9959119,0.0902088",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "89cb0a68-53d4-43dc-b1a2-e8db89665e20",
+              "Color": "0.67907,0.67907,0.67907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 128,
+              "FontWeight": 800,
+              "Scale": 0.55,
+              "Text": "B SITE",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "71a8585b-cd8b-484e-9503-777742ec3051",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1594.925,2840.797,214.9946",
+          "Rotation": "-0.004972589,-0.000449575,0.09020859,0.9959119",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "be2c56cc-facf-4960-9336-b0e65acfed2f",
+              "Color": "0.67907,0.67907,0.67907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 69.58,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "HEAVEN",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "a4a652f8-c1db-4378-8d24-94d407f83ab0",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1845.405,3147.122,35.04877",
+          "Rotation": "-0.003834049,0.003198254,0.7680032,0.640429",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "71f6de2e-d862-4a8d-9eb2-0a6633e4f9aa",
+              "Color": "0.94419,0.94419,0.94419,1",
+              "FontFamily": "Poppins",
+              "FontSize": 111.24,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "GUTTER",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "018a317f-99ab-4623-b9b3-2c68e3098142",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1646.903,2429.046,11.63501",
+          "Rotation": "-0.0004495757,0.00497259,0.9959121,-0.0902085",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "a24e34d6-5039-4bfe-a1f8-058036a56eb7",
+              "Color": "0.67907,0.67907,0.67907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 69.58,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "GUTTER",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "87fb21b4-395f-4255-bdea-5a6111199d37",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-686.9193,2513.312,153.5568",
+          "Rotation": "-0.00497259,-0.000449575,0.09020862,0.995912",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "21b7e923-4ec3-4c3c-95f7-5dfe79f05966",
+              "Color": "0.38605,0.38605,0.38605,1",
+              "FontFamily": "Poppins",
+              "FontSize": 69.58,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "OFFICES",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "f9664b58-9c67-466f-8357-ecfe605be395",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-459.1532,2068.148,21.53777",
+          "Rotation": "-0.003198255,-0.003834049,0.7680032,0.640429",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "c7d66441-58fb-420b-a7b3-a7e5e84efd78",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 69.58,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "OFFICES",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "7fc5e21d-1fa6-4c55-a974-d860ddb57f9a",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "527.7346,1923.343,57.94768",
+          "Rotation": "0.0004495741,-0.00497259,0.9959121,-0.09020844",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "51c67ab7-398c-4a38-a57b-21e0a399eb69",
+              "Color": "0.72558,0.72558,0.72558,1",
+              "FontFamily": "Poppins",
+              "FontSize": 88.88,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "ANARCHIST \nSPAWN",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "ca363232-3f19-46a1-8690-4046c6878dbf",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-473.6386,3129.546,122.7299",
+          "Rotation": "0.0004495743,-0.004972591,-0.9959119,0.0902088",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "4f1afe39-dc69-47d1-b5c5-564a6547e0a9",
+              "Color": "0.38605,0.38605,0.38605,1",
+              "FontFamily": "Poppins",
+              "FontSize": 69.58,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "TUNNEL",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "b41882da-fb92-4dc5-926b-887f8774c461",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-790.1602,3071.733,122.7303",
+          "Rotation": "0.004972592,0.0004495739,-0.09020901,-0.9959119",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "8f27f691-66f8-453b-b4b8-f706335f9681",
+              "Color": "0.38605,0.38605,0.38605,1",
+              "FontFamily": "Poppins",
+              "FontSize": 69.58,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "TUNNEL",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "fa5651db-eead-4684-a091-9df1f516e178",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-126.4114,3008.292,86.58617",
+          "Rotation": "-0.003198255,-0.003834051,-0.6404288,0.7680033",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "a949df47-c42c-4bf7-96fe-b1d324b6d83d",
+              "Color": "0.38605,0.38605,0.38605,1",
+              "FontFamily": "Poppins",
+              "FontSize": 69.58,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "OFFICES",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "3126f41d-a1d3-4935-be1e-9fe986347894",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1075.202,2867.958,151.0319",
+          "Rotation": "0.0004495743,-0.004972591,-0.9959119,0.0902088",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "af5d2ec5-f385-44cb-b9ed-4241e6740741",
+              "Color": "0.77674,0.77674,0.77674,1",
+              "FontFamily": "Poppins",
+              "FontSize": 100.06,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "BACKDOORS",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "50b08c4c-2d05-4f61-8711-c8f429c04e01",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-819.7327,2526.349,39.44807",
+          "Rotation": "-0.004972591,-0.0004495759,-0.09020901,-0.9959119",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "62ed4a14-5dfb-4c9c-83d9-8675ca753031",
+              "Color": "0.55349,0.55349,0.55349,1",
+              "FontFamily": "Poppins",
+              "FontSize": 68.56,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "BACKDOORS",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "b0ff61ad-4727-4bcb-9fda-5b49bc63087d",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1228.107,2986.618,80.09706",
+          "Rotation": "0.0004495746,-0.004972591,-0.9959119,0.0902088",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "af15f55e-d582-4d01-81f3-3e46f9c5da77",
+              "Color": "0.56279,0.56279,0.56279,1",
+              "FontFamily": "Poppins",
+              "FontSize": 46.21,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "HEAVEN",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "de2065b4-bba4-4c85-8f42-87986b71abd0",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-2306.996,2125.034,115.2937",
+          "Rotation": "0.003198253,0.003834049,0.6404292,-0.7680029",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "9f3fd726-b1f6-46b8-a959-20eef2cb06f1",
+              "Color": "0.63721,0.63721,0.63721,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "BOOTH",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "e0aa3d8a-2ca8-4698-9b9e-d940071e3e6a",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1762.918,1638.134,59.42461",
+          "Rotation": "-0.0004495753,0.004972588,0.995912,-0.09020829",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "e6044832-b6ed-46ba-a5b7-03b09af407d9",
+              "Color": "0.82791,0.82791,0.82791,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.6,
+              "Text": "RAMP\n",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "e5706173-65d9-4099-a3ea-0003f75f8a1f",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1571.221,906.0916,311.1553",
+          "Rotation": "0.004972588,0.0004495766,0.09020853,0.995912",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "08effea2-39db-420d-b226-381df8b51fe2",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 85.84,
+              "FontWeight": 800,
+              "Scale": 0.39,
+              "Text": "SECURITY \nSPAWN",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "ba85889c-abc8-46d0-8b2c-a811100f59da",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-2201.732,354.5977,47.97403",
+          "Rotation": "0.00383405,-0.003198252,-0.6404289,0.7680033",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "b2c414a7-2ac8-43fc-b359-a510fd41387e",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 48.24,
+              "FontWeight": 800,
+              "Scale": 0.39,
+              "Text": "SECURITY \nSPAWN",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "b86beebe-ceb6-4177-af97-4419d996a8fb",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1769.556,-115.4519,9.320389",
+          "Rotation": "0.004972588,0.0004495769,0.09020877,0.9959121",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "0449fd9c-c075-43a5-926a-366bf735b3ab",
+              "Color": "0.58585,0.63197,0.71163,1",
+              "FontFamily": "Poppins",
+              "FontSize": 48.24,
+              "FontWeight": 800,
+              "Scale": 0.7,
+              "Text": "ELBOW",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "dc5c0f8f-8eb5-4a6b-a734-a73cb436d6a2",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1057.196,1955.357,104.245",
+          "Rotation": "-0.003093007,0.002579269,0.7680061,0.6404311",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "79b298ef-9889-458c-ad12-e9f7ce72b4cb",
+              "Color": "0.68037,0.70979,0.7907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.8,
+              "Text": "MID",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "75599196-f298-4faf-8114-c8baa6723746",
+          "Flags": 0,
+          "Name": "Text (1)",
+          "Position": "-310.7457,-602.9191,41.27814",
+          "Rotation": "0.002579272,0.003093005,-0.6404314,0.7680051",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "c93e73c8-251c-4ffb-84c2-d64bf154cb35",
+              "Color": "0.68037,0.70979,0.7907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "LOWER GATE",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "187a9ac7-7eb2-4a8e-8638-5a75f3484f4a",
+          "Flags": 0,
+          "Name": "Text",
+          "Position": "-1080.001,-941.5203,72",
+          "Rotation": "0,0,-0.766384,-0.6423833",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "5b3815da-2768-47d4-b305-98a87a97574a",
+              "Color": "0.45103,0.47149,0.5297,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.8,
+              "Text": "WAREHOUSE",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "c2edc2e7-255e-4307-aea6-0b2966322c8e",
+          "Flags": 0,
+          "Name": "Text (1)",
+          "Position": "-1681.971,-1240.503,55.06651",
+          "Rotation": "0,0,-0.6437024,0.765276",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "82a84c4a-989e-4854-bca0-8b0058e3d358",
+              "Color": "0.45103,0.47149,0.5297,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.5,
+              "Text": "WAREHOUSE",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "30985623-88a4-4187-850a-f34baecfb5df",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1344.552,-662.9829,78.24773",
+          "Rotation": "0.0008405871,0.003251688,0.09085077,0.9958594",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "edde15b0-99b7-4747-b41f-b7775c939f59",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "ARCH",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "418aa894-8630-4a7c-978c-09ddc2940e88",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1297.568,-654.3994,75.03828",
+          "Rotation": "0.003251689,-0.0008405863,-0.9958594,0.09085098",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "9bfe195d-c5f0-40e5-9727-12694131ef7e",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "ARCH",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "04c1ebe1-f335-4225-a18f-615c04f1ce44",
+          "Flags": 0,
+          "Name": "Text (1)",
+          "Position": "-513.9653,113.6374,135.6967",
+          "Rotation": "0.2517287,0.02665105,0.08846274,0.9633782",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "b1e7f50d-4a93-4a22-ad86-f78f52908a25",
+              "Color": "0.68037,0.70979,0.7907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.63,
+              "Text": "A SITE",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "a6f567be-f31d-49bd-92f2-000c2d69817f",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1203.677,533.7328,29.83269",
+          "Rotation": "-0.003093004,0.002579272,-0.7680053,-0.6404312",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "59f8eef2-0121-4085-945d-797df2aa7208",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.5,
+              "Text": "LEDGE",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "0242ea26-9584-495c-b28c-b3f7a5a907d1",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-196.9612,1698.293,23.68228",
+          "Rotation": "-0.002579269,-0.003093006,0.6404312,-0.7680058",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "22177485-3ba8-472c-9c81-6e24a9f82136",
+              "Color": "0.68037,0.70979,0.7907,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.4,
+              "Text": "LOWER MID",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "836ee5c8-bebe-4521-967c-1e0c775b4c5f",
+          "Flags": 0,
+          "Name": "Text (2)",
+          "Position": "-1611.243,1987.615,61.13042",
+          "Rotation": "-0.003834048,0.003198253,0.7680029,0.6404291",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "d5c6867d-76b9-45ae-b202-a21e900c6b4b",
+              "Color": "1,1,1,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "BOOST",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "3ad99203-7f96-4824-b828-0945c3454c3e",
+          "Flags": 0,
+          "Name": "Text (1)",
+          "Position": "-251.1497,-984.2186,-34.91941",
+          "Rotation": "0.002579272,0.003093005,-0.6404314,0.7680051",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "b54c3661-867d-4cff-bffa-1534e0c66b9e",
+              "Color": "0.4961,0.50892,0.54419,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "LOWER",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "6d87faf6-348a-4a42-8c37-751d5a56a6b7",
+          "Flags": 0,
+          "Name": "Text (1)",
+          "Position": "-414.0743,-229.8408,-65.6677",
+          "Rotation": "0,0,0.08920833,0.996013",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "e4dd03bf-9ba1-4d7f-a278-bffadcd702e1",
+              "Color": "0.45103,0.47149,0.5297,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.3,
+              "Text": "A SITE",
+              "TextAlignment": "Center"
+            }
+          ]
+        },
+        {
+          "__guid": "1a23a676-f528-48e2-b674-22d35aba8570",
+          "Flags": 0,
+          "Name": "Text (1)",
+          "Position": "-557.2686,-808.2639,3.844131",
+          "Rotation": "0.002857579,-0.00283788,-0.7689129,-0.6393411",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.TextRenderer",
+              "__guid": "da9bef9a-e12c-4342-bd8c-6777a4c43aea",
+              "Color": "0.3576,0.37015,0.40465,1",
+              "FontFamily": "Poppins",
+              "FontSize": 64,
+              "FontWeight": 800,
+              "Scale": 0.6,
+              "Text": "LOWER\n",
+              "TextAlignment": "Center"
+            }
+          ]
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -3798,7 +4738,7 @@
   },
   "Title": "de_garry",
   "Description": "",
-  "LastSaved": "2024-06-11T18:08:54.9584577\u002B01:00",
+  "LastSaved": "2024-06-15T17:47:03.4724175\u002B01:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

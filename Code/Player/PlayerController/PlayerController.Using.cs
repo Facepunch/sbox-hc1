@@ -50,7 +50,7 @@ partial class PlayerController
 		}
 		else if ( TeamComponent.Team == Team.Terrorist && GetZone<BombSite>() is not null )
 		{
-			Inventory.SwitchToSlot( WeaponSlot.Special );
+			Inventory.SwitchToSlot( EquipmentSlot.Special );
 			return;
 		}
 	}

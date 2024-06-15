@@ -1,28 +1,16 @@
 namespace Facepunch;
 
-public enum MinimapIconType
-{
-	None,
-	DroppedC4,
-	PlantedC4,
-	Buyzone,
-	Player,
-	PlayerDead,
-	PlayerEnemy,
-	PlayerEnemyMissing
-}
-
 public interface IMinimapElement : IValid
 {
 	public Vector3 WorldPosition { get; }
-
-	public bool IsVisible( PlayerController viewer );
+	public bool IsVisible( IPawn viewer );
 }
 
 // Icons
 public interface IMinimapIcon : IMinimapElement
 {
-	public MinimapIconType IconType { get; }
+	public string IconPath { get; }
+	public int IconOrder => 22;
 }
 
 public interface ICustomMinimapIcon : IMinimapIcon
@@ -49,23 +37,4 @@ public interface IMinimapLabel : IMinimapElement
 {
 	public string Label { get; }
 	public Color LabelColor { get; }
-}
-
-public static class MinimapExtensionMethods
-{
-	public static string GetClass( this MinimapIconType type )
-	{
-		return type switch
-		{
-			MinimapIconType.DroppedC4 => "c4",
-			MinimapIconType.PlantedC4 => "c4",
-			MinimapIconType.Buyzone => "buyzone",
-			MinimapIconType.Player => "",
-			MinimapIconType.PlayerDead => "dead",
-			MinimapIconType.PlayerEnemy => "enemy",
-			MinimapIconType.PlayerEnemyMissing => "enemy-missing",
-			_ => "",
-		};
-	}
-
 }

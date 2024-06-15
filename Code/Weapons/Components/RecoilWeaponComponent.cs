@@ -1,7 +1,7 @@
 namespace Facepunch;
 
 [Title( "Recoil" ), Group( "Weapon Components" )]
-public partial class RecoilWeaponComponent : WeaponComponent
+public partial class RecoilWeaponComponent : EquipmentComponent
 {
 	[Property, Category( "Recoil" )] public float ResetTime { get; set; } = 0.3f;
 

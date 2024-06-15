@@ -5,7 +5,7 @@
 @if ( !Player.IsValid() ) return;
 
 <root class="hud with-deadzone column">
-    @foreach ( var slotGroup in Inventory.Weapons.OrderBy( x => x.Resource.Slot ).GroupBy( x => x.Resource.Slot ) )
+    @foreach ( var slotGroup in Inventory.Equipment.OrderBy( x => x.Resource.Slot ).GroupBy( x => x.Resource.Slot ) )
     {
 
         <div class="group @GroupClasses( slotGroup.Key )">
@@ -13,9 +13,9 @@
 
             <InputHint Action="Slot@(SlotIndex(slotGroup.Key))" class="small" Size="@InputGlyphSize.Small" />
 
-            @foreach ( var weapon in slotGroup )
+            @foreach ( var equipment in slotGroup )
             {
-                <WeaponRow Weapon=@weapon/>
+                <EquipmentRow Equipment=@equipment/>
             }
         </div>
     }
@@ -23,13 +23,13 @@
 
 @code
 {
-    public PlayerController Player => GameUtils.Viewer;
+    public PlayerController Player => GameUtils.Viewer.Player;
     public PlayerInventory Inventory => Player.Inventory;
-    public Weapon CurrentWeapon => Player?.CurrentWeapon;
+    public Equipment CurrentEquipment => Player?.CurrentEquipment;
 
-    public string GroupClasses( WeaponSlot slot )
+    public string GroupClasses( EquipmentSlot slot )
     {
-        var wpn = CurrentWeapon;
+        var wpn = CurrentEquipment;
         if (!wpn.IsValid()) return "";
 
         if (wpn.Resource.Slot == slot) return "active";
@@ -37,15 +37,15 @@
         return "";
     }
 
-    public int SlotIndex( WeaponSlot slot )
+    public int SlotIndex( EquipmentSlot slot )
     {
         return (int)slot;
     }
 
-    public int GetSlot( Weapon weapon ) => Inventory.Weapons.ToList().IndexOf( weapon );
+    public int GetSlot( Equipment equipment ) => Inventory.Equipment.ToList().IndexOf( equipment );
 
     protected override int BuildHash()
     {
-        return !Player.IsValid() ? 0 : HashCode.Combine( Inventory.Weapons.Count(), CurrentWeapon );
+        return !Player.IsValid() ? 0 : HashCode.Combine( Inventory.Equipment.Count(), CurrentEquipment );
     }
 }

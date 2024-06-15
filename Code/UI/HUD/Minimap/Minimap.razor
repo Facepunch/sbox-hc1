@@ -12,7 +12,7 @@
 
                     @foreach (var volume in Game.ActiveScene.GetAllComponents<IMinimapVolume>())
                     {
-                        if (!volume.IsValid() || (GameUtils.Viewer is not null && !volume.IsVisible(GameUtils.Viewer)))
+                        if (!volume.IsValid() || (GameUtils.CurrentPawn is PlayerController player && !volume.IsVisible( player )))
                             continue;
                             
                         <div class="volume" style="@GetBox(volume) @GetBoxStyles(volume)" >
@@ -26,20 +26,22 @@
         <div class="markers">
             @foreach (var element in Game.ActiveScene.GetAllComponents<IMinimapElement>())
             {
-                if ( !element.IsValid() || (GameUtils.Viewer is not null && !element.IsVisible(GameUtils.Viewer)) )
+                @if (!element.IsValid() || (GameUtils.CurrentPawn is PlayerController player && !element.IsVisible(player)))
                     continue;
 
-                if (element is IMinimapIcon icon && icon.IconType != MinimapIconType.None)
+                @if ( element is IMinimapIcon icon && !string.IsNullOrEmpty( icon.IconPath ) )
                 {
                     string style = WorldToMap(icon.WorldPosition);
 
                     if (icon is IDirectionalMinimapIcon dir && dir.EnableDirectional)
                         style += RotationToMap(dir.Direction);
+                    else
+                        style += RotationToMap(FixedMode ? 0 : GameUtils.CurrentPawn?.EyeAngles.yaw ?? 0 );
 
                     if (icon is ICustomMinimapIcon custom)
                         style += custom.CustomStyle;
 
-                    <div class="marker @icon.IconType.GetClass()" style="@style" />
+                    <div class="marker" style="background-image: url( @icon.IconPath ); @style z-index: @icon.IconOrder;" />
                 }
                 if (element is IMinimapLabel label)
                 {
@@ -50,7 +52,7 @@
             }
 
             <!-- POV Marker -->
-            @if ( GameUtils.Viewer is null || GameUtils.Viewer.HealthComponent.State == LifeState.Alive )
+            @if (GameUtils.CurrentPawn is null || GameUtils.CurrentPawn?.HealthComponent?.State == LifeState.Alive)
             {
                 <div class="marker @(SpectateSystem.Instance?.IsFreecam ?? false ? "" : "viewer")" style="@WorldToMap(ViewPos) @RotationToMap(ViewYaw) background-tint: @ViewerColor.Hex" />
             }
@@ -63,11 +65,13 @@
 {
     public MinimapRenderer Renderer => Game.ActiveScene.GetAllComponents<MinimapRenderer>().FirstOrDefault();
 
-    public Color TeamColor => GameUtils.Viewer?.GameObject?.GetTeam().GetColor() ?? Color.White;
-    public Color ViewerColor => GameUtils.Viewer?.PlayerColor ?? Color.White;
+    public Color TeamColor => GameUtils.CurrentPawn?.GameObject?.GetTeam().GetColor() ?? Color.White;
+    private PlayerController Player => GameUtils.Viewer.Player;
 
-    public Vector3 ViewPos => GameUtils.Viewer?.Transform.Position ?? SpectateSystem.Instance.FreecamController.Transform.Position;
-    public float ViewYaw => GameUtils.Viewer?.EyeAngles.yaw ?? SpectateSystem.Instance.FreecamController.Transform.Rotation.Angles().yaw;
+    public Color ViewerColor => Player?.PlayerColor ?? Color.White;
+
+    public Vector3 ViewPos => GameUtils.CurrentPawn?.GameObject?.Transform.Position ?? SpectateSystem.Instance?.FreecamController?.Transform.Position ?? Vector3.Zero;
+    public float ViewYaw => GameUtils.CurrentPawn?.EyeAngles.yaw ?? SpectateSystem.Instance?.FreecamController?.Transform.Rotation.Angles().yaw ?? 0;
 
     public float Zoom => 2;
 
