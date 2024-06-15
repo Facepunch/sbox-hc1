@@ -1,7 +1,8 @@
-﻿using Sandbox.Diagnostics;
-using Sandbox.Events;
+﻿using Sandbox.Events;
 
 namespace Facepunch;
+
+public record GamemodeInitializedEvent( string Title ) : IGameEvent;
 
 /// <summary>
 /// Handles the main game loop, using components that listen to state change
@@ -42,6 +43,8 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 			GameObject.Enabled = false;
 			return;
 		}
+
+		Scene.Dispatch( new GamemodeInitializedEvent( Title ) );
 
 		base.OnAwake();
 	}
