@@ -1153,6 +1153,56 @@
           ],
           "Inverse": false
         }
+      ],
+      "Children": [
+        {
+          "__guid": "b8a8a2d8-d064-469a-aad2-28b5ff47f9f6",
+          "Flags": 0,
+          "Name": "Cash Point (on A Site)",
+          "Position": "2197.516,-1729.116,-1755.33",
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.CashPoint",
+              "__guid": "6b29a98b-f624-4b97-8c29-84526575d041",
+              "Extracts": [
+                {
+                  "_type": "component",
+                  "component_id": "86912c22-9603-4730-b588-f1062fa1ee06",
+                  "go": "f5ac56e9-88bc-4775-99af-7de14cc28784",
+                  "component_type": "ExtractionPoint"
+                }
+              ],
+              "Resource": "weapons/special/cash_bag/cash_bag.equip"
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "f5ac56e9-88bc-4775-99af-7de14cc28784",
+              "Flags": 0,
+              "Name": "Extraction Point A",
+              "Position": "-1166.669,-965.4087,127.2503",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "86912c22-9603-4730-b588-f1062fa1ee06"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "4eeefe3f-6265-4eba-b177-69fdcd6ff3dd",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ]
+            }
+          ]
+        }
       ]
     },
     {
@@ -3844,7 +3894,7 @@
   },
   "Title": "de_garry",
   "Description": "",
-  "LastSaved": "2024-06-15T11:18:13.0487785\u002B01:00",
+  "LastSaved": "2024-06-15T11:53:07.5719641\u002B01:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
