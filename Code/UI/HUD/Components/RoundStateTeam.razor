@@ -8,7 +8,7 @@
 
         @if (IconPosition == IconPositions.Left)
         {
-            <label class="important with-px-lg" style="width: 75px; text-align: center;">@Score</label>
+            <label class="important with-px-lg" style="min-width: 75px; flex-shrink: 0; text-align: center;">@Score</label>
         }
 
         @foreach (var values in Players)
@@ -18,7 +18,7 @@
 
         @if (IconPosition == IconPositions.Right)
         {
-            <label class="important with-px-lg" style="width: 75px; text-align: center;">@Score</label>
+            <label class="important with-px-lg" style="min-width: 75px; flex-shrink: 0; text-align: center;">@Score</label>
         }
     </div>
 </root>
