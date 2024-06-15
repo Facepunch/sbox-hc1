@@ -26,7 +26,8 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 		renderer.Model = resource.WorldModel;
 
 		var collider = go.Components.Create<BoxCollider>();
-		collider.Scale = new( 8, 2, 8 );
+		collider.Scale = resource.DroppedSize;
+		collider.Center = resource.DroppedCenter;
 
 		droppedWeapon.Rigidbody = go.Components.Create<Rigidbody>();
 
