@@ -20,6 +20,12 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 		MaxDistance = 512f,
 	};
 
+
+	/// <summary>
+	/// Custom marker panel
+	/// </summary>
+	Type IMarkerObject.MarkerPanelTypeOverride => typeof( UI.GrenadeMarkerPanel );
+
 	protected override void Explode()
 	{
 		if ( Networking.IsHost )
@@ -50,9 +56,4 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 
 		base.Explode();
 	}
-
-	/// <summary>
-	/// Custom marker panel
-	/// </summary>
-	Type IMarkerObject.MarkerPanelTypeOverride => typeof( UI.GrenadeMarkerPanel );
 }

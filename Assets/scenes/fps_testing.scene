@@ -25,6 +25,7 @@
       "__guid": "1bb638d5-5b55-46be-8a18-b14ead057ed4",
       "Flags": 0,
       "Name": "Testing Mode",
+      "Position": "0,0,240.3786",
       "Enabled": true,
       "NetworkMode": 1,
       "NetworkInterpolation": true,
@@ -54,8 +55,17 @@
           "Team": "Terrorist",
           "Weapons": [
             "weapons/knife/knife.equip",
-            "weapons/usp/usp.equip"
+            "weapons/usp/usp.equip",
+            "weapons/special/cash_bag/cash_bag.equip"
           ]
+        },
+        {
+          "__type": "Facepunch.BotManager",
+          "__guid": "894835ad-98a7-4609-a533-93bd07350535",
+          "Drone": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player/drone.prefab"
+          }
         }
       ],
       "Children": [
@@ -63,6 +73,7 @@
           "__guid": "214972d7-519b-4123-9e1f-b320c1ffdc9c",
           "Flags": 0,
           "Name": "States",
+          "Position": "0,0,0",
           "Enabled": true,
           "NetworkMode": 1,
           "NetworkInterpolation": true,
@@ -83,6 +94,7 @@
               "__guid": "2c67d39f-ee65-47c7-859b-38c0bdc89d7d",
               "Flags": 0,
               "Name": "Waiting",
+              "Position": "0,0,0",
               "Enabled": true,
               "NetworkMode": 1,
               "NetworkInterpolation": true,
@@ -90,13 +102,7 @@
                 {
                   "__type": "Sandbox.Events.StateComponent",
                   "__guid": "212f57d7-dbf6-41de-b321-26e28edb0e3f",
-                  "DefaultDuration": 60,
-                  "DefaultNextState": {
-                    "_type": "component",
-                    "component_id": "15bfb80b-89bb-4a03-9130-b0427713672f",
-                    "go": "a386c0df-2f81-42dc-8268-66dc4b8717dc",
-                    "component_type": "StateComponent"
-                  }
+                  "DefaultDuration": 60
                 },
                 {
                   "__type": "Facepunch.ShowStatusText",
@@ -4592,7 +4598,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-06-14T17:09:32.1922898\u002B01:00",
+  "LastSaved": "2024-06-15T13:44:07.3251743\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "facepunch.concrete_simple",
