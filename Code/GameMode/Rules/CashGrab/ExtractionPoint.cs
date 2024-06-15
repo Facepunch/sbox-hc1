@@ -13,7 +13,7 @@ public partial class ExtractionPoint : Component, ICustomMinimapIcon, Component.
 	/// <summary>
 	/// The extraction point's trigger.
 	/// </summary>
-	public Collider Trigger { get; set; }
+	[Property] public Collider Trigger { get; set; }
 
 	string IMinimapIcon.IconPath => "ui/minimaps/cashgrab/extract.png";
 
