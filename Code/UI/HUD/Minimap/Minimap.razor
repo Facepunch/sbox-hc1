@@ -35,6 +35,8 @@
 
                     if (icon is IDirectionalMinimapIcon dir && dir.EnableDirectional)
                         style += RotationToMap(dir.Direction);
+                    else
+                        style += RotationToMap(FixedMode ? 0 : GameUtils.CurrentPawn?.EyeAngles.yaw ?? 0 );
 
                     if (icon is ICustomMinimapIcon custom)
                         style += custom.CustomStyle;
