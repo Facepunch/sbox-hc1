@@ -2,9 +2,18 @@
   "__guid": "3ed7d052-096b-4c08-8238-0a0b56884275",
   "GameObjects": [
     {
+      "__guid": "623f74df-6707-4672-afd1-7dfba2b1a481",
+      "Flags": 0,
+      "Name": "-- GAME SETUP --",
+      "Position": "-3753.352,358.6426,147.7437",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true
+    },
+    {
       "__guid": "d0c8d522-0524-4dbb-92a9-04b45bf7d1c7",
       "Flags": 0,
-      "Name": "Game_SetUp",
+      "Name": "Game",
       "Position": "0.00001758034,0,64",
       "Enabled": true,
       "NetworkMode": 1,
@@ -13,74 +22,1035 @@
       "__PrefabVariables": {}
     },
     {
-      "__guid": "bebe743a-8c55-43e0-96dd-7f301310c49e",
+      "__guid": "9849a27a-1943-47b8-a15a-50d594998b6f",
       "Flags": 0,
-      "Name": "Enviroment_SetUp",
-      "Position": "0,0,32",
-      "Rotation": "0,0,0.7933533,0.6087615",
+      "Name": "Minimap Renderer",
+      "Position": "-2304,0,0",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Facepunch.MinimapRenderer",
+          "__guid": "43ed4411-d5b9-4342-bf18-5b5bc56d1233",
+          "CurrentMinimapPath": "ui/minimaps/minimap_de_garry_hammer_2.png",
+          "ExportResolution": "1024,1024",
+          "Size": 4500
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "96a070d2-f1ef-44ed-9948-e8f44d66bb30",
+      "Flags": 0,
+      "Name": "-- MAP SETUP --",
+      "Position": "-3753.352,358.6426,147.7437",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true
+    },
+    {
+      "__guid": "0c9fc94c-6e1c-4241-bf73-a593760e4773",
+      "Flags": 0,
+      "Name": "Map Instance",
+      "Position": "-1147.197,665.653,599.879",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MapInstance",
+          "__guid": "e7c5f4e8-56a9-4bf9-bfa8-0afdec5fe6b1",
+          "MapName": "maps/de_garry/de_garry.vmap",
+          "UseMapFromLaunch": false
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "6171ec49-b9dd-4e53-a0be-f63feb194029",
+      "Flags": 0,
+      "Name": "Map Callouts",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "Children": [
         {
-          "__guid": "3291e94c-68dd-460d-a0ff-c651ea2abe69",
+          "__guid": "a0f2bc63-fc2a-4fb1-943e-3803d91e8f98",
           "Flags": 0,
-          "Name": "Gradient Fog",
-          "Position": "0,0,4",
+          "Name": "CT SPAWN",
+          "Position": "-1957.986,-1216,256",
+          "Scale": "3.128576,1,1",
+          "Tags": "zone",
           "Enabled": true,
           "NetworkMode": 2,
           "NetworkInterpolation": true,
           "Components": [
             {
-              "__type": "Sandbox.GradientFog",
-              "__guid": "d3b2fe6e-2d8c-43ad-a917-00e6ecaf750c",
-              "Color": "0.73025,0.90233,0.87078,0.15",
-              "EndDistance": 4096,
-              "FalloffExponent": 2,
-              "Height": 1024,
-              "StartDistance": 1024,
-              "VerticalFalloffExponent": 2
+              "__type": "Facepunch.MapLocation",
+              "__guid": "a4fab347-c637-4501-a0a4-ddb9f77b2576"
             },
             {
-              "__type": "Sandbox.CubemapFog",
-              "__guid": "38d473c8-9f5d-41ca-a170-4f668607a0ad",
-              "Blur": 0.53,
-              "EndDistance": 8192,
-              "FalloffExponent": 1,
-              "HeightExponent": 2,
-              "HeightStart": 2000,
-              "HeightWidth": 0,
-              "Sky": "materials/skybox/skybox_day_01.vmat",
-              "StartDistance": 2048
+              "__type": "Zone",
+              "__guid": "04b41c3e-1cd3-4104-80a9-da49aeaefd2b",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "CT SPAWN"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "5c250e20-5e06-493f-bce4-1c51163be3ec",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "487.0667,1013.2,550.9339",
+              "Static": false
             }
           ]
         },
         {
-          "__guid": "031d42ac-7fa8-42e4-8b57-2c3552870645",
+          "__guid": "0112733a-e6e9-44f4-938b-250827d58d8b",
           "Flags": 0,
-          "Name": "Soundscape",
-          "Position": "629.4478,2349.132,992",
+          "Name": "MID",
+          "Position": "-2960,-160,255.9999",
+          "Scale": "0.4454329,1.341059,1",
+          "Tags": "zone",
           "Enabled": true,
           "NetworkMode": 2,
           "NetworkInterpolation": true,
           "Components": [
             {
-              "__type": "Sandbox.SoundscapeTrigger",
-              "__guid": "7b07d6ea-f4d2-4dca-a0e6-f546a74f5507",
-              "BoxSize": "50,50,50",
-              "Radius": 10000,
-              "Soundscape": "sounds/soundscapes/birdchirp_soundscape.sndscape",
-              "StayActiveOnExit": true,
-              "Type": "Sphere"
+              "__type": "Facepunch.MapLocation",
+              "__guid": "a9659765-d7cc-495b-9d46-823e704cc8a0"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "47685796-8834-41f9-bed7-55b2d5dfcb9f",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "MID"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "a73342f8-58a2-43f9-bb57-18b48d3e2abe",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "e7b814b7-35e0-4d4e-b42c-857f4296b961",
+          "Flags": 0,
+          "Name": "A CONNECTOR",
+          "Position": "-2416.167,-41.15884,256.0012",
+          "Rotation": "0,0,-0.7071067,0.7071068",
+          "Scale": "0.3947283,0.5362558,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "4c4da951-6f29-4e18-9338-6f832b127dab"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "ef2ee039-9167-41c5-881f-89afa6dbe6e5",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "A CONNECTOR"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "c2f39499-5987-42f6-b5ab-eb8a330a45a4",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "e523d879-1a42-48b2-ab93-3fe0776294b8",
+          "Flags": 0,
+          "Name": "APARTMENTS",
+          "Position": "-3831.747,672.3294,256.002",
+          "Rotation": "0,0,-0.7071067,0.7071068",
+          "Scale": "0.6465594,0.4110221,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "d3bb2719-79f4-4b19-8e99-d65bf8ce21d9"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "c02402e4-8d53-4e9e-b602-b691d11e8e1e",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "APARTMENTS"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "7bd5f8a4-6e32-4d73-bd1b-204949981d05",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "c7eb809f-30fe-42d3-877f-e9fac4a23a36",
+          "Flags": 0,
+          "Name": "APARTMENTS",
+          "Position": "-3403.011,548.8661,256.002",
+          "Rotation": "0,0,-0.7071067,0.7071068",
+          "Scale": "0.6465594,0.3618539,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "afe0e26f-3d00-499c-976c-ac0471cd839d"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "83b0dcfa-fe54-486e-becc-6589ccd1bc1d",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "APARTMENTS"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "0bad7f5c-d244-4366-86ed-8f802c4d9ad9",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "640062ec-d70b-4009-aad0-e407e11152c8",
+          "Flags": 0,
+          "Name": "HEAVEN",
+          "Position": "-4160,-302.5969,256",
+          "Scale": "1,0.7005717,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "5435e27d-db6d-4ba4-9642-7c6eea7c64cc"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "f7c12a70-2c44-4e17-ad01-bcc90fc00702",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "HEAVEN"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "a1f3d4dd-321d-4d9a-b8a3-0acf5ad78e70",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "678.533,473.4684,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "094b1cfc-aadb-47e7-82a6-87a04ca2a9bf",
+          "Flags": 0,
+          "Name": "GUTTER",
+          "Position": "-4139.414,-572.5887,135.3322",
+          "Scale": "1.258871,0.2821018,0.2605474",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "20d50a24-7d7b-4098-904d-cda906f41d0c"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "b01f827f-c2ce-4fb3-9ed9-f6f598ce4841",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "GUTTER"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "5e8a9285-5f70-4a42-aba2-dd8e5ff0e81d",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "678.533,473.4684,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "7cacec0a-601a-41cd-919c-be9c6d54352e",
+          "Flags": 0,
+          "Name": "GUTTER",
+          "Position": "-4449.876,-782.9328,135.3319",
+          "Rotation": "0,0,-0.7071067,0.7071068",
+          "Scale": "0.4200563,0.2821018,0.2605474",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "8ef88c70-6a2e-4584-9ee5-0b36fed218b0"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "d10a4eaa-dc23-4380-8072-8b2147f69c4f",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "GUTTER"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "7bb89c3b-9b3b-4740-81ca-7fc462603556",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "678.533,473.4684,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "cd99f1c5-6623-46a8-b5e6-acc73662d5c7",
+          "Flags": 0,
+          "Name": "GUTTER",
+          "Position": "-3776.942,-425.7104,135.3318",
+          "Rotation": "0,0,-0.7071067,0.7071068",
+          "Scale": "0.2349063,0.2821018,0.2605474",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "0d215d9a-52f2-43cf-b5de-820c6a961d89"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "cde969d9-1a36-4cd4-8bd4-f779a9a758dc",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "GUTTER"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "fc6cf733-46c4-4002-99fb-ce3efda8389b",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "678.533,473.4684,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "dd8b1af2-17d6-417b-90fc-6b2245f5f7a1",
+          "Flags": 0,
+          "Name": "A-SITE",
+          "Position": "-1040,-70.67699,256",
+          "Scale": "0.936186,0.8193942,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "bb501b54-bc9f-46cb-adb6-0e240bce8535"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "45ef6f95-713a-4ec0-beda-f3b65f1ff07a",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "A SITE"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "b85651c4-1249-45b2-b760-5648e76d5821",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "40349d5c-6659-4615-817b-db23cc536d2c",
+          "Flags": 0,
+          "Name": "WAREHOUSE",
+          "Position": "-96,-400,256",
+          "Scale": "0.8152414,2.193416,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "f75d8f7c-3fa2-420f-89e1-5263da9b604b"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "9abec523-4821-4215-a21e-664ba19eafa8",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "WAREHOUSE"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "2793fece-b572-4d0c-9b1d-e13637b20015",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "b7f221eb-af90-4314-be88-60c2378b320c",
+          "Flags": 0,
+          "Name": "PIPES",
+          "Position": "-1262.671,189.8756,256",
+          "Scale": "0.09362999,0.3470778,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "a0e86a9b-6e95-40aa-b238-3faf3cb1eb97"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "a3b87cc5-18d1-4ae0-80b6-8e66a2b97c77",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "PIPES"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "a3b529b0-1545-4a75-a3f5-083df9616303",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "1afab3ac-d2c2-4a72-a82f-5b11cd8198d2",
+          "Flags": 0,
+          "Name": "A CUBBY",
+          "Position": "-960,490.1158,256",
+          "Scale": "0.6555747,0.186113,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "8785f53b-0bff-44e3-a816-694db519893c"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "26f0e895-de50-4675-9fae-84a507412d80",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "A CUBBY"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "4039747a-2036-4166-8ab3-d1a0a54aae50",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "ee874ad3-e70a-41d2-bd62-2ab2070996d5",
+          "Flags": 0,
+          "Name": "LEDGE",
+          "Position": "-1677.464,-551.8355,256.0006",
+          "Scale": "0.2685625,0.186113,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "0749051d-bdea-4c64-811a-0841ec7ca952"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "abde9a76-9ed7-42fb-b865-cde62c8eadf4",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "LEDGE"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "fbddebef-7efd-49b2-86c7-ff5a49f580c4",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "370572a3-2c88-4907-b375-9fc734fe3015",
+          "Flags": 0,
+          "Name": "A ARCH",
+          "Position": "-675.0955,-781.0417,256.0008",
+          "Scale": "0.2685625,0.4502278,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "346bf5cd-6611-48d1-9cef-00a47d41dc81"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "b9ca2bf5-da9a-477a-9d45-a99cc7bcf095",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "A ARCH"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "4054bc9d-4de2-47e6-8bcc-d0afaf45cb52",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "ece89722-3cbb-4774-95f1-c262ee4306a5",
+          "Flags": 0,
+          "Name": "VAN",
+          "Position": "-563.8967,-1116.479,256",
+          "Scale": "0.1963638,0.1566217,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "fc9973c9-c4d2-4c1b-8d71-ff9007f5cd19"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "175a12b4-74bf-4338-9ee0-f051f36709f1",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "VAN"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "6e5f62ed-2d54-4555-82b0-81beb422188c",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "3c21e5b2-72ad-43b0-8826-f5cfa307680d",
+          "Flags": 0,
+          "Name": "A ELBOW",
+          "Position": "-563.8967,-1406.658,256",
+          "Scale": "0.1963638,0.3912016,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "ce62a704-f275-4c84-b8ca-297e4170659e"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "6772663e-eb10-4b39-a04a-a22da3916bdf",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "A ELBOW"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "788a3374-5115-4c72-9ce5-cae5222013cb",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "fc643493-92f7-432a-81f6-1a427e813217",
+          "Flags": 0,
+          "Name": "A ELBOW",
+          "Position": "-926.4514,-1347.152,256",
+          "Scale": "0.4790584,0.5691235,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "8cf79729-c048-4940-aeb1-65009b078544"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "0528f8c4-1520-4d93-91c5-e757f6bf9f85",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "A ELBOW"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "fd34bbc4-127f-413f-96e7-309dadef26e3",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "4b4bd634-f452-4581-88ae-c66c30a55408",
+          "Flags": 0,
+          "Name": "B-SITE",
+          "Position": "-3981.131,-1043.815,255.9998",
+          "Scale": "0.7452923,0.7193067,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "963dcaed-8673-4316-b6af-4803223f8c3e"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "4775aacf-df7d-4a28-9087-30e7acd88421",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "B SITE"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "49dd7df3-98c2-4c49-b23f-86290a0e25d6",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "60d79eae-8fbd-45bd-ba02-0eea89c85f88",
+          "Flags": 0,
+          "Name": "B-SITE",
+          "Position": "-3495.287,-898.1254,255.9996",
+          "Scale": "0.3108119,0.2933072,1.000001",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "00e5503f-0b1b-4fa0-bb80-c21cd63cdc93"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "fc514863-2bb4-46e8-a1ad-62dd366bf52c",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "B SITE"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "095f4ab2-28de-4290-9333-fa554f1a2415",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "4f9d9152-2a83-4130-8c9d-f3613bf0fbfd",
+          "Flags": 0,
+          "Name": "B BOOST",
+          "Position": "-3282.064,-689.0585,255.9993",
+          "Scale": "0.3238783,0.09115802,1.000001",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "0d5e7b4b-4e62-49be-867a-6f4c256e8cd0"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "db20a8e8-9129-4843-bbb4-55ba9f9e3bb1",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "B BOOST"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "bafe992c-2f8c-4388-b8b2-bbb3780dd8b7",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "fbca64b6-3e8b-45ac-8728-ce99f33b9b33",
+          "Flags": 0,
+          "Name": "BOOTH",
+          "Position": "-3414.631,-1234.883,256.0001",
+          "Scale": "0.3153993,0.315198,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "52f78ad6-51b9-4dbf-bbc8-ec2be2baf363"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "1565e9d7-5d54-4c8c-b562-74b9f1682102",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "BOOTH"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "d6928398-9a57-4d25-b5a8-5a85e291deea",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "1079,1102.402,550.9339",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "2514557f-8b8c-4cbf-9309-706b28ac2cb7",
+          "Flags": 0,
+          "Name": "T SPAWN",
+          "Position": "-3271.985,1481.159,128",
+          "Scale": "2.983623,1.652689,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "2fe3d0db-8d53-464c-b741-d700c0c65bbd"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "e3ef0df5-01cb-4170-b0c2-9d0a388d9080",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "T SPAWN"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "df9b8e49-d515-4a0d-a5d1-0d23e01d1211",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "524.7341,535.2,360.6002",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "f4353c87-4bf2-4339-8b2a-fa0ff8dde989",
+          "Flags": 0,
+          "Name": "TUNNEL",
+          "Position": "-4242.823,1005.355,247.7198",
+          "Rotation": "0,0,0.7071067,0.7071068",
+          "Scale": "2.58982,0.6603677,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "d1da78b4-dad1-4cff-83b0-c6b8b3523b01"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "fc9cf716-7d11-4e8d-a6da-9528d5eacbcd",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "TUNNEL"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "5c13124b-268a-48a2-a4d6-dd8e80b24c36",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "524.7341,535.2,360.6002",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "37d9069e-46f3-41ab-a6fb-3de06305163b",
+          "Flags": 0,
+          "Name": "BACKDOORS",
+          "Position": "-4064.195,90.55884,247.7197",
+          "Scale": "1.706365,0.829925,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "d49131b7-9c7c-4de7-be11-23eb5de0544d"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "48c81a84-f7d4-478a-b5fd-5520d9dc73d7",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "BACKDOORS"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "359172b3-cc92-4540-a1d7-36da9b458743",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "524.7341,535.2,360.6002",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "d4ff89d3-42c5-4862-b64a-585e99186d9a",
+          "Flags": 0,
+          "Name": "BACKDOORS",
+          "Position": "-3668.833,30.10536,247.7202",
+          "Scale": "0.5681196,0.583999,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "6bba5ca3-2455-4e28-8a59-7c843b8e019a"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "952faa81-bd2b-4e41-a34c-743a5cb36fbd",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "BACKDOORS"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "40760d5c-80fb-424a-82e7-318b24f7b689",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "524.7341,535.2,360.6002",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "5b832c79-29d0-4b47-9e4f-703b2fd787f5",
+          "Flags": 0,
+          "Name": "A CATWALK",
+          "Position": "-1811.85,203.4,184.7043",
+          "Rotation": "0,0,0.7071067,0.7071068",
+          "Scale": "2.653467,1.124157,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "8a74764a-4915-4014-bd1a-1b4dc9771209"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "083c8376-afc5-4e18-b7b5-0cd7be0ba92f",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "A CATWALK"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "ec6c5efe-57d4-483d-b6db-ec2970b1fd28",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "524.7341,535.2,360.6002",
+              "Static": false
+            }
+          ]
+        },
+        {
+          "__guid": "5c8a50e3-500c-4a35-bb8b-0bdbd21ad9f9",
+          "Flags": 0,
+          "Name": "A CATWALK",
+          "Position": "-2259.896,736.3539,184.7043",
+          "Rotation": "0,0,0.7071067,0.7071068",
+          "Scale": "1.360312,0.6475568,1",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.MapLocation",
+              "__guid": "378898c2-cf08-4911-9a76-53e6559cb92e"
+            },
+            {
+              "__type": "Zone",
+              "__guid": "0660b1dc-f913-4566-944b-996b28839460",
+              "Color": "0.51056,0.70698,0.49653,1",
+              "DisplayName": "A CATWALK"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "921e00c8-0b3d-4919-a438-82aff1da7b5a",
+              "Center": "0,0,0",
+              "IsTrigger": true,
+              "Scale": "524.7341,535.2,360.6002",
+              "Static": false
             }
           ]
         }
       ]
     },
     {
+      "__guid": "031d42ac-7fa8-42e4-8b57-2c3552870645",
+      "Flags": 0,
+      "Name": "Soundscape",
+      "Position": "-2432,-0.00006103516,1024",
+      "Rotation": "0,0,0.7933533,0.6087615",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SoundscapeTrigger",
+          "__guid": "7b07d6ea-f4d2-4dca-a0e6-f546a74f5507",
+          "BoxSize": "50,50,50",
+          "Radius": 10000,
+          "Soundscape": "sounds/soundscapes/birdchirp_soundscape.sndscape",
+          "StayActiveOnExit": true,
+          "Type": "Sphere"
+        }
+      ]
+    },
+    {
+      "__guid": "3291e94c-68dd-460d-a0ff-c651ea2abe69",
+      "Flags": 0,
+      "Name": "Gradient Fog",
+      "Position": "0,0,36",
+      "Rotation": "0,0,0.7933533,0.6087615",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.GradientFog",
+          "__guid": "d3b2fe6e-2d8c-43ad-a917-00e6ecaf750c",
+          "Color": "0.73025,0.90233,0.87078,0.15",
+          "EndDistance": 4096,
+          "FalloffExponent": 2,
+          "Height": 1024,
+          "StartDistance": 1024,
+          "VerticalFalloffExponent": 2
+        },
+        {
+          "__type": "Sandbox.CubemapFog",
+          "__guid": "38d473c8-9f5d-41ca-a170-4f668607a0ad",
+          "Blur": 0.53,
+          "EndDistance": 8192,
+          "FalloffExponent": 1,
+          "HeightExponent": 2,
+          "HeightStart": 2000,
+          "HeightWidth": 0,
+          "Sky": "materials/skybox/skybox_day_01.vmat",
+          "StartDistance": 2048
+        }
+      ]
+    },
+    {
+      "__guid": "da067600-0667-4eb1-a81a-acfcaf4cd3dc",
+      "Flags": 0,
+      "Name": "Cubemap",
+      "Position": "-2816,-896.0001,256",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.EnvmapProbe",
+          "__guid": "00130408-83bd-4831-ac91-dcdbebfe445e",
+          "Texture": "textures/cubemaps/default2.vtex",
+          "Bounds": {
+            "Mins": "-2761.594,-1523.665,-1000",
+            "Maxs": "3004.938,3088.534,1000"
+          },
+          "DelayBetweenUpdates": 0.1,
+          "Feathering": 0.02,
+          "FrameInterval": 5,
+          "MaxDistance": 5000,
+          "Projection": "Box",
+          "RenderDynamically": true,
+          "TintColor": "1,1,1,1",
+          "UpdateStrategy": "OnEnabled",
+          "ZFar": 4096,
+          "ZNear": 16
+        }
+      ]
+    },
+    {
+      "__guid": "f98d8bcd-d8f3-4515-b1ef-eae78b1b1dd6",
+      "Flags": 0,
+      "Name": "-- GAMEMODE COMPONENTS --",
+      "Position": "-3753.352,358.6426,147.7437",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true
+    },
+    {
       "__guid": "fe1eb2d5-443e-4eaa-9e02-f2a75ce659bb",
       "Flags": 0,
-      "Name": "BuyZone-SetUp",
+      "Name": "Buy Zones",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -150,25 +1120,6 @@
       ]
     },
     {
-      "__guid": "9849a27a-1943-47b8-a15a-50d594998b6f",
-      "Flags": 0,
-      "Name": "MinimapRenderer",
-      "Position": "-2304,0,0",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Facepunch.MinimapRenderer",
-          "__guid": "43ed4411-d5b9-4342-bf18-5b5bc56d1233",
-          "CurrentMinimapPath": "ui/minimaps/minimap_de_garry_hammer_2.png",
-          "ExportResolution": "1024,1024",
-          "Size": 4500
-        }
-      ],
-      "Children": []
-    },
-    {
       "__guid": "e8f0d111-e2b0-4ea3-b638-95f029f1b57f",
       "Flags": 0,
       "Name": "CT Spawn",
@@ -201,6 +1152,294 @@
             "Cash Grab"
           ],
           "Inverse": false
+        }
+      ]
+    },
+    {
+      "__guid": "726e613b-a353-4a22-910b-8c0d90aa6942",
+      "Flags": 0,
+      "Name": "Team Spawns",
+      "Position": "-869.4842,-93.85706,240.0472",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Children": [
+        {
+          "__guid": "06f35c21-3aab-490c-891b-5eb0914a3a91",
+          "Flags": 0,
+          "Name": "Operators",
+          "Position": "0,0,0",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Children": [
+            {
+              "__guid": "25b185f8-39a9-4776-b88d-4b6b17d262da",
+              "Flags": 0,
+              "Name": "CT Spawn (4)",
+              "Position": "-1243.194,-1266.759,-112.0472",
+              "Rotation": "0,0,0.5572041,0.8303759",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "4529819f-d492-4f85-978d-a51672e76c17",
+                  "Team": "CounterTerrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "88d761ea-fa73-4c12-a86c-26de2d4fe40e",
+              "Flags": 0,
+              "Name": "CT Spawn (3)",
+              "Position": "-1305.026,-1249.912,-112.0472",
+              "Rotation": "0,0,0.63759,0.7703761",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "2a384297-07fa-4c26-9ba0-9623e03f94fc",
+                  "Team": "CounterTerrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "b9276818-9427-40aa-b8a2-744430aadb89",
+              "Flags": 0,
+              "Name": "CT Spawn (2)",
+              "Position": "-1367.978,-1261.837,-112.0472",
+              "Rotation": "0,0,0.7588357,0.651282",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "d28c5588-c441-4cb1-af1f-1fbd8bab4810",
+                  "Team": "CounterTerrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "2e2ba9c5-5ad5-4bf2-b5a5-b619d1cd3a14",
+              "Flags": 0,
+              "Name": "CT Spawn (7)",
+              "Position": "-1323.395,-1198.437,-112.0472",
+              "Rotation": "0,0,0.7071067,0.7071068",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "08b54066-99d2-48da-81dc-993273ba2bd1",
+                  "Team": "CounterTerrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "e2f647b9-4c72-4d31-ab78-1d723412a0e0",
+              "Flags": 0,
+              "Name": "CT Spawn (6)",
+              "Position": "-1217.455,-1220.781,-112.0472",
+              "Rotation": "0,0,0.5748659,0.8182476",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "a3a97757-11d0-45db-8077-56e99234a2ec",
+                  "Team": "CounterTerrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "d51370e3-0047-4633-938d-d28c210daa6b",
+              "Flags": 0,
+              "Name": "CT Spawn (5)",
+              "Position": "-1190.881,-1301.118,-112.0472",
+              "Rotation": "0,0,0.3532979,0.9355109",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "883d8706-86e5-4e1c-9418-4ed123096359",
+                  "Team": "CounterTerrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "d031137f-fd6d-4cd7-b335-324dd1269c02",
+              "Flags": 0,
+              "Name": "CT Spawn (1)",
+              "Position": "-1131.917,-1283.213,-112.0472",
+              "Rotation": "0,0,0.4782117,0.8782447",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "7f6db694-3afb-4095-96ea-de7718643831",
+                  "Team": "CounterTerrorist"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "__guid": "bfe6bb15-55bf-487d-9aa2-38e37fb65073",
+          "Flags": 0,
+          "Name": "Anarchists",
+          "Position": "0,0,0",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Children": [
+            {
+              "__guid": "852a626e-f8dd-4dcb-adb9-8327a8ac5c51",
+              "Flags": 0,
+              "Name": "T Spawn (7)",
+              "Position": "-2106.515,1821.86,-240.0472",
+              "Rotation": "0,0,0.7071071,-0.7071066",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "9f446851-7a2a-42ec-acb0-b6101a654c41",
+                  "Team": "Terrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "145ca5b4-d703-442d-b873-e59e7146c15f",
+              "Flags": 0,
+              "Name": "T Spawn (4)",
+              "Position": "-2170.515,1885.86,-240.0472",
+              "Rotation": "0,0,-0.7933533,0.6087615",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "d54e3dd0-7838-4c9e-9310-5ee3343c7fce",
+                  "Team": "Terrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "5023f841-a54f-4158-b31a-9f1a4c674699",
+              "Flags": 0,
+              "Name": "T Spawn (3)",
+              "Position": "-2106.515,1885.86,-240.0472",
+              "Rotation": "0,0,0.7071071,-0.7071066",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "ea3c9c0c-213b-4340-8636-dd63aa3a2bf8",
+                  "Team": "Terrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "1e50c413-5917-4c31-86a8-040d60fc731a",
+              "Flags": 0,
+              "Name": "T Spawn (2)",
+              "Position": "-1978.515,1821.86,-240.0472",
+              "Rotation": "0,0,-0.7071067,0.7071068",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "6c0cda6b-5f2b-4d4b-a60c-753da5a02226",
+                  "Team": "Terrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "202960c9-db0d-4605-bfcf-0033eb4a3eb7",
+              "Flags": 0,
+              "Name": "T Spawn (6)",
+              "Position": "-1978.515,1885.86,-240.0474",
+              "Rotation": "0,0,-0.7071067,0.7071068",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "911ee0b1-95b5-45c8-a8de-1463501bd7d2",
+                  "Team": "Terrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "505a582d-2eb6-47c4-9514-eb769a8bb930",
+              "Flags": 0,
+              "Name": "T Spawn (1)",
+              "Position": "-2042.515,1821.86,-240.0472",
+              "Rotation": "0,0,-0.7071067,0.7071068",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "38dd61b5-c410-480b-a720-0776ef7808f7",
+                  "Team": "Terrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "25a8f393-435e-4dcb-8bb7-bb0af9dd8130",
+              "Flags": 0,
+              "Name": "T Spawn",
+              "Position": "-2042.515,1885.86,-240.0473",
+              "Rotation": "0,0,-0.7071067,0.7071068",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "eb8a6a5a-bec8-4288-8d1c-02a41be49c14",
+                  "Team": "Terrorist"
+                }
+              ]
+            },
+            {
+              "__guid": "39508f9b-ff29-412f-af86-fb84a41af8ad",
+              "Flags": 0,
+              "Name": "T Spawn (5)",
+              "Position": "-2170.515,1821.86,-240.0472",
+              "Rotation": "0,0,0.7071071,-0.7071066",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "TeamSpawnPoint",
+                  "__guid": "17b975c4-ddb8-4ae5-9c00-fc29686531d7",
+                  "Team": "Terrorist"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -1017,6 +2256,17 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Facepunch.GameModeObject",
+          "__guid": "3ff8046b-eaf1-4ac8-819e-8a2cc70c532a",
+          "GameModes": [
+            "Deathmatch",
+            "Team Deathmatch"
+          ],
+          "Inverse": false
+        }
+      ],
       "Children": [
         {
           "__guid": "9b3aedf2-f344-4a34-8e9a-34094293ff80",
@@ -2349,354 +3599,18 @@
       ]
     },
     {
-      "__guid": "d031137f-fd6d-4cd7-b335-324dd1269c02",
+      "__guid": "778d35a1-d350-413b-9787-3351a803e1b8",
       "Flags": 0,
-      "Name": "CT Spawn (1)",
-      "Position": "-2001.401,-1377.07,128",
-      "Rotation": "0,0,0.4782117,0.8782447",
+      "Name": "-- MAP OBJECTS --",
+      "Position": "-2079.979,567.905,-73.9182",
       "Enabled": true,
       "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "7f6db694-3afb-4095-96ea-de7718643831",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "d51370e3-0047-4633-938d-d28c210daa6b",
-      "Flags": 0,
-      "Name": "CT Spawn (5)",
-      "Position": "-2060.365,-1394.975,128",
-      "Rotation": "0,0,0.3532979,0.9355109",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "883d8706-86e5-4e1c-9418-4ed123096359",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "e2f647b9-4c72-4d31-ab78-1d723412a0e0",
-      "Flags": 0,
-      "Name": "CT Spawn (6)",
-      "Position": "-2086.939,-1314.638,128",
-      "Rotation": "0,0,0.5748659,0.8182476",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "a3a97757-11d0-45db-8077-56e99234a2ec",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "2e2ba9c5-5ad5-4bf2-b5a5-b619d1cd3a14",
-      "Flags": 0,
-      "Name": "CT Spawn (7)",
-      "Position": "-2192.879,-1292.294,128",
-      "Rotation": "0,0,0.7071067,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "08b54066-99d2-48da-81dc-993273ba2bd1",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "b9276818-9427-40aa-b8a2-744430aadb89",
-      "Flags": 0,
-      "Name": "CT Spawn (2)",
-      "Position": "-2237.462,-1355.694,128",
-      "Rotation": "0,0,0.7588357,0.651282",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "d28c5588-c441-4cb1-af1f-1fbd8bab4810",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "88d761ea-fa73-4c12-a86c-26de2d4fe40e",
-      "Flags": 0,
-      "Name": "CT Spawn (3)",
-      "Position": "-2174.51,-1343.769,128",
-      "Rotation": "0,0,0.63759,0.7703761",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "2a384297-07fa-4c26-9ba0-9623e03f94fc",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "25b185f8-39a9-4776-b88d-4b6b17d262da",
-      "Flags": 0,
-      "Name": "CT Spawn (4)",
-      "Position": "-2112.678,-1360.616,128",
-      "Rotation": "0,0,0.5572041,0.8303759",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "4529819f-d492-4f85-978d-a51672e76c17",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "25a8f393-435e-4dcb-8bb7-bb0af9dd8130",
-      "Flags": 0,
-      "Name": "T Spawn",
-      "Position": "-2911.999,1792.003,-0.0001552255",
-      "Rotation": "0,0,-0.7071067,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "eb8a6a5a-bec8-4288-8d1c-02a41be49c14",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "505a582d-2eb6-47c4-9514-eb769a8bb930",
-      "Flags": 0,
-      "Name": "T Spawn (1)",
-      "Position": "-2911.999,1728.003,0.00001282145",
-      "Rotation": "0,0,-0.7071067,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "38dd61b5-c410-480b-a720-0776ef7808f7",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "202960c9-db0d-4605-bfcf-0033eb4a3eb7",
-      "Flags": 0,
-      "Name": "T Spawn (6)",
-      "Position": "-2847.999,1792.003,-0.0001761275",
-      "Rotation": "0,0,-0.7071067,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "911ee0b1-95b5-45c8-a8de-1463501bd7d2",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "1e50c413-5917-4c31-86a8-040d60fc731a",
-      "Flags": 0,
-      "Name": "T Spawn (2)",
-      "Position": "-2847.999,1728.003,0.00001282145",
-      "Rotation": "0,0,-0.7071067,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "6c0cda6b-5f2b-4d4b-a60c-753da5a02226",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "5023f841-a54f-4158-b31a-9f1a4c674699",
-      "Flags": 0,
-      "Name": "T Spawn (3)",
-      "Position": "-2975.999,1792.003,-0.0000367696",
-      "Rotation": "0,0,0.7071071,-0.7071066",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "ea3c9c0c-213b-4340-8636-dd63aa3a2bf8",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "145ca5b4-d703-442d-b873-e59e7146c15f",
-      "Flags": 0,
-      "Name": "T Spawn (4)",
-      "Position": "-3039.999,1792.003,-0.0000367696",
-      "Rotation": "0,0,-0.7933533,0.6087615",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "d54e3dd0-7838-4c9e-9310-5ee3343c7fce",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "852a626e-f8dd-4dcb-adb9-8327a8ac5c51",
-      "Flags": 0,
-      "Name": "T Spawn (7)",
-      "Position": "-2975.999,1728.003,-0.0000367696",
-      "Rotation": "0,0,0.7071071,-0.7071066",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "9f446851-7a2a-42ec-acb0-b6101a654c41",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "39508f9b-ff29-412f-af86-fb84a41af8ad",
-      "Flags": 0,
-      "Name": "T Spawn (5)",
-      "Position": "-3039.999,1728.003,-0.0000367696",
-      "Rotation": "0,0,0.7071071,-0.7071066",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "17b975c4-ddb8-4ae5-9c00-fc29686531d7",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "da067600-0667-4eb1-a81a-acfcaf4cd3dc",
-      "Flags": 0,
-      "Name": "Envmap Probe",
-      "Position": "-2816,-896,256",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.EnvmapProbe",
-          "__guid": "00130408-83bd-4831-ac91-dcdbebfe445e",
-          "Texture": "textures/cubemaps/default2.vtex",
-          "Bounds": {
-            "Mins": "-2761.594,-1523.665,-1000",
-            "Maxs": "3004.938,3088.534,1000"
-          },
-          "DelayBetweenUpdates": 0.1,
-          "Feathering": 0.02,
-          "FrameInterval": 5,
-          "MaxDistance": 5000,
-          "Projection": "Box",
-          "RenderDynamically": true,
-          "TintColor": "1,1,1,1",
-          "UpdateStrategy": "OnEnabled",
-          "ZFar": 4096,
-          "ZNear": 16
-        }
-      ]
-    },
-    {
-      "__guid": "b45d1ab7-1417-453b-96d1-ffbcec117a63",
-      "Flags": 0,
-      "Name": "door (5)",
-      "Position": "-4264,-132,96",
-      "Rotation": "0,0,0.7071067,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/door.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "aa0eca05-1ca1-4b95-8ff9-c2ae67f19d60",
-      "Flags": 0,
-      "Name": "door",
-      "Position": "-3704,328,160",
-      "Rotation": "0,0,0.7071067,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/door.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "ae698869-c92a-4f06-92c4-0142b94621d1",
-      "Flags": 0,
-      "Name": "door (2)",
-      "Position": "-3207.998,440.0032,31.99999",
-      "Rotation": "0,0,-0.9999999,-0.0000005384259",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/door.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "0edddbbf-d902-40f2-9488-d7ff495b1713",
-      "Flags": 0,
-      "Name": "door (3)",
-      "Position": "-2716,-200,64",
-      "Rotation": "0,0,0.9999999,0.0000001490116",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/door.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "c4780326-d35c-421e-a66a-ad55f535f276",
-      "Flags": 0,
-      "Name": "door (4)",
-      "Position": "-2116,88,96",
-      "Rotation": "0,0,0.0000003437187,-0.9999999",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/door.prefab",
-      "__PrefabVariables": {}
+      "NetworkInterpolation": true
     },
     {
       "__guid": "ece19909-a608-4163-9b70-2045d0014c85",
       "Flags": 0,
-      "Name": "door (1)",
+      "Name": "Tunnel Door",
       "Position": "-4056,937,96.00002",
       "Rotation": "0,0,1,0.0000001947072",
       "Enabled": true,
@@ -2706,913 +3620,69 @@
       "__PrefabVariables": {}
     },
     {
-      "__guid": "0c9fc94c-6e1c-4241-bf73-a593760e4773",
+      "__guid": "c4780326-d35c-421e-a66a-ad55f535f276",
       "Flags": 0,
-      "Name": "MapInstance",
-      "Position": "-1147.197,665.653,599.879",
+      "Name": "A Catwalk Door",
+      "Position": "-2116,88,96",
+      "Rotation": "0,0,0.0000003437187,-0.9999999",
       "Enabled": true,
-      "NetworkMode": 2,
+      "NetworkMode": 1,
       "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.MapInstance",
-          "__guid": "e7c5f4e8-56a9-4bf9-bfa8-0afdec5fe6b1",
-          "MapName": "maps/de_garry/de_garry.vmap",
-          "UseMapFromLaunch": false
-        }
-      ],
-      "Children": []
+      "__Prefab": "prefabs/door.prefab",
+      "__PrefabVariables": {}
     },
     {
-      "__guid": "6171ec49-b9dd-4e53-a0be-f63feb194029",
+      "__guid": "0edddbbf-d902-40f2-9488-d7ff495b1713",
       "Flags": 0,
-      "Name": "MapCallouts",
+      "Name": "A Catwalk -\u003E Mid Door",
+      "Position": "-2716,-200,64",
+      "Rotation": "0,0,0.9999999,0.0000001490116",
       "Enabled": true,
-      "NetworkMode": 2,
+      "NetworkMode": 1,
       "NetworkInterpolation": true,
-      "Children": [
-        {
-          "__guid": "a0f2bc63-fc2a-4fb1-943e-3803d91e8f98",
-          "Flags": 0,
-          "Name": "CT SPAWN",
-          "Position": "-1957.986,-1216,256",
-          "Scale": "3.128576,1,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "a4fab347-c637-4501-a0a4-ddb9f77b2576"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "04b41c3e-1cd3-4104-80a9-da49aeaefd2b",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "CT SPAWN"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "5c250e20-5e06-493f-bce4-1c51163be3ec",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "487.0667,1013.2,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "0112733a-e6e9-44f4-938b-250827d58d8b",
-          "Flags": 0,
-          "Name": "MID",
-          "Position": "-2960,-160,255.9999",
-          "Scale": "0.4454329,1.341059,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "a9659765-d7cc-495b-9d46-823e704cc8a0"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "47685796-8834-41f9-bed7-55b2d5dfcb9f",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "MID"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "a73342f8-58a2-43f9-bb57-18b48d3e2abe",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "e7b814b7-35e0-4d4e-b42c-857f4296b961",
-          "Flags": 0,
-          "Name": "A CONNECTOR",
-          "Position": "-2416.167,-41.15884,256.0012",
-          "Rotation": "0,0,-0.7071067,0.7071068",
-          "Scale": "0.3947283,0.5362558,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "4c4da951-6f29-4e18-9338-6f832b127dab"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "ef2ee039-9167-41c5-881f-89afa6dbe6e5",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A CONNECTOR"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "c2f39499-5987-42f6-b5ab-eb8a330a45a4",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "e523d879-1a42-48b2-ab93-3fe0776294b8",
-          "Flags": 0,
-          "Name": "APARTMENTS",
-          "Position": "-3831.747,672.3294,256.002",
-          "Rotation": "0,0,-0.7071067,0.7071068",
-          "Scale": "0.6465594,0.4110221,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "d3bb2719-79f4-4b19-8e99-d65bf8ce21d9"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "c02402e4-8d53-4e9e-b602-b691d11e8e1e",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "APARTMENTS"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "7bd5f8a4-6e32-4d73-bd1b-204949981d05",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "c7eb809f-30fe-42d3-877f-e9fac4a23a36",
-          "Flags": 0,
-          "Name": "APARTMENTS",
-          "Position": "-3403.011,548.8661,256.002",
-          "Rotation": "0,0,-0.7071067,0.7071068",
-          "Scale": "0.6465594,0.3618539,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "afe0e26f-3d00-499c-976c-ac0471cd839d"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "83b0dcfa-fe54-486e-becc-6589ccd1bc1d",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "APARTMENTS"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "0bad7f5c-d244-4366-86ed-8f802c4d9ad9",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "640062ec-d70b-4009-aad0-e407e11152c8",
-          "Flags": 0,
-          "Name": "HEAVEN",
-          "Position": "-4160,-302.5969,256",
-          "Scale": "1,0.7005717,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "5435e27d-db6d-4ba4-9642-7c6eea7c64cc"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "f7c12a70-2c44-4e17-ad01-bcc90fc00702",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "HEAVEN"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "a1f3d4dd-321d-4d9a-b8a3-0acf5ad78e70",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "678.533,473.4684,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "094b1cfc-aadb-47e7-82a6-87a04ca2a9bf",
-          "Flags": 0,
-          "Name": "GUTTER",
-          "Position": "-4139.414,-572.5887,135.3322",
-          "Scale": "1.258871,0.2821018,0.2605474",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "20d50a24-7d7b-4098-904d-cda906f41d0c"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "b01f827f-c2ce-4fb3-9ed9-f6f598ce4841",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "GUTTER"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "5e8a9285-5f70-4a42-aba2-dd8e5ff0e81d",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "678.533,473.4684,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "7cacec0a-601a-41cd-919c-be9c6d54352e",
-          "Flags": 0,
-          "Name": "GUTTER",
-          "Position": "-4449.876,-782.9328,135.3319",
-          "Rotation": "0,0,-0.7071067,0.7071068",
-          "Scale": "0.4200563,0.2821018,0.2605474",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "8ef88c70-6a2e-4584-9ee5-0b36fed218b0"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "d10a4eaa-dc23-4380-8072-8b2147f69c4f",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "GUTTER"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "7bb89c3b-9b3b-4740-81ca-7fc462603556",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "678.533,473.4684,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "cd99f1c5-6623-46a8-b5e6-acc73662d5c7",
-          "Flags": 0,
-          "Name": "GUTTER",
-          "Position": "-3776.942,-425.7104,135.3318",
-          "Rotation": "0,0,-0.7071067,0.7071068",
-          "Scale": "0.2349063,0.2821018,0.2605474",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "0d215d9a-52f2-43cf-b5de-820c6a961d89"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "cde969d9-1a36-4cd4-8bd4-f779a9a758dc",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "GUTTER"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "fc6cf733-46c4-4002-99fb-ce3efda8389b",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "678.533,473.4684,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "dd8b1af2-17d6-417b-90fc-6b2245f5f7a1",
-          "Flags": 0,
-          "Name": "A-SITE",
-          "Position": "-1040,-70.67699,256",
-          "Scale": "0.936186,0.8193942,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "bb501b54-bc9f-46cb-adb6-0e240bce8535"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "45ef6f95-713a-4ec0-beda-f3b65f1ff07a",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A SITE"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "b85651c4-1249-45b2-b760-5648e76d5821",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "40349d5c-6659-4615-817b-db23cc536d2c",
-          "Flags": 0,
-          "Name": "WAREHOUSE",
-          "Position": "-96,-400,256",
-          "Scale": "0.8152414,2.193416,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "f75d8f7c-3fa2-420f-89e1-5263da9b604b"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "9abec523-4821-4215-a21e-664ba19eafa8",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "WAREHOUSE"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "2793fece-b572-4d0c-9b1d-e13637b20015",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "b7f221eb-af90-4314-be88-60c2378b320c",
-          "Flags": 0,
-          "Name": "PIPES",
-          "Position": "-1262.671,189.8756,256",
-          "Scale": "0.09362999,0.3470778,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "a0e86a9b-6e95-40aa-b238-3faf3cb1eb97"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "a3b87cc5-18d1-4ae0-80b6-8e66a2b97c77",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "PIPES"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "a3b529b0-1545-4a75-a3f5-083df9616303",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "1afab3ac-d2c2-4a72-a82f-5b11cd8198d2",
-          "Flags": 0,
-          "Name": "A CUBBY",
-          "Position": "-960,490.1158,256",
-          "Scale": "0.6555747,0.186113,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "8785f53b-0bff-44e3-a816-694db519893c"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "26f0e895-de50-4675-9fae-84a507412d80",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A CUBBY"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "4039747a-2036-4166-8ab3-d1a0a54aae50",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "ee874ad3-e70a-41d2-bd62-2ab2070996d5",
-          "Flags": 0,
-          "Name": "LEDGE",
-          "Position": "-1677.464,-551.8355,256.0006",
-          "Scale": "0.2685625,0.186113,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "0749051d-bdea-4c64-811a-0841ec7ca952"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "abde9a76-9ed7-42fb-b865-cde62c8eadf4",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "LEDGE"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "fbddebef-7efd-49b2-86c7-ff5a49f580c4",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "370572a3-2c88-4907-b375-9fc734fe3015",
-          "Flags": 0,
-          "Name": "A ARCH",
-          "Position": "-675.0955,-781.0417,256.0008",
-          "Scale": "0.2685625,0.4502278,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "346bf5cd-6611-48d1-9cef-00a47d41dc81"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "b9ca2bf5-da9a-477a-9d45-a99cc7bcf095",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A ARCH"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "4054bc9d-4de2-47e6-8bcc-d0afaf45cb52",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "ece89722-3cbb-4774-95f1-c262ee4306a5",
-          "Flags": 0,
-          "Name": "VAN",
-          "Position": "-563.8967,-1116.479,256",
-          "Scale": "0.1963638,0.1566217,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "fc9973c9-c4d2-4c1b-8d71-ff9007f5cd19"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "175a12b4-74bf-4338-9ee0-f051f36709f1",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "VAN"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "6e5f62ed-2d54-4555-82b0-81beb422188c",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "3c21e5b2-72ad-43b0-8826-f5cfa307680d",
-          "Flags": 0,
-          "Name": "A ELBOW",
-          "Position": "-563.8967,-1406.658,256",
-          "Scale": "0.1963638,0.3912016,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "ce62a704-f275-4c84-b8ca-297e4170659e"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "6772663e-eb10-4b39-a04a-a22da3916bdf",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A ELBOW"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "788a3374-5115-4c72-9ce5-cae5222013cb",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "fc643493-92f7-432a-81f6-1a427e813217",
-          "Flags": 0,
-          "Name": "A ELBOW",
-          "Position": "-926.4514,-1347.152,256",
-          "Scale": "0.4790584,0.5691235,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "8cf79729-c048-4940-aeb1-65009b078544"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "0528f8c4-1520-4d93-91c5-e757f6bf9f85",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A ELBOW"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "fd34bbc4-127f-413f-96e7-309dadef26e3",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "4b4bd634-f452-4581-88ae-c66c30a55408",
-          "Flags": 0,
-          "Name": "B-SITE",
-          "Position": "-3981.131,-1043.815,255.9998",
-          "Scale": "0.7452923,0.7193067,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "963dcaed-8673-4316-b6af-4803223f8c3e"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "4775aacf-df7d-4a28-9087-30e7acd88421",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "B SITE"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "49dd7df3-98c2-4c49-b23f-86290a0e25d6",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "60d79eae-8fbd-45bd-ba02-0eea89c85f88",
-          "Flags": 0,
-          "Name": "B-SITE",
-          "Position": "-3495.287,-898.1254,255.9996",
-          "Scale": "0.3108119,0.2933072,1.000001",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "00e5503f-0b1b-4fa0-bb80-c21cd63cdc93"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "fc514863-2bb4-46e8-a1ad-62dd366bf52c",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "B SITE"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "095f4ab2-28de-4290-9333-fa554f1a2415",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "4f9d9152-2a83-4130-8c9d-f3613bf0fbfd",
-          "Flags": 0,
-          "Name": "B BOOST",
-          "Position": "-3282.064,-689.0585,255.9993",
-          "Scale": "0.3238783,0.09115802,1.000001",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "0d5e7b4b-4e62-49be-867a-6f4c256e8cd0"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "db20a8e8-9129-4843-bbb4-55ba9f9e3bb1",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "B BOOST"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "bafe992c-2f8c-4388-b8b2-bbb3780dd8b7",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "fbca64b6-3e8b-45ac-8728-ce99f33b9b33",
-          "Flags": 0,
-          "Name": "BOOTH",
-          "Position": "-3414.631,-1234.883,256.0001",
-          "Scale": "0.3153993,0.315198,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "52f78ad6-51b9-4dbf-bbc8-ec2be2baf363"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "1565e9d7-5d54-4c8c-b562-74b9f1682102",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "BOOTH"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "d6928398-9a57-4d25-b5a8-5a85e291deea",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "1079,1102.402,550.9339",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "2514557f-8b8c-4cbf-9309-706b28ac2cb7",
-          "Flags": 0,
-          "Name": "T SPAWN",
-          "Position": "-3271.985,1481.159,128",
-          "Scale": "2.983623,1.652689,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "2fe3d0db-8d53-464c-b741-d700c0c65bbd"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "e3ef0df5-01cb-4170-b0c2-9d0a388d9080",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "T SPAWN"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "df9b8e49-d515-4a0d-a5d1-0d23e01d1211",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "524.7341,535.2,360.6002",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "f4353c87-4bf2-4339-8b2a-fa0ff8dde989",
-          "Flags": 0,
-          "Name": "TUNNEL",
-          "Position": "-4242.823,1005.355,247.7198",
-          "Rotation": "0,0,0.7071067,0.7071068",
-          "Scale": "2.58982,0.6603677,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "d1da78b4-dad1-4cff-83b0-c6b8b3523b01"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "fc9cf716-7d11-4e8d-a6da-9528d5eacbcd",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "TUNNEL"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "5c13124b-268a-48a2-a4d6-dd8e80b24c36",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "524.7341,535.2,360.6002",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "37d9069e-46f3-41ab-a6fb-3de06305163b",
-          "Flags": 0,
-          "Name": "BACKDOORS",
-          "Position": "-4064.195,90.55884,247.7197",
-          "Scale": "1.706365,0.829925,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "d49131b7-9c7c-4de7-be11-23eb5de0544d"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "48c81a84-f7d4-478a-b5fd-5520d9dc73d7",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "BACKDOORS"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "359172b3-cc92-4540-a1d7-36da9b458743",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "524.7341,535.2,360.6002",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "d4ff89d3-42c5-4862-b64a-585e99186d9a",
-          "Flags": 0,
-          "Name": "BACKDOORS",
-          "Position": "-3668.833,30.10536,247.7202",
-          "Scale": "0.5681196,0.583999,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "6bba5ca3-2455-4e28-8a59-7c843b8e019a"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "952faa81-bd2b-4e41-a34c-743a5cb36fbd",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "BACKDOORS"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "40760d5c-80fb-424a-82e7-318b24f7b689",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "524.7341,535.2,360.6002",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "5b832c79-29d0-4b47-9e4f-703b2fd787f5",
-          "Flags": 0,
-          "Name": "A CATWALK",
-          "Position": "-1811.85,203.4,184.7043",
-          "Rotation": "0,0,0.7071067,0.7071068",
-          "Scale": "2.653467,1.124157,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "8a74764a-4915-4014-bd1a-1b4dc9771209"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "083c8376-afc5-4e18-b7b5-0cd7be0ba92f",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A CATWALK"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "ec6c5efe-57d4-483d-b6db-ec2970b1fd28",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "524.7341,535.2,360.6002",
-              "Static": false
-            }
-          ]
-        },
-        {
-          "__guid": "5c8a50e3-500c-4a35-bb8b-0bdbd21ad9f9",
-          "Flags": 0,
-          "Name": "A CATWALK",
-          "Position": "-2259.896,736.3539,184.7043",
-          "Rotation": "0,0,0.7071067,0.7071068",
-          "Scale": "1.360312,0.6475568,1",
-          "Tags": "zone",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.MapLocation",
-              "__guid": "378898c2-cf08-4911-9a76-53e6559cb92e"
-            },
-            {
-              "__type": "Zone",
-              "__guid": "0660b1dc-f913-4566-944b-996b28839460",
-              "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A CATWALK"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "921e00c8-0b3d-4919-a438-82aff1da7b5a",
-              "Center": "0,0,0",
-              "IsTrigger": true,
-              "Scale": "524.7341,535.2,360.6002",
-              "Static": false
-            }
-          ]
-        }
-      ]
+      "__Prefab": "prefabs/door.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "ae698869-c92a-4f06-92c4-0142b94621d1",
+      "Flags": 0,
+      "Name": "Mid -\u003E B Door Start",
+      "Position": "-3207.998,440.0032,31.99999",
+      "Rotation": "0,0,-0.9999999,-0.0000005384259",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/door.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "aa0eca05-1ca1-4b95-8ff9-c2ae67f19d60",
+      "Flags": 0,
+      "Name": "Mid -\u003E B Door End",
+      "Position": "-3704,328,160",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/door.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "b45d1ab7-1417-453b-96d1-ffbcec117a63",
+      "Flags": 0,
+      "Name": "Tunnel to Heaven Door",
+      "Position": "-4264,-132,96",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/door.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "00a0c26d-5492-445d-8c2f-1b6ee5ce72ff",
       "Flags": 0,
-      "Name": "Box",
+      "Name": "A Catwalk - Ladder Volume",
       "Position": "-1952,496,48",
       "Rotation": "0,0,0.7071067,0.7071068",
       "Tags": "ladder",
@@ -3740,6 +3810,15 @@
           "Static": true
         }
       ]
+    },
+    {
+      "__guid": "d4a4dbaa-1012-495d-9735-4148603060be",
+      "Flags": 0,
+      "Name": "-- RUNTIME OBJECTS --",
+      "Position": "-3753.352,358.6426,147.7437",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true
     }
   ],
   "SceneProperties": {
@@ -3765,7 +3844,7 @@
   },
   "Title": "de_garry",
   "Description": "",
-  "LastSaved": "2024-06-15T11:08:25.5762413\u002B01:00",
+  "LastSaved": "2024-06-15T11:18:13.0487785\u002B01:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
