@@ -27,6 +27,8 @@ public sealed class TeamEarlyWinCondition : Component,
 	[Property]
 	public StateComponent CounterTerroristVictoryState { get; set; }
 
+	[Property] public bool MatchPoint { get; set; } = true;
+
 	private TeamScoring TeamScoring => GameMode.Instance.Get<TeamScoring>( true );
 
 	private int GetWonRounds( Team team )
@@ -36,6 +38,9 @@ public sealed class TeamEarlyWinCondition : Component,
 
 	void IGameEventHandler<RoundCounterIncrementedEvent>.OnGameEvent( RoundCounterIncrementedEvent eventArgs )
 	{
+		if ( !MatchPoint )
+			return;
+
 		if ( GetWonRounds( Team.Terrorist ) == TargetScore - 1 || GetWonRounds( Team.CounterTerrorist ) == TargetScore - 1 )
 		{
 			Facepunch.UI.Toast.Instance.Show( "Match Point", Facepunch.UI.ToastType.Generic );

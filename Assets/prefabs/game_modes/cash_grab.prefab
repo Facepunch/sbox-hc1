@@ -62,6 +62,24 @@
         "Categories": [
           "Special"
         ]
+      },
+      {
+        "__type": "Facepunch.TeamEarlyWinCondition",
+        "__guid": "aaeaf95c-9c6f-4a60-949e-8f11760b16e8",
+        "CounterTerroristVictoryState": {
+          "_type": "component",
+          "component_id": "f9e6010f-47d4-4ed7-8b24-ecfd9853c9e7",
+          "go": "7b6daed5-5d86-4294-b269-65868fd14bdc",
+          "component_type": "StateComponent"
+        },
+        "MatchPoint": false,
+        "TargetScore": 50000,
+        "TerroristVictoryState": {
+          "_type": "component",
+          "component_id": "7b34dfb5-d7d8-469c-a3c9-7d4940dcfab4",
+          "go": "d3985525-5b32-4fe9-a71e-4e32fd7875a5",
+          "component_type": "StateComponent"
+        }
       }
     ],
     "Children": [
@@ -470,9 +488,39 @@
             ]
           },
           {
+            "__guid": "d3985525-5b32-4fe9-a71e-4e32fd7875a5",
+            "Flags": 0,
+            "Name": "T Win Game",
+            "Enabled": true,
+            "NetworkMode": 1,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Events.StateComponent",
+                "__guid": "7b34dfb5-d7d8-469c-a3c9-7d4940dcfab4",
+                "DefaultDuration": 10,
+                "DefaultNextState": {
+                  "_type": "component",
+                  "component_id": "edbe1e51-c4ca-4673-b67a-5674096a8220",
+                  "go": "e804d5d6-339a-49c8-8aac-c8092d86e483",
+                  "component_type": "StateComponent"
+                }
+              },
+              {
+                "__type": "Facepunch.FreezePlayers",
+                "__guid": "6e071f09-677f-4f8f-b3a4-076a9e0f7fa3"
+              },
+              {
+                "__type": "Facepunch.KillGameOnEnd",
+                "__guid": "8639ba2c-7cb9-4221-9687-16162f4cd05d",
+                "Message": "Anarchists Win - Returning to menu..."
+              }
+            ]
+          },
+          {
             "__guid": "7b6daed5-5d86-4294-b269-65868fd14bdc",
             "Flags": 0,
-            "Name": "Post Game",
+            "Name": "CT Win Game",
             "Enabled": true,
             "NetworkMode": 1,
             "NetworkInterpolation": true,
@@ -495,7 +543,7 @@
               {
                 "__type": "Facepunch.KillGameOnEnd",
                 "__guid": "b45d3134-482f-4105-b263-5fa6d24ec7ff",
-                "Message": "The game is over - returning to menu"
+                "Message": "Security Win - Returning to menu..."
               }
             ]
           }
