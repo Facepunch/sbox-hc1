@@ -22,6 +22,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	[Property, Group( "Bullet Spread" )] public float VelocitySpreadScale { get; set; } = 0.25f;
 	[Property, Group( "Bullet Spread" )] public float InAirSpreadMultiplier { get; set; } = 2f;
 
+	[Property, Group( "Penetration" )] public float PenetrationThickness { get; set; } = 32f;
+
 
 	[Property, Group( "Effects" )] public GameObject MuzzleFlashPrefab { get; set; }
 
@@ -240,6 +242,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 				if ( !tr.Hit )
 					continue;
 
+				if ( count > 0 )
+					CreateImpactEffects( tr.Surface, tr.StartPosition, -tr.Normal );
+				
 				CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
 				DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
 
@@ -331,7 +336,18 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		Equipment.ViewModel?.ModelRenderer.Set( "b_attack_dry", true );
 	}
 
-	protected SceneTraceResult DoTraceBullet( Vector3 start, Vector3 end, float radius )
+	protected IEnumerable<SceneTraceResult> DoTraceBullet( Vector3 start, Vector3 end, float radius )
+	{
+		return Scene.Trace.Ray( start, end )
+			.UseHitboxes()
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.WithoutTags( "trigger", "invis", "ragdoll", "movement" )
+			.Size( radius )
+			.RunAll();
+	}
+
+
+	protected SceneTraceResult DoTraceBulletOne( Vector3 start, Vector3 end, float radius )
 	{
 		return Scene.Trace.Ray( start, end )
 			.UseHitboxes()
@@ -353,13 +369,26 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		return Vector3.Reflect( tr.Direction, tr.Normal ).Normal;
 	}
 
+	/* private void DrawLineSegment( Vector3 start, Vector3 end, int depth = 0, int count = 10 )
+	{
+		var hue = (depth / (float)count % 360f) * 360f;
+		var color = new ColorHsv( hue, 1, 1, 1 );
+
+		var line = DebugOverlay.Line( start, end, color.ToColor(), 5 );
+		line.GameObject.Name = $"Line {depth}";
+		var sphere = DebugOverlay.Sphere( start, 4, color.ToColor(), 5 );
+		sphere.GameObject.Name = $"Start Sphere for Line {depth}";
+
+		var endSph = DebugOverlay.Sphere( end, 8, color.ToColor(), 5 );
+		endSph.GameObject.Name = $"End Sphere for Line {depth}";
+	} */
+
 	/// <summary>
 	/// Runs a trace with all the data we have supplied it, and returns the result
 	/// </summary>
 	/// <returns></returns>
 	protected virtual IEnumerable<SceneTraceResult> GetShootTrace()
 	{
-		float curHits = 0;
 		var hits = new List<SceneTraceResult>();
 
 		var start = WeaponRay.Position;
@@ -369,8 +398,56 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * ( BulletSpread + Equipment.PlayerController.Spread ) * 0.25f;
 		forward = forward.Normal;
 
-		var end = WeaponRay.Position + forward * MaxRange;
-		while ( curHits < RicochetMaxHits )
+		var original = DoTraceBullet( start, WeaponRay.Position + forward * MaxRange, BulletSize );
+
+		// Run through and fix the start positions for the traces
+		// By using the last end position as the start
+
+		int depth = 0;
+		Vector3 startPos = original.ElementAt( 0 ).StartPosition;
+		List<SceneTraceResult> fixedPath = new();
+		for ( int i = 0; i < original.Count(); i++ )
+		{
+			var el = original.ElementAt( i );
+
+			fixedPath.Add( el with { StartPosition = startPos } );
+			startPos = el.EndPosition;
+		}
+
+		var entries = new List<(SceneTraceResult Trace, float Thickness)>();
+
+		// Then, trace backwards from the end so we can get exit points and thickness
+		for ( int i = fixedPath.Count - 1; i >= 0; i-- )
+		{
+			var el = fixedPath.ElementAt( i );
+
+			// Do a trace back, from the end position to the start, this'll give us the LAST entry's exit point.
+			var backTrace = DoTraceBulletOne( el.EndPosition, el.StartPosition, BulletSize );
+			var impact = backTrace.EndPosition;
+
+			// From that, we can calculate the surface thickness
+			float thickness = (el.StartPosition - impact).Length;
+
+			// Return the element starting at the exit point, it's more useful that way.
+			el = el with { StartPosition = impact };
+			entries.Insert( 0, (el, thickness) );
+		}
+
+		depth = 0;
+		float accThickness = 0;
+		foreach ( var el in entries )
+		{
+			accThickness += el.Thickness;
+			if ( accThickness >= PenetrationThickness )
+				break;
+
+			hits.Add( el.Trace );
+			// DrawLineSegment( el.Trace.StartPosition, el.Trace.EndPosition, depth, fixedPath.Count() );
+			depth++;
+		}
+
+		// TODO: reimplement this 
+		/* while ( curHits < RicochetMaxHits )
 		{
 			curHits++;
 
@@ -384,7 +461,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 			if ( !ShouldBulletContinue( tr, angle ) )
 				break;
-		}
+		} */
 
 		return hits;
 	}
