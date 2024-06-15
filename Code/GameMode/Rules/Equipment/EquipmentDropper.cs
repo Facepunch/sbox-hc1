@@ -9,6 +9,11 @@ public partial class EquipmentDropper : Component,
 	IGameEventHandler<KillEvent>
 {
 	/// <summary>
+	/// Which categories can we drop?
+	/// </summary>
+	[Property] public List<EquipmentSlot> Categories { get; set; } = new();
+
+	/// <summary>
 	/// Can we drop this weapon?
 	/// </summary>
 	/// <param name="weapon"></param>
@@ -21,7 +26,9 @@ public partial class EquipmentDropper : Component,
 		if ( weapon.Resource.Slot == EquipmentSlot.Melee ) 
 			return false;
 
-		return true;
+		if ( Categories.Count == 0 ) return true;
+
+		return Categories.Contains( weapon.Resource.Slot );
 	}
 
 	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
