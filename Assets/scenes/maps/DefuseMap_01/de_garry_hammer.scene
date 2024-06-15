@@ -2,9 +2,18 @@
   "__guid": "00dacd9b-fda0-44c2-937b-aa80ea22a49b",
   "GameObjects": [
     {
+      "__guid": "207ce4dd-fff1-4c3e-a718-be39b735fb70",
+      "Flags": 0,
+      "Name": "-- GAME SETUP --",
+      "Position": "-2096.506,-1208.839,-28.74655",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true
+    },
+    {
       "__guid": "d0c8d522-0524-4dbb-92a9-04b45bf7d1c7",
       "Flags": 0,
-      "Name": "Game_SetUp",
+      "Name": "Game",
       "Position": "0.00001758034,0,64",
       "Enabled": true,
       "NetworkMode": 1,
@@ -15,7 +24,7 @@
     {
       "__guid": "bebe743a-8c55-43e0-96dd-7f301310c49e",
       "Flags": 0,
-      "Name": "Enviroment_SetUp",
+      "Name": "Environment",
       "Position": "0,0,32",
       "Rotation": "0,0,0.7933533,0.6087615",
       "Enabled": true,
@@ -74,25 +83,44 @@
               "Type": "Sphere"
             }
           ]
+        },
+        {
+          "__guid": "da067600-0667-4eb1-a81a-acfcaf4cd3dc",
+          "Flags": 0,
+          "Name": "Envmap Probe",
+          "Position": "-136.6354,2951.949,224",
+          "Rotation": "0,0,-0.7933533,0.6087615",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.EnvmapProbe",
+              "__guid": "00130408-83bd-4831-ac91-dcdbebfe445e",
+              "Texture": "textures/cubemaps/default2.vtex",
+              "Bounds": {
+                "Mins": "-2761.594,-1523.665,-1000",
+                "Maxs": "3004.938,3088.534,1000"
+              },
+              "DelayBetweenUpdates": 0.1,
+              "Feathering": 0.02,
+              "FrameInterval": 5,
+              "MaxDistance": 5000,
+              "Projection": "Box",
+              "RenderDynamically": true,
+              "TintColor": "1,1,1,1",
+              "UpdateStrategy": "OnEnabled",
+              "ZFar": 4096,
+              "ZNear": 16
+            }
+          ]
         }
       ]
     },
     {
-      "__guid": "4b716979-16cf-418b-a4ab-819bfaf6d650",
-      "Flags": 0,
-      "Name": "BombSite_A",
-      "Position": "-928,112,72.1452",
-      "Tags": "zone",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "scenes/maps/defusemap_01/bombsite_a.prefab",
-      "__PrefabVariables": {}
-    },
-    {
       "__guid": "fe1eb2d5-443e-4eaa-9e02-f2a75ce659bb",
       "Flags": 0,
-      "Name": "BuyZone-SetUp",
+      "Name": "Buy Zones",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -164,7 +192,7 @@
     {
       "__guid": "9849a27a-1943-47b8-a15a-50d594998b6f",
       "Flags": 0,
-      "Name": "MinimapRenderer",
+      "Name": "Minimap Renderer",
       "Position": "-2304,0,0",
       "Enabled": true,
       "NetworkMode": 2,
@@ -181,19 +209,1210 @@
       "Children": []
     },
     {
-      "__guid": "e8f0d111-e2b0-4ea3-b638-95f029f1b57f",
+      "__guid": "9bc364f5-9ead-4175-be40-3a9335a70e9c",
       "Flags": 0,
-      "Name": "CT Spawn",
-      "Position": "-2030.162,-1446.868,128",
-      "Rotation": "0,0,0.3282747,0.9445823",
+      "Name": "-- GAMEMODE COMPONENTS --",
+      "Position": "-2096.506,-1208.839,-28.74655",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true
+    },
+    {
+      "__guid": "1ef2eba7-267e-4581-a095-e20040cc7908",
+      "Flags": 0,
+      "Name": "Defuse",
+      "Position": "-2676.588,437.9513,1075.416",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "Components": [
         {
-          "__type": "TeamSpawnPoint",
-          "__guid": "d48483e7-79f5-4eb0-a4d5-29e9008d08a2",
-          "Team": "CounterTerrorist"
+          "__type": "Facepunch.GameModeObject",
+          "__guid": "5a0d2a9f-228c-45a7-a614-69876d871e3d",
+          "GameModes": [
+            "Casual Defuse",
+            "Competitive Defuse"
+          ],
+          "Inverse": false
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "1c558476-2038-4b54-8a19-f59f47619974",
+          "Flags": 0,
+          "Name": "decal_bombsite_b (5)",
+          "Position": "-587.4124,-2165.951,140.5845",
+          "Rotation": "0.0000002384186,-0.9999999,-0.0000001947072,0.00000000000002131628",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "0cfcb6ec-2720-4e8c-ae88-04de0cc3ec68",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_b.vmat",
+              "Mod2XBlending": false,
+              "Size": "256,255,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "8dc5f9db-8442-4cde-b983-a850ac6b6492",
+          "Flags": 0,
+          "Name": "decal_bombsite_b",
+          "Position": "-1101.458,-1224.774,-597.842",
+          "Rotation": "0.7071068,-0.7071066,-0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "7d618bf0-6e88-408e-bacd-514261ff61a1",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_b.vmat",
+              "Mod2XBlending": false,
+              "Size": "128,128,128",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "c3cabca4-7200-4340-ae9e-3fc10780db2b",
+          "Flags": 0,
+          "Name": "decal_arrow",
+          "Position": "-513.4124,138.0487,-963.4149",
+          "Rotation": "-0.0000001947072,-1,-0.0000001947072,0.00000000000003791089",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "7767cfd4-019e-4038-90d4-033ca9e0c0b9",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,27.86674",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "786a0821-472d-4567-80da-2600783b5f84",
+          "Flags": 0,
+          "Name": "decal_bombsite_b (6)",
+          "Position": "-505.4124,138.0487,-915.4149",
+          "Rotation": "-0.0000001947072,1,0.0000001947072,0.00000000000003791089",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "d031149f-07de-448f-a9d9-9cd1c9632cb1",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_b.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,27.86674",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "252ddb30-2f5d-47b3-87bd-f8608b6ca2c4",
+          "Flags": 0,
+          "Name": "decal_cross",
+          "Position": "-1419.412,-1461.951,-899.4154",
+          "Rotation": "-0.5,0.5,0.5,0.5",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "4fc1549d-5696-4436-9c73-ab659f75c993",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_cross.vmat",
+              "Mod2XBlending": false,
+              "Size": "128,128,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "7e7b2f05-7f3e-4dfa-be16-26739eaae1a8",
+          "Flags": 0,
+          "Name": "decal_bombsite_b (7)",
+          "Position": "-107.4104,-1477.95,-827.4135",
+          "Rotation": "0.7071067,-0.7071068,-0.0000002669254,0.0000002669254",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "54fbc23e-dc3a-4f12-8e71-082f1d80d4f5",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "d623faf4-c147-4b7e-bbbd-eaa037e32b98",
+          "Flags": 0,
+          "Name": "decal_bombsite_b (2)",
+          "Position": "-587.4124,-1301.951,-907.4142",
+          "Rotation": "0.0000002753575,-0.0000002753576,0.7071067,-0.7071068",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "6f2dbacf-e07b-4f03-93af-7a8bbe586cc5",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "a3ed7fa3-a8d0-4c14-ab42-f15e4d5fc871",
+          "Flags": 0,
+          "Name": "decal_bombsite_b (8)",
+          "Position": "-107.4104,-1477.95,-779.4135",
+          "Rotation": "0.7071067,-0.7071068,-0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "fd4c1947-8c85-4bc1-89ec-ce08c76a9b4a",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_a.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "9f7c36f6-bb28-4ef7-b56b-0ac56b9aa294",
+          "Flags": 0,
+          "Name": "decal_bombsite_b (1)",
+          "Position": "-587.4124,-1301.951,-859.4142",
+          "Rotation": "0.7071067,-0.7071068,-0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "a3c74e79-54ea-4d83-ada4-a63c8c9f40f6",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_b.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "a13c9e8a-231e-4c48-b800-632b9b3dd235",
+          "Flags": 0,
+          "Name": "decal_bombsite_b",
+          "Position": "-1483.412,-1813.951,-755.4155",
+          "Rotation": "0.7071067,-0.7071068,-0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "f5fd6e99-f172-4a1b-a75f-eb763fe6d764",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_b.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "ccc7396d-31bc-48ca-931b-c3f6ffc20b7d",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (16)",
+          "Position": "-715.4124,-1237.951,-875.4168",
+          "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "61dca4c6-1ca8-479e-aaf0-89cd36ff9655",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_b.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "b1c8bcd4-10a6-4206-9496-9c2c0a62710a",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (9)",
+          "Position": "564.5876,-1285.951,-819.4155",
+          "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "70e37f4b-b971-4ec5-a20b-76f05c04fe9c",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_b.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "3010c6af-fbf3-4249-b2f5-1337d9583e89",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (12)",
+          "Position": "-43.41235,346.0487,-915.4155",
+          "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "d8e6ab5e-0c02-4359-892c-3873f9f8914c",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_b.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "5f44e9c4-953d-40d7-834b-49b66a2691d4",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (3)",
+          "Position": "-347.4124,1002.049,-947.4155",
+          "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "5eaed8d7-c696-46e9-a644-8f5b93f813f5",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_b.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "9019b685-525f-4eda-bda6-aee2f1da0e38",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (15)",
+          "Position": "1604.588,-1669.951,-1011.416",
+          "Rotation": "0.0000002753576,0.0000002753575,-0.7071067,-0.7071069",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "a011dcd8-a3c7-4a17-8388-c7b7c5c3fd5d",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,23",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "7fc1f261-bcba-4036-ae95-43ad34fb51b8",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (8)",
+          "Position": "724.5876,-1285.951,-883.4155",
+          "Rotation": "0.0000002753576,0.0000002753575,-0.7071067,-0.7071069",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "ee454371-a812-491c-97ba-66f9ec2c3143",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "d679663d-4140-4ed5-aa49-346814bdc9a5",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (13)",
+          "Position": "-43.41235,346.0487,-963.4155",
+          "Rotation": "0.0000002753576,-0.0000002753576,0.7071068,-0.7071068",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "618a5b5c-8074-4f47-a2ac-723e3995ddb7",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "87a3b0c8-8176-4194-a69f-88ed7e180817",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (5)",
+          "Position": "-347.4124,1002.049,-995.4155",
+          "Rotation": "0.0000002753576,-0.0000002753576,0.7071068,-0.7071068",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "2a920f0a-7e0e-4f6d-9c1a-136ba22fc631",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "b94fcaa5-4e76-4166-9a79-21198fa8c5ec",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (17)",
+          "Position": "-715.4124,-1237.951,-923.4168",
+          "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "4883389c-9a12-48d1-a91a-eedea51052b5",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "61b22507-3018-429e-82e8-36555c63884f",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (7)",
+          "Position": "564.5876,-1285.951,-883.4155",
+          "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "f8fcb79d-6623-4b27-87be-7cf82b33fa44",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "175efc49-42ef-4788-977f-4d568e819ef4",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (21)",
+          "Position": "-91.41235,538.0487,-963.4156",
+          "Rotation": "-0.0000001292466,-0.0000001292467,0.7071069,0.7071067",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "733280c7-0068-4610-8952-7a4a59f47d27",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "5bb45f65-acc3-4999-b16d-6801e1495372",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (11)",
+          "Position": "180.5876,362.0487,-963.4155",
+          "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "5f894b87-8b9e-4e1a-bac6-9318f3c87463",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "8475930d-054f-434b-96a4-bda2af7360ca",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (4)",
+          "Position": "-59.41235,1002.049,-995.4155",
+          "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "f5f97428-b2d6-4f31-8562-afbfc16e1efa",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "fc0103b2-b762-45b0-a557-f955fe492368",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (14)",
+          "Position": "1604.588,-1669.951,-947.4159",
+          "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "d8ff66d7-7353-4970-9f64-0fba1eab6b87",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_a.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,23",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "299a05ae-74c4-49ec-986b-52a267a872bf",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (6)",
+          "Position": "724.5876,-1285.951,-819.4155",
+          "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "8b56a3de-006c-4ebd-a198-551321110291",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_a.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "7e1ceca5-782b-4776-939a-123ee5a0477c",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (20)",
+          "Position": "-91.41235,538.0487,-915.4156",
+          "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "83fdd5d6-3cc5-4ce4-a0bb-2c13af5e0c25",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_a.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "184b7812-aa36-4eda-9334-464450046715",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (10)",
+          "Position": "180.5876,362.0487,-915.4155",
+          "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "b7a4ee38-3b96-43b4-903e-6dffcede1b30",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_a.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "848fb04f-4388-41fb-af6d-0653ca335057",
+          "Flags": 0,
+          "Name": "decal_bombsite_a",
+          "Position": "-59.41235,1002.049,-947.4155",
+          "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "46c26132-b88d-4b15-9b13-989ad9aaf787",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_a.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,256",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "3063b9f8-c36b-4cd0-acf7-37d623ce2ac9",
+          "Flags": 0,
+          "Name": "decal_arrow (1)",
+          "Position": "1380.588,-869.9513,-963.4155",
+          "Rotation": "-0.7071068,0.7071068,0.00000005960464,0.00000005960464",
+          "Scale": "2.00792,1.681481,1.729761",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "a7721570-4e5c-4e30-8997-57309bbc360a",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,32",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "cd0b6719-6c73-4956-a41c-debeafd91cd2",
+          "Flags": 0,
+          "Name": "decal_arrow (2)",
+          "Position": "2240.714,-250.3567,-995.4155",
+          "Rotation": "-0.7071071,-0.7071067,0,0.00000002980232",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "8a6e0101-f05e-4a84-adc4-a74762feec00",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_arrow.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,32,32",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "bbcef1a8-93dd-4a5e-b328-0846f06e73ed",
+          "Flags": 0,
+          "Name": "decal_cross",
+          "Position": "1748.588,-381.9513,-1031.416",
+          "Rotation": "-0.5,0.5,0.5,0.5",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "744f5ddf-cba0-46ac-a1b7-817e91207b0d",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_cross.vmat",
+              "Mod2XBlending": false,
+              "Size": "96,96,64",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "95f84412-d99a-43f5-b27a-60970bab5180",
+          "Flags": 0,
+          "Name": "decal_bombsite_a (1)",
+          "Position": "1748.588,-269.9512,-947.4157",
+          "Rotation": "-0.7071067,0.7071069,-0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "12163d77-e2c0-44e8-9fd2-1f796f8626a2",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_a.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,32",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "7109bf7f-4278-43bc-ae9c-d4c821cc02f6",
+          "Flags": 0,
+          "Name": "decal_bombsite_a",
+          "Position": "1748.588,-349.9514,-947.4158",
+          "Rotation": "0.7071068,0.7071068,0.0000001376788,0.0000001376788",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DecalRenderer",
+              "__guid": "befa8bd1-7c5d-40e2-ba69-4a2d815855a5",
+              "CutoffAngle": 60,
+              "CutoffAngleSoftness": 5,
+              "Material": "materials/decals/decal_bombsite_a.vmat",
+              "Mod2XBlending": false,
+              "Size": "64,64,32",
+              "TintColor": "1,1,1,1",
+              "TriPlanar": false
+            }
+          ]
+        },
+        {
+          "__guid": "e1ef9109-5782-4d95-a82e-e1a29dec9864",
+          "Flags": 0,
+          "Name": "bombsite_b",
+          "Position": "-1383.601,-1461.951,-894.8565",
+          "Tags": "zone,bombsite",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "__Prefab": "scenes/maps/defusemap_01/bombsite_b.prefab",
+          "__PrefabVariables": {}
+        },
+        {
+          "__guid": "4b716979-16cf-418b-a4ab-819bfaf6d650",
+          "Flags": 0,
+          "Name": "BombSite_A",
+          "Position": "1748.588,-325.9513,-1003.27",
+          "Tags": "zone",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "__Prefab": "scenes/maps/defusemap_01/bombsite_a.prefab",
+          "__PrefabVariables": {}
+        }
+      ]
+    },
+    {
+      "__guid": "cd9deb14-c81e-4520-aabc-22622faa9fc2",
+      "Flags": 0,
+      "Name": "Cash Grab",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Facepunch.GameModeObject",
+          "__guid": "b6e6dbc4-4920-4f83-ad64-6725e3348621",
+          "GameModes": [
+            "Cash Grab"
+          ],
+          "Inverse": false
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "cff5fa76-3e99-4b8b-aec9-e63c27f3fea3",
+          "Flags": 0,
+          "Name": "Cash Grab (A Site)",
+          "Position": "-930.4813,63.02079,96.14548",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.CashPoint",
+              "__guid": "8f3e29d6-a8dc-485f-a03a-5cf8c0c79874",
+              "Extracts": [],
+              "Resource": "weapons/special/cash_bag/cash_bag.equip",
+              "State": "Inactive"
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "14c61c1f-71af-4168-bd30-3cd8556f43c1",
+              "Flags": 0,
+              "Name": "Extract B",
+              "Position": "-1819.045,923.1754,-71.92922",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "5b261a9c-6a76-4bd4-b039-dd04cd171043",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "8f3e29d6-a8dc-485f-a03a-5cf8c0c79874",
+                    "go": "cff5fa76-3e99-4b8b-aec9-e63c27f3fea3",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "a036919a-617e-45c4-bc29-afbaed14c0d5",
+                    "go": "14c61c1f-71af-4168-bd30-3cd8556f43c1",
+                    "component_type": "BoxCollider"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "a036919a-617e-45c4-bc29-afbaed14c0d5",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ]
+            },
+            {
+              "__guid": "f712054a-f14f-4d05-831a-a3a15a21aba6",
+              "Flags": 0,
+              "Name": "Extract A",
+              "Position": "-1100.877,-980.2808,56.30987",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "cdb20139-d129-4968-8646-caaf044fd56f",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "8f3e29d6-a8dc-485f-a03a-5cf8c0c79874",
+                    "go": "cff5fa76-3e99-4b8b-aec9-e63c27f3fea3",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "5adb2194-c14d-4a62-994e-85840e5d5894",
+                    "go": "f712054a-f14f-4d05-831a-a3a15a21aba6",
+                    "component_type": "BoxCollider"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "5adb2194-c14d-4a62-994e-85840e5d5894",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "0fd0c735-4c5b-40e7-9850-97b85e8800c4",
+      "Flags": 0,
+      "Name": "Team Spawns",
+      "Position": "-2676.588,437.9513,1075.416",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Children": [
+        {
+          "__guid": "e8f0d111-e2b0-4ea3-b638-95f029f1b57f",
+          "Flags": 0,
+          "Name": "CT Spawn",
+          "Position": "646.4257,-1884.819,-947.4155",
+          "Rotation": "0,0,0.3282747,0.9445823",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "d48483e7-79f5-4eb0-a4d5-29e9008d08a2",
+              "Team": "CounterTerrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "25a8f393-435e-4dcb-8bb7-bb0af9dd8130",
+          "Flags": 0,
+          "Name": "T Spawn",
+          "Position": "-235.4114,1354.052,-1075.416",
+          "Rotation": "0,0,-0.7071067,0.7071068",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "eb8a6a5a-bec8-4288-8d1c-02a41be49c14",
+              "Team": "Terrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "d031137f-fd6d-4cd7-b335-324dd1269c02",
+          "Flags": 0,
+          "Name": "CT Spawn (1)",
+          "Position": "675.1866,-1815.021,-947.4155",
+          "Rotation": "0,0,0.4782117,0.8782447",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "7f6db694-3afb-4095-96ea-de7718643831",
+              "Team": "CounterTerrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "d51370e3-0047-4633-938d-d28c210daa6b",
+          "Flags": 0,
+          "Name": "CT Spawn (5)",
+          "Position": "616.2227,-1832.926,-947.4155",
+          "Rotation": "0,0,0.3532979,0.9355109",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "883d8706-86e5-4e1c-9418-4ed123096359",
+              "Team": "CounterTerrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "e2f647b9-4c72-4d31-ab78-1d723412a0e0",
+          "Flags": 0,
+          "Name": "CT Spawn (6)",
+          "Position": "589.6487,-1752.589,-947.4155",
+          "Rotation": "0,0,0.5748659,0.8182476",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "a3a97757-11d0-45db-8077-56e99234a2ec",
+              "Team": "CounterTerrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "2e2ba9c5-5ad5-4bf2-b5a5-b619d1cd3a14",
+          "Flags": 0,
+          "Name": "CT Spawn (7)",
+          "Position": "483.7087,-1730.245,-947.4155",
+          "Rotation": "0,0,0.7071067,0.7071068",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "08b54066-99d2-48da-81dc-993273ba2bd1",
+              "Team": "CounterTerrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "b9276818-9427-40aa-b8a2-744430aadb89",
+          "Flags": 0,
+          "Name": "CT Spawn (2)",
+          "Position": "439.1257,-1793.645,-947.4155",
+          "Rotation": "0,0,0.7588357,0.651282",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "d28c5588-c441-4cb1-af1f-1fbd8bab4810",
+              "Team": "CounterTerrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "88d761ea-fa73-4c12-a86c-26de2d4fe40e",
+          "Flags": 0,
+          "Name": "CT Spawn (3)",
+          "Position": "502.0776,-1781.72,-947.4155",
+          "Rotation": "0,0,0.63759,0.7703761",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "2a384297-07fa-4c26-9ba0-9623e03f94fc",
+              "Team": "CounterTerrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "25b185f8-39a9-4776-b88d-4b6b17d262da",
+          "Flags": 0,
+          "Name": "CT Spawn (4)",
+          "Position": "563.9097,-1798.567,-947.4155",
+          "Rotation": "0,0,0.5572041,0.8303759",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "4529819f-d492-4f85-978d-a51672e76c17",
+              "Team": "CounterTerrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "505a582d-2eb6-47c4-9514-eb769a8bb930",
+          "Flags": 0,
+          "Name": "T Spawn (1)",
+          "Position": "-235.4114,1290.052,-1075.416",
+          "Rotation": "0,0,-0.7071067,0.7071068",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "38dd61b5-c410-480b-a720-0776ef7808f7",
+              "Team": "Terrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "202960c9-db0d-4605-bfcf-0033eb4a3eb7",
+          "Flags": 0,
+          "Name": "T Spawn (6)",
+          "Position": "-171.4114,1354.052,-1075.416",
+          "Rotation": "0,0,-0.7071067,0.7071068",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "911ee0b1-95b5-45c8-a8de-1463501bd7d2",
+              "Team": "Terrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "1e50c413-5917-4c31-86a8-040d60fc731a",
+          "Flags": 0,
+          "Name": "T Spawn (2)",
+          "Position": "-171.4114,1290.052,-1075.416",
+          "Rotation": "0,0,-0.7071067,0.7071068",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "6c0cda6b-5f2b-4d4b-a60c-753da5a02226",
+              "Team": "Terrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "5023f841-a54f-4158-b31a-9f1a4c674699",
+          "Flags": 0,
+          "Name": "T Spawn (3)",
+          "Position": "-299.4114,1354.052,-1075.416",
+          "Rotation": "0,0,0.7071071,-0.7071066",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "ea3c9c0c-213b-4340-8636-dd63aa3a2bf8",
+              "Team": "Terrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "145ca5b4-d703-442d-b873-e59e7146c15f",
+          "Flags": 0,
+          "Name": "T Spawn (4)",
+          "Position": "-363.4114,1354.052,-1075.416",
+          "Rotation": "0,0,-0.7933533,0.6087615",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "d54e3dd0-7838-4c9e-9310-5ee3343c7fce",
+              "Team": "Terrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "852a626e-f8dd-4dcb-adb9-8327a8ac5c51",
+          "Flags": 0,
+          "Name": "T Spawn (7)",
+          "Position": "-299.4114,1290.052,-1075.416",
+          "Rotation": "0,0,0.7071071,-0.7071066",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "9f446851-7a2a-42ec-acb0-b6101a654c41",
+              "Team": "Terrorist"
+            }
+          ]
+        },
+        {
+          "__guid": "39508f9b-ff29-412f-af86-fb84a41af8ad",
+          "Flags": 0,
+          "Name": "T Spawn (5)",
+          "Position": "-363.4114,1290.052,-1075.416",
+          "Rotation": "0,0,0.7071071,-0.7071066",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "TeamSpawnPoint",
+              "__guid": "17b975c4-ddb8-4ae5-9c00-fc29686531d7",
+              "Team": "Terrorist"
+            }
+          ]
         }
       ]
     },
@@ -1536,410 +2755,18 @@
       ]
     },
     {
-      "__guid": "d031137f-fd6d-4cd7-b335-324dd1269c02",
+      "__guid": "4af14616-4a53-4777-85d3-9c3f5bcfa002",
       "Flags": 0,
-      "Name": "CT Spawn (1)",
-      "Position": "-2001.401,-1377.07,128",
-      "Rotation": "0,0,0.4782117,0.8782447",
+      "Name": "-- MAP OBJECTS --",
+      "Position": "-2096.506,-1208.839,-28.74655",
       "Enabled": true,
       "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "7f6db694-3afb-4095-96ea-de7718643831",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "d51370e3-0047-4633-938d-d28c210daa6b",
-      "Flags": 0,
-      "Name": "CT Spawn (5)",
-      "Position": "-2060.365,-1394.975,128",
-      "Rotation": "0,0,0.3532979,0.9355109",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "883d8706-86e5-4e1c-9418-4ed123096359",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "e2f647b9-4c72-4d31-ab78-1d723412a0e0",
-      "Flags": 0,
-      "Name": "CT Spawn (6)",
-      "Position": "-2086.939,-1314.638,128",
-      "Rotation": "0,0,0.5748659,0.8182476",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "a3a97757-11d0-45db-8077-56e99234a2ec",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "2e2ba9c5-5ad5-4bf2-b5a5-b619d1cd3a14",
-      "Flags": 0,
-      "Name": "CT Spawn (7)",
-      "Position": "-2192.879,-1292.294,128",
-      "Rotation": "0,0,0.7071067,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "08b54066-99d2-48da-81dc-993273ba2bd1",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "b9276818-9427-40aa-b8a2-744430aadb89",
-      "Flags": 0,
-      "Name": "CT Spawn (2)",
-      "Position": "-2237.462,-1355.694,128",
-      "Rotation": "0,0,0.7588357,0.651282",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "d28c5588-c441-4cb1-af1f-1fbd8bab4810",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "88d761ea-fa73-4c12-a86c-26de2d4fe40e",
-      "Flags": 0,
-      "Name": "CT Spawn (3)",
-      "Position": "-2174.51,-1343.769,128",
-      "Rotation": "0,0,0.63759,0.7703761",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "2a384297-07fa-4c26-9ba0-9623e03f94fc",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "25b185f8-39a9-4776-b88d-4b6b17d262da",
-      "Flags": 0,
-      "Name": "CT Spawn (4)",
-      "Position": "-2112.678,-1360.616,128",
-      "Rotation": "0,0,0.5572041,0.8303759",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "4529819f-d492-4f85-978d-a51672e76c17",
-          "Team": "CounterTerrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "25a8f393-435e-4dcb-8bb7-bb0af9dd8130",
-      "Flags": 0,
-      "Name": "T Spawn",
-      "Position": "-2911.999,1792.003,-0.0001552255",
-      "Rotation": "0,0,-0.7071067,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "eb8a6a5a-bec8-4288-8d1c-02a41be49c14",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "505a582d-2eb6-47c4-9514-eb769a8bb930",
-      "Flags": 0,
-      "Name": "T Spawn (1)",
-      "Position": "-2911.999,1728.003,0.00001282145",
-      "Rotation": "0,0,-0.7071067,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "38dd61b5-c410-480b-a720-0776ef7808f7",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "202960c9-db0d-4605-bfcf-0033eb4a3eb7",
-      "Flags": 0,
-      "Name": "T Spawn (6)",
-      "Position": "-2847.999,1792.003,-0.0001761275",
-      "Rotation": "0,0,-0.7071067,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "911ee0b1-95b5-45c8-a8de-1463501bd7d2",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "1e50c413-5917-4c31-86a8-040d60fc731a",
-      "Flags": 0,
-      "Name": "T Spawn (2)",
-      "Position": "-2847.999,1728.003,0.00001282145",
-      "Rotation": "0,0,-0.7071067,0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "6c0cda6b-5f2b-4d4b-a60c-753da5a02226",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "5023f841-a54f-4158-b31a-9f1a4c674699",
-      "Flags": 0,
-      "Name": "T Spawn (3)",
-      "Position": "-2975.999,1792.003,-0.0000367696",
-      "Rotation": "0,0,0.7071071,-0.7071066",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "ea3c9c0c-213b-4340-8636-dd63aa3a2bf8",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "145ca5b4-d703-442d-b873-e59e7146c15f",
-      "Flags": 0,
-      "Name": "T Spawn (4)",
-      "Position": "-3039.999,1792.003,-0.0000367696",
-      "Rotation": "0,0,-0.7933533,0.6087615",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "d54e3dd0-7838-4c9e-9310-5ee3343c7fce",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "852a626e-f8dd-4dcb-adb9-8327a8ac5c51",
-      "Flags": 0,
-      "Name": "T Spawn (7)",
-      "Position": "-2975.999,1728.003,-0.0000367696",
-      "Rotation": "0,0,0.7071071,-0.7071066",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "9f446851-7a2a-42ec-acb0-b6101a654c41",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "39508f9b-ff29-412f-af86-fb84a41af8ad",
-      "Flags": 0,
-      "Name": "T Spawn (5)",
-      "Position": "-3039.999,1728.003,-0.0000367696",
-      "Rotation": "0,0,0.7071071,-0.7071066",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "TeamSpawnPoint",
-          "__guid": "17b975c4-ddb8-4ae5-9c00-fc29686531d7",
-          "Team": "Terrorist"
-        }
-      ]
-    },
-    {
-      "__guid": "da067600-0667-4eb1-a81a-acfcaf4cd3dc",
-      "Flags": 0,
-      "Name": "Envmap Probe",
-      "Position": "-2816,-896,256",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.EnvmapProbe",
-          "__guid": "00130408-83bd-4831-ac91-dcdbebfe445e",
-          "Texture": "textures/cubemaps/default2.vtex",
-          "Bounds": {
-            "Mins": "-2761.594,-1523.665,-1000",
-            "Maxs": "3004.938,3088.534,1000"
-          },
-          "DelayBetweenUpdates": 0.1,
-          "Feathering": 0.02,
-          "FrameInterval": 5,
-          "MaxDistance": 5000,
-          "Projection": "Box",
-          "RenderDynamically": true,
-          "TintColor": "1,1,1,1",
-          "UpdateStrategy": "OnEnabled",
-          "ZFar": 4096,
-          "ZNear": 16
-        }
-      ]
-    },
-    {
-      "__guid": "7109bf7f-4278-43bc-ae9c-d4c821cc02f6",
-      "Flags": 0,
-      "Name": "decal_bombsite_a",
-      "Position": "-927.9999,87.99991,127.9997",
-      "Rotation": "0.7071068,0.7071068,0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "befa8bd1-7c5d-40e2-ba69-4a2d815855a5",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_a.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,32",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "95f84412-d99a-43f5-b27a-60970bab5180",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (1)",
-      "Position": "-928.0001,168.0001,127.9998",
-      "Rotation": "-0.7071067,0.7071069,-0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "12163d77-e2c0-44e8-9fd2-1f796f8626a2",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_a.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,32",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "bbcef1a8-93dd-4a5e-b328-0846f06e73ed",
-      "Flags": 0,
-      "Name": "decal_cross",
-      "Position": "-928,56,44.00002",
-      "Rotation": "-0.5,0.5,0.5,0.5",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "744f5ddf-cba0-46ac-a1b7-817e91207b0d",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_cross.vmat",
-          "Mod2XBlending": false,
-          "Size": "96,96,64",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "cd0b6719-6c73-4956-a41c-debeafd91cd2",
-      "Flags": 0,
-      "Name": "decal_arrow (2)",
-      "Position": "-435.8733,187.5946,80.00005",
-      "Rotation": "-0.7071071,-0.7071067,0,0.00000002980232",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "8a6e0101-f05e-4a84-adc4-a74762feec00",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,32",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "3063b9f8-c36b-4cd0-acf7-37d623ce2ac9",
-      "Flags": 0,
-      "Name": "decal_arrow (1)",
-      "Position": "-1296,-432,112",
-      "Rotation": "-0.7071068,0.7071068,0.00000005960464,0.00000005960464",
-      "Scale": "2.00792,1.681481,1.729761",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "a7721570-4e5c-4e30-8997-57309bbc360a",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,32",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
+      "NetworkInterpolation": true
     },
     {
       "__guid": "b45d1ab7-1417-453b-96d1-ffbcec117a63",
       "Flags": 0,
-      "Name": "door (5)",
+      "Name": "Door",
       "Position": "-4264,-132,96",
       "Rotation": "0,0,0.7071067,0.7071068",
       "Enabled": true,
@@ -1951,7 +2778,7 @@
     {
       "__guid": "aa0eca05-1ca1-4b95-8ff9-c2ae67f19d60",
       "Flags": 0,
-      "Name": "door",
+      "Name": "Door",
       "Position": "-3704,328,160",
       "Rotation": "0,0,0.7071067,0.7071068",
       "Enabled": true,
@@ -1963,7 +2790,7 @@
     {
       "__guid": "ae698869-c92a-4f06-92c4-0142b94621d1",
       "Flags": 0,
-      "Name": "door (2)",
+      "Name": "Door",
       "Position": "-3207.998,440.0032,31.99999",
       "Rotation": "0,0,-0.9999999,-0.0000005384259",
       "Enabled": true,
@@ -1975,7 +2802,7 @@
     {
       "__guid": "0edddbbf-d902-40f2-9488-d7ff495b1713",
       "Flags": 0,
-      "Name": "door (3)",
+      "Name": "Door",
       "Position": "-2716,-200,64",
       "Rotation": "0,0,0.9999999,0.0000001490116",
       "Enabled": true,
@@ -1987,7 +2814,7 @@
     {
       "__guid": "c4780326-d35c-421e-a66a-ad55f535f276",
       "Flags": 0,
-      "Name": "door (4)",
+      "Name": "Door",
       "Position": "-2116,88,96",
       "Rotation": "0,0,0.0000003437187,-0.9999999",
       "Enabled": true,
@@ -1999,7 +2826,7 @@
     {
       "__guid": "ece19909-a608-4163-9b70-2045d0014c85",
       "Flags": 0,
-      "Name": "door (1)",
+      "Name": "Door",
       "Position": "-4056,937,96.00002",
       "Rotation": "0,0,1,0.0000001947072",
       "Enabled": true,
@@ -2009,665 +2836,9 @@
       "__PrefabVariables": {}
     },
     {
-      "__guid": "e1ef9109-5782-4d95-a82e-e1a29dec9864",
-      "Flags": 0,
-      "Name": "bombsite_b",
-      "Position": "-4060.189,-1024,180.559",
-      "Tags": "zone,bombsite",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "scenes/maps/defusemap_01/bombsite_b.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "848fb04f-4388-41fb-af6d-0653ca335057",
-      "Flags": 0,
-      "Name": "decal_bombsite_a",
-      "Position": "-2736,1440,128",
-      "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "46c26132-b88d-4b15-9b13-989ad9aaf787",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_a.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "184b7812-aa36-4eda-9334-464450046715",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (10)",
-      "Position": "-2496,800,160",
-      "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "b7a4ee38-3b96-43b4-903e-6dffcede1b30",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_a.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "7e1ceca5-782b-4776-939a-123ee5a0477c",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (20)",
-      "Position": "-2768,976,159.9999",
-      "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "83fdd5d6-3cc5-4ce4-a0bb-2c13af5e0c25",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_a.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "299a05ae-74c4-49ec-986b-52a267a872bf",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (6)",
-      "Position": "-1952,-848,256",
-      "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "8b56a3de-006c-4ebd-a198-551321110291",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_a.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "fc0103b2-b762-45b0-a557-f955fe492368",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (14)",
-      "Position": "-1072,-1232,127.9996",
-      "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "d8ff66d7-7353-4970-9f64-0fba1eab6b87",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_a.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,23",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "8475930d-054f-434b-96a4-bda2af7360ca",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (4)",
-      "Position": "-2736,1440,80",
-      "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "f5f97428-b2d6-4f31-8562-afbfc16e1efa",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "5bb45f65-acc3-4999-b16d-6801e1495372",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (11)",
-      "Position": "-2496,800,112",
-      "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "5f894b87-8b9e-4e1a-bac6-9318f3c87463",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "175efc49-42ef-4788-977f-4d568e819ef4",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (21)",
-      "Position": "-2768,976,111.9999",
-      "Rotation": "-0.0000001292466,-0.0000001292467,0.7071069,0.7071067",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "733280c7-0068-4610-8952-7a4a59f47d27",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "61b22507-3018-429e-82e8-36555c63884f",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (7)",
-      "Position": "-2112,-848,192",
-      "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "f8fcb79d-6623-4b27-87be-7cf82b33fa44",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "b94fcaa5-4e76-4166-9a79-21198fa8c5ec",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (17)",
-      "Position": "-3392,-799.9999,151.9987",
-      "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "4883389c-9a12-48d1-a91a-eedea51052b5",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "87a3b0c8-8176-4194-a69f-88ed7e180817",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (5)",
-      "Position": "-3024,1440,80",
-      "Rotation": "0.0000002753576,-0.0000002753576,0.7071068,-0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "2a920f0a-7e0e-4f6d-9c1a-136ba22fc631",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "d679663d-4140-4ed5-aa49-346814bdc9a5",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (13)",
-      "Position": "-2720,784,112",
-      "Rotation": "0.0000002753576,-0.0000002753576,0.7071068,-0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "618a5b5c-8074-4f47-a2ac-723e3995ddb7",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "7fc1f261-bcba-4036-ae95-43ad34fb51b8",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (8)",
-      "Position": "-1952,-848,192",
-      "Rotation": "0.0000002753576,0.0000002753575,-0.7071067,-0.7071069",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "ee454371-a812-491c-97ba-66f9ec2c3143",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "9019b685-525f-4eda-bda6-aee2f1da0e38",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (15)",
-      "Position": "-1072,-1232,63.99962",
-      "Rotation": "0.0000002753576,0.0000002753575,-0.7071067,-0.7071069",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "a011dcd8-a3c7-4a17-8388-c7b7c5c3fd5d",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,23",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "5f44e9c4-953d-40d7-834b-49b66a2691d4",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (3)",
-      "Position": "-3024,1440,128",
-      "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "5eaed8d7-c696-46e9-a644-8f5b93f813f5",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_b.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "3010c6af-fbf3-4249-b2f5-1337d9583e89",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (12)",
-      "Position": "-2720,784,160",
-      "Rotation": "0.7071068,-0.7071068,-0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "d8e6ab5e-0c02-4359-892c-3873f9f8914c",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_b.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "b1c8bcd4-10a6-4206-9496-9c2c0a62710a",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (9)",
-      "Position": "-2112,-848,256",
-      "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "70e37f4b-b971-4ec5-a20b-76f05c04fe9c",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_b.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "ccc7396d-31bc-48ca-931b-c3f6ffc20b7d",
-      "Flags": 0,
-      "Name": "decal_bombsite_a (16)",
-      "Position": "-3392,-799.9999,199.9987",
-      "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "61dca4c6-1ca8-479e-aaf0-89cd36ff9655",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_b.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "a13c9e8a-231e-4c48-b800-632b9b3dd235",
-      "Flags": 0,
-      "Name": "decal_bombsite_b",
-      "Position": "-4160,-1376,320",
-      "Rotation": "0.7071067,-0.7071068,-0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "f5fd6e99-f172-4a1b-a75f-eb763fe6d764",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_b.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "9f7c36f6-bb28-4ef7-b56b-0ac56b9aa294",
-      "Flags": 0,
-      "Name": "decal_bombsite_b (1)",
-      "Position": "-3264,-863.9996,216.0013",
-      "Rotation": "0.7071067,-0.7071068,-0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "a3c74e79-54ea-4d83-ada4-a63c8c9f40f6",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_b.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "a3ed7fa3-a8d0-4c14-ab42-f15e4d5fc871",
-      "Flags": 0,
-      "Name": "decal_bombsite_b (8)",
-      "Position": "-2783.998,-1039.999,296.0021",
-      "Rotation": "0.7071067,-0.7071068,-0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "fd4c1947-8c85-4bc1-89ec-ce08c76a9b4a",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_a.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "d623faf4-c147-4b7e-bbbd-eaa037e32b98",
-      "Flags": 0,
-      "Name": "decal_bombsite_b (2)",
-      "Position": "-3264,-863.9996,168.0013",
-      "Rotation": "0.0000002753575,-0.0000002753576,0.7071067,-0.7071068",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "6f2dbacf-e07b-4f03-93af-7a8bbe586cc5",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "7e7b2f05-7f3e-4dfa-be16-26739eaae1a8",
-      "Flags": 0,
-      "Name": "decal_bombsite_b (7)",
-      "Position": "-2783.998,-1039.999,248.0021",
-      "Rotation": "0.7071067,-0.7071068,-0.0000002669254,0.0000002669254",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "54fbc23e-dc3a-4f12-8e71-082f1d80d4f5",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "252ddb30-2f5d-47b3-87bd-f8608b6ca2c4",
-      "Flags": 0,
-      "Name": "decal_cross",
-      "Position": "-4096,-1024,176.0001",
-      "Rotation": "-0.5,0.5,0.5,0.5",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "4fc1549d-5696-4436-9c73-ab659f75c993",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_cross.vmat",
-          "Mod2XBlending": false,
-          "Size": "128,128,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "786a0821-472d-4567-80da-2600783b5f84",
-      "Flags": 0,
-      "Name": "decal_bombsite_b (6)",
-      "Position": "-3182,576,160.0006",
-      "Rotation": "-0.0000001947072,1,0.0000001947072,0.00000000000003791089",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "d031149f-07de-448f-a9d9-9cd1c9632cb1",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_b.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,64,27.86674",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "c3cabca4-7200-4340-ae9e-3fc10780db2b",
-      "Flags": 0,
-      "Name": "decal_arrow",
-      "Position": "-3190,576,112.0006",
-      "Rotation": "-0.0000001947072,-1,-0.0000001947072,0.00000000000003791089",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "7767cfd4-019e-4038-90d4-033ca9e0c0b9",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_arrow.vmat",
-          "Mod2XBlending": false,
-          "Size": "64,32,27.86674",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "8dc5f9db-8442-4cde-b983-a850ac6b6492",
-      "Flags": 0,
-      "Name": "decal_bombsite_b",
-      "Position": "-3778.046,-786.8232,477.5735",
-      "Rotation": "0.7071068,-0.7071066,-0.0000001376788,0.0000001376788",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "7d618bf0-6e88-408e-bacd-514261ff61a1",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_b.vmat",
-          "Mod2XBlending": false,
-          "Size": "128,128,128",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
-      "__guid": "1c558476-2038-4b54-8a19-f59f47619974",
-      "Flags": 0,
-      "Name": "decal_bombsite_b (5)",
-      "Position": "-3264,-1728,1216",
-      "Rotation": "0.0000002384186,-0.9999999,-0.0000001947072,0.00000000000002131628",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DecalRenderer",
-          "__guid": "0cfcb6ec-2720-4e8c-ae88-04de0cc3ec68",
-          "CutoffAngle": 60,
-          "CutoffAngleSoftness": 5,
-          "Material": "materials/decals/decal_bombsite_b.vmat",
-          "Mod2XBlending": false,
-          "Size": "256,255,256",
-          "TintColor": "1,1,1,1",
-          "TriPlanar": false
-        }
-      ]
-    },
-    {
       "__guid": "0c9fc94c-6e1c-4241-bf73-a593760e4773",
       "Flags": 0,
-      "Name": "MapInstance",
+      "Name": "Map Instance",
       "Position": "-1147.197,665.653,599.879",
       "Enabled": true,
       "NetworkMode": 2,
@@ -2685,7 +2856,7 @@
     {
       "__guid": "6171ec49-b9dd-4e53-a0be-f63feb194029",
       "Flags": 0,
-      "Name": "MapCallouts",
+      "Name": "Callouts",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -3571,7 +3742,7 @@
     {
       "__guid": "00a0c26d-5492-445d-8c2f-1b6ee5ce72ff",
       "Flags": 0,
-      "Name": "Box",
+      "Name": "Ladder Volume",
       "Position": "-1952,496,48",
       "Rotation": "0,0,0.7071067,0.7071068",
       "Tags": "ladder",
@@ -3703,7 +3874,7 @@
     {
       "__guid": "792454b8-0e76-422c-917a-ab016f89b289",
       "Flags": 0,
-      "Name": "CalloutsText",
+      "Name": "Callouts - World Text",
       "Position": "-1082.321,544,136.0843",
       "Rotation": "0,0,0.6404365,0.7680111",
       "Enabled": true,
@@ -5500,116 +5671,6 @@
           ]
         }
       ]
-    },
-    {
-      "__guid": "cd9deb14-c81e-4520-aabc-22622faa9fc2",
-      "Flags": 0,
-      "Name": "Cash Grab",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Facepunch.GameModeObject",
-          "__guid": "b6e6dbc4-4920-4f83-ad64-6725e3348621",
-          "GameModes": [
-            "Cash Grab"
-          ],
-          "Inverse": false
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "cff5fa76-3e99-4b8b-aec9-e63c27f3fea3",
-          "Flags": 0,
-          "Name": "Cash Grab (A Site)",
-          "Position": "-930.4813,63.02079,96.14548",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.CashPoint",
-              "__guid": "8f3e29d6-a8dc-485f-a03a-5cf8c0c79874",
-              "Extracts": [],
-              "Resource": "weapons/special/cash_bag/cash_bag.equip",
-              "State": "Inactive"
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "14c61c1f-71af-4168-bd30-3cd8556f43c1",
-              "Flags": 0,
-              "Name": "Extract B",
-              "Position": "-1819.045,923.1754,-71.92922",
-              "Enabled": true,
-              "NetworkMode": 2,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Facepunch.ExtractionPoint",
-                  "__guid": "5b261a9c-6a76-4bd4-b039-dd04cd171043",
-                  "CashPoint": {
-                    "_type": "component",
-                    "component_id": "8f3e29d6-a8dc-485f-a03a-5cf8c0c79874",
-                    "go": "cff5fa76-3e99-4b8b-aec9-e63c27f3fea3",
-                    "component_type": "CashPoint"
-                  },
-                  "Trigger": {
-                    "_type": "component",
-                    "component_id": "a036919a-617e-45c4-bc29-afbaed14c0d5",
-                    "go": "14c61c1f-71af-4168-bd30-3cd8556f43c1",
-                    "component_type": "BoxCollider"
-                  }
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "a036919a-617e-45c4-bc29-afbaed14c0d5",
-                  "Center": "0,0,0",
-                  "IsTrigger": true,
-                  "Scale": "50,50,50",
-                  "Static": false
-                }
-              ]
-            },
-            {
-              "__guid": "f712054a-f14f-4d05-831a-a3a15a21aba6",
-              "Flags": 0,
-              "Name": "Extract A",
-              "Position": "-1100.877,-980.2808,56.30987",
-              "Enabled": true,
-              "NetworkMode": 2,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Facepunch.ExtractionPoint",
-                  "__guid": "cdb20139-d129-4968-8646-caaf044fd56f",
-                  "CashPoint": {
-                    "_type": "component",
-                    "component_id": "8f3e29d6-a8dc-485f-a03a-5cf8c0c79874",
-                    "go": "cff5fa76-3e99-4b8b-aec9-e63c27f3fea3",
-                    "component_type": "CashPoint"
-                  },
-                  "Trigger": {
-                    "_type": "component",
-                    "component_id": "5adb2194-c14d-4a62-994e-85840e5d5894",
-                    "go": "f712054a-f14f-4d05-831a-a3a15a21aba6",
-                    "component_type": "BoxCollider"
-                  }
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "5adb2194-c14d-4a62-994e-85840e5d5894",
-                  "Center": "0,0,0",
-                  "IsTrigger": true,
-                  "Scale": "50,50,50",
-                  "Static": false
-                }
-              ]
-            }
-          ]
-        }
-      ]
     }
   ],
   "SceneProperties": {
@@ -5635,7 +5696,7 @@
   },
   "Title": "de_garry",
   "Description": "",
-  "LastSaved": "2024-06-15T12:29:54.1810991\u002B01:00",
+  "LastSaved": "2024-06-15T12:37:44.8065573\u002B01:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
