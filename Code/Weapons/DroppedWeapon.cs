@@ -2,6 +2,9 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
+public record EquipmentDroppedEvent( DroppedEquipment Dropped, PlayerController Player ) : IGameEvent;
+public record EquipmentPickedUpEvent( PlayerController Player, DroppedEquipment Dropped, Equipment Equipment ) : IGameEvent;
+
 public partial class DroppedEquipment : Component, IUse, Component.ICollisionListener
 {
 	[Property] public EquipmentResource Resource { get; set; }
@@ -37,6 +40,8 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 			spottable.Team = Team.Terrorist;
 		}
 
+		Game.ActiveScene.Dispatch( new EquipmentDroppedEvent( droppedWeapon, heldWeapon?.Owner ) );
+
 		if ( heldWeapon is not null )
 		{
 			foreach ( var state in heldWeapon.Components.GetAll<IDroppedWeaponState>() )
@@ -62,10 +67,17 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 
 		var weapon = player.Inventory.Give( Resource );
 
-		foreach ( var state in weapon.Components.GetAll<IDroppedWeaponState>() )
+		foreach ( var state in Components.GetAll<IDroppedWeaponState>() )
 		{
-			state.CopyFromDroppedWeapon( this );
+			var type = state.GetType();
+
+			var component = weapon.Components.Get( type );
+			if ( !component.IsValid() ) component = weapon.Components.Create( TypeLibrary.GetType( type ) );
+
+			(component as IDroppedWeaponState).CopyFromDroppedWeapon( this );
 		}
+
+		Game.ActiveScene.Dispatch( new EquipmentPickedUpEvent( player, this, weapon ) );
 
 		GameObject.Destroy();
 	}
