@@ -14,12 +14,25 @@ public sealed class TeamScoring : Component,
 	[HostSync]
 	public NetDictionary<Team, int> Scores { get; private set; } = new();
 
+	/// <summary>
+	/// You can define a scoring format for the scores, say you want to format in currency.
+	/// </summary>
+	[HostSync] public string ScoreFormat { get; set; } = "";
+
 	public int MyTeamScore => Scores.GetValueOrDefault( GameUtils.LocalPlayer?.GameObject.GetTeam() ?? Team.Unassigned );
 	public int OpposingTeamScore => Scores.GetValueOrDefault( GameUtils.LocalPlayer?.GameObject.GetTeam().GetOpponents() ?? Team.Unassigned );
+
+	public string MyTeamScoreFormatted => MyTeamScore.ToString( ScoreFormat );
+	public string OpposingTeamScoreFormatted => OpposingTeamScore.ToString( ScoreFormat );
 
 	void IGameEventHandler<ResetScoresEvent>.OnGameEvent( ResetScoresEvent eventArgs )
 	{
 		Scores.Clear();
+	}
+
+	public string GetFormattedScore( Team team )
+	{
+		return Scores.GetValueOrDefault( team, 0 ).ToString( ScoreFormat );
 	}
 
 	public void IncrementScore( Team team, int amount = 1 )

@@ -38,7 +38,7 @@
 
                     @if ( GameMode.Instance.Get<TeamScoring>() is { } scoring )
                     {
-                        <label class="emphasis">@scoring.Scores.GetValueOrDefault(group.Key)</label>
+                        <label class="emphasis">@scoring.GetFormattedScore(group.Key)</label>
 		            }
                 </span>
 

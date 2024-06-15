@@ -42,8 +42,8 @@
     private Team MyTeam => GameUtils.LocalPlayer?.TeamComponent?.Team ?? Team.Unassigned;
     private Team EnemyTeam => MyTeam.GetOpponents();
 
-    private int MyTeamScore { get; set; } = 0;
-    private int EnemyTeamScore { get; set; } = 0;
+    private string MyTeamScore { get; set; } = "0";
+    private string EnemyTeamScore { get; set; } = "0";
 
     private IEnumerable<PlayerController> MyTeamPlayers { get; set; }
     private IEnumerable<PlayerController> EnemyTeamPlayers { get; set; }
@@ -83,10 +83,10 @@
             return;
         }
 
-        if (GameMode.Instance?.Get<TeamScoring>() is { } teamScoring)
+        if ( GameMode.Instance?.Get<TeamScoring>() is { } teamScoring )
         {
-            MyTeamScore = teamScoring.Scores.GetValueOrDefault(MyTeam);
-            EnemyTeamScore = teamScoring.Scores.GetValueOrDefault(EnemyTeam);
+            MyTeamScore = teamScoring.MyTeamScoreFormatted;
+            EnemyTeamScore = teamScoring.OpposingTeamScoreFormatted;
         }
 
         MyTeamPlayers = GameUtils.GetPlayers(MyTeam);
