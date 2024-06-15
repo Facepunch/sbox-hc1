@@ -124,4 +124,9 @@
         var dist = MathF.Max( CenterDistance.x, CenterDistance.y );
         return opacity - ( 1 - dist * 2f );
     }
+
+    public override string ToString()
+    {
+        return $"Marker: {Object.GameObject}";
+    }
 }
