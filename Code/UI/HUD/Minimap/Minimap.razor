@@ -26,10 +26,10 @@
         <div class="markers">
             @foreach (var element in Game.ActiveScene.GetAllComponents<IMinimapElement>())
             {
-                if (!element.IsValid() || (GameUtils.CurrentPawn is PlayerController player && !element.IsVisible(player)))
-                continue;
+                @if (!element.IsValid() || (GameUtils.CurrentPawn is PlayerController player && !element.IsVisible(player)))
+                    continue;
 
-                if ( element is IMinimapIcon icon && !string.IsNullOrEmpty( icon.IconPath ) )
+                @if ( element is IMinimapIcon icon && !string.IsNullOrEmpty( icon.IconPath ) )
                 {
                     string style = WorldToMap(icon.WorldPosition);
 

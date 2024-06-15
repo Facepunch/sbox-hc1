@@ -6,6 +6,9 @@ public partial class ActivateCashPoint : Component, IGameEventHandler<EnterState
 {
 	public void OnGameEvent( EnterStateEvent eventArgs )
 	{
+		if ( !Networking.IsHost )
+			return;
+
 		var cashPoint = GameMode.Instance.Get<CashPointTracker>().Current;
 		cashPoint.Activate();
 	}

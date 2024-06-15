@@ -1,16 +1,20 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 public partial class CashPoint : Component, ICustomMinimapIcon
 {
-	/// <summary>
-	/// A reference to all cash points on the map.
-	/// </summary>
-	public static List<CashPoint> All { get; private set; } = new();
+	public enum CashPointState
+	{
+		Inactive,
+		Spawning,
+		Open
+	}
 
 	/// <summary>
 	/// Is this cash point active?
 	/// </summary>
-	[HostSync] public bool IsActive { get; private set; }
+	[Property] public CashPointState State { get; set; } = CashPointState.Inactive;
 
 	/// <summary>
 	/// The resource to spawn.
@@ -30,19 +34,15 @@ public partial class CashPoint : Component, ICustomMinimapIcon
 	{
 		get
 		{
-			var color = IsActive ? Color.Green : Color.White;
+			var color = State == CashPointState.Open ? Color.Green : Color.White;
 			return $"background-tint: {color.Hex};";
 		}
 	}
 
 	bool IMinimapElement.IsVisible( IPawn viewer )
 	{
-		return true;
-	}
-
-	public CashPoint()
-	{
-		All.Add( this );
+		var vis = State != CashPointState.Inactive;
+		return vis;
 	}
 
 	/// <summary>
@@ -50,13 +50,26 @@ public partial class CashPoint : Component, ICustomMinimapIcon
 	/// </summary>
 	public void Activate()
 	{
+		State = CashPointState.Open;
+
 		// TODO: track the cash!
 		var eq = DroppedEquipment.Create( Resource, Transform.Position );
 	}
 
-	public void Cleanup()
+	/// <summary>
+	/// marks this cash point as to be spawning something soon
+	/// </summary>
+	public void SetSpawning()
+	{
+		State = CashPointState.Spawning;
+	}
+
+	/// <summary>
+	/// deactivates this cash point
+	/// </summary>
+	public void Deactivate()
 	{
 		// TODO: kill the cash!
-		IsActive = false;
+		State = CashPointState.Inactive;
 	}
 }

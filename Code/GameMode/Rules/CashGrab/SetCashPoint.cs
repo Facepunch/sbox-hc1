@@ -4,25 +4,34 @@ namespace Facepunch;
 
 public partial class SetCashPoint : Component, IGameEventHandler<EnterStateEvent>
 {
+	[Late]
 	public void OnGameEvent( EnterStateEvent eventArgs )
 	{
+		if ( !Networking.IsHost )
+			return;
+
 		var tracker = GameMode.Instance.Get<CashPointTracker>();
-		var cashPoints = CashPoint.All;
+		var cashPoints = tracker.All;
 
-		var selected = Game.Random.FromList<CashPoint>( cashPoints.Where( x => x != tracker.Last ).ToList() );
-
+		var selected = Game.Random.FromList( cashPoints.ToList() );
 
 		// Turn off all the cash points
 		foreach ( var item in cashPoints )
 		{
-			item.GameObject.Enabled = false;
+			if ( item == selected )
+			{
+				item.SetSpawning();
+			}
+			else
+			{
+				item.Deactivate();
+			}
 		}
 
 		// Turn on our selected cash point
 		{
 			tracker.Last = tracker.Current;
 			tracker.Current = selected;
-			selected.GameObject.Enabled = true;
 		}
 	}
 }

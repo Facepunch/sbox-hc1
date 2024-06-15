@@ -19,7 +19,7 @@ public sealed class TeamSpawnAssigner : Component,
 		var team = player.TeamComponent.Team;
 		var spawns = GameUtils.GetSpawnPoints( team ).Shuffle();
 
-		if ( spawns.Count == 0 )
+		if ( spawns.Count == 0 && player.TeamComponent.Team != Team.Unassigned )
 		{
 			throw new Exception( $"No spawn points for team {team}!" );
 		}

@@ -6,6 +6,11 @@ namespace Facepunch;
 public partial class ExtractionPoint : Component, ICustomMinimapIcon, Component.ITriggerListener
 {
 	/// <summary>
+	/// Our cash point
+	/// </summary>
+	[Property] public CashPoint CashPoint { get; set; } 
+
+	/// <summary>
 	/// The extraction point's trigger.
 	/// </summary>
 	public Collider Trigger { get; set; }
@@ -25,7 +30,7 @@ public partial class ExtractionPoint : Component, ICustomMinimapIcon, Component.
 
 	bool IMinimapElement.IsVisible( IPawn viewer )
 	{
-		return true;
+		return CashPoint.State == CashPoint.CashPointState.Open;
 	}
 
 	void ITriggerListener.OnTriggerEnter( Collider other )
