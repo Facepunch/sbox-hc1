@@ -1,0 +1,197 @@
+{
+  "RootObject": {
+    "__guid": "6f7e2629-4eed-4fe1-b3be-b5de689301a0",
+    "Flags": 0,
+    "Name": "money_burst",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Children": [
+      {
+        "__guid": "c565589a-6515-4e75-8bb7-68f27211bdcd",
+        "Flags": 0,
+        "Name": "Spray",
+        "Rotation": "0,-0.7071067,0,0.7071068",
+        "Tags": "particles",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ParticleEffect",
+            "__guid": "39aec649-97ee-4e09-9b98-72b72844f6af",
+            "Alpha": {
+              "Type": "Curve",
+              "CurveA": [
+                {
+                  "y": 1
+                },
+                {
+                  "x": 0.48029557,
+                  "y": 1,
+                  "in": 1.5365853,
+                  "out": -1.5365853
+                },
+                {
+                  "x": 1,
+                  "in": 1.312303,
+                  "out": -1.312303
+                }
+              ],
+              "Constants": "1,0,0,0"
+            },
+            "ApplyColor": false,
+            "ApplyRotation": true,
+            "ApplyShape": true,
+            "Bounce": {},
+            "Brightness": {
+              "Constants": "1,0,0,0"
+            },
+            "Bumpiness": {},
+            "Collision": false,
+            "CollisionRadius": 1,
+            "Damping": {
+              "Constants": "2,0,0,0"
+            },
+            "DieOnCollisionChance": {
+              "Constants": "1,0,0,0"
+            },
+            "Force": true,
+            "ForceDirection": "0,0,-250",
+            "ForceScale": {
+              "Constants": "1,0,0,0"
+            },
+            "Friction": {
+              "Constants": "1,0,0,0"
+            },
+            "Gradient": {
+              "Type": "Range",
+              "Evaluation": "Particle",
+              "GradientA": {
+                "color": [
+                  {
+                    "t": 0.5,
+                    "c": "1,1,1,1"
+                  }
+                ],
+                "alpha": []
+              },
+              "GradientB": {
+                "color": [
+                  {
+                    "t": 0.5,
+                    "c": "1,1,1,1"
+                  }
+                ],
+                "alpha": []
+              },
+              "ConstantA": "0.98515,0.92604,0,1",
+              "ConstantB": "1,0.22,0,1"
+            },
+            "Lifetime": {
+              "Type": "Range",
+              "Evaluation": "Particle",
+              "Constants": "0.5,3,0,0"
+            },
+            "MaxParticles": 5000,
+            "PerParticleTimeScale": {
+              "Constants": "1,0.4,0,0"
+            },
+            "PreWarm": 0,
+            "PushStrength": {},
+            "Roll": {
+              "Type": "Range",
+              "Evaluation": "Particle",
+              "Constants": "0,180,0,0"
+            },
+            "Scale": {
+              "Type": "Curve",
+              "CurveA": {
+                "rangey": "0,13",
+                "frames": [
+                  {
+                    "in": -9.333329,
+                    "out": 9.333329
+                  },
+                  {
+                    "x": 0.015394086,
+                    "y": 1,
+                    "mode": "Linear"
+                  },
+                  {
+                    "x": 0.92410713,
+                    "y": 1,
+                    "mode": "Flat"
+                  },
+                  {
+                    "x": 1,
+                    "y": 0.10638298
+                  }
+                ]
+              },
+              "Constants": "1,0,0,0"
+            },
+            "SequenceId": {},
+            "SequenceSpeed": {
+              "Type": "Range",
+              "Evaluation": "Particle",
+              "Constants": "2,4,0,0"
+            },
+            "SequenceTime": {
+              "Constants": "1,0,0,0"
+            },
+            "SheetSequence": true,
+            "Space": "World",
+            "StartVelocity": {
+              "Type": "Range",
+              "Evaluation": "Particle",
+              "Constants": "200,400,0,0"
+            },
+            "Stretch": {},
+            "TimeScale": 1,
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "Sandbox.ParticleSpriteRenderer",
+            "__guid": "575961b2-b5a5-4f83-97d9-6d5717b5f2cc",
+            "Additive": false,
+            "BlurAmount": 0.07,
+            "BlurOpacity": 0.1,
+            "BlurSpacing": 0.08,
+            "DepthFeather": 0,
+            "FaceVelocity": false,
+            "FogStrength": 1,
+            "LeadingTrail": true,
+            "MotionBlur": false,
+            "Opaque": true,
+            "RotationOffset": 0,
+            "Scale": 1,
+            "Shadows": true,
+            "SortMode": "Unsorted",
+            "Texture": "particles/gameplay/money/money_atlas_color.vtex"
+          },
+          {
+            "__type": "Sandbox.ParticleSphereEmitter",
+            "__guid": "7596412f-ca5c-4a83-9ef5-35713754a73a",
+            "Burst": 100,
+            "Delay": 0,
+            "DestroyOnEnd": true,
+            "Duration": 3,
+            "Loop": true,
+            "OnEdge": false,
+            "Radius": 20,
+            "Rate": 0,
+            "Velocity": 5
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
