@@ -7,6 +7,7 @@ public record CashPointBagExtractedEvent( PlayerController Player, ExtractionPoi
 /// <summary>
 /// An extraction point, associated with a <see cref="CashPoint"/>
 /// </summary>
+[EditorHandle( "ui/Minimaps/cashgrab/extract.png" )]
 public partial class ExtractionPoint : Component, ICustomMinimapIcon, Component.ITriggerListener, IMarkerObject
 {
 	/// <summary>
@@ -86,4 +87,12 @@ public partial class ExtractionPoint : Component, ICustomMinimapIcon, Component.
 	/// </summary>
 	/// <returns></returns>
 	bool IMarkerObject.ShouldShow() => ShouldShow();
+
+	protected override void DrawGizmos()
+	{
+		Gizmo.Draw.Color = Color.Green;
+		var box = BBox.FromPositionAndSize( Vector3.Zero, 64 );
+		Gizmo.Hitbox.BBox( box );
+		Gizmo.Draw.LineBBox( box );
+	}
 }

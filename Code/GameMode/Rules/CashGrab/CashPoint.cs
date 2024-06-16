@@ -1,7 +1,7 @@
-using Sandbox.Events;
 
 namespace Facepunch;
 
+[EditorHandle( "ui/Minimaps/cashgrab/cashpoint.png" )]
 public partial class CashPoint : Component, ICustomMinimapIcon, IMarkerObject
 {
 	public enum CashPointState
@@ -94,4 +94,19 @@ public partial class CashPoint : Component, ICustomMinimapIcon, IMarkerObject
 	/// </summary>
 	/// <returns></returns>
 	bool IMarkerObject.ShouldShow() => State == CashPointState.Spawning;
+
+	protected override void DrawGizmos()
+	{
+		Gizmo.Draw.Color = Color.Green;
+		var box = BBox.FromPositionAndSize( Vector3.Zero, 64 );
+		Gizmo.Hitbox.BBox( box );
+		Gizmo.Draw.LineBBox( box );
+
+		Gizmo.Transform = new Transform();
+
+		foreach ( var extract in Extracts )
+		{
+			Gizmo.Draw.Line( Transform.Position, extract.Transform.Position );
+		}
+	}
 }
