@@ -146,12 +146,6 @@
                 "__guid": "d56b1c52-df76-49c0-a972-d08c080ba023"
               },
               {
-                "__type": "Facepunch.EnableBuyMenu",
-                "__guid": "84ff0616-05f1-4774-a390-ce9525baab9a",
-                "InBuyZoneOnly": false,
-                "TimeLimit": 0
-              },
-              {
                 "__type": "Facepunch.PlayerAutoRespawner",
                 "__guid": "941f07d5-e38a-4836-8162-85dcc2038650",
                 "RespawnDelaySeconds": 3
@@ -159,6 +153,15 @@
               {
                 "__type": "Facepunch.DisableCashPoints",
                 "__guid": "4e93bcd2-ea83-4cdf-bef3-aa1c11f6e56d"
+              },
+              {
+                "__type": "Facepunch.SpawnProtection",
+                "__guid": "e2e8ff35-859b-41e8-85c0-c48f375fe7b9",
+                "MaxDurationSeconds": 10
+              },
+              {
+                "__type": "Facepunch.EnableBuyMenuDuringSpawnProtection",
+                "__guid": "eb417304-709d-4f9c-ba44-df3f07dfef1b"
               }
             ]
           },
@@ -269,10 +272,6 @@
                     "RespawnDelaySeconds": 3
                   },
                   {
-                    "__type": "Facepunch.EnableBuyMenuDuringSpawnProtection",
-                    "__guid": "71351369-a2cc-44b3-9cb3-a5588ad86dd9"
-                  },
-                  {
                     "__type": "Facepunch.SetCashPoint",
                     "__guid": "d15b2d12-5f1b-41be-9242-ac48422a9e9f"
                   },
@@ -281,6 +280,15 @@
                     "__guid": "a8926308-e3fb-4018-a03c-9582e7725946",
                     "Message": "Prepare for cash point ",
                     "Type": "Generic"
+                  },
+                  {
+                    "__type": "Facepunch.EnableBuyMenuDuringSpawnProtection",
+                    "__guid": "ea94e5fb-f713-4c9a-af71-7b8bc86fcf99"
+                  },
+                  {
+                    "__type": "Facepunch.SpawnProtection",
+                    "__guid": "c3a5accc-0794-4180-90a4-d03b4dd4e4a5",
+                    "MaxDurationSeconds": 10
                   }
                 ]
               },
