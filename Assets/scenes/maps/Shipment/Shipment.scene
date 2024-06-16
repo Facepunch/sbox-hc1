@@ -1,0 +1,2098 @@
+{
+  "__guid": "90a2c641-2bda-4f1b-9cca-8dd10ef5e1cc",
+  "GameObjects": [
+    {
+      "__guid": "0f04ee6a-6956-44a5-851e-aa6b5151fa34",
+      "Flags": 0,
+      "Name": "GameNetworkManager",
+      "Position": "-403.784,-123.1075,41.92808",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Facepunch.GameNetworkManager",
+          "__guid": "b7996461-15c3-4a17-97fa-ad71cef223d7",
+          "IsMultiplayer": true,
+          "PlayerPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player/player.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "1bb638d5-5b55-46be-8a18-b14ead057ed4",
+      "Flags": 0,
+      "Name": "Testing Mode",
+      "Position": "0,0,240.3786",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Facepunch.GameMode",
+          "__guid": "8ed315e5-026c-40fd-a052-bba2c7ba3cf0",
+          "Description": "",
+          "MaxBalance": 16000,
+          "Title": "No Gamemode",
+          "UnlimitedMoney": true
+        },
+        {
+          "__type": "Facepunch.TeamSpawnAssigner",
+          "__guid": "6f3ac065-fa7f-4944-acbf-61ef8ab1f042",
+          "__enabled": false,
+          "SpawnTags": []
+        },
+        {
+          "__type": "Facepunch.DefaultEquipment",
+          "__guid": "20fa0f9a-ca5b-4c9a-b077-c830bb13fae6",
+          "Armor": 100,
+          "BothTeams": true,
+          "DefuseKit": false,
+          "Helmet": true,
+          "RefillAmmo": true,
+          "Team": "Terrorist",
+          "Weapons": [
+            "weapons/knife/knife.equip",
+            "weapons/usp/usp.equip",
+            "weapons/special/cash_bag/cash_bag.equip"
+          ]
+        },
+        {
+          "__type": "Facepunch.BotManager",
+          "__guid": "894835ad-98a7-4609-a533-93bd07350535",
+          "Drone": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player/drone.prefab"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "214972d7-519b-4123-9e1f-b320c1ffdc9c",
+          "Flags": 0,
+          "Name": "States",
+          "Position": "0,0,0",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Events.StateMachineComponent",
+              "__guid": "4ee9aa02-ed82-47f7-bda3-05a633847aae",
+              "CurrentState": {
+                "_type": "component",
+                "component_id": "212f57d7-dbf6-41de-b321-26e28edb0e3f",
+                "go": "2c67d39f-ee65-47c7-859b-38c0bdc89d7d",
+                "component_type": "StateComponent"
+              }
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "2c67d39f-ee65-47c7-859b-38c0bdc89d7d",
+              "Flags": 0,
+              "Name": "Waiting",
+              "Position": "0,0,0",
+              "Enabled": true,
+              "NetworkMode": 1,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.Events.StateComponent",
+                  "__guid": "212f57d7-dbf6-41de-b321-26e28edb0e3f",
+                  "DefaultDuration": 60
+                },
+                {
+                  "__type": "Facepunch.ShowStatusText",
+                  "__guid": "07e32699-e248-498f-8079-cac8582afd0b",
+                  "BothTeams": true,
+                  "StatusText": "Testing Mode",
+                  "Team": "Unassigned"
+                },
+                {
+                  "__type": "Facepunch.BuyAnywhere",
+                  "__guid": "610123a8-4ab7-4fd2-80e2-b91885488ed5"
+                },
+                {
+                  "__type": "Facepunch.EnableBuyMenu",
+                  "__guid": "aa4d1bdc-4414-4a2b-b417-1fb61adccd63",
+                  "InBuyZoneOnly": false,
+                  "TimeLimit": 0
+                },
+                {
+                  "__type": "Facepunch.PlayerAutoRespawner",
+                  "__guid": "5f2c5d86-a8b2-4488-b8b6-f03b5c56a6a9",
+                  "RespawnDelaySeconds": 1
+                },
+                {
+                  "__type": "Facepunch.DefaultBalance",
+                  "__guid": "ba2460e2-2ce8-488c-ae80-f178779a6f5d",
+                  "Value": 16000
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "00344a8c-fa5e-45ae-b12a-10bb781a1dc3",
+      "Flags": 0,
+      "Name": "2D Skybox",
+      "Tags": "skybox",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkyBox2D",
+          "__guid": "1547c864-ff73-42cf-8029-2510da54f185",
+          "SkyMaterial": "materials/sky/atmosphere_sky.vmat",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "76cfdff3-2b8d-4af5-b87b-a0b8205d9ce9",
+      "Flags": 0,
+      "Name": "Map",
+      "Position": "-963.5741,-1006.22,1460.143",
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MapInstance",
+          "__guid": "6b1e7663-e999-4621-81de-03c5caab2786",
+          "MapName": "facepunch.prison",
+          "UseMapFromLaunch": false
+        }
+      ]
+    },
+    {
+      "__guid": "19ba4d84-a6ad-494a-836a-8cad756265b6",
+      "Flags": 0,
+      "Name": "Camera",
+      "Position": "-1229.633,208.6536,641.1771",
+      "Rotation": "0.005628323,0.3064817,-0.0174773,0.9516995",
+      "Tags": "maincamera",
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "cb8194bb-9c8f-4078-871a-5db54b2e46e7",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 60,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        },
+        {
+          "__type": "Sandbox.Pixelate",
+          "__guid": "da2a8819-63cf-4102-b99e-163712ab3901",
+          "Scale": 0.1
+        },
+        {
+          "__type": "Sandbox.ChromaticAberration",
+          "__guid": "28bf2f93-19c6-4dbb-9afc-aa760512a8c3",
+          "Offset": "4,6,0",
+          "Scale": 0.33
+        },
+        {
+          "__type": "Sandbox.ColorAdjustments",
+          "__guid": "51129829-f3a0-45e7-9a28-2fb210635e7d",
+          "Brightness": 1,
+          "Contrast": 1,
+          "HueRotate": 0,
+          "Saturation": 0.55
+        },
+        {
+          "__type": "Sandbox.Vignette",
+          "__guid": "72af19f9-51d4-4cf2-8c7a-ac08cba4ca81",
+          "Center": "0.5,0.5",
+          "Color": "0,0,0,1",
+          "Intensity": 0.49,
+          "Roundness": 1,
+          "Smoothness": 1
+        }
+      ]
+    },
+    {
+      "__guid": "928bc0fc-bc7f-41be-83d6-ef65bb0cc9c7",
+      "Flags": 0,
+      "Name": "Sun",
+      "Position": "-1287.696,-1160.766,1448.329",
+      "Rotation": "-0.1334227,0.3430976,0.3369845,0.8665587",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "009cfee9-49cb-4968-b159-727c3d637332",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "1,0.9476,0.75814,1",
+          "Shadows": true,
+          "SkyColor": "0.09767,0.09767,0.09767,1"
+        }
+      ]
+    },
+    {
+      "__guid": "7d175a49-e17c-4844-9962-5c609039a793",
+      "Flags": 0,
+      "Name": "Unassigned Spawn",
+      "Position": "0,0,64",
+      "Rotation": "0,0,-0.9817033,0.1904173",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "TeamSpawnPoint",
+          "__guid": "550f4e12-7891-4bc6-a37d-9f3156081009",
+          "Team": "Unassigned"
+        }
+      ]
+    },
+    {
+      "__guid": "4c5c8f01-4080-4057-8c27-ab104c8a2b11",
+      "Flags": 0,
+      "Name": "Envmap Probe",
+      "Position": "-244.1031,126.1214,23.43188",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.EnvmapProbe",
+          "__guid": "145aa785-7953-45f9-87d1-39b6357c5c50",
+          "Bounds": {
+            "Mins": "-1000,-1000,-1000",
+            "Maxs": "1000,1000,1000"
+          },
+          "DelayBetweenUpdates": 0.1,
+          "Feathering": 0.02,
+          "FrameInterval": 5,
+          "MaxDistance": 512,
+          "Projection": "Box",
+          "RenderDynamically": true,
+          "TintColor": "1,1,1,1",
+          "UpdateStrategy": "FrameInterval",
+          "ZFar": 4096,
+          "ZNear": 16
+        }
+      ]
+    },
+    {
+      "__guid": "5d8fba87-e4dc-4ef8-bb78-6b6222242a99",
+      "Flags": 0,
+      "Name": "Gradient Fog",
+      "Position": "-253.5244,100.7594,100.1523",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.GradientFog",
+          "__guid": "d1f06fda-11b0-45f9-9bab-74f60b824242",
+          "Color": "0.88837,0.71152,0.44625,1",
+          "EndDistance": 16384,
+          "FalloffExponent": 1,
+          "Height": 128,
+          "StartDistance": 8192,
+          "VerticalFalloffExponent": 2
+        }
+      ]
+    },
+    {
+      "__guid": "fdc01bff-1f4f-45b8-930e-86b5db570700",
+      "Flags": 0,
+      "Name": "MinimapRenderer",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Facepunch.MinimapRenderer",
+          "__guid": "4b953a37-78c6-4fcb-9b80-ceecc4d0b595",
+          "CurrentMinimapPath": "ui/minimaps/minimap_fps_testing.png",
+          "ExportResolution": "1204,1024",
+          "Size": 1800
+        }
+      ]
+    },
+    {
+      "__guid": "2f24889f-5315-4aa8-85f4-0290c0a85b4b",
+      "Flags": 0,
+      "Name": "HUD",
+      "Position": "-11.66301,-170.663,499.0976",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "b45558e7-d9de-4bac-922f-5fba675ec69c",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ZIndex": 100
+        },
+        {
+          "__type": "Facepunch.UI.MainHUD",
+          "__guid": "63ee13b4-55b5-4e7e-acf5-3afd83dae8ce"
+        },
+        {
+          "__type": "Facepunch.UI.DeveloperMenu",
+          "__guid": "6758759d-b4f5-4684-948d-08e4dc1fcd4e"
+        }
+      ]
+    },
+    {
+      "__guid": "c7447723-157b-4466-9736-6e7c99c62b8e",
+      "Flags": 0,
+      "Name": "Box",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MeshComponent",
+          "__guid": "f600a8e9-866b-4e64-899a-a650dcdf3924",
+          "Collision": "Mesh",
+          "Color": "1,1,1,1",
+          "HideInGame": false,
+          "IsTrigger": false,
+          "Mesh": {
+            "Topology": "H4sIAAAAAAAACl2Qiw6CUAxDh1flgg/wAfr/X2pP0iWLJA25W9t16xHxFc4C30E4\u002Bt2FWbgKd2Ew4NTvIZxcb9ZH4b5db\u002Bb9z/oUzVh8m7lPc9FOzjRYQ8ZXyXxxXvrw4e72wvtWdoEPdzMXj8We9OHDXcvO7EqdN396eKaeLHjkLciePeYxi4z0mMFtMisablFvRXZ2Tj158KQOF78f9WSROMQBAAA=",
+            "Positions": [
+              "-864,-832,64",
+              "864,-832,64",
+              "864,832,64",
+              "-864,832,64",
+              "-864,832,-64",
+              "864,832,-64",
+              "864,-832,-64",
+              "-864,-832,-64"
+            ],
+            "TextureCoord": [
+              "10.45471,12.4",
+              "-10.45471,-0.4999999",
+              "10.45471,-10.4",
+              "-11.4,-0.5",
+              "-10.45471,-10.4",
+              "-10.45471,0.5",
+              "-10.45471,12.4",
+              "-11.4,-0.5",
+              "10.45471,-11.4",
+              "10.45471,1.5",
+              "10.45471,11.4",
+              "11.4,0.5",
+              "-10.45471,11.4",
+              "10.45471,0.5000001",
+              "-10.45471,-11.4",
+              "11.4,0.5",
+              "11.4,-0.5",
+              "-10.45471,0.5000001",
+              "-11.4,0.5",
+              "10.45471,0.5",
+              "-11.4,0.5",
+              "10.45471,-0.4999999",
+              "11.4,-0.5",
+              "-10.45471,1.5"
+            ],
+            "TextureUAxis": [
+              "1,0,0",
+              "1,0,-0",
+              "0,-1,0",
+              "0,1,0",
+              "-1,0,0",
+              "1,-0,0"
+            ],
+            "TextureVAxis": [
+              "0,-1,0",
+              "0,-1,0",
+              "0,0,-1",
+              "-0,0,-1",
+              "0,0,-1",
+              "-0,0,-1"
+            ],
+            "TextureScale": [
+              "0.1614105,0.1425439",
+              "0.1614105,0.1425439",
+              "0.1425439,0.25",
+              "0.1425439,0.25",
+              "0.1614105,0.25",
+              "0.1614105,0.25"
+            ],
+            "TextureOffset": [
+              "0.0004882812,511.9995",
+              "0.0004882812,0.0004882812",
+              "0,0",
+              "0,0",
+              "0,512",
+              "0,0.00003051758"
+            ],
+            "MaterialIndex": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "EdgeFlags": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Materials": [
+              "materials/dev/reflectivity_30.vmat",
+              "materials/dev/dev_measuregeneric01b.vmat",
+              "materials/dev/dev_measuregeneric01.vmat",
+              "materials/dev/dev_hotspot_layout01.vmat"
+            ]
+          },
+          "SmoothingAngle": 40,
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "15508345-5e2a-4643-aff3-3ec48dc93b56",
+      "Flags": 0,
+      "Name": "shipping_container_closed_dev (7)",
+      "Position": "0,-714.5961,64.00002",
+      "Rotation": "0,0,0.9914448,-0.130526",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "6e0b56f4-835a-4f20-b14a-55f4cd45838e",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "RenderType": "On",
+          "Tint": "0.94419,0.26789,0.26789,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "8c8aed5e-f6a7-445b-8145-6f596596da4e",
+          "IsTrigger": false,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "6cc0109c-0cb5-4bf9-ac45-5fb3eb6c5ff8",
+      "Flags": 0,
+      "Name": "shipping_container_closed_dev (9)",
+      "Position": "0,720.306,64.00002",
+      "Rotation": "0,0,0.9914448,0.1305263",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "e10c2ac2-d6ad-43c6-8489-7f2e08ea4640",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "RenderType": "On",
+          "Tint": "0.16744,0.41721,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "bfb458e6-16d4-4333-840d-9ea55485aa3e",
+          "IsTrigger": false,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "25296b8f-26a9-4b9e-b5a3-3282090fa099",
+      "Flags": 0,
+      "Name": "shipping_container_closed_dev (8)",
+      "Position": "0,592.306,64.00002",
+      "Rotation": "0,0,0.9999999,0.0000001490116",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "cf318f01-b481-41e3-ae39-3152d3a0031c",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "RenderType": "On",
+          "Tint": "0.94419,0.26789,0.26789,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "404368a0-8ae7-4b08-ba67-a0d4476f62f1",
+          "IsTrigger": false,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "c5e3009a-cb17-4964-917e-ffd86f6cd7ae",
+      "Flags": 0,
+      "Name": "shipping_container_closed_dev (6)",
+      "Position": "0,-586.5961,64.00002",
+      "Rotation": "0,0,0.9999999,0.0000001490116",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "b02047a0-0677-4dad-a87c-f12bf564fedd",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "RenderType": "On",
+          "Tint": "0.16744,0.41721,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "1966746b-1c79-4aea-ac0a-183631e82eb3",
+          "IsTrigger": false,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "345927f8-f05f-4911-a7c6-1ada2d7de1a0",
+      "Flags": 0,
+      "Name": "shipping_container_closed_dev (1)",
+      "Position": "-688.0001,0.0001790528,63.99999",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "04e0b9d6-9108-46ef-b987-da60f9cb6545",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "RenderType": "On",
+          "Tint": "0.94419,0.26789,0.26789,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "e61fec20-c942-45ef-b1cb-868daf569eaf",
+          "IsTrigger": false,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "306ad1a1-143e-4a2d-87d0-b22e1d9b2046",
+      "Flags": 0,
+      "Name": "shipping_container_open_dev (1)",
+      "Position": "-783.9999,0.0003736024,64",
+      "Rotation": "0,0,-0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "df406b05-9a5b-43e1-8b97-c5c0587bd898",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/shippingcontainer/shipping_container_open_dev.vmdl",
+          "RenderType": "On",
+          "Tint": "0.16225,0.5814,0.19718,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "7a1a4256-0525-4292-b783-20cb68663bc5",
+          "IsTrigger": false,
+          "Model": "models/dev/shippingcontainer/shipping_container_open_dev.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "d86f2395-5994-4431-818e-38127e2ee8d7",
+      "Flags": 0,
+      "Name": "shipping_container_closed_dev",
+      "Position": "784,-0.0003069375,63.99999",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "e88b8bd6-5dc3-4934-91ed-2b29dc9fa7a2",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "RenderType": "On",
+          "Tint": "0.16225,0.5814,0.19718,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "e5daf154-3e8e-4cb0-acca-cc37cce1bfc6",
+          "IsTrigger": false,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "e9bf4a5c-6915-4b7a-89cf-e91658c36432",
+      "Flags": 0,
+      "Name": "shipping_container_open_dev",
+      "Position": "688,-0.0001123879,64",
+      "Rotation": "0,0,-0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "ab885755-cba4-4ffc-a60b-dcee962601d6",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/shippingcontainer/shipping_container_open_dev.vmdl",
+          "RenderType": "On",
+          "Tint": "0.94419,0.26789,0.26789,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "75381a1d-4345-40ae-a0a3-e2a27fc273c5",
+          "IsTrigger": false,
+          "Model": "models/dev/shippingcontainer/shipping_container_open_dev.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "b23a96ae-f4a2-450c-b000-c991d0935e82",
+      "Flags": 0,
+      "Name": "shipping_container_closed_dev (2)",
+      "Position": "-288,-176,63.99989",
+      "Rotation": "0,0,0.0000003894144,-1",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "4964ce4e-00ba-4906-802b-e9d87205779b",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "RenderType": "On",
+          "Tint": "0.94419,0.26789,0.26789,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "c9560a4a-e8ab-4496-8825-7fe05ba88ae7",
+          "IsTrigger": false,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "c1889b99-6414-4a42-a79c-3bb5260fb8ae",
+      "Flags": 0,
+      "Name": "shipping_container_open_dev (7)",
+      "Position": "-283.4324,-171.5876,153.8178",
+      "Rotation": "0,0,0.01991726,-0.9998017",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "b5a397b5-9f0e-4bd7-b8c2-d91e69f85432",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/shippingcontainer/shipping_container_open_dev.vmdl",
+          "Tint": "0.16744,0.41721,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "586fceaf-10fc-420c-9963-25d64dfab66c",
+      "Flags": 0,
+      "Name": "shipping_container_open_dev (8)",
+      "Position": "4.35004,-591.5655,153.8178",
+      "Rotation": "0,0,-0.01330584,-0.9999115",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "3b4beef9-8b72-4fbe-86e6-de46de660e66",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/shippingcontainer/shipping_container_open_dev.vmdl",
+          "Tint": "0.16225,0.5814,0.19718,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c29840ed-8654-4e86-a5df-a84fb62d3503",
+      "Flags": 0,
+      "Name": "shipping_container_open_dev (5)",
+      "Position": "-289.8429,-272,153.8178",
+      "Rotation": "0,0,-0.01330584,-0.9999115",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "e89ad344-8deb-4830-a462-b45468bddd70",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/shippingcontainer/shipping_container_open_dev.vmdl",
+          "Tint": "0.16225,0.5814,0.19718,1"
+        }
+      ]
+    },
+    {
+      "__guid": "4c05af2c-6ef5-471b-bd9c-5ae7d5ebb66f",
+      "Flags": 0,
+      "Name": "shipping_container_open_dev (2)",
+      "Position": "-288,-272,64.00011",
+      "Rotation": "0,0,0.0000003894144,-1",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "c1ab0923-15db-4b63-8e5f-94a82f3a3cae",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/shippingcontainer/shipping_container_open_dev.vmdl",
+          "Tint": "0.16744,0.41721,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b29378ae-5749-42d1-aaa3-2ff83990d8a6",
+      "Flags": 0,
+      "Name": "shipping_container_open_dev (6)",
+      "Position": "-288.0001,176,64.00011",
+      "Rotation": "0,0,0.0000003894144,-1",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "aa52e400-3613-4956-ac65-fefc863edaec",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/shippingcontainer/shipping_container_open_dev.vmdl",
+          "Tint": "0.94419,0.26789,0.26789,1"
+        }
+      ]
+    },
+    {
+      "__guid": "ffc22ffa-9ee4-46fa-b02a-705964295a03",
+      "Flags": 0,
+      "Name": "shipping_container_closed_dev (5)",
+      "Position": "-287.9999,272,63.99989",
+      "Rotation": "0,0,0.0000003894144,-1",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "eb14f980-f25f-41aa-b0cc-46df50b90b7b",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "RenderType": "On",
+          "Tint": "0.16225,0.5814,0.19718,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "f063ef3d-b716-4642-8b30-bf396311d354",
+          "IsTrigger": false,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "fcdf13b7-4fd8-4754-9125-23e4fedd2e96",
+      "Flags": 0,
+      "Name": "shipping_container_closed_dev (3)",
+      "Position": "288,176,63.99989",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "507dce01-da6d-4ef3-89f8-1277f77a7cc1",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "Tint": "0.16225,0.5814,0.19718,1"
+        }
+      ]
+    },
+    {
+      "__guid": "1bc09eb1-6234-4170-b671-d610e389cc67",
+      "Flags": 0,
+      "Name": "shipping_container_open_dev (3)",
+      "Position": "288,272,64.00011",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "7e5e15ec-8800-45a5-88c1-3ca3739fab53",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/shippingcontainer/shipping_container_open_dev.vmdl",
+          "Tint": "0.16744,0.41721,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "d0ff94fa-529c-468f-aff9-c997d3b6e44e",
+      "Flags": 0,
+      "Name": "shipping_container_open_dev (4)",
+      "Position": "288,-176,64.00011",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "adfc0b33-bd12-4849-a383-8a717e2ae14d",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/shippingcontainer/shipping_container_open_dev.vmdl",
+          "Tint": "0.16744,0.41721,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f029066e-169c-400b-b784-629d9587aab0",
+      "Flags": 0,
+      "Name": "shipping_container_closed_dev (4)",
+      "Position": "288,-272,63.99989",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "4746b231-5181-4628-bd60-65d19dc88972",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "RenderType": "On",
+          "Tint": "0.94419,0.26789,0.26789,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "72a4ef21-671c-4409-abcf-764c91ef26ea",
+          "IsTrigger": false,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "b6b70490-f817-490d-aee4-53669b26f7e8",
+      "Flags": 0,
+      "Name": "Box",
+      "Position": "848,-16,128.0189",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MeshComponent",
+          "__guid": "ddc9080c-0875-4995-8478-6be2228c909d",
+          "Collision": "Mesh",
+          "Color": "1,1,1,1",
+          "HideInGame": false,
+          "IsTrigger": false,
+          "Mesh": {
+            "Topology": "H4sIAAAAAAAACl2VCVMTQRCFEwIhQEISE4gkhOABggh4KyoqiiAi4H3jLXjf17/X/qq\u002BrUqRqlfZnX7T0/26p3c0lUr9DewP8OsIdAaygVygN5AP9Ad2B\u002BqB4cBIYCJwMHAoMBM4HTgTOBc4H7gauBa4HlgPPAg8CjwJPA28DbwPfAx8DqQFMbT/yoEu1zPGl2rjVl3PyMvuyGWfefDrbvObkbtLLnt75Kbdm1ObnNw\u002B9UjLhzuoL3wX1CotH\u002B6AXPwV9ZWWD7fUlnPZdd67tRXa9lf0kWhB7MflZD2rT1tabZJY2VPboRWxj3oWuQ9Z46T\u002B1HyPz\u002BTasP5Z\u002BXCPGRPnNu2NrHy4B3zGR0ufiZZw93p\u002BzrNavncZW4\u002B2DmtZ097n3qb\u002B4Y2ZQ069qN1h69BrLCfVHQ3G2\u002BqIhpOBO56Rt8ePtNV1KrBkHQr2/wltaDAduKzu/d6NU9rwNxu4aJ2L3puj2vKeNetzp7EnZ/Wo9Zj2onunfS4Yy6TPGXtj3Fj6jWXK5161aLifmOa8w/RdyTt9W03ptbPe75J8uFeMEcx790vy4S6rB2sX9FmSD/eSvlhbkFM2R7S6YZ8W1XZGe8W98/ovG8s9ewwNFq1RxXiWzaGiBkvWqOrdWQn8tA\u002BrzrCb9gMxrAa27LkB59tdz4OzFnhlXw86\u002B\u002B6rH/42As/VvOZcvCW36lkbvufNfUJuyVosaK\u002B5d03/A8ayoq1gLy8a36CxrPpeVqs594OHzui6HGb2D\u002B8da4\u002Bd33X5cN\u002BoBzltOtux1\u002BVuqwf\u002BnumzLh/uS5\u002Bxv5DTUA\u002B0\u002BuocqKntuvaGezf1P2Qsv50L6PHaGjU9c9scmuqxZY1GXHvnN6nl7OIb9c1\u002BgPPB71VLPtxfnsfaJ79lLflw/6gf/r7oE3tL7nfzG/YsOLyTP7nTg5yPPtQCjbCzn72ciX/iIRZygE/\u002B9DIaEB/xEAs58I5eaEXN2c9M5k5wT9DmX/zwkcxofLLGDOWf2cO8YuYwV5K7jI17yF3jmR6lr\u002BlN\u002Bi\u002BpOTbqRU0SHcifHIjzP8dtAv2cCAAA",
+            "Positions": [
+              "-16,-816,64",
+              "16,-816,64",
+              "16,816,64",
+              "-16,816,64",
+              "-16,816,-64",
+              "16,816,-64",
+              "16,-816,-64",
+              "-16,-816,-64",
+              "16,848,-64",
+              "-16,848,-64",
+              "-16,848,64",
+              "16,848,64",
+              "-1680,816,-64",
+              "-1680,816,64",
+              "-1680,848,64",
+              "-1680,848,-64",
+              "-1712,816,-64",
+              "-1712,816,64",
+              "-1712,848,64",
+              "-1712,848,-64",
+              "-1680,-784,-64",
+              "-1680,-784,64",
+              "-1712,-784,64",
+              "-1712,-784,-64",
+              "-1680,-816,-64",
+              "-1680,-816,64",
+              "-1712,-816,64",
+              "-1712,-816,-64",
+              "-16,-784,-64",
+              "-16,-784,64",
+              "-16,-816,64",
+              "-16,-816,-64"
+            ],
+            "TextureCoord": [
+              "7.125,7.375",
+              "6.875,-1.5",
+              "7.125,-5.375",
+              "-6.375,-1.5",
+              "6.875,-5.375",
+              "6.75,-6.25",
+              "6.875,7.375",
+              "-5.375,-1.5",
+              "7.125,-5.375",
+              "6.5,-6.25",
+              "7.125,7.375",
+              "6.375,-0.5",
+              "6.875,7.375",
+              "7.125,-0.5",
+              "6.875,-5.375",
+              "7.375,-0.5",
+              "7.375,-1.5",
+              "6.875,-0.5",
+              "-5.375,-0.5",
+              "6.5,-1.500148",
+              "-6.375,-0.5",
+              "7.125,-1.5",
+              "6.375,-1.5",
+              "6.25,-0.5001478",
+              "-5.875,-0.5",
+              "6.75,-6.5",
+              "-5.875,-1.5",
+              "-6.5,-0.5001478",
+              "-6.125,-1.5",
+              "6.5,-6.5",
+              "-6.125,-0.5",
+              "6.5,-1.500148",
+              "6.5,-0.5001478",
+              "6.75,-6.25",
+              "6.25,-1.500148",
+              "6.75,-6.5",
+              "6.5,-6.5",
+              "6.5,-6.25",
+              "6.5,-6.5",
+              "6.5,-6.25",
+              "6.25,-1.500148",
+              "-6.5,-0.5001478",
+              "-6.499999,-6.5",
+              "-6.5,-6.25",
+              "6.499999,-0.5001478",
+              "6.499999,-1.500148",
+              "-6.5,-6.25",
+              "-6.499999,-6.5",
+              "-6.5,-6.25",
+              "6.5,-0.5001478",
+              "6.5,-6.5",
+              "6.499999,-0.5001478",
+              "-6.5,-1.500148",
+              "6.5,-6.25",
+              "-6.499999,-6.5",
+              "-6.5,-1.500148",
+              "-6.25,-1.500148",
+              "-6.25,-0.5001478",
+              "-6.5,-1.500148",
+              "-6.75,-6.25",
+              "-6.5,-0.5001478",
+              "6.749999,-1.500148",
+              "-6.25,-0.5001478",
+              "-6.749999,-6.5",
+              "-6.75,-6.25",
+              "-6.5,-6.25",
+              "-6.499999,-6.5",
+              "6.749999,-0.5001478",
+              "-6.75,-6.25",
+              "-6.5,-6.25",
+              "-6.749999,-6.5",
+              "6.499999,-1.500148",
+              "6.5,-1.500148",
+              "-6.25,-0.5001478",
+              "-6.75,6.25",
+              "-6.5,6.25",
+              "6.25,-0.5001477",
+              "6.25,-1.500148",
+              "-6.5,6.25",
+              "-6.75,6.25",
+              "-6.5,6.25",
+              "6.25,-0.5001478",
+              "-6.75,-6.25",
+              "6.25,-0.5001478",
+              "-6.25,-1.500148",
+              "-6.5,-6.25",
+              "-6.75,6.25",
+              "-6.25,-1.500148",
+              "-6.499999,-1.500148",
+              "-6.499999,-0.5001477",
+              "-6.749999,-1.500148",
+              "-6.499999,6.5",
+              "-6.749999,-0.5001478",
+              "6.5,-1.500148",
+              "-6.499999,-0.5001478",
+              "-6.749999,6.5",
+              "-6.499999,6.5",
+              "-6.5,6.25",
+              "-6.75,6.25",
+              "6.5,-0.5001477",
+              "-6.499999,6.5",
+              "-6.5,6.25",
+              "-6.749999,6.5",
+              "6.25,-1.500148",
+              "-6.25,-1.500148",
+              "-6.5,-0.5001477",
+              "-6.5,-1.500148",
+              "6.5,6.25",
+              "-6.5,-0.5001477",
+              "6.5,-1.500148",
+              "-6.25,-0.5001477",
+              "6.5,6.5",
+              "6.5,6.25",
+              "6.5,-0.5001477",
+              "-6.499999,6.5",
+              "6.5,-0.5001477",
+              "-6.5,-1.500148",
+              "-6.5,6.25",
+              "6.5,6.5",
+              "-6.499999,-1.500148"
+            ],
+            "TextureUAxis": [
+              "1,0,0",
+              "1,0,-0",
+              "0,-1,0",
+              "0,1,0",
+              "-1,0,0",
+              "1,-0,0",
+              "-1,0,0",
+              "0,1,0",
+              "1,-0,0",
+              "0,-1,0",
+              "1,0,0",
+              "0,-1,0",
+              "1,-0,-0",
+              "1,-0,0",
+              "1,0,0",
+              "-1,0,0",
+              "0,-1,0",
+              "1,0.000003814697,0",
+              "1,0,0",
+              "1,0.000003814697,0",
+              "-1,0,0",
+              "1,-0,0",
+              "1,0,-0",
+              "0,1,0",
+              "1,0,0",
+              "0,-1,0",
+              "1,-0,0",
+              "1,-0.000003814697,-0",
+              "0,1,0",
+              "1,-0.000003814697,0",
+              "0,-1,0",
+              "0,1,0",
+              "1,-0.000003814697,0",
+              "-1,0,0",
+              "1,-0.000003814697,0",
+              "1,0,0"
+            ],
+            "TextureVAxis": [
+              "0,-1,0",
+              "0,-1,0",
+              "0,0,-1",
+              "-0,0,-1",
+              "0,0,-1",
+              "-0,0,-1",
+              "0,0,-1",
+              "0,0,-1",
+              "-0,-1,-0",
+              "0,0,-1",
+              "0,-1,0",
+              "0,0,-1",
+              "-0,-1,0",
+              "0,0,-1",
+              "-0,-1,-0",
+              "0,0,-1",
+              "0,0,-1",
+              "-0,-1,-0",
+              "0,0,-1",
+              "-0,-1,-0",
+              "0,0,-1",
+              "0,0,-1",
+              "0,-1,0",
+              "-0,-0,-1",
+              "0,-1,-0",
+              "0,0,-1",
+              "0,0,-1",
+              "0,-1,0",
+              "0,0,-1",
+              "-0,-1,0",
+              "0,0,-1",
+              "-0,-0,-1",
+              "0,-1,0",
+              "0,0,-1",
+              "0,-1,0",
+              "0,0,-1"
+            ],
+            "TextureScale": [
+              "1,1",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.2499999",
+              "0.25,0.25",
+              "0.25,0.25",
+              "1,1",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.2499999",
+              "1,1",
+              "0.25,0.2499999",
+              "0.25,0.2499999",
+              "0.25,0.25",
+              "0.25,0.25",
+              "1,1",
+              "0.25,0.2499999",
+              "0.25,0.2499999",
+              "0.25,0.25",
+              "0.25,0.2499999",
+              "1,1",
+              "0.25,0.2499999",
+              "0.25,0.2499999",
+              "0.25,0.25",
+              "0.25,0.25",
+              "1,1",
+              "0.25,0.2499999",
+              "0.25,0.2499999",
+              "0.25,0.25",
+              "0.25,0.2499999",
+              "1,1",
+              "0.25,0.2499999"
+            ],
+            "TextureOffset": [
+              "48,112",
+              "192,448",
+              "448,0.07562256",
+              "64,0.07562256",
+              "320,0.07568359",
+              "192,0.07562256",
+              "320,0.07562256",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "511.9995,0",
+              "0,0",
+              "511.9878,0",
+              "0,0",
+              "127.9969,0",
+              "511.9995,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0.0004882812,0",
+              "511.9878,0",
+              "0,0",
+              "127.9969,0",
+              "0,0.0001220703",
+              "0,0.00009155273",
+              "511.9878,0",
+              "0,0.00009155273",
+              "127.9969,0",
+              "0,0"
+            ],
+            "MaterialIndex": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "EdgeFlags": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Materials": [
+              "materials/dev/reflectivity_30.vmat",
+              "materials/dev/dev_measuregeneric01.vmat"
+            ]
+          },
+          "SmoothingAngle": 40,
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "98d6e8b1-312e-467e-96a8-3f83c572b21f",
+      "Flags": 0,
+      "Name": "forklift_up_dev",
+      "Position": "576,640,64.02339",
+      "Rotation": "0,0,-0.5,0.8660254",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "4bd36b14-a243-4fc1-9496-ae782eb86779",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/vehicle/forklift_up_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e936c47d-e2f0-44d1-8575-6077c78b2ae6",
+      "Flags": 0,
+      "Name": "crate_dev_large",
+      "Position": "618.0651,565.9022,143.5927",
+      "Rotation": "0,0,0.258819,0.9659258",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "99b7475b-587a-418c-ae42-5b19edb2484e",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/crate/crate_dev_large.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f85eb3d5-e2f9-45be-b041-efe4dd7b24bb",
+      "Flags": 0,
+      "Name": "dumpster_dev",
+      "Position": "675.1359,555.0135,64.01443",
+      "Rotation": "0,0,-0.7933533,0.6087615",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "9bef05da-fea6-4f5a-8b7d-36e548436f09",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/dumpster/dumpster_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e05d1d11-5a6e-4d90-9763-4237cc52c862",
+      "Flags": 0,
+      "Name": "crate_stack_01 (1)",
+      "Position": "544,-640,63.99999",
+      "Rotation": "0,0,-0.5,0.8660254",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "beeb3b8f-d41b-43f4-85dd-ca3e7a6b29f7",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/crate/crate_stack_01.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c640763c-b0a7-4b0d-b4df-06685eb08f93",
+      "Flags": 0,
+      "Name": "cone_dev (2)",
+      "Position": "511.1974,-688.0094,64.05059",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "4b8eb64d-ea46-4359-adaa-984b2aa97e67",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/cone/cone_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "7565ec0a-9000-4fdc-8096-dc4a5ebd364c",
+      "Flags": 0,
+      "Name": "cone_dev (1)",
+      "Position": "549.3876,-558.1218,64.05054",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "7ced5b9e-7887-4b99-afbf-d69d06339d7a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/cone/cone_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b437d527-e421-497a-8c2a-17f4a3fe1b87",
+      "Flags": 0,
+      "Name": "cone_dev",
+      "Position": "563.1816,-592.9951,64.05054",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "798775a6-60ea-41f4-a13e-7ccc48821579",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/cone/cone_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5f8d21ff-7f55-4cbd-a71f-62f50734ef67",
+      "Flags": 0,
+      "Name": "watertote_dev (1)",
+      "Position": "319.4664,-346.8495,63.99996",
+      "Rotation": "0,0,0.08560011,0.9963295",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "a6f5677b-de88-413d-935c-76d4ac54c92f",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/watertote/watertote_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b9021cc1-b34f-4704-ac83-6b10b17b12f3",
+      "Flags": 0,
+      "Name": "watertote_dev",
+      "Position": "371.7193,-346.8495,63.99996",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "06ef6137-d2f5-423b-8275-c4ca235e6b40",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/watertote/watertote_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "8f7e902e-1091-4376-9905-2a2cec9224bf",
+      "Flags": 0,
+      "Name": "shipping_container_closed_dev",
+      "Position": "677.5168,-627.9364,64.00003",
+      "Rotation": "0,0,-0.8413903,0.540428",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "72bb8332-84cb-441e-9567-717bd859dcb2",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/shippingcontainer/shipping_container_closed_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "56fb0e8a-f6a7-49e2-9092-3209d1241b22",
+      "Flags": 0,
+      "Name": "pipe_dev_64 (1)",
+      "Position": "-479.9993,-788.1779,47.3197",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "d96711b6-a059-41a7-828f-7db553986508",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/pipes/pipe_dev_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "78504b3e-badd-47b2-986b-006b4a04df8f",
+      "Flags": 0,
+      "Name": "pipe_dev_64 (2)",
+      "Position": "-820.7699,-639.9997,109.4494",
+      "Rotation": "0,0,-0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "2c24b4cc-818c-475b-b551-6cdf14a43624",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/pipes/pipe_dev_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "edefedbb-13b5-473b-875f-72b94f7f206d",
+      "Flags": 0,
+      "Name": "pipe_dev_corner_16 (1)",
+      "Position": "-820.7695,-640,173.4541",
+      "Rotation": "-0.00000000000001421085,0.00000008940697,0.9999999,0.00000005960464",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "e56ab874-aaac-4eb3-b9ee-1f0c182c01a2",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/pipes/pipe_dev_corner_16.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f932730d-f554-4c9b-91b4-3820f9d1dbdc",
+      "Flags": 0,
+      "Name": "pipe_dev_64 (3)",
+      "Position": "-820.7699,-639.9997,47.3197",
+      "Rotation": "0,0,-0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "98897ce0-02c7-4cf2-936c-af73a6df413c",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/pipes/pipe_dev_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "15ac3fd9-0e82-4e8f-a20f-bce60b6416cb",
+      "Flags": 0,
+      "Name": "pipe_dev_64",
+      "Position": "-479.9993,-788.1779,109.4494",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "19e5d2c6-7ca4-423a-9a4f-ba14905b2900",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/pipes/pipe_dev_64.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "1463f3fe-ece6-4f8a-9012-89722a1e11e9",
+      "Flags": 0,
+      "Name": "pipe_dev_corner_16",
+      "Position": "-479.9991,-788.1775,173.4541",
+      "Rotation": "-0.00000006322028,0.00000006322027,0.7071068,-0.7071066",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "ce2bda0b-ce19-4693-ae41-388b7805ce6c",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/pipes/pipe_dev_corner_16.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3a4a73b9-f2cc-4b78-9ae4-cf40cf32eac5",
+      "Flags": 0,
+      "Name": "van_dev",
+      "Position": "-589.4736,632.0653,65.64706",
+      "Rotation": "0,0,0.279452,0.9601595",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "792c51e1-cf10-4f14-8011-f8be09687130",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/vehicle/van_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "895168a5-71e5-4f85-a529-069088a25b1f",
+      "Flags": 0,
+      "Name": "oildrum_dev (2)",
+      "Position": "-497.921,-557.3119,63.99973",
+      "Rotation": "0,0,-0.5328551,0.8462065",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "3f8f85f0-e43c-4542-b0c1-6bd318f82003",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/oildrum/oildrum_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "4db3e06c-311f-4b11-8397-0fd8612cfda5",
+      "Flags": 0,
+      "Name": "oildrum_dev (1)",
+      "Position": "-515.3182,-592.1339,63.99974",
+      "Rotation": "0,0,-0.5328551,0.8462065",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "96f05096-8c25-411d-a85e-b7b49c0051eb",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/oildrum/oildrum_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "fe104062-bea3-4488-8c83-9d670aa34534",
+      "Flags": 0,
+      "Name": "oildrum_dev",
+      "Position": "-533.5434,-562.4882,63.99977",
+      "Rotation": "0,0,-0.5328551,0.8462065",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "587e4810-e9a9-4d14-931b-3fc0cf6f7cf4",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/oildrum/oildrum_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "94a2a4b5-dadb-4fe8-835e-c2357bff6d36",
+      "Flags": 0,
+      "Name": "swat_dev",
+      "Position": "-629.8687,-507.8304,64.09604",
+      "Rotation": "0,0,-0.7725131,-0.6349989",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "bdeec42a-4f11-4284-9243-e8ff917f441f",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/vehicle/swat_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a3ea48e3-0a13-40aa-bbf8-0880e12f544b",
+      "Flags": 0,
+      "Name": "crate_dev_large (1)",
+      "Position": "207.2141,-96,64.00003",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "87a52557-4759-44d3-9fbe-93ba9a648d6a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/crate/crate_dev_large.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3328d354-089e-4e9d-b024-6ca05aee2958",
+      "Flags": 0,
+      "Name": "crate_dev_large",
+      "Position": "-206.7237,93.45819,64.00003",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "edd05c40-81bb-4459-b3f8-73a1d57bb8bb",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/crate/crate_dev_large.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "dd6d12f8-2a18-4f33-bcf4-3835e9db8ef1",
+      "Flags": 0,
+      "Name": "cone_dev",
+      "Position": "-165.9619,54.27893,64.05056",
+      "Rotation": "0,0,0.266014,0.9639692",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "8354495d-699a-4d6d-86d3-c4ba890f5e8e",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/cone/cone_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3a58c765-11b5-4e9e-b28f-6e390c06a3ae",
+      "Flags": 0,
+      "Name": "pallet_dev",
+      "Position": "202.8943,-60.60455,83.5853",
+      "Rotation": "-0.4563932,0.4563932,0.5400974,0.5400974",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "f1493c99-b0bc-4079-938c-bc3a97f6af08",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/pallet/pallet_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "511e9c38-e2f6-4e10-9356-774f7a2fa80f",
+      "Flags": 0,
+      "Name": "cone_dev",
+      "Position": "-191.3625,45.04206,70.32661",
+      "Rotation": "0,0.7870911,0,0.6168368",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "755137e8-35e0-4c2a-9686-bd3d2cacdbea",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": true,
+          "Model": "models/dev/cone/cone_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "0f202ad2-68b9-4c45-8265-458bdb0feedb",
+      "Flags": 0,
+      "Name": "dumpster_small_dev (2)",
+      "Position": "160,-124.7179,64.00001",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "c9c8a15b-6d64-4460-87d2-633cf53099fd",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/dumpster/dumpster_small_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f84674d1-6d75-4a38-af94-0d8469128e7e",
+      "Flags": 0,
+      "Name": "dumpster_small_dev (1)",
+      "Position": "156.5926,-99.4143,64.00001",
+      "Rotation": "0,0,-0.1083627,0.9941114",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "756b1723-73cd-4e75-ae68-23ffe8827e28",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/dumpster/dumpster_small_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "569c5fc2-99c4-403a-9733-4fbeacd78fc5",
+      "Flags": 0,
+      "Name": "dumpster_small_dev",
+      "Position": "160,-76.63564,64.00001",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "d1227667-a451-4b39-a63f-b12723ff369a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/dev/dumpster/dumpster_small_dev.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 60,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "minimal",
+  "Description": "",
+  "LastSaved": "2024-06-16T21:55:46.9106118\u002B01:00",
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.cone_dev",
+    "facepunch.crate_dev_large",
+    "facepunch.crate_stack_01",
+    "facepunch.dumpster_dev",
+    "facepunch.dumpster_small_dev",
+    "facepunch.forklift_up_dev",
+    "facepunch.oildrum_dev",
+    "facepunch.pallet_dev",
+    "facepunch.pipe_dev_64",
+    "facepunch.pipe_dev_corner_16",
+    "facepunch.shipping_container_closed_dev",
+    "facepunch.shipping_container_open_dev",
+    "facepunch.swat_dev",
+    "facepunch.van_dev",
+    "facepunch.watertote_dev"
+  ],
+  "__version": 1
+}
