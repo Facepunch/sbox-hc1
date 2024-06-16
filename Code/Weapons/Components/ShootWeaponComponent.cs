@@ -399,6 +399,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		forward = forward.Normal;
 
 		var original = DoTraceBullet( start, WeaponRay.Position + forward * MaxRange, BulletSize );
+		if ( original.Count() < 1 ) return null;
 
 		// Run through and fix the start positions for the traces
 		// By using the last end position as the start
