@@ -1042,6 +1042,418 @@
       ],
       "Children": [
         {
+          "__guid": "0b792f69-62a5-4934-94bd-da8cd462e233",
+          "Flags": 0,
+          "Name": "Cash Grab (Mid)",
+          "Position": "-2912,-352,32.00001",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.CashPoint",
+              "__guid": "fb604ccb-882f-425f-b624-11d156aab759",
+              "Extracts": [
+                {
+                  "_type": "component",
+                  "component_id": "be061db7-597a-4b0f-8882-a5917f2a467a",
+                  "go": "830e4310-f94f-4f3c-951f-c2705d13a66f",
+                  "component_type": "ExtractionPoint"
+                },
+                {
+                  "_type": "component",
+                  "component_id": "f6d0f88e-5ba4-4694-a385-2bb107260963",
+                  "go": "af7572e1-ad7f-4363-b170-a3c4f3ee62f5",
+                  "component_type": "ExtractionPoint"
+                }
+              ],
+              "Resource": "weapons/special/cash_bag/cash_bag.equip",
+              "State": "Inactive"
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "af7572e1-ad7f-4363-b170-a3c4f3ee62f5",
+              "Flags": 0,
+              "Name": "Extract B",
+              "Position": "774.3953,868.583,97.18412",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "f6d0f88e-5ba4-4694-a385-2bb107260963",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "fb604ccb-882f-425f-b624-11d156aab759",
+                    "go": "0b792f69-62a5-4934-94bd-da8cd462e233",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "96a82683-8218-49f0-b22f-8b6ee99c2ec5",
+                    "go": "af7572e1-ad7f-4363-b170-a3c4f3ee62f5",
+                    "component_type": "BoxCollider"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "96a82683-8218-49f0-b22f-8b6ee99c2ec5",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ]
+            },
+            {
+              "__guid": "830e4310-f94f-4f3c-951f-c2705d13a66f",
+              "Flags": 0,
+              "Name": "Extract A",
+              "Position": "-966.3828,283.0077,97.93859",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "be061db7-597a-4b0f-8882-a5917f2a467a",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "fb604ccb-882f-425f-b624-11d156aab759",
+                    "go": "0b792f69-62a5-4934-94bd-da8cd462e233",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "480371bd-4bf2-46ca-8d0c-020893a3b964",
+                    "go": "830e4310-f94f-4f3c-951f-c2705d13a66f",
+                    "component_type": "BoxCollider"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "480371bd-4bf2-46ca-8d0c-020893a3b964",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "__guid": "bcff5ae4-4462-4f4b-9bf3-b9c2745dca80",
+          "Flags": 0,
+          "Name": "Cash Grab (B Site)",
+          "Position": "-4095.364,-1027.752,171.5182",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.CashPoint",
+              "__guid": "63c286b3-eae9-46a6-afbf-527850bc6383",
+              "Extracts": [
+                {
+                  "_type": "component",
+                  "component_id": "9a731cf4-f1e0-4f3d-8fbf-538fe242876e",
+                  "go": "5878ccc3-dd36-452b-ba13-d1a61b1b8c58",
+                  "component_type": "ExtractionPoint"
+                },
+                {
+                  "_type": "component",
+                  "component_id": "f8f3b7b5-2723-4e24-af02-98eb404e5d57",
+                  "go": "c9afc470-85cd-4492-a0f3-c57adc049b81",
+                  "component_type": "ExtractionPoint"
+                }
+              ],
+              "Resource": "weapons/special/cash_bag/cash_bag.equip",
+              "State": "Inactive"
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "c9afc470-85cd-4492-a0f3-c57adc049b81",
+              "Flags": 0,
+              "Name": "Extract B",
+              "Position": "1165.739,835.752,-139.5182",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "f8f3b7b5-2723-4e24-af02-98eb404e5d57",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "63c286b3-eae9-46a6-afbf-527850bc6383",
+                    "go": "bcff5ae4-4462-4f4b-9bf3-b9c2745dca80",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "a4345a89-aaae-41b3-8638-181b5f077da6",
+                    "go": "c9afc470-85cd-4492-a0f3-c57adc049b81",
+                    "component_type": "BoxCollider"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "a4345a89-aaae-41b3-8638-181b5f077da6",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ]
+            },
+            {
+              "__guid": "5878ccc3-dd36-452b-ba13-d1a61b1b8c58",
+              "Flags": 0,
+              "Name": "Extract A",
+              "Position": "-224.6357,1091.752,-43.51824",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "9a731cf4-f1e0-4f3d-8fbf-538fe242876e",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "63c286b3-eae9-46a6-afbf-527850bc6383",
+                    "go": "bcff5ae4-4462-4f4b-9bf3-b9c2745dca80",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "257547fb-055f-4966-b05f-644d6e220072",
+                    "go": "5878ccc3-dd36-452b-ba13-d1a61b1b8c58",
+                    "component_type": "BoxCollider"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "257547fb-055f-4966-b05f-644d6e220072",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "__guid": "1aa2ec80-edeb-4267-90b7-23b0348bd6e1",
+          "Flags": 0,
+          "Name": "Cash Grab Tunnel",
+          "Position": "-4345.043,974.514,224.2645",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.CashPoint",
+              "__guid": "a7446cdc-6c62-4257-b6ae-f1441cc75425",
+              "Extracts": [
+                {
+                  "_type": "component",
+                  "component_id": "fc5e08cb-3370-46ea-8ebd-a348c48a227a",
+                  "go": "2ad67cf8-7329-4244-a6d7-5c695e27e573",
+                  "component_type": "ExtractionPoint"
+                },
+                {
+                  "_type": "component",
+                  "component_id": "a35af2a5-61b1-4ced-b15b-85342436f06f",
+                  "go": "c8ca288c-0198-456d-b922-67a8492a6019",
+                  "component_type": "ExtractionPoint"
+                }
+              ],
+              "Resource": "weapons/special/cash_bag/cash_bag.equip",
+              "State": "Inactive"
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "c8ca288c-0198-456d-b922-67a8492a6019",
+              "Flags": 0,
+              "Name": "Extract B",
+              "Position": "1550.597,-678.4066,-195.7599",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "a35af2a5-61b1-4ced-b15b-85342436f06f",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "a7446cdc-6c62-4257-b6ae-f1441cc75425",
+                    "go": "1aa2ec80-edeb-4267-90b7-23b0348bd6e1",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "7ea8b89b-e782-4dd1-9142-e4db75dbd3ae",
+                    "go": "c8ca288c-0198-456d-b922-67a8492a6019",
+                    "component_type": "BoxCollider"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "7ea8b89b-e782-4dd1-9142-e4db75dbd3ae",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ]
+            },
+            {
+              "__guid": "2ad67cf8-7329-4244-a6d7-5c695e27e573",
+              "Flags": 0,
+              "Name": "Extract A",
+              "Position": "900.7998,-2175.691,-57.62608",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "fc5e08cb-3370-46ea-8ebd-a348c48a227a",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "a7446cdc-6c62-4257-b6ae-f1441cc75425",
+                    "go": "1aa2ec80-edeb-4267-90b7-23b0348bd6e1",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "1742fb91-7c90-4294-a36a-96420d9561a9",
+                    "go": "2ad67cf8-7329-4244-a6d7-5c695e27e573",
+                    "component_type": "BoxCollider"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "1742fb91-7c90-4294-a36a-96420d9561a9",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "__guid": "969cf00f-727f-416e-a67c-35e34e4b5b10",
+          "Flags": 0,
+          "Name": "Cash Grab Warehouse",
+          "Position": "-114.0254,-416,96",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.CashPoint",
+              "__guid": "5e864bea-46af-4bfa-b3b7-92204a8846b7",
+              "Extracts": [
+                {
+                  "_type": "component",
+                  "component_id": "2d850e2c-f53c-4e8b-b52b-4fd59180a569",
+                  "go": "b2e3e8b6-b2ee-41e8-88c9-8ffd8045c5b2",
+                  "component_type": "ExtractionPoint"
+                },
+                {
+                  "_type": "component",
+                  "component_id": "b95cf7f2-7e4c-462e-ab8c-49beb2fc3089",
+                  "go": "ab7b4b5d-f9c6-4912-b867-f7e8bbab64d3",
+                  "component_type": "ExtractionPoint"
+                }
+              ],
+              "Resource": "weapons/special/cash_bag/cash_bag.equip",
+              "State": "Inactive"
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "ab7b4b5d-f9c6-4912-b867-f7e8bbab64d3",
+              "Flags": 0,
+              "Name": "Extract B",
+              "Position": "-2091.925,-1226.986,76.4257",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "b95cf7f2-7e4c-462e-ab8c-49beb2fc3089",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "5e864bea-46af-4bfa-b3b7-92204a8846b7",
+                    "go": "969cf00f-727f-416e-a67c-35e34e4b5b10",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "f6248216-20b4-4871-86df-cdb793cafb9e",
+                    "go": "ab7b4b5d-f9c6-4912-b867-f7e8bbab64d3",
+                    "component_type": "BoxCollider"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "f6248216-20b4-4871-86df-cdb793cafb9e",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ]
+            },
+            {
+              "__guid": "b2e3e8b6-b2ee-41e8-88c9-8ffd8045c5b2",
+              "Flags": 0,
+              "Name": "Extract A",
+              "Position": "-1564.224,861.9171,-57.6253",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "2d850e2c-f53c-4e8b-b52b-4fd59180a569",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "5e864bea-46af-4bfa-b3b7-92204a8846b7",
+                    "go": "969cf00f-727f-416e-a67c-35e34e4b5b10",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "d9b1dc47-f0c0-439d-bc3a-bf45e5a998d0",
+                    "go": "b2e3e8b6-b2ee-41e8-88c9-8ffd8045c5b2",
+                    "component_type": "BoxCollider"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "d9b1dc47-f0c0-439d-bc3a-bf45e5a998d0",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ]
+            }
+          ]
+        },
+        {
           "__guid": "cff5fa76-3e99-4b8b-aec9-e63c27f3fea3",
           "Flags": 0,
           "Name": "Cash Grab (A Site)",
@@ -5709,7 +6121,7 @@
   },
   "Title": "de_garry",
   "Description": "",
-  "LastSaved": "2024-06-16T11:36:28.218582\u002B01:00",
+  "LastSaved": "2024-06-16T11:43:26.2992768\u002B01:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
