@@ -1,0 +1,27 @@
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+
+<root>
+    <div @ref="Overlay" class="overlay mask-scope" />
+</root>
+
+@code
+{
+    public Panel Overlay { get; set; }
+
+    public PlayerController Viewer => GameUtils.Viewer.Player;
+
+    float GetOpacity()
+    {
+        if (Viewer.HealthComponent.IsGodMode) return 1f;
+        return 0f;
+    }
+
+    public override void Tick()
+    {
+        if ( Overlay.IsValid() )
+        {
+            Overlay.Style.Opacity = GetOpacity();
+        }
+    }
+}
