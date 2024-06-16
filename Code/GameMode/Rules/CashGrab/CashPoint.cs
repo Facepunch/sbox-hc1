@@ -2,7 +2,7 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public partial class CashPoint : Component, ICustomMinimapIcon
+public partial class CashPoint : Component, ICustomMinimapIcon, IMarkerObject
 {
 	public enum CashPointState
 	{
@@ -73,4 +73,25 @@ public partial class CashPoint : Component, ICustomMinimapIcon
 		// TODO: kill the cash!
 		State = CashPointState.Inactive;
 	}
+
+	/// <summary>
+	/// Where is the marker?
+	/// </summary>
+	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 32f;
+
+	/// <summary>
+	/// What icon?
+	/// </summary>
+	string IMarkerObject.MarkerIcon => "/ui/minimaps/cashgrab/cashpoint.png";
+
+	/// <summary>
+	/// What text?
+	/// </summary>
+	string IMarkerObject.DisplayText => "Cash Point";
+
+	/// <summary>
+	/// Should we show this marker?
+	/// </summary>
+	/// <returns></returns>
+	bool IMarkerObject.ShouldShow() => State == CashPointState.Spawning;
 }
