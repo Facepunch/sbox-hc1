@@ -12,8 +12,7 @@ public partial class SetCashPoint : Component, IGameEventHandler<EnterStateEvent
 
 		var tracker = GameMode.Instance.Get<CashPointTracker>();
 		var cashPoints = tracker.All;
-
-		var selected = Game.Random.FromList( cashPoints.ToList() );
+		var selected = Game.Random.FromList( cashPoints.Where( x => tracker.Last != x ).ToList() );
 
 		// Turn off all the cash points
 		foreach ( var item in cashPoints )
