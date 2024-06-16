@@ -10,21 +10,24 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 	[Property] public Curve DamageFalloff { get; set; } = new Curve( new Curve.Frame( 1.0f, 1.0f ), new Curve.Frame( 0.0f, 0.0f ) );
 
 	/// <summary>
-	/// Temporary marker just to make it obvious there's a grenade
+	/// Where is the marker?
 	/// </summary>
-	MarkerFrame IMarkerObject.MarkerFrame => new MarkerFrame()
-	{
-		DisplayText = null,
-		Position = Transform.Position,
-		Rotation = Rotation.Identity,
-		MaxDistance = 512f,
-	};
-
+	Vector3 IMarkerObject.MarkerPosition => Transform.Position;
 
 	/// <summary>
-	/// Custom marker panel
+	/// How far can we see this marker?
 	/// </summary>
-	Type IMarkerObject.MarkerPanelTypeOverride => typeof( UI.GrenadeMarkerPanel );
+	float IMarkerObject.MarkerMaxDistance => 512f;
+
+	/// <summary>
+	/// What icon?
+	/// </summary>
+	string IMarkerObject.MarkerIcon => "/ui/weapons/grenades/he_grenade_01.png";
+
+	/// <summary>
+	/// What text?
+	/// </summary>
+	string IMarkerObject.DisplayText => "Grenade";
 
 	protected override void Explode()
 	{

@@ -8,9 +8,22 @@
     return;
 
 <root>
-    <label>
-        @Frame.DisplayText
-    </label>
+    @if ( !string.IsNullOrEmpty( Object.MarkerIcon ) )
+    {
+        <Icon File="@Object.MarkerIcon" size="32" style="@Object.MarkerStyles" />
+    }
+
+    @if ( !string.IsNullOrEmpty( Object.DisplayText ) )
+    {
+        <label>
+            @Object.DisplayText
+        </label>
+    }
+
+    @if ( Object.ShowChevron && IsOffScreen )
+    {
+        <label class="chevron" style="transform: rotateZ(@(ChevronAngle)deg);">></label>
+    }
 </root>
 
 @code
@@ -19,7 +32,9 @@
 
     BaseMarkerPanel CustomPanel { get; set; }
 
-    public MarkerFrame Frame => Object.MarkerFrame;
+
+    private float ChevronAngle => Scene.Camera.PointToScreenNormal( Object.MarkerPosition ).Angle( new( 0.5f, 0.5f ) ) - 180f; 
+
 
     public bool ClampToScreen { get; set; } = false;
 
@@ -85,9 +100,6 @@
         if ( !Object.IsValid() ) 
             return;
 
-        if ( Frame is null )
-            return;
-
         if ( !Scene.IsValid() ) 
             return;
 
@@ -95,10 +107,13 @@
         if ( !camera.IsValid() )
             return;
 
-        var toScreen = camera.PointToScreenNormal( Frame.Position, out IsBehind );
+        var toScreen = camera.PointToScreenNormal( Object.MarkerPosition, out IsBehind );
 
-        if ( Frame.MaxDistance != 0f && camera.Transform.Position.Distance( Frame.Position ) > Frame.MaxDistance )
+        if ( Object.MarkerMaxDistance != 0f && camera.Transform.Position.Distance( Object.MarkerPosition ) > Object.MarkerMaxDistance )
             IsBehind = true;
+
+        bool wasOffScreen = IsOffScreen;
+        bool wasBehind = IsBehind;
 
         SetClass( "is-behind", IsBehind );
 
@@ -116,6 +131,12 @@
         Style.Left = Length.Fraction( toScreen.x );
         Style.Top = Length.Fraction( toScreen.y );
         Style.Opacity = CalculateOpacity();
+
+        if ( wasOffScreen != IsOffScreen )
+            StateHasChanged();
+
+        if ( wasBehind != IsBehind )
+            StateHasChanged();
     }
 
     private float CalculateOpacity()

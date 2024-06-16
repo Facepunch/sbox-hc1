@@ -39,6 +39,13 @@ public partial class MarkerSystem : Panel
 		if ( !marker.GameObject.IsValid() )
 			return false;
 
+		if ( !marker.ShouldShow() )
+			return false;
+
+		var camera = Scene.Camera;
+		if ( marker.MarkerMaxDistance != 0f && camera.Transform.Position.Distance( marker.MarkerPosition ) > marker.MarkerMaxDistance )
+			return false;
+
 		if ( !ActiveMarkers.TryGetValue( marker, out var instance ) )
 		{
 			instance = CreateMarker( marker );

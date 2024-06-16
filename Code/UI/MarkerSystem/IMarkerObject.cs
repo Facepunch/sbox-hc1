@@ -1,21 +1,50 @@
-using Facepunch.UI;
-
 namespace Facepunch;
 
 public interface IMarkerObject : IValid
 {
 	/// <summary>
-	/// Raw access
+	/// Raw access to the marker object's <see cref="GameObject"/>
 	/// </summary>
 	GameObject GameObject { get; }
-	
+
 	/// <summary>
-	/// Data in the frame
+	/// Where is this marker?
 	/// </summary>
-	MarkerFrame MarkerFrame { get; }
+	public Vector3 MarkerPosition { get; }
 
 	/// <summary>
 	/// Are we overriding the type here?
 	/// </summary>
-	Type MarkerPanelTypeOverride { get => null; }
+	Type MarkerPanelTypeOverride => null;
+
+	/// <summary>
+	/// What icon does this marker have?
+	/// </summary>
+	string MarkerIcon => null;
+
+	/// <summary>
+	/// What styles should we apply to the marker?
+	/// </summary>
+	string MarkerStyles => null;
+
+	/// <summary>
+	/// What text should we show?
+	/// </summary>
+	string DisplayText => null;
+
+	/// <summary>
+	/// How far can we see this marker?
+	/// </summary>
+	float MarkerMaxDistance => 0;
+
+	/// <summary>
+	/// Should we show a chevron when we're off-screen?
+	/// </summary>
+	bool ShowChevron => true;
+
+	/// <summary>
+	/// Should we even show this marker?
+	/// </summary>
+	/// <returns></returns>
+	bool ShouldShow() => true;
 }

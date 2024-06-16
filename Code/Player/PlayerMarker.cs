@@ -31,17 +31,9 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	}
 
 	/// <summary>
-	/// A bunch of info we'll pass to the marker syste.
+	/// Where is the marker?
 	/// </summary>
-	MarkerFrame IMarkerObject.MarkerFrame
-	{
-		get => new MarkerFrame()
-		{
-			Position = Transform.Position + Vector3.Up * 70 + DistOffset,
-			Rotation = Transform.Rotation,
-			DisplayText = Player.DisplayName
-		};
-	}
+	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 70 + DistOffset;
 
 	/// <summary>
 	/// What type of icon are we using on the minimap?

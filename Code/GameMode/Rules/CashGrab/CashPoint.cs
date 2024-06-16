@@ -54,7 +54,7 @@ public partial class CashPoint : Component, ICustomMinimapIcon
 
 		// TODO: track the cash!
 		var eq = DroppedEquipment.Create( Resource, Transform.Position );
-		var cashBag = eq.Components.Create<CashBag>();
+		var cashBag = eq.Components.GetOrCreate<CashBag>();
 	}
 
 	/// <summary>

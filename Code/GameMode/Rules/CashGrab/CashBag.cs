@@ -22,19 +22,17 @@ public partial class CashBag : Component, IDroppedWeaponState<CashBag>, ICustomM
 	}
 
 	/// <summary>
-	/// Temporary marker just to make it obvious there's a grenade
+	/// Where is the marker?
 	/// </summary>
-	MarkerFrame IMarkerObject.MarkerFrame => new MarkerFrame()
-	{
-		DisplayText = null,
-		Position = Transform.Position + Vector3.Up * 32f,
-		Rotation = Rotation.Identity,
-		MaxDistance = 4096,
-	};
-
+	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 32f;
 
 	/// <summary>
-	/// Custom marker panel
+	/// What icon?
 	/// </summary>
-	Type IMarkerObject.MarkerPanelTypeOverride => typeof( UI.CashBagMarkerPanel );
+	string IMarkerObject.MarkerIcon => "/ui/minimaps/cashgrab/cashpoint.png";
+
+	/// <summary>
+	/// What text?
+	/// </summary>
+	string IMarkerObject.DisplayText => "Cash";
 }
