@@ -5,7 +5,7 @@ namespace Facepunch;
 public record EquipmentDroppedEvent( DroppedEquipment Dropped, PlayerController Player ) : IGameEvent;
 public record EquipmentPickedUpEvent( PlayerController Player, DroppedEquipment Dropped, Equipment Equipment ) : IGameEvent;
 
-public partial class DroppedEquipment : Component, IUse, Component.ICollisionListener
+public partial class DroppedEquipment : Component, IUse, Component.ICollisionListener, IMarkerObject
 {
 	[Property] public EquipmentResource Resource { get; set; }
 
@@ -110,4 +110,20 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 			OnUse( player );
 		}
 	}
+
+	/// <summary>
+	/// Where is the marker?
+	/// </summary>
+	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 8f;
+
+	/// <summary>
+	/// What text?
+	/// </summary>
+	string IMarkerObject.DisplayText => $"{Resource.Name}";
+
+	float IMarkerObject.MarkerMaxDistance => 128f;
+
+	string IMarkerObject.InputHint => "Use";
+
+	bool IMarkerObject.LookOpacity => false;
 }

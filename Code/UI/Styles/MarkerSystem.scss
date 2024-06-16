@@ -11,12 +11,13 @@ MarkerSystem
 Marker
 {
     position: absolute;
-    justify-content: center;
-    align-items: flex-end;
     transform: translateX(-50%);
     transition: transform 0.01s ease;
-    flex-direction: column;
     gap: 8px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
 
     label
     {
@@ -24,6 +25,12 @@ Marker
         font-family: $main-font;
         font-weight: 600;
         font-size: 14px;
+    }
+
+    InputHint
+    {
+        width: 24px;
+        height: 24px;
     }
 }
 

@@ -24,6 +24,11 @@
     {
         <label class="chevron" style="transform: rotateZ(@(ChevronAngle)deg);">></label>
     }
+
+    @if ( !string.IsNullOrEmpty( Object.InputHint ) )
+    {
+        <InputHint Action="@Object.InputHint" />
+    }
 </root>
 
 @code
@@ -142,6 +147,9 @@
     private float CalculateOpacity()
     {
         var opacity = 1f;
+
+        if ( !Object.LookOpacity ) return opacity;
+
         var dist = MathF.Max( CenterDistance.x, CenterDistance.y );
         return opacity - ( 1 - dist * 2f );
     }

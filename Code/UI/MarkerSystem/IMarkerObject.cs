@@ -47,4 +47,14 @@ public interface IMarkerObject : IValid
 	/// </summary>
 	/// <returns></returns>
 	bool ShouldShow() => true;
+
+	/// <summary>
+	/// Input hint?
+	/// </summary>
+	string InputHint => null;
+
+	/// <summary>
+	/// Should we dim the marker when looking at it?
+	/// </summary>
+	bool LookOpacity => true;
 }
