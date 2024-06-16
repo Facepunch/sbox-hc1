@@ -110,7 +110,7 @@
             "BulletSpread": 0,
             "DryFireDelay": 1,
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
-            "FireRate": 420,
+            "FireRate": 600,
             "InAirSpreadMultiplier": 2,
             "InputActions": [
               "Attack1"
@@ -123,6 +123,7 @@
               "_type": "gameobject",
               "prefab": "prefabs/weapon_effects/suppressed_muzzleflash.prefab"
             },
+            "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
             "RequiresAllInputActions": false,
             "RequiresAmmoComponent": true,
@@ -195,11 +196,14 @@
               }
             ],
             "Lifetime": 0.3,
+            "MaxAnglesOffset": "-0.5,0.1,0.5",
+            "MaxPositionOffset": "0.5,0.2,0.75",
             "PositionOffset": "0.5,0.2,0.75"
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
