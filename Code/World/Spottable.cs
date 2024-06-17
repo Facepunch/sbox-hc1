@@ -12,19 +12,19 @@ public sealed class Spottable : Component,
 	/// The team this belongs to.
 	/// Any players that aren't of this team will be able to spot this.
 	/// </summary>
-	[Property] public Team Team;
+	[Property, HostSync] public Team Team { get; set; }
 
 	/// <summary>
 	/// As the position doesn't move, it'll always be spotted after it's seen once.
 	/// </summary>
-	[Property] public bool Static;
+	[Property] public bool Static { get; set; }
 
 	[HostSync] public bool HasBeenSpotted { get; private set; }
 	[HostSync] public TimeSince LastSpotted { get; private set; }
 
 	public Vector3 LastSeenPosition;
 
-	[Property] public float Height;
+	[Property] public float Height { get; set; }
 
 	public bool IsSpotted => Static ? HasBeenSpotted : LastSpotted < 1;
 	public bool WasSpotted => !IsSpotted && LastSpotted < 5;
