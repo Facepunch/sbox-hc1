@@ -6,7 +6,10 @@ public abstract class SingletonComponent<T> : Component, IHotloadManaged
 
 	protected override void OnAwake()
 	{
-		Instance = (T) this;
+		if ( Active )
+		{
+			Instance = (T)this;
+		}
 	}
 
 	void IHotloadManaged.Destroyed( Dictionary<string, object> state )
