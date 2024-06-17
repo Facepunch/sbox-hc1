@@ -46,6 +46,7 @@ public partial class EquipmentDropper : Component,
 			player.Inventory.Drop( droppables[i].Id );
 		}
 
-		player.Inventory.Clear();
+		if ( Categories.Count < 1 )
+			player.Inventory.Clear();
 	}
 }
