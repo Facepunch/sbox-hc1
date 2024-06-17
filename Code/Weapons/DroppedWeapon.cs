@@ -76,14 +76,9 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 
 		var weapon = player.Inventory.Give( Resource );
 
-		foreach ( var state in Components.GetAll<IDroppedWeaponState>() )
+		foreach ( var state in weapon.Components.GetAll<IDroppedWeaponState>() )
 		{
-			var type = state.GetType();
-
-			var component = weapon.Components.Get( type );
-			if ( !component.IsValid() ) component = weapon.Components.Create( TypeLibrary.GetType( type ) );
-
-			(component as IDroppedWeaponState).CopyFromDroppedWeapon( this );
+			state.CopyFromDroppedWeapon( this );
 		}
 
 		Game.ActiveScene.Dispatch( new EquipmentPickedUpEvent( player, this, weapon ) );
