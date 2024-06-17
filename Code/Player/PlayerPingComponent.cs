@@ -8,6 +8,21 @@ public interface IPingReceiver : IValid
 	public Vector3 Position { get; }
 
 	/// <summary>
+	/// Should we override the icon on the minimap and screen?
+	/// </summary>
+	public string Icon => null;
+
+	/// <summary>
+	/// Should we override the icon on the minimap and screen?
+	/// </summary>
+	public string Text => null;
+
+	/// <summary>
+	/// What should the colour be?
+	/// </summary>
+	public Color? Color => null;
+
+	/// <summary>
 	/// Called when we start pinging something
 	/// </summary>
 	public void OnPing() { }
@@ -16,6 +31,12 @@ public interface IPingReceiver : IValid
 	/// Called when this ping gets cancelled by another
 	/// </summary>
 	public void OnPingCancel() { }
+
+	/// <summary>
+	/// Should this show?
+	/// </summary>
+	/// <returns></returns>
+	public bool ShouldShow() => true;
 }
 
 /// <summary>

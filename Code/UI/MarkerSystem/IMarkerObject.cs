@@ -38,6 +38,11 @@ public interface IMarkerObject : IValid
 	float MarkerMaxDistance => 0;
 
 	/// <summary>
+	/// How big's the marker?
+	/// </summary>
+	int IconSize => 32;
+
+	/// <summary>
 	/// Should we show a chevron when we're off-screen?
 	/// </summary>
 	bool ShowChevron => true;

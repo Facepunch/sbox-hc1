@@ -8,7 +8,14 @@ public partial class PlayerPingReceiver : Component, IPingReceiver
 	[RequireComponent] PlayerController Player { get; set; }
 
 	private Vector3 _lastKnownPosition = Vector3.Zero;
+	private bool _isCurrentlyLost = false;
 	private bool _wasLost = false;
+
+	string IPingReceiver.Text => "";
+	string IPingReceiver.Icon => "ui/minimaps/enemy_icon.png";
+	Color? IPingReceiver.Color => "#EE4B2B";
+
+	bool IPingReceiver.ShouldShow() => !_isCurrentlyLost;
 
 	Vector3 IPingReceiver.Position
 	{
@@ -16,6 +23,8 @@ public partial class PlayerPingReceiver : Component, IPingReceiver
 		{
 			var pos = Player.AimRay.Position;
 			var isSpotted = Player.Spottable.IsSpotted;
+
+			_isCurrentlyLost = !isSpotted;
 
 			if ( !isSpotted && !_wasLost )
 				_wasLost = true;

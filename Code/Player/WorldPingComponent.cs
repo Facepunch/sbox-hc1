@@ -3,7 +3,7 @@ namespace Facepunch;
 /// <summary>
 /// This is spawned clientside when a ping happens.
 /// </summary>
-public partial class WorldPingComponent : Component, IMarkerObject, IMinimapIcon
+public partial class WorldPingComponent : Component, IMarkerObject, ICustomMinimapIcon
 {
 	/// <summary>
 	/// Who's the owner?
@@ -21,14 +21,54 @@ public partial class WorldPingComponent : Component, IMarkerObject, IMinimapIcon
 		}
 	}
 
+	private string MarkerIcon
+	{
+		get
+		{
+			if ( Receiver.IsValid() && !string.IsNullOrEmpty( Receiver.Icon ) )
+				return Receiver.Icon;
+
+			return "ui/marker.png";
+		}
+	}
+
+	private string DisplayText
+	{
+		get
+		{
+			if ( Receiver.IsValid() && Receiver.Text != null )
+				return Receiver.Text;
+
+			return Owner?.Network.OwnerConnection?.DisplayName ?? "";
+		}
+	}
+
+	private Color MarkerColor
+	{
+		get
+		{
+			if ( Receiver.IsValid() && Receiver.Color.HasValue )
+			{
+				return Receiver.Color.Value;
+			}
+
+			return Color.White;
+		}
+	}
+
 	// IMarkerObject
-	string IMarkerObject.MarkerIcon => "ui/marker.png";
-	string IMarkerObject.DisplayText => Owner?.Network.OwnerConnection?.DisplayName ?? "";
+	string IMarkerObject.MarkerIcon => MarkerIcon;
+	string IMarkerObject.DisplayText => DisplayText;
 	Vector3 IMarkerObject.MarkerPosition => MarkerPosition;
+	string IMarkerObject.MarkerStyles => $"background-tint:{MarkerColor};";
+	int IMarkerObject.IconSize => Receiver.IsValid() ? 16 : 32;
 
 	// IMinimapIcon
-	string IMinimapIcon.IconPath => "ui/marker.png";
+	string IMinimapIcon.IconPath => MarkerIcon;
 	Vector3 IMinimapElement.WorldPosition => MarkerPosition;
+
+	// ICustomMinimapIcon
+	string ICustomMinimapIcon.CustomStyle => $"background-tint:{MarkerColor}";
 
 	/// <summary>
 	/// 
@@ -63,5 +103,16 @@ public partial class WorldPingComponent : Component, IMarkerObject, IMinimapIcon
 		destroy.Time = lifetime;
 
 		Receiver?.OnPing();
+	}
+
+	protected override void OnUpdate()
+	{
+		if ( !Receiver.IsValid() )
+			return;
+
+		if ( !Receiver.ShouldShow() )
+		{
+			GameObject.Destroy();
+		}
 	}
 }

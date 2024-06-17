@@ -10,7 +10,7 @@
 <root>
     @if ( !string.IsNullOrEmpty( Object.MarkerIcon ) )
     {
-        <Icon File="@Object.MarkerIcon" size="32" style="@Object.MarkerStyles" />
+        <Icon File="@Object.MarkerIcon" size="@Object.IconSize" style="@Object.MarkerStyles" />
     }
 
     @if ( !string.IsNullOrEmpty( Object.DisplayText ) )
