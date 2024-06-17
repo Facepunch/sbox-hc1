@@ -50,6 +50,12 @@ public partial class PlayerPingComponent : Component
 		ping.Trigger( Lifetime );
 	}
 
+	[Broadcast( NetPermission.OwnerOnly )]
+	public void RemovePing()
+	{
+		WorldPing?.GameObject?.Destroy();
+	}
+
 	/// <summary>
 	/// Can we ping?
 	/// </summary>
@@ -84,6 +90,22 @@ public partial class PlayerPingComponent : Component
 		// Are we wanting to ping, can we ping?
 		if ( Input.Pressed( "Ping" ) && CanPing() )
 		{
+			if ( WorldPing.IsValid() )
+			{
+				var camera = Player.CameraController.Camera;
+				Vector3 dir = (WorldPing.Transform.Position - camera.Transform.Position).Normal;
+				float dot = Vector3.Dot( dir, camera.Transform.Rotation.Forward );
+
+				// Are we looking at this marker?
+				if ( dot.AlmostEqual( 1f, 0.01f ) )
+				{
+					using ( NetworkUtils.RpcMyTeam() )
+						RemovePing();
+					
+					return;
+				}
+			}
+
 			var tr = GetTrace();
 
 			// Send a RPC to my teammates
