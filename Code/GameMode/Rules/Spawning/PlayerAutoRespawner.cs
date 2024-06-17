@@ -12,7 +12,7 @@ public sealed class PlayerAutoRespawner : Component,
 
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.AllPlayers )
+		foreach ( var player in GameUtils.ActivePlayers )
 		{
 			if ( player.HealthComponent.State != LifeState.Dead )
 			{
