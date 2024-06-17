@@ -107,8 +107,6 @@ public partial class PlayerInventory : Component
 			droppedWeapon.Rigidbody.AngularVelocity = Vector3.Random * 8.0f;
 		}
 
-		droppedWeapon.GameObject.NetworkSpawn();
-
 		RemoveWeapon( weapon );
 	}
 

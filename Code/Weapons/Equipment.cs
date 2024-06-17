@@ -134,8 +134,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		var player = GameUtils.AllPlayers.FirstOrDefault( x => x.Network.OwnerConnection == connection );
 		if ( !player.IsValid() ) return;
 		
-		var dropped = DroppedEquipment.Create( Resource, player.Transform.Position + Vector3.Up * 32f, Rotation.Identity, this );
-		dropped.GameObject.NetworkSpawn();
+		DroppedEquipment.Create( Resource, player.Transform.Position + Vector3.Up * 32f, Rotation.Identity, this );
 	}
 
 	/// <summary>

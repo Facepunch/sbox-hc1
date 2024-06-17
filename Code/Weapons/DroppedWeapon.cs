@@ -1,3 +1,4 @@
+using Sandbox.Diagnostics;
 using Sandbox.Events;
 
 namespace Facepunch;
@@ -13,6 +14,8 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 
 	public static DroppedEquipment Create( EquipmentResource resource, Vector3 positon, Rotation? rotation = null, Equipment heldWeapon = null )
 	{
+		Assert.True( Networking.IsHost );
+
 		var go = new GameObject();
 		go.Transform.Position = positon;
 		go.Transform.Rotation = rotation ?? Rotation.Identity;
@@ -50,6 +53,8 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 				state.CopyToDroppedWeapon( droppedWeapon );
 			}
 		}
+
+		go.NetworkSpawn();
 
 		return droppedWeapon;
 	}
