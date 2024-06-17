@@ -123,12 +123,9 @@ public partial class ViewModel : Component, IEquipment
 
 		lastPitch = newPitch;
 		lastYaw = newYaw;
-
-		ModelRenderer?.Set( "aim_yaw_inertia", YawInertia * YawInertiaScale );
-		ModelRenderer?.Set( "aim_pitch_inertia", PitchInertia * PitchInertiaScale );
 	}
 
-	private Vector3 lerpedWishLook;
+	private Vector3 lerpedWishMove;
 
 	private Vector3 localPosition;
 	private Rotation localRotation;
@@ -141,17 +138,18 @@ public partial class ViewModel : Component, IEquipment
 		var moveVel = PlayerController.CharacterController.Velocity;
 		var moveLen = moveVel.Length;
 
-		var wishLook = PlayerController.WishMove.Normal * 1f;
-		if ( Equipment?.Tags.Has( "aiming" ) ?? false ) wishLook = 0;
+		var wishMove = PlayerController.WishMove.Normal * 1f;
+		if ( Equipment?.Tags.Has( "aiming" ) ?? false ) wishMove = 0;
 
 		if ( PlayerController.IsSlowWalking || PlayerController.IsCrouching ) moveLen *= 0.2f;
 
-		lerpedWishLook = lerpedWishLook.LerpTo( wishLook, Time.Delta * 5.0f );
-
-		localRotation *= Rotation.From( 0, -lerpedWishLook.y * 3f, 0 );
-		localPosition += -lerpedWishLook;
-
+		lerpedWishMove = lerpedWishMove.LerpTo( wishMove, Time.Delta * 7.0f );
 		ModelRenderer?.Set( "move_groundspeed", moveLen );
+
+		YawInertia += lerpedWishMove.y * 10f;
+
+		ModelRenderer?.Set( "aim_yaw_inertia", YawInertia * YawInertiaScale );
+		ModelRenderer?.Set( "aim_pitch_inertia", PitchInertia * PitchInertiaScale );
 	}
 
 	private float FieldOfViewOffset = 0f;
