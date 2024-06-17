@@ -11,8 +11,6 @@
       {
         "__type": "Facepunch.PlayerController",
         "__guid": "3370799f-99ac-4881-9678-016414bdb61f",
-        "AimSpreadScale": 0.5,
-        "AirSpreadScale": 2,
         "AnimationHelper": {
           "_type": "component",
           "component_id": "21b6a16f-ce05-4982-8ae4-c85592c7b220",
@@ -30,7 +28,6 @@
           "go": "d5948881-7e0d-4ca0-8054-85c77a3cc5af",
           "component_type": "PlayerBody"
         },
-        "CrouchSpreadScale": 0.5,
         "FallDamageScale": 0.2,
         "Head": {
           "_type": "gameobject",
@@ -63,10 +60,8 @@
           "go": "3e4e2095-635e-4b89-a9c9-fc3b4d321b84",
           "component_type": "BoxCollider"
         },
-        "SpreadVelocityLimit": 350,
         "SprintMovementDampening": 0.35,
         "UseDistance": 72,
-        "VelocitySpreadScale": 0.1,
         "ViewModelCamera": {
           "_type": "component",
           "component_id": "2c0d9eba-b10c-446e-8cd2-13e0925a3b04",
@@ -354,6 +349,13 @@
                   {
                     "__type": "Facepunch.ScreenShaker",
                     "__guid": "e405a983-581c-4843-b72d-bd6afa755f8f"
+                  },
+                  {
+                    "__type": "Sandbox.AmbientOcclusion",
+                    "__guid": "9d21f25e-4845-4991-8273-82f901d917f4",
+                    "Intensity": 8,
+                    "Quality": "High",
+                    "Radius": 32
                   }
                 ],
                 "Children": [
