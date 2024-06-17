@@ -6,7 +6,7 @@
 
 <root class="row" style="padding-top: 16px;">
     <InputHint Action="BuyMenu" class="small @(!CanOpen ? "hidden" : "")" Size="@InputGlyphSize.Small" />
-    <label class="important @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">$@Inventory.Balance.ToString("N0")</label>
+    <label class="important @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">£@Inventory.Balance.ToString("N0")</label>
 </root>
 
 @code

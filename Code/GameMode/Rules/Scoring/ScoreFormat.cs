@@ -9,10 +9,12 @@ public partial class ScoreFormat : Component
 	/// The scoring format. https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings
 	/// </summary>
 	[Property] public string Format { get; set; } = "";
+	[Property] public string Prefix { get; set; } = "";
 
 	protected override void OnStart()
 	{
 		var teamScoring = GameMode.Instance.Get<TeamScoring>();
 		teamScoring.ScoreFormat = Format;
+		teamScoring.ScorePrefix = Prefix;
 	}
 }
