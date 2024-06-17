@@ -12,7 +12,7 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 
 	public Rigidbody Rigidbody { get; private set; }
 
-	public static DroppedEquipment Create( EquipmentResource resource, Vector3 positon, Rotation? rotation = null, Equipment heldWeapon = null )
+	public static DroppedEquipment Create( EquipmentResource resource, Vector3 positon, Rotation? rotation = null, Equipment heldWeapon = null, bool networkSpawn = true )
 	{
 		Assert.True( Networking.IsHost );
 
@@ -54,7 +54,10 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 			}
 		}
 
-		go.NetworkSpawn();
+		if ( networkSpawn )
+		{
+			go.NetworkSpawn();
+		}
 
 		return droppedWeapon;
 	}

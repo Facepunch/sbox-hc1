@@ -53,8 +53,10 @@ public partial class CashPoint : Component, ICustomMinimapIcon, IMarkerObject
 		State = CashPointState.Open;
 
 		// TODO: track the cash!
-		var eq = DroppedEquipment.Create( Resource, Transform.Position );
+		var eq = DroppedEquipment.Create( Resource, Transform.Position, networkSpawn: false );
 		var cashBag = eq.Components.GetOrCreate<CashBag>();
+
+		eq.GameObject.NetworkSpawn();
 	}
 
 	/// <summary>
