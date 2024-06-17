@@ -91,6 +91,12 @@
         "__guid": "fb65991f-7f22-4b25-88f3-438705b877da",
         "AllowLateJoiners": true,
         "MaxTeamSize": 5
+      },
+      {
+        "__type": "Facepunch.EnableBuyMenu",
+        "__guid": "8a67f3b3-2589-422a-b3aa-f5cc67630d9f",
+        "InBuyZoneOnly": true,
+        "TimeLimit": 0
       }
     ],
     "Children": [
@@ -163,10 +169,6 @@
                 "__type": "Facepunch.SpawnProtection",
                 "__guid": "e2e8ff35-859b-41e8-85c0-c48f375fe7b9",
                 "MaxDurationSeconds": 10
-              },
-              {
-                "__type": "Facepunch.EnableBuyMenuDuringSpawnProtection",
-                "__guid": "eb417304-709d-4f9c-ba44-df3f07dfef1b"
               }
             ]
           },
@@ -213,12 +215,6 @@
               {
                 "__type": "Facepunch.RespawnPlayers",
                 "__guid": "836a9f51-f0cd-4c73-93fe-bfa982936d7b"
-              },
-              {
-                "__type": "Facepunch.EnableBuyMenu",
-                "__guid": "ee727800-c67e-4f30-b2ea-2318d0c8b401",
-                "InBuyZoneOnly": false,
-                "TimeLimit": 5
               }
             ]
           },
@@ -244,12 +240,6 @@
               {
                 "__type": "ResetScores",
                 "__guid": "dd0d2444-b755-4db1-8074-3067912a6e62"
-              },
-              {
-                "__type": "Facepunch.EnableBuyMenu",
-                "__guid": "f5af98c9-baca-4431-b60a-dd8010b6fbb6",
-                "InBuyZoneOnly": false,
-                "TimeLimit": 10
               }
             ],
             "Children": [
@@ -437,10 +427,6 @@
                     "Team": "Unassigned"
                   },
                   {
-                    "__type": "Facepunch.EnableBuyMenuDuringSpawnProtection",
-                    "__guid": "887a1452-57bf-4189-b3c1-5544b0bb01c5"
-                  },
-                  {
                     "__type": "Facepunch.PlayerAutoRespawner",
                     "__guid": "42c68dff-25ac-480c-a775-b79b3386f8da",
                     "RespawnDelaySeconds": 3
@@ -484,10 +470,6 @@
                     "BothTeams": true,
                     "StatusText": "Incoming..",
                     "Team": "Unassigned"
-                  },
-                  {
-                    "__type": "Facepunch.EnableBuyMenuDuringSpawnProtection",
-                    "__guid": "003b2c7b-2278-4849-aeb8-1f56bc23efbc"
                   },
                   {
                     "__type": "Facepunch.PlayerAutoRespawner",
