@@ -9,10 +9,13 @@ public sealed class PlayerAutoRespawner : Component,
 	IGameEventHandler<UpdateStateEvent>
 {
 	[Property, HostSync] public float RespawnDelaySeconds { get; set; } = 3f;
+	[Property] public bool AllowSpectatorsToSpawn { get; set; } = false;
 
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.ActivePlayers )
+		var players = AllowSpectatorsToSpawn ? GameUtils.AllPlayers : GameUtils.ActivePlayers;
+
+		foreach ( var player in players )
 		{
 			if ( player.HealthComponent.State != LifeState.Dead )
 			{
