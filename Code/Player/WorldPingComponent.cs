@@ -10,14 +10,45 @@ public partial class WorldPingComponent : Component, IMarkerObject, IMinimapIcon
 	/// </summary>
 	public PlayerState Owner { get; set; }
 
+	private Vector3 MarkerPosition
+	{
+		get
+		{
+			if ( Receiver.IsValid() )
+				return Receiver.Position;
+
+			return Transform.Position + Vector3.Up * 32f;
+		}
+	}
+
 	// IMarkerObject
 	string IMarkerObject.MarkerIcon => "ui/marker.png";
 	string IMarkerObject.DisplayText => Owner?.Network.OwnerConnection?.DisplayName ?? "";
-	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 32f;
+	Vector3 IMarkerObject.MarkerPosition => MarkerPosition;
 
 	// IMinimapIcon
 	string IMinimapIcon.IconPath => "ui/marker.png";
-	Vector3 IMinimapElement.WorldPosition => Transform.Position + Vector3.Up * 32f;
+	Vector3 IMinimapElement.WorldPosition => MarkerPosition;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public IPingReceiver Receiver { get; private set; }
+
+	/// <summary>
+	/// Are we pinging a world object that might move?
+	/// </summary>
+	public Component Target
+	{
+		set
+		{
+			var receiver = value.GameObject.Root.Components.Get<IPingReceiver>();
+			if ( receiver.IsValid() )
+			{
+				Receiver = receiver;
+			}
+		}
+	}
 
 	// IMinimapElement
 	bool IMinimapElement.IsVisible( IPawn viewer ) => true;
@@ -30,5 +61,7 @@ public partial class WorldPingComponent : Component, IMarkerObject, IMinimapIcon
 	{
 		var destroy = Components.Create<TimedDestroyComponent>();
 		destroy.Time = lifetime;
+
+		Receiver?.OnPing();
 	}
 }

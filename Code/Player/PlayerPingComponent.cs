@@ -1,5 +1,23 @@
 namespace Facepunch;
 
+public interface IPingReceiver : IValid
+{
+	/// <summary>
+	/// The position of the ping marker (on the minimap AND the screen)
+	/// </summary>
+	public Vector3 Position { get; }
+
+	/// <summary>
+	/// Called when we start pinging something
+	/// </summary>
+	public void OnPing() { }
+
+	/// <summary>
+	/// Called when this ping gets cancelled by another
+	/// </summary>
+	public void OnPingCancel() { }
+}
+
 /// <summary>
 /// A simple component that handles pinging for the player.
 /// </summary>
@@ -30,12 +48,16 @@ public partial class PlayerPingComponent : Component
 	/// This gets networked to people on the same team.
 	/// </summary>
 	/// <param name="position"></param>
+	/// <param name="targetId"></param>
 	[Broadcast( NetPermission.OwnerOnly )]
-	public void Ping( Vector3 position )
+	public void Ping( Vector3 position, Guid? targetId = null )
 	{
 		// Destroy any active pings
 		if ( WorldPing.IsValid() )
+		{
+			WorldPing?.Receiver?.OnPingCancel();
 			WorldPing?.GameObject?.Destroy();
+		}
 
 		var pingObject = new GameObject();
 		pingObject.Transform.Position = position;
@@ -45,6 +67,9 @@ public partial class PlayerPingComponent : Component
 		ping.Owner = Player.PlayerState;
 		pingObject.Name = $"Ping from {ping.Owner.Network.OwnerConnection.DisplayName}";
 
+		if ( targetId.HasValue )
+			ping.Target = Scene.Directory.FindComponentByGuid( targetId.Value );
+
 		WorldPing = ping;
 		// trigger the ping to be destroyed at some point
 		ping.Trigger( Lifetime );
@@ -53,6 +78,7 @@ public partial class PlayerPingComponent : Component
 	[Broadcast( NetPermission.OwnerOnly )]
 	public void RemovePing()
 	{
+		WorldPing?.Receiver?.OnPingCancel();
 		WorldPing?.GameObject?.Destroy();
 	}
 
@@ -111,7 +137,7 @@ public partial class PlayerPingComponent : Component
 			// Send a RPC to my teammates
 			using ( NetworkUtils.RpcMyTeam() )
 			{
-				Ping( tr.EndPosition );
+				Ping( tr.EndPosition, tr.Component.Id );
 			}
 		}
 	}
