@@ -2,6 +2,11 @@ namespace Facepunch;
 
 public partial class PlayerController
 {
+	/// <summary>
+	/// Development: should bots follow the player's input?
+	/// </summary>
+	[ConVar( "hc1_bot_follow" )] public static bool BotFollowHostInput { get; set; }
+
 	[DeveloperCommand( "-10 HP (head)", "Player" )]
 	private static void Command_HurtTenHead()
 	{

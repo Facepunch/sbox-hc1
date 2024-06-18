@@ -2,12 +2,17 @@
 
 namespace Facepunch;
 
-public class PlayerState : Component
+public partial class PlayerState : Component
 {
 	/// <summary>
 	/// The controller for this player
 	/// </summary>
 	[RequireComponent] public PlayerController Controller { get; private set; }
+
+	/// <summary>
+	/// Name of this player
+	/// </summary>
+	public string DisplayName => IsBot ? $"BOT {BotManager.Instance.GetName( BotId )}" : Network.OwnerConnection?.DisplayName ?? "";
 
 	/// <summary>
 	/// The pawn this player is currently in possession of (networked if it's networked)
@@ -29,7 +34,7 @@ public class PlayerState : Component
 	/// <summary>
 	/// Is this the local player for this client
 	/// </summary>
-	public bool IsLocalPlayer => !Controller.IsProxy && !Controller.IsBot;
+	public bool IsLocalPlayer => !IsProxy && !IsBot;
 
 	protected override void OnAwake()
 	{

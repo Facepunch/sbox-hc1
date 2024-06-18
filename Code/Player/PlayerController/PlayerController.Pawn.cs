@@ -12,7 +12,7 @@ public partial class PlayerController
 	/// <summary>
 	/// A shorthand accessor to say if we're controlling this player.
 	/// </summary>
-	public bool IsLocallyControlled => IsViewer && !IsProxy && !IsBot;
+	public bool IsLocallyControlled => IsViewer && PlayerState.IsLocalPlayer;
 
 	/// <summary>
 	/// Is this player the currently possessed controller
@@ -22,7 +22,7 @@ public partial class PlayerController
 	/// <summary>
 	/// What are we called?
 	/// </summary>
-	public string DisplayName => IsBot ? $"BOT {BotManager.Instance.GetName( BotId )}" : Network.OwnerConnection?.DisplayName ?? "";
+	public string DisplayName => PlayerState.DisplayName;
 
 	/// <summary>
 	/// Unique colour or team colour of this player
@@ -48,7 +48,7 @@ public partial class PlayerController
 		// if we're spectating a remote player, use the camera mode preference
 		// otherwise: first person for now
 		var spectateSystem = SpectateSystem.Instance;
-		if ( spectateSystem is not null && (IsProxy || IsBot) )
+		if ( spectateSystem is not null && (IsProxy || PlayerState.IsBot) )
 		{
 			CameraController.Mode = spectateSystem.CameraMode;
 		}

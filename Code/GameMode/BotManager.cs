@@ -33,7 +33,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 		var player = GameNetworkManager.Instance.PlayerPrefab.Clone();
 
 		PlayerController playerController = player.Components.Get<PlayerController>();
-		playerController.BotId = CurrentBotId;
+		playerController.PlayerState.BotId = CurrentBotId;
 
 		GameNetworkManager.Instance.OnPlayerJoined( playerController, Connection.Host );
 
@@ -66,7 +66,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 	{
 		foreach ( var player in GameUtils.AllPlayers )
 		{
-			if ( player.IsBot )
+			if ( player.PlayerState.IsBot )
 				player.GameObject.Destroy();
 		}
 	}

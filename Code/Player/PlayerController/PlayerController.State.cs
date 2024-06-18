@@ -123,7 +123,7 @@ public partial class PlayerController
 		// Conna: we're not spectating if we just respawned.
 		IsSpectating = false;
 
-		if ( !IsBot )
+		if ( !PlayerState.IsBot )
 		{
 			PlayerState.Possess();
 		}

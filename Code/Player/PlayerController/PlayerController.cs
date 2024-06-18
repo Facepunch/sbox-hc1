@@ -82,7 +82,7 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 
 	protected override void OnStart()
 	{
-		if ( !IsProxy && !IsBot )
+		if ( !IsProxy && !PlayerState.IsBot )
 		{
 			// Set this as our local player and possess it.
 			GameUtils.LocalPlayer = this;
@@ -93,8 +93,7 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 		TagBinder.BindTag( "no_shooting", () => IsSprinting || TimeSinceSprintChanged < 0.25f || TimeSinceWeaponDeployed < 0.66f );
 		TagBinder.BindTag( "no_aiming", () => IsSprinting || TimeSinceSprintChanged < 0.25f || TimeSinceGroundedChanged < 0.25f );
 
-		if ( IsBot )
-			GameObject.Name += " (Bot)";
+		GameObject.Name = $"Player ({DisplayName})";
 	}
 
 	protected override void OnUpdate()
@@ -123,7 +122,7 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 		if ( HealthComponent.State != LifeState.Alive )
 			return;
 
-		if ( Networking.IsHost && IsBot )
+		if ( Networking.IsHost && PlayerState.IsBot )
 		{
 			if ( BotFollowHostInput )
 			{
