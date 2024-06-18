@@ -7,7 +7,7 @@ public class PlayerState : Component
 	/// <summary>
 	/// The controller for this player
 	/// </summary>
-	[RequireComponent] public PlayerController Player { get; private set; }
+	[RequireComponent] public PlayerController Controller { get; private set; }
 
 	/// <summary>
 	/// The pawn this player is currently in possession of (networked if it's networked)
@@ -29,7 +29,7 @@ public class PlayerState : Component
 	/// <summary>
 	/// Is this the local player for this client
 	/// </summary>
-	public bool IsLocalPlayer => !Player.IsProxy && !Player.IsBot;
+	public bool IsLocalPlayer => !Controller.IsProxy && !Controller.IsBot;
 
 	protected override void OnAwake()
 	{
@@ -64,12 +64,12 @@ public class PlayerState : Component
 	{
 		CurrentView = this;
 
-		Assert.True( Player.IsValid(), "PlayerState has no Player!" );
+		Assert.True( Controller.IsValid(), "PlayerState attempted Possess but has no Controller!" );
 
 		if ( CurrentPawn is null || IsLocalPlayer )
 		{
 			// Local player - always assume the controller
-			(Player as IPawn).Possess();
+			(Controller as IPawn).Possess();
 		}
 		else
 		{

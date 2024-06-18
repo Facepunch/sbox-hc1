@@ -17,7 +17,7 @@
     public PlayerInventory Inventory => Player?.Inventory;
 
     /// The player
-    public PlayerController Player => GameUtils.Viewer.Player;
+    public PlayerController Player => GameUtils.Viewer.Controller;
 
     public bool CanOpen => BuySystem.IsEnabled();
 
