@@ -28,7 +28,7 @@ public partial class WorldPingComponent : Component, IMarkerObject, ICustomMinim
 			if ( Receiver.IsValid() && !string.IsNullOrEmpty( Receiver.Icon ) )
 				return Receiver.Icon;
 
-			return "ui/marker.png";
+			return "ui/minimaps/player_icon.png";
 		}
 	}
 
