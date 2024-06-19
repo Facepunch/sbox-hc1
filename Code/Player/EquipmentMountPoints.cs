@@ -60,7 +60,8 @@ public class MountPoint
 
 public sealed class EquipmentMountPoints : Component,
 	IGameEventHandler<EquipmentDeployedEvent>,
-	IGameEventHandler<EquipmentHolsteredEvent>
+	IGameEventHandler<EquipmentHolsteredEvent>,
+	IGameEventHandler<EquipmentDestroyedEvent>
 {
 	[Property] public PlayerController Player { get;  set; }
 
@@ -74,10 +75,6 @@ public sealed class EquipmentMountPoints : Component,
 
 	void IGameEventHandler<EquipmentDeployedEvent>.OnGameEvent( EquipmentDeployedEvent eventArgs )
 	{
-		var newParent = eventArgs.Equipment?.PlayerController?.Inventory?.WeaponGameObject;
-		if ( !newParent.IsValid() )
-			return;
-
 		var mnt = GetMount( eventArgs.Equipment );
 		mnt?.Unmount( eventArgs.Equipment, Player );
 	}
@@ -87,5 +84,11 @@ public sealed class EquipmentMountPoints : Component,
 		var mnt = GetMount( eventArgs.Equipment );
 		Log.Info( $"Holstering {eventArgs.Equipment}, {mnt}" );
 		mnt?.Mount( eventArgs.Equipment, Player );
+	}
+
+	void IGameEventHandler<EquipmentDestroyedEvent>.OnGameEvent( EquipmentDestroyedEvent eventArgs )
+	{
+		var mnt = GetMount( eventArgs.Equipment );
+		mnt?.Unmount( eventArgs.Equipment, Player );
 	}
 }

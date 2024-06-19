@@ -4,6 +4,7 @@ namespace Facepunch;
 
 public record EquipmentDeployedEvent( Equipment Equipment ) : IGameEvent;
 public record EquipmentHolsteredEvent( Equipment Equipment ) : IGameEvent;
+public record EquipmentDestroyedEvent( Equipment Equipment ) : IGameEvent;
 
 /// <summary>
 /// An equipment component.
@@ -337,5 +338,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	protected override void OnDestroy()
 	{
 		ClearViewModel();
+
+		GameObject.Root.Dispatch( new EquipmentDestroyedEvent( this ) );
 	}
 }
