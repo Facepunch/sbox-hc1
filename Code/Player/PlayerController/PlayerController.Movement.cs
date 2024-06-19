@@ -206,8 +206,8 @@ public partial class PlayerController
 			AnimationHelper.MoveStyle = AnimationHelper.MoveStyles.Run;
 			AnimationHelper.DuckLevel = ( MathF.Abs( _smoothEyeHeight ) / 32.0f );
 			AnimationHelper.HoldType = CurrentHoldType;
+			AnimationHelper.Handedness = CurrentEquipment.IsValid() ? CurrentEquipment.Handedness : AnimationHelper.Hand.Both;
 			AnimationHelper.AimBodyWeight = 0.1f;
-			AnimationHelper.Handedness = AnimationHelper.Hand.Right;
 		}
 
 		AimDampening = 1.0f;

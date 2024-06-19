@@ -38,6 +38,11 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	[Property] protected AnimationHelper.HoldTypes HoldType { get; set; } = AnimationHelper.HoldTypes.Rifle;
 
 	/// <summary>
+	/// The default holdtype for this equipment.
+	/// </summary>
+	[Property] public AnimationHelper.Hand Handedness { get; set; } = AnimationHelper.Hand.Right;
+
+	/// <summary>
 	/// What sound should we play when taking this gun out?
 	/// </summary>
 	[Property, Group( "Sounds" )] public SoundEvent DeploySound { get; set; }
