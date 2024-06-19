@@ -48,7 +48,7 @@ public class MountPoint
 	{
 		if ( Mounted.TryGetValue( equipment, out var inst ) )
 		{
-			Log.Info( $"Found mount point for {equipment}" );
+			// Log.Info( $"Found mount point for {equipment}" );
 			Mounted.Remove( equipment );
 			inst.Destroy();
 
@@ -82,7 +82,7 @@ public sealed class EquipmentMountPoints : Component,
 	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
 	{
 		var mnt = GetMount( eventArgs.Equipment );
-		Log.Info( $"Holstering {eventArgs.Equipment}, {mnt}" );
+		// Log.Info( $"Holstering {eventArgs.Equipment}, {mnt}" );
 		mnt?.Mount( eventArgs.Equipment, Player );
 	}
 

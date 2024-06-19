@@ -5,22 +5,24 @@ public partial class PlayerBody : Component
 	[Property] public SkinnedModelRenderer Renderer { get; set; }
 	[Property] public ModelPhysics Physics { get; set; }
 
-	public bool IsRagdoll => Physics.Enabled;
+	public bool IsRagdoll => _isRagdoll;
 
 	public Vector3 DamageTakenPosition { get; set; }
 	public Vector3 DamageTakenForce { get; set; }
 
-	private bool IsShown;
+	private bool IsShown = true;
 
 	public PlayerController Player { get; set; }
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
 		Player = Components.Get<PlayerController>( FindMode.EverythingInSelfAndAncestors );
 	}
 
+	bool _isRagdoll = false;
 	internal void SetRagdoll( bool ragdoll )
 	{
+		_isRagdoll = ragdoll;
 		Physics.Enabled = ragdoll;
 		Renderer.UseAnimGraph = !ragdoll;
 
@@ -32,7 +34,8 @@ public partial class PlayerBody : Component
 			GameObject.Transform.LocalRotation = Rotation.Identity;
 		}
 
-		ShowBodyParts( ragdoll );
+		if ( ragdoll )
+			ShowBodyParts( true );
 
 		if ( ragdoll && DamageTakenForce.LengthSquared > 0f )
 			ApplyRagdollImpulses( DamageTakenPosition, DamageTakenForce );
@@ -58,10 +61,11 @@ public partial class PlayerBody : Component
 
 	public void ShowBodyParts( bool show )
 	{
+
 		IsShown = show;
-		
+
 		// Disable the player's body so it doesn't render.
-		var skinnedModels = Components.GetAll<SkinnedModelRenderer>();
+		var skinnedModels = Components.GetAll<ModelRenderer>( FindMode.EnabledInSelfAndDescendants );
 
 		foreach ( var skinnedModel in skinnedModels )
 		{

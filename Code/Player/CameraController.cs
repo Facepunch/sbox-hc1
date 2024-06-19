@@ -80,8 +80,13 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		FieldOfViewOffset -= degrees;
 	}
 
+	public bool IsActive { get; private set; } = false;
 	public void SetActive( bool isActive )
 	{
+		if ( isActive == IsActive )
+			return;
+
+		IsActive = isActive;
 		Camera.Enabled = isActive;
 		AudioListener.Enabled = isActive;
 
@@ -226,18 +231,19 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 
 	void OnModeChanged()
 	{
-		SetBoomLength( Mode == CameraMode.FirstPerson ? 0.0f : ThirdPersonDistance );
+		var firstPerson = Mode == CameraMode.FirstPerson && Player.IsViewer;
 
-		var firstPersonPOV = Mode == CameraMode.FirstPerson && Player.IsViewer;
-		Player.Body.ShowBodyParts( !firstPersonPOV );
+		SetBoomLength( firstPerson ? 0.0f : ThirdPersonDistance );
 
-		if ( firstPersonPOV )
+		Player.Body.ShowBodyParts( !firstPerson );
+
+		if ( firstPerson )
 			Player.CreateViewModel( false );
 		else
 			Player.ClearViewModel();
 	}
 
-	private void SetBoomLength(float length)
+	private void SetBoomLength( float length )
 	{
 		MaxBoomLength = length;
 	}
