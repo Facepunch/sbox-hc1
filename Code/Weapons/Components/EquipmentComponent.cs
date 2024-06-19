@@ -22,7 +22,7 @@ public abstract class EquipmentComponent : Component
 	{
 		// Cache the weapon on awake
 		Equipment = Components.Get<Equipment>( FindMode.EverythingInSelfAndAncestors );
-		Player = Equipment.PlayerController;
+		Player = Equipment.Owner;
 
 		base.OnAwake();
 	}

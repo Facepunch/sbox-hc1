@@ -24,7 +24,7 @@ public partial class ViewModel : Component, IEquipment
 	/// <summary>
 	/// Looks up the tree to find the player controller.
 	/// </summary>
-	PlayerController PlayerController => Equipment.PlayerController;
+	PlayerController Owner => Equipment.Owner;
 
 	[Property, Group( "GameObjects" )] public GameObject Muzzle { get; set; }
 	[Property, Group( "GameObjects" )] public GameObject EjectionPort { get; set; }
@@ -67,8 +67,8 @@ public partial class ViewModel : Component, IEquipment
 			ModelRenderer?.Set( "b_deploy", true );
 
 		// Somehow?
-		if ( PlayerController.IsValid() )
-			PlayerController.OnJump += OnPlayerJumped;
+		if ( Owner.IsValid() )
+			Owner.OnJump += OnPlayerJumped;
 	}
 
 	void OnPlayerJumped()
@@ -82,7 +82,7 @@ public partial class ViewModel : Component, IEquipment
 		if ( !ModelRenderer.Enabled ) return;
 
 		var bone = ModelRenderer.SceneModel.GetBoneLocalTransform( "camera" );
-		var camera = Equipment.PlayerController.CameraGameObject;
+		var camera = Equipment.Owner.CameraGameObject;
 
 		var scale = GameSettingsSystem.Current.ViewBob / 100f;
 
@@ -102,7 +102,7 @@ public partial class ViewModel : Component, IEquipment
 
 	void ApplyInertia()
 	{
-		var camera = Equipment.PlayerController.CameraGameObject;
+		var camera = Equipment.Owner.CameraGameObject;
 		var inRot = camera.Transform.Rotation;
 
 		// Need to fetch data from the camera for the first frame
@@ -135,13 +135,13 @@ public partial class ViewModel : Component, IEquipment
 
 	protected void ApplyVelocity()
 	{
-		var moveVel = PlayerController.CharacterController.Velocity;
+		var moveVel = Owner.CharacterController.Velocity;
 		var moveLen = moveVel.Length;
 
-		var wishMove = PlayerController.WishMove.Normal * 1f;
+		var wishMove = Owner.WishMove.Normal * 1f;
 		if ( Equipment?.Tags.Has( "aiming" ) ?? false ) wishMove = 0;
 
-		if ( PlayerController.IsSlowWalking || PlayerController.IsCrouching ) moveLen *= 0.2f;
+		if ( Owner.IsSlowWalking || Owner.IsCrouching ) moveLen *= 0.2f;
 
 		lerpedWishMove = lerpedWishMove.LerpTo( wishMove, Time.Delta * 7.0f );
 		ModelRenderer?.Set( "move_groundspeed", moveLen );
@@ -157,8 +157,8 @@ public partial class ViewModel : Component, IEquipment
 
 	void ApplyAnimationParameters()
 	{
-		ModelRenderer.Set( "b_sprint", PlayerController.IsSprinting );
-		ModelRenderer.Set( "b_grounded", PlayerController.IsGrounded );
+		ModelRenderer.Set( "b_sprint", Owner.IsSprinting );
+		ModelRenderer.Set( "b_grounded", Owner.IsGrounded );
 
 		// Ironsights
 		ModelRenderer.Set( "ironsights", Equipment.Tags.Has( "aiming" ) ? Ironsights : 0 );
@@ -196,7 +196,7 @@ public partial class ViewModel : Component, IEquipment
 		localRotation = Rotation.Identity;
 		localPosition = Vector3.Zero;
 
-		if ( !PlayerController.IsValid() || !PlayerController.CharacterController.IsValid() )
+		if ( !Owner.IsValid() || !Owner.CharacterController.IsValid() )
 			return;
 
 		if ( IsThrowable )

@@ -54,7 +54,7 @@ public partial class ThrowWeaponComponent : InputWeaponComponent,
 		if ( Networking.IsHost && HasThrownOnHost && TimeSinceAction > 0.25f )
 		{
 			// We want to remove the weapon on the host only.
-			var player = Equipment.PlayerController;
+			var player = Equipment.Owner;
 			player.Inventory.RemoveWeapon( Equipment );
 			return;
 		}
@@ -78,7 +78,7 @@ public partial class ThrowWeaponComponent : InputWeaponComponent,
 	[Broadcast]
 	protected void Throw()
 	{
-		var player = Equipment.PlayerController;
+		var player = Equipment.Owner;
 		
 		if ( !IsProxy )
 		{

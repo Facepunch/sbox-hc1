@@ -39,7 +39,7 @@ public abstract class InputWeaponComponent : EquipmentComponent,
 
 	void IGameEventHandler<EquipmentDeployedEvent>.OnGameEvent( EquipmentDeployedEvent eventArgs )
 	{
-		if ( Equipment?.PlayerController?.IsLocallyControlled ?? false )
+		if ( Equipment?.Owner?.IsLocallyControlled ?? false )
 		{
 			RunningWhileDeployed = InputActions.Any( x => Input.Down( x ) );
 		}
@@ -102,11 +102,11 @@ public abstract class InputWeaponComponent : EquipmentComponent,
 		if ( !Equipment.IsDeployed )
 			return;
 		
-		if ( !Equipment.PlayerController.IsValid() )
+		if ( !Equipment.Owner.IsValid() )
 			return;
 		
 		// We only care about input actions coming from the owning object.
-		if ( !Equipment.PlayerController.IsLocallyControlled )
+		if ( !Equipment.Owner.IsLocallyControlled )
 			return;
 
 		if ( InputActions.All( x => !Input.Down( x ) ) )

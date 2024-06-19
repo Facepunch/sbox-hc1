@@ -44,14 +44,14 @@ public partial class BombPlantComponent : InputWeaponComponent
 		BindTag( "planting", () => IsPlanting );
 	}
 
-	private BombSite CurrentBombSite => Equipment.PlayerController.GetZone<BombSite>();
+	private BombSite CurrentBombSite => Equipment.Owner.GetZone<BombSite>();
 
 	/// <summary>
 	/// Can we plant right now?
 	/// </summary>
 	public bool CanPlant()
 	{
-		if ( !Equipment.PlayerController.IsGrounded )
+		if ( !Equipment.Owner.IsGrounded )
 			return false;
 
 		if ( CurrentBombSite is null )
@@ -68,7 +68,7 @@ public partial class BombPlantComponent : InputWeaponComponent
 			TimeSincePlantStart = 0f;
 			IsPlanting = true;
 
-			var player = Equipment.PlayerController;
+			var player = Equipment.Owner;
 			player.IsFrozen = true;
 		}
 	}
@@ -76,9 +76,9 @@ public partial class BombPlantComponent : InputWeaponComponent
 	private void StartPlant()
 	{
 		// Send the radio sound to everyone
-		if ( Equipment.PlayerController.IsLocallyControlled )
+		if ( Equipment.Owner.IsLocallyControlled )
 		{
-			RadioSounds.Play( Equipment.PlayerController.TeamComponent.Team, "Hidden", "Planting bomb" );
+			RadioSounds.Play( Equipment.Owner.TeamComponent.Team, "Hidden", "Planting bomb" );
 		}
 
 		BroadcastPlant();
@@ -86,7 +86,7 @@ public partial class BombPlantComponent : InputWeaponComponent
 
 	private void FinishPlant()
 	{
-		PlantBombOnHost( Equipment.PlayerController.Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
+		PlantBombOnHost( Equipment.Owner.Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
 	}
 
 	[Broadcast]
@@ -94,7 +94,7 @@ public partial class BombPlantComponent : InputWeaponComponent
 	{
 		if ( !Networking.IsHost ) return;
 
-		var player = Equipment.PlayerController;
+		var player = Equipment.Owner;
 
 		player.Inventory.RemoveWeapon( Equipment );
 		player.IsFrozen = false;
@@ -118,7 +118,7 @@ public partial class BombPlantComponent : InputWeaponComponent
 			IsPlanting = false;
 			TimeSincePlantCancel = 0f;
 
-			var player = Equipment.PlayerController;
+			var player = Equipment.Owner;
 			player.IsFrozen = false;
 		}
 	}

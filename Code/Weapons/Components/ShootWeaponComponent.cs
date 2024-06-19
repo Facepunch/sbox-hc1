@@ -71,7 +71,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	/// <summary>
 	/// Accessor for the aim ray.
 	/// </summary>
-	protected Ray WeaponRay => Equipment.PlayerController.AimRay;
+	protected Ray WeaponRay => Equipment.Owner.AimRay;
 
 	/// <summary>
 	/// How long since we shot?
@@ -130,13 +130,13 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		{
 			if ( Sound.Play( ShootSound, Equipment.Transform.Position ) is { } snd )
 			{
-				snd.ListenLocal = Equipment.PlayerController?.IsViewer ?? false;
+				snd.ListenLocal = Equipment.Owner?.IsViewer ?? false;
 				Log.Trace( $"ShootWeaponComponent: ShootSound {ShootSound.ResourceName}" );
 			}
 		}
 
 		// Third person
-		Equipment.PlayerController?.BodyRenderer.Set( "b_attack", true );
+		Equipment.Owner?.BodyRenderer.Set( "b_attack", true );
 
 		// First person
 		Equipment.ViewModel?.ModelRenderer.Set( "b_attack", true );
@@ -277,7 +277,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		var target = Scene.Directory.FindByGuid( targetObjectId );
 
 		// target?.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, hitbox );
-		target?.TakeDamage( new DamageInfo( Equipment.PlayerController, damage, Equipment, pos, dir * damage, hitbox ) );
+		target?.TakeDamage( new DamageInfo( Equipment.Owner, damage, Equipment, pos, dir * damage, hitbox ) );
 	}
 
 	private float CalculateDamageFalloff( float damage, float distance )
@@ -395,7 +395,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		var rot = Rotation.LookAt( WeaponRay.Forward );
 
 		var forward = rot.Forward;
-		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * ( BulletSpread + Equipment.PlayerController.Spread ) * 0.25f;
+		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * ( BulletSpread + Equipment.Owner.Spread ) * 0.25f;
 		forward = forward.Normal;
 
 		var original = DoTraceBullet( start, WeaponRay.Position + forward * MaxRange, BulletSize );
@@ -496,10 +496,10 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	{
 		// Do we still have a weapon?
 		if ( !Equipment.IsValid() ) return false;
-		if ( !Equipment.PlayerController.IsValid() ) return false;
+		if ( !Equipment.Owner.IsValid() ) return false;
 		
 		// Player
-		if ( Equipment.PlayerController.IsFrozen )
+		if ( Equipment.Owner.IsFrozen )
 			return false;
 
 		// Weapon

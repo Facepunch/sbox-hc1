@@ -44,7 +44,7 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 		}
 
 		// Third person
-		Equipment?.PlayerController?.BodyRenderer?.Set( "b_attack", true );
+		Equipment?.Owner?.BodyRenderer?.Set( "b_attack", true );
 
 		// First person
 		Equipment?.ViewModel?.ModelRenderer.Set( "b_attack", true );
@@ -109,10 +109,10 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 
 		// TODO: backstab detection
 
-		obj?.TakeDamage( new DamageInfo( Equipment.PlayerController, BaseDamage, Equipment, pos, dir * 64f, HitboxTags.UpperBody, DamageFlags.Melee ) );
+		obj?.TakeDamage( new DamageInfo( Equipment.Owner, BaseDamage, Equipment, pos, dir * 64f, HitboxTags.UpperBody, DamageFlags.Melee ) );
 	}
 
-	protected virtual Ray WeaponRay => Equipment.PlayerController.AimRay;
+	protected virtual Ray WeaponRay => Equipment.Owner.AimRay;
 
 	/// <summary>
 	/// Runs a trace with all the data we have supplied it, and returns the result

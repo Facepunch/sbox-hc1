@@ -26,10 +26,10 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		if ( !Equipment.IsValid() )
 			return;
 
-		if ( !Equipment.PlayerController.IsValid() )
+		if ( !Equipment.Owner.IsValid() )
 			return;
 
-		var camera = Equipment.PlayerController.CameraController;
+		var camera = Equipment.Owner.CameraController;
 
 		if ( ScopeOverlay is not null )
 			renderHook = camera.Camera.AddHookAfterTransparent( "Scope", 100, RenderEffect );
@@ -122,7 +122,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		if ( !IsZooming )
 			return;
 
-		var camera = Equipment?.PlayerController?.CameraController;
+		var camera = Equipment?.Owner?.CameraController;
 		if ( !camera.IsValid() )
 			return;
 
@@ -131,17 +131,17 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			EndZoom();
 		}
 
-		if ( Equipment.PlayerController.CurrentEquipment != Equipment )
+		if ( Equipment.Owner.CurrentEquipment != Equipment )
 		{
 			EndZoom();
 		}
 
-		Equipment.PlayerController.AimDampening /= (ZoomLevel * ZoomLevel) + 1;
+		Equipment.Owner.AimDampening /= (ZoomLevel * ZoomLevel) + 1;
 
 		{
-			var cc = Equipment.PlayerController.CharacterController;
+			var cc = Equipment.Owner.CharacterController;
 
-			float velocity = Equipment.PlayerController.CharacterController.Velocity.Length / 25.0f;
+			float velocity = Equipment.Owner.CharacterController.Velocity.Length / 25.0f;
 			float blur = 1.0f / (velocity + 1.0f);
 			blur = MathX.Clamp( blur, 0.1f, 1.0f );
 
@@ -153,7 +153,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			else
 				BlurLerp = BlurLerp.LerpTo( blur, Time.Delta * 10.0f );
 
-			var angles = Equipment.PlayerController.EyeAngles;
+			var angles = Equipment.Owner.EyeAngles;
 			var delta = angles - LastAngles;
 
 			AnglesLerp = AnglesLerp.LerpTo( delta, Time.Delta * 10.0f );

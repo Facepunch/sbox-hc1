@@ -62,13 +62,21 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	[Property, Group( "Mount Points" )] public GameObject MountedPrefab { get; set; }
 
 	/// <summary>
+	/// Cached version of the owner once we fetch it.
+	/// </summary>
+	private PlayerController owner;
+
+	/// <summary>
 	/// Who owns this gun?
 	/// </summary>
 	public PlayerController Owner
 	{
-		get => Scene.Directory.FindComponentByGuid( OwnerId ) as PlayerController;
+		get => owner ??= Scene.Directory.FindComponentByGuid( OwnerId ) as PlayerController;
 	}
 
+	/// <summary>
+	/// The Guid of the owner's <see cref="PlayerController"/>
+	/// </summary>
 	[Sync] public Guid OwnerId { get; set; }
 
 	/// <summary>
@@ -93,7 +101,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// </summary>
 	protected void UpdateRenderMode()
 	{
-		if ( PlayerController.IsViewer )
+		if ( Owner.IsViewer )
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
 		else
 			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
@@ -114,15 +122,10 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 			if ( viewModel.IsValid() )
 			{
 				viewModel.Equipment = this;
-				viewModel.ViewModelCamera = PlayerController.ViewModelCamera;
+				viewModel.ViewModelCamera = Owner.ViewModelCamera;
 			}
 		}
 	}
-
-	/// <summary>
-	/// Get the equipment's owner - namely the player controller
-	/// </summary>
-	public PlayerController PlayerController => Components.Get<PlayerController>( FindMode.EverythingInAncestors );
 
 	/// <summary>
 	/// How long it's been since we used this attack.
@@ -158,9 +161,9 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 			return;
 
 		// We must first holster all other equipment items.
-		if ( PlayerController.IsValid() )
+		if ( Owner.IsValid() )
 		{
-			var equipment = PlayerController.Inventory.Equipment.ToList();
+			var equipment = Owner.Inventory.Equipment.ToList();
 
 			foreach ( var item in equipment )
 				item.Holster();
@@ -263,7 +266,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// </summary>
 	public void CreateViewModel( bool playDeployEffects = true )
 	{
-		var player = PlayerController;
+		var player = Owner;
 		if ( !player.IsValid() ) return;
 		
 		var resource = Resource;
@@ -305,7 +308,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	{
 		_wasDeployed = IsDeployed;
 		_hasStarted = true;
-		
+
 		if ( IsDeployed )
 			OnDeployed();
 		else
@@ -316,7 +319,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	
 	protected virtual void OnDeployed()
 	{
-		if ( PlayerController.IsValid() && PlayerController.IsViewer && PlayerController.CameraController.Mode != CameraMode.ThirdPerson )
+		if ( Owner.IsValid() && Owner.IsViewer && Owner.CameraController.Mode != CameraMode.ThirdPerson )
 			CreateViewModel();
 		
 		if ( ModelRenderer.IsValid() )
