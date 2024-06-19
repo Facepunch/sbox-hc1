@@ -10,7 +10,7 @@
                     <div class="minimap" style="background-image: url( @Renderer.CurrentMinimapPath )" />
                     <div class="overlay" style="background-image: url( @Renderer.CurrentMinimapPath )" />
 
-                    @foreach (var volume in Game.ActiveScene.GetAllComponents<IMinimapVolume>())
+                    @foreach ( var volume in Game.ActiveScene.GetAllComponents<IMinimapVolume>() )
                     {
                         if (!volume.IsValid() || (GameUtils.CurrentPawn is PlayerController player && !volume.IsVisible( player )))
                             continue;
@@ -24,7 +24,7 @@
         </div>
 
         <div class="markers">
-            @foreach (var element in Game.ActiveScene.GetAllComponents<IMinimapElement>())
+            @foreach ( var element in Game.ActiveScene.GetAllComponents<IMinimapElement>() )
             {
                 @if (!element.IsValid() || (GameUtils.CurrentPawn is PlayerController player && !element.IsVisible(player)))
                     continue;
