@@ -144,11 +144,16 @@
             StateHasChanged();
     }
 
+    private PlayerController Player => GameUtils.Viewer?.Controller;
+
     private float CalculateOpacity()
     {
         var opacity = 1f;
 
         if ( !Object.LookOpacity ) return opacity;
+
+        if (!( Player.CurrentEquipment?.Tags.Has( "aiming" ) ?? false ) ) return 1f;
+
 
         var dist = MathF.Max( CenterDistance.x, CenterDistance.y );
         return opacity - ( 1 - dist * 2f );
