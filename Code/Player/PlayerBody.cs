@@ -61,6 +61,8 @@ public partial class PlayerBody : Component
 
 	public void ShowBodyParts( bool show )
 	{
+		// TODO: remove this
+		Tags.Set( "invis", !show );
 
 		IsShown = show;
 
