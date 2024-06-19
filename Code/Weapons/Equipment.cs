@@ -13,7 +13,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// <summary>
 	/// A reference to the equipment's <see cref="EquipmentResource"/>.
 	/// </summary>
-	[Property] public EquipmentResource Resource { get; set; }
+	[Property, Group( "Resources" )] public EquipmentResource Resource { get; set; }
 
 	/// <summary>
 	/// A tag binder for this equipment.
@@ -30,17 +30,17 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// <summary>
 	/// A reference to the equipment's model renderer.
 	/// </summary>
-	[Property] public SkinnedModelRenderer ModelRenderer { get; set; }
+	[Property, Group( "Components" )] public SkinnedModelRenderer ModelRenderer { get; set; }
 
 	/// <summary>
 	/// The default holdtype for this equipment.
 	/// </summary>
-	[Property] protected AnimationHelper.HoldTypes HoldType { get; set; } = AnimationHelper.HoldTypes.Rifle;
+	[Property, Group( "Animation" )] protected AnimationHelper.HoldTypes HoldType { get; set; } = AnimationHelper.HoldTypes.Rifle;
 
 	/// <summary>
 	/// The default holdtype for this equipment.
 	/// </summary>
-	[Property] public AnimationHelper.Hand Handedness { get; set; } = AnimationHelper.Hand.Right;
+	[Property, Group( "Animation" )] public AnimationHelper.Hand Handedness { get; set; } = AnimationHelper.Hand.Right;
 
 	/// <summary>
 	/// What sound should we play when taking this gun out?
@@ -54,6 +54,11 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 
 	[Property, Group( "GameObjects" )] public GameObject Muzzle { get; set; }
 	[Property, Group( "GameObjects" )] public GameObject EjectionPort { get; set; }
+
+	/// <summary>
+	/// What prefab should we spawn as the mounted version of this piece of equipment?
+	/// </summary>
+	[Property, Group( "Mount Points" )] public GameObject MountedPrefab { get; set; }
 
 	/// <summary>
 	/// Who owns this gun?

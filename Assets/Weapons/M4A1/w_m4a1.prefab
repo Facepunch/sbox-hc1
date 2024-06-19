@@ -12,12 +12,17 @@
         "__type": "Facepunch.Equipment",
         "__guid": "aa2c3636-b926-4bfd-b13d-7bcb63fd1f1e",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "Handedness": "Right",
         "HoldType": "Rifle",
         "ModelRenderer": {
           "_type": "component",
           "component_id": "d3031980-2ee6-4417-98f9-49a8a8d3d088",
           "go": "e6199e40-738f-44b2-a1a5-5916daa5725e",
           "component_type": "SkinnedModelRenderer"
+        },
+        "MountedPrefab": {
+          "_type": "gameobject",
+          "prefab": "weapons/m4a1/mount_m4a1.prefab"
         },
         "Resource": "weapons/m4a1/m4a1.equip",
         "SpeedPenalty": 40
@@ -119,6 +124,7 @@
               "_type": "gameobject",
               "prefab": "prefabs/weapon_effects/rifle_muzzleflash.prefab"
             },
+            "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
             "RequiresAllInputActions": false,
             "RequiresAmmoComponent": true,
@@ -253,7 +259,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

@@ -2,7 +2,7 @@
   "RootObject": {
     "__guid": "537a3752-47c2-491f-b7a8-84d06247b15b",
     "Flags": 0,
-    "Name": "w_cash_bag",
+    "Name": "w_drone",
     "Tags": "player",
     "Enabled": true,
     "NetworkMode": 2,
@@ -22,26 +22,14 @@
         },
         "MountedPrefab": {
           "_type": "gameobject",
-          "prefab": "weapons/special/cash_bag/mount_cash_bag.prefab"
+          "prefab": "weapons/special/drone/mount_drone.prefab"
         },
-        "Resource": "weapons/special/cash_bag/cash_bag.equip",
+        "Resource": "weapons/special/drone/drone.equip",
         "SpeedPenalty": 20
       },
       {
         "__type": "Facepunch.TagBinder",
         "__guid": "8acf7f5b-f598-4b06-bee2-07501c3e874f"
-      },
-      {
-        "__type": "Facepunch.CashBag",
-        "__guid": "10b1d5c6-275e-4baa-a6b3-b7965e6a6bcb"
-      },
-      {
-        "__type": "Facepunch.OnKillEquipmentComponent",
-        "__guid": "8e0af71b-d403-4c44-b8d1-c8c8aad9e3ad",
-        "PrefabToSpawn": {
-          "_type": "gameobject",
-          "prefab": "particles/gameplay/money/money_burst.prefab"
-        }
       }
     ],
     "Children": [
@@ -49,6 +37,8 @@
         "__guid": "fccf584a-67cf-4b26-ae4b-c0fafa897f5e",
         "Flags": 0,
         "Name": "Model",
+        "Rotation": "0,0,1,0.0000001947072",
+        "Scale": "0.5,0.5,0.5",
         "Enabled": true,
         "NetworkMode": 2,
         "NetworkInterpolation": true,
@@ -58,7 +48,7 @@
             "__guid": "1eb80683-612c-46c7-9d0c-e6713e0f027e",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
-            "Model": "models/dev/duffelbag/dufflebag_money.vmdl",
+            "Model": "entities/drone/drone.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -73,7 +63,7 @@
   "MenuIcon": null,
   "ResourceVersion": 1,
   "__references": [
-    "facepunch.dufflebag_money"
+    "rust.drone"
   ],
   "__version": 1
 }

@@ -253,8 +253,7 @@
       },
       {
         "__type": "Facepunch.PlayerPingReceiver",
-        "__guid": "c275220f-c13c-4473-b037-3a3414ed151b",
-        "_wasLost": false
+        "__guid": "c275220f-c13c-4473-b037-3a3414ed151b"
       }
     ],
     "Children": [
@@ -475,6 +474,7 @@
             "__enabled": false,
             "Locking": {},
             "Model": "models/citizen/citizen.vmdl",
+            "MotionEnabled": true,
             "Renderer": {
               "_type": "component",
               "component_id": "2192125d-a0f3-4033-8a96-7b77485d8539",
@@ -561,7 +561,7 @@
             }
           },
           {
-            "__type": "Facepunch.EquipmentHolsters",
+            "__type": "Facepunch.EquipmentMountPoints",
             "__guid": "30dc924b-2cf2-423b-85ff-17dab05e0578",
             "MountPoints": [
               {
@@ -600,7 +600,13 @@
                   }
                 ]
               }
-            ]
+            ],
+            "Player": {
+              "_type": "component",
+              "component_id": "3370799f-99ac-4881-9678-016414bdb61f",
+              "go": "a4f94dfd-8684-4032-89b1-b08190beab32",
+              "component_type": "PlayerController"
+            }
           }
         ],
         "Children": [
@@ -1338,8 +1344,8 @@
                         "__guid": "5d0f8610-1727-49e5-bf0d-fbf5aee6e965",
                         "Flags": 0,
                         "Name": "BombMountPoint",
-                        "Position": "5.911533,-12.08859,-0.6136986",
-                        "Rotation": "0.0729852,-0.6972747,0.7094356,0.0719909",
+                        "Position": "3.866488,-6.266326,3.119942",
+                        "Rotation": "0.2562202,-0.6010884,0.6559742,0.3778123",
                         "Enabled": true,
                         "NetworkMode": 2,
                         "NetworkInterpolation": true,

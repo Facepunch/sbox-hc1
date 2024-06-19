@@ -12,12 +12,17 @@
         "__type": "Facepunch.Equipment",
         "__guid": "391a8037-b9fe-4298-9f58-2715c3f5e461",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "Handedness": "Right",
         "HoldType": "Rifle",
         "ModelRenderer": {
           "_type": "component",
           "component_id": "d3fb8aed-106d-49fb-80b1-5c69ef3ab4ed",
           "go": "874a1023-562a-4869-9bf3-896166dd8250",
           "component_type": "SkinnedModelRenderer"
+        },
+        "MountedPrefab": {
+          "_type": "gameobject",
+          "prefab": "weapons/m700/mount_m700.prefab"
         },
         "Muzzle": {
           "_type": "gameobject",
@@ -118,6 +123,7 @@
               "_type": "gameobject",
               "prefab": "prefabs/weapon_effects/rifle_muzzleflash.prefab"
             },
+            "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
             "RequiresAllInputActions": false,
             "RequiresAmmoComponent": true,
@@ -202,6 +208,8 @@
               }
             ],
             "Lifetime": 1,
+            "MaxAnglesOffset": "-0.5,0.1,0.5",
+            "MaxPositionOffset": "0.5,0.2,0.75",
             "PositionOffset": "1,0.4,1.5"
           },
           {
@@ -212,7 +220,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

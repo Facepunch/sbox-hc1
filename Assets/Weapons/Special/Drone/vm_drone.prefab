@@ -1,0 +1,97 @@
+{
+  "RootObject": {
+    "__guid": "a1738cd9-71d8-4459-9255-aa68ff8e2b7a",
+    "Flags": 0,
+    "Name": "vm_drone",
+    "Tags": "player,viewmodel",
+    "Enabled": true,
+    "NetworkMode": 0,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.ViewModel",
+        "__guid": "4a31b873-dc13-4a96-845e-37f70669bc0e",
+        "IsThrowable": false,
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "29fa1c9f-4f24-4026-995d-3085b7034937",
+          "go": "184742ff-3746-4da8-9f12-e05f8b745904",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "ThrowableType": "HEGrenade"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "184742ff-3746-4da8-9f12-e05f8b745904",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "15,0,-13.17982",
+        "Rotation": "0.1895834,-0.2519828,0.03880027,0.9481865",
+        "Scale": "0.5,0.5,0.5",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "29fa1c9f-4f24-4026-995d-3085b7034937",
+            "BodyGroups": 18446744073709551615,
+            "CreateBoneObjects": true,
+            "Model": "entities/drone/drone.vmdl",
+            "RenderType": "Off",
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "3a535604-d807-450e-b7da-55539c5b3c56",
+            "Flags": 4,
+            "Name": "turbine_a",
+            "Position": "0,0,0",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "19543afa-dbe5-4cfa-8f65-edb917ac45a3",
+            "Flags": 4,
+            "Name": "turbine_b",
+            "Position": "0,0,0",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "c0cbe064-5e89-4e12-8f43-7ec55da6bb09",
+            "Flags": 4,
+            "Name": "turbine_c",
+            "Position": "0,0,0",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "623941dc-71e0-443b-9a3c-e3c50bd37cc6",
+            "Flags": 4,
+            "Name": "turbine_d",
+            "Position": "0,0,0",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "rust.drone"
+  ],
+  "__version": 1
+}

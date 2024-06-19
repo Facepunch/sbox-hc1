@@ -12,12 +12,17 @@
         "__type": "Facepunch.Equipment",
         "__guid": "e024c49f-02af-42c7-973e-4ca51b2e508e",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "Handedness": "Right",
         "HoldType": "Shotgun",
         "ModelRenderer": {
           "_type": "component",
           "component_id": "0da0ed03-c109-424d-b320-a0a41f8a9896",
           "go": "092bf9bf-6f26-4ec8-844b-c1e3d184478a",
           "component_type": "SkinnedModelRenderer"
+        },
+        "MountedPrefab": {
+          "_type": "gameobject",
+          "prefab": "weapons/spaghelli/mount_spaghelli.prefab"
         },
         "Muzzle": {
           "_type": "gameobject",
@@ -130,6 +135,7 @@
               "_type": "gameobject",
               "prefab": "prefabs/weapon_effects/shotgun_muzzleflash.prefab"
             },
+            "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
             "RequiresAllInputActions": false,
             "RequiresAmmoComponent": true,
@@ -197,6 +203,8 @@
               }
             ],
             "Lifetime": 0.3,
+            "MaxAnglesOffset": "-0.5,0.1,0.5",
+            "MaxPositionOffset": "0.5,0.2,0.75",
             "PositionOffset": "0.5,0.2,0.75"
           },
           {
@@ -223,7 +231,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

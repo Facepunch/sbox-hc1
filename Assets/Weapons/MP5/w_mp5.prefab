@@ -12,12 +12,17 @@
         "__type": "Facepunch.Equipment",
         "__guid": "d451cf3b-b0fb-4cdc-b1c7-29e20e592503",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "Handedness": "Right",
         "HoldType": "Rifle",
         "ModelRenderer": {
           "_type": "component",
           "component_id": "b9d63729-1ff0-4775-80dc-880285741edd",
           "go": "e7468f3b-e983-4db7-8322-83185a608264",
           "component_type": "SkinnedModelRenderer"
+        },
+        "MountedPrefab": {
+          "_type": "gameobject",
+          "prefab": "weapons/mp5/mount_mp5.prefab"
         },
         "Muzzle": {
           "_type": "gameobject",
@@ -124,6 +129,7 @@
               "_type": "gameobject",
               "prefab": "prefabs/weapon_effects/pistol_muzzleflash.prefab"
             },
+            "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
             "RequiresAllInputActions": false,
             "RequiresAmmoComponent": true,
@@ -233,7 +239,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
