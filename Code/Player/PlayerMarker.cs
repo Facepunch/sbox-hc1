@@ -24,8 +24,8 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	{
 		get
 		{
-			var dist = Scene.Camera.Transform.Position.Distance( Transform.Position );
-			dist *= 0.0225f;
+			var dist = Scene.Camera.Transform.Position.DistanceSquared( Transform.Position );
+			dist *= 0.00000225f;
 			return Vector3.Up * dist;
 		}
 	}
