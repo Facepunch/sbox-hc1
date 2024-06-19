@@ -185,14 +185,6 @@ public partial class PlayerController
 			Body.Transform.Rotation = Rotation.FromYaw( EyeAngles.yaw );
 		}
 
-		var wasGrounded = IsGrounded;
-		IsGrounded = cc.IsOnGround;
-
-		if ( IsGrounded != wasGrounded )
-		{
-			GroundedChanged( wasGrounded, IsGrounded );
-		}
-
 		if ( AnimationHelper.IsValid() )
 		{
 			AnimationHelper.WithVelocity( cc.Velocity );
@@ -211,7 +203,7 @@ public partial class PlayerController
 
 	private float GetMaxAcceleration()
 	{
-		if ( !IsGrounded ) return Global.AirMaxAcceleration;
+		if ( !CharacterController.IsOnGround ) return Global.AirMaxAcceleration;
 		return Global.MaxAcceleration;
 	}
 
@@ -499,7 +491,6 @@ public partial class PlayerController
 
 		var wishDirection = WishMove.Normal * rot;
 		wishDirection = wishDirection.WithZ( 0 );
-
 		WishVelocity = wishDirection * GetWishSpeed();
 	}
 
@@ -510,7 +501,7 @@ public partial class PlayerController
 	// TODO: expose to global
 	private float GetFriction()
 	{
-		if ( !IsGrounded ) return 0.1f;
+		if ( !CharacterController.IsOnGround ) return 0.1f;
 		if ( IsSlowWalking ) return Global.SlowWalkFriction;
 		if ( IsCrouching ) return Global.CrouchingFriction;
 		if ( IsSprinting ) return Global.SprintingFriction;
@@ -519,7 +510,7 @@ public partial class PlayerController
 
 	private float GetAcceleration()
 	{
-		if ( !IsGrounded ) return Global.AirAcceleration;
+		if ( !CharacterController.IsOnGround ) return Global.AirAcceleration;
 		else if ( IsSlowWalking ) return Global.SlowWalkAcceleration;
 		else if ( IsCrouching ) return Global.CrouchingAcceleration;
 		else if ( IsSprinting ) return Global.SprintingAcceleration;

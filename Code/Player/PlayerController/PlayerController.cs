@@ -117,6 +117,14 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 		var cc = CharacterController;
 		if ( !cc.IsValid() ) return;
 
+		var wasGrounded = IsGrounded;
+		IsGrounded = cc.IsOnGround;
+
+		if ( IsGrounded != wasGrounded )
+		{
+			GroundedChanged( wasGrounded, IsGrounded );
+		}
+
 		UpdateEyes();
 		UpdateZones();
 		UpdateOutline();
