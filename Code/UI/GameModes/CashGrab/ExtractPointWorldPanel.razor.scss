@@ -1,0 +1,32 @@
+@import "/UI/Styles/Theme.scss";
+
+ExtractPointWorldPanel
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	border-radius: 20px;
+
+	.background
+	{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: rgba( white, 0.1 );
+		border: 32px solid white;
+		backdrop-filter: blur( 50px );
+	}
+
+	.title
+	{
+		font-size: 125px;
+		font-family: $main-font;
+		color: white;
+		text-shadow: 5px 5px 0px rgba( black, 0.5 );
+	}
+}

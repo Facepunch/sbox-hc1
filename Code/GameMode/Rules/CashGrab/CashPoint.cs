@@ -1,4 +1,6 @@
 
+using Sandbox.Events;
+
 namespace Facepunch;
 
 [EditorHandle( "ui/Minimaps/cashgrab/cashpoint.png" )]
@@ -14,7 +16,7 @@ public partial class CashPoint : Component, ICustomMinimapIcon, IMarkerObject
 	/// <summary>
 	/// Is this cash point active?
 	/// </summary>
-	[Property, HostSync] public CashPointState State { get; set; } = CashPointState.Inactive;
+	[Property, HostSync, Change( nameof( StateChanged ) )] public CashPointState State { get; set; } = CashPointState.Inactive;
 
 	/// <summary>
 	/// The resource to spawn.
@@ -110,5 +112,12 @@ public partial class CashPoint : Component, ICustomMinimapIcon, IMarkerObject
 		{
 			Gizmo.Draw.Line( Transform.Position, extract.Transform.Position );
 		}
+	}
+
+	public record StateChangedEvent( CashPointState State ) : IGameEvent;
+
+	private void StateChanged( CashPointState before, CashPointState after )
+	{
+		GameObject.Dispatch( new StateChangedEvent( after ) );
 	}
 }

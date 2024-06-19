@@ -1,0 +1,14 @@
+@using Sandbox;
+@using Sandbox.UI;
+
+@inherits PanelComponent
+
+<root>
+	<div class="background" />
+	<div class="title">EXTRACT</div>
+</root>
+
+@code
+{
+	protected override int BuildHash() => System.HashCode.Combine( Time.Now );
+}

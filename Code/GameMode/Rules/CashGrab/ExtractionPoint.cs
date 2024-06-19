@@ -8,12 +8,21 @@ public record CashPointBagExtractedEvent( PlayerController Player, ExtractionPoi
 /// An extraction point, associated with a <see cref="CashPoint"/>
 /// </summary>
 [EditorHandle( "ui/Minimaps/cashgrab/extract.png" )]
-public partial class ExtractionPoint : Component, ICustomMinimapIcon, Component.ITriggerListener, IMarkerObject
+public partial class ExtractionPoint : Component,
+	IMarkerObject,
+	ICustomMinimapIcon, 
+	Component.ITriggerListener, 
+	IGameEventHandler<CashPoint.StateChangedEvent>
 {
 	/// <summary>
 	/// Our cash point
 	/// </summary>
-	[Property] public CashPoint CashPoint { get; set; } 
+	[Property] public CashPoint CashPoint { get; set; }
+
+	/// <summary>
+	/// the world panel
+	/// </summary>
+	[Property] public Sandbox.WorldPanel WorldPanel { get; set; }
 
 	/// <summary>
 	/// The extraction point's trigger.
@@ -94,5 +103,11 @@ public partial class ExtractionPoint : Component, ICustomMinimapIcon, Component.
 		var box = BBox.FromPositionAndSize( Vector3.Zero, 64 );
 		Gizmo.Hitbox.BBox( box );
 		Gizmo.Draw.LineBBox( box );
+	}
+
+	void IGameEventHandler<CashPoint.StateChangedEvent>.OnGameEvent( CashPoint.StateChangedEvent eventArgs )
+	{
+		if ( WorldPanel.IsValid() )
+			WorldPanel.Enabled = eventArgs.State == CashPoint.CashPointState.Open;
 	}
 }
