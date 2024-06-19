@@ -92,16 +92,26 @@
         }
     }
 
-    public bool IsActive => Input.Down( "score" );
-    //public bool IsActive => true;
+    public bool IsActive { get; set; }
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(GroupedPlayers, Status, Time, GameUtils.AllPlayers, IsActive);
+        if ( !IsActive ) return 0;
+        return HashCode.Combine( IsActive, GroupedPlayers, Status, Time, GameUtils.AllPlayers );
     }
 
     public override void Tick()
     {
-        SetClass( "visible", IsActive );
+        if ( Input.Pressed( "Score" ) )
+        {
+            IsActive = Input.Pressed( "Score" );
+            SetClass( "visible", true );
+        }
+
+        if ( Input.Released( "Score" ) )
+        {
+            SetClass( "visible", false );
+            IsActive = false;
+        }
     }
 }
