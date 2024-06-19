@@ -96,6 +96,8 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 		GameObject.Name = $"Player ({DisplayName})";
 	}
 
+	public SceneTraceResult CachedEyeTrace { get; private set; }
+
 	protected override void OnUpdate()
 	{
 		OnUpdateMovement();
@@ -118,6 +120,15 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 		UpdateEyes();
 		UpdateZones();
 		UpdateOutline();
+
+		if ( IsViewer )
+		{
+			CachedEyeTrace = Scene.Trace.Ray( AimRay, 100000f )
+				.IgnoreGameObjectHierarchy( GameObject )
+				.WithoutTags( "invis", "ragdoll", "movement" )
+				.UseHitboxes()
+				.Run();
+		}
 
 		if ( HealthComponent.State != LifeState.Alive )
 			return;

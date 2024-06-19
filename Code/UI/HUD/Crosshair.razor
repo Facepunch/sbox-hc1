@@ -165,21 +165,11 @@
 
         SetClass( "visible", visible );
 
-        if (!player.IsValid() || !visible) return;
+        if ( !player.IsValid() || !visible ) return;
 
         UpdateDistance();
 
-        var camera = player.CameraController.Camera;
-        var range = 100000f;
-        var muzzle = Equipment?.ViewModel?.ModelRenderer.GetAttachment("muzzle");
-        var origin = muzzle.HasValue ? muzzle.Value.Position : camera.Transform.Position;
-
-        var currentTrace = player.Scene.Trace.Ray( origin, camera.Transform.Rotation.Forward * range )
-            .IgnoreGameObjectHierarchy( player.GameObject )
-            .WithoutTags( "invis", "ragdoll", "movement" )
-            .UseHitboxes()
-            .Run();
-
+        var currentTrace = player.CachedEyeTrace;
         if ( currentTrace.Hit )
         {
             var targetPlayer = currentTrace.GameObject.Root.Components.Get<PlayerController>();
