@@ -1,24 +1,31 @@
 ﻿@import "/UI/Styles/Theme.scss";
 
-Donut {
+Donut
+{
     width: 160px;
+    position: relative;
 
-    &.zero {
+    &.zero
+    {
         opacity: 0.5;
 
-        .inner {
+        .inner
+        {
             opacity: 0;
         }
     }
 
-    .container {
+    .container
+    {
+        position: relative;
         background-color: rgba( black, 0.5 );
         border-radius: 50%;
         overflow: hidden;
         position: relative;
     }
 
-    .inner, .backing {
+    .inner, .backing
+    {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -26,19 +33,22 @@ Donut {
         right: 0;
     }
 
-    .inner {
+    .inner
+    {
         background-color: white;
         z-index: 1;
     }
 
-    Icon {
+    Icon
+    {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate( -50%, -50% );
     }
 
-    label {
+    label
+    {
         position: absolute;
         top: 50%;
         left: 50%;
