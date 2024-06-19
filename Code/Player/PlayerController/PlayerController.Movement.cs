@@ -116,26 +116,30 @@ public partial class PlayerController
 	private Vector3 _jumpPosition;
 	private bool _isTouchingLadder;
 	private Vector3 _ladderNormal;
-	private float _eyeHeightOffset;
+	
+	[Sync] private float _eyeHeightOffset { get; set; }
 
 	private void UpdateEyes()
 	{
-		var eyeHeightOffset = GetEyeHeightOffset();
-
-		var target = eyeHeightOffset;
-		var trace = TraceBBox( Transform.Position, Transform.Position, 0, 10f );
-		if ( trace.Hit && target > _smoothEyeHeight )
+		if ( IsLocallyControlled )
 		{
-			// We hit something, that means we can't increase our eye height because something's in the way.
-			eyeHeightOffset = _smoothEyeHeight;
-			IsCrouching = true;
-		}
-		else
-		{
-			eyeHeightOffset = target;
-		}
+			var eyeHeightOffset = GetEyeHeightOffset();
 
-		_eyeHeightOffset = eyeHeightOffset;
+			var target = eyeHeightOffset;
+			var trace = TraceBBox( Transform.Position, Transform.Position, 0, 10f );
+			if ( trace.Hit && target > _smoothEyeHeight )
+			{
+				// We hit something, that means we can't increase our eye height because something's in the way.
+				eyeHeightOffset = _smoothEyeHeight;
+				IsCrouching = true;
+			}
+			else
+			{
+				eyeHeightOffset = target;
+			}
+
+			_eyeHeightOffset = eyeHeightOffset;
+		}
 
 		if ( PlayerBoxCollider.IsValid() )
 		{
