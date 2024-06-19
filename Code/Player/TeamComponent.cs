@@ -93,14 +93,16 @@ public static class TeamExtensions
 		};
 	}
 
+	private static Dictionary<Team, Color> teamColors = new()
+	{
+		{ Team.CounterTerrorist, new Color( 5, 146, 235 ) },
+		{ Team.Terrorist, new Color( 5, 146, 235 ) },
+		{ Team.Unassigned, new Color( 255, 255, 255 ) },
+	};
+
 	public static Color GetColor( this Team team )
 	{
-		return team switch
-		{
-			Team.CounterTerrorist => Color.Parse( "#0592EB" ) ?? default,
-			Team.Terrorist => Color.Parse( "#e9be5c" ) ?? default,
-			_ => Color.Parse( "white" ) ?? default
-		};
+		return teamColors[team];
 	}
 
 	public static string GetIconPath( this Team team )
