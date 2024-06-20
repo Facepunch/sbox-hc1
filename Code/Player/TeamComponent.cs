@@ -96,7 +96,7 @@ public static class TeamExtensions
 	private static Dictionary<Team, Color> teamColors = new()
 	{
 		{ Team.CounterTerrorist, new Color32( 5, 146, 235 ) },
-		{ Team.Terrorist, new Color32( 91, 75, 36 ) },
+		{ Team.Terrorist, new Color32( 233, 190, 92 ) },
 		{ Team.Unassigned, new Color32( 255, 255, 255 ) },
 	};
 
