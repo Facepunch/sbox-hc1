@@ -1,0 +1,47 @@
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+@inherits PanelComponent
+
+<root>
+    <div @ref="Overlay" class="overlay mask-scope" />
+</root>
+
+@code
+{
+    public TimeUntil EndTime { get; set; }
+    
+    private Panel Overlay { get; set; }
+
+    float GetOpacity()
+    {
+        var f = EndTime.Fraction;
+        if ( f < 0.5f )  return 1f;
+        return 1f - ((1f / 0.5f) * (f - 0.5f));
+    }
+
+    private ScreenPanel ScreenPanel { get; set; }
+    
+    protected override void OnEnabled()
+    {
+        ScreenPanel = Components.Create<ScreenPanel>();
+        base.OnEnabled();
+    }
+
+    protected override void OnDisabled()
+    {
+        ScreenPanel?.Destroy();
+        ScreenPanel = null;
+        
+        base.OnDisabled();
+    }
+
+    protected override void OnUpdate()
+    {
+        base.OnUpdate();
+        
+        if ( Overlay.IsValid() )
+        {
+            Overlay.Style.Opacity = GetOpacity();
+        }
+    }
+}

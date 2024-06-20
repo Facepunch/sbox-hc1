@@ -23,8 +23,17 @@ public partial class FlashbangGrenade : BaseGrenade, IMarkerObject
 	/// </summary>
 	string IMarkerObject.DisplayText => "Flashbang";
 
+	/// <summary>
+	/// How long does the effect last?
+	/// </summary>
+	[Property]
+	public float EffectLifeTime { get; set; } = 4f;
+
 	protected override void Explode()
 	{
+		var effect = Scene.Camera.Components.Create<FlashbangEffect>();
+		effect.LifeTime = EffectLifeTime;
+		
 		base.Explode();
 	}
 }
