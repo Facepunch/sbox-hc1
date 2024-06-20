@@ -176,7 +176,8 @@ public partial class ViewModel : Component, IEquipment
 		HEGrenade,
 		SmokeGrenade,
 		StunGrenade,
-		Molotov
+		Molotov,
+		Flashbang
 	}
 
 	[Property] public ThrowableTypeEnum ThrowableType { get; set; }

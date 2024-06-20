@@ -1,0 +1,73 @@
+{
+  "RootObject": {
+    "__guid": "82bb2c6e-f94a-4f0e-a889-794fa75c70e7",
+    "Flags": 0,
+    "Name": "flashbang_grenade_thrown",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "75e67e75-b87e-4d70-87c3-f95a8f0b17df",
+        "AngularDamping": 0.5,
+        "Gravity": true,
+        "LinearDamping": 0.5,
+        "Locking": {},
+        "MassOverride": 0,
+        "MotionEnabled": true,
+        "RigidbodyFlags": 0,
+        "StartAsleep": false
+      },
+      {
+        "__type": "DestroyBetweenRounds",
+        "__guid": "a5ea0348-38f4-40e8-aa0e-fbaeb323bc43"
+      },
+      {
+        "__type": "Facepunch.FlashbangGrenade",
+        "__guid": "a16dd620-0a03-4ff9-a763-d9d1ca0fbe38",
+        "EffectLifeTime": 4,
+        "ExplodeSound": "sounds/weapons/grenade/flashbang_explode.sound",
+        "Lifetime": 3,
+        "SoundEffect": "sounds/flashbang.ring.sound"
+      },
+      {
+        "__type": "Sandbox.CapsuleCollider",
+        "__guid": "c7c2e0fd-40ad-4cd4-a5b0-e4421372b3aa",
+        "End": "0,0,4.5",
+        "IsTrigger": false,
+        "Radius": 1.500002,
+        "Start": "0,0,0",
+        "Static": false,
+        "Surface": "weapons/throwable/he_grenade/grenade.surface"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "9b665f7b-5c12-4ffd-8b55-8c448170a5aa",
+        "Flags": 0,
+        "Name": "Model",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "7190a58d-34ba-4b06-abb5-1cdfc768f4fc",
+            "BodyGroups": 18446744073709551615,
+            "Model": "weapons/throwable/m84_stun_grenade/v_m84_stun_grenade.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
