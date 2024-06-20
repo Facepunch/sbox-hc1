@@ -66,8 +66,11 @@ public partial class MinimapRenderer : Component, Component.ExecuteInEditor
 
 	void GetOrCreateCamera()
 	{
-        CameraGameObject?.Destroy();
-        Camera?.Destroy();
+		if ( CameraGameObject.IsValid() )
+			CameraGameObject.Destroy();
+
+		if ( Camera.IsValid() )
+		 Camera.Destroy();
 
         CameraGameObject = new GameObject();
 		CameraGameObject.Parent = GameObject;
