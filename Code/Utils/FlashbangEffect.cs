@@ -1,4 +1,5 @@
 using Facepunch.UI;
+using Sandbox.Audio;
 
 namespace Facepunch;
 
@@ -11,11 +12,16 @@ public class FlashbangEffect : Component
 	private ChromaticAberration Aberration { get; set; }
 	private Bloom Bloom { get; set; }
 	
+	private DspProcessor DspProcessor { get; set; }
+	
 	protected override void OnEnabled()
 	{
 		Bloom = Components.Create<Bloom>();
 		Overlay = Components.Create<FlashbangOverlay>();
 		Aberration = Components.Create<ChromaticAberration>();
+		
+		DspProcessor = new( "weird.4" );
+		Mixer.Master.AddProcessor( DspProcessor );
 		
 		base.OnEnabled();
 	}
@@ -25,6 +31,8 @@ public class FlashbangEffect : Component
 		Bloom?.Destroy();
 		Overlay?.Destroy();
 		Aberration?.Destroy();
+		
+		Mixer.Master.RemoveProcessor( DspProcessor );
 		
 		base.OnDisabled();
 	}
@@ -51,6 +59,7 @@ public class FlashbangEffect : Component
 		var f = TimeUntilEnd.Relative / LifeTime;
 		Aberration.Scale = f;
 		Bloom.Strength = 10f * f;
+		DspProcessor.Mix = f;
 		base.OnUpdate();
 	}
 
