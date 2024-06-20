@@ -152,8 +152,10 @@
 
         if ( !Object.LookOpacity ) return opacity;
 
-        if (!( Player.CurrentEquipment?.Tags.Has( "aiming" ) ?? false ) ) return 1f;
+        var equipment = Player.CurrentEquipment.IsValid() ? Player.CurrentEquipment : null;
+        bool isAiming = equipment?.Tags.Has("aiming") ?? false;
 
+        if ( !isAiming ) return 1f;
 
         var dist = MathF.Max( CenterDistance.x, CenterDistance.y );
         return opacity - ( 1 - dist * 2f );
