@@ -18,7 +18,7 @@
     /// The player
     public PlayerController Player => GameUtils.Viewer.Controller;
 
-    private AmmoComponent AmmoComponent => Player?.CurrentEquipment?.Components.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
+    private AmmoComponent AmmoComponent => Player?.CurrentEquipment?.Components?.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
 
     protected override int BuildHash()
     {

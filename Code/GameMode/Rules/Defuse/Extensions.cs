@@ -7,7 +7,7 @@ public static class DefuseExtensions
 	/// </summary>
 	public static bool IsPlanting( this PlayerController player, out BombPlantComponent BombPlantComponent )
 	{
-		BombPlantComponent = player.Inventory.Current?.Components.Get<BombPlantComponent>( FindMode.EnabledInSelfAndDescendants );
+		BombPlantComponent = player.Inventory.Current?.Components?.Get<BombPlantComponent>( FindMode.EnabledInSelfAndDescendants );
 		return BombPlantComponent is { Active: true, IsPlanting: true };
 	}
 
