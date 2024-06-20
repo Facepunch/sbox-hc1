@@ -39,8 +39,8 @@
 
     public Panel Hitmarker { get; set; }
 
-    PlayerController Player => GameUtils.Viewer.Controller;
-    Equipment Equipment => Player?.CurrentEquipment;
+    PlayerController Player => GameUtils.Viewer.IsValid() ? GameUtils.Viewer.Controller : null;
+    Equipment Equipment => Player.IsValid() ? Player.CurrentEquipment : null;
 
     private TimeUntil TimeUntilHitmarkerRemove = 0f;
     private float HitMarkerDuration => 0.1f;
@@ -60,9 +60,9 @@
 
     string HitmarkerClasses => !TimeUntilHitmarkerRemove ? "is-visible" : string.Empty;
 
-    private ShootWeaponComponent Shoot => Equipment?.Components.Get<ShootWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
-    private ScopeWeaponComponent Scope => Equipment?.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
-    private RecoilWeaponComponent Recoil => Equipment?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
+    private ShootWeaponComponent Shoot => Equipment.IsValid() ? Equipment.Components.Get<ShootWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) : null;
+    private ScopeWeaponComponent Scope => Equipment.IsValid() ? Equipment.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) : null;
+    private RecoilWeaponComponent Recoil => Equipment.IsValid() ? Equipment.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) : null;
 
     float BaseDistance => GameSettingsSystem.Current.CrosshairDistance;
     // 10px base size
@@ -112,7 +112,7 @@
     {
         var size = BaseElementSize;
 
-        if (GameSettingsSystem.Current.DynamicCrosshair)
+        if ( GameSettingsSystem.Current.DynamicCrosshair )
         {
             var dist = GetDistance() - (BaseDistance + SpreadDistance);
             size += dist * 0.2f;
