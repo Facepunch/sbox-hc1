@@ -1,0 +1,87 @@
+{
+  "RootObject": {
+    "__guid": "600b9253-c648-42de-9c8b-82ca182c1108",
+    "Flags": 0,
+    "Name": "w_flashbang_grenade",
+    "Tags": "player",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.Equipment",
+        "__guid": "2616c5a1-c941-46a6-9042-865a309e5e62",
+        "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "Handedness": "Right",
+        "HoldType": "HoldItem",
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "c540655e-bc89-4c1b-8e82-3d2b56f27c29",
+          "go": "fd3dcee0-7a75-446a-b2ef-4cf1b1b19105",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "Resource": "weapons/throwable/flashbang/flashbang_grenade.equip",
+        "SpeedPenalty": 0
+      },
+      {
+        "__type": "Facepunch.TagBinder",
+        "__guid": "ea1ad26a-9167-4bd9-9b0a-8c7fdc911125"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "fd3dcee0-7a75-446a-b2ef-4cf1b1b19105",
+        "Flags": 0,
+        "Name": "Model",
+        "Position": "3.535849,0,-5.571055",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "c540655e-bc89-4c1b-8e82-3d2b56f27c29",
+            "BodyGroups": 18446744073709551615,
+            "CreateBoneObjects": false,
+            "Model": "weapons/throwable/m84_stun_grenade/v_m84_stun_grenade.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ]
+      },
+      {
+        "__guid": "1c1436ec-02df-4483-842d-b976c13170d0",
+        "Flags": 0,
+        "Name": "Functions",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.ThrowWeaponComponent",
+            "__guid": "b32e9dfc-8d1e-401c-9dad-50adf301fec8",
+            "CookTime": 0.35,
+            "InputActions": [
+              "Attack1"
+            ],
+            "InputType": "Down",
+            "Prefab": {
+              "_type": "gameobject",
+              "prefab": "weapons/throwable/flashbang/flashbang_grenade_thrown.prefab"
+            },
+            "RequiresAllInputActions": false,
+            "ThrowPower": 1200
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
