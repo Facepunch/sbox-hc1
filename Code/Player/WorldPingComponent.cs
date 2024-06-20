@@ -82,6 +82,9 @@ public partial class WorldPingComponent : Component, IMarkerObject, ICustomMinim
 	{
 		set
 		{
+			if ( !value.IsValid() )
+				return;
+			
 			var receiver = value.GameObject.Root.Components.Get<IPingReceiver>();
 			if ( receiver.IsValid() )
 			{
