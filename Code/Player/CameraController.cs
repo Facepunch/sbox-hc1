@@ -180,7 +180,13 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		var baseFov = GameSettingsSystem.Current.FieldOfView;
 		FieldOfViewOffset = 0;
 
-		if ( Player.CurrentEquipment?.Tags.Has( "aiming" ) ?? false )
+		if ( !Player.IsValid() )
+			return;
+
+		if ( !Player.CurrentEquipment.IsValid() )
+			return;
+
+		if ( Player.CurrentEquipment.Tags.Has( "aiming" ) )
 		{
 			FieldOfViewOffset += AimFovOffset;
 		}
