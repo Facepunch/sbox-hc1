@@ -28,6 +28,12 @@ public partial class FlashbangGrenade : BaseGrenade, IMarkerObject
 	/// </summary>
 	[Property]
 	public float EffectLifeTime { get; set; } = 4f;
+	
+	/// <summary>
+	/// The sound effect to use while the flashbang effect is active.
+	/// </summary>
+	[Property]
+	public SoundEvent SoundEffect { get; set; }
 
 	protected override void Explode()
 	{
@@ -57,6 +63,7 @@ public partial class FlashbangGrenade : BaseGrenade, IMarkerObject
 		if ( dot < 0.35f ) return;
 		
 		var effect = Scene.Camera.Components.Create<FlashbangEffect>();
+		effect.SoundEffect = SoundEffect;
 		effect.LifeTime = EffectLifeTime;
 	}
 }

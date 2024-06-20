@@ -5,6 +5,7 @@ namespace Facepunch;
 
 public class FlashbangEffect : Component
 {
+	[Property] public SoundEvent SoundEffect { get; set; }
 	[Property] public float LifeTime { get; set; }
 	
 	private TimeUntil TimeUntilEnd { get; set; }
@@ -13,6 +14,7 @@ public class FlashbangEffect : Component
 	private Bloom Bloom { get; set; }
 	
 	private DspProcessor DspProcessor { get; set; }
+	private SoundHandle Sound { get; set; }
 	
 	protected override void OnEnabled()
 	{
@@ -31,6 +33,7 @@ public class FlashbangEffect : Component
 		Bloom?.Destroy();
 		Overlay?.Destroy();
 		Aberration?.Destroy();
+		Sound?.Stop();
 		
 		Mixer.Master.RemoveProcessor( DspProcessor );
 		
@@ -51,6 +54,9 @@ public class FlashbangEffect : Component
 
 		Overlay.EndTime = LifeTime;
 		
+		Sound = Sandbox.Sound.Play( SoundEffect );
+		Sound.Volume = 1f;
+		
 		base.OnStart();
 	}
 
@@ -60,6 +66,7 @@ public class FlashbangEffect : Component
 		Aberration.Scale = f;
 		Bloom.Strength = 10f * f;
 		DspProcessor.Mix = f;
+		Sound.Volume = f;
 		base.OnUpdate();
 	}
 
