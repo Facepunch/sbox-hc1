@@ -34,10 +34,19 @@ public partial class FlashbangGrenade : BaseGrenade, IMarkerObject
 	/// </summary>
 	[Property]
 	public SoundEvent SoundEffect { get; set; }
+	
+	/// <summary>
+	/// The sound effect to use when the flashbang explodes.
+	/// </summary>
+	[Property]
+	public SoundEvent ExplodeSound { get; set; }
 
 	protected override void Explode()
 	{
 		base.Explode();
+
+		if ( ExplodeSound is not null )
+			Sound.Play( ExplodeSound, Transform.Position );
 		
 		var viewer = GameUtils.Viewer?.Controller;
 		if ( !viewer.IsValid() ) return;
@@ -63,6 +72,7 @@ public partial class FlashbangGrenade : BaseGrenade, IMarkerObject
 		if ( dot < 0.35f ) return;
 		
 		var effect = Scene.Camera.Components.Create<FlashbangEffect>();
+		Log.Info( SoundEffect );
 		effect.SoundEffect = SoundEffect;
 		effect.LifeTime = EffectLifeTime;
 	}

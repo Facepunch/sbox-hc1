@@ -21,8 +21,8 @@ public class FlashbangEffect : Component
 		Bloom = Components.Create<Bloom>();
 		Overlay = Components.Create<FlashbangOverlay>();
 		Aberration = Components.Create<ChromaticAberration>();
-		
 		DspProcessor = new( "weird.4" );
+		
 		Mixer.Master.AddProcessor( DspProcessor );
 		
 		base.OnEnabled();
@@ -53,9 +53,12 @@ public class FlashbangEffect : Component
 		Aberration.Offset = new( 6f, 10f, 3f );
 
 		Overlay.EndTime = LifeTime;
-		
-		Sound = Sandbox.Sound.Play( SoundEffect );
-		Sound.Volume = 1f;
+
+		if ( SoundEffect is not null )
+		{
+			Sound = Sandbox.Sound.Play( SoundEffect );
+			Sound.Volume = 1f;
+		}
 		
 		base.OnStart();
 	}
@@ -66,7 +69,10 @@ public class FlashbangEffect : Component
 		Aberration.Scale = f;
 		Bloom.Strength = 10f * f;
 		DspProcessor.Mix = f;
-		Sound.Volume = f;
+		
+		if ( Sound.IsValid() )
+			Sound.Volume = f;
+		
 		base.OnUpdate();
 	}
 
