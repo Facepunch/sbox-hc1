@@ -976,891 +976,6 @@
       ]
     },
     {
-      "__guid": "cd9deb14-c81e-4520-aabc-22622faa9fc2",
-      "Flags": 0,
-      "Name": "Cash Grab",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Facepunch.GameModeObject",
-          "__guid": "b6e6dbc4-4920-4f83-ad64-6725e3348621",
-          "GameModes": [
-            "Cash Grab"
-          ],
-          "Inverse": false
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "0b792f69-62a5-4934-94bd-da8cd462e233",
-          "Flags": 0,
-          "Name": "Cash Grab (Mid)",
-          "Position": "-2912,-352,32.00001",
-          "Enabled": true,
-          "NetworkMode": 1,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.CashPoint",
-              "__guid": "fb604ccb-882f-425f-b624-11d156aab759",
-              "Extracts": [
-                {
-                  "_type": "component",
-                  "component_id": "be061db7-597a-4b0f-8882-a5917f2a467a",
-                  "go": "830e4310-f94f-4f3c-951f-c2705d13a66f",
-                  "component_type": "ExtractionPoint"
-                },
-                {
-                  "_type": "component",
-                  "component_id": "f6d0f88e-5ba4-4694-a385-2bb107260963",
-                  "go": "af7572e1-ad7f-4363-b170-a3c4f3ee62f5",
-                  "component_type": "ExtractionPoint"
-                }
-              ],
-              "Resource": "weapons/special/cash_bag/cash_bag.equip",
-              "State": "Inactive"
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "af7572e1-ad7f-4363-b170-a3c4f3ee62f5",
-              "Flags": 0,
-              "Name": "Extract B",
-              "Position": "774.3953,868.583,97.18412",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Facepunch.ExtractionPoint",
-                  "__guid": "f6d0f88e-5ba4-4694-a385-2bb107260963",
-                  "CashPoint": {
-                    "_type": "component",
-                    "component_id": "fb604ccb-882f-425f-b624-11d156aab759",
-                    "go": "0b792f69-62a5-4934-94bd-da8cd462e233",
-                    "component_type": "CashPoint"
-                  },
-                  "Trigger": {
-                    "_type": "component",
-                    "component_id": "96a82683-8218-49f0-b22f-8b6ee99c2ec5",
-                    "go": "af7572e1-ad7f-4363-b170-a3c4f3ee62f5",
-                    "component_type": "BoxCollider"
-                  },
-                  "WorldPanel": {
-                    "_type": "component",
-                    "component_id": "df34d41c-9b94-47c2-9743-7849dc95a936",
-                    "go": "b1c386d0-ebad-4349-87eb-e189a1530c22",
-                    "component_type": "WorldPanel"
-                  }
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "96a82683-8218-49f0-b22f-8b6ee99c2ec5",
-                  "Center": "0,0,0",
-                  "IsTrigger": true,
-                  "Scale": "50,50,50",
-                  "Static": false
-                }
-              ],
-              "Children": [
-                {
-                  "__guid": "b1c386d0-ebad-4349-87eb-e189a1530c22",
-                  "Flags": 0,
-                  "Name": "Object",
-                  "Position": "0,0,-31.83338",
-                  "Rotation": "0,-0.7071068,0,0.7071068",
-                  "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
-                  "Components": [
-                    {
-                      "__type": "Sandbox.WorldPanel",
-                      "__guid": "df34d41c-9b94-47c2-9743-7849dc95a936",
-                      "__enabled": false,
-                      "HorizontalAlign": "Center",
-                      "InteractionRange": 1000,
-                      "LookAtCamera": false,
-                      "PanelSize": "1500,1500",
-                      "RenderScale": 1,
-                      "VerticalAlign": "Center"
-                    },
-                    {
-                      "__type": "ExtractPointWorldPanel",
-                      "__guid": "f7a34640-fc03-4270-903c-d95daa9e424f"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "__guid": "830e4310-f94f-4f3c-951f-c2705d13a66f",
-              "Flags": 0,
-              "Name": "Extract A",
-              "Position": "-966.3828,283.0077,86.13509",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Facepunch.ExtractionPoint",
-                  "__guid": "be061db7-597a-4b0f-8882-a5917f2a467a",
-                  "CashPoint": {
-                    "_type": "component",
-                    "component_id": "fb604ccb-882f-425f-b624-11d156aab759",
-                    "go": "0b792f69-62a5-4934-94bd-da8cd462e233",
-                    "component_type": "CashPoint"
-                  },
-                  "Trigger": {
-                    "_type": "component",
-                    "component_id": "480371bd-4bf2-46ca-8d0c-020893a3b964",
-                    "go": "830e4310-f94f-4f3c-951f-c2705d13a66f",
-                    "component_type": "BoxCollider"
-                  },
-                  "WorldPanel": {
-                    "_type": "component",
-                    "component_id": "f2b96d96-499c-44a8-b8ad-b99db51400ca",
-                    "go": "25b5a491-de8e-492f-bf21-ce0008c1087d",
-                    "component_type": "WorldPanel"
-                  }
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "480371bd-4bf2-46ca-8d0c-020893a3b964",
-                  "Center": "0,0,0",
-                  "IsTrigger": true,
-                  "Scale": "50,50,50",
-                  "Static": false
-                }
-              ],
-              "Children": [
-                {
-                  "__guid": "25b5a491-de8e-492f-bf21-ce0008c1087d",
-                  "Flags": 0,
-                  "Name": "Object",
-                  "Position": "0,0,-22",
-                  "Rotation": "0,-0.7071068,0,0.7071068",
-                  "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
-                  "Components": [
-                    {
-                      "__type": "Sandbox.WorldPanel",
-                      "__guid": "f2b96d96-499c-44a8-b8ad-b99db51400ca",
-                      "__enabled": false,
-                      "HorizontalAlign": "Center",
-                      "InteractionRange": 1000,
-                      "LookAtCamera": false,
-                      "PanelSize": "1500,1500",
-                      "RenderScale": 1,
-                      "VerticalAlign": "Center"
-                    },
-                    {
-                      "__type": "ExtractPointWorldPanel",
-                      "__guid": "46fe2c75-b2a1-495a-9d63-d6a7898be0db"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "bcff5ae4-4462-4f4b-9bf3-b9c2745dca80",
-          "Flags": 0,
-          "Name": "Cash Grab (B Site)",
-          "Position": "-4095.364,-1027.752,171.5182",
-          "Enabled": true,
-          "NetworkMode": 1,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.CashPoint",
-              "__guid": "63c286b3-eae9-46a6-afbf-527850bc6383",
-              "Extracts": [
-                {
-                  "_type": "component",
-                  "component_id": "9a731cf4-f1e0-4f3d-8fbf-538fe242876e",
-                  "go": "5878ccc3-dd36-452b-ba13-d1a61b1b8c58",
-                  "component_type": "ExtractionPoint"
-                },
-                {
-                  "_type": "component",
-                  "component_id": "f8f3b7b5-2723-4e24-af02-98eb404e5d57",
-                  "go": "c9afc470-85cd-4492-a0f3-c57adc049b81",
-                  "component_type": "ExtractionPoint"
-                }
-              ],
-              "Resource": "weapons/special/cash_bag/cash_bag.equip",
-              "State": "Inactive"
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "c9afc470-85cd-4492-a0f3-c57adc049b81",
-              "Flags": 0,
-              "Name": "Extract B",
-              "Position": "1165.739,835.752,-139.5182",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Facepunch.ExtractionPoint",
-                  "__guid": "f8f3b7b5-2723-4e24-af02-98eb404e5d57",
-                  "CashPoint": {
-                    "_type": "component",
-                    "component_id": "63c286b3-eae9-46a6-afbf-527850bc6383",
-                    "go": "bcff5ae4-4462-4f4b-9bf3-b9c2745dca80",
-                    "component_type": "CashPoint"
-                  },
-                  "Trigger": {
-                    "_type": "component",
-                    "component_id": "a4345a89-aaae-41b3-8638-181b5f077da6",
-                    "go": "c9afc470-85cd-4492-a0f3-c57adc049b81",
-                    "component_type": "BoxCollider"
-                  },
-                  "WorldPanel": {
-                    "_type": "component",
-                    "component_id": "8c36755d-95c3-438b-b62a-e912c22046bb",
-                    "go": "bbdb0f4a-2718-4352-899d-a065cc9bce7e",
-                    "component_type": "WorldPanel"
-                  }
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "a4345a89-aaae-41b3-8638-181b5f077da6",
-                  "Center": "0,0,0",
-                  "IsTrigger": true,
-                  "Scale": "50,50,50",
-                  "Static": false
-                }
-              ],
-              "Children": [
-                {
-                  "__guid": "bbdb0f4a-2718-4352-899d-a065cc9bce7e",
-                  "Flags": 0,
-                  "Name": "Object",
-                  "Position": "788.2051,708.5829,65.35075",
-                  "Rotation": "0,-0.7071068,0,0.7071068",
-                  "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
-                  "Components": [
-                    {
-                      "__type": "Sandbox.WorldPanel",
-                      "__guid": "8c36755d-95c3-438b-b62a-e912c22046bb",
-                      "__enabled": false,
-                      "HorizontalAlign": "Center",
-                      "InteractionRange": 1000,
-                      "LookAtCamera": false,
-                      "PanelSize": "1500,1500",
-                      "RenderScale": 1,
-                      "VerticalAlign": "Center"
-                    },
-                    {
-                      "__type": "ExtractPointWorldPanel",
-                      "__guid": "a51517a4-431c-428b-bfb9-3ad6d9bfff93"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "__guid": "5878ccc3-dd36-452b-ba13-d1a61b1b8c58",
-              "Flags": 0,
-              "Name": "Extract A",
-              "Position": "-224.6355,1091.752,-50.49623",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Facepunch.ExtractionPoint",
-                  "__guid": "9a731cf4-f1e0-4f3d-8fbf-538fe242876e",
-                  "CashPoint": {
-                    "_type": "component",
-                    "component_id": "63c286b3-eae9-46a6-afbf-527850bc6383",
-                    "go": "bcff5ae4-4462-4f4b-9bf3-b9c2745dca80",
-                    "component_type": "CashPoint"
-                  },
-                  "Trigger": {
-                    "_type": "component",
-                    "component_id": "257547fb-055f-4966-b05f-644d6e220072",
-                    "go": "5878ccc3-dd36-452b-ba13-d1a61b1b8c58",
-                    "component_type": "BoxCollider"
-                  },
-                  "WorldPanel": {
-                    "_type": "component",
-                    "component_id": "d9b6deb0-7e09-4b19-81a0-9eab155c00e7",
-                    "go": "8f3e824a-9e6e-45c2-b325-a7db0bdedd42",
-                    "component_type": "WorldPanel"
-                  }
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "257547fb-055f-4966-b05f-644d6e220072",
-                  "Center": "0,0,0",
-                  "IsTrigger": true,
-                  "Scale": "50,50,50",
-                  "Static": false
-                }
-              ],
-              "Children": [
-                {
-                  "__guid": "8f3e824a-9e6e-45c2-b325-a7db0bdedd42",
-                  "Flags": 0,
-                  "Name": "Object",
-                  "Position": "0,0,-22",
-                  "Rotation": "0,-0.7071068,0,0.7071068",
-                  "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
-                  "Components": [
-                    {
-                      "__type": "Sandbox.WorldPanel",
-                      "__guid": "d9b6deb0-7e09-4b19-81a0-9eab155c00e7",
-                      "__enabled": false,
-                      "HorizontalAlign": "Center",
-                      "InteractionRange": 1000,
-                      "LookAtCamera": false,
-                      "PanelSize": "1500,1500",
-                      "RenderScale": 1,
-                      "VerticalAlign": "Center"
-                    },
-                    {
-                      "__type": "ExtractPointWorldPanel",
-                      "__guid": "76707a6b-c9f3-4620-a7f6-66b10eead30a"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "1aa2ec80-edeb-4267-90b7-23b0348bd6e1",
-          "Flags": 0,
-          "Name": "Cash Grab Tunnel",
-          "Position": "-4345.043,974.514,224.2645",
-          "Enabled": true,
-          "NetworkMode": 1,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.CashPoint",
-              "__guid": "a7446cdc-6c62-4257-b6ae-f1441cc75425",
-              "Extracts": [
-                {
-                  "_type": "component",
-                  "component_id": "fc5e08cb-3370-46ea-8ebd-a348c48a227a",
-                  "go": "2ad67cf8-7329-4244-a6d7-5c695e27e573",
-                  "component_type": "ExtractionPoint"
-                },
-                {
-                  "_type": "component",
-                  "component_id": "a35af2a5-61b1-4ced-b15b-85342436f06f",
-                  "go": "c8ca288c-0198-456d-b922-67a8492a6019",
-                  "component_type": "ExtractionPoint"
-                }
-              ],
-              "Resource": "weapons/special/cash_bag/cash_bag.equip",
-              "State": "Inactive"
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "c8ca288c-0198-456d-b922-67a8492a6019",
-              "Flags": 0,
-              "Name": "Extract B",
-              "Position": "1550.597,-678.4066,-195.7599",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Facepunch.ExtractionPoint",
-                  "__guid": "a35af2a5-61b1-4ced-b15b-85342436f06f",
-                  "CashPoint": {
-                    "_type": "component",
-                    "component_id": "a7446cdc-6c62-4257-b6ae-f1441cc75425",
-                    "go": "1aa2ec80-edeb-4267-90b7-23b0348bd6e1",
-                    "component_type": "CashPoint"
-                  },
-                  "Trigger": {
-                    "_type": "component",
-                    "component_id": "7ea8b89b-e782-4dd1-9142-e4db75dbd3ae",
-                    "go": "c8ca288c-0198-456d-b922-67a8492a6019",
-                    "component_type": "BoxCollider"
-                  },
-                  "WorldPanel": {
-                    "_type": "component",
-                    "component_id": "78d70090-763c-4ef8-ae93-0368214b88b2",
-                    "go": "7b3b5c99-d04f-46ec-9b3b-8100b21b841a",
-                    "component_type": "WorldPanel"
-                  }
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "7ea8b89b-e782-4dd1-9142-e4db75dbd3ae",
-                  "Center": "0,0,0",
-                  "IsTrigger": true,
-                  "Scale": "50,50,50",
-                  "Static": false
-                }
-              ],
-              "Children": [
-                {
-                  "__guid": "7b3b5c99-d04f-46ec-9b3b-8100b21b841a",
-                  "Flags": 0,
-                  "Name": "Object",
-                  "Position": "0,0,-28.14114",
-                  "Rotation": "0,-0.7071068,0,0.7071068",
-                  "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
-                  "Components": [
-                    {
-                      "__type": "Sandbox.WorldPanel",
-                      "__guid": "78d70090-763c-4ef8-ae93-0368214b88b2",
-                      "__enabled": false,
-                      "HorizontalAlign": "Center",
-                      "InteractionRange": 1000,
-                      "LookAtCamera": false,
-                      "PanelSize": "1500,1500",
-                      "RenderScale": 1,
-                      "VerticalAlign": "Center"
-                    },
-                    {
-                      "__type": "ExtractPointWorldPanel",
-                      "__guid": "b1b1c1f9-81a0-4967-b7b0-ce8491fb2b3a"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "__guid": "2ad67cf8-7329-4244-a6d7-5c695e27e573",
-              "Flags": 0,
-              "Name": "Extract A",
-              "Position": "900.7998,-2175.691,-74.00253",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Facepunch.ExtractionPoint",
-                  "__guid": "fc5e08cb-3370-46ea-8ebd-a348c48a227a",
-                  "CashPoint": {
-                    "_type": "component",
-                    "component_id": "a7446cdc-6c62-4257-b6ae-f1441cc75425",
-                    "go": "1aa2ec80-edeb-4267-90b7-23b0348bd6e1",
-                    "component_type": "CashPoint"
-                  },
-                  "Trigger": {
-                    "_type": "component",
-                    "component_id": "1742fb91-7c90-4294-a36a-96420d9561a9",
-                    "go": "2ad67cf8-7329-4244-a6d7-5c695e27e573",
-                    "component_type": "BoxCollider"
-                  },
-                  "WorldPanel": {
-                    "_type": "component",
-                    "component_id": "8b056adf-5a2f-4d6d-b593-190702120bad",
-                    "go": "f36f6ae1-92a7-49d3-b59d-246399ffdbe7",
-                    "component_type": "WorldPanel"
-                  }
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "1742fb91-7c90-4294-a36a-96420d9561a9",
-                  "Center": "0,0,0",
-                  "IsTrigger": true,
-                  "Scale": "50,50,50",
-                  "Static": false
-                }
-              ],
-              "Children": [
-                {
-                  "__guid": "f36f6ae1-92a7-49d3-b59d-246399ffdbe7",
-                  "Flags": 0,
-                  "Name": "Object",
-                  "Position": "0,0,-22",
-                  "Rotation": "0,-0.7071068,0,0.7071068",
-                  "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
-                  "Components": [
-                    {
-                      "__type": "Sandbox.WorldPanel",
-                      "__guid": "8b056adf-5a2f-4d6d-b593-190702120bad",
-                      "__enabled": false,
-                      "HorizontalAlign": "Center",
-                      "InteractionRange": 1000,
-                      "LookAtCamera": false,
-                      "PanelSize": "1500,1500",
-                      "RenderScale": 1,
-                      "VerticalAlign": "Center"
-                    },
-                    {
-                      "__type": "ExtractPointWorldPanel",
-                      "__guid": "bc4c6e52-7ef6-4804-9c75-eb63004310c0"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "969cf00f-727f-416e-a67c-35e34e4b5b10",
-          "Flags": 0,
-          "Name": "Cash Grab Warehouse",
-          "Position": "-114.0254,-416,96",
-          "Enabled": true,
-          "NetworkMode": 1,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.CashPoint",
-              "__guid": "5e864bea-46af-4bfa-b3b7-92204a8846b7",
-              "Extracts": [
-                {
-                  "_type": "component",
-                  "component_id": "2d850e2c-f53c-4e8b-b52b-4fd59180a569",
-                  "go": "b2e3e8b6-b2ee-41e8-88c9-8ffd8045c5b2",
-                  "component_type": "ExtractionPoint"
-                },
-                {
-                  "_type": "component",
-                  "component_id": "b95cf7f2-7e4c-462e-ab8c-49beb2fc3089",
-                  "go": "ab7b4b5d-f9c6-4912-b867-f7e8bbab64d3",
-                  "component_type": "ExtractionPoint"
-                }
-              ],
-              "Resource": "weapons/special/cash_bag/cash_bag.equip",
-              "State": "Inactive"
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "ab7b4b5d-f9c6-4912-b867-f7e8bbab64d3",
-              "Flags": 0,
-              "Name": "Extract B",
-              "Position": "-2091.925,-1226.986,56.06175",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Facepunch.ExtractionPoint",
-                  "__guid": "b95cf7f2-7e4c-462e-ab8c-49beb2fc3089",
-                  "CashPoint": {
-                    "_type": "component",
-                    "component_id": "5e864bea-46af-4bfa-b3b7-92204a8846b7",
-                    "go": "969cf00f-727f-416e-a67c-35e34e4b5b10",
-                    "component_type": "CashPoint"
-                  },
-                  "Trigger": {
-                    "_type": "component",
-                    "component_id": "f6248216-20b4-4871-86df-cdb793cafb9e",
-                    "go": "ab7b4b5d-f9c6-4912-b867-f7e8bbab64d3",
-                    "component_type": "BoxCollider"
-                  },
-                  "WorldPanel": {
-                    "_type": "component",
-                    "component_id": "bbf6c5e6-a692-4155-a63c-efb5fd315bb1",
-                    "go": "257c1ebb-5832-4d48-b207-45596ecfdff5",
-                    "component_type": "WorldPanel"
-                  }
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "f6248216-20b4-4871-86df-cdb793cafb9e",
-                  "Center": "0,0,0",
-                  "IsTrigger": true,
-                  "Scale": "50,50,50",
-                  "Static": false
-                }
-              ],
-              "Children": [
-                {
-                  "__guid": "257c1ebb-5832-4d48-b207-45596ecfdff5",
-                  "Flags": 0,
-                  "Name": "Object",
-                  "Position": "0,0,-23.42236",
-                  "Rotation": "0,-0.7071068,0,0.7071068",
-                  "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
-                  "Components": [
-                    {
-                      "__type": "Sandbox.WorldPanel",
-                      "__guid": "bbf6c5e6-a692-4155-a63c-efb5fd315bb1",
-                      "__enabled": false,
-                      "HorizontalAlign": "Center",
-                      "InteractionRange": 1000,
-                      "LookAtCamera": false,
-                      "PanelSize": "1500,1500",
-                      "RenderScale": 1,
-                      "VerticalAlign": "Center"
-                    },
-                    {
-                      "__type": "ExtractPointWorldPanel",
-                      "__guid": "095f9570-c412-47e7-be52-d3536b1b526e"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "__guid": "b2e3e8b6-b2ee-41e8-88c9-8ffd8045c5b2",
-              "Flags": 0,
-              "Name": "Extract A",
-              "Position": "-1564.224,861.9171,-57.6253",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Facepunch.ExtractionPoint",
-                  "__guid": "2d850e2c-f53c-4e8b-b52b-4fd59180a569",
-                  "CashPoint": {
-                    "_type": "component",
-                    "component_id": "5e864bea-46af-4bfa-b3b7-92204a8846b7",
-                    "go": "969cf00f-727f-416e-a67c-35e34e4b5b10",
-                    "component_type": "CashPoint"
-                  },
-                  "Trigger": {
-                    "_type": "component",
-                    "component_id": "d9b1dc47-f0c0-439d-bc3a-bf45e5a998d0",
-                    "go": "b2e3e8b6-b2ee-41e8-88c9-8ffd8045c5b2",
-                    "component_type": "BoxCollider"
-                  },
-                  "WorldPanel": {
-                    "_type": "component",
-                    "component_id": "49dc2988-44d5-4c29-8252-339f294318c3",
-                    "go": "0cb7cf27-8dc2-45d9-82a8-304994dc8466",
-                    "component_type": "WorldPanel"
-                  }
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "d9b1dc47-f0c0-439d-bc3a-bf45e5a998d0",
-                  "Center": "0,0,0",
-                  "IsTrigger": true,
-                  "Scale": "50,50,50",
-                  "Static": false
-                }
-              ],
-              "Children": [
-                {
-                  "__guid": "0cb7cf27-8dc2-45d9-82a8-304994dc8466",
-                  "Flags": 0,
-                  "Name": "Object",
-                  "Position": "-463.1705,70.66589,58.97606",
-                  "Rotation": "0,-0.7071068,0,0.7071068",
-                  "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
-                  "Components": [
-                    {
-                      "__type": "Sandbox.WorldPanel",
-                      "__guid": "49dc2988-44d5-4c29-8252-339f294318c3",
-                      "__enabled": false,
-                      "HorizontalAlign": "Center",
-                      "InteractionRange": 1000,
-                      "LookAtCamera": false,
-                      "PanelSize": "1500,1500",
-                      "RenderScale": 1,
-                      "VerticalAlign": "Center"
-                    },
-                    {
-                      "__type": "ExtractPointWorldPanel",
-                      "__guid": "c21f697f-c732-4bf0-a514-d24d65d65890"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "cff5fa76-3e99-4b8b-aec9-e63c27f3fea3",
-          "Flags": 0,
-          "Name": "Cash Grab (A Site)",
-          "Position": "-930.4813,63.02079,96.14548",
-          "Enabled": true,
-          "NetworkMode": 1,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Facepunch.CashPoint",
-              "__guid": "8f3e29d6-a8dc-485f-a03a-5cf8c0c79874",
-              "Extracts": [
-                {
-                  "_type": "component",
-                  "component_id": "cdb20139-d129-4968-8646-caaf044fd56f",
-                  "go": "f712054a-f14f-4d05-831a-a3a15a21aba6",
-                  "component_type": "ExtractionPoint"
-                },
-                {
-                  "_type": "component",
-                  "component_id": "5b261a9c-6a76-4bd4-b039-dd04cd171043",
-                  "go": "14c61c1f-71af-4168-bd30-3cd8556f43c1",
-                  "component_type": "ExtractionPoint"
-                }
-              ],
-              "Resource": "weapons/special/cash_bag/cash_bag.equip",
-              "State": "Inactive"
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "14c61c1f-71af-4168-bd30-3cd8556f43c1",
-              "Flags": 0,
-              "Name": "Extract B",
-              "Position": "-1819.045,923.1754,-71.92922",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Facepunch.ExtractionPoint",
-                  "__guid": "5b261a9c-6a76-4bd4-b039-dd04cd171043",
-                  "CashPoint": {
-                    "_type": "component",
-                    "component_id": "8f3e29d6-a8dc-485f-a03a-5cf8c0c79874",
-                    "go": "cff5fa76-3e99-4b8b-aec9-e63c27f3fea3",
-                    "component_type": "CashPoint"
-                  },
-                  "Trigger": {
-                    "_type": "component",
-                    "component_id": "a036919a-617e-45c4-bc29-afbaed14c0d5",
-                    "go": "14c61c1f-71af-4168-bd30-3cd8556f43c1",
-                    "component_type": "BoxCollider"
-                  },
-                  "WorldPanel": {
-                    "_type": "component",
-                    "component_id": "deae9478-682e-40c0-9946-8447a045e277",
-                    "go": "be39552e-266b-4c10-9156-78884dc662f1",
-                    "component_type": "WorldPanel"
-                  }
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "a036919a-617e-45c4-bc29-afbaed14c0d5",
-                  "Center": "0,0,0",
-                  "IsTrigger": true,
-                  "Scale": "50,50,50",
-                  "Static": false
-                }
-              ],
-              "Children": [
-                {
-                  "__guid": "be39552e-266b-4c10-9156-78884dc662f1",
-                  "Flags": 0,
-                  "Name": "Object",
-                  "Position": "0,0,-23.42236",
-                  "Rotation": "0,-0.7071068,0,0.7071068",
-                  "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
-                  "Components": [
-                    {
-                      "__type": "Sandbox.WorldPanel",
-                      "__guid": "deae9478-682e-40c0-9946-8447a045e277",
-                      "__enabled": false,
-                      "HorizontalAlign": "Center",
-                      "InteractionRange": 1000,
-                      "LookAtCamera": false,
-                      "PanelSize": "1500,1500",
-                      "RenderScale": 1,
-                      "VerticalAlign": "Center"
-                    },
-                    {
-                      "__type": "ExtractPointWorldPanel",
-                      "__guid": "2eb3e624-3d65-4e99-a4ed-fbc9de27b246"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "__guid": "f712054a-f14f-4d05-831a-a3a15a21aba6",
-              "Flags": 0,
-              "Name": "Extract A",
-              "Position": "-1100.877,-980.2808,63.85452",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Facepunch.ExtractionPoint",
-                  "__guid": "cdb20139-d129-4968-8646-caaf044fd56f",
-                  "CashPoint": {
-                    "_type": "component",
-                    "component_id": "8f3e29d6-a8dc-485f-a03a-5cf8c0c79874",
-                    "go": "cff5fa76-3e99-4b8b-aec9-e63c27f3fea3",
-                    "component_type": "CashPoint"
-                  },
-                  "Trigger": {
-                    "_type": "component",
-                    "component_id": "5adb2194-c14d-4a62-994e-85840e5d5894",
-                    "go": "f712054a-f14f-4d05-831a-a3a15a21aba6",
-                    "component_type": "BoxCollider"
-                  },
-                  "WorldPanel": {
-                    "_type": "component",
-                    "component_id": "e5e1eebd-bbd5-42b4-bbf6-c84edd16b437",
-                    "go": "bf62580e-e4bb-42e5-9c1b-eaa2305fba1f",
-                    "component_type": "WorldPanel"
-                  }
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "5adb2194-c14d-4a62-994e-85840e5d5894",
-                  "Center": "0,0,0",
-                  "IsTrigger": true,
-                  "Scale": "50,50,50",
-                  "Static": false
-                }
-              ],
-              "Children": [
-                {
-                  "__guid": "bf62580e-e4bb-42e5-9c1b-eaa2305fba1f",
-                  "Flags": 0,
-                  "Name": "Object",
-                  "Position": "-0.0001220703,0,-31.6409",
-                  "Rotation": "0,-0.7071068,0,0.7071068",
-                  "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
-                  "Components": [
-                    {
-                      "__type": "Sandbox.WorldPanel",
-                      "__guid": "e5e1eebd-bbd5-42b4-bbf6-c84edd16b437",
-                      "__enabled": false,
-                      "HorizontalAlign": "Center",
-                      "InteractionRange": 1000,
-                      "LookAtCamera": false,
-                      "PanelSize": "1500,1500",
-                      "RenderScale": 1,
-                      "VerticalAlign": "Center"
-                    },
-                    {
-                      "__type": "ExtractPointWorldPanel",
-                      "__guid": "c8c7a42c-0ab7-4163-b240-72547b3de144"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "__guid": "0fd0c735-4c5b-40e7-9850-97b85e8800c4",
       "Flags": 0,
       "Name": "Team Spawns",
@@ -2138,6 +1253,317 @@
               "__type": "TeamSpawnPoint",
               "__guid": "17b975c4-ddb8-4ae5-9c00-fc29686531d7",
               "Team": "Terrorist"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "6bfee72c-4128-4181-95c6-52a4da67f1a6",
+      "Flags": 0,
+      "Name": "Cash Grab",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Facepunch.GameModeObject",
+          "__guid": "c67ff892-703b-470d-a4bd-a492dc10c1b7",
+          "GameModes": [
+            "Cash Grab"
+          ],
+          "Inverse": false
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "12ae48c4-c586-42df-b2c5-bac584b0410b",
+          "Flags": 0,
+          "Name": "Cash Grab (B)",
+          "Position": "-4096,-1024,160",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.CashPoint",
+              "__guid": "59fd68b4-32b3-4a92-9d75-4615fc59280b",
+              "Extracts": [
+                {
+                  "_type": "component",
+                  "component_id": "9df17fdd-de80-4c17-803c-3b3af086d5d5",
+                  "go": "dd48aa21-5df6-4726-a8ae-b9e6fc9ec0dc",
+                  "component_type": "ExtractionPoint"
+                }
+              ],
+              "Resource": "weapons/special/cash_bag/cash_bag.equip",
+              "State": "Inactive"
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "dd48aa21-5df6-4726-a8ae-b9e6fc9ec0dc",
+              "Flags": 0,
+              "Name": "Extract B",
+              "Position": "2368,1472,-128",
+              "Enabled": true,
+              "NetworkMode": 1,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "9df17fdd-de80-4c17-803c-3b3af086d5d5",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "59fd68b4-32b3-4a92-9d75-4615fc59280b",
+                    "go": "12ae48c4-c586-42df-b2c5-bac584b0410b",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "5a6f3318-0d8d-4968-83da-4510b13f6a2e",
+                    "go": "dd48aa21-5df6-4726-a8ae-b9e6fc9ec0dc",
+                    "component_type": "BoxCollider"
+                  },
+                  "WorldPanel": {
+                    "_type": "component",
+                    "component_id": "89aa1ffe-2d7b-4995-bd00-7bb1c8239538",
+                    "go": "6974724c-b762-4699-9441-f6c0460b1410",
+                    "component_type": "WorldPanel"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "5a6f3318-0d8d-4968-83da-4510b13f6a2e",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ],
+              "Children": [
+                {
+                  "__guid": "6974724c-b762-4699-9441-f6c0460b1410",
+                  "Flags": 0,
+                  "Name": "Object",
+                  "Position": "0,0,-31.83338",
+                  "Rotation": "0,-0.7071068,0,0.7071068",
+                  "Enabled": true,
+                  "NetworkMode": 2,
+                  "NetworkInterpolation": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.WorldPanel",
+                      "__guid": "89aa1ffe-2d7b-4995-bd00-7bb1c8239538",
+                      "__enabled": false,
+                      "HorizontalAlign": "Center",
+                      "InteractionRange": 1000,
+                      "LookAtCamera": false,
+                      "PanelSize": "1500,1500",
+                      "RenderScale": 1,
+                      "VerticalAlign": "Center"
+                    },
+                    {
+                      "__type": "ExtractPointWorldPanel",
+                      "__guid": "590d5411-eec9-4a5b-9640-a0df7bdbbf48"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "__guid": "65dae805-5241-40a3-8b6c-a4e27e7b6629",
+          "Flags": 0,
+          "Name": "Cash Grab (A)",
+          "Position": "-928,53.66579,96",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.CashPoint",
+              "__guid": "329edb8c-d8f5-4ec2-8324-82a1e1d646df",
+              "Extracts": [
+                {
+                  "_type": "component",
+                  "component_id": "c63fd40f-5a60-42f0-900b-245a919b7343",
+                  "go": "ec9b8af2-74d8-42a2-aab0-c291049b0d75",
+                  "component_type": "ExtractionPoint"
+                }
+              ],
+              "Resource": "weapons/special/cash_bag/cash_bag.equip",
+              "State": "Inactive"
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "ec9b8af2-74d8-42a2-aab0-c291049b0d75",
+              "Flags": 0,
+              "Name": "Extract B",
+              "Position": "-3136,-629.6658,160",
+              "Enabled": true,
+              "NetworkMode": 1,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "c63fd40f-5a60-42f0-900b-245a919b7343",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "329edb8c-d8f5-4ec2-8324-82a1e1d646df",
+                    "go": "65dae805-5241-40a3-8b6c-a4e27e7b6629",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "b08b08eb-0bd2-49b2-b6bd-4fa47af71e46",
+                    "go": "ec9b8af2-74d8-42a2-aab0-c291049b0d75",
+                    "component_type": "BoxCollider"
+                  },
+                  "WorldPanel": {
+                    "_type": "component",
+                    "component_id": "5bc7ffda-f12a-4483-b309-4546b9589e14",
+                    "go": "8c4aea6f-d61e-46d3-9695-7e7acd2e26d1",
+                    "component_type": "WorldPanel"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "b08b08eb-0bd2-49b2-b6bd-4fa47af71e46",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ],
+              "Children": [
+                {
+                  "__guid": "8c4aea6f-d61e-46d3-9695-7e7acd2e26d1",
+                  "Flags": 0,
+                  "Name": "Object",
+                  "Position": "0,0,-31.83338",
+                  "Rotation": "0,-0.7071068,0,0.7071068",
+                  "Enabled": true,
+                  "NetworkMode": 2,
+                  "NetworkInterpolation": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.WorldPanel",
+                      "__guid": "5bc7ffda-f12a-4483-b309-4546b9589e14",
+                      "__enabled": false,
+                      "HorizontalAlign": "Center",
+                      "InteractionRange": 1000,
+                      "LookAtCamera": false,
+                      "PanelSize": "1500,1500",
+                      "RenderScale": 1,
+                      "VerticalAlign": "Center"
+                    },
+                    {
+                      "__type": "ExtractPointWorldPanel",
+                      "__guid": "7308c97c-7cf9-4e2d-a6a3-18646257dc91"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "__guid": "1cf139fc-fba6-4557-835b-95dcf04a8253",
+          "Flags": 0,
+          "Name": "Cash Grab (Mid)",
+          "Position": "-2912,-352,32.00001",
+          "Enabled": true,
+          "NetworkMode": 1,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Facepunch.CashPoint",
+              "__guid": "e7e9af7a-3226-4cc9-8c62-4e84c88f5a35",
+              "Extracts": [
+                {
+                  "_type": "component",
+                  "component_id": "c2f699aa-f8a8-4ea8-b378-ea98df341457",
+                  "go": "9eccb198-649c-4cb9-bb5b-97be22b5f7cc",
+                  "component_type": "ExtractionPoint"
+                }
+              ],
+              "Resource": "weapons/special/cash_bag/cash_bag.equip",
+              "State": "Inactive"
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "9eccb198-649c-4cb9-bb5b-97be22b5f7cc",
+              "Flags": 0,
+              "Name": "Extract B",
+              "Position": "1952,-64,31.99999",
+              "Enabled": true,
+              "NetworkMode": 1,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "Facepunch.ExtractionPoint",
+                  "__guid": "c2f699aa-f8a8-4ea8-b378-ea98df341457",
+                  "CashPoint": {
+                    "_type": "component",
+                    "component_id": "e7e9af7a-3226-4cc9-8c62-4e84c88f5a35",
+                    "go": "1cf139fc-fba6-4557-835b-95dcf04a8253",
+                    "component_type": "CashPoint"
+                  },
+                  "Trigger": {
+                    "_type": "component",
+                    "component_id": "bc498a59-5d9a-404c-8610-81c1caaf986a",
+                    "go": "9eccb198-649c-4cb9-bb5b-97be22b5f7cc",
+                    "component_type": "BoxCollider"
+                  },
+                  "WorldPanel": {
+                    "_type": "component",
+                    "component_id": "7e88c25e-9e04-4085-8b31-81e5bcfd4cf1",
+                    "go": "60b68ed7-52b4-4b9b-bdfc-4956c4c50236",
+                    "component_type": "WorldPanel"
+                  }
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "bc498a59-5d9a-404c-8610-81c1caaf986a",
+                  "Center": "0,0,0",
+                  "IsTrigger": true,
+                  "Scale": "50,50,50",
+                  "Static": false
+                }
+              ],
+              "Children": [
+                {
+                  "__guid": "60b68ed7-52b4-4b9b-bdfc-4956c4c50236",
+                  "Flags": 0,
+                  "Name": "Object",
+                  "Position": "0,0,-31.83338",
+                  "Rotation": "0,-0.7071068,0,0.7071068",
+                  "Enabled": true,
+                  "NetworkMode": 2,
+                  "NetworkInterpolation": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.WorldPanel",
+                      "__guid": "7e88c25e-9e04-4085-8b31-81e5bcfd4cf1",
+                      "__enabled": false,
+                      "HorizontalAlign": "Center",
+                      "InteractionRange": 1000,
+                      "LookAtCamera": false,
+                      "PanelSize": "1500,1500",
+                      "RenderScale": 1,
+                      "VerticalAlign": "Center"
+                    },
+                    {
+                      "__type": "ExtractPointWorldPanel",
+                      "__guid": "a98571b1-309c-4994-a57c-72de1c79c07e"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
@@ -5590,7 +5016,7 @@
   },
   "Title": "de_garry",
   "Description": "",
-  "LastSaved": "2024-06-20T11:12:10.7299091\u002B01:00",
+  "LastSaved": "2024-06-20T13:53:10.4245664\u002B01:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
