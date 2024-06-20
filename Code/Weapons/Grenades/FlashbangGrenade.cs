@@ -31,9 +31,32 @@ public partial class FlashbangGrenade : BaseGrenade, IMarkerObject
 
 	protected override void Explode()
 	{
+		base.Explode();
+		
+		var viewer = GameUtils.Viewer?.Controller;
+		if ( !viewer.IsValid() ) return;
+
+		var distance = viewer.Transform.Position.Distance( Transform.Position );
+		if ( distance > 750f ) return;
+
+		var trace = Scene.Trace
+			.WithoutTags( "trigger", "invis", "ragdoll" )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.UseHitboxes()
+			.Ray( Transform.Position + new Vector3( 0f, 0f, 8f ), viewer.Head.Transform.Position )
+			.Run();
+
+		if ( !trace.GameObject.IsValid() )
+			return;
+		
+		if ( trace.GameObject.Root != viewer.GameObject.Root )
+			return;
+
+		var direction = (Transform.Position - Scene.Camera.Transform.Position).Normal;
+		var dot = direction.Dot( Scene.Camera.Transform.Rotation.Forward );
+		if ( dot < 0.35f ) return;
+		
 		var effect = Scene.Camera.Components.Create<FlashbangEffect>();
 		effect.LifeTime = EffectLifeTime;
-		
-		base.Explode();
 	}
 }
