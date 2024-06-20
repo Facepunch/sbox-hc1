@@ -48,7 +48,7 @@ public partial class HealthComponent : Component, IRespawnable
 	/// What's our life state?
 	/// </summary>
 	[Group( "Life State" ), HostSync, Change( nameof( OnStatePropertyChanged ) )]
-	public LifeState State { get; set; } = LifeState.Dead;
+	public LifeState State { get; set; }
 
 	/// <summary>
 	/// Called when <see cref="Health"/> is changed across the network.
