@@ -77,7 +77,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// <summary>
 	/// The Guid of the owner's <see cref="PlayerController"/>
 	/// </summary>
-	[Sync] public Guid OwnerId { get; set; }
+	[HostSync] public Guid OwnerId { get; set; }
 
 	/// <summary>
 	/// Is this equipment currently deployed by the player?
