@@ -23,14 +23,17 @@
     {
         IsActive = false;
 
-        if (Player?.IsPlanting(out var plantable) ?? false)
+        if ( !Player.IsValid() )
+            return;
+
+        if ( Player.IsPlanting( out var plantable ) )
         {
             IsActive = true;
             Status = "Planting the bomb...";
             Progress = plantable.Progress;
         }
 
-        if (Player?.IsDefusing(out var planted) ?? false)
+        if ( Player.IsDefusing( out var planted ) )
         {
             IsActive = true;
             Status = "Defusing the bomb...";
