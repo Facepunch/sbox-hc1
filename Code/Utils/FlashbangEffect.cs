@@ -8,12 +8,15 @@ public class FlashbangEffect : Component
 	
 	private TimeUntil TimeUntilEnd { get; set; }
 	private FlashbangOverlay Overlay { get; set; }
+	private ChromaticAberration Aberration { get; set; }
 	private Bloom Bloom { get; set; }
 	
 	protected override void OnEnabled()
 	{
 		Bloom = Components.Create<Bloom>();
 		Overlay = Components.Create<FlashbangOverlay>();
+		Aberration = Components.Create<ChromaticAberration>();
+		
 		base.OnEnabled();
 	}
 
@@ -21,6 +24,7 @@ public class FlashbangEffect : Component
 	{
 		Bloom?.Destroy();
 		Overlay?.Destroy();
+		Aberration?.Destroy();
 		
 		base.OnDisabled();
 	}
@@ -34,6 +38,9 @@ public class FlashbangEffect : Component
 		Bloom.ThresholdWidth = 0f;
 		Bloom.Strength = 10f;
 
+		Aberration.Scale = 1f;
+		Aberration.Offset = new( 6f, 10f, 3f );
+
 		Overlay.EndTime = LifeTime;
 		
 		base.OnStart();
@@ -42,6 +49,7 @@ public class FlashbangEffect : Component
 	protected override void OnUpdate()
 	{
 		var f = TimeUntilEnd.Relative / LifeTime;
+		Aberration.Scale = f;
 		Bloom.Strength = 10f * f;
 		base.OnUpdate();
 	}
