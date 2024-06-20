@@ -72,7 +72,6 @@ public partial class FlashbangGrenade : BaseGrenade, IMarkerObject
 		if ( dot < 0.35f ) return;
 		
 		var effect = Scene.Camera.Components.Create<FlashbangEffect>();
-		Log.Info( SoundEffect );
 		effect.SoundEffect = SoundEffect;
 		effect.LifeTime = EffectLifeTime;
 	}

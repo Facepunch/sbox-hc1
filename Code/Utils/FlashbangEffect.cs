@@ -15,13 +15,14 @@ public class FlashbangEffect : Component
 	
 	private DspProcessor DspProcessor { get; set; }
 	private SoundHandle Sound { get; set; }
+	private IDisposable RenderHook { get; set; }
 	
 	protected override void OnEnabled()
 	{
-		Bloom = Components.Create<Bloom>();
-		Overlay = Components.Create<FlashbangOverlay>();
-		Aberration = Components.Create<ChromaticAberration>();
-		DspProcessor = new( "weird.4" );
+		Bloom ??= Components.Create<Bloom>();
+		Overlay ??= Components.Create<FlashbangOverlay>();
+		Aberration ??= Components.Create<ChromaticAberration>();
+		DspProcessor ??= new( "weird.4" );
 		
 		Mixer.Master.AddProcessor( DspProcessor );
 		
@@ -30,14 +31,22 @@ public class FlashbangEffect : Component
 
 	protected override void OnDisabled()
 	{
+		if ( Sound.IsValid() )
+			Sound.Volume = 0f;
+		
+		Mixer.Master.RemoveProcessor( DspProcessor );
+		
+		base.OnDisabled();
+	}
+
+	protected override void OnDestroy()
+	{
 		Bloom?.Destroy();
 		Overlay?.Destroy();
 		Aberration?.Destroy();
 		Sound?.Stop();
 		
-		Mixer.Master.RemoveProcessor( DspProcessor );
-		
-		base.OnDisabled();
+		base.OnDestroy();
 	}
 
 	protected override void OnStart()
