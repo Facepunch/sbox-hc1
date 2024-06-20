@@ -18,21 +18,11 @@
         if ( f < 0.5f )  return 1f;
         return 1f - ((1f / 0.5f) * (f - 0.5f));
     }
-
-    private ScreenPanel ScreenPanel { get; set; }
     
     protected override void OnEnabled()
     {
-        ScreenPanel = Components.Create<ScreenPanel>();
+        Components.GetOrCreate<ScreenPanel>();
         base.OnEnabled();
-    }
-
-    protected override void OnDisabled()
-    {
-        ScreenPanel?.Destroy();
-        ScreenPanel = null;
-        
-        base.OnDisabled();
     }
 
     protected override void OnUpdate()
