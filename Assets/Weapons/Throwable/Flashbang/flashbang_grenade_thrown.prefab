@@ -20,15 +20,6 @@
         "StartAsleep": false
       },
       {
-        "__type": "Sandbox.SphereCollider",
-        "__guid": "3a712977-f806-4524-af04-ac20036f0b60",
-        "Center": "0,0,1.5",
-        "IsTrigger": false,
-        "Radius": 2,
-        "Static": false,
-        "Surface": "weapons/throwable/he_grenade/grenade.surface"
-      },
-      {
         "__type": "DestroyBetweenRounds",
         "__guid": "a5ea0348-38f4-40e8-aa0e-fbaeb323bc43"
       },
@@ -39,6 +30,16 @@
         "ExplodeSound": "sounds/weapons/grenade/flashbang_explode.sound",
         "Lifetime": 3,
         "SoundEffect": "sounds/flashbang.ring.sound"
+      },
+      {
+        "__type": "Sandbox.CapsuleCollider",
+        "__guid": "c7c2e0fd-40ad-4cd4-a5b0-e4421372b3aa",
+        "End": "0,0,4.5",
+        "IsTrigger": false,
+        "Radius": 1.500002,
+        "Start": "0,0,0",
+        "Static": false,
+        "Surface": "weapons/throwable/he_grenade/grenade.surface"
       }
     ],
     "Children": [
