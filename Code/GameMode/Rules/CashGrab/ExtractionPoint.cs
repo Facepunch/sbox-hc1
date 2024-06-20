@@ -51,6 +51,9 @@ public partial class ExtractionPoint : Component,
 
 	void ITriggerListener.OnTriggerEnter( Collider other )
 	{
+		// Conna: only the host should do this stuff.
+		if ( !Networking.IsHost ) return;
+		
 		var tracker = GameMode.Instance.Get<CashPointTracker>();
 
 		if ( CashPoint.State == CashPoint.CashPointState.Open )
