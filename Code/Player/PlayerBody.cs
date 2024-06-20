@@ -5,24 +5,22 @@ public partial class PlayerBody : Component
 	[Property] public SkinnedModelRenderer Renderer { get; set; }
 	[Property] public ModelPhysics Physics { get; set; }
 
-	public bool IsRagdoll => _isRagdoll;
+	public bool IsRagdoll => Physics.Enabled;
 
 	public Vector3 DamageTakenPosition { get; set; }
 	public Vector3 DamageTakenForce { get; set; }
 
-	private bool IsShown = true;
+	private bool IsShown;
 
 	public PlayerController Player { get; set; }
 
-	protected override void OnAwake()
+	protected override void OnStart()
 	{
 		Player = Components.Get<PlayerController>( FindMode.EverythingInSelfAndAncestors );
 	}
 
-	bool _isRagdoll = false;
 	internal void SetRagdoll( bool ragdoll )
 	{
-		_isRagdoll = ragdoll;
 		Physics.Enabled = ragdoll;
 		Renderer.UseAnimGraph = !ragdoll;
 
@@ -34,8 +32,7 @@ public partial class PlayerBody : Component
 			GameObject.Transform.LocalRotation = Rotation.Identity;
 		}
 
-		if ( ragdoll )
-			ShowBodyParts( true );
+		ShowBodyParts( ragdoll );
 
 		if ( ragdoll && DamageTakenForce.LengthSquared > 0f )
 			ApplyRagdollImpulses( DamageTakenPosition, DamageTakenForce );

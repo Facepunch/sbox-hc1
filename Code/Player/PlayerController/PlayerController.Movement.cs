@@ -183,6 +183,10 @@ public partial class PlayerController
 
 			CameraController.UpdateFromEyes( _smoothEyeHeight );
 		}
+		else
+		{
+			CameraController.SetActive( false );
+		}
 
 		if ( Body.IsValid() )
 		{
