@@ -1,0 +1,72 @@
+{
+  "RootObject": {
+    "__guid": "a4339880-82d8-419e-a4d1-3425ad0bc050",
+    "Flags": 0,
+    "Name": "12g_casing",
+    "Tags": "magazine",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.TimedDestroyComponent",
+        "__guid": "18aee328-4ecf-42dd-8039-ef7591b215a4",
+        "Time": 15,
+        "TimeUntilDestroy": {
+          "Relative": -1232.5984,
+          "Passed": 1232.5984,
+          "Fraction": 1
+        }
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "f435e28b-7886-42f9-aa4a-84b8f881aed4",
+        "Flags": 0,
+        "Name": "12g_casing",
+        "Rotation": "-0.000000000000002512148,-0.000000000000002512148,-0.7071068,0.7071067",
+        "Tags": "particles",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.LegacyParticleSystem",
+            "__guid": "80a6856e-cb98-42b1-a583-034b53986d57",
+            "ControlPoints": [
+              {
+                "StringCP": "",
+                "GameObjectValue": {
+                  "_type": "gameobject",
+                  "go": "a4339880-82d8-419e-a4d1-3425ad0bc050"
+                }
+              }
+            ],
+            "Looped": false,
+            "Particles": "models/weapons/sbox_ammo/12g_shell/12g_eject.vpcf",
+            "PlaybackSpeed": 1
+          }
+        ]
+      },
+      {
+        "__guid": "cde326c9-9930-4a20-8a56-0e86e31e1530",
+        "Flags": 0,
+        "Name": "ejectionport_gas",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "__Prefab": "prefabs/weapon_effects/ejectionport_gas.prefab",
+        "__PrefabVariables": {}
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.12g_eject"
+  ],
+  "__version": 1
+}

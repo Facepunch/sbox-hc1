@@ -12,6 +12,10 @@
         "__type": "Facepunch.Equipment",
         "__guid": "e024c49f-02af-42c7-973e-4ca51b2e508e",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "EjectionPort": {
+          "_type": "gameobject",
+          "go": "8010d538-161c-486a-9781-1e812c0cc52d"
+        },
         "Handedness": "Right",
         "HoldType": "Shotgun",
         "ModelRenderer": {
@@ -65,6 +69,15 @@
             "Flags": 0,
             "Name": "Muzzle",
             "Position": "0,0,0",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "8010d538-161c-486a-9781-1e812c0cc52d",
+            "Flags": 0,
+            "Name": "EjectionPort",
+            "Position": "-0.2993437,-1.001872,6.242918",
             "Enabled": true,
             "NetworkMode": 2,
             "NetworkInterpolation": true
@@ -122,6 +135,10 @@
             "BulletSpread": 0.13,
             "DryFireDelay": 1,
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
+            "EjectionPrefab": {
+              "_type": "gameobject",
+              "prefab": "prefabs/weapon_effects/12g_casing.prefab"
+            },
             "FireRate": 175,
             "InAirSpreadMultiplier": 2,
             "InputActions": [
