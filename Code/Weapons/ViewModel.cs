@@ -145,6 +145,7 @@ public partial class ViewModel : Component, IEquipment
 
 		lerpedWishMove = lerpedWishMove.LerpTo( wishMove, Time.Delta * 7.0f );
 		ModelRenderer?.Set( "move_groundspeed", moveLen );
+		ModelRenderer?.Set( "move_bob", moveLen );
 
 		YawInertia += lerpedWishMove.y * 10f;
 
