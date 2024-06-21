@@ -46,19 +46,6 @@ public partial class ViewModel : Component, IEquipment
 
 	IEnumerable<IViewModelOffset> Offsets => Equipment.Components.GetAll<IViewModelOffset>( FindMode.EverythingInSelfAndDescendants );
 
-	/// <summary>
-	/// Does this viewmodel have any offests for aiming?
-	/// </summary>
-	bool HasAimOffset => Offsets.Count() > 0;
-
-	/// <summary>
-	/// The ironsights parameter, which could be different based on if we have any aim offsets.
-	/// </summary>
-	int Ironsights
-	{
-		get => HasAimOffset ? 1 : 2;
-	}
-
 	protected override void OnStart()
 	{
 		if ( IsThrowable )
@@ -162,7 +149,7 @@ public partial class ViewModel : Component, IEquipment
 		ModelRenderer.Set( "b_grounded", Owner.IsGrounded );
 
 		// Ironsights
-		ModelRenderer.Set( "ironsights", Equipment.Tags.Has( "aiming" ) ? Ironsights : 0 );
+		ModelRenderer.Set( "ironsights", Equipment.Tags.Has( "aiming" ) ? 1 : 0 );
 		ModelRenderer.Set( "ironsights_fire_scale", Equipment.Tags.Has( "aiming" ) ? 0.3f : 0f );
 
 		// Handedness
