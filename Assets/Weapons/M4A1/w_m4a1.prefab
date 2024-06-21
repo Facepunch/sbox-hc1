@@ -12,6 +12,10 @@
         "__type": "Facepunch.Equipment",
         "__guid": "aa2c3636-b926-4bfd-b13d-7bcb63fd1f1e",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "EjectionPort": {
+          "_type": "gameobject",
+          "go": "a1749d19-0334-479c-a43d-57577da6d589"
+        },
         "Handedness": "Right",
         "HoldType": "Rifle",
         "ModelRenderer": {
@@ -23,6 +27,10 @@
         "MountedPrefab": {
           "_type": "gameobject",
           "prefab": "weapons/m4a1/mount_m4a1.prefab"
+        },
+        "Muzzle": {
+          "_type": "gameobject",
+          "go": "ca4abf38-a77c-44ab-9b32-4b08ff9f1979"
         },
         "Resource": "weapons/m4a1/m4a1.equip",
         "SpeedPenalty": 40
@@ -60,6 +68,15 @@
             "Flags": 0,
             "Name": "Muzzle",
             "Position": "20.07571,0,7.212921",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "a1749d19-0334-479c-a43d-57577da6d589",
+            "Flags": 0,
+            "Name": "EjectionPort",
+            "Position": "1.774985,-0.4210945,7.672482",
             "Enabled": true,
             "NetworkMode": 2,
             "NetworkInterpolation": true
@@ -111,6 +128,10 @@
             "BulletSpread": 0,
             "DryFireDelay": 1,
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
+            "EjectionPrefab": {
+              "_type": "gameobject",
+              "prefab": "prefabs/weapon_effects/556_casing.prefab"
+            },
             "FireRate": 680,
             "InAirSpreadMultiplier": 2,
             "InputActions": [
@@ -168,8 +189,8 @@
             "RecoilPattern": {
               "Points": [
                 "0.02358484,4.872881",
-                "-0.02358484,4.639831",
-                "-0.02358484,4.34322",
+                "-0.02358532,4.639831",
+                "-0.02358532,4.34322",
                 "-0.09433937,4.004237",
                 "-0.5188675,3.855932",
                 "-1.674528,3.834746",
@@ -183,7 +204,7 @@
                 "1.650943,2.944915",
                 "2.476415,2.79661",
                 "2.783019,2.584746",
-                "2.665094,2.330508",
+                "2.665093,2.330508",
                 "1.674528,2.13983",
                 "0.7547164,2.055085",
                 "-0.3537731,1.991525",
@@ -192,11 +213,11 @@
                 "-2.830189,1.652542",
                 "-2.806604,1.504237",
                 "-1.674528,1.207627",
-                "-0.5424528,1.186441",
+                "-0.5424533,1.186441",
                 "2.16981,1.165254",
                 "2.759433,1.080508",
                 "3.042453,1.016949",
-                "2.971698,0.8898305",
+                "2.971697,0.8898305",
                 "2.004716,0.6991526",
                 "0.8962269,0.6355932",
                 "-0.09433937,0.6355932",
