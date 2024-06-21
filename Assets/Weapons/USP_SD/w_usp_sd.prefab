@@ -12,6 +12,10 @@
         "__type": "Facepunch.Equipment",
         "__guid": "806f0060-495c-44b8-b31a-277735480ce1",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "EjectionPort": {
+          "_type": "gameobject",
+          "go": "9e84113f-9ee7-400b-843f-b7d0ddb669aa"
+        },
         "Handedness": "Right",
         "HoldType": "Pistol",
         "ModelRenderer": {
@@ -52,7 +56,7 @@
             "__guid": "34acc078-c753-43dc-aab5-9f3488660a7c",
             "BodyGroups": 10565,
             "CreateBoneObjects": false,
-            "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
+            "Model": "models/dev/error.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -64,6 +68,15 @@
             "Flags": 0,
             "Name": "Muzzle",
             "Position": "10.63904,0,4.958122",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "9e84113f-9ee7-400b-843f-b7d0ddb669aa",
+            "Flags": 0,
+            "Name": "EjectionPort",
+            "Position": "0.2749491,0,4.958122",
             "Enabled": true,
             "NetworkMode": 2,
             "NetworkInterpolation": true
@@ -115,6 +128,10 @@
             "BulletSpread": 0,
             "DryFireDelay": 1,
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
+            "EjectionPrefab": {
+              "_type": "gameobject",
+              "prefab": "prefabs/weapon_effects/9mm_casing.prefab"
+            },
             "FireRate": 600,
             "InAirSpreadMultiplier": 2,
             "InputActions": [
@@ -214,8 +231,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__references": [
-    "facepunch.w_usp"
-  ],
+  "__references": [],
   "__version": 1
 }

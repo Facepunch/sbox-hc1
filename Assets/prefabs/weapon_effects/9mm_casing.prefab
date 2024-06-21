@@ -1,0 +1,74 @@
+{
+  "RootObject": {
+    "__guid": "a4339880-82d8-419e-a4d1-3425ad0bc050",
+    "Flags": 0,
+    "Name": "9mm_casing",
+    "Rotation": "0,-0,-0.6087614,0.7933533",
+    "Tags": "magazine",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.TimedDestroyComponent",
+        "__guid": "18aee328-4ecf-42dd-8039-ef7591b215a4",
+        "Time": 15,
+        "TimeUntilDestroy": {
+          "Absolute": 2705.884,
+          "Relative": -883.0447,
+          "Passed": 883.0447,
+          "Fraction": 1
+        }
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "f435e28b-7886-42f9-aa4a-84b8f881aed4",
+        "Flags": 0,
+        "Name": "9mm_ejectbrass",
+        "Rotation": "0,0,-0.6087614,0.7933534",
+        "Tags": "particles",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.LegacyParticleSystem",
+            "__guid": "80a6856e-cb98-42b1-a583-034b53986d57",
+            "ControlPoints": [
+              {
+                "StringCP": "",
+                "GameObjectValue": {
+                  "_type": "gameobject",
+                  "go": "a4339880-82d8-419e-a4d1-3425ad0bc050"
+                }
+              }
+            ],
+            "Looped": false,
+            "Particles": "models/weapons/sbox_ammo/9mm_bullet/9mm_ejectbrass.vpcf",
+            "PlaybackSpeed": 1
+          }
+        ]
+      },
+      {
+        "__guid": "cde326c9-9930-4a20-8a56-0e86e31e1530",
+        "Flags": 0,
+        "Name": "ejectionport_gas",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "__Prefab": "prefabs/weapon_effects/ejectionport_gas.prefab",
+        "__PrefabVariables": {}
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.9mm_ejectbrass"
+  ],
+  "__version": 1
+}
