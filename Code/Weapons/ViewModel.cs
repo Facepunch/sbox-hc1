@@ -163,7 +163,7 @@ public partial class ViewModel : Component, IEquipment
 
 		// Ironsights
 		ModelRenderer.Set( "ironsights", Equipment.Tags.Has( "aiming" ) ? Ironsights : 0 );
-		ModelRenderer.Set( "ironsights_fire_scale", Equipment.Tags.Has( "aiming" ) ? 0.2f : 0f );
+		ModelRenderer.Set( "ironsights_fire_scale", Equipment.Tags.Has( "aiming" ) ? 0.3f : 0f );
 
 		// Handedness
 		ModelRenderer.Set( "b_twohanded", true );
