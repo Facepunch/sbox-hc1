@@ -128,10 +128,10 @@ public partial class ViewModel : Component, IEquipment
 		var wishMove = Owner.WishMove.Normal * 1f;
 		if ( Equipment?.Tags.Has( "aiming" ) ?? false ) wishMove = 0;
 
-		if ( Owner.IsSlowWalking || Owner.IsCrouching ) moveLen *= 0.2f;
+		if ( Owner.IsSlowWalking || Owner.IsCrouching ) moveLen *= 0.5f;
 
 		lerpedWishMove = lerpedWishMove.LerpTo( wishMove, Time.Delta * 7.0f );
-		ModelRenderer?.Set( "move_bob", moveLen );
+		ModelRenderer?.Set( "move_bob", moveLen.Remap( 0, 300, 0, 1, true ) );
 
 		YawInertia += lerpedWishMove.y * 10f;
 
