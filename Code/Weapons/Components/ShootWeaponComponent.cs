@@ -26,6 +26,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 
 	[Property, Group( "Effects" )] public GameObject MuzzleFlashPrefab { get; set; }
+	[Property, Group( "Effects" )] public GameObject EjectionPrefab { get; set; }
+
 
 	/// <summary>
 	/// What sound should we play when we fire?
@@ -125,6 +127,21 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 				} );
 			}
 		}
+
+		// Eject casing using GameObject / prefab
+		if ( EjectionPrefab.IsValid() )
+		{
+			if ( Effector.EjectionPort.IsValid() )
+			{
+				EjectionPrefab.Clone( new CloneConfig()
+				{
+					Parent = Effector.EjectionPort,
+					Transform = new(),
+					StartEnabled = true
+				} );
+			}
+		}
+
 
 		if ( ShootSound is not null )
 		{
@@ -240,6 +257,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 			foreach ( var tr in GetShootTrace() )
 			{
 				if ( !tr.Hit )
+					continue;
+
+				if ( tr.Distance == 0 )
 					continue;
 
 				if ( count > 0 )

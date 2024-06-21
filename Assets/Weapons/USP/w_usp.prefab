@@ -12,6 +12,10 @@
         "__type": "Facepunch.Equipment",
         "__guid": "fe1fe626-a1a6-40ab-b2f5-1ce554531845",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "EjectionPort": {
+          "_type": "gameobject",
+          "go": "0e090fee-9fb1-4b07-bba6-047370e3c2e4"
+        },
         "Handedness": "Right",
         "HoldType": "Pistol",
         "ModelRenderer": {
@@ -52,7 +56,7 @@
             "__guid": "5abbb3cb-4005-418f-970c-50342f9b3759",
             "BodyGroups": 9493,
             "CreateBoneObjects": false,
-            "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
+            "Model": "models/dev/error.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -64,6 +68,16 @@
             "Flags": 0,
             "Name": "Muzzle",
             "Position": "4.320035,0,4.755252",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
+          },
+          {
+            "__guid": "0e090fee-9fb1-4b07-bba6-047370e3c2e4",
+            "Flags": 0,
+            "Name": "EjectionPort",
+            "Position": "0.2360865,0,4.951741",
+            "Tags": "particles",
             "Enabled": true,
             "NetworkMode": 2,
             "NetworkInterpolation": true
@@ -115,6 +129,10 @@
             "BulletSpread": 0,
             "DryFireDelay": 1,
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
+            "EjectionPrefab": {
+              "_type": "gameobject",
+              "prefab": "prefabs/weapon_effects/9mm_casing.prefab"
+            },
             "FireRate": 600,
             "InAirSpreadMultiplier": 2,
             "InputActions": [
@@ -176,17 +194,6 @@
             "VerticalSpread": "2.00,0.00,0"
           },
           {
-            "__type": "Facepunch.ManualOffset",
-            "__guid": "925612b5-fcd1-40ac-b2fa-313c0d407118",
-            "AimAngleOffset": "0,0,-1",
-            "AimOffset": "1,4.8,1.2",
-            "InputActions": [
-              "Attack2"
-            ],
-            "InputType": "Down",
-            "RequiresAllInputActions": false
-          },
-          {
             "__type": "Facepunch.ViewPunch",
             "__guid": "c7fe5140-2864-4dc7-908c-34e52c63014f",
             "AnglesOffset": "-0.5,0.1,0.5",
@@ -204,6 +211,17 @@
             "MaxAnglesOffset": "-0.5,0.1,0.5",
             "MaxPositionOffset": "0.5,0.2,1.5",
             "PositionOffset": "0.5,0.2,1.5"
+          },
+          {
+            "__type": "Facepunch.ManualOffset",
+            "__guid": "a4ab8706-e8d7-4e87-87a1-bb39ede630c6",
+            "AimAngleOffset": "0,0,0",
+            "AimOffset": "5,0,0",
+            "InputActions": [
+              "Attack2"
+            ],
+            "InputType": "Down",
+            "RequiresAllInputActions": false
           }
         ]
       }
@@ -214,8 +232,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__references": [
-    "facepunch.w_usp"
-  ],
+  "__references": [],
   "__version": 1
 }

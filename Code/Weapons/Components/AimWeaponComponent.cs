@@ -14,7 +14,7 @@ public partial class AimWeaponComponent : InputWeaponComponent
 	{
 		// Self checks first
 		if ( Tags.Has( "no_aiming" ) ) return false;
-		if ( Tags.Has( "reloading" ) ) return false;
+		// if ( Tags.Has( "reloading" ) ) return false;
 
 		// Player controller
 		if ( !Player?.IsGrounded ?? false ) return false;
