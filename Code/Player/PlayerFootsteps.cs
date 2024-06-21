@@ -7,10 +7,9 @@ public sealed class PlayerFootsteps : Component
 {
 	[Property] public PlayerController Player { get; set; }
 	[Property] SkinnedModelRenderer Source { get; set; }
-
 	[Property] public float FootstepBaseDecibels { get; set; } = 70f;
 	[Property] public float FootstepScale { get; set; } = 1f;
-	[Property] public SoundEvent SprintFootstep { get; set; }
+	[Property] public float SprintFootstepScale { get; set; } = 2f;
 
 	protected override void OnEnabled()
 	{
@@ -57,20 +56,11 @@ public sealed class PlayerFootsteps : Component
 		var sound = e.FootId == 0 ? tr.Surface.Sounds.FootLeft : tr.Surface.Sounds.FootRight;
 		if ( sound is null ) return;
 
-		if ( !Player.IsSprinting )
-		{
-			var handle = Sound.Play( sound, tr.HitPosition + tr.Normal * 5 );
-			handle.Volume *= e.Volume;
-			handle.Occlusion = false;
-			handle.Decibels = FootstepBaseDecibels * FootstepScale;
-			handle.ListenLocal = Player.IsViewer;
-		}
-		else
-		{
-			var handle = Sound.Play( SprintFootstep, Player.Transform.Position );
-			handle.Occlusion = false;
-			handle.Decibels = FootstepBaseDecibels * FootstepScale;
-			handle.ListenLocal = Player.IsViewer;
-		}
+		var scale = Player.IsSprinting ? SprintFootstepScale : FootstepScale;
+		var handle = Sound.Play( sound, tr.HitPosition + tr.Normal * 5 );
+		handle.Volume *= e.Volume;
+		handle.Occlusion = false;
+		handle.Decibels = FootstepBaseDecibels * scale;
+		handle.ListenLocal = Player.IsViewer;
 	}
 }
