@@ -242,6 +242,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 				if ( !tr.Hit )
 					continue;
 
+				if ( tr.Distance == 0 )
+					continue;
+
 				if ( count > 0 )
 					CreateImpactEffects( tr.Surface, tr.StartPosition, -tr.Normal );
 				
