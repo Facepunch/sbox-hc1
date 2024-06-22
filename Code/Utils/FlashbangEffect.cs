@@ -46,14 +46,13 @@ public class FlashbangEffect : Component
 
 	protected override void OnDestroy()
 	{
-		Bloom?.Destroy();
-		Overlay?.Destroy();
-		Aberration?.Destroy();
+		if ( Bloom.IsValid() ) Bloom.Destroy();
+		if ( Overlay.IsValid() ) Overlay?.Destroy();
+		if ( Aberration.IsValid() ) Aberration?.Destroy();
+		
 		RenderHook?.Dispose();
 		Sound?.Stop();
 		FreezeFrame?.Dispose();
-		
-		base.OnDestroy();
 	}
 
 	protected override void OnStart()
