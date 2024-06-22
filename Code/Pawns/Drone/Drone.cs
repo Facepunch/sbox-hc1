@@ -1,8 +1,9 @@
 namespace Facepunch;
 
-public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
+public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 {
-	[Property, Group( "Components" )] public DroneCamera Camera { get; set; }
+	// TODO: Make a CameraController component that can be re-used between this, and other pawns.
+	[Property, Group( "Components" )] public DroneCamera CameraController { get; set; }
 	[Property, Group( "Components" )] public Rigidbody Rigidbody { get; set; }
 	[Property, Group( "Components" )] public ModelRenderer Model { get; set; }
 
@@ -18,24 +19,18 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 
 	[RequireComponent] public DroneSounds DroneSounds { get; set; }
 	[RequireComponent] public TeamComponent TeamComponent { get; set; }
-	[RequireComponent] public HealthComponent HealthComponent { get; set; }
 
 	/// <summary>
 	/// What to spawn when we explode?
 	/// </summary>
 	[Property] public GameObject Explosion { get; set; }
 
-	public Angles EyeAngles => Transform.Rotation.Angles();
-
-	/// <summary>
-	/// Is this player the currently possessed controller
-	/// </summary>
-	public bool IsViewer => (this as IPawn).IsPossessed;
+	public override Angles EyeAngles => Transform.Rotation.Angles();
 
 	/// <summary>
 	/// What are we called?
 	/// </summary>
-	public string DisplayName => Network.OwnerConnection.DisplayName + "'s drone";
+	public override string DisplayName => Network.OwnerConnection.DisplayName + "'s drone";
 
 	// should just set the bone positions 
 	private readonly Vector3[] turbinePositions = new Vector3[]
@@ -48,11 +43,11 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 
 	protected override void OnStart()
 	{
-		// TODO: don't do this
+		// TODO: don't do it like this
 		if ( !IsProxy )
 		{
-			(this as IPawn).Possess();
-			(this as IPawn).HealthComponent.Health = 100f;
+			Possess();
+			HealthComponent.Health = 100f;
 		}
 	}
 
@@ -66,9 +61,9 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 
 	void Depossess()
 	{
-		if ( !IsProxy && IsViewer )
+		if ( IsLocallyControlled )
 		{
-			(this as IPawn).DePossess();
+			DePossess();
 		}
 	}
 
@@ -88,7 +83,7 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 
 	protected override void OnUpdate()
 	{
-		if ( IsViewer && !IsProxy )
+		if ( IsLocallyControlled )
 		{
 			currentInput.Reset();
 			currentInput.movement = Input.AnalogMove.WithZ( 0f ).Normal;
@@ -96,7 +91,7 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 			currentInput.yaw = -Input.AnalogLook.yaw;
 		}
 
-        // nasty cleanup
+        // nasty cleanup, TODO: remove this
         if ( !IsProxy )
         {
             if ( HealthComponent.TimeSinceLifeStateChanged > 1f && HealthComponent.State != LifeState.Alive )
@@ -119,7 +114,7 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 
 	protected void ApplyForces()
 	{
-		if ( !IsViewer && IsProxy )
+		if ( !IsLocallyControlled )
 			return;
 
 		if ( !Rigidbody.IsValid() )
@@ -171,35 +166,31 @@ public partial class Drone : Component, IPawn, IRespawnable, ICustomMinimapIcon
 		}
 	}
 
-	ulong IPawn.SteamId { get; set; }
-
-	CameraComponent IPawn.Camera => Camera.CameraComponent;
-
-	void IPawn.OnDePossess()
+	public override void OnDePossess()
 	{
-		Camera.SetActive( false );
+		CameraController.SetActive( false );
 	}
 
-	void IPawn.OnPossess()
-	{ 
-		Camera.SetActive( true );
+	public override void OnPossess()
+	{
+		CameraController.SetActive( true );
 	}
 
-	bool IMinimapElement.IsVisible( IPawn viewer )
+	bool IMinimapElement.IsVisible( Pawn viewer )
 	{
 		if ( Tags.Has( "invis" ) )
 			return false;
 
 		if ( HealthComponent.State == LifeState.Alive )
 		{
-			if ( (this as IPawn).IsPossessed )
+			if ( (this as Pawn).IsPossessed )
 				return false;
 		}
 
 		return viewer.Team == TeamComponent.Team;
 	}
 
-	Team IPawn.Team => TeamComponent.Team;
+	public override Team Team => TeamComponent.Team;
 
 	string ICustomMinimapIcon.CustomStyle => $"background-image-tint: {TeamComponent.Team.GetColor().Hex}";
 	string IMinimapIcon.IconPath => "ui/icons/drone.png";

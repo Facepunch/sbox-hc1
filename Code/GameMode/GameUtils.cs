@@ -18,9 +18,9 @@ public partial class GameUtils
 	public static PlayerState Viewer => PlayerState.CurrentView;
 
 	/// <summary>
-	/// The <see cref="IPawn"/> we're in the perspective of if there is one.
+	/// The <see cref="Pawn"/> we're in the perspective of if there is one.
 	/// </summary>
-	public static IPawn CurrentPawn => Game.ActiveScene?.GetSystem<PawnSystem>()?.Viewer;
+	public static Pawn CurrentPawn => Game.ActiveScene?.GetSystem<PawnSystem>()?.Viewer;
 
 	/// <summary>
 	/// All players, both assigned to a team and spectating.
@@ -79,11 +79,11 @@ public partial class GameUtils
 	/// <summary>
 	/// Get a player from a component that belongs to a player or their descendants.
 	/// </summary>
-	public static IPawn GetPawn( Component component )
+	public static Pawn GetPawn( Component component )
 	{
-		if ( component is IPawn pawn ) return pawn;
+		if ( component is Pawn pawn ) return pawn;
 		if ( !component.IsValid() ) return null;
-		return !component.GameObject.IsValid() ? null : component.GameObject.Root.Components.Get<IPawn>( FindMode.EnabledInSelfAndDescendants );
+		return !component.GameObject.IsValid() ? null : component.GameObject.Root.Components.Get<Pawn>( FindMode.EnabledInSelfAndDescendants );
 	}
 
 	public static Equipment FindEquipment( Component inflictor )

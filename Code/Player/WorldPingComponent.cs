@@ -94,7 +94,7 @@ public partial class WorldPingComponent : Component, IMarkerObject, ICustomMinim
 	}
 
 	// IMinimapElement
-	bool IMinimapElement.IsVisible( IPawn viewer ) => true;
+	bool IMinimapElement.IsVisible( Pawn viewer ) => true;
 
 	/// <summary>
 	/// Triggers the ping to tear off in X seconds.

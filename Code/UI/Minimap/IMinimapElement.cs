@@ -3,7 +3,7 @@ namespace Facepunch;
 public interface IMinimapElement : IValid
 {
 	public Vector3 WorldPosition { get; }
-	public bool IsVisible( IPawn viewer );
+	public bool IsVisible( Pawn viewer );
 }
 
 // Icons

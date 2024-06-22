@@ -7,11 +7,6 @@ public partial class PlayerController
 	/// <summary>
 	/// The player's health component
 	/// </summary>
-	[RequireComponent] public HealthComponent HealthComponent { get; private set; }
-
-	/// <summary>
-	/// The player's health component
-	/// </summary>
 	[RequireComponent] public ArmorComponent ArmorComponent { get; private set; }
 
 	/// <summary>

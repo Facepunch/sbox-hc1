@@ -7,7 +7,7 @@ public abstract class BuyMenuItem
 	public string Icon { get; protected init; }
 	public virtual int GetPrice( PlayerController player ) => 0;
 	public virtual bool IsOwned( PlayerController player ) => true;
-	public virtual bool IsVisible( IPawn player ) => true;
+	public virtual bool IsVisible( Pawn player ) => true;
 
 	protected virtual void OnPurchase( PlayerController player ) { }
 
@@ -103,7 +103,7 @@ public class DefuseKitEquipment : BuyMenuItem
 		player.Inventory.HasDefuseKit = true;
 	}
 
-	public override bool IsVisible( IPawn player ) => player.GameObject.GetTeam() == Team.CounterTerrorist;
+	public override bool IsVisible( Pawn player ) => player.GameObject.GetTeam() == Team.CounterTerrorist;
 
 	public override bool IsOwned( PlayerController player ) => player.Inventory.HasDefuseKit;
 }

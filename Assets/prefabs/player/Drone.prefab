@@ -12,7 +12,7 @@
         "__type": "Facepunch.Drone",
         "__guid": "8a194157-b852-4ddd-be48-c58c14931f47",
         "AltitudeAcceleration": 1000,
-        "Camera": {
+        "CameraController": {
           "_type": "component",
           "component_id": "efa5dd07-38ee-4b91-932e-ef9e9f83201f",
           "go": "fd9b9b62-c289-4ff5-b908-a65bb12e8b1a",
@@ -21,6 +21,12 @@
         "Explosion": {
           "_type": "gameobject",
           "prefab": "prefabs/equipment/decoy_grenade_explode.prefab"
+        },
+        "HealthComponent": {
+          "_type": "component",
+          "component_id": "4078a8a3-0850-481a-98a2-b8781bd82417",
+          "go": "d7e3a5b5-e9e0-4a9e-b42e-87df7e59991b",
+          "component_type": "HealthComponent"
         },
         "LeanMaxVelocity": 1000,
         "LeanWeight": 0.5,
@@ -62,9 +68,7 @@
       {
         "__type": "Facepunch.HealthComponent",
         "__guid": "4078a8a3-0850-481a-98a2-b8781bd82417",
-        "Health": 0,
-        "IsGodMode": false,
-        "State": "Alive"
+        "IsGodMode": false
       },
       {
         "__type": "Facepunch.DroneSounds",

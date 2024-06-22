@@ -6,7 +6,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 
 	public CameraMode CameraMode { get; private set; } = CameraMode.FirstPerson;
 	public bool IsSpectating => LocalPlayer?.IsSpectating ?? false;
-	public bool IsFreecam => (FreecamController as IPawn)?.IsPossessed ?? false;
+	public bool IsFreecam => (FreecamController as Pawn)?.IsPossessed ?? false;
 
 	[Property] public SpectateController FreecamController { get; set; }
 	
@@ -78,7 +78,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 			var idx = (idxCur + (direction ? i : -i) + count) % count;
 			var playerState = players.ElementAt( idx );
 
-			if ( playerState.Controller is null )
+			if ( !playerState.Controller.IsValid() )
 				continue;
 
 			if ( playerState.Controller.IsSpectating )
@@ -98,14 +98,14 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 
 	private void SpectateFreecam()
 	{
-		if ( GameUtils.Viewer is not null )
+		if ( GameUtils.Viewer.IsValid() )
 		{
 			// Entering freecam, position ourselves at the last guy's POV
 			var lastTransform = GameUtils.Viewer.GameObject.Transform;
-			FreecamController.ViewAngles = GameUtils.Viewer.Controller.EyeAngles.ToRotation();
+			FreecamController.EyeAngles = GameUtils.Viewer.Controller.EyeAngles.ToRotation();
 			FreecamController.Transform.Position = lastTransform.Position - (Transform.Rotation.Forward * 128.0f);
 		}
 
-		( FreecamController as IPawn).Possess();
+		( FreecamController as Pawn).Possess();
 	}
 }

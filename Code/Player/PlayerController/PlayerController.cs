@@ -3,7 +3,7 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public sealed partial class PlayerController : Component, IPawn, IRespawnable
+public sealed partial class PlayerController : Pawn, IRespawnable
 {
 	/// <summary>
 	/// The player's body
@@ -71,14 +71,16 @@ public sealed partial class PlayerController : Component, IPawn, IRespawnable
 	public SkinnedModelRenderer BodyRenderer => Body.Components.Get<SkinnedModelRenderer>();
 
 	/// <summary>
-	/// IPawn
+	/// Pawn
 	/// </summary>
-	Team IPawn.Team => TeamComponent.Team;
+	public override Team Team => TeamComponent.Team;
 
 	/// <summary>
-	/// IPawn
+	/// Pawn
 	/// </summary>
-	CameraComponent IPawn.Camera => CameraController.Camera;
+	// CameraComponent Pawn.Camera => CameraController.Camera;
+
+	public override CameraComponent Camera => CameraController.Camera;
 
 	protected override void OnStart()
 	{

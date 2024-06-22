@@ -47,7 +47,7 @@ public partial class ExtractionPoint : Component,
 		return CashPoint.State == CashPoint.CashPointState.Open;
 	}
 
-	bool IMinimapElement.IsVisible( IPawn viewer ) => ShouldShow();
+	bool IMinimapElement.IsVisible( Pawn viewer ) => ShouldShow();
 
 	void ITriggerListener.OnTriggerEnter( Collider other )
 	{

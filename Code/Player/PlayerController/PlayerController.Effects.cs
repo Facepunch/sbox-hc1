@@ -34,7 +34,7 @@ public partial class PlayerController
 
 	private bool IsOutlineVisible()
 	{
-		if ( (this as IPawn).IsPossessed )
+		if ( (this as Pawn).IsPossessed )
 			return false;
 
 		if ( HealthComponent.State != LifeState.Alive )

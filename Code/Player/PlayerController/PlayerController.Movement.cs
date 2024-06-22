@@ -37,7 +37,7 @@ public partial class PlayerController
 	/// <summary>
 	/// Look direction of this player. Smoothly interpolated for networked players.
 	/// </summary>
-	public Angles EyeAngles
+	public override Angles EyeAngles
 	{
 		get => _smoothEyeAngles;
 		set 
@@ -173,7 +173,7 @@ public partial class PlayerController
 		}
 
 		// Eye input
-		if ( (this as IPawn).IsPossessed && cc.IsValid() )
+		if ( IsPossessed && cc.IsValid() )
 		{
 			if ( IsLocallyControlled )
 			{

@@ -2,27 +2,22 @@ namespace Facepunch;
 
 public partial class PlayerController
 {
-	/// <summary>
-	/// Sync the player's steamid
-	/// </summary>
-	[Sync] public ulong SteamId { get; set; }
-
 	[RequireComponent] public PlayerState PlayerState { get; set; }
 
 	/// <summary>
 	/// A shorthand accessor to say if we're controlling this player.
 	/// </summary>
-	public bool IsLocallyControlled => IsViewer && PlayerState.IsLocalPlayer;
+	public override bool IsLocallyControlled => IsViewer && PlayerState.IsLocalPlayer;
 
 	/// <summary>
 	/// Is this player the currently possessed controller
 	/// </summary>
-	public bool IsViewer => (this as IPawn).IsPossessed;
+	public bool IsViewer => IsPossessed;
 
 	/// <summary>
 	/// What are we called?
 	/// </summary>
-	public string DisplayName => PlayerState.DisplayName;
+	public override string DisplayName => PlayerState.DisplayName;
 
 	/// <summary>
 	/// Unique colour or team colour of this player
@@ -32,15 +27,9 @@ public partial class PlayerController
 	/// <summary>
 	/// Called when possessed.
 	/// </summary>
-	public void OnPossess()
+	public override void OnPossess()
 	{
 		SetupCamera();
-	}
-
-	public void TryDePossess()
-	{
-		if ( !IsLocallyControlled ) return;
-		(this as IPawn).DePossess();
 	}
 
 	private void SetupCamera()
@@ -60,7 +49,7 @@ public partial class PlayerController
 		CameraController.SetActive( true );
 	}
 
-	public void OnDePossess()
+	public override void OnDePossess()
 	{
 		CameraController.SetActive( false );
 	}

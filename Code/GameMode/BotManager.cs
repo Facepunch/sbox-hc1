@@ -73,7 +73,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 
 	// TODO: TEMPORARY LOCATION, DELETE WHEN DONE
 	[Property] public GameObject Drone { get; set; }
-	private IPawn DronePawn { get; set; }
+	private Pawn DronePawn { get; set; }
 
 	[DeveloperCommand( "Toggle Drone", "Drone Stuff" )]
 	private static void Command_Become_Drone()
@@ -81,7 +81,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 		if ( GameUtils.CurrentPawn is Drone )
 		{
 			// Switch back to player
-			(GameUtils.LocalPlayer as IPawn).Possess();
+			(GameUtils.LocalPlayer as Pawn).Possess();
 		}
 		else
 		{

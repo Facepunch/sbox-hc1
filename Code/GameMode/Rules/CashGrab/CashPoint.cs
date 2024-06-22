@@ -41,7 +41,7 @@ public partial class CashPoint : Component, ICustomMinimapIcon, IMarkerObject
 		}
 	}
 
-	bool IMinimapElement.IsVisible( IPawn viewer )
+	bool IMinimapElement.IsVisible( Pawn viewer )
 	{
 		var vis = State == CashPointState.Spawning;
 		return vis;

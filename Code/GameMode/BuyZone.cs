@@ -17,5 +17,5 @@ internal class BuyZone : Component, IMinimapIcon, IMinimapVolume
 
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;
 
-	bool IMinimapElement.IsVisible( IPawn viewer ) => true;
+	bool IMinimapElement.IsVisible( Pawn viewer ) => true;
 }

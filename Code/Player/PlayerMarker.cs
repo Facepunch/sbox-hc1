@@ -24,6 +24,8 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	{
 		get
 		{
+			if ( !Scene.Camera.IsValid() ) return 0f;
+
 			var dist = Scene.Camera.Transform.Position.DistanceSquared( Transform.Position );
 			dist *= 0.00000225f;
 			return Vector3.Up * dist;
@@ -91,14 +93,14 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// </summary>
 	/// <param name="viewer"></param>
 	/// <returns></returns>
-	bool IMinimapElement.IsVisible( IPawn viewer )
+	bool IMinimapElement.IsVisible( Pawn viewer )
 	{
 		if ( Player.Tags.Has( "invis" ) )
 			return false;
 
 		if ( IsAlive )
 		{
-			if ( (Player as IPawn).IsPossessed )
+			if ( (Player as Pawn).IsPossessed )
 				return false;
 
 			// seen by enemy team

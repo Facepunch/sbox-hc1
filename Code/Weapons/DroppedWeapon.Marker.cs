@@ -7,7 +7,7 @@ partial class DroppedEquipment : IMinimapIcon
 	string IMinimapIcon.IconPath => "ui/minimaps/icon-map_bomb.png";
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;
 
-	bool IMinimapElement.IsVisible( IPawn viewer )
+	bool IMinimapElement.IsVisible( Pawn viewer )
 	{
 		// only showing C4 right now
 		if ( Spottable is not null )

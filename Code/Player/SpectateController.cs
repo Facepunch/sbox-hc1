@@ -1,44 +1,38 @@
-using Sandbox;
-using System.Numerics;
-
 namespace Facepunch;
 
-public sealed class SpectateController : Component, IPawn
+public sealed class SpectateController : Pawn
 {
-	public ulong SteamId { get; set; }
 
 	[Property] public float FlySpeed = 10f;
-	[Property] public CameraComponent Camera { get; set; }
+	[Property] public CameraComponent CameraComponent { get; set; }
+
+	public override CameraComponent Camera => CameraComponent;
 
 	/// <summary>
 	/// What are we called?
 	/// </summary>
-	public string DisplayName => Network.OwnerConnection.DisplayName + " (spectator)";
-
-	public Angles ViewAngles { get; set; }
-	Angles IPawn.EyeAngles => ViewAngles;
+	public override string DisplayName => Network.OwnerConnection.DisplayName + " (spectator)";
 
 	protected override void OnAwake()
 	{
-		base.OnAwake();
 		Camera.Enabled = false;
 	}
 
 	protected override void OnUpdate()
 	{
-		ViewAngles += Input.AnalogLook;
-		ViewAngles = ViewAngles.WithPitch( ViewAngles.pitch.Clamp( -90, 90 ) );
-		Transform.Rotation = ViewAngles.ToRotation();
+		EyeAngles += Input.AnalogLook;
+		EyeAngles = EyeAngles.WithPitch( EyeAngles.pitch.Clamp( -90, 90 ) );
+		Transform.Rotation = EyeAngles.ToRotation();
 
 		Transform.Position += Input.AnalogMove * Transform.Rotation * FlySpeed * Time.Delta;
 	}
 
-	void IPawn.OnDePossess()
+	public override void OnDePossess()
 	{
 		Camera.Enabled = false;
 	}
 
-	void IPawn.OnPossess()
+	public override void OnPossess()
 	{
 		Camera.Enabled = true;
 	}

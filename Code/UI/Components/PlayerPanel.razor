@@ -11,7 +11,7 @@
 
 @code
 {
-    public IPawn Pawn { get; set; }
+    public Pawn Pawn { get; set; }
 
     private string TeamColor => ( Pawn?.Team.GetColor() ?? Color.White ).Hex;
 }

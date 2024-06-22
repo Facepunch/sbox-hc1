@@ -16,7 +16,7 @@ public partial class CashBag : Component, IDroppedWeaponState<CashBag>, ICustomM
 		}
 	}
 
-	bool IMinimapElement.IsVisible( IPawn viewer )
+	bool IMinimapElement.IsVisible( Pawn viewer )
 	{
 		return true;
 	}

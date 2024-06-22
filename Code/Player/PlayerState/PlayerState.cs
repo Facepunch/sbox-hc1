@@ -17,7 +17,7 @@ public partial class PlayerState : Component
 	/// <summary>
 	/// The pawn this player is currently in possession of (networked if it's networked)
 	/// </summary>
-	public IPawn CurrentPawn { get; private set; }
+	public Pawn CurrentPawn { get; private set; }
 	[HostSync] private Guid pawnGuid { get; set; } = Guid.Empty;
 	// todo: this should be an engine feature?
 
@@ -38,13 +38,13 @@ public partial class PlayerState : Component
 
 	protected override void OnAwake()
 	{
-		CurrentPawn = Scene.Directory.FindComponentByGuid( pawnGuid ) as IPawn;
+		CurrentPawn = Scene.Directory.FindComponentByGuid( pawnGuid ) as Pawn;
 	}
 
 	/// <summary>
 	/// Called from client when we've taken possession of a pawn.
 	/// </summary>
-	public void NotifyPossessed( IPawn pawn )
+	public void NotifyPossessed( Pawn pawn )
 	{
 		Assert.True(!IsProxy);
 		NotifyPossessed((pawn as Component).Id);
@@ -57,7 +57,7 @@ public partial class PlayerState : Component
 			pawnGuid = guid;
 
 		// todo: this should be an engine feature?
-		CurrentPawn = Scene.Directory.FindComponentByGuid( guid ) as IPawn;
+		CurrentPawn = Scene.Directory.FindComponentByGuid( guid ) as Pawn;
 
 		if ( IsViewer && IsProxy )
 		{
@@ -74,7 +74,7 @@ public partial class PlayerState : Component
 		if ( CurrentPawn is null || IsLocalPlayer )
 		{
 			// Local player - always assume the controller
-			(Controller as IPawn).Possess();
+			(Controller as Pawn).Possess();
 		}
 		else
 		{

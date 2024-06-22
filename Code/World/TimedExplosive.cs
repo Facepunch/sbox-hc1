@@ -238,7 +238,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 		player.IsFrozen = true;
 	}
 
-	bool IMinimapElement.IsVisible( IPawn viewer )
+	bool IMinimapElement.IsVisible( Pawn viewer )
 	{
 		if ( Spottable.IsSpotted )
 			return true;

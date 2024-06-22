@@ -1,16 +1,16 @@
 namespace Facepunch;
 
-public interface IPawn : IValid
+public abstract class Pawn : Component
 {
 	/// <summary>
 	/// What team does this pawn belong to?
 	/// </summary>
-	public Team Team => Team.Unassigned;
+	public virtual Team Team { get; set; }
 
 	/// <summary>
 	/// An accessor for health component if we have one.
 	/// </summary>
-	public HealthComponent HealthComponent => GameObject.Components.Get<HealthComponent>();
+	[Property] public virtual HealthComponent HealthComponent { get; set; }
 
 	/// <summary>
 	/// Are we possessing this pawn right now? (Clientside)
@@ -20,37 +20,27 @@ public interface IPawn : IValid
 	/// <summary>
 	/// Is this pawn locally controlled by us?
 	/// </summary>
-	public bool IsLocallyControlled => IsPossessed && !IsProxy;
+	public virtual bool IsLocallyControlled => IsPossessed && !IsProxy;
 
 	/// <summary>
 	/// What's our name?
 	/// </summary>
-	public string DisplayName { get; }
+	public virtual string DisplayName { get; }
 
 	/// <summary>
 	/// What's the pawn's eye angles?
 	/// </summary>
-	public Angles EyeAngles { get; }
+	public virtual Angles EyeAngles { get; set; }
 
 	/// <summary>
 	/// The pawn's camera. Has to have one.
 	/// </summary>
-	public CameraComponent Camera { get; }
+	public virtual CameraComponent Camera { get; }
 
 	/// <summary>
 	/// Who's the owner?
 	/// </summary>
-	public ulong SteamId { get; set; }
-
-	/// <summary>
-	/// The pawn's gameobject
-	/// </summary>
-	public GameObject GameObject { get; }
-
-	/// <summary>
-	/// Do we have network rights over this pawn?
-	/// </summary>
-	public bool IsProxy { get; }
+	[Sync] public ulong SteamId { get; set; }
 
 	/// <summary>
 	/// Possess the pawn.
@@ -70,8 +60,8 @@ public interface IPawn : IValid
 			.DePossess( this );
 	}
 
-	public void OnPossess();
-	public void OnDePossess();
+	public virtual void OnPossess() { }
+	public virtual void OnDePossess() { }
 }
 
 /// <summary>
@@ -80,12 +70,12 @@ public interface IPawn : IValid
 /// </summary>
 public partial class PawnSystem : GameObjectSystem
 {
-	public IPawn Viewer { get; private set; }
+	public Pawn Viewer { get; private set; }
 
 	/// <summary>
 	/// Tries to possess a pawn. If you don't own it, spectate!
 	/// </summary>
-	public void Possess( IPawn pawn )
+	public void Possess( Pawn pawn )
 	{
 		DePossess( Viewer );
 		Viewer = pawn;
@@ -100,7 +90,7 @@ public partial class PawnSystem : GameObjectSystem
 		GameUtils.LocalPlayer.PlayerState.NotifyPossessed( pawn );
 	}
 
-	public void DePossess( IPawn pawn )
+	public void DePossess( Pawn pawn )
 	{
 		pawn?.OnDePossess();
 
