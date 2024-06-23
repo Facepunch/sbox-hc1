@@ -53,15 +53,16 @@
 </root>
 
 @code {
-    public PlayerPawn Player { get; set; }
-    private Connection Connection => Player.Network.OwnerConnection;
-    private PlayerScore Score => Player.Components.Get<PlayerScore>();
+    public PlayerState PlayerState { get; set; }
+    public PlayerPawn Player => PlayerState.Pawn as PlayerPawn;
+    private Connection Connection => PlayerState.Network.OwnerConnection;
+    private PlayerScore Score => PlayerState.Components.Get<PlayerScore>();
 
-    private bool IsFriendly => (GameUtils.LocalPlayer is null || Player.IsFriendly(GameUtils.LocalPlayer));
-    private bool IsLocal => Player.IsLocallyControlled;
-    private bool IsDead => Player.HealthComponent.State != LifeState.Alive;
+    private bool IsFriendly => (GameUtils.LocalPlayer is null || PlayerState.IsFriendly( GameUtils.LocalPlayerState ));
+    private bool IsLocal => PlayerState.IsLocalPlayer;
+    private bool IsDead => !Player.IsValid() || Player.HealthComponent.State != LifeState.Alive;
     private float KillDeathRatio => (float)Score.Kills / (float)Score.Deaths.Clamp(1, int.MaxValue);
-    private Team Team => Player.Team;
+    private Team Team => PlayerState.Team;
     private bool IsPartyMember => PartyRoom.Current?.Members.Any( x => x.Id == Connection.SteamId ) ?? false;
 
     protected override int BuildHash()

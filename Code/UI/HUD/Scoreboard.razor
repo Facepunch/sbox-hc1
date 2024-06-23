@@ -62,7 +62,7 @@
 
                 @foreach ( var player in group )
                 {
-                    <ScoreboardRow Player="@player" />
+                    <ScoreboardRow PlayerState="@player" />
                 }
 
                 @if ( i == 0 )
@@ -80,13 +80,13 @@
     public string Name => GameMode.Instance?.Title;
     public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
 
-    public IEnumerable<PlayerPawn> PlayerList => Scene.GetAllComponents<PlayerPawn>();
+    public IEnumerable<PlayerState> PlayerStates => GameUtils.AllPlayerStates;
 
-    private List<IGrouping<Team, PlayerPawn>> GroupedPlayers
+    private List<IGrouping<Team, PlayerState>> GroupedPlayers
     {
         get
         {
-            var sortedPlayers = PlayerList.OrderByDescending(x => x.Components.Get<PlayerScore>().Score);
+            var sortedPlayers = PlayerStates.OrderByDescending(x => x.Components.Get<PlayerScore>().Score);
             var groupedPlayers = sortedPlayers.GroupBy(x => x.Team);
             return groupedPlayers.ToList();
         }

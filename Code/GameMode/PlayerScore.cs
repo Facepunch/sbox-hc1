@@ -136,7 +136,7 @@ public sealed class PlayerScore : Component,
 		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
 
 		var planterPlayer = GameUtils.ActivePlayers
-			.FirstOrDefault( x => x.Components.Get<PlayerScore>() is { WasBombPlanter: true } );
+			.FirstOrDefault( x => x.PlayerState.Components.Get<PlayerScore>() is { WasBombPlanter: true } );
 		var planterPlayerComponent = GameUtils.GetPlayerFromComponent( planterPlayer );
 
 		if ( planterPlayerComponent == thisPlayer )

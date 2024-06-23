@@ -34,6 +34,11 @@ public static class TeamExtensions
 			return pawn.Team;
 		}
 
+		if ( gameObject.Root.Components.Get<PlayerState>() is { IsValid: true } state )
+		{
+			return state.Team;
+		}
+
 		return Team.Unassigned;
 	}
 
@@ -68,6 +73,14 @@ public static class TeamExtensions
 	/// Are these two <see cref="PlayerPawn"/>s friends with each other?
 	/// </summary>
 	public static bool IsFriendly( this PlayerPawn self, PlayerPawn other )
+	{
+		return IsFriendly( self.Team, other.Team );
+	}
+
+	/// <summary>
+	/// Are these two <see cref="PlayerState"/>s friends with each other?
+	/// </summary>
+	public static bool IsFriendly( this PlayerState self, PlayerState other )
 	{
 		return IsFriendly( self.Team, other.Team );
 	}
