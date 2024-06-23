@@ -96,6 +96,18 @@ public partial class GameUtils
 		return !component.GameObject.IsValid() ? null : component.GameObject.Root.Components.Get<Pawn>( FindMode.EnabledInSelfAndDescendants );
 	}
 
+	/// <summary>
+	/// Get a player from a component that belongs to a player or their descendants.
+	/// </summary>
+	public static PlayerState GetPlayerState( Component component )
+	{
+		var pawn = GetPawn( component );
+		if ( !pawn.IsValid() )
+			return null;
+
+		return pawn.PlayerState;
+	}
+
 	public static Equipment FindEquipment( Component inflictor )
 	{
 		if ( inflictor is Equipment equipment )

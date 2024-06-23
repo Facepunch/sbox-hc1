@@ -8,7 +8,7 @@
         <div class="entry @(entry.IsLocal ? "local" : "")">
             @if ( entry.DamageInfo.Attacker.IsValid() )
             {
-                <PlayerPanel Pawn=@GameUtils.GetPawn( entry.DamageInfo.Attacker ) />
+                <PlayerPanel PlayerState=@GameUtils.GetPlayerState( entry.DamageInfo.Attacker ) />
             }
 
             <div class="method">
@@ -31,7 +31,7 @@
                 }
             </div>
 
-            <PlayerPanel Pawn=@GameUtils.GetPawn( entry.DamageInfo.Victim ) />
+            <PlayerPanel PlayerState=@GameUtils.GetPlayerState( entry.DamageInfo.Victim ) />
         </div>
     }
 </root>
