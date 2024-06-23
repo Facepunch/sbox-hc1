@@ -159,6 +159,7 @@ public partial class PlayerState : Component
 
 		pawn.OnPossess();
 		Pawn = pawn;
+		Pawn.PlayerState = this;
 	}
 
 	public void DePossess()
