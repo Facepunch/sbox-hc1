@@ -5,7 +5,7 @@ namespace Facepunch;
 /// </summary>
 public partial class PlayerPingReceiver : Component, IPingReceiver
 {
-	[RequireComponent] PlayerController Player { get; set; }
+	[RequireComponent] PlayerPawn Player { get; set; }
 
 	private Vector3 _lastKnownPosition = Vector3.Zero;
 	private bool _isCurrentlyLost = false;

@@ -5,7 +5,7 @@ namespace Facepunch;
 /// </summary>
 public sealed class PlayerFootsteps : Component
 {
-	[Property] public PlayerController Player { get; set; }
+	[Property] public PlayerPawn Player { get; set; }
 	[Property] SkinnedModelRenderer Source { get; set; }
 	[Property] public float FootstepBaseDecibels { get; set; } = 70f;
 	[Property] public float FootstepScale { get; set; } = 1f;

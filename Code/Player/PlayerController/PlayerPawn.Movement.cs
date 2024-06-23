@@ -2,7 +2,7 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public partial class PlayerController
+public partial class PlayerPawn
 {
 	/// <summary>
 	/// Called when the player jumps.

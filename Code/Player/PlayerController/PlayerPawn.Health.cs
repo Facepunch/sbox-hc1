@@ -3,7 +3,7 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public partial class PlayerController : IGameEventHandler<DamageGivenEvent>, IGameEventHandler<DamageTakenEvent>
+public partial class PlayerPawn : IGameEventHandler<DamageGivenEvent>, IGameEventHandler<DamageTakenEvent>
 {
 	/// <summary>
 	/// Called when YOU inflict damage on something

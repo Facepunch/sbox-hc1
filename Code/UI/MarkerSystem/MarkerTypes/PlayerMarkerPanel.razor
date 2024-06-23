@@ -25,13 +25,13 @@
         {
             text-shadow: 1px 1px 1px rgba( black, 1 );
             font-weight: 900;
-            color: @Player.TeamComponent.Team.GetColor().Hex;
+            color: @Player.Team.GetColor().Hex;
         }
 
         .hp
         {
             text-shadow: 1px 1px 1px rgba( black, 1 );
-            color: @Player.TeamComponent.Team.GetColor().Hex;
+            color: @Player.Team.GetColor().Hex;
         }
 
         .weapons
@@ -51,7 +51,7 @@
         }
 
         Icon {
-            background-image-tint: @Player.TeamComponent.Team.GetColor().Hex;
+            background-image-tint: @Player.Team.GetColor().Hex;
         }
     }
 </style>
@@ -105,9 +105,9 @@
 
 @code
 {
-    public PlayerController Player => Object?.GameObject?.Components?.Get<PlayerController>();
-    private PlayerController Viewer => GameUtils.Viewer.Controller;
-    private PlayerController LocalPlayer => GameUtils.LocalPlayer;
+    public PlayerPawn Player => Object?.GameObject?.Components?.Get<PlayerPawn>();
+    private PlayerPawn Viewer => GameUtils.Viewer.Pawn as PlayerPawn;
+    private PlayerPawn LocalPlayer => GameUtils.LocalPlayer;
 
     private bool CanShowWeapon( Equipment equipment )
     {

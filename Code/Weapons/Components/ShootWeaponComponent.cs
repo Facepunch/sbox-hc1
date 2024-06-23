@@ -268,7 +268,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 				CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
 				DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
 
-				if ( tr.GameObject?.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } player )
+				if ( tr.GameObject?.Root.Components.Get<PlayerPawn>( FindMode.EnabledInSelfAndDescendants ) is { } player )
 				{
 					CreateBloodEffects( tr.HitPosition, tr.Normal, tr.Direction );
 				}
@@ -296,7 +296,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	{
 		var target = Scene.Directory.FindByGuid( targetObjectId );
 
-		// target?.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerController.HealthComponent.Id, Weapon.Id, hitbox );
+		// target?.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerPawn.HealthComponent.Id, Weapon.Id, hitbox );
 		target?.TakeDamage( new DamageInfo( Equipment.Owner, damage, Equipment, pos, dir * damage, hitbox ) );
 	}
 

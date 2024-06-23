@@ -63,7 +63,7 @@ public sealed class PlayerOutfit
 			container.Toggle( hat.Clothing );
 
 		// Do we have a helmet?
-		if ( outfitter.PlayerController.ArmorComponent.HasHelmet )
+		if ( outfitter.PlayerPawn.ArmorComponent.HasHelmet )
 		{
 			// Turn on our helmet override
 			container.Toggle( Helmet );
@@ -107,7 +107,9 @@ public sealed class TeamOutfits
 /// <summary>
 /// A component that handles what a player wears.
 /// </summary>
-public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IGameEventHandler<HelmetChangedEvent>
+public partial class PlayerOutfitter : Component, Component.INetworkSpawn, 
+	IGameEventHandler<HelmetChangedEvent>,
+	IGameEventHandler<TeamChangedEvent>
 {
 	/// <summary>
 	/// The player's body component.
@@ -127,7 +129,7 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IGame
 	/// <summary>
 	/// The player controller.
 	/// </summary>
-	[Property] public PlayerController PlayerController { get; set; }
+	[Property] public PlayerPawn PlayerPawn { get; set; }
 
 	/// <summary>
 	/// When we're not in a team that has any outfits, what team should we fall back to (preferably one with some outfits!)
@@ -153,9 +155,9 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IGame
 	/// Resets the state of the player, using its team.
 	/// </summary>
 	/// <param name="player"></param>
-	public void OnResetState( PlayerController player )
+	public void OnResetState( PlayerPawn player )
 	{
-		UpdateFromTeam( player.TeamComponent.Team );
+		UpdateFromTeam( player.Team );
 	}
 
 	/// <summary>
@@ -165,26 +167,10 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IGame
 	/// <param name="newTeam"></param>
 	private void OnTeamChanged( Team oldTeam, Team newTeam )
 	{
-		if ( PlayerController.IsSpectating )
+		if ( PlayerPawn.IsSpectating )
 			return;
 		
 		UpdateFromTeam( newTeam );
-	}
-
-	/// <summary>
-	/// Called when the component is enabled.
-	/// </summary>
-	protected override void OnEnabled()
-	{
-		TeamComponent.OnTeamChanged += OnTeamChanged;
-	}
-
-	/// <summary>
-	/// Called when the component is disabled.
-	/// </summary>
-	protected override void OnDisabled()
-	{
-		TeamComponent.OnTeamChanged -= OnTeamChanged;
 	}
 
 	/// <summary>
@@ -195,7 +181,7 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IGame
 	private void UpdateCurrent()
 	{
 		CurrentOutfit?.Wear( this );
-		PlayerController.Body.ReapplyVisibility();
+		PlayerPawn.Body.ReapplyVisibility();
 	}
 
 	/// <summary>
@@ -221,7 +207,7 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IGame
 		CurrentOutfit = outfit;
 		CurrentOutfit?.Wear( this );
 
-		PlayerController.Body.ReapplyVisibility();
+		PlayerPawn.Body.ReapplyVisibility();
 	}
 
 	/// <summary>
@@ -239,7 +225,7 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IGame
 	/// <param name="eventArgs"></param>
 	void IGameEventHandler<HelmetChangedEvent>.OnGameEvent( HelmetChangedEvent eventArgs )
 	{
-		if ( PlayerController?.HealthComponent?.State != LifeState.Alive )
+		if ( PlayerPawn?.HealthComponent?.State != LifeState.Alive )
 			return;
 
 		if ( eventArgs.HasHelmet )
@@ -254,7 +240,7 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IGame
 			}
 			else
 			{
-				var player = PlayerController;
+				var player = PlayerPawn;
 				var helmetRenderer = player.Body.Components.GetAll<SkinnedModelRenderer>()
 					.FirstOrDefault( x => x.Model.ResourcePath == CurrentOutfit.Helmet.Model );
 
@@ -282,5 +268,10 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn, IGame
 				rb.AngularVelocity = rot.Backward * 10f;
 			}
 		}
+	}
+
+	void IGameEventHandler<TeamChangedEvent>.OnGameEvent( TeamChangedEvent eventArgs )
+	{
+		OnTeamChanged( eventArgs.Before, eventArgs.After );
 	}
 }

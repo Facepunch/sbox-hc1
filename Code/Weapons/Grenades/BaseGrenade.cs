@@ -6,12 +6,12 @@ public abstract class BaseGrenade : Component
 	[Property] public float Lifetime { get; set; }
 	[Property] public GameObject PrefabOnExplode { get; set; }
 
-	public PlayerController Player => (PlayerController)Scene.Directory.FindComponentByGuid( ThrowerId );
+	public PlayerPawn Player => (PlayerPawn)Scene.Directory.FindComponentByGuid( ThrowerId );
 
 	/// <summary>
 	/// Is this player an enemy of the viewer?
 	/// </summary>
-	public bool IsEnemy => GameUtils.Viewer.Controller.TeamComponent.Team != Player.TeamComponent.Team;
+	public bool IsEnemy => GameUtils.Viewer.Pawn.Team != Player.Team;
 
 	private TimeSince TimeSinceCreated { get; set; }
 

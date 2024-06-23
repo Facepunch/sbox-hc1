@@ -68,7 +68,7 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 		return true;
 	}
 
-	Transform ISpawnAssigner.GetSpawnPoint( PlayerController player )
+	Transform ISpawnAssigner.GetSpawnPoint( PlayerPawn player )
 	{
 		var allPlayers = GameUtils.ActivePlayers
 			.Where( x => x != player )

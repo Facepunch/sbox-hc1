@@ -1,6 +1,6 @@
 ﻿namespace Facepunch;
 
-partial class PlayerController
+partial class PlayerPawn
 {
 	/// <summary>
 	/// Is the player holding use?
@@ -48,7 +48,7 @@ partial class PlayerController
 			UpdateLastUsedObject( (usable as Component)?.GameObject.Id ?? Guid.Empty );
 			usable.OnUse( this );
 		}
-		else if ( TeamComponent.Team == Team.Terrorist && GetZone<BombSite>() is not null )
+		else if ( Team == Team.Terrorist && GetZone<BombSite>() is not null )
 		{
 			Inventory.SwitchToSlot( EquipmentSlot.Special );
 			return;

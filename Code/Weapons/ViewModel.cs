@@ -24,7 +24,7 @@ public partial class ViewModel : Component, IEquipment
 	/// <summary>
 	/// Looks up the tree to find the player controller.
 	/// </summary>
-	PlayerController Owner => Equipment.IsValid() ? Equipment.Owner : null;
+	PlayerPawn Owner => Equipment.IsValid() ? Equipment.Owner : null;
 
 	[Property, Group( "GameObjects" )] public GameObject Muzzle { get; set; }
 	[Property, Group( "GameObjects" )] public GameObject EjectionPort { get; set; }

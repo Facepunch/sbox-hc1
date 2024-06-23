@@ -30,7 +30,7 @@
 
 @code
 {
-    public PlayerController Player { get; set; }
+    public PlayerPawn Player { get; set; }
     public bool IsFriendly => GameUtils.LocalPlayer?.GameObject?.IsFriendly( Player?.GameObject ) ?? false;
 
     public bool ShowBomb { get; set; } = true;

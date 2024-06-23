@@ -14,12 +14,12 @@ public sealed class TeamSpawnAssigner : Component,
 	[Property, Title( "Tags" )]
 	public List<string> SpawnTags { get; private set; } = new();
 
-	public Transform GetSpawnPoint( PlayerController player )
+	public Transform GetSpawnPoint( PlayerPawn player )
 	{
-		var team = player.TeamComponent.Team;
+		var team = player.Team;
 		var spawns = GameUtils.GetSpawnPoints( team ).Shuffle();
 
-		if ( spawns.Count == 0 && player.TeamComponent.Team != Team.Unassigned )
+		if ( spawns.Count == 0 && player.Team != Team.Unassigned )
 		{
 			throw new Exception( $"No spawn points for team {team}!" );
 		}

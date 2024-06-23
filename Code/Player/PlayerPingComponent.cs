@@ -47,7 +47,7 @@ public partial class PlayerPingComponent : Component
 	/// <summary>
 	/// The player
 	/// </summary>
-	[RequireComponent] PlayerController Player { get; set; }
+	[RequireComponent] PlayerPawn Player { get; set; }
 
 	/// <summary>
 	/// How far can we ping?

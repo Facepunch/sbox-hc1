@@ -1,4 +1,6 @@
 
+using System.Text.Json.Serialization;
+
 namespace Facepunch;
 
 public partial class PlayerState 
@@ -11,5 +13,5 @@ public partial class PlayerState
 	/// <summary>
 	/// Is this a bot?
 	/// </summary>
-	public bool IsBot => BotId != -1;
+	[Property, ReadOnly, JsonIgnore] public bool IsBot => BotId != -1;
 }

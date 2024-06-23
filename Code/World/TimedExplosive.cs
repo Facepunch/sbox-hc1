@@ -65,7 +65,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 
 	[RequireComponent] public Spottable Spottable { get; private set; }
 
-	public PlayerController DefusingPlayer { get; private set; }
+	public PlayerPawn DefusingPlayer { get; private set; }
 
 	string IMinimapIcon.IconPath => "ui/minimaps/icon-map_bomb.png";
 
@@ -174,7 +174,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 	[Broadcast( NetPermission.HostOnly )]
 	public void StartDefusing( Guid playerId )
 	{
-		var player = Scene.Directory.FindComponentByGuid( playerId ) as PlayerController;
+		var player = Scene.Directory.FindComponentByGuid( playerId ) as PlayerPawn;
 
 		if ( player is null )
 		{
@@ -223,17 +223,17 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 		DefusingPlayer = null;
 	}
 
-	public bool CanUse( PlayerController player )
+	public bool CanUse( PlayerPawn player )
 	{
-		return !IsDefused && !DefusingPlayer.IsValid() && player.TeamComponent.Team == Team.CounterTerrorist;
+		return !IsDefused && !DefusingPlayer.IsValid() && player.Team == Team.CounterTerrorist;
 	}
 
-	public void OnUse( PlayerController player )
+	public void OnUse( PlayerPawn player )
 	{
 		TimeSinceDefuseStart = 0f;
 		StartDefusing( player.Id );
 
-		RadioSounds.Play( player.TeamComponent.Team, "Hidden", "Defusing the bomb" );
+		RadioSounds.Play( player.Team, "Hidden", "Defusing the bomb" );
 
 		player.IsFrozen = true;
 	}

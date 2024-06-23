@@ -11,7 +11,7 @@
 @code
 {
     /// The player
-    public PlayerController Player => GameUtils.Viewer.Controller;
+    public PlayerPawn Player => GameUtils.Viewer.Pawn as PlayerPawn;
 
     protected override int BuildHash()
     {

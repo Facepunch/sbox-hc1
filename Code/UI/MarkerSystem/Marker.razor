@@ -108,7 +108,7 @@
         if ( !Scene.IsValid() ) 
             return;
 
-        var camera = GameUtils.Viewer.Controller?.CameraController.Camera ?? Scene.Camera;
+        var camera = ( GameUtils.Viewer.Pawn as PlayerPawn )?.CameraController.Camera ?? Scene.Camera;
         if ( !camera.IsValid() )
             return;
 
@@ -144,7 +144,7 @@
             StateHasChanged();
     }
 
-    private PlayerController Player => GameUtils.Viewer?.Controller;
+    private PlayerPawn Player => GameUtils.Viewer?.Pawn as PlayerPawn;
 
     private float CalculateOpacity()
     {

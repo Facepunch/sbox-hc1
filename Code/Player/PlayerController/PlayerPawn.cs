@@ -1,9 +1,6 @@
-using Sandbox;
-using Sandbox.Events;
-
 namespace Facepunch;
 
-public sealed partial class PlayerController : Pawn, IRespawnable
+public sealed partial class PlayerPawn : Pawn
 {
 	/// <summary>
 	/// The player's body
@@ -46,11 +43,6 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 	[RequireComponent] public Spottable Spottable { get; set; }
 
 	/// <summary>
-	/// Unique Ids of this player
-	/// </summary>
-	[RequireComponent] public PlayerId PlayerId { get; set; }
-
-	/// <summary>
 	/// A reference to the View Model's camera. This will be disabled by the View Model.
 	/// </summary>
 	[Property] public CameraComponent ViewModelCamera { get; set; }
@@ -73,11 +65,6 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 	/// <summary>
 	/// Pawn
 	/// </summary>
-	public override Team Team => TeamComponent.Team;
-
-	/// <summary>
-	/// Pawn
-	/// </summary>
 	// CameraComponent Pawn.Camera => CameraController.Camera;
 
 	public override CameraComponent Camera => CameraController.Camera;
@@ -88,7 +75,7 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 		{
 			// Set this as our local player and possess it.
 			GameUtils.LocalPlayer = this;
-			PlayerState.Possess();
+			PlayerState.Possess( this );
 		}
 
 		// TODO: expose these parameters please
@@ -141,7 +128,9 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 		}
 
 		if ( HealthComponent.State != LifeState.Alive )
+		{
 			return;
+		}
 
 		if ( Networking.IsHost && PlayerState.IsBot )
 		{
@@ -158,7 +147,9 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 		}
 
 		if ( !IsLocallyControlled )
+		{
 			return;
+		}
 
 		_previousVelocity = cc.Velocity;
 
@@ -170,15 +161,5 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 		UpdateRecoilAndSpread();
 		ApplyAcceleration();
 		ApplyMovement();
-	}
-
-	public void AssignTeam( Team team )
-	{
-		if ( !Networking.IsHost )
-			return;
-
-		TeamComponent.Team = team;
-
-		Scene.Dispatch( new TeamAssignedEvent( this, team ) );
 	}
 }

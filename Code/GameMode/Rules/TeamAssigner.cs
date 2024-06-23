@@ -26,11 +26,11 @@ public sealed class TeamAssigner : Component,
 	{
 		foreach ( var player in GameUtils.InactivePlayers.ToArray() )
 		{
-			AssignTeam( player, true );
+			AssignTeam( player.PlayerState, true );
 		}
 	}
 
-	private void AssignTeam( PlayerController player, bool dispatch )
+	private void AssignTeam( PlayerState player, bool dispatch )
 	{
 		var ts = GameUtils.GetPlayers( Team.Terrorist ).Count();
 		var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).Count();
@@ -52,10 +52,14 @@ public sealed class TeamAssigner : Component,
 		if ( dispatch )
 		{
 			player.AssignTeam( assignTeam );
+
+			// Respawn the player's pawn since we might've changed their spawn
+			if ( player.Pawn.IsValid() )
+				player.Pawn.Respawn();
 		}
 		else
 		{
-			player.TeamComponent.Team = assignTeam;
+			player.Team = assignTeam;
 		}
 	}
 
@@ -63,13 +67,13 @@ public sealed class TeamAssigner : Component,
 	{
 		if ( AllowLateJoiners )
 		{
-			AssignTeam( eventArgs.Player, false );
+			AssignTeam( eventArgs.PlayerState, false );
 		}
 	}
 
 	void IGameEventHandler<PlayerJoinedEvent>.OnGameEvent( PlayerJoinedEvent eventArgs )
 	{
 		// Calling this will invoke callbacks for any ITeamAssignedListener listeners.
-		eventArgs.Player.AssignTeam( eventArgs.Player.TeamComponent.Team );
+		eventArgs.Player.AssignTeam( eventArgs.Player.Team );
 	}
 }

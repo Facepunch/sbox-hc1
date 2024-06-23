@@ -9,7 +9,7 @@
     "NetworkInterpolation": true,
     "Components": [
       {
-        "__type": "Facepunch.PlayerController",
+        "__type": "Facepunch.PlayerPawn",
         "__guid": "3370799f-99ac-4881-9678-016414bdb61f",
         "AnimationHelper": {
           "_type": "component",
@@ -115,7 +115,7 @@
           "_type": "component",
           "component_id": "3370799f-99ac-4881-9678-016414bdb61f",
           "go": "a4f94dfd-8684-4032-89b1-b08190beab32",
-          "component_type": "PlayerController"
+          "component_type": "PlayerPawn"
         },
         "RespawnProtectionSaturation": 0.25,
         "ScreenShaker": {
@@ -168,7 +168,7 @@
           "_type": "component",
           "component_id": "3370799f-99ac-4881-9678-016414bdb61f",
           "go": "a4f94dfd-8684-4032-89b1-b08190beab32",
-          "component_type": "PlayerController"
+          "component_type": "PlayerPawn"
         },
         "Source": {
           "_type": "component",
@@ -181,11 +181,6 @@
       {
         "__type": "Facepunch.PlayerMarker",
         "__guid": "236bf370-9058-4dca-b2e6-c774d97f7674"
-      },
-      {
-        "__type": "Facepunch.TeamComponent",
-        "__guid": "76d25a06-ecc5-4e19-b9f2-522e60ae3758",
-        "Team": "Unassigned"
       },
       {
         "__type": "Sandbox.HighlightOutline",
@@ -234,20 +229,12 @@
           "_type": "component",
           "component_id": "3370799f-99ac-4881-9678-016414bdb61f",
           "go": "a4f94dfd-8684-4032-89b1-b08190beab32",
-          "component_type": "PlayerController"
+          "component_type": "PlayerPawn"
         }
-      },
-      {
-        "__type": "Facepunch.PlayerId",
-        "__guid": "9d592043-7c1d-4cac-9c45-df74bb56091f"
       },
       {
         "__type": "Facepunch.TagBinder",
         "__guid": "bda86caa-ccce-46b8-b31b-e5e333de8618"
-      },
-      {
-        "__type": "Facepunch.PlayerState",
-        "__guid": "e2ebf07a-5e26-4fd9-9298-b1aa30e21d6c"
       },
       {
         "__type": "Facepunch.PlayerPingComponent",
@@ -550,17 +537,11 @@
                 ]
               }
             ],
-            "PlayerController": {
+            "PlayerPawn": {
               "_type": "component",
               "component_id": "3370799f-99ac-4881-9678-016414bdb61f",
               "go": "a4f94dfd-8684-4032-89b1-b08190beab32",
-              "component_type": "PlayerController"
-            },
-            "TeamComponent": {
-              "_type": "component",
-              "component_id": "76d25a06-ecc5-4e19-b9f2-522e60ae3758",
-              "go": "a4f94dfd-8684-4032-89b1-b08190beab32",
-              "component_type": "TeamComponent"
+              "component_type": "PlayerPawn"
             }
           },
           {
@@ -608,7 +589,7 @@
               "_type": "component",
               "component_id": "3370799f-99ac-4881-9678-016414bdb61f",
               "go": "a4f94dfd-8684-4032-89b1-b08190beab32",
-              "component_type": "PlayerController"
+              "component_type": "PlayerPawn"
             }
           }
         ],

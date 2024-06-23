@@ -8,7 +8,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <summary>
 	/// The player.
 	/// </summary>
-	[RequireComponent] PlayerController Player { get; set; }
+	[RequireComponent] PlayerPawn Player { get; set; }
 
 	/// <summary>
 	/// An accessor to see if the player is alive or not.
@@ -81,7 +81,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <summary>
 	/// Is this player an enemy of the viewer?
 	/// </summary>
-	bool IsEnemy => GameUtils.Viewer.Controller.TeamComponent.Team != Player.TeamComponent.Team;
+	bool IsEnemy => GameUtils.Viewer.Pawn.Team != Player.Team;
 
 	/// <summary>
 	/// Did we spot this player recently?
@@ -108,6 +108,6 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 				return true;
 		}
 
-		return viewer.Team == Player.TeamComponent.Team;
+		return viewer.Team == Player.Team;
 	}
 }

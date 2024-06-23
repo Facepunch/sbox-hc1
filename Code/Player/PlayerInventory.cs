@@ -8,7 +8,7 @@ namespace Facepunch;
 /// </summary>
 public partial class PlayerInventory : Component
 {
-	[RequireComponent] PlayerController Player { get; set; }
+	[RequireComponent] PlayerPawn Player { get; set; }
 
 	/// <summary>
 	/// What equipment do we have right now?
@@ -29,18 +29,6 @@ public partial class PlayerInventory : Component
 	/// Can we unequip the current weapon so we have no equipment out?
 	/// </summary>
 	[Property] public bool CanUnequipCurrentWeapon { get; set; } = false;
-
-	private int _balance = 16_000;
-
-	/// <summary>
-	/// Players current cash balance
-	/// </summary>
-	[HostSync]
-	public int Balance
-	{
-		get => GameMode.Instance?.UnlimitedMoney is true ? GameMode.Instance.MaxBalance : _balance;
-		private set => _balance = GameMode.Instance?.UnlimitedMoney is true ? GameMode.Instance.MaxBalance : value;
-	}
 
 	/// <summary>
 	/// Does this player have a defuse kit?
@@ -345,7 +333,7 @@ public partial class PlayerInventory : Component
 	public PickupResult CanTake( EquipmentResource resource )
 	{
 		if ( resource.Team != Team.Unassigned
-			&& resource.Team != Player.TeamComponent.Team
+			&& resource.Team != Player.Team
 			&& !resource.CanOtherTeamPickUp )
 		{
 			return PickupResult.None;
@@ -360,60 +348,6 @@ public partial class PlayerInventory : Component
 			default:
 				return !HasInSlot( resource.Slot ) ? PickupResult.Pickup : PickupResult.Swap;
 		}
-	}
-
-	public void SetCash( int amount )
-	{
-		using var _ = Rpc.FilterInclude( Connection.Host );
-		SetCashHost( amount );
-	}
-
-	[Broadcast]
-	private void SetCashHost( int amount )
-	{
-		Assert.True( Networking.IsHost );
-		Balance = Math.Clamp( amount, 0, GameMode.Instance.MaxBalance );
-	}
-
-	public void GiveCash( int amount )
-	{
-		using var _ = Rpc.FilterInclude( Connection.Host );
-		GiveCashHost( amount );
-	}
-
-	[Broadcast]
-	private void GiveCashHost( int amount )
-	{
-		Assert.True( Networking.IsHost );
-		Balance = Math.Clamp( Balance + amount, 0, GameMode.Instance.MaxBalance );
-	}
-
-	public void Purchase( int resourceId )
-	{
-		using var _ = Rpc.FilterInclude( Connection.Host );
-		PurchaseAsHost( resourceId );
-	}
-
-	[Broadcast]
-	private void PurchaseAsHost( int resourceId )
-	{
-		Assert.True( Networking.IsHost );
-
-		var resource = ResourceLibrary.Get<EquipmentResource>(resourceId);
-
-		if ( resource == null )
-		{
-			Log.Warning( $"Attempted purchase but EquipmentResource (Id: {resource}) not known!" );
-			return;
-		}
-
-		if ( Balance < resource.Price )
-			return;
-
-		if ( Give( resource ) is null )
-			return;
-
-		Balance -= resource.Price;
 	}
 
 	public void TryPurchaseBuyMenuItem( string equipmentId )
@@ -435,6 +369,34 @@ public partial class PlayerInventory : Component
 			return;
 		}
 		
-		equipmentData.Purchase( Player );
+		equipmentData.Purchase( Player.PlayerState );
+	}
+
+	public void Purchase( int resourceId )
+	{
+		using var _ = Rpc.FilterInclude( Connection.Host );
+		PurchaseAsHost( resourceId );
+	}
+
+	[Broadcast]
+	private void PurchaseAsHost( int resourceId )
+	{
+		Assert.True( Networking.IsHost );
+
+		var resource = ResourceLibrary.Get<EquipmentResource>( resourceId );
+
+		if ( resource == null )
+		{
+			Log.Warning( $"Attempted purchase but EquipmentResource (Id: {resource}) not known!" );
+			return;
+		}
+
+		if ( Player.PlayerState.Balance < resource.Price )
+			return;
+
+		if ( Give( resource ) is null )
+			return;
+
+		Player.PlayerState.Balance -= resource.Price;
 	}
 }

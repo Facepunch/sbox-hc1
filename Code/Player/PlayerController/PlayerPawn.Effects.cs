@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public partial class PlayerController
+public partial class PlayerPawn
 {
 	/// <summary>
 	/// What effect should we spawn when a player gets headshot?
@@ -40,7 +40,7 @@ public partial class PlayerController
 		if ( HealthComponent.State != LifeState.Alive )
 			return false;
 
-		if ( TeamComponent.Team == Team.Unassigned )
+		if ( Team == Team.Unassigned )
 			return false;
 
 		if ( SpectateSystem.Instance.IsSpectating )
@@ -49,8 +49,8 @@ public partial class PlayerController
 		if ( HealthComponent.IsGodMode )
 			return true;
 
-		var localPlayer = GameUtils.Viewer.Controller;
-		return localPlayer.IsValid() && TeamComponent.Team == localPlayer.TeamComponent.Team;
+		var localPlayer = GameUtils.Viewer.Pawn;
+		return localPlayer.IsValid() && Team == localPlayer.Team;
 	}
 
 	private void UpdateOutline()
@@ -67,9 +67,9 @@ public partial class PlayerController
 		Outline.InsideColor = HealthComponent.IsGodMode ? Color.White.WithAlpha( 0.1f ) : Color.Transparent;
 
 		if ( SpectateSystem.Instance.IsSpectating )
-			Outline.ObscuredColor = TeamComponent.Team.GetColor();
+			Outline.ObscuredColor = Team.GetColor();
 		else
-			Outline.ObscuredColor = GameUtils.Viewer.Controller.TeamComponent.Team == TeamComponent.Team
+			Outline.ObscuredColor = GameUtils.Viewer.Pawn.Team == Team
 				? PlayerColor : Color.Transparent;
 	}
 }

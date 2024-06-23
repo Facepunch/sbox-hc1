@@ -28,7 +28,7 @@
 
 @code
 {
-    public PlayerController Player => GameUtils.Viewer.Controller;
+    public PlayerPawn Player => GameUtils.Viewer.Pawn as PlayerPawn;
     public HealthComponent HealthComponent => Player.HealthComponent;
     public ArmorComponent ArmorComponent => Player.GameObject?.Components.Get<ArmorComponent>();
     public int Health => HealthComponent?.Health.CeilToInt() ?? 0;

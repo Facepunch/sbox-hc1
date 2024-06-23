@@ -27,16 +27,16 @@ internal class PlayerColors : SingletonComponent<PlayerColors>
 		Colors = colors.Shuffle( new Random( seed ) ).ToArray();
 	}
 
-	public Color GetColor( PlayerController player )
+	public Color GetColor( PlayerPawn player )
 	{
-		var team = player.TeamComponent.Team;
+		var team = player.Team;
 		if ( team == Team.Unassigned )
 			return Color.White;
 
 		// todo: make this a gamemode setting?
 		bool bigTeamMode = GameUtils.GetPlayers( team ).Count() > Colors.Length;
 
-		int idx = player.PlayerId.TeamUniqueId;
+		int idx = player.PlayerState.PlayerId.TeamUniqueId;
 		if ( bigTeamMode || idx == -1 || idx >= Colors.Length )
 			return team.GetColor();
 

@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public partial class PlayerController
+public partial class PlayerPawn
 {
 	/// <summary>
 	/// Development: should bots follow the player's input?
@@ -39,6 +39,6 @@ public partial class PlayerController
 	private static void Command_GiveGrand()
 	{
 		var player = GameUtils.LocalPlayer;
-		player.Inventory.GiveCash(1000);
+		player.PlayerState.GiveCash(1000);
 	}
 }

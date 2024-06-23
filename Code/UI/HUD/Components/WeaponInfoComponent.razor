@@ -7,7 +7,6 @@
 <root class="hud with-deadzone column">
     @foreach ( var slotGroup in Inventory.Equipment.OrderBy( x => x.Resource.Slot ).GroupBy( x => x.Resource.Slot ) )
     {
-
         <div class="group @GroupClasses( slotGroup.Key )">
             <div class="background" />
 
@@ -23,7 +22,7 @@
 
 @code
 {
-    public PlayerController Player => GameUtils.Viewer.Controller;
+    public PlayerPawn Player => GameUtils.Viewer.Pawn as PlayerPawn;
     public PlayerInventory Inventory => Player.Inventory;
     public Equipment CurrentEquipment => Player?.CurrentEquipment;
 

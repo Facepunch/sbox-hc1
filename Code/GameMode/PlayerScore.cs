@@ -60,7 +60,7 @@ public sealed class PlayerScore : Component,
 
 		if ( !victimPlayer.IsValid() ) return;
 
-		bool isFriendly = killerPlayer.TeamComponent.Team == victimPlayer.TeamComponent.Team;
+		bool isFriendly = killerPlayer.Team == victimPlayer.Team;
 		bool isSuicide = killerPlayer == victimPlayer;
 
 		if ( killerPlayer == thisPlayer )
@@ -124,7 +124,7 @@ public sealed class PlayerScore : Component,
 		else
 		{
 			// Defuser is a teammate
-			if ( defuserPlayer.TeamComponent.Team == thisPlayer.TeamComponent.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
+			if ( defuserPlayer.Team == thisPlayer.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
 			{
 				Score += DefuseTeamAliveScore;
 			}
@@ -152,7 +152,7 @@ public sealed class PlayerScore : Component,
 				Score += BombExplodePlanterDeadScore;
 			}
 		}
-		else if ( planterPlayerComponent?.TeamComponent.Team == thisPlayer.TeamComponent.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
+		else if ( planterPlayerComponent?.Team == thisPlayer.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
 		{
 			// Teammate is alive when the bomb explodes
 			Score += BombExplodeTeamAliveScore;

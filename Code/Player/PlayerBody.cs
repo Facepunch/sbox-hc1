@@ -12,11 +12,11 @@ public partial class PlayerBody : Component
 
 	private bool IsShown;
 
-	public PlayerController Player { get; set; }
+	public PlayerPawn Player { get; set; }
 
 	protected override void OnStart()
 	{
-		Player = Components.Get<PlayerController>( FindMode.EverythingInSelfAndAncestors );
+		Player = Components.Get<PlayerPawn>( FindMode.EverythingInSelfAndAncestors );
 	}
 
 	internal void SetRagdoll( bool ragdoll )

@@ -6,7 +6,8 @@ namespace Facepunch;
 /// Tracks whether something has been seen by the enemy team.
 /// </summary>
 public sealed class Spottable : Component,
-	IGameEventHandler<BetweenRoundCleanupEvent>
+	IGameEventHandler<BetweenRoundCleanupEvent>,
+	IGameEventHandler<TeamChangedEvent>
 {
 	/// <summary>
 	/// The team this belongs to.
@@ -29,41 +30,13 @@ public sealed class Spottable : Component,
 	public bool IsSpotted => Static ? HasBeenSpotted : LastSpotted < 1;
 	public bool WasSpotted => !IsSpotted && LastSpotted < 5;
 
-	protected override void OnEnabled()
-	{
-		TeamComponent teamComponent = Components.Get<TeamComponent>();
-		if ( teamComponent is not null )
-		{
-			teamComponent.OnTeamChanged += OnTeamChanged;
-		}
-
-		base.OnEnabled();
-	}
-
-	protected override void OnDisabled()
-	{
-		TeamComponent teamComponent = Components.Get<TeamComponent>();
-		if ( teamComponent is not null )
-		{
-			teamComponent.OnTeamChanged -= OnTeamChanged;
-		}
-		base.OnDisabled();
-	}
-
 	protected override void OnUpdate()
 	{
-		base.OnUpdate();
-
-		if (IsSpotted)
+		if ( IsSpotted )
 			LastSeenPosition = Transform.Position;
 	}
 
-	private void OnTeamChanged( Team oldTeam, Team newTeam )
-	{
-		Team = newTeam;
-	}
-
-	public void Spotted(Spotter spotter)
+	public void Spotted( Spotter spotter )
 	{
 		LastSpotted = 0;
 		HasBeenSpotted = true;
@@ -77,8 +50,12 @@ public sealed class Spottable : Component,
 
 	protected override void DrawGizmos()
 	{
-		base.DrawGizmos();
 		Gizmo.Draw.Color = Color.Green;
-		Gizmo.Draw.Line(Transform.Position, Transform.Position + Vector3.Up * Height);
+		Gizmo.Draw.Line( Transform.Position, Transform.Position + Vector3.Up * Height );
+	}
+
+	void IGameEventHandler<TeamChangedEvent>.OnGameEvent( TeamChangedEvent eventArgs )
+	{
+		Team = eventArgs.After;
 	}
 }

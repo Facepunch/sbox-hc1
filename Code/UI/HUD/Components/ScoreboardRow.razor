@@ -38,7 +38,7 @@
 
     @if ( !GameMode.Instance.UnlimitedMoney && Player.IsValid() && GameUtils.LocalPlayer.IsValid() && Player.IsFriendly( GameUtils.LocalPlayer ) )
     {
-        <label class="col stat-large">$@(Player.Inventory.Balance.ToString("N0")</label>
+        <label class="col stat-large">$@(Player.PlayerState.Balance.ToString("N0")</label>
     }
     else
     {
@@ -53,7 +53,7 @@
 </root>
 
 @code {
-    public PlayerController Player { get; set; }
+    public PlayerPawn Player { get; set; }
     private Connection Connection => Player.Network.OwnerConnection;
     private PlayerScore Score => Player.Components.Get<PlayerScore>();
 
@@ -61,7 +61,7 @@
     private bool IsLocal => Player.IsLocallyControlled;
     private bool IsDead => Player.HealthComponent.State != LifeState.Alive;
     private float KillDeathRatio => (float)Score.Kills / (float)Score.Deaths.Clamp(1, int.MaxValue);
-    private Team Team => Player.TeamComponent.Team;
+    private Team Team => Player.Team;
     private bool IsPartyMember => PartyRoom.Current?.Members.Any( x => x.Id == Connection.SteamId ) ?? false;
 
     protected override int BuildHash()

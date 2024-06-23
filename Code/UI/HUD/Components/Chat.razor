@@ -167,7 +167,7 @@
         if ( ChatMode == ChatModes.Team )
         {
             var localPlayer = GameUtils.LocalPlayer;
-            bool IsFriendly( PlayerController x ) => localPlayer.GameObject.IsFriendly(x.GameObject) || localPlayer.GameObject == x.GameObject;
+            bool IsFriendly( PlayerPawn x ) => localPlayer.GameObject.IsFriendly(x.GameObject) || localPlayer.GameObject == x.GameObject;
 
             var players = GameUtils.AllPlayers;
             var friendlyGameObjects = players.Where( IsFriendly );

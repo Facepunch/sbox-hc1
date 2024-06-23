@@ -187,12 +187,10 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 				return false;
 		}
 
-		return viewer.Team == TeamComponent.Team;
+		return viewer.Team == Team;
 	}
 
-	public override Team Team => TeamComponent.Team;
-
-	string ICustomMinimapIcon.CustomStyle => $"background-image-tint: {TeamComponent.Team.GetColor().Hex}";
+	string ICustomMinimapIcon.CustomStyle => $"background-image-tint: {Team.GetColor().Hex}";
 	string IMinimapIcon.IconPath => "ui/icons/drone.png";
 
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;

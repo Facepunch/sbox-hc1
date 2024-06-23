@@ -64,18 +64,18 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// <summary>
 	/// Cached version of the owner once we fetch it.
 	/// </summary>
-	private PlayerController owner;
+	private PlayerPawn owner;
 
 	/// <summary>
 	/// Who owns this gun?
 	/// </summary>
-	public PlayerController Owner
+	public PlayerPawn Owner
 	{
-		get => owner ??= Scene.Directory.FindComponentByGuid( OwnerId ) as PlayerController;
+		get => owner ??= Scene.Directory.FindComponentByGuid( OwnerId ) as PlayerPawn;
 	}
 
 	/// <summary>
-	/// The Guid of the owner's <see cref="PlayerController"/>
+	/// The Guid of the owner's <see cref="PlayerPawn"/>
 	/// </summary>
 	[HostSync] public Guid OwnerId { get; set; }
 
@@ -90,7 +90,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	[DeveloperCommand( "Toggle View Model", "Visuals" )]
 	private static void ToggleViewModel()
 	{
-		var player = GameUtils.Viewer.Controller;
+		var player = GameUtils.Viewer.Pawn as PlayerPawn;
 
 		player.CurrentEquipment.ViewModel.ModelRenderer.Enabled = !player.CurrentEquipment.ViewModel.ModelRenderer.Enabled;
 		player.CurrentEquipment.ViewModel.Arms.Enabled = !player.CurrentEquipment.ViewModel.Arms.Enabled;

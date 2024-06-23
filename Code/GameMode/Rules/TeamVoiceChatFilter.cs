@@ -2,10 +2,10 @@ namespace Facepunch;
 
 public partial class TeamVoiceChatFilter : Component, IVoiceFilter
 {
-	private bool DontSendFilter( PlayerController player )
+	private bool DontSendFilter( PlayerPawn player )
 	{
 		// Send voices to spectators
-		if ( player.TeamComponent.Team == Team.Unassigned ) return false;
+		if ( player.Team == Team.Unassigned ) return false;
 
 		// Don't send to enemies
 		return !player.IsFriendly( GameUtils.LocalPlayer );
@@ -13,7 +13,7 @@ public partial class TeamVoiceChatFilter : Component, IVoiceFilter
 
 	IEnumerable<Connection> IVoiceFilter.GetExcludeFilter()
 	{
-		return Scene.GetAllComponents<PlayerController>()
+		return Scene.GetAllComponents<PlayerPawn>()
 			.Where( DontSendFilter )
 			.Select( x => x.Network.OwnerConnection );
 	}

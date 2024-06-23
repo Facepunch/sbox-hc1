@@ -3,8 +3,8 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public record EquipmentDroppedEvent( DroppedEquipment Dropped, PlayerController Player ) : IGameEvent;
-public record EquipmentPickedUpEvent( PlayerController Player, DroppedEquipment Dropped, Equipment Equipment ) : IGameEvent;
+public record EquipmentDroppedEvent( DroppedEquipment Dropped, PlayerPawn Player ) : IGameEvent;
+public record EquipmentPickedUpEvent( PlayerPawn Player, DroppedEquipment Dropped, Equipment Equipment ) : IGameEvent;
 
 public partial class DroppedEquipment : Component, IUse, Component.ICollisionListener, IMarkerObject
 {
@@ -62,14 +62,14 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 		return droppedWeapon;
 	}
 
-	public bool CanUse( PlayerController player )
+	public bool CanUse( PlayerPawn player )
 	{
 		return player.Inventory.CanTake( Resource ) != PlayerInventory.PickupResult.None;
 	}
 
 	private bool _isUsed;
 
-	public void OnUse( PlayerController player )
+	public void OnUse( PlayerPawn player )
 	{
 		if ( _isUsed ) return;
 		_isUsed = true;
@@ -91,7 +91,7 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 		if ( !Networking.IsHost ) return;
 
 		// Conna: this is longer than Daenerys Targaryen's full title.
-		if ( collision.Other.GameObject.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants ) is { } player )
+		if ( collision.Other.GameObject.Root.Components.Get<PlayerPawn>( FindMode.EnabledInSelfAndDescendants ) is { } player )
 		{
 			// Don't pickup weapons if we're dead.
 			if ( player.HealthComponent.State != LifeState.Alive )

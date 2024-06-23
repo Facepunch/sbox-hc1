@@ -1,4 +1,5 @@
 using Sandbox;
+using System.Threading.Channels;
 
 namespace Facepunch;
 
@@ -31,11 +32,12 @@ public sealed class BotManager : SingletonComponent<BotManager>
 	public void AddBot()
 	{
 		var player = GameNetworkManager.Instance.PlayerPrefab.Clone();
+		player.Name = $"PlayerState (BOT)";
 
-		PlayerController playerController = player.Components.Get<PlayerController>();
-		playerController.PlayerState.BotId = CurrentBotId;
+		var playerState = player.Components.Get<PlayerState>();
+		playerState.BotId = CurrentBotId;
 
-		GameNetworkManager.Instance.OnPlayerJoined( playerController, Connection.Host );
+		GameNetworkManager.Instance.OnPlayerJoined( playerState, Connection.Host );
 
 		CurrentBotId++;
 	}
@@ -95,7 +97,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 			newInst.NetworkSpawn();
 
 			var drone = newInst.Components.Get<Drone>();
-			drone.TeamComponent.Team = GameUtils.LocalPlayer.TeamComponent.Team;
+			drone.Team = GameUtils.LocalPlayer.Team;
 
 			var transform = GameUtils.LocalPlayer.Transform;
 			drone.Transform.Position = transform.Position + transform.Rotation.Forward * 50f + Vector3.Up * 50f;

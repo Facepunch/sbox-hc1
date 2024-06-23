@@ -39,19 +39,19 @@
 
 @code
 {
-    private Team MyTeam => GameUtils.LocalPlayer?.TeamComponent?.Team ?? Team.Unassigned;
+    private Team MyTeam => GameUtils.LocalPlayerState?.Team ?? Team.Unassigned;
     private Team EnemyTeam => MyTeam.GetOpponents();
 
     private string MyTeamScore { get; set; } = "0";
     private string EnemyTeamScore { get; set; } = "0";
 
-    private IEnumerable<PlayerController> MyTeamPlayers { get; set; }
-    private IEnumerable<PlayerController> EnemyTeamPlayers { get; set; }
+    private IEnumerable<PlayerPawn> MyTeamPlayers { get; set; }
+    private IEnumerable<PlayerPawn> EnemyTeamPlayers { get; set; }
 
     public string Status => GameMode.Instance?.DisplayedStatus;
     public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
 
-    public IEnumerable<PlayerController> PlayerList => Scene.GetAllComponents<PlayerController>();
+    public IEnumerable<PlayerPawn> PlayerList => Scene.GetAllComponents<PlayerPawn>();
 
     private void OnSecondElapsed()
     {

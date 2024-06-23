@@ -24,9 +24,9 @@
 {
     public IEnumerable<Voice> VoiceList => Scene.GetAllComponents<Voice>();
 
-    private PlayerController GetPlayer( Voice voice )
+    private PlayerPawn GetPlayer( Voice voice )
     {
-        return voice.Components.Get<PlayerController>();
+        return voice.Components.Get<PlayerPawn>();
     }
 
     private bool CanDisplay( Voice voice )

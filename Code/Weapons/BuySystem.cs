@@ -11,6 +11,9 @@ public static class BuySystem
 {
 	public static bool IsEnabled()
 	{
+		if ( !GameUtils.LocalPlayer.IsValid() )
+			return false;
+
 		// Can't buy if dead
 		if ( GameUtils.LocalPlayer.HealthComponent.State != LifeState.Alive )
 			return false;
@@ -31,6 +34,6 @@ public static class BuySystem
 		if ( zone.Team == Team.Unassigned )
 			return true;
 
-		return zone.Team == player.TeamComponent.Team;
+		return zone.Team == player.Team;
 	}
 }

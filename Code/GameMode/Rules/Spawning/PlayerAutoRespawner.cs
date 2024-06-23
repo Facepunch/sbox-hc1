@@ -14,6 +14,22 @@ public sealed class PlayerAutoRespawner : Component,
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
 	{
 		var players = AllowSpectatorsToSpawn ? GameUtils.AllPlayers : GameUtils.ActivePlayers;
+		var playerStates = AllowSpectatorsToSpawn ? GameUtils.AllPlayerStates : GameUtils.ActivePlayerStates;
+
+		foreach ( var playerState in playerStates )
+		{
+			if ( playerState.Pawn.IsValid() )
+			{
+				// Already got a pawn, fuck off?
+				continue;
+			}
+
+			// Ask this person to make a player
+			using ( Rpc.FilterInclude( playerState.Network.OwnerConnection ) )
+			{
+				playerState.RequestCreatePlayer();
+			}
+		}
 
 		foreach ( var player in players )
 		{
@@ -38,14 +54,6 @@ public sealed class PlayerAutoRespawner : Component,
 					if ( player.HealthComponent.TimeSinceLifeStateChanged > RespawnDelaySeconds )
 					{
 						player.HealthComponent.RespawnState = RespawnState.Ready;
-
-						// TODO: click to respawn?
-
-						if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
-						{
-							player.Teleport( spawnAssigner.GetSpawnPoint( player ) );
-						}
-
 						player.Respawn();
 					}
 

@@ -2,7 +2,7 @@ using Sandbox.Diagnostics;
 
 namespace Facepunch;
 
-public partial class PlayerController
+public partial class PlayerPawn
 {
 	/// <summary>
 	/// The player's health component
@@ -14,25 +14,17 @@ public partial class PlayerController
 	/// </summary>
 	[RequireComponent] public PlayerInventory Inventory { get; private set; }
 
-    /// <summary>
-    /// Component describing which team the player is on.
-    /// </summary>
-    [RequireComponent] public TeamComponent TeamComponent { get; private set; }
-
 	/// <summary>
 	/// Is this player in spectate mode?
 	/// </summary>
-	[Sync] public bool IsSpectating { get; private set; }
+	[Sync] public bool IsSpectating { get; private set; } = false;
 	
 	/// <summary>
 	/// How long since the player last respawned?
 	/// </summary>
 	public TimeSince TimeSinceLastRespawn { get; private set; }
 
-	void IRespawnable.Kill() => Kill();
-
-	[Broadcast( NetPermission.HostOnly )]
-	public void Kill( bool enableRagdoll = true )
+	public override void Kill()
 	{
 		if ( Networking.IsHost )
 		{
@@ -41,14 +33,7 @@ public partial class PlayerController
 			ArmorComponent.Armor = 0f;
 		}
 
-		if ( enableRagdoll )
-			EnableRagdoll();
-		else
-		{
-			GameObject.Tags.Set( "invis", true );
-			Body.SetRagdoll( false );
-			Body.DamageTakenForce = Vector3.Zero;
-		}
+		EnableRagdoll();
 
 		if ( IsProxy )
 			return;
@@ -60,41 +45,13 @@ public partial class PlayerController
 		CameraController.Mode = CameraMode.ThirdPerson;
 	}
 
-	void IRespawnable.Respawn()
+	public override void Respawn()
 	{
-		if ( Networking.IsHost )
-			Respawn();
-
 		_previousVelocity = Vector3.Zero;
-	}
 
-	/// <summary>
-	/// Can be called on the host when creating the player before network spawning it. This
-	/// seems like duplicating code but for now it's best practice to ensure state is up-to-date
-	/// before clients receive it from the host instead of sending RPCs after spawning it in the same
-	/// tick.
-	/// </summary>
-	public void Initialize()
-	{
-		Assert.True( Networking.IsHost );
+		Log.Info( $"Respawn( {GameObject.Name} ({DisplayName}, {Team}) )" );
 
-		HealthComponent.State = LifeState.Dead;
-		ArmorComponent.HasHelmet = false;
-		ArmorComponent.Armor = 0f;
-		HealthComponent.RespawnState = RespawnState.None;
-
-		GameObject.Tags.Set( "invis", true );
-		Body.SetRagdoll( false );
 		Body.DamageTakenForce = Vector3.Zero;
-
-		CameraController.Mode = CameraMode.ThirdPerson;
-		IsSpectating = true;
-	}
-
-	[Broadcast( NetPermission.HostOnly )]
-	public void Respawn()
-	{
-		// Log.Info( $"Respawn( {GameObject.Name} ({DisplayName}, {TeamComponent.Team}) )" );
 
 		ResetBody();
 
@@ -103,6 +60,9 @@ public partial class PlayerController
 			HealthComponent.Health = HealthComponent.MaxHealth;
 			HealthComponent.State = LifeState.Alive;
 			HealthComponent.RespawnState = RespawnState.None;
+
+			ArmorComponent.HasHelmet = false;
+			ArmorComponent.Armor = 0f;
 		}
 		
 		TimeSinceLastRespawn = 0f;
@@ -118,19 +78,24 @@ public partial class PlayerController
 		// Conna: we're not spectating if we just respawned.
 		IsSpectating = false;
 
+		// :S
+		if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
+		{
+			Teleport( spawnAssigner.GetSpawnPoint( this ) );
+		}
+
+		// Re-possess if we need to.
 		if ( !PlayerState.IsBot )
 		{
-			PlayerState.Possess();
+			PlayerState.Possess( this );
 		}
 	}
 
 	public void Teleport( Transform transform )
 	{
-		Assert.True( Networking.IsHost );
 		Teleport( transform.Position, transform.Rotation );
 	}
 
-	[Authority( NetPermission.HostOnly )]
 	public void Teleport( Vector3 position, Rotation rotation )
 	{
 		Transform.World = new( position, rotation );

@@ -80,14 +80,14 @@
     public string Name => GameMode.Instance?.Title;
     public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
 
-    public IEnumerable<PlayerController> PlayerList => Scene.GetAllComponents<PlayerController>();
+    public IEnumerable<PlayerPawn> PlayerList => Scene.GetAllComponents<PlayerPawn>();
 
-    private List<IGrouping<Team, PlayerController>> GroupedPlayers
+    private List<IGrouping<Team, PlayerPawn>> GroupedPlayers
     {
         get
         {
             var sortedPlayers = PlayerList.OrderByDescending(x => x.Components.Get<PlayerScore>().Score);
-            var groupedPlayers = sortedPlayers.GroupBy(x => x.TeamComponent.Team);
+            var groupedPlayers = sortedPlayers.GroupBy(x => x.Team);
             return groupedPlayers.ToList();
         }
     }

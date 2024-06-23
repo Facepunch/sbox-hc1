@@ -73,7 +73,7 @@ public sealed class Door : Component, IUse,
 		DefaultState = State;
 	}
 
-	public bool CanUse( PlayerController player )
+	public bool CanUse( PlayerPawn player )
 	{
 		// Don't use doors already opening/closing
 		return State is DoorState.Open or DoorState.Closed;
@@ -102,7 +102,7 @@ public sealed class Door : Component, IUse,
 		// handle.Occlusion = false;
 	}
 
-	public void OnUse( PlayerController player )
+	public void OnUse( PlayerPawn player )
 	{
 		LastUse = 0.0f;
 

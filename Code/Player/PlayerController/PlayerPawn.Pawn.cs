@@ -1,14 +1,7 @@
 namespace Facepunch;
 
-public partial class PlayerController
+public partial class PlayerPawn
 {
-	[RequireComponent] public PlayerState PlayerState { get; set; }
-
-	/// <summary>
-	/// A shorthand accessor to say if we're controlling this player.
-	/// </summary>
-	public override bool IsLocallyControlled => IsViewer && PlayerState.IsLocalPlayer;
-
 	/// <summary>
 	/// Is this player the currently possessed controller
 	/// </summary>
@@ -22,7 +15,7 @@ public partial class PlayerController
 	/// <summary>
 	/// Unique colour or team colour of this player
 	/// </summary>
-	public Color PlayerColor => PlayerColors.Instance?.GetColor(this) ?? TeamComponent.Team.GetColor();
+	public Color PlayerColor => PlayerColors.Instance?.GetColor(this) ?? Team.GetColor();
 
 	/// <summary>
 	/// Called when possessed.

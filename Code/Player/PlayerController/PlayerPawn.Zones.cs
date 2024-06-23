@@ -3,7 +3,7 @@ namespace Facepunch;
 
 // tony: Not a huge fan of this, can't we be reacting to trigger events instead of tracing against spheres for every player every update?
 // or just do this on the local player, and tell the host about what zones they're in?
-partial class PlayerController
+partial class PlayerPawn
 {
 	private readonly List<Zone> _zones = new();
 

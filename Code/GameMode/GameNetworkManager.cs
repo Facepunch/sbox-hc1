@@ -20,19 +20,6 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	{
 		PlayerId.Init();
 
-		if ( !IsMultiplayer )
-		{
-			var player = PlayerPrefab.Clone();
-
-			var playerComponent = player.Components.Get<PlayerController>();
-			if ( !playerComponent.IsValid() )
-				return;
-
-			OnPlayerJoined( playerComponent, Connection.Local );
-
-			return;
-		}
-
 		//
 		// Create a lobby if we're not connected
 		//
@@ -53,28 +40,31 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		Log.Info( $"Player '{channel.DisplayName}' is becoming active" );
 
 		var player = PlayerPrefab.Clone();
+		player.BreakFromPrefab();
+		player.Name = $"PlayerState ({channel.DisplayName})";
 
-		var playerComponent = player.Components.Get<PlayerController>();
-		if ( !playerComponent.IsValid() )
+		var playerState = player.Components.Get<PlayerState>();
+		if ( !playerState.IsValid() )
 			return;
 
-		OnPlayerJoined( playerComponent, channel );
+		OnPlayerJoined( playerState, channel );
 	}
 
-
-	public void OnPlayerJoined( PlayerController player, Connection channel )
+	public void OnPlayerJoined( PlayerState playerState, Connection channel )
 	{
-		Scene.Dispatch( new PlayerConnectedEvent( player ) );
+		Scene.Dispatch( new PlayerConnectedEvent( playerState ) );
 
-		var spawnPoint = GameUtils.GetRandomSpawnPoint( player.TeamComponent.Team );
-		player.Teleport( spawnPoint );
-		player.Initialize();
-		player.GameObject.NetworkSpawn( channel );
+		playerState.GameObject.NetworkSpawn( channel );
 
-		Scene.Dispatch( new PlayerJoinedEvent( player ) );
+		//var spawnPoint = GameUtils.GetRandomSpawnPoint( player.Team );
+		//player.Teleport( spawnPoint );
+		//player.Initialize();
+		//player.GameObject.NetworkSpawn( channel );
+
+		Scene.Dispatch( new PlayerJoinedEvent( playerState ) );
 		
-		if ( player.HealthComponent.State == LifeState.Alive )
-			GameMode.Instance?.SendSpawnConfirmation( player.Id );
+		//if ( player.HealthComponent.State == LifeState.Alive )
+			//GameMode.Instance?.SendSpawnConfirmation( player.Id );
 	}
 
 	[ConCmd( "lobby_list" )]

@@ -13,7 +13,7 @@ public sealed class CashPointTracker : Component, IGameEventHandler<EquipmentDro
 	/// <summary>
 	/// Who is holding the bag RIGHT now?
 	/// </summary>
-	public PlayerController Holder { get; set; }
+	public PlayerPawn Holder { get; set; }
 
 	protected override void OnStart()
 	{

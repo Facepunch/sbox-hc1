@@ -12,11 +12,6 @@ public sealed class RespawnPlayers : Component,
 	{
 		foreach ( var player in GameUtils.ActivePlayers )
 		{
-			if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
-			{
-				player.Teleport( spawnAssigner.GetSpawnPoint( player ) );
-			}
-
 			player.Respawn();
 		}
 	}

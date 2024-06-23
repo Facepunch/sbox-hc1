@@ -11,7 +11,7 @@ public partial class NetworkUtils
 	/// <returns></returns>
 	public static IDisposable RpcMyTeam()
 	{
-		return RpcTeam( GameUtils.LocalPlayer.TeamComponent.Team );
+		return RpcTeam( GameUtils.LocalPlayer.Team );
 	}
 
 	/// <summary>

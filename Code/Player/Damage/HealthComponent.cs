@@ -39,8 +39,8 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// What's our health?
 	/// </summary>
-	[HostSync, Change( nameof( OnHealthPropertyChanged ))]
-	public float Health { get; set; }
+	[HostSync, Change( nameof( OnHealthPropertyChanged ) )]
+	public float Health { get; set; } = 100f;
 
 	public float MaxHealth => GetGlobal<PlayerGlobals>().MaxHealth;
 

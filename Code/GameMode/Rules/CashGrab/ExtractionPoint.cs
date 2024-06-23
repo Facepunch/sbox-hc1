@@ -2,7 +2,7 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public record CashPointBagExtractedEvent( PlayerController Player, ExtractionPoint ExtractionPoint ) : IGameEvent;
+public record CashPointBagExtractedEvent( PlayerPawn Player, ExtractionPoint ExtractionPoint ) : IGameEvent;
 
 /// <summary>
 /// An extraction point, associated with a <see cref="CashPoint"/>
@@ -58,7 +58,7 @@ public partial class ExtractionPoint : Component,
 
 		if ( CashPoint.State == CashPoint.CashPointState.Open )
 		{
-			var player = other.GameObject.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants );
+			var player = other.GameObject.Root.Components.Get<PlayerPawn>( FindMode.EnabledInSelfAndDescendants );
 			if ( player.IsValid() )
 			{
 				var inventory = player.Inventory;

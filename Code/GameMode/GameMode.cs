@@ -97,8 +97,8 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	[Authority]
 	public void SendSpawnConfirmation( Guid playerGuid )
 	{
-		var player = Scene.Directory.FindComponentByGuid( playerGuid ) as PlayerController
-			?? throw new Exception( $"Unknown {nameof(PlayerController)} Id: {playerGuid}" );
+		var player = Scene.Directory.FindComponentByGuid( playerGuid ) as PlayerPawn
+			?? throw new Exception( $"Unknown {nameof(PlayerPawn)} Id: {playerGuid}" );
 
 		Scene.Dispatch( new PlayerSpawnedEvent( player ) );
 	}

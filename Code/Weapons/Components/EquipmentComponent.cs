@@ -14,7 +14,7 @@ public abstract class EquipmentComponent : Component
 	/// <summary>
 	/// The player.
 	/// </summary>
-	protected PlayerController Player { get; set; }
+	protected PlayerPawn Player { get; set; }
 
 	protected void BindTag( string tag, Func<bool> predicate ) => Equipment.BindTag( tag, predicate );
 

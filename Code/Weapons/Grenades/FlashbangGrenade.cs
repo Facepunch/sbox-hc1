@@ -48,7 +48,7 @@ public partial class FlashbangGrenade : BaseGrenade, IMarkerObject
 		if ( ExplodeSound is not null )
 			Sound.Play( ExplodeSound, Transform.Position );
 		
-		var viewer = GameUtils.Viewer?.Controller;
+		var viewer = GameUtils.Viewer?.Pawn as PlayerPawn;
 		if ( !viewer.IsValid() ) return;
 
 		var distance = viewer.Transform.Position.Distance( Transform.Position );
