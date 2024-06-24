@@ -95,12 +95,13 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <returns></returns>
 	bool IMinimapElement.IsVisible( Pawn viewer )
 	{
-		if ( Player.Tags.Has( "invis" ) )
+		if ( Player.HealthComponent.State != LifeState.Alive )
 			return false;
 
 		if ( IsAlive )
 		{
-			if ( (Player as Pawn).IsPossessed )
+			// Are we possessing this player?
+			if ( Player.IsPossessed )
 				return false;
 
 			// seen by enemy team
