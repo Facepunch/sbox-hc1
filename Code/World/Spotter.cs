@@ -18,7 +18,7 @@ public sealed class Spotter : Component
 		if ( !Networking.IsHost )
 			return;
 
-		if ( Player.IsSpectating || Player.Team == Team.Unassigned )
+		if ( Player.HealthComponent.State != LifeState.Alive || Player.Team == Team.Unassigned )
 			return;
 
 		if ( LastPoll < Interval )

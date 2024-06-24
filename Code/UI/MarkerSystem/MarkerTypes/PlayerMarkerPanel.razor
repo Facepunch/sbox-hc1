@@ -71,7 +71,7 @@
     @if ( Player?.HealthComponent?.State != LifeState.Alive )
         return;
 
-    @if ( !LocalPlayer.IsSpectating )
+    @if ( !LocalPlayer.IsValid() || LocalPlayer?.HealthComponent.State != LifeState.Alive )
     {
         @* TODO: make the player markers show up for enemies under certain circumstances
         when aiming at a player that's kinda close to you? *@

@@ -13,11 +13,6 @@ public partial class PlayerPawn
 	/// The player's inventory, items, etc.
 	/// </summary>
 	[RequireComponent] public PlayerInventory Inventory { get; private set; }
-
-	/// <summary>
-	/// Is this player in spectate mode?
-	/// </summary>
-	[Sync] public bool IsSpectating { get; private set; } = false;
 	
 	/// <summary>
 	/// How long since the player last respawned?
@@ -41,7 +36,6 @@ public partial class PlayerPawn
 		Holster();
 
 		_previousVelocity = Vector3.Zero;
-		IsSpectating = true;
 		CameraController.Mode = CameraMode.ThirdPerson;
 	}
 
@@ -74,9 +68,6 @@ public partial class PlayerPawn
 
 		if ( IsProxy )
 			return;
-
-		// Conna: we're not spectating if we just respawned.
-		IsSpectating = false;
 
 		// :S
 		if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )

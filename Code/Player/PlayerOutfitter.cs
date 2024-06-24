@@ -166,10 +166,7 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn,
 	/// <param name="oldTeam"></param>
 	/// <param name="newTeam"></param>
 	private void OnTeamChanged( Team oldTeam, Team newTeam )
-	{
-		if ( PlayerPawn.IsSpectating )
-			return;
-		
+	{		
 		UpdateFromTeam( newTeam );
 	}
 

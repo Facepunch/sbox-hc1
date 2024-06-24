@@ -5,7 +5,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 	private PlayerPawn LocalPlayer => GameUtils.LocalPlayer;
 
 	public CameraMode CameraMode { get; private set; } = CameraMode.FirstPerson;
-	public bool IsSpectating => LocalPlayer?.IsSpectating ?? false;
+	public bool IsSpectating => !LocalPlayer.IsValid() || LocalPlayer.HealthComponent.State != LifeState.Alive;
 	public bool IsFreecam => (FreecamController as Pawn)?.IsPossessed ?? false;
 
 	[Property] public SpectateController FreecamController { get; set; }
@@ -82,7 +82,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 			if ( !controller.IsValid() )
 				continue;
 
-			if ( controller.IsSpectating )
+			if ( controller.HealthComponent.State != LifeState.Alive )
 				continue;
 
 			// Already spectating this guy, no need to reposess (and reset the viewmodel etc)
