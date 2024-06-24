@@ -101,10 +101,10 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// </summary>
 	protected void UpdateRenderMode()
 	{
-		if ( Owner.IsViewer )
-			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
-		else
-			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
+		ModelRenderer.Enabled = !Owner.IsViewer;
+		ModelRenderer.RenderType = !Owner.IsViewer 
+			? Sandbox.ModelRenderer.ShadowRenderType.On 
+			: Sandbox.ModelRenderer.ShadowRenderType.Off;
 	}
 
 	private ViewModel viewModel;
@@ -127,16 +127,6 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		}
 	}
 
-	/// <summary>
-	/// How long it's been since we used this attack.
-	/// </summary>
-	protected TimeSince TimeSincePrimaryAttack { get; set; }
-
-	/// <summary>
-	/// How long it's been since we used this attack.
-	/// </summary>
-	protected TimeSince TimeSinceSecondaryAttack { get; set; }
-	
 	void INetworkListener.OnDisconnected( Connection connection )
 	{
 		if ( !Networking.IsHost )
@@ -191,42 +181,6 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	public virtual AnimationHelper.HoldTypes GetHoldType()
 	{
 		return HoldType;
-	}
-
-	/// <summary>
-	/// Called when trying to shoot the equipment with the "Attack1" input action.
-	/// </summary>
-	/// <returns></returns>
-	public virtual bool PrimaryAttack()
-	{
-		return true;
-	}
-
-	/// <summary>
-	/// Can we even use this attack?
-	/// </summary>
-	/// <returns></returns>
-	public virtual bool CanPrimaryAttack()
-	{
-		return TimeSincePrimaryAttack > 0.1f;
-	}
-
-	/// <summary>
-	/// Called when trying to shoot the equipment with the "Attack2" input action.
-	/// </summary>
-	/// <returns></returns>
-	public virtual bool SecondaryAttack()
-	{
-		return false;
-	}
-
-	/// <summary>
-	/// Can we even use this attack?
-	/// </summary>
-	/// <returns></returns>
-	public virtual bool CanSecondaryAttack()
-	{
-		return false;
 	}
 	
 	private void OnIsDeployedPropertyChanged( bool oldValue, bool newValue )
@@ -319,20 +273,17 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	
 	protected virtual void OnDeployed()
 	{
-		if ( Owner.IsValid() && Owner.IsViewer && Owner.CameraController.Mode != CameraMode.ThirdPerson )
+		if ( Owner.IsValid() && Owner.IsViewer && Owner.CameraController.Mode == CameraMode.FirstPerson )
 			CreateViewModel();
-		
-		if ( ModelRenderer.IsValid() )
-			ModelRenderer.Enabled = true;
+
+		UpdateRenderMode();
 
 		GameObject.Root.Dispatch( new EquipmentDeployedEvent( this ) );
 	}
 
 	protected virtual void OnHolstered()
 	{
-		if ( ModelRenderer.IsValid() )
-			ModelRenderer.Enabled = false;
-		
+		UpdateRenderMode();
 		ClearViewModel();
 		
 		GameObject.Root.Dispatch( new EquipmentHolsteredEvent( this ) );

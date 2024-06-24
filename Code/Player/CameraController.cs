@@ -211,7 +211,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		SetBoomLength( Mode == CameraMode.FirstPerson ? 0.0f : ThirdPersonDistance );
 
 		var firstPersonPOV = Mode == CameraMode.FirstPerson && Player.IsViewer;
-		Player.Body.ShowBodyParts( !firstPersonPOV );
+		Player.Body.SetFirstPersonView( firstPersonPOV );
 
 		if ( firstPersonPOV )
 			Player.CreateViewModel( false );

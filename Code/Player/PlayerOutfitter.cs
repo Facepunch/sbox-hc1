@@ -181,7 +181,7 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn,
 	private void UpdateCurrent()
 	{
 		CurrentOutfit?.Wear( this );
-		PlayerPawn.Body.ReapplyVisibility();
+		PlayerPawn.Body.Refresh();
 	}
 
 	/// <summary>
@@ -207,7 +207,7 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn,
 		CurrentOutfit = outfit;
 		CurrentOutfit?.Wear( this );
 
-		PlayerPawn.Body.ReapplyVisibility();
+		PlayerPawn.Body.Refresh();
 	}
 
 	/// <summary>
