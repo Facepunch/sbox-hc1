@@ -101,10 +101,9 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// </summary>
 	protected void UpdateRenderMode()
 	{
-		ModelRenderer.Enabled = !Owner.IsViewer;
 		ModelRenderer.RenderType = !Owner.IsViewer 
 			? Sandbox.ModelRenderer.ShadowRenderType.On 
-			: Sandbox.ModelRenderer.ShadowRenderType.Off;
+			: Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
 	}
 
 	private ViewModel viewModel;
@@ -276,6 +275,9 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		if ( Owner.IsValid() && Owner.IsViewer && Owner.CameraController.Mode == CameraMode.FirstPerson )
 			CreateViewModel();
 
+		if ( ModelRenderer.IsValid() )
+			ModelRenderer.Enabled = true;
+
 		UpdateRenderMode();
 
 		GameObject.Root.Dispatch( new EquipmentDeployedEvent( this ) );
@@ -283,6 +285,9 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 
 	protected virtual void OnHolstered()
 	{
+		if ( ModelRenderer.IsValid() )
+			ModelRenderer.Enabled = false;
+
 		UpdateRenderMode();
 		ClearViewModel();
 		
