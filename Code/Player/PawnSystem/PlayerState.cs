@@ -1,6 +1,5 @@
 ﻿using Sandbox.Diagnostics;
 using Sandbox.Events;
-using System.Runtime.Versioning;
 using System.Text.Json.Serialization;
 
 namespace Facepunch;
@@ -21,6 +20,11 @@ public partial class PlayerState : Component
 	/// Sync this so other people know what player belongs to who
 	/// </summary>
 	[Sync] private Guid currentPlayerPawnGuid { get; set; }
+
+	/// <summary>
+	/// Who owns this player state?
+	/// </summary>
+	[Sync, Property] public ulong SteamId { get; set; }
 
 	/// <summary>
 	/// We always want a reference to this player state's current player pawn. 
@@ -127,6 +131,8 @@ public partial class PlayerState : Component
 		{
 			GameUtils.LocalPlayerState = this;
 		}
+
+		Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
 	}
 
 	/// <summary>
