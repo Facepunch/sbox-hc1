@@ -5,18 +5,18 @@ public abstract class BuyMenuItem
 	public string Id { get; protected init; }
 	public string Name { get; protected init; }
 	public string Icon { get; protected init; }
-	public virtual int GetPrice( PlayerState player ) => 0;
-	public virtual bool IsOwned( PlayerState player ) => true;
-	public virtual bool IsVisible( PlayerState player ) => true;
+	public virtual int GetPrice( PlayerPawn player ) => 0;
+	public virtual bool IsOwned( PlayerPawn player ) => true;
+	public virtual bool IsVisible( PlayerPawn player ) => true;
 
-	protected virtual void OnPurchase( PlayerState player ) { }
+	protected virtual void OnPurchase( PlayerPawn player ) { }
 
-	public void Purchase( PlayerState player )
+	public void Purchase( PlayerPawn player )
 	{
 		if ( IsOwned( player ) ) return;
 
 		var price = GetPrice( player );
-		player.GiveCash( -price );
+		player.PlayerState.GiveCash( -price );
 		OnPurchase( player );
 	}
 
@@ -45,26 +45,14 @@ public class ArmorEquipment : BuyMenuItem
 		Icon = icon;
 	}
 
-	public override int GetPrice( PlayerState player ) => 650;
+	public override int GetPrice( PlayerPawn player ) => 650;
 
-	protected override void OnPurchase( PlayerState player )
+	protected override void OnPurchase( PlayerPawn player )
 	{
-		var playerPawn = player.Pawn as PlayerPawn;
-		if ( playerPawn.IsValid() )
-		{
-			playerPawn.ArmorComponent.Armor = playerPawn.ArmorComponent.MaxArmor;
-		}
+		player.ArmorComponent.Armor = player.ArmorComponent.MaxArmor;
 	}
 
-	public override bool IsOwned( PlayerState player )
-	{
-		var playerPawn = player.Pawn as PlayerPawn;
-		if ( playerPawn.IsValid() )
-		{
-			return playerPawn.ArmorComponent.Armor == playerPawn.ArmorComponent.MaxArmor;
-		}
-		return false;
-	}
+	public override bool IsOwned( PlayerPawn player ) => player.ArmorComponent.Armor == player.ArmorComponent.MaxArmor;
 }
 
 public class ArmorWithHelmetEquipment : BuyMenuItem
@@ -76,38 +64,26 @@ public class ArmorWithHelmetEquipment : BuyMenuItem
 		Icon = icon;
 	}
 
-	public override int GetPrice( PlayerState player )
+	public override int GetPrice( PlayerPawn player )
 	{
-		var playerPawn = player.Pawn as PlayerPawn;
-		if ( playerPawn.IsValid() )
-		{
-			if ( playerPawn.ArmorComponent.Armor == playerPawn.ArmorComponent.MaxArmor )
-				return 350;
-			else
-				return 1000;
-		}
+		if ( player.ArmorComponent.Armor == player.ArmorComponent.MaxArmor )
+			return 350;
+
 		return 1000;
 	}
 
-	protected override void OnPurchase( PlayerState player )
+	protected override void OnPurchase( PlayerPawn player )
 	{
-		var playerPawn = player.Pawn as PlayerPawn;
-		if ( playerPawn.IsValid() )
-		{
-			playerPawn.ArmorComponent.Armor = playerPawn.ArmorComponent.MaxArmor;
-			playerPawn.ArmorComponent.HasHelmet = true;
-			playerPawn.Outfitter.OnResetState( playerPawn );
-		}
+		player.ArmorComponent.Armor = player.ArmorComponent.MaxArmor;
+		player.ArmorComponent.HasHelmet = true;
+
+		//Reset the player's outfit
+		player.Outfitter.OnResetState( player );
 	}
 
-	public override bool IsOwned( PlayerState player )
+	public override bool IsOwned( PlayerPawn player )
 	{
-		var playerPawn = player.Pawn as PlayerPawn;
-		if ( playerPawn.IsValid() )
-		{
-			return playerPawn.ArmorComponent.Armor == playerPawn.ArmorComponent.MaxArmor && playerPawn.ArmorComponent.HasHelmet;
-		}
-		return false;
+		return player.ArmorComponent.Armor == player.ArmorComponent.MaxArmor && player.ArmorComponent.HasHelmet;
 	}
 }
 
@@ -120,23 +96,14 @@ public class DefuseKitEquipment : BuyMenuItem
 		Icon = icon;
 	}
 
-	public override int GetPrice( PlayerState player ) => 400;
+	public override int GetPrice( PlayerPawn player ) => 400;
 
-	protected override void OnPurchase( PlayerState player )
+	protected override void OnPurchase( PlayerPawn player )
 	{
-		var playerPawn = player.Pawn as PlayerPawn;
-		if ( playerPawn.IsValid() )
-			playerPawn.Inventory.HasDefuseKit = true;
+		player.Inventory.HasDefuseKit = true;
 	}
 
-	public override bool IsVisible( PlayerState player ) => player.Team == Team.CounterTerrorist;
+	public override bool IsVisible( PlayerPawn player ) => player.Team == Team.CounterTerrorist;
 
-	public override bool IsOwned( PlayerState player )
-	{
-		var playerPawn = player.Pawn as PlayerPawn;
-		if ( playerPawn.IsValid() )
-			return playerPawn.Inventory.HasDefuseKit;
-
-		return false;
-	}
+	public override bool IsOwned( PlayerPawn player ) => player.Inventory.HasDefuseKit;
 }

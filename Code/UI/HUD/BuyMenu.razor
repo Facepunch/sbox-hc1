@@ -59,10 +59,10 @@
                 <div class="flex row gap-sm with-padding">
                     @foreach (var equipment in BuyMenuItem.GetAll())
                     {
-                        @if (!equipment.IsVisible( PlayerState ))
+                        @if (!equipment.IsVisible( Player ))
                             continue;
 
-                        <div class="button grow equipment @(equipment.IsOwned( PlayerState ) ? "owned" : "unowned") @(@CanAfford( equipment ) ? "" : "unaffordable" )" onclick=@(() => BuyEquipment( equipment ))>
+                        <div class="button grow equipment @(equipment.IsOwned( Player ) ? "owned" : "unowned") @(@CanAfford( equipment ) ? "" : "unaffordable" )" onclick=@(() => BuyEquipment( equipment ))>
                             <label>@equipment.Name</label>
 
                             @if (!string.IsNullOrEmpty(equipment.Icon))
@@ -70,7 +70,7 @@
                                 <div class="gunicon" style="background-image:url(@equipment.Icon);" />
                             }
 
-                            <label class="price @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">$@equipment.GetPrice( PlayerState ).ToString( "N0" )</label>
+                            <label class="price @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">$@equipment.GetPrice( Player ).ToString( "N0" )</label>
                         </div>
                     }
                 </div>
@@ -112,7 +112,7 @@
 
     private bool CanAfford( BuyMenuItem buyMenuItem )
     {
-        return PlayerState.Balance >= buyMenuItem.GetPrice( PlayerState );
+        return PlayerState.Balance >= buyMenuItem.GetPrice( Player );
     }
 
     private bool IsOpen = false;

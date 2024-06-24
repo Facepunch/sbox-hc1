@@ -369,7 +369,7 @@ public partial class PlayerInventory : Component
 			return;
 		}
 		
-		equipmentData.Purchase( Player.PlayerState );
+		equipmentData.Purchase( Player );
 	}
 
 	public void Purchase( int resourceId )
