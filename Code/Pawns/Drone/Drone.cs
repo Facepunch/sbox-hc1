@@ -41,16 +41,6 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 		new Vector3( -35.37f, -35.37f, 10.0f )
 	};
 
-	protected override void OnStart()
-	{
-		// TODO: don't do it like this
-		if ( !IsProxy )
-		{
-			Possess();
-			HealthComponent.Health = 100f;
-		}
-	}
-
 	private DroneInputState currentInput;
 	private float spinAngle;
 
@@ -59,26 +49,20 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 		ApplyForces();
 	}
 
-	void Depossess()
+	public override void Kill()
+	{
+		Explosion?.Clone( Transform.Position );
+
+		// Cya
+		GameObject.Destroy();
+	}
+
+	protected override void OnDestroy()
 	{
 		if ( IsLocallyControlled )
 		{
 			DePossess();
 		}
-	}
-
-	public void Kill()
-	{
-		Depossess();
-
-		Explosion?.Clone( Transform.Position );
-        Tags.Set( "invis", true );
-	}
-
-	protected override void OnDestroy()
-	{
-		// Just in case
-		Depossess();
 	}
 
 	protected override void OnUpdate()
@@ -90,15 +74,6 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 			currentInput.throttle = (Input.Down( "Jump" ) ? 1 : 0) + (Input.Down( "Duck" ) ? -1 : 0);
 			currentInput.yaw = -Input.AnalogLook.yaw;
 		}
-
-        // nasty cleanup, TODO: remove this
-        if ( !IsProxy )
-        {
-            if ( HealthComponent.TimeSinceLifeStateChanged > 1f && HealthComponent.State != LifeState.Alive )
-            {
-                GameObject?.Destroy();
-            }
-        }
 
         spinAngle += 5000.0f * Time.Delta;
         spinAngle %= 360.0f;
@@ -178,12 +153,9 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 
 	bool IMinimapElement.IsVisible( Pawn viewer )
 	{
-		if ( Tags.Has( "invis" ) )
-			return false;
-
 		if ( HealthComponent.State == LifeState.Alive )
 		{
-			if ( (this as Pawn).IsPossessed )
+			if ( IsPossessed )
 				return false;
 		}
 
