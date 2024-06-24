@@ -49,11 +49,22 @@ public class ArmorEquipment : BuyMenuItem
 
 	protected override void OnPurchase( PlayerState player )
 	{
-		// TODO: tony
-		// player.ArmorComponent.Armor = player.ArmorComponent.MaxArmor;
+		var playerPawn = player.Pawn as PlayerPawn;
+		if ( playerPawn.IsValid() )
+		{
+			playerPawn.ArmorComponent.Armor = playerPawn.ArmorComponent.MaxArmor;
+		}
 	}
 
-	public override bool IsOwned( PlayerState player ) => /* player.ArmorComponent.Armor == player.ArmorComponent.MaxArmor; */ false;
+	public override bool IsOwned( PlayerState player )
+	{
+		var playerPawn = player.Pawn as PlayerPawn;
+		if ( playerPawn.IsValid() )
+		{
+			return playerPawn.ArmorComponent.Armor == playerPawn.ArmorComponent.MaxArmor;
+		}
+		return false;
+	}
 }
 
 public class ArmorWithHelmetEquipment : BuyMenuItem
@@ -67,24 +78,36 @@ public class ArmorWithHelmetEquipment : BuyMenuItem
 
 	public override int GetPrice( PlayerState player )
 	{
-		//if ( player.ArmorComponent.Armor == player.ArmorComponent.MaxArmor )
-		//    return 350;
-
+		var playerPawn = player.Pawn as PlayerPawn;
+		if ( playerPawn.IsValid() )
+		{
+			if ( playerPawn.ArmorComponent.Armor == playerPawn.ArmorComponent.MaxArmor )
+				return 350;
+			else
+				return 1000;
+		}
 		return 1000;
 	}
 
 	protected override void OnPurchase( PlayerState player )
 	{
-		//player.ArmorComponent.Armor = player.ArmorComponent.MaxArmor;
-		//player.ArmorComponent.HasHelmet = true;
-
-		// Reset the player's outfit
-		// player.Outfitter.OnResetState( player );
+		var playerPawn = player.Pawn as PlayerPawn;
+		if ( playerPawn.IsValid() )
+		{
+			playerPawn.ArmorComponent.Armor = playerPawn.ArmorComponent.MaxArmor;
+			playerPawn.ArmorComponent.HasHelmet = true;
+			playerPawn.Outfitter.OnResetState( playerPawn );
+		}
 	}
 
 	public override bool IsOwned( PlayerState player )
 	{
-		return /*player.ArmorComponent.Armor == player.ArmorComponent.MaxArmor && player.ArmorComponent.HasHelmet;*/ false;
+		var playerPawn = player.Pawn as PlayerPawn;
+		if ( playerPawn.IsValid() )
+		{
+			return playerPawn.ArmorComponent.Armor == playerPawn.ArmorComponent.MaxArmor && playerPawn.ArmorComponent.HasHelmet;
+		}
+		return false;
 	}
 }
 
@@ -101,10 +124,19 @@ public class DefuseKitEquipment : BuyMenuItem
 
 	protected override void OnPurchase( PlayerState player )
 	{
-		// player.Inventory.HasDefuseKit = true;
+		var playerPawn = player.Pawn as PlayerPawn;
+		if ( playerPawn.IsValid() )
+			playerPawn.Inventory.HasDefuseKit = true;
 	}
 
 	public override bool IsVisible( PlayerState player ) => player.Team == Team.CounterTerrorist;
 
-	public override bool IsOwned( PlayerState player ) => /*player.Inventory.HasDefuseKit;*/ false;
+	public override bool IsOwned( PlayerState player )
+	{
+		var playerPawn = player.Pawn as PlayerPawn;
+		if ( playerPawn.IsValid() )
+			return playerPawn.Inventory.HasDefuseKit;
+
+		return false;
+	}
 }

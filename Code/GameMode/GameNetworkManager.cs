@@ -20,6 +20,8 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	{
 		PlayerId.Init();
 
+		// TODO: create player state again
+
 		//
 		// Create a lobby if we're not connected
 		//
@@ -52,65 +54,11 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 
 	public void OnPlayerJoined( PlayerState playerState, Connection channel )
 	{
+		// Dunno if we need both of these events anymore? But I'll keep them for now.
 		Scene.Dispatch( new PlayerConnectedEvent( playerState ) );
 
 		playerState.GameObject.NetworkSpawn( channel );
 
-		//var spawnPoint = GameUtils.GetRandomSpawnPoint( player.Team );
-		//player.Teleport( spawnPoint );
-		//player.Initialize();
-		//player.GameObject.NetworkSpawn( channel );
-
 		Scene.Dispatch( new PlayerJoinedEvent( playerState ) );
-		
-		//if ( player.HealthComponent.State == LifeState.Alive )
-			//GameMode.Instance?.SendSpawnConfirmation( player.Id );
-	}
-
-	[ConCmd( "lobby_list" )]
-	public static void LobbyList()
-	{
-		QueryLobbies();
-	}
-
-	[ConCmd( "lobby_join" )]
-	public static void JoinAnyLobby()
-	{
-		AsyncJoinAnyLobby();
-	}
-
-	private static void QueryLobbies()
-	{
-		_ = AsyncGetLobbies();
-	}
-
-	static async Task<List<LobbyInformation>> AsyncGetLobbies()
-	{
-		var lobbies = await Networking.QueryLobbies( Game.Ident );
-
-		foreach ( var lob in lobbies )
-		{
-			Log.Info( $"{lob.Name}'s lobby [{lob.LobbyId}] ({lob.Members}/{lob.MaxMembers})" );
-		}
-
-		return lobbies;
-	}
-
-	static async void AsyncJoinAnyLobby()
-	{
-		var lobbies = await AsyncGetLobbies();
-
-		try
-		{
-			var lobby = lobbies.OrderByDescending( x => x.Members ).First( x => !x.IsFull );
-			if ( await GameNetworkSystem.TryConnectSteamId( lobby.LobbyId ) )
-			{
-				Log.Info("joined lobby!");
-			}
-		}
-		catch
-		{
-			Log.Warning( "No available lobbies" );
-		}
 	}
 }
