@@ -66,10 +66,13 @@ public sealed class BotManager : SingletonComponent<BotManager>
 	[DeveloperCommand( "Kick all Bots", "Game Loop" )]
 	private static void Command_Kick_Bots()
 	{
-		foreach ( var player in GameUtils.AllPlayers )
+		foreach ( var player in GameUtils.AllPlayerStates )
 		{
-			if ( player.PlayerState.IsBot )
+			if ( player.IsBot )
+			{
+				player.Pawn.Destroy();
 				player.GameObject.Destroy();
+			}
 		}
 	}
 }
