@@ -4,18 +4,13 @@ public partial class PlayerBody : Component
 {
 	[Property] public SkinnedModelRenderer Renderer { get; set; }
 	[Property] public ModelPhysics Physics { get; set; }
+	[Property] public PlayerPawn Player { get; set; }
 
 	public Vector3 DamageTakenPosition { get; set; }
 	public Vector3 DamageTakenForce { get; set; }
-	public PlayerPawn Player { get; set; }
 
 	private bool IsFirstPerson;
 	public bool IsRagdoll => Physics.Enabled;
-
-	protected override void OnStart()
-	{
-		Player = Components.Get<PlayerPawn>( FindMode.EverythingInSelfAndAncestors );
-	}
 
 	internal void SetRagdoll( bool ragdoll )
 	{
