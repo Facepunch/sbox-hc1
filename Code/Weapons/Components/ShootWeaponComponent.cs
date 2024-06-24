@@ -153,7 +153,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		}
 
 		// Third person
-		Equipment.Owner?.BodyRenderer.Set( "b_attack", true );
+		Equipment.Owner?.BodyRenderer?.Set( "b_attack", true );
 
 		// First person
 		Equipment.ViewModel?.ModelRenderer.Set( "b_attack", true );
