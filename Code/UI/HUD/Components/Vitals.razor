@@ -37,7 +37,7 @@
 
     protected override int BuildHash()
     {
-        return !Pawn.IsValid() ? 0 : HashCode.Combine( Health, Armor, HasHelmet, Pawn.HealthComponent.State );
+        return !Pawn.IsValid() ? 0 : HashCode.Combine( Health, Armor, HasHelmet, Pawn.HealthComponent?.State );
     }
 
     private string BuildClass()

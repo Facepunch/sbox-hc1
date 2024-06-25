@@ -14,7 +14,12 @@ public abstract class Pawn : Component, IRespawnable
 	/// </summary>
 	[Property, JsonIgnore, ReadOnly, Group( "Data" )] public PlayerState PlayerState
 	{
-		get => Scene.Directory.FindComponentByGuid( playerStateId ) as PlayerState;
+		get
+		{
+			if ( playerStateId == Guid.Empty ) return GameUtils.LocalPlayerState;
+			return Scene.Directory.FindComponentByGuid( playerStateId ) as PlayerState;
+		}
+
 		set => playerStateId = value.Id;
 	}
 

@@ -3,7 +3,8 @@ namespace Facepunch;
 public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 {
 	public CameraMode CameraMode { get; private set; } = CameraMode.FirstPerson;
-	public bool IsSpectating => !GameUtils.LocalPlayerState.Pawn.IsValid() || GameUtils.LocalPlayerState.Pawn.HealthComponent.State != LifeState.Alive;
+	// todo: make this not skip deathcams
+	public bool IsSpectating => GameUtils.LocalPlayerState.CurrentPlayerPawn is null || IsFreecam || GameUtils.LocalPlayerState.CurrentPlayerPawn.HealthComponent.State != LifeState.Alive;
 	public bool IsFreecam => (FreecamController as Pawn)?.IsPossessed ?? false;
 
 	[Property] public SpectateController FreecamController { get; set; }
@@ -12,18 +13,15 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 
 	private void OnSpectateBegin()
 	{
-		if ( !GameUtils.Viewer.IsValid() )
-			return;
-
 		// Possess the freecam by default
-		FreecamController.Possess();
+		SpectateFreecam();
 		_wasSpectating = true;
 	}
 
 	protected override void OnUpdate()
 	{
 		// Do we have no pawn? Spectate!
-		if ( GameUtils.LocalPlayerState.IsValid() && !GameUtils.LocalPlayerState.Pawn.IsValid() )
+		if ( IsSpectating )
 		{
 			UpdateSpectate();
 		}
@@ -87,7 +85,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 			if ( idx == idxCur )
 				return;
 
-			playerState.Possess( playerState.Pawn );
+			playerState.Possess();
 			return;
 		}
 

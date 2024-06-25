@@ -20,7 +20,7 @@ public partial class GameUtils
 	/// <summary>
 	/// The <see cref="Pawn"/> we're in the perspective of if there is one.
 	/// </summary>
-	public static Pawn CurrentPawn => LocalPlayerState.Pawn;
+	public static Pawn CurrentPawn => Viewer.Pawn;
 
 	/// <summary>
 	/// Our local player state.

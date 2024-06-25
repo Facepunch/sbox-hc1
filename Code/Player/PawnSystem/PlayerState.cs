@@ -9,7 +9,7 @@ public partial class PlayerState : Component
 	/// <summary>
 	/// The Player we're currently in the view of (clientside)
 	/// </summary>
-	public static PlayerState CurrentPlayerState => GameUtils.LocalPlayerState;
+	public static PlayerState CurrentPlayerState = null;
 	
 	/// <summary>
 	/// The prefab to spawn when we want to make a player pawn for the player.
@@ -53,9 +53,14 @@ public partial class PlayerState : Component
 		prefab.NetworkSpawn( Network.OwnerConnection );
 
 		CurrentPlayerPawn = pawn;
-
-		// Notify
-		NotifyPossessed( pawn.Id );
+		if ( IsBot )
+		{
+			Pawn = pawn;
+		}
+		else
+		{
+			Possess();
+		}
 
 		GameMode.Instance?.SendSpawnConfirmation( pawn.Id );
 
@@ -130,6 +135,7 @@ public partial class PlayerState : Component
 		if ( !IsProxy && !IsBot && !GameUtils.LocalPlayerState.IsValid() )
 		{
 			GameUtils.LocalPlayerState = this;
+			CurrentPlayerState = this;
 		}
 
 		Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
@@ -138,14 +144,14 @@ public partial class PlayerState : Component
 	/// <summary>
 	/// Called from client when we've taken possession of a pawn.
 	/// </summary>
-	public void NotifyPossessed( Pawn pawn )
+	public void NotifyNetPossessed( Pawn pawn )
 	{
 		Assert.True( !IsProxy );
-		NotifyPossessed( pawn.Id );
+		NotifyNetPossessed( pawn.Id );
 	}
 
 	[Broadcast]
-	private void NotifyPossessed( Guid guid )
+	private void NotifyNetPossessed( Guid guid )
 	{
 		if ( Networking.IsHost )
 			pawnGuid = guid;
@@ -155,6 +161,23 @@ public partial class PlayerState : Component
 
 		if ( IsViewer && IsProxy )
 		{
+			Possess();
+		}
+	}
+
+	public void Possess()
+	{
+		CurrentPlayerState = this;
+
+		if ( Pawn is null || IsLocalPlayer )
+		{
+			// Local player - always assume the controller
+			Possess ( CurrentPlayerPawn );
+		}
+		else
+		{
+			// A remote player is possessing this player (spectating)
+			// So enter the latest known pawn this player has possessed
 			Possess( Pawn );
 		}
 	}
@@ -163,18 +186,30 @@ public partial class PlayerState : Component
 	{
 		Assert.True( pawn.IsValid(), "PlayerState attempted Possess but has no Controller!" );
 
-		pawn.OnPossess();
+		DePossess();
+
 		Pawn = pawn;
-		Pawn.PlayerState = this;
+		Pawn.OnPossess();
+
+		if ( IsLocalPlayer )
+		{
+			Pawn.PlayerState = this;
+		}
+
+		if ( !IsProxy )
+		{
+			// tell the host we've possessed this
+			NotifyNetPossessed( Pawn.Id );
+		}
 	}
 
 	public void DePossess()
 	{
-		if ( Pawn.IsValid() )
-		{
-			Pawn.OnDePossess();
-			Pawn = null;
-		}
+		if ( !Pawn.IsValid() )
+			return;
+
+		Pawn.OnDePossess();
+		Pawn = null;
 	}
 
 	public void AssignTeam( Team team )
