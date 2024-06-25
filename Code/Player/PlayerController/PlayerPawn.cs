@@ -74,7 +74,6 @@ public sealed partial class PlayerPawn : Pawn
 		if ( !IsProxy && !PlayerState.IsBot )
 		{
 			// Set this as our local player and possess it.
-			GameUtils.LocalPlayer = this;
 			PlayerState.Possess( this );
 		}
 

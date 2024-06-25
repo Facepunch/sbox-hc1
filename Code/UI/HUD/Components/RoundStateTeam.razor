@@ -33,12 +33,12 @@
 
     public string Score { get; set; }
     public Team Team { get; set; }
-    public IEnumerable<PlayerPawn> Players { get; set; }
+    public IEnumerable<PlayerState> Players { get; set; }
     public IconPositions IconPosition { get; set; } = IconPositions.Left;
 
     private string TeamColor => Team.GetColor().Hex;
 
-    public int PlayerHash => Players?.GetHashCode<PlayerPawn>( x => x?.SteamId.GetHashCode() ?? 0 ) ?? 0;
+    public int PlayerHash => Players?.GetHashCode<PlayerState>(x => x?.SteamId.GetHashCode() ?? 0) ?? 0;
 
     protected override int BuildHash()
     {

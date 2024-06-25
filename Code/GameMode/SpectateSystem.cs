@@ -2,10 +2,8 @@ namespace Facepunch;
 
 public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 {
-	private PlayerPawn LocalPlayer => GameUtils.LocalPlayer;
-
 	public CameraMode CameraMode { get; private set; } = CameraMode.FirstPerson;
-	public bool IsSpectating => !LocalPlayer.IsValid() || LocalPlayer.HealthComponent.State != LifeState.Alive;
+	public bool IsSpectating => !GameUtils.LocalPlayerState.Pawn.IsValid() || GameUtils.LocalPlayerState.Pawn.HealthComponent.State != LifeState.Alive;
 	public bool IsFreecam => (FreecamController as Pawn)?.IsPossessed ?? false;
 
 	[Property] public SpectateController FreecamController { get; set; }

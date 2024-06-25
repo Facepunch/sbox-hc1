@@ -39,19 +39,17 @@
 
 @code
 {
-    private Team MyTeam => GameUtils.LocalPlayerState?.Team ?? Team.Unassigned;
+    private Team MyTeam => GameUtils.LocalPlayerState.Team;
     private Team EnemyTeam => MyTeam.GetOpponents();
 
     private string MyTeamScore { get; set; } = "0";
     private string EnemyTeamScore { get; set; } = "0";
 
-    private IEnumerable<PlayerPawn> MyTeamPlayers { get; set; }
-    private IEnumerable<PlayerPawn> EnemyTeamPlayers { get; set; }
+    private IEnumerable<PlayerState> MyTeamPlayers { get; set; }
+    private IEnumerable<PlayerState> EnemyTeamPlayers { get; set; }
 
     public string Status => GameMode.Instance?.DisplayedStatus;
     public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
-
-    public IEnumerable<PlayerPawn> PlayerList => Scene.GetAllComponents<PlayerPawn>();
 
     private void OnSecondElapsed()
     {
@@ -89,14 +87,14 @@
             EnemyTeamScore = teamScoring.OpposingTeamScoreFormatted;
         }
 
-        MyTeamPlayers = GameUtils.GetPlayers(MyTeam);
-        EnemyTeamPlayers = GameUtils.GetPlayers(EnemyTeam);
+        MyTeamPlayers = GameUtils.GetPlayerStates(MyTeam);
+        EnemyTeamPlayers = GameUtils.GetPlayerStates(EnemyTeam);
     }
 
     protected override int BuildHash()
     {
         var a = HashCode.Combine(MyTeamPlayers, EnemyTeamPlayers, MyTeam, EnemyTeam);
-        var b = HashCode.Combine(Status, Time.HasValue, Time?.Seconds, Time?.Minutes, PlayerList.Count());
+        var b = HashCode.Combine(Status, Time.HasValue, Time?.Seconds, Time?.Minutes);
 
         return HashCode.Combine(a, b);
     }

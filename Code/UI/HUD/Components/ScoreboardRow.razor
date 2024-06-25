@@ -6,7 +6,7 @@
 
 <root class="row @(IsLocal ? "local" : "") @(IsDead ? "dead" : "") with-px-lg with-py">
     <span class="col stat-small">
-        @if ( Player.IsValid() && GameUtils.LocalPlayer.IsValid() ) 
+        @if ( Player.IsValid() ) 
         {
             @if (Player.Inventory.HasBomb && IsFriendly && Team == Team.Terrorist)
             {
@@ -25,9 +25,9 @@
 
     <span class="col playername gap-sm">
         
-        <PlayerAvatar ShowHealth=@false ShowBomb=@false class="avatar" Player=@Player />
+        <PlayerAvatar ShowHealth=@false ShowBomb=@false class="avatar" Player=@PlayerState />
         <label>
-            @Player.DisplayName
+            @PlayerState.DisplayName
         </label>
 
         @if ( IsPartyMember )
@@ -36,9 +36,9 @@
         }
     </span>
 
-    @if ( !GameMode.Instance.UnlimitedMoney && Player.IsValid() && GameUtils.LocalPlayer.IsValid() && Player.IsFriendly( GameUtils.LocalPlayer ) )
+    @if ( !GameMode.Instance.UnlimitedMoney && PlayerState.IsValid() && PlayerState.IsFriendly( GameUtils.LocalPlayerState ) )
     {
-        <label class="col stat-large">$@(Player.PlayerState.Balance.ToString("N0")</label>
+        <label class="col stat-large">$@(PlayerState.Balance.ToString("N0")</label>
     }
     else
     {
@@ -58,7 +58,7 @@
     private Connection Connection => PlayerState.Network.OwnerConnection;
     private PlayerScore Score => PlayerState.Components.Get<PlayerScore>();
 
-    private bool IsFriendly => (GameUtils.LocalPlayer is null || PlayerState.IsFriendly( GameUtils.LocalPlayerState ));
+    private bool IsFriendly => PlayerState.IsFriendly( GameUtils.LocalPlayerState );
     private bool IsLocal => PlayerState.IsLocalPlayer;
     private bool IsDead => !Player.IsValid() || Player.HealthComponent.State != LifeState.Alive;
     private float KillDeathRatio => (float)Score.Kills / (float)Score.Deaths.Clamp(1, int.MaxValue);

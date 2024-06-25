@@ -166,11 +166,8 @@
 
         if ( ChatMode == ChatModes.Team )
         {
-            var localPlayer = GameUtils.LocalPlayerState;
-            bool IsFriendly( PlayerState x ) => localPlayer.GameObject.IsFriendly(x.GameObject) || localPlayer.GameObject == x.GameObject;
-
             var players = GameUtils.AllPlayerStates;
-            var friendlyGameObjects = players.Where( IsFriendly );
+            var friendlyGameObjects = players.Where((PlayerState x) => GameUtils.LocalPlayerState.IsFriendly(x));
             var friendlyConnections = friendlyGameObjects.Select( x => x.Network.OwnerConnection );
 
             using ( Rpc.FilterInclude( friendlyConnections ) )

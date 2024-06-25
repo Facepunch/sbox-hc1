@@ -3,21 +3,21 @@
 
 @attribute [StyleSheet]
 
-<root class="@AvatarClasses" style="@(IsFriendly ? $"box-shadow: 0 0 0 2px {Player.PlayerColor.Hex}" : "")">
-    @if ( !Player.IsValid() ) return;
-
+<root class="@AvatarClasses" style="@(IsFriendly && Player.CurrentPlayerPawn.IsValid() ? $"box-shadow: 0 0 0 2px {Player.CurrentPlayerPawn.PlayerColor.Hex}" : "")">
     <div class="avatar">
         <img class="image" src="avatar:@Player.Network.OwnerConnection.SteamId" />
     </div>
 
-    @if ( ShowHealth && Player.HealthComponent.State == LifeState.Alive && IsFriendly )
+    @if (!Player.CurrentPlayerPawn.IsValid()) return;
+
+    @if (ShowHealth && Player.CurrentPlayerPawn.HealthComponent.State == LifeState.Alive && IsFriendly)
     {
         <div class="health">
-            <div class="health-inner" style="width:@(Player.HealthComponent.Health)%" />
+            <div class="health-inner" style="width:@(Player.CurrentPlayerPawn.HealthComponent.Health)%" />
         </div>
     }
 
-    @if( ShowBomb && Player.Inventory.HasBomb && Player.IsFriendly( GameUtils.LocalPlayer ) )
+    @if (ShowBomb && Player.CurrentPlayerPawn.Inventory.HasBomb && IsFriendly)
     {
         <Icon File="/ui/bomb.png" size="24" class="bomb-indicator"></Icon>
     }
@@ -30,12 +30,12 @@
 
 @code
 {
-    public PlayerPawn Player { get; set; }
-    public bool IsFriendly => GameUtils.LocalPlayer?.GameObject?.IsFriendly( Player?.GameObject ) ?? false;
+    public PlayerState Player { get; set; }
+    public bool IsFriendly => GameUtils.LocalPlayerState.IsFriendly(Player);
 
     public bool ShowBomb { get; set; } = true;
     public bool ShowHealth { get; set; } = true;
-    private bool IsDead => Player?.HealthComponent.State != LifeState.Alive;
+    private bool IsDead => Player.CurrentPlayerPawn?.HealthComponent.State != LifeState.Alive;
 
     private string AvatarClasses
     {
@@ -48,6 +48,12 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Player, IsFriendly, Player.HealthComponent.Health, Player.HealthComponent.State, Player.PlayerColor);
+        int hash = HashCode.Combine(Player, IsFriendly);
+
+        if (Player.CurrentPlayerPawn.IsValid())
+        {
+            hash = HashCode.Combine(hash, Player.CurrentPlayerPawn.HealthComponent.Health, Player.CurrentPlayerPawn.HealthComponent.State, Player.CurrentPlayerPawn.PlayerColor);
+        }
+        return hash;
     }
 }

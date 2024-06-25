@@ -10,7 +10,7 @@ public partial class GameUtils
 	/// <summary>
 	/// The locally-controlled <see cref="PlayerPawn"/>, if there is one.
 	/// </summary>
-	public static PlayerPawn LocalPlayer = null;
+	public static PlayerPawn LocalPlayer => LocalPlayerState.CurrentPlayerPawn;
 
 	/// <summary>
 	/// The <see cref="PlayerState"/> we're in the perspective of.

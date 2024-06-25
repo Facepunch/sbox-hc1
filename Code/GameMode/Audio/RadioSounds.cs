@@ -121,14 +121,14 @@ public class RadioSounds : GameResource
 		
 		TimeSinceRadio = 0f;
 
-		var team = GameUtils.LocalPlayer.GameObject.GetTeam();
+		var team = GameUtils.LocalPlayerState.Team;
 		Play( team, category, sound );
 	}
 
 	[Broadcast]
 	private static void RpcPlay( Team team, string category, string sound )
 	{
-		var localPlayerTeam = GameUtils.LocalPlayer.GameObject.GetTeam();
+		var localPlayerTeam = GameUtils.LocalPlayerState.Team;
 
 		var soundList = All.FirstOrDefault( x => x.Team == localPlayerTeam );
 		if ( soundList is null )
@@ -154,7 +154,7 @@ public class RadioSounds : GameResource
 	[Broadcast]
 	private static void RpcPlay( Team team, RadioSound snd )
 	{
-		var localPlayerTeam = GameUtils.LocalPlayer.GameObject.GetTeam();
+		var localPlayerTeam = GameUtils.LocalPlayerState.Team;
 
 		var soundList = All.FirstOrDefault( x => x.Team == localPlayerTeam );
 		if ( soundList is null )
