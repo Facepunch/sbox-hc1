@@ -45,7 +45,7 @@
 
 @code
 {
-    public RadioSounds MySounds => RadioSounds.All.FirstOrDefault( x => x.Team == GameUtils.LocalPlayerState.Team );
+    public RadioSounds MySounds => RadioSounds.All.FirstOrDefault( x => x.Team == PlayerState.Local.Team );
     public TeamRadioCategory CurrentCategory => MySounds.TeamSounds.FirstOrDefault( x => x.Category == SelectedCategory );
 
     protected string SelectedCategory { get; set; }

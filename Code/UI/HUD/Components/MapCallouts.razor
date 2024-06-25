@@ -11,7 +11,7 @@
 @code
 {
     /// The player
-    public PlayerPawn Player => GameUtils.Viewer.Pawn as PlayerPawn;
+    public PlayerPawn Player => PlayerState.Viewer.Pawn as PlayerPawn;
 
     protected override int BuildHash()
     {

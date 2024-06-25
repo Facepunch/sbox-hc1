@@ -8,7 +8,7 @@ public partial class TeamVoiceChatFilter : Component, IVoiceFilter
 		if ( player.Team == Team.Unassigned ) return false;
 
 		// Don't send to enemies
-		return !player.IsFriendly( GameUtils.LocalPlayerState );
+		return !player.IsFriendly( PlayerState.Local );
 	}
 
 	IEnumerable<Connection> IVoiceFilter.GetExcludeFilter()

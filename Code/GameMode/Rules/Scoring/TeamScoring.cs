@@ -20,8 +20,8 @@ public sealed class TeamScoring : Component,
 	[HostSync] public string ScoreFormat { get; set; } = "";
 	[HostSync] public string ScorePrefix { get; set; } = "";
 
-	public int MyTeamScore => Scores.GetValueOrDefault( GameUtils.LocalPlayerState.Team );
-	public int OpposingTeamScore => Scores.GetValueOrDefault( GameUtils.LocalPlayerState.Team.GetOpponents() );
+	public int MyTeamScore => Scores.GetValueOrDefault( PlayerState.Local.Team );
+	public int OpposingTeamScore => Scores.GetValueOrDefault( PlayerState.Local.Team.GetOpponents() );
 
 	public string MyTeamScoreFormatted => $"{ScorePrefix}{MyTeamScore.ToString( ScoreFormat )}";
 	public string OpposingTeamScoreFormatted => $"{ScorePrefix}{OpposingTeamScore.ToString( ScoreFormat )}";

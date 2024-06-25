@@ -22,7 +22,7 @@
 
 @code
 {
-    public PlayerPawn Player => GameUtils.Viewer.Pawn as PlayerPawn;
+    public PlayerPawn Player => PlayerState.Viewer.Pawn as PlayerPawn;
     public PlayerInventory Inventory => Player.Inventory;
     public Equipment CurrentEquipment => Player?.CurrentEquipment;
 

@@ -39,7 +39,7 @@
 
 @code
 {
-    private Team MyTeam => GameUtils.LocalPlayerState.Team;
+    private Team MyTeam => PlayerState.Local.Team;
     private Team EnemyTeam => MyTeam.GetOpponents();
 
     private string MyTeamScore { get; set; } = "0";

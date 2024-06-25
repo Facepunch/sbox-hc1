@@ -7,25 +7,17 @@ namespace Facepunch;
 /// </summary>
 public partial class GameUtils
 {
-	/// <summary>
-	/// The locally-controlled <see cref="PlayerPawn"/>, if there is one.
-	/// </summary>
-	public static PlayerPawn LocalPlayer => LocalPlayerState.CurrentPlayerPawn;
-
-	/// <summary>
-	/// The <see cref="PlayerState"/> we're in the perspective of.
-	/// </summary>
-	public static PlayerState Viewer => PlayerState.CurrentPlayerState;
+	[Obsolete] public static PlayerState Viewer => PlayerState.Viewer;
 
 	/// <summary>
 	/// The <see cref="Pawn"/> we're in the perspective of if there is one.
 	/// </summary>
-	public static Pawn CurrentPawn => Viewer.Pawn;
+	[Obsolete] public static Pawn CurrentPawn => PlayerState.Viewer.Pawn;
 
 	/// <summary>
-	/// Our local player state.
+	/// The locally-controlled <see cref="PlayerPawn"/>, if there is one.
 	/// </summary>
-	public static PlayerState LocalPlayerState = null;
+	[Obsolete] public static PlayerPawn LocalPlayer => PlayerState.Viewer.CurrentPlayerPawn;
 
 	// TODO: use states everywhere?
 	public static IEnumerable<PlayerState> AllPlayerStates => Game.ActiveScene.GetAllComponents<PlayerState>();

@@ -100,7 +100,7 @@
 @code
 {
     public PlayerPawn Player => Object?.GameObject?.Components?.Get<PlayerPawn>();
-    private PlayerPawn Viewer => GameUtils.Viewer.Pawn as PlayerPawn;
+    private PlayerPawn Viewer => PlayerState.Viewer.Pawn as PlayerPawn;
     private PlayerPawn LocalPlayer => GameUtils.LocalPlayer;
 
     private bool CanShowWeapon( Equipment equipment )

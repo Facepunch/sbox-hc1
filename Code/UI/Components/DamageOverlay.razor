@@ -9,7 +9,7 @@
 {
     public Panel Overlay { get; set; }
 
-    public PlayerPawn Viewer => GameUtils.Viewer.Pawn as PlayerPawn;
+    public PlayerPawn Viewer => PlayerState.Viewer.Pawn as PlayerPawn;
 
     float GetOpacity()
     {

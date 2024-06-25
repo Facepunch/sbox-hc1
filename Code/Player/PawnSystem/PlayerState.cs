@@ -7,10 +7,18 @@ namespace Facepunch;
 public partial class PlayerState : Component
 {
 	/// <summary>
-	/// The Player we're currently in the view of (clientside)
+	/// The player we're currently in the view of (clientside).
+	/// Usually the local player, apart from when spectating etc.
 	/// </summary>
-	public static PlayerState CurrentPlayerState = null;
-	
+	public static PlayerState Viewer { get; private set; }
+
+	/// <summary>
+	/// Our local player on this client.
+	/// </summary>
+	public static PlayerState Local { get; private set; }
+
+	// --
+
 	/// <summary>
 	/// The prefab to spawn when we want to make a player pawn for the player.
 	/// </summary>
@@ -117,7 +125,7 @@ public partial class PlayerState : Component
 	/// <summary>
 	/// Are we in the view of this player (clientside)
 	/// </summary>
-	public bool IsViewer => CurrentPlayerState == this;
+	public bool IsViewer => Viewer == this;
 
 	/// <summary>
 	/// Is this the local player for this client
@@ -132,10 +140,10 @@ public partial class PlayerState : Component
 	protected override void OnStart()
 	{
 		// No player state?
-		if ( !IsProxy && !IsBot && !GameUtils.LocalPlayerState.IsValid() )
+		if ( !IsProxy && !IsBot && !Local.IsValid() )
 		{
-			GameUtils.LocalPlayerState = this;
-			CurrentPlayerState = this;
+			Local = this;
+			Viewer = this;
 		}
 
 		Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
@@ -167,7 +175,7 @@ public partial class PlayerState : Component
 
 	public void Possess()
 	{
-		CurrentPlayerState = this;
+		Viewer = this;
 
 		if ( Pawn is null || IsLocalPlayer )
 		{

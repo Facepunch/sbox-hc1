@@ -31,7 +31,7 @@
 @code
 {
     public PlayerState Player { get; set; }
-    public bool IsFriendly => GameUtils.LocalPlayerState.IsFriendly(Player);
+    public bool IsFriendly => PlayerState.Local.IsFriendly(Player);
 
     public bool ShowBomb { get; set; } = true;
     public bool ShowHealth { get; set; } = true;

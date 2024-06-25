@@ -28,7 +28,7 @@
 
 @code
 {
-    public Pawn Pawn => GameUtils.Viewer.Pawn;
+    public Pawn Pawn => PlayerState.Viewer.Pawn;
     public HealthComponent HealthComponent => Pawn.HealthComponent;
     public ArmorComponent ArmorComponent => Pawn.GameObject?.Components.Get<ArmorComponent>();
     public int Health => HealthComponent?.Health.CeilToInt() ?? 0;

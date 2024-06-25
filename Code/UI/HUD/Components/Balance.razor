@@ -17,10 +17,10 @@
     public PlayerInventory Inventory => Player?.Inventory;
 
     /// The player
-    public PlayerPawn Player => GameUtils.Viewer.Pawn as PlayerPawn;
+    public PlayerPawn Player => PlayerState.Viewer.Pawn as PlayerPawn;
 
     /// The player state
-    public PlayerState PlayerState => GameUtils.Viewer;
+    public PlayerState PlayerState => PlayerState.Viewer;
 
     public bool CanOpen => BuySystem.IsEnabled();
 

@@ -16,7 +16,7 @@ public abstract class Pawn : Component, IRespawnable
 	{
 		get
 		{
-			if ( playerStateId == Guid.Empty ) return GameUtils.LocalPlayerState;
+			if ( playerStateId == Guid.Empty ) return PlayerState.Local;
 			return Scene.Directory.FindComponentByGuid( playerStateId ) as PlayerState;
 		}
 
@@ -72,7 +72,7 @@ public abstract class Pawn : Component, IRespawnable
 	/// </summary>
 	public void Possess()
 	{
-		GameUtils.LocalPlayerState.Possess( this );
+		PlayerState.Local.Possess( this );
 	}
 
 	/// <summary>
@@ -80,7 +80,7 @@ public abstract class Pawn : Component, IRespawnable
 	/// </summary>
 	public void DePossess()
 	{
-		GameUtils.LocalPlayerState.DePossess();
+		PlayerState.Local.DePossess();
 	}
 
 	public virtual void OnPossess() { }
