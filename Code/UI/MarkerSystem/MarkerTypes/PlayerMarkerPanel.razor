@@ -57,13 +57,11 @@
 </style>
 
 <root>
-    @if ( !LocalPlayer.IsValid() )
+    @if ( !Marker.IsValid() )
         return;
 
-    @if ( Player == LocalPlayer && Viewer == LocalPlayer )
+    @if ( Player.IsPossessed )
         return;
-
-    @if ( !Marker.IsValid() ) return;
 
     @if ( Marker.IsBehind ) 
         return;
@@ -71,14 +69,10 @@
     @if ( Player?.HealthComponent?.State != LifeState.Alive )
         return;
 
-    @if ( !LocalPlayer.IsValid() || LocalPlayer?.HealthComponent.State != LifeState.Alive )
-    {
-        @* TODO: make the player markers show up for enemies under certain circumstances
-        when aiming at a player that's kinda close to you? *@
-        @if ( Viewer.IsValid() && !Viewer.GameObject.IsFriendly(Player.GameObject) )
-            return;
-    }
-
+    @* TODO: make the player markers show up for enemies under certain circumstances
+    when aiming at a player that's kinda close to you? *@
+    @if ( Viewer.IsValid() && !Viewer.IsFriendly(Player) )
+        return;
 
     @if ( Marker.IsOffScreen )
     {
@@ -96,7 +90,7 @@
             }
         </div>
 
-        @if( Player.Inventory.HasBomb && Player.IsFriendly( GameUtils.LocalPlayer ) )
+        @if (Player.Inventory.HasBomb && (!Viewer.IsValid() || Player.IsFriendly(Viewer)) )
         {
             <Icon File="/ui/bomb.png" size="24"></Icon>
         }
