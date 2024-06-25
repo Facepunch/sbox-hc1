@@ -58,21 +58,25 @@ public partial class PlayerState : Component
 
 		PlayerPawn = pawn;
 		if ( IsBot )
-		{
 			Pawn = pawn;
 
 		using ( Rpc.FilterInclude(Network.OwnerConnection) )
 		{
 			OnClientRespawn();
 		}
-		else
+
+		pawn.Respawn();
+	}
+
+	[Broadcast]
+	public void OnClientRespawn()
+	{
+		if ( !IsBot )
 		{
 			Possess();
 		}
 
-		GameMode.Instance?.SendSpawnConfirmation( pawn.Id );
-
-		pawn.Respawn();
+		GameMode.Instance?.SendSpawnConfirmation( Pawn.Id );
 	}
 
 
