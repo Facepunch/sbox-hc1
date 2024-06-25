@@ -195,7 +195,7 @@
         var player = GameUtils.AllPlayerStates.FirstOrDefault(x => x.Network.OwnerConnection == Rpc.Caller);
         var color = player.Team.GetColor();
 
-        var playerPawn = player.Pawn as PlayerPawn;
+        var playerPawn = player.PlayerPawn;
         string location = null;
         if ( playerPawn.IsValid() )
         {

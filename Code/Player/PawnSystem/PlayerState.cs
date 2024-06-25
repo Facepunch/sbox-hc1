@@ -25,11 +25,6 @@ public partial class PlayerState : Component
 	[Property] public GameObject PlayerPawnPrefab { get; set; }
 
 	/// <summary>
-	/// Sync this so other people know what player belongs to who
-	/// </summary>
-	[Sync] private Guid currentPlayerPawnGuid { get; set; }
-
-	/// <summary>
 	/// Who owns this player state?
 	/// </summary>
 	[Sync, Property] public ulong SteamId { get; set; }
@@ -38,16 +33,17 @@ public partial class PlayerState : Component
 	/// We always want a reference to this player state's current player pawn. 
 	/// They could have this AND be controlling a drone for example.
 	/// </summary>
-	public PlayerPawn CurrentPlayerPawn
+	public PlayerPawn PlayerPawn
 	{
-		get => Scene.Directory.FindComponentByGuid( currentPlayerPawnGuid ) as PlayerPawn;
-		set => currentPlayerPawnGuid = value.Id;
+		get => Scene.Directory.FindComponentByGuid( playerPawnGuid ) as PlayerPawn;
+		set => playerPawnGuid = value.Id;
 	}
+	[Sync] private Guid playerPawnGuid { get; set; } // Sync this so other people know what player belongs to who
 
 	[Broadcast]
 	public void RequestCreatePlayer()
 	{
-		if ( CurrentPlayerPawn.IsValid() )
+		if ( PlayerPawn.IsValid() )
 			return;
 
 		CreatePlayer();
@@ -60,10 +56,14 @@ public partial class PlayerState : Component
 		pawn.PlayerState = this;
 		prefab.NetworkSpawn( Network.OwnerConnection );
 
-		CurrentPlayerPawn = pawn;
+		PlayerPawn = pawn;
 		if ( IsBot )
 		{
 			Pawn = pawn;
+
+		using ( Rpc.FilterInclude(Network.OwnerConnection) )
+		{
+			OnClientRespawn();
 		}
 		else
 		{
@@ -74,6 +74,7 @@ public partial class PlayerState : Component
 
 		pawn.Respawn();
 	}
+
 
 	public void DestroyPlayer()
 	{
@@ -104,9 +105,9 @@ public partial class PlayerState : Component
 		GameObject.Root.Dispatch( new TeamChangedEvent( before, after ) );
 
 		// Send this to the pawn too if we haveo ne
-		if ( Pawn.IsValid() )
+		if ( PlayerPawn.IsValid() )
 		{
-			Pawn.GameObject.Root.Dispatch( new TeamChangedEvent( before, after ) );
+			PlayerPawn.GameObject.Root.Dispatch( new TeamChangedEvent( before, after ) );
 		}
 	}
 
@@ -180,7 +181,7 @@ public partial class PlayerState : Component
 		if ( Pawn is null || IsLocalPlayer )
 		{
 			// Local player - always assume the controller
-			Possess ( CurrentPlayerPawn );
+			Possess ( PlayerPawn );
 		}
 		else
 		{

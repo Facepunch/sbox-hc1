@@ -17,7 +17,7 @@ public partial class GameUtils
 	/// <summary>
 	/// The locally-controlled <see cref="PlayerPawn"/>, if there is one.
 	/// </summary>
-	[Obsolete] public static PlayerPawn LocalPlayer => PlayerState.Viewer.CurrentPlayerPawn;
+	[Obsolete] public static PlayerPawn LocalPlayer => PlayerState.Viewer.PlayerPawn;
 
 	// TODO: use states everywhere?
 	public static IEnumerable<PlayerState> AllPlayerStates => Game.ActiveScene.GetAllComponents<PlayerState>();

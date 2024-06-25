@@ -2,6 +2,9 @@
 @inherits Panel
 @attribute [StyleSheet]
 
+@if ( Player.CurrentEquipment is null )
+    return;
+
 <root class="flex row gap align-center justify-end" style="width: 100px;">
     <label class="vital">@(AmmoComponent?.Ammo.ToString() ?? "∞")</label>
     <separator />
@@ -16,7 +19,7 @@
     public PlayerInventory Inventory => Player.Inventory;
 
     /// The player
-    public PlayerPawn Player => PlayerState.Viewer.Pawn as PlayerPawn;
+    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
 
     private AmmoComponent AmmoComponent => Player?.CurrentEquipment?.Components?.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
 

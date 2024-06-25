@@ -49,8 +49,7 @@ public partial class PlayerPawn
 		if ( HealthComponent.IsGodMode )
 			return true;
 
-		var localPlayer = PlayerState.Viewer.Pawn;
-		return localPlayer.IsValid() && Team == localPlayer.Team;
+		return Team == PlayerState.Viewer.Team;
 	}
 
 	private void UpdateOutline()
@@ -69,7 +68,7 @@ public partial class PlayerPawn
 		if ( SpectateSystem.Instance.IsSpectating )
 			Outline.ObscuredColor = Team.GetColor();
 		else
-			Outline.ObscuredColor = PlayerState.Viewer.Pawn.Team == Team
+			Outline.ObscuredColor = PlayerState.Viewer.Team == Team
 				? PlayerColor : Color.Transparent;
 	}
 }

@@ -4,7 +4,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 {
 	public CameraMode CameraMode { get; private set; } = CameraMode.FirstPerson;
 	// todo: make this not skip deathcams
-	public bool IsSpectating => PlayerState.Local.CurrentPlayerPawn is null || IsFreecam || PlayerState.Local.CurrentPlayerPawn.HealthComponent.State != LifeState.Alive;
+	public bool IsSpectating => PlayerState.Local.PlayerPawn is null || IsFreecam || PlayerState.Local.PlayerPawn.HealthComponent.State != LifeState.Alive;
 	public bool IsFreecam => (FreecamController as Pawn)?.IsPossessed ?? false;
 
 	[Property] public SpectateController FreecamController { get; set; }
@@ -52,7 +52,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 			const int max = (int)CameraMode.ThirdPerson + 1;
 			CameraMode = (CameraMode)((((int)CameraMode) + 1) % max);
 
-			( PlayerState.Viewer.Pawn as PlayerPawn ).CameraController.Mode = CameraMode;
+			( PlayerState.Viewer.PlayerPawn ).CameraController.Mode = CameraMode;
 		}
 	}
 
@@ -73,7 +73,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 			var idx = (idxCur + (direction ? i : -i) + count) % count;
 			var playerState = players.ElementAt( idx );
 
-			var controller = playerState.Pawn as PlayerPawn;
+			var controller = playerState.PlayerPawn;
 
 			if ( !controller.IsValid() )
 				continue;

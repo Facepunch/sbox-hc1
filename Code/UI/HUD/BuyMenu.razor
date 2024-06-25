@@ -82,7 +82,7 @@
 @code
 {
     public PlayerInventory Inventory => Player.Inventory;
-    public PlayerPawn Player => PlayerState.Viewer.Pawn as PlayerPawn;
+    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
     public PlayerState PlayerState => PlayerState.Viewer;
 
     private void BuyWeapon( EquipmentResource resource )

@@ -18,7 +18,7 @@ public sealed class PlayerAutoRespawner : Component,
 
 		foreach ( var playerState in playerStates )
 		{
-			if ( playerState.Pawn.IsValid() )
+			if ( playerState.PlayerPawn.IsValid() )
 			{
 				// Already got a pawn, fuck off?
 				continue;

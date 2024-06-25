@@ -38,7 +38,7 @@
 
     public Panel Hitmarker { get; set; }
 
-    PlayerPawn Player => PlayerState.Viewer.IsValid() ? PlayerState.Viewer.Pawn as PlayerPawn : null;
+    PlayerPawn Player => PlayerState.Viewer.IsValid() ? PlayerState.Viewer.PlayerPawn : null;
     Equipment Equipment => Player.IsValid() ? Player.CurrentEquipment : null;
 
     private TimeUntil TimeUntilHitmarkerRemove = 0f;

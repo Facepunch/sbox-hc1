@@ -54,8 +54,8 @@ public sealed class TeamAssigner : Component,
 			player.AssignTeam( assignTeam );
 
 			// Respawn the player's pawn since we might've changed their spawn
-			if ( player.Pawn.IsValid() )
-				player.Pawn.Respawn();
+			if ( player.PlayerPawn.IsValid() )
+				player.PlayerPawn.Respawn();
 		}
 		else
 		{

@@ -54,7 +54,7 @@
 
 @code {
     public PlayerState PlayerState { get; set; }
-    public PlayerPawn Player => PlayerState.Pawn as PlayerPawn;
+    public PlayerPawn Player => PlayerState.PlayerPawn;
     private Connection Connection => PlayerState.Network.OwnerConnection;
     private PlayerScore Score => PlayerState.Components.Get<PlayerScore>();
 

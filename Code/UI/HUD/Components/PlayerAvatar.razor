@@ -3,21 +3,21 @@
 
 @attribute [StyleSheet]
 
-<root class="@AvatarClasses" style="@(IsFriendly && Player.CurrentPlayerPawn.IsValid() ? $"box-shadow: 0 0 0 2px {Player.CurrentPlayerPawn.PlayerColor.Hex}" : "")">
+<root class="@AvatarClasses" style="@(IsFriendly && Player.PlayerPawn.IsValid() ? $"box-shadow: 0 0 0 2px {Player.PlayerPawn.PlayerColor.Hex}" : "")">
     <div class="avatar">
         <img class="image" src="avatar:@Player.Network.OwnerConnection.SteamId" />
     </div>
 
-    @if (!Player.CurrentPlayerPawn.IsValid()) return;
+    @if (!Player.PlayerPawn.IsValid()) return;
 
-    @if (ShowHealth && Player.CurrentPlayerPawn.HealthComponent.State == LifeState.Alive && IsFriendly)
+    @if (ShowHealth && Player.PlayerPawn.HealthComponent.State == LifeState.Alive && IsFriendly)
     {
         <div class="health">
-            <div class="health-inner" style="width:@(Player.CurrentPlayerPawn.HealthComponent.Health)%" />
+            <div class="health-inner" style="width:@(Player.PlayerPawn.HealthComponent.Health)%" />
         </div>
     }
 
-    @if (ShowBomb && Player.CurrentPlayerPawn.Inventory.HasBomb && IsFriendly)
+    @if (ShowBomb && Player.PlayerPawn.Inventory.HasBomb && IsFriendly)
     {
         <Icon File="/ui/bomb.png" size="24" class="bomb-indicator"></Icon>
     }
@@ -35,7 +35,7 @@
 
     public bool ShowBomb { get; set; } = true;
     public bool ShowHealth { get; set; } = true;
-    private bool IsDead => Player.CurrentPlayerPawn?.HealthComponent.State != LifeState.Alive;
+    private bool IsDead => Player.PlayerPawn?.HealthComponent.State != LifeState.Alive;
 
     private string AvatarClasses
     {
@@ -50,9 +50,9 @@
     {
         int hash = HashCode.Combine(Player, IsFriendly);
 
-        if (Player.CurrentPlayerPawn.IsValid())
+        if (Player.PlayerPawn.IsValid())
         {
-            hash = HashCode.Combine(hash, Player.CurrentPlayerPawn.HealthComponent.Health, Player.CurrentPlayerPawn.HealthComponent.State, Player.CurrentPlayerPawn.PlayerColor);
+            hash = HashCode.Combine(hash, Player.PlayerPawn.HealthComponent.Health, Player.PlayerPawn.HealthComponent.State, Player.PlayerPawn.PlayerColor);
         }
         return hash;
     }
