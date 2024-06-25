@@ -27,6 +27,7 @@ public partial class GameUtils
 	/// </summary>
 	public static PlayerState LocalPlayerState = null;
 
+	// TODO: use states everywhere?
 	public static IEnumerable<PlayerState> AllPlayerStates => Game.ActiveScene.GetAllComponents<PlayerState>();
 	public static IEnumerable<PlayerState> ActivePlayerStates => AllPlayerStates.Where( x => x.Team != Team.Unassigned );
 	public static IEnumerable<PlayerState> InactivePlayerStates => GetPlayerStates( Team.Unassigned );

@@ -32,8 +32,8 @@ public sealed class TeamAssigner : Component,
 
 	private void AssignTeam( PlayerState player, bool dispatch )
 	{
-		var ts = GameUtils.GetPlayers( Team.Terrorist ).Count();
-		var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).Count();
+		var ts = GameUtils.GetPlayerStates( Team.Terrorist ).Count();
+		var cts = GameUtils.GetPlayerStates( Team.CounterTerrorist ).Count();
 
 		var assignTeam = Team.Unassigned;
 
