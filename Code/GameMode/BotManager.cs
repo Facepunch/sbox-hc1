@@ -70,8 +70,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 		{
 			if ( player.IsBot )
 			{
-				player.Pawn.Destroy();
-				player.GameObject.Destroy();
+				player.Kick();
 			}
 		}
 	}

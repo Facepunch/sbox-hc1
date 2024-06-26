@@ -55,6 +55,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		var player = PlayerPrefab.Clone();
 		player.BreakFromPrefab();
 		player.Name = $"PlayerState ({channel.DisplayName})";
+		player.Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
 
 		var playerState = player.Components.Get<PlayerState>();
 		if ( !playerState.IsValid() )
@@ -93,7 +94,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		else
 			playerState.Network.AssignOwnership( channel );
 
-		playerState.Init( channel );
+		playerState.Init();
 
 		Scene.Dispatch( new PlayerJoinedEvent( playerState ) );
 	}
