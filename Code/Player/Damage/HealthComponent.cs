@@ -176,13 +176,6 @@ public enum LifeState
 	Dead
 }
 
-public enum RespawnState
-{
-	None,
-	CountingDown,
-	Ready
-}
-
 /// <summary>
 /// A respawnable object.
 /// </summary>

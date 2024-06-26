@@ -1,5 +1,13 @@
 ﻿namespace Facepunch;
 
+public enum RespawnState
+{
+	Not,
+	Requested,
+	Delayed,
+	Immediate
+}
+
 public partial class PlayerState
 {
 	/// <summary>
@@ -13,6 +21,8 @@ public partial class PlayerState
 	/// Are we ready to respawn?
 	/// </summary>
 	[HostSync, Change( nameof( OnRespawnStateChanged ))] public RespawnState RespawnState { get; set; }
+
+	public bool IsRespawning => RespawnState is not RespawnState.Not;
 
 	public void Spawn()
 	{
@@ -30,7 +40,7 @@ public partial class PlayerState
 		if ( IsBot )
 			Pawn = pawn;
 				
-		RespawnState = RespawnState.None;
+		RespawnState = RespawnState.Not;
 		pawn.Respawn();
 	}
 

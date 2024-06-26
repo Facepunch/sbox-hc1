@@ -75,8 +75,15 @@ public partial class PlayerState : Component
 	}
 	[HostSync, JsonIgnore] private Guid pawnGuid { get; set; } = Guid.Empty;
 
+	public void HostInit()
+	{
+		// on join, spawn right now if we can
+		RespawnState = RespawnState.Immediate;
+		SteamId = Connection.SteamId;
+	}
+
 	[Authority]
-	public void Init()
+	public void ClientInit()
 	{
 		if ( IsBot )
 			return;

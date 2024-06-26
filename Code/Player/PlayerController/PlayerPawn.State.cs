@@ -24,6 +24,7 @@ public partial class PlayerPawn
 		// temp:
 		if (Networking.IsHost)
 		{
+			PlayerState.RespawnState = RespawnState.Requested;
 			GameObject.Destroy();
 			return;
 		}
@@ -33,6 +34,8 @@ public partial class PlayerPawn
 			HealthComponent.State = LifeState.Dead;
 			ArmorComponent.HasHelmet = false;
 			ArmorComponent.Armor = 0f;
+
+			PlayerState.RespawnState = RespawnState.Requested;
 		}
 
 		EnableRagdoll();
@@ -65,7 +68,8 @@ public partial class PlayerPawn
 		// :S
 		if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
 		{
-			Teleport( spawnAssigner.GetSpawnPoint( this ) );
+			var s = spawnAssigner.GetSpawnPoint( this );
+			Teleport( s );
 		}
 
 		using ( Rpc.FilterInclude( Network.OwnerConnection ) )

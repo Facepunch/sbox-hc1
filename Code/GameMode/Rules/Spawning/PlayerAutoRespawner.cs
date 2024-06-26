@@ -33,22 +33,24 @@ public sealed class PlayerAutoRespawner : Component,
 
 			switch ( player.RespawnState )
 			{
-				case RespawnState.None:
-					player.RespawnState = RespawnState.CountingDown;
+				case RespawnState.Requested:
+					player.RespawnState = RespawnState.Delayed;
 
 					using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
 					{
 						GameMode.Instance.ShowToast( "Respawning...", duration: RespawnDelaySeconds );
 					}
-
 					break;
 
-				case RespawnState.CountingDown:
+				case RespawnState.Delayed:
 					if ( player.TimeSinceRespawnStateChanged > RespawnDelaySeconds )
 					{
-						player.Spawn();
+						player.RespawnState = RespawnState.Immediate;
 					}
+					break;
 
+				case RespawnState.Immediate:
+					player.Spawn();
 					break;
 			}
 		}
