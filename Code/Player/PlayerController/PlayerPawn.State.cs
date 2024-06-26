@@ -61,9 +61,18 @@ public partial class PlayerPawn
 		
 		TimeSinceLastRespawn = 0f;
 
-		using ( Rpc.FilterInclude( Network.OwnerConnection ) )
+		// Sol: this is all a bit gnarly
+
+		if ( PlayerState.IsBot )
 		{
-			PlayerState.OnClientRespawn();
+			GameMode.Instance?.SendSpawnConfirmation( Id );
+		}
+		else
+		{
+			using ( Rpc.FilterInclude( Network.OwnerConnection ) )
+			{
+				OnClientRespawn();
+			}
 		}
 
 		if ( IsProxy )
@@ -75,6 +84,15 @@ public partial class PlayerPawn
 			Teleport( spawnAssigner.GetSpawnPoint( this ) );
 		}
 	}
+
+	[Broadcast]
+	public void OnClientRespawn()
+	{
+		Possess();
+
+		GameMode.Instance?.SendSpawnConfirmation( Id );
+	}
+
 
 	public void Teleport( Transform transform )
 	{

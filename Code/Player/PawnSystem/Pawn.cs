@@ -4,6 +4,8 @@ namespace Facepunch;
 
 public abstract class Pawn : Component, IRespawnable
 {
+	private static Pawn Current { get; set; }
+
 	/// <summary>
 	/// The player state ID
 	/// </summary>
@@ -40,7 +42,7 @@ public abstract class Pawn : Component, IRespawnable
 	/// <summary>
 	/// Are we possessing this pawn right now? (Clientside)
 	/// </summary>
-	public bool IsPossessed => PlayerState.Viewer.Pawn == this;
+	public bool IsPossessed => Current == this;
 
 	/// <summary>
 	/// Is this pawn locally controlled by us?
@@ -70,17 +72,43 @@ public abstract class Pawn : Component, IRespawnable
 	/// <summary>
 	/// Possess the pawn.
 	/// </summary>
-	public void Possess()
+	public void Possess() => Possess(this);
+	public static void Possess( Pawn pawn )
 	{
-		PlayerState.Local.Possess( this );
+		if ( pawn.IsPossessed )
+			return;
+
+		DePossess( Current );
+		Current = pawn;
+		pawn?.OnPossess();
+
+		// Valid and we own it?
+		if ( pawn.IsValid() && !pawn.IsProxy )
+		{
+			pawn.SteamId = Connection.Local.SteamId;
+		}
+
+		PlayerState.OnPossess( pawn );
 	}
 
 	/// <summary>
 	/// De possesses the pawn.
 	/// </summary>
-	public void DePossess()
+	public void DePossess() => DePossess( this );
+	public static void DePossess( Pawn pawn )
 	{
-		PlayerState.Local.DePossess();
+		if ( pawn.IsValid() && pawn.IsPossessed )
+		{
+			pawn?.OnDePossess();
+
+			// Valid and we own it?
+			if ( pawn.IsValid() && !pawn.IsProxy )
+			{
+				pawn.SteamId = 0;
+			}
+		}
+
+		Current = null;
 	}
 
 	public virtual void OnPossess() { }

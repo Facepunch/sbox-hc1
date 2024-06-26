@@ -71,12 +71,6 @@ public sealed partial class PlayerPawn : Pawn
 
 	protected override void OnStart()
 	{
-		if ( !IsProxy && !PlayerState.IsBot )
-		{
-			// Set this as our local player and possess it.
-			PlayerState.Possess( this );
-		}
-
 		// TODO: expose these parameters please
 		TagBinder.BindTag( "no_shooting", () => IsSprinting || TimeSinceSprintChanged < 0.25f || TimeSinceWeaponDeployed < 0.66f );
 		TagBinder.BindTag( "no_aiming", () => IsSprinting || TimeSinceSprintChanged < 0.25f || TimeSinceGroundedChanged < 0.25f );
