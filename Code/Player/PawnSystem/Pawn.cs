@@ -40,7 +40,7 @@ public abstract class Pawn : Component, IRespawnable
 	/// <summary>
 	/// Are we possessing this pawn right now? (Clientside)
 	/// </summary>
-	public bool IsPossessed => GameUtils.CurrentPawn == this;
+	public bool IsPossessed => PlayerState.Viewer.Pawn == this;
 
 	/// <summary>
 	/// Is this pawn locally controlled by us?

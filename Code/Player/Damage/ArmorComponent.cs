@@ -23,7 +23,9 @@ public partial class ArmorComponent : Component, IGameEventHandler<ModifyDamageE
 	[DeveloperCommand( "Toggle Kevlar + Helmet", "Player" )]
 	private static void Dev_ToggleKevlarAndHelmet()
 	{
-		var player = GameUtils.LocalPlayer;
+		var player = PlayerState.Local.PlayerPawn;
+		if ( player is null ) return;
+
 		if ( player.ArmorComponent.HasHelmet )
 		{
 			player.ArmorComponent.Armor = 0;

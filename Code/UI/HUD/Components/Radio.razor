@@ -93,7 +93,7 @@
 
     public override void Tick()
     {
-        if ( GameUtils.LocalPlayer.IsValid() && GameUtils.LocalPlayer.HealthComponent?.State != LifeState.Alive && IsOpen )
+        if ( PlayerState.Local.PlayerPawn.IsValid() && PlayerState.Local.PlayerPawn.HealthComponent?.State != LifeState.Alive && IsOpen )
         {
             IsOpen = false;
             StateHasChanged();

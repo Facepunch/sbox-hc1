@@ -11,11 +11,11 @@ public static class BuySystem
 {
 	public static bool IsEnabled()
 	{
-		if ( !GameUtils.LocalPlayer.IsValid() )
-			return false;
+		var player = PlayerState.Local.PlayerPawn;
+		if ( player is null ) return false;
 
 		// Can't buy if dead
-		if ( GameUtils.LocalPlayer.HealthComponent.State != LifeState.Alive )
+		if ( player.HealthComponent.State != LifeState.Alive )
 			return false;
 
 		var canOpenEvent = new CanOpenBuyMenuEvent();
@@ -26,7 +26,9 @@ public static class BuySystem
 
 	public static bool IsInBuyZone()
 	{
-		var player = GameUtils.LocalPlayer;
+		var player = PlayerState.Local.PlayerPawn;
+		if ( player is null ) return false;
+
 		var zone = player.GetZone<BuyZone>();
 		if ( zone is null )
 			return false;

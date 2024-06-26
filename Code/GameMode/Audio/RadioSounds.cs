@@ -102,7 +102,10 @@ public class RadioSounds : GameResource
 	/// <param name="sound"></param>
 	public static void Play( Team team, string category, string sound )
 	{
-		if ( GameUtils.LocalPlayer.HealthComponent.State != LifeState.Alive )
+		var player = PlayerState.Local.PlayerPawn;
+		if ( player is null ) return;
+
+		if ( player.HealthComponent.State != LifeState.Alive )
 			return;
 
 		// Only send this message to members of the specified team

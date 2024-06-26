@@ -101,7 +101,6 @@
 {
     public PlayerPawn Player => Object?.GameObject?.Components?.Get<PlayerPawn>();
     private PlayerPawn Viewer => PlayerState.Viewer.PlayerPawn;
-    private PlayerPawn LocalPlayer => GameUtils.LocalPlayer;
 
     private bool CanShowWeapon( Equipment equipment )
     {
