@@ -199,7 +199,7 @@ public partial class PlayerState : Component
 	{
 		Assert.True( pawn.IsValid(), "PlayerState attempted Possess but has no Controller!" );
 
-		DePossess();
+		Viewer.DePossess();
 
 		Pawn = pawn;
 		Pawn.OnPossess();
