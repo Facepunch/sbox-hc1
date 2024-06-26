@@ -13,35 +13,28 @@ public sealed class PlayerAutoRespawner : Component,
 
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
 	{
-		var players = AllowSpectatorsToSpawn ? GameUtils.AllPlayers : GameUtils.ActivePlayers;
-		var playerStates = AllowSpectatorsToSpawn ? GameUtils.AllPlayerStates : GameUtils.ActivePlayerStates;
-
-		foreach ( var playerState in playerStates )
+		foreach ( var player in GameUtils.AllPlayerStates )
 		{
-			if ( playerState.PlayerPawn.IsValid() )
-			{
-				// Already got a pawn, fuck off?
+			if ( player.PlayerPawn.IsValid() )
 				continue;
-			}
 
-			// Ask this person to make a player
-			using ( Rpc.FilterInclude( playerState.Network.OwnerConnection ) )
-			{
-				playerState.RequestCreatePlayer();
-			}
-		}
-
-		foreach ( var player in players )
-		{
-			if ( player.HealthComponent.State != LifeState.Dead )
-			{
+			// todo: look into this??
+			if ( player.Network.OwnerConnection is null )
 				continue;
+
+			if ( !player.Network.OwnerConnection.IsHost && !player.Network.OwnerConnection.IsActive ) // smh
+				return;
+
+			if ( !AllowSpectatorsToSpawn && player.Team == Team.Unassigned )
+			{
+				// don't spawn these guys right now
+				return;
 			}
 
-			switch ( player.HealthComponent.RespawnState )
+			switch ( player.RespawnState )
 			{
 				case RespawnState.None:
-					player.HealthComponent.RespawnState = RespawnState.CountingDown;
+					player.RespawnState = RespawnState.CountingDown;
 
 					using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
 					{
@@ -51,10 +44,9 @@ public sealed class PlayerAutoRespawner : Component,
 					break;
 
 				case RespawnState.CountingDown:
-					if ( player.HealthComponent.TimeSinceLifeStateChanged > RespawnDelaySeconds )
+					if ( player.TimeSinceRespawnStateChanged > RespawnDelaySeconds )
 					{
-						player.HealthComponent.RespawnState = RespawnState.Ready;
-						player.Respawn();
+						player.Spawn();
 					}
 
 					break;

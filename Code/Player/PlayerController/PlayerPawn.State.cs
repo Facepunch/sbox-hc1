@@ -17,10 +17,17 @@ public partial class PlayerPawn
 	/// <summary>
 	/// How long since the player last respawned?
 	/// </summary>
-	public TimeSince TimeSinceLastRespawn { get; private set; }
+	[HostSync] public TimeSince TimeSinceLastRespawn { get; private set; }
 
 	public override void Kill()
 	{
+		// temp:
+		if (Networking.IsHost)
+		{
+			GameObject.Destroy();
+			return;
+		}
+
 		if ( Networking.IsHost )
 		{
 			HealthComponent.State = LifeState.Dead;
@@ -42,53 +49,41 @@ public partial class PlayerPawn
 	public override void Respawn()
 	{
 		_previousVelocity = Vector3.Zero;
-
-		Log.Info( $"Respawn( {GameObject.Name} ({DisplayName}, {Team}) )" );
-
 		Body.DamageTakenForce = Vector3.Zero;
 
 		ResetBody();
 
-		if ( Networking.IsHost )
-		{
-			HealthComponent.Health = HealthComponent.MaxHealth;
-			HealthComponent.State = LifeState.Alive;
-			HealthComponent.RespawnState = RespawnState.None;
-
-			ArmorComponent.HasHelmet = false;
-			ArmorComponent.Armor = 0f;
-		}
-		
-		TimeSinceLastRespawn = 0f;
-
-		// Sol: this is all a bit gnarly
-
-		if ( PlayerState.IsBot )
-		{
-			GameMode.Instance?.SendSpawnConfirmation( Id );
-		}
-		else
-		{
-			using ( Rpc.FilterInclude( Network.OwnerConnection ) )
-			{
-				OnClientRespawn();
-			}
-		}
-
-		if ( IsProxy )
+		if ( !Networking.IsHost )
 			return;
+
+		HealthComponent.Health = HealthComponent.MaxHealth;
+		HealthComponent.State = LifeState.Alive;
+
+		ArmorComponent.HasHelmet = false;
+		ArmorComponent.Armor = 0f;
 
 		// :S
 		if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
 		{
 			Teleport( spawnAssigner.GetSpawnPoint( this ) );
 		}
+
+		using ( Rpc.FilterInclude( Network.OwnerConnection ) )
+		{
+			OnClientRespawn();
+		}
+
+		TimeSinceLastRespawn = 0f;
 	}
 
 	[Broadcast]
 	public void OnClientRespawn()
 	{
-		Possess();
+		if ( PlayerState.IsLocalPlayer )
+		{ 
+			Possess();
+			OnPossess();
+		}
 
 		GameMode.Instance?.SendSpawnConfirmation( Id );
 	}
@@ -99,9 +94,10 @@ public partial class PlayerPawn
 		Teleport( transform.Position, transform.Rotation );
 	}
 
+	[Authority]
 	public void Teleport( Vector3 position, Rotation rotation )
 	{
-		Transform.World = new( position, rotation );
+		Transform.World = new( position, Rotation.Identity );
 		Transform.ClearInterpolation();
 		EyeAngles = rotation.Angles();
 

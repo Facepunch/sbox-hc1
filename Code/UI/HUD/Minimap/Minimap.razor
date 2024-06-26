@@ -1,6 +1,8 @@
 ﻿@namespace Facepunch
 @attribute [StyleSheet]
 
+@if (!PlayerState.Viewer.Pawn.IsValid()) return;
+
 <root class="with-rounding @(FullMode ? "big" : "radar")" style="border: 1px solid @(TeamColor.WithAlpha( 0.5f ).Hex)">
     @if (Renderer.IsValid())
     {

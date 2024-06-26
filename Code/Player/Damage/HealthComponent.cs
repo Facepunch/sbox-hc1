@@ -26,12 +26,6 @@ public partial class HealthComponent : Component, IRespawnable
 	public TimeSince TimeSinceLifeStateChanged { get; private set; } = 1f;
 
 	/// <summary>
-	/// Are we ready to respawn?
-	/// </summary>
-	[HostSync]
-	public RespawnState RespawnState { get; set; }
-
-	/// <summary>
 	/// A list of all Respawnable things on this GameObject
 	/// </summary>
 	protected IEnumerable<IRespawnable> Respawnables => GameObject.Root.Components.GetAll<IRespawnable>(FindMode.EnabledInSelfAndDescendants);

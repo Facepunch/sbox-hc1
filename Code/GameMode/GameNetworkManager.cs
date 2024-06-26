@@ -84,8 +84,6 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 
 	public void OnPlayerJoined( PlayerState playerState, Connection channel )
 	{
-		playerState.SteamId = channel.SteamId;
-
 		// Dunno if we need both of these events anymore? But I'll keep them for now.
 		Scene.Dispatch( new PlayerConnectedEvent( playerState ) );
 
@@ -94,6 +92,8 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 			playerState.GameObject.NetworkSpawn( channel );
 		else
 			playerState.Network.AssignOwnership( channel );
+
+		playerState.Init( channel );
 
 		Scene.Dispatch( new PlayerJoinedEvent( playerState ) );
 	}

@@ -20,14 +20,9 @@ public partial class PlayerState : Component
 	// --
 
 	/// <summary>
-	/// The prefab to spawn when we want to make a player pawn for the player.
-	/// </summary>
-	[Property] public GameObject PlayerPawnPrefab { get; set; }
-
-	/// <summary>
 	/// Who owns this player state?
 	/// </summary>
-	[Sync, Property] public ulong SteamId { get; set; }
+	[HostSync, Property] public ulong SteamId { get; set; }
 
 	/// <summary>
 	/// We always want a reference to this player state's current player pawn. 
@@ -38,46 +33,33 @@ public partial class PlayerState : Component
 		get => Scene.Directory.FindComponentByGuid( playerPawnGuid ) as PlayerPawn;
 		set => playerPawnGuid = value.Id;
 	}
-	[Sync] private Guid playerPawnGuid { get; set; } // Sync this so other people know what player belongs to who
+	[HostSync] private Guid playerPawnGuid { get; set; } // Sync this so other people know what player belongs to who
 
-	[Broadcast]
-	public void RequestCreatePlayer()
+	public void Init( Connection connection )
 	{
-		if ( PlayerPawn.IsValid() )
+		OnNetInit();
+
+		SteamId = connection.SteamId;
+	}
+
+	[Authority]
+	private void OnNetInit()
+	{
+		if ( IsBot )
 			return;
 
-		CreatePlayer();
-	}
+		Local = this;
+		Log.Info( "Local set!" );
+	}	
 
-	public void CreatePlayer()
+	public void Kick()
 	{
-		var prefab = PlayerPawnPrefab.Clone();
-		var pawn = prefab.Components.Get<PlayerPawn>();
-		pawn.PlayerState = this;
-		prefab.NetworkSpawn( Network.OwnerConnection );
-
-		PlayerPawn = pawn;
-		if ( IsBot )
-			Pawn = pawn;
-
-		// No player state?
-		if ( !IsProxy && !IsBot && !Local.IsValid() )
+		if ( PlayerPawn.IsValid() )
 		{
-			Local = this;
-			Possess();
+			PlayerPawn.GameObject.Destroy();
 		}
 
-		GameMode.Instance?.SendSpawnConfirmation( Pawn.Id );
-
-		pawn.Respawn();
-	}
-
-	public void DestroyPlayer()
-	{
-		if ( Pawn.IsValid() )
-		{
-			Pawn.GameObject.Destroy();
-		}
+		// todo: actually kick em
 	}
 
 	/// <summary>

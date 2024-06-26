@@ -3,7 +3,7 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-@if ( !Pawn.IsValid() ) return;
+@if ( !Pawn.IsValid() || !HealthComponent.IsValid() ) return;
 
 <root class="@BuildClass()">
 
