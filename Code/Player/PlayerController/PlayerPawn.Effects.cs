@@ -49,7 +49,7 @@ public partial class PlayerPawn
 		if ( HealthComponent.IsGodMode )
 			return true;
 
-		return Team == PlayerState.Viewer.Team;
+		return Team == PlayerState.Viewer?.Team;
 	}
 
 	private void UpdateOutline()
