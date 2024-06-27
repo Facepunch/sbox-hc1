@@ -98,9 +98,10 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 		if ( PlayerState.Viewer.IsValid() && PlayerState.Viewer.Pawn.IsValid() )
 		{
 			// Entering freecam, position ourselves at the last guy's POV
-			var lastTransform = PlayerState.Viewer.GameObject.Transform;
-			FreecamController.EyeAngles = PlayerState.Viewer.Pawn.EyeAngles.ToRotation();
-			FreecamController.Transform.Position = lastTransform.Position - (Transform.Rotation.Forward * 128.0f);
+			var lastTransform = PlayerState.Viewer.Pawn.GameObject.Transform;
+			var rotation = PlayerState.Viewer.Pawn.EyeAngles;
+			FreecamController.EyeAngles = rotation;
+			FreecamController.Transform.Position = lastTransform.Position + (rotation.Forward * 8.0f);
 		}
 
 		FreecamController.Possess();
