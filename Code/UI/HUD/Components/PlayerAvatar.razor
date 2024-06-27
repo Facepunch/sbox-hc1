@@ -5,7 +5,7 @@
 
 <root class="@AvatarClasses" style="@(IsFriendly && Player.PlayerPawn.IsValid() ? $"box-shadow: 0 0 0 2px {Player.PlayerPawn.PlayerColor.Hex}" : "")">
     <div class="avatar">
-        <img class="image" src="avatar:@Player.Network.OwnerConnection.SteamId" />
+        <img class="image" src="avatar:@Player.SteamId" />
     </div>
 
     @if (!Player.PlayerPawn.IsValid()) return;

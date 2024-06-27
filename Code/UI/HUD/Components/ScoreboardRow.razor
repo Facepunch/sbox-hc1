@@ -20,7 +20,14 @@
     </span>
 
     <span class="col stat-small">
-        <label class="small">@(Connection.Ping.CeilToInt())</label>
+        @if ( Connection is not null )
+        {
+            <label class="small">@(Connection?.Ping.CeilToInt())</label>
+        }
+        else
+        {
+            <Icon style="background-tint: red;" File="/ui/no-connection.png" size="24" />
+        }
     </span>
 
     <span class="col playername gap-sm">
@@ -65,11 +72,15 @@
     private Team Team => PlayerState.Team;
     private bool IsPartyMember => PartyRoom.Current?.Members.Any( x => x.Id == Connection.SteamId ) ?? false;
 
+    public bool Disconnected => Connection is null;
+
     protected override int BuildHash()
     {
-        var a = HashCode.Combine(KillDeathRatio, Score.Score, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead, Connection?.Ping);
-        var b = HashCode.Combine(Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb, IsPartyMember, Player.PlayerColor);
+        var a = HashCode.Combine( KillDeathRatio, Score.Score, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead, Connection?.Ping );
+        var b = 0;
+        if ( Player.IsValid() )
+            b= HashCode.Combine( Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb, IsPartyMember, Player.PlayerColor );
 
-        return HashCode.Combine(a, b);
+        return HashCode.Combine( a, b );
     }
 }

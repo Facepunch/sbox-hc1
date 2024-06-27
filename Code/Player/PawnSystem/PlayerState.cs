@@ -25,6 +25,11 @@ public partial class PlayerState : Component
 	[HostSync, Property] public ulong SteamId { get; set; }
 
 	/// <summary>
+	/// The player's name, which might have to persist if they leave
+	/// </summary>
+	[HostSync] private string SteamName { get; set; }
+
+	/// <summary>
 	/// The connection of this player
 	/// </summary>
 	public Connection Connection => Network.OwnerConnection;
@@ -33,7 +38,7 @@ public partial class PlayerState : Component
 	/// <summary>
 	/// Name of this player
 	/// </summary>
-	public string DisplayName => IsBot ? $"BOT {BotManager.Instance.GetName( BotId )}" : Network.OwnerConnection?.DisplayName ?? "";
+	public string DisplayName => IsBot ? $"BOT {BotManager.Instance.GetName( BotId )}" : SteamName ?? "";
 
 	/// <summary>
 	/// Unique Ids of this player
@@ -54,7 +59,7 @@ public partial class PlayerState : Component
 	/// <summary>
 	/// Is this the local player for this client
 	/// </summary>
-	public bool IsLocalPlayer => !IsProxy && !IsBot;
+	public bool IsLocalPlayer => !IsProxy && !IsBot && Connection == Connection.Local;
 
 	/// <summary>
 	/// The main PlayerPawn of this player if one exists, will not change when the player possesses gadgets etc. (synced)
@@ -80,7 +85,9 @@ public partial class PlayerState : Component
 	{
 		// on join, spawn right now if we can
 		RespawnState = RespawnState.Immediate;
+		
 		SteamId = Connection.SteamId;
+		SteamName = Connection.DisplayName;
 	}
 
 	[Authority]
