@@ -2,8 +2,15 @@ namespace Facepunch;
 
 public partial class PlayerState : Component.INetworkListener
 {
+	/// <summary>
+	/// How long has it been since this player has d/c'd
+	/// </summary>
 	RealTimeSince TimeSinceDisconnected { get; set; }
-	float DisconnectCleanupTime => 60f;
+
+	/// <summary>
+	/// How long does it take to clean up a player once they disconnect?
+	/// </summary>
+	public static float DisconnectCleanupTime { get; set; } = 0;
 
 	void INetworkListener.OnDisconnected( Connection channel )
 	{
