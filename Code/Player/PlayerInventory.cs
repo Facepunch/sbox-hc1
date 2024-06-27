@@ -33,8 +33,11 @@ public partial class PlayerInventory : Component
 	/// <summary>
 	/// Does this player have a defuse kit?
 	/// </summary>
-	[HostSync]
-	public bool HasDefuseKit { get; set; }
+	public bool HasDefuseKit
+	{
+		get => Player.PlayerState.Loadout.HasDefuseKit;
+		set => Player.PlayerState.Loadout.HasDefuseKit = value;
+	}
 
 	/// <summary>
 	/// Gets the player's current weapon.
@@ -396,6 +399,9 @@ public partial class PlayerInventory : Component
 
 		if ( Give( resource ) is null )
 			return;
+
+		// Update the player's loadout
+		Player.PlayerState.Loadout.SetFrom( Player );
 
 		Player.PlayerState.Balance -= resource.Price;
 	}

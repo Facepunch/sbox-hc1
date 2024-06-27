@@ -47,6 +47,11 @@ public partial class PlayerState : Component
 	[RequireComponent] public PlayerId PlayerId { get; private set; }
 
 	/// <summary>
+	/// What's our loadout?
+	/// </summary>
+	[RequireComponent] public PlayerLoadout Loadout { get; private set; }
+
+	/// <summary>
 	/// The team this player is on.
 	/// </summary>
 	[Property, Group( "Setup" ), HostSync, Change( nameof( OnTeamPropertyChanged ) )]

@@ -20,6 +20,7 @@ public sealed class DefaultEquipment : Component,
 	[Property] public bool Helmet { get; set; }
 	[Property] public bool DefuseKit { get; set; }
 	[Property] public bool RefillAmmo { get; set; } = true;
+	[Property] public bool LoadoutsEnabled { get; set; } = true;
 
 	void IGameEventHandler<PlayerSpawnedEvent>.OnGameEvent( PlayerSpawnedEvent eventArgs )
 	{
@@ -28,6 +29,17 @@ public sealed class DefaultEquipment : Component,
 		var player = eventArgs.Player;
 
 		if ( !BothTeams && player.Team != Team ) return;
+
+		if ( LoadoutsEnabled )
+		{
+			foreach ( var resource in player.PlayerState.Loadout.Equipment )
+			{
+				if ( !player.Inventory.HasInSlot( resource.Slot ) )
+				{
+					player.Inventory.Give( resource, false );
+				}
+			}
+		}
 
 		foreach ( var weapon in Weapons )
 		{

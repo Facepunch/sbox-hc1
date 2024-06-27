@@ -39,6 +39,7 @@
         "BothTeams": true,
         "DefuseKit": false,
         "Helmet": false,
+        "LoadoutsEnabled": false,
         "RefillAmmo": true,
         "Team": "Terrorist",
         "Weapons": [
@@ -67,11 +68,7 @@
       },
       {
         "__type": "Facepunch.BotManager",
-        "__guid": "8f2a629c-0d39-4eb1-a17a-03df62cfcc4b",
-        "Drone": {
-          "_type": "gameobject",
-          "prefab": "prefabs/player/drone.prefab"
-        }
+        "__guid": "8f2a629c-0d39-4eb1-a17a-03df62cfcc4b"
       }
     ],
     "Children": [
@@ -146,6 +143,7 @@
               {
                 "__type": "Facepunch.PlayerAutoRespawner",
                 "__guid": "941f07d5-e38a-4836-8162-85dcc2038650",
+                "AllowSpectatorsToSpawn": false,
                 "RespawnDelaySeconds": 3
               },
               {
@@ -218,7 +216,8 @@
               },
               {
                 "__type": "Facepunch.EquipmentDropper",
-                "__guid": "ac41427a-b724-477d-9538-6b6dd052ea51"
+                "__guid": "ac41427a-b724-477d-9538-6b6dd052ea51",
+                "Categories": []
               },
               {
                 "__type": "Facepunch.DefaultBalance",
@@ -302,6 +301,7 @@
                   {
                     "__type": "Facepunch.TeamEarlyWinCondition",
                     "__guid": "d5c89b98-a4e2-4148-9890-4c6dcb56d60a",
+                    "MatchPoint": true,
                     "TargetScore": 16
                   }
                 ],
@@ -1169,6 +1169,17 @@
           {
             "Id": "d5c89b98-a4e2-4148-9890-4c6dcb56d60a",
             "Property": "TargetScore"
+          }
+        ]
+      },
+      {
+        "Id": "Loadouts Enabled",
+        "Title": "Loadouts Enabled",
+        "Group": "Equipment",
+        "Targets": [
+          {
+            "Id": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
+            "Property": "LoadoutsEnabled"
           }
         ]
       }
