@@ -361,7 +361,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		return Scene.Trace.Ray( start, end )
 			.UseHitboxes()
 			.IgnoreGameObjectHierarchy( GameObject.Root )
-			.WithoutTags( "trigger", "invis", "ragdoll", "movement" )
+			.WithoutTags( "trigger", "invis", "ragdoll", "movement", "player_clip" )
 			.Size( radius )
 			.RunAll();
 	}
@@ -372,7 +372,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		return Scene.Trace.Ray( start, end )
 			.UseHitboxes()
 			.IgnoreGameObjectHierarchy( GameObject.Root )
-			.WithoutTags( "trigger", "invis", "ragdoll", "movement" )
+			.WithoutTags( "trigger", "invis", "ragdoll", "movement", "player_clip" )
 			.Size( radius )
 			.Run();
 	}
@@ -419,6 +419,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		forward = forward.Normal;
 
 		var original = DoTraceBullet( start, WeaponRay.Position + forward * MaxRange, BulletSize );
+
 		if ( original.Count() < 1 ) return original;
 
 		// Run through and fix the start positions for the traces
