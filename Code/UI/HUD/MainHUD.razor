@@ -1,8 +1,6 @@
 @namespace Facepunch.UI
 @inherits PanelComponent
 
-@implements Sandbox.Events.IGameEventHandler<KillEvent>
-
 @if (!IsHudEnabled)
     return;
 
@@ -62,10 +60,5 @@
     protected override int BuildHash()
     {
         return HashCode.Combine( IsHudEnabled, PlayerState.Viewer is null );
-    }
-
-    public void OnGameEvent( KillEvent eventArgs )
-    {
-        KillFeed.OnPlayerKilled( eventArgs.DamageInfo );
     }
 }

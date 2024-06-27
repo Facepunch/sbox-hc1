@@ -9,7 +9,7 @@ public record EquipmentDestroyedEvent( Equipment Equipment ) : IGameEvent;
 /// <summary>
 /// An equipment component.
 /// </summary>
-public partial class Equipment : Component, Component.INetworkListener, IEquipment
+public partial class Equipment : Component, Component.INetworkListener, IEquipment, IDescription
 {
 	/// <summary>
 	/// A reference to the equipment's <see cref="EquipmentResource"/>.
@@ -78,6 +78,10 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// The Guid of the owner's <see cref="PlayerPawn"/>
 	/// </summary>
 	[HostSync] public Guid OwnerId { get; set; }
+
+	// IDescription
+	string IDescription.DisplayName => Resource.Name;
+	string IDescription.Icon => Resource.Icon;
 
 	/// <summary>
 	/// Is this equipment currently deployed by the player?

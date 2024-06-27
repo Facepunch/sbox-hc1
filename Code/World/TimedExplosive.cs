@@ -1,11 +1,9 @@
 ﻿
 using Facepunch;
-using Sandbox.Utility;
-using Sandbox;
 using Sandbox.Events;
 using DamageInfo = Facepunch.DamageInfo;
 
-public sealed class TimedExplosive : Component, IUse, IMinimapIcon
+public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 {
 	[Property, Category( "Config" )]
 	public float Duration { get; set; } = 45f;
@@ -34,6 +32,10 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 	[HostSync] public TimeSince TimeSinceDefuseStart { get; private set; }
 	[HostSync] public TimeSince TimeSincePlanted { get; private set; }
 	[HostSync]public bool IsDefused { get; private set; }
+
+	// IDescription
+	string IDescription.DisplayName => "C4";
+	string IDescription.Icon => "/ui/items/c4.png";
 
 	public TimeSince TimeSinceLastBeep { get; private set; }
 
