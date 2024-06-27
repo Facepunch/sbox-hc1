@@ -35,10 +35,11 @@ public partial class PlayerState : Component
 	public Connection Connection => Network.OwnerConnection;
 	public bool IsConnected => Connection is not null && (Connection.IsActive || Connection.IsHost); //smh
 
+	private string name => IsBot ? $"BOT {BotManager.Instance.GetName( BotId )}" : SteamName ?? "";
 	/// <summary>
 	/// Name of this player
 	/// </summary>
-	public string DisplayName => IsBot ? $"BOT {BotManager.Instance.GetName( BotId )}" : SteamName ?? "";
+	public string DisplayName => $"{name}{(!IsConnected ? " (Disconnected)" : "")}";
 
 	/// <summary>
 	/// Unique Ids of this player
