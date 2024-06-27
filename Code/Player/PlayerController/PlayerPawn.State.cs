@@ -51,8 +51,6 @@ public partial class PlayerPawn
 		_previousVelocity = Vector3.Zero;
 		Body.DamageTakenForce = Vector3.Zero;
 
-		ResetBody();
-
 		if ( Networking.IsHost )
 		{
 			// :S
@@ -88,6 +86,7 @@ public partial class PlayerPawn
 
 		TimeSinceLastRespawn = 0f;
 
+		ResetBody();
 		Scene.Dispatch( new PlayerSpawnedEvent( this ) );
 	}
 
