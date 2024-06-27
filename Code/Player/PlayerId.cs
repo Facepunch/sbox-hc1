@@ -64,6 +64,9 @@ public class PlayerId : Component, IGameEventHandler<TeamChangedEvent>
 
 	public void TeamUpdate( Team before, Team after )
 	{
+		if ( !Networking.IsHost )
+			return;
+
 		teamGenerator[(int)before].Free( TeamUniqueId );
 		TeamUniqueId = teamGenerator[(int)after].Get();
 	}

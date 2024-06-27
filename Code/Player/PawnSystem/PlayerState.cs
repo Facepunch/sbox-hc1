@@ -167,7 +167,7 @@ public partial class PlayerState : Component
 	{
 		GameObject.Root.Dispatch( new TeamChangedEvent( before, after ) );
 
-		// Send this to the pawn too if we haveo ne
+		// Send this to the pawn too if we have ne
 		if ( PlayerPawn.IsValid() )
 		{
 			PlayerPawn.GameObject.Root.Dispatch( new TeamChangedEvent( before, after ) );
