@@ -5,7 +5,7 @@
 @if ( !Player.IsValid() )
     return;
 
-@if ( Player.CurrentEquipment is null )
+@if ( !Player.CurrentEquipment.IsValid() )
     return;
 
 <root class="flex row gap align-center justify-end" style="width: 100px;">
@@ -28,6 +28,8 @@
 
     protected override int BuildHash()
     {
+        if ( !Player.IsValid() || !Player.CurrentEquipment.IsValid() )
+            return 0;
         return HashCode.Combine( Player, AmmoComponent?.Ammo, Player?.CurrentEquipment );
     }
 }

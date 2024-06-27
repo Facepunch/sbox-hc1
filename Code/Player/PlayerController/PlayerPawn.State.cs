@@ -30,7 +30,6 @@ public partial class PlayerPawn
 
 			PlayerState.RespawnState = RespawnState.Requested;
 
-			CurrentEquipment = null;
 			Inventory.Clear();
 			CreateRagdoll();
 		}

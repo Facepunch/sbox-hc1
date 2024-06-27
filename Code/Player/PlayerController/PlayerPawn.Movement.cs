@@ -286,7 +286,9 @@ public partial class PlayerPawn
 
 	private void BuildInput()
 	{
-		IsSlowWalking = Input.Down( "Walk" ) || ( CurrentEquipment?.GameObject?.Tags.Has( "aiming" ) ?? false );
+		IsSlowWalking = Input.Down( "Walk" );
+		if ( CurrentEquipment.IsValid() )
+			IsSlowWalking |= CurrentEquipment.Tags.Has( "aiming" );
 
 		bool wasSprinting = IsSprinting;
         IsSprinting = WantsToSprint;
