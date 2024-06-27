@@ -2,6 +2,9 @@
 @inherits Panel
 @attribute [StyleSheet]
 
+@if ( !Player.IsValid() )
+    return;
+
 @if ( Player.CurrentEquipment is null )
     return;
 
