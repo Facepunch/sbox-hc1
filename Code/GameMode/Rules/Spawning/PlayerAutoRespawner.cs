@@ -18,12 +18,8 @@ public sealed class PlayerAutoRespawner : Component,
 			if ( player.PlayerPawn.IsValid() )
 				continue;
 
-			// todo: look into this??
-			if ( player.Network.OwnerConnection is null )
+			if ( !player.IsConnected )
 				continue;
-
-			if ( !player.Network.OwnerConnection.IsHost && !player.Network.OwnerConnection.IsActive ) // smh
-				return;
 
 			if ( !AllowSpectatorsToSpawn && player.Team == Team.Unassigned )
 			{

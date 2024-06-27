@@ -28,6 +28,7 @@ public partial class PlayerState : Component
 	/// The connection of this player
 	/// </summary>
 	public Connection Connection => Network.OwnerConnection;
+	public bool IsConnected => Connection is not null && (Connection.IsActive || Connection.IsHost); //smh
 
 	/// <summary>
 	/// Name of this player
