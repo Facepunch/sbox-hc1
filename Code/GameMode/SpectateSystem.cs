@@ -13,8 +13,8 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 
 	private void OnSpectateBegin()
 	{
-		// Possess the freecam by default
-		SpectateFreecam();
+		// try to find someone to spectate
+		SpectateNextPlayer(true);
 		_wasSpectating = true;
 	}
 
