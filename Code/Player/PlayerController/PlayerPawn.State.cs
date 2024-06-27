@@ -120,6 +120,9 @@ public partial class PlayerPawn
 	[Broadcast(NetPermission.HostOnly)]
 	private void CreateRagdoll()
 	{
+		if ( !Body.IsValid() )
+			return;
+
 		Body.SetRagdoll( true );
 		Body.GameObject.SetParent( null, true );
 		Body.GameObject.Name = $"Ragdoll ({DisplayName})";
