@@ -4,20 +4,13 @@ public partial class PlayerBody : Component
 {
 	[Property] public SkinnedModelRenderer Renderer { get; set; }
 	[Property] public ModelPhysics Physics { get; set; }
-
-	public bool IsRagdoll => Physics.Enabled;
+	[Property] public PlayerPawn Player { get; set; }
 
 	public Vector3 DamageTakenPosition { get; set; }
 	public Vector3 DamageTakenForce { get; set; }
 
-	private bool IsShown;
-
-	public PlayerController Player { get; set; }
-
-	protected override void OnStart()
-	{
-		Player = Components.Get<PlayerController>( FindMode.EverythingInSelfAndAncestors );
-	}
+	private bool IsFirstPerson;
+	public bool IsRagdoll => Physics.Enabled;
 
 	internal void SetRagdoll( bool ragdoll )
 	{
@@ -32,7 +25,7 @@ public partial class PlayerBody : Component
 			GameObject.Transform.LocalRotation = Rotation.Identity;
 		}
 
-		ShowBodyParts( ragdoll );
+		SetFirstPersonView( !ragdoll );
 
 		if ( ragdoll && DamageTakenForce.LengthSquared > 0f )
 			ApplyRagdollImpulses( DamageTakenPosition, DamageTakenForce );
@@ -42,7 +35,7 @@ public partial class PlayerBody : Component
 
 	internal void ApplyRagdollImpulses( Vector3 position, Vector3 force )
 	{
-		if ( Physics?.PhysicsGroup == null )
+		if ( !Physics.IsValid() || !Physics.PhysicsGroup.IsValid() )
 			return;
 
 		foreach ( var body in Physics.PhysicsGroup.Bodies )
@@ -51,26 +44,21 @@ public partial class PlayerBody : Component
 		}
 	}
 
-	public void ReapplyVisibility()
+	public void Refresh()
 	{
-		ShowBodyParts( IsShown );
+		SetFirstPersonView( IsFirstPerson );
 	}
 
-	public void ShowBodyParts( bool show )
+	public void SetFirstPersonView( bool firstPerson )
 	{
-		// TODO: remove this
-		Tags.Set( "invis", !show );
-
-		IsShown = show;
+		IsFirstPerson = firstPerson;
 
 		// Disable the player's body so it doesn't render.
-		var skinnedModels = Components.GetAll<ModelRenderer>( FindMode.EnabledInSelfAndDescendants );
+		var skinnedModels = Components.GetAll<ModelRenderer>( FindMode.EverythingInSelfAndDescendants );
 
-		foreach ( var skinnedModel in skinnedModels )
+		foreach ( var model in skinnedModels )
 		{
-			skinnedModel.RenderType = show ?
-				ModelRenderer.ShadowRenderType.On :
-				ModelRenderer.ShadowRenderType.ShadowsOnly;
+			model.RenderType = firstPerson ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
 		}
 	}
 }

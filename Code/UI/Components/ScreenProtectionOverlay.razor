@@ -9,11 +9,20 @@
 {
     public Panel Overlay { get; set; }
 
-    public PlayerController Viewer => GameUtils.Viewer.Controller;
-
     float GetOpacity()
     {
-        if (Viewer.HealthComponent.IsGodMode) return 1f;
+        if ( !PlayerState.Viewer.IsValid() )
+            return 0f;
+
+        if ( !PlayerState.Viewer.Pawn.IsValid() )
+            return 0f;
+
+        if ( !PlayerState.Viewer.Pawn.HealthComponent.IsValid() )
+            return 0f;
+
+        if ( PlayerState.Viewer.Pawn.HealthComponent.IsGodMode ) 
+            return 1f;
+
         return 0f;
     }
 

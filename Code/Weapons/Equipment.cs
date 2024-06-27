@@ -9,7 +9,7 @@ public record EquipmentDestroyedEvent( Equipment Equipment ) : IGameEvent;
 /// <summary>
 /// An equipment component.
 /// </summary>
-public partial class Equipment : Component, Component.INetworkListener, IEquipment
+public partial class Equipment : Component, Component.INetworkListener, IEquipment, IDescription
 {
 	/// <summary>
 	/// A reference to the equipment's <see cref="EquipmentResource"/>.
@@ -64,20 +64,24 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// <summary>
 	/// Cached version of the owner once we fetch it.
 	/// </summary>
-	private PlayerController owner;
+	private PlayerPawn owner;
 
 	/// <summary>
 	/// Who owns this gun?
 	/// </summary>
-	public PlayerController Owner
+	public PlayerPawn Owner
 	{
-		get => owner ??= Scene.Directory.FindComponentByGuid( OwnerId ) as PlayerController;
+		get => owner ??= Scene.Directory.FindComponentByGuid( OwnerId ) as PlayerPawn;
 	}
 
 	/// <summary>
-	/// The Guid of the owner's <see cref="PlayerController"/>
+	/// The Guid of the owner's <see cref="PlayerPawn"/>
 	/// </summary>
 	[HostSync] public Guid OwnerId { get; set; }
+
+	// IDescription
+	string IDescription.DisplayName => Resource.Name;
+	string IDescription.Icon => Resource.Icon;
 
 	/// <summary>
 	/// Is this equipment currently deployed by the player?
@@ -90,7 +94,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	[DeveloperCommand( "Toggle View Model", "Visuals" )]
 	private static void ToggleViewModel()
 	{
-		var player = GameUtils.Viewer.Controller;
+		var player = PlayerState.Viewer.PlayerPawn;
 
 		player.CurrentEquipment.ViewModel.ModelRenderer.Enabled = !player.CurrentEquipment.ViewModel.ModelRenderer.Enabled;
 		player.CurrentEquipment.ViewModel.Arms.Enabled = !player.CurrentEquipment.ViewModel.Arms.Enabled;
@@ -101,10 +105,9 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// </summary>
 	protected void UpdateRenderMode()
 	{
-		if ( Owner.IsViewer )
-			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
-		else
-			ModelRenderer.RenderType = Sandbox.ModelRenderer.ShadowRenderType.On;
+		ModelRenderer.RenderType = !Owner.IsViewer 
+			? Sandbox.ModelRenderer.ShadowRenderType.On 
+			: Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
 	}
 
 	private ViewModel viewModel;
@@ -127,16 +130,6 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		}
 	}
 
-	/// <summary>
-	/// How long it's been since we used this attack.
-	/// </summary>
-	protected TimeSince TimeSincePrimaryAttack { get; set; }
-
-	/// <summary>
-	/// How long it's been since we used this attack.
-	/// </summary>
-	protected TimeSince TimeSinceSecondaryAttack { get; set; }
-	
 	void INetworkListener.OnDisconnected( Connection connection )
 	{
 		if ( !Networking.IsHost )
@@ -191,42 +184,6 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	public virtual AnimationHelper.HoldTypes GetHoldType()
 	{
 		return HoldType;
-	}
-
-	/// <summary>
-	/// Called when trying to shoot the equipment with the "Attack1" input action.
-	/// </summary>
-	/// <returns></returns>
-	public virtual bool PrimaryAttack()
-	{
-		return true;
-	}
-
-	/// <summary>
-	/// Can we even use this attack?
-	/// </summary>
-	/// <returns></returns>
-	public virtual bool CanPrimaryAttack()
-	{
-		return TimeSincePrimaryAttack > 0.1f;
-	}
-
-	/// <summary>
-	/// Called when trying to shoot the equipment with the "Attack2" input action.
-	/// </summary>
-	/// <returns></returns>
-	public virtual bool SecondaryAttack()
-	{
-		return false;
-	}
-
-	/// <summary>
-	/// Can we even use this attack?
-	/// </summary>
-	/// <returns></returns>
-	public virtual bool CanSecondaryAttack()
-	{
-		return false;
 	}
 	
 	private void OnIsDeployedPropertyChanged( bool oldValue, bool newValue )
@@ -319,11 +276,13 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	
 	protected virtual void OnDeployed()
 	{
-		if ( Owner.IsValid() && Owner.IsViewer && Owner.CameraController.Mode != CameraMode.ThirdPerson )
+		if ( Owner.IsValid() && Owner.IsViewer && Owner.CameraController.Mode == CameraMode.FirstPerson )
 			CreateViewModel();
-		
+
 		if ( ModelRenderer.IsValid() )
 			ModelRenderer.Enabled = true;
+
+		UpdateRenderMode();
 
 		GameObject.Root.Dispatch( new EquipmentDeployedEvent( this ) );
 	}
@@ -332,7 +291,8 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	{
 		if ( ModelRenderer.IsValid() )
 			ModelRenderer.Enabled = false;
-		
+
+		UpdateRenderMode();
 		ClearViewModel();
 		
 		GameObject.Root.Dispatch( new EquipmentHolsteredEvent( this ) );

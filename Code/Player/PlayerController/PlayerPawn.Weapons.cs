@@ -2,7 +2,7 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public partial class PlayerController :
+public partial class PlayerPawn :
 	IGameEventHandler<EquipmentDeployedEvent>,
 	IGameEventHandler<EquipmentHolsteredEvent>
 {
@@ -23,7 +23,8 @@ public partial class PlayerController :
 
 	private void UpdateRecoilAndSpread()
 	{
-		bool isAiming = CurrentEquipment?.Tags.Has( "aiming" ) ?? false;
+		bool isAiming = CurrentEquipment.IsValid() && CurrentEquipment.Tags.Has( "aiming" );
+
 		var spread = Global.BaseSpreadAmount;
 		var scale = Global.VelocitySpreadScale;
 		if ( isAiming ) spread *= Global.AimSpread;

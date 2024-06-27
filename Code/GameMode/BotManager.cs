@@ -1,4 +1,5 @@
 using Sandbox;
+using System.Threading.Channels;
 
 namespace Facepunch;
 
@@ -31,11 +32,12 @@ public sealed class BotManager : SingletonComponent<BotManager>
 	public void AddBot()
 	{
 		var player = GameNetworkManager.Instance.PlayerPrefab.Clone();
+		player.Name = $"PlayerState (BOT)";
 
-		PlayerController playerController = player.Components.Get<PlayerController>();
-		playerController.PlayerState.BotId = CurrentBotId;
+		var playerState = player.Components.Get<PlayerState>();
+		playerState.BotId = CurrentBotId;
 
-		GameNetworkManager.Instance.OnPlayerJoined( playerController, Connection.Host );
+		GameNetworkManager.Instance.OnPlayerJoined( playerState, Connection.Host );
 
 		CurrentBotId++;
 	}
@@ -64,44 +66,12 @@ public sealed class BotManager : SingletonComponent<BotManager>
 	[DeveloperCommand( "Kick all Bots", "Game Loop" )]
 	private static void Command_Kick_Bots()
 	{
-		foreach ( var player in GameUtils.AllPlayers )
+		foreach ( var player in GameUtils.AllPlayerStates )
 		{
-			if ( player.PlayerState.IsBot )
-				player.GameObject.Destroy();
-		}
-	}
-
-	// TODO: TEMPORARY LOCATION, DELETE WHEN DONE
-	[Property] public GameObject Drone { get; set; }
-	private Pawn DronePawn { get; set; }
-
-	[DeveloperCommand( "Toggle Drone", "Drone Stuff" )]
-	private static void Command_Become_Drone()
-	{
-		if ( GameUtils.CurrentPawn is Drone )
-		{
-			// Switch back to player
-			(GameUtils.LocalPlayer as Pawn).Possess();
-		}
-		else
-		{
-			if ( Instance.DronePawn.IsValid() )
+			if ( player.IsBot )
 			{
-				Instance.DronePawn.Possess();
-				return;
+				player.Kick();
 			}
-
-			var newInst = Instance.Drone.Clone();
-			newInst.NetworkSpawn();
-
-			var drone = newInst.Components.Get<Drone>();
-			drone.TeamComponent.Team = GameUtils.LocalPlayer.TeamComponent.Team;
-
-			var transform = GameUtils.LocalPlayer.Transform;
-			drone.Transform.Position = transform.Position + transform.Rotation.Forward * 50f + Vector3.Up * 50f;
-
-			Instance.DronePawn = drone;
-			
 		}
 	}
 }

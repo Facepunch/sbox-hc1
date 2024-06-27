@@ -1,11 +1,15 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 /// <summary>
 /// Grants a unique Id to each player, generated on host and synced.
 /// When a player disconnects that Id is returned to the pool and can be issued to new players. Issues an Id globally and per-team.
 /// </summary>
-public class PlayerId : Component
+public class PlayerId : Component, IGameEventHandler<TeamChangedEvent>
 {
+	[RequireComponent] PlayerState PlayerState { get; set; }
+
 	private struct PlayerIdGenerator
 	{
 		private Stack<int> freeIds;
@@ -36,10 +40,9 @@ public class PlayerId : Component
 				freeIds.Push( id );
 		}
 	}
+
 	private static PlayerIdGenerator uniqueGenerator;
 	private static PlayerIdGenerator[] teamGenerator;
-
-	[RequireComponent] TeamComponent TeamComponent { get; set; }
 
 	/// <summary>
 	/// Unique Id of this player in the game. New players will occupy vacant ids.
@@ -53,29 +56,28 @@ public class PlayerId : Component
 
 	protected override void OnAwake()
 	{
-		base.OnAwake();
-
 		if ( !Networking.IsHost )
 			return;
-
-		TeamComponent.OnTeamChanged += OnTeamChanged;
+		
 		UniqueId = uniqueGenerator.Get();
 	}
 
-	private void OnTeamChanged( Team before, Team after )
-	{
-		teamGenerator[(int)before].Free(TeamUniqueId);
-		TeamUniqueId = teamGenerator[(int)after].Get();
-	}
-
-	protected override void OnDestroy()
+	public void TeamUpdate( Team before, Team after )
 	{
 		if ( !Networking.IsHost )
 			return;
 
-		TeamComponent.OnTeamChanged -= OnTeamChanged;
+		teamGenerator[(int)before].Free( TeamUniqueId );
+		TeamUniqueId = teamGenerator[(int)after].Get();
+	}
+
+	public void Free()
+	{
+		if ( !Networking.IsHost )
+			return;
+
 		uniqueGenerator.Free( UniqueId );
-		teamGenerator[(int)TeamComponent.Team].Free( TeamUniqueId );
+		teamGenerator[(int)PlayerState.Team].Free( TeamUniqueId );
 	}
 
 	public static void Init()
@@ -88,5 +90,10 @@ public class PlayerId : Component
 		{
 			teamGenerator[i] = new();
 		}
+	}
+
+	void IGameEventHandler<TeamChangedEvent>.OnGameEvent( TeamChangedEvent eventArgs )
+	{
+		TeamUpdate( eventArgs.Before, eventArgs.After );
 	}
 }

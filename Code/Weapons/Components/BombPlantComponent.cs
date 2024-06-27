@@ -78,7 +78,7 @@ public partial class BombPlantComponent : InputWeaponComponent
 		// Send the radio sound to everyone
 		if ( Equipment.Owner.IsLocallyControlled )
 		{
-			RadioSounds.Play( Equipment.Owner.TeamComponent.Team, "Hidden", "Planting bomb" );
+			RadioSounds.Play( Equipment.Owner.Team, "Hidden", "Planting bomb" );
 		}
 
 		BroadcastPlant();

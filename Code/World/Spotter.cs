@@ -7,7 +7,7 @@ public sealed class Spotter : Component
 {
 	public static float Interval = 0.5f;
 
-	[Property] PlayerController Player { get; set; }
+	[Property] PlayerPawn Player { get; set; }
 
 	private TimeSince LastPoll;
 
@@ -18,7 +18,7 @@ public sealed class Spotter : Component
 		if ( !Networking.IsHost )
 			return;
 
-		if ( Player.IsSpectating || Player.TeamComponent.Team == Team.Unassigned )
+		if ( Player.HealthComponent.State != LifeState.Alive || Player.Team == Team.Unassigned )
 			return;
 
 		if ( LastPoll < Interval )
@@ -29,7 +29,7 @@ public sealed class Spotter : Component
 			if ( spottable.GameObject == this.GameObject )
 				continue;
 
-			if ( spottable.Team == Player.TeamComponent.Team )
+			if ( spottable.Team == Player.Team )
 				continue;
 
 			Poll( spottable );

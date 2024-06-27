@@ -3,7 +3,7 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-@if ( !Player.IsValid() || Player.IsSpectating ) return;
+@if ( !Pawn.IsValid() || !HealthComponent.IsValid() ) return;
 
 <root class="@BuildClass()">
 
@@ -28,16 +28,16 @@
 
 @code
 {
-    public PlayerController Player => GameUtils.Viewer.Controller;
-    public HealthComponent HealthComponent => Player.HealthComponent;
-    public ArmorComponent ArmorComponent => Player.GameObject?.Components.Get<ArmorComponent>();
+    public Pawn Pawn => PlayerState.Viewer.Pawn;
+    public HealthComponent HealthComponent => Pawn.HealthComponent;
+    public ArmorComponent ArmorComponent => Pawn.GameObject?.Components.Get<ArmorComponent>();
     public int Health => HealthComponent?.Health.CeilToInt() ?? 0;
     public int Armor => ArmorComponent?.Armor.CeilToInt() ?? 0;
     public bool HasHelmet => ArmorComponent?.HasHelmet ?? false;
 
     protected override int BuildHash()
     {
-        return !Player.IsValid() ? 0 : HashCode.Combine(Player.IsSpectating, Health, Armor, HasHelmet, Player.HealthComponent.State );
+        return !Pawn.IsValid() ? 0 : HashCode.Combine( Health, Armor, HasHelmet, Pawn.HealthComponent?.State );
     }
 
     private string BuildClass()

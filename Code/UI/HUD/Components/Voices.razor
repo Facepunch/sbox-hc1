@@ -12,8 +12,8 @@
                 }
 
                 <Icon class="square rounded shrink-0" File="/ui/chat/radio.png" size="24" style="transform: scale( @GetAmplitudeScale( voice ) )" />
-                <img class="avatar" src="avatar:@player.SteamId" />
-                <PlayerPanel Pawn=@player />
+                <img class="avatar" src="avatar:@player.Network.OwnerConnection.SteamId" />
+                <PlayerPanel PlayerState=@player />
             </div>
         </div>
     }
@@ -24,9 +24,9 @@
 {
     public IEnumerable<Voice> VoiceList => Scene.GetAllComponents<Voice>();
 
-    private PlayerController GetPlayer( Voice voice )
+    private PlayerState GetPlayer( Voice voice )
     {
-        return voice.Components.Get<PlayerController>();
+        return voice.Components.Get<PlayerState>();
     }
 
     private bool CanDisplay( Voice voice )

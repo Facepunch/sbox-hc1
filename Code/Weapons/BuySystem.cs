@@ -11,8 +11,11 @@ public static class BuySystem
 {
 	public static bool IsEnabled()
 	{
+		var player = PlayerState.Local.PlayerPawn;
+		if ( player is null ) return false;
+
 		// Can't buy if dead
-		if ( GameUtils.LocalPlayer.HealthComponent.State != LifeState.Alive )
+		if ( player.HealthComponent.State != LifeState.Alive )
 			return false;
 
 		var canOpenEvent = new CanOpenBuyMenuEvent();
@@ -23,7 +26,9 @@ public static class BuySystem
 
 	public static bool IsInBuyZone()
 	{
-		var player = GameUtils.LocalPlayer;
+		var player = PlayerState.Local.PlayerPawn;
+		if ( player is null ) return false;
+
 		var zone = player.GetZone<BuyZone>();
 		if ( zone is null )
 			return false;
@@ -31,6 +36,6 @@ public static class BuySystem
 		if ( zone.Team == Team.Unassigned )
 			return true;
 
-		return zone.Team == player.TeamComponent.Team;
+		return zone.Team == player.Team;
 	}
 }

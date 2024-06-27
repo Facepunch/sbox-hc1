@@ -25,7 +25,6 @@
         }
     }
 
-
     <div @ref="Hitmarker" class="hitmarker @HitmarkerClasses" />
 </root>
 
@@ -39,7 +38,7 @@
 
     public Panel Hitmarker { get; set; }
 
-    PlayerController Player => GameUtils.Viewer.IsValid() ? GameUtils.Viewer.Controller : null;
+    PlayerPawn Player => PlayerState.Viewer.IsValid() ? PlayerState.Viewer.PlayerPawn : null;
     Equipment Equipment => Player.IsValid() ? Player.CurrentEquipment : null;
 
     private TimeUntil TimeUntilHitmarkerRemove = 0f;
@@ -70,7 +69,7 @@
 
     public void Trigger( DamageInfo damageInfo )
     {
-        if ( damageInfo.Attacker is PlayerController attacker )
+        if ( damageInfo.Attacker is PlayerPawn attacker )
         {
             var hc = attacker.HealthComponent;
             var isKill = hc.Health <= 0f;
@@ -172,7 +171,7 @@
         var currentTrace = player.CachedEyeTrace;
         if ( currentTrace.Hit )
         {
-            var targetPlayer = currentTrace.GameObject.Root.Components.Get<PlayerController>();
+            var targetPlayer = currentTrace.GameObject.Root.Components.Get<PlayerPawn>();
             if (targetPlayer.IsValid())
             {
                 var friendly = targetPlayer.IsFriendly( Player );

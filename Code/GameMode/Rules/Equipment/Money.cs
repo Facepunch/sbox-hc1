@@ -13,7 +13,7 @@ public sealed class DefaultBalance : Component,
 
 	void IGameEventHandler<TeamAssignedEvent>.OnGameEvent( TeamAssignedEvent eventArgs )
 	{
-		eventArgs.Player.Inventory.SetCash( Value );
+		eventArgs.Player.SetCash( Value );
 	}
 }
 
@@ -30,7 +30,7 @@ public sealed class ResetBalance : Component,
 	{
 		foreach ( var player in GameUtils.ActivePlayers )
 		{
-			player.Inventory.SetCash( Value );
+			player.PlayerState.SetCash( Value );
 		}
 	}
 }
@@ -64,7 +64,7 @@ public sealed class GiveTeamIncome : Component,
 
 		foreach ( var player in GameUtils.GetPlayers( Team ) )
 		{
-			player.Inventory.GiveCash( incomeEventArgs.Value );
+			player.PlayerState.GiveCash( incomeEventArgs.Value );
 		}
 	}
 }

@@ -16,7 +16,7 @@
             <span style="gap: 4px; align-items: flex-end;">
                 @if (IsActive)
                 {
-                    @if ( Equipment?.Owner != GameUtils.Viewer.Controller && ( Equipment?.Owner?.IsValid() ?? false ) )
+                    @if ( Equipment?.Owner != PlayerState.Viewer.Pawn && ( Equipment?.Owner?.IsValid() ?? false ) )
                     {
                         <label style="font-size: 14px; color: lightgrey">@(Equipment?.Owner?.DisplayName)'s</label>
                     }
@@ -49,7 +49,7 @@
     public Equipment Equipment { get; set; }
 
     private AmmoComponent AmmoComponent => Equipment?.Components.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
-    public PlayerController Player => Equipment?.Owner;
+    public PlayerPawn Player => Equipment?.Owner;
     public bool IsActive => Player?.CurrentEquipment == Equipment;
 
     protected override int BuildHash()

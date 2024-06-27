@@ -6,7 +6,7 @@
 
 <root class="row" style="padding-top: 16px;">
     <InputHint Action="BuyMenu" class="small @(!CanOpen ? "hidden" : "")" Size="@InputGlyphSize.Small" />
-    <label class="important @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">£@Inventory.Balance.ToString("N0")</label>
+    <label class="important @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">ï¿½@PlayerState.Balance.ToString("N0")</label>
 </root>
 
 @code
@@ -17,12 +17,15 @@
     public PlayerInventory Inventory => Player?.Inventory;
 
     /// The player
-    public PlayerController Player => GameUtils.Viewer.Controller;
+    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
+
+    /// The player state
+    public PlayerState PlayerState => PlayerState.Viewer;
 
     public bool CanOpen => BuySystem.IsEnabled();
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Inventory?.Balance, CanOpen, GameMode.Instance?.UnlimitedMoney);
+        return HashCode.Combine(PlayerState?.Balance, CanOpen, GameMode.Instance?.UnlimitedMoney);
     }   
 }

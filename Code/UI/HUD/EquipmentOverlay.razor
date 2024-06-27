@@ -8,7 +8,7 @@
 
 @code
 {
-    public PlayerController Player => GameUtils.Viewer.Controller;
+    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
     public string Status { get; set; } = "";
     public float Progress = 0.0f;
 

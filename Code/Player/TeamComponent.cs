@@ -1,3 +1,5 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 public enum Team
@@ -8,31 +10,14 @@ public enum Team
 	CounterTerrorist
 }
 
+public record TeamChangedEvent( Team Before, Team After ) : IGameEvent;
+
 /// <summary>
 /// Designates the team for a player.
 /// </summary>
 public partial class TeamComponent : Component
 {
-	/// <summary>
-	/// An action (for ActionGraph, or other components) to listen for team changes
-	/// </summary>
-	[Property, Group( "Actions" )] public Action<Team, Team> OnTeamChanged { get; set; }
 
-	/// <summary>
-	/// The team this player is on.
-	/// </summary>
-	[Property, Group( "Setup" ), HostSync, Change( nameof( OnTeamPropertyChanged ))]
-	public Team Team { get; set; }
-
-	/// <summary>
-	/// Called when <see cref="Team"/> changes across the network.
-	/// </summary>
-	/// <param name="before"></param>
-	/// <param name="after"></param>
-	private void OnTeamPropertyChanged( Team before, Team after )
-	{
-		OnTeamChanged?.Invoke( before, after );
-	}
 }
 
 public static class TeamExtensions
@@ -44,8 +29,17 @@ public static class TeamExtensions
 	/// <returns></returns>
 	public static Team GetTeam( this GameObject gameObject )
 	{
-		var comp = gameObject.Components.Get<TeamComponent>( FindMode.EverythingInSelfAndAncestors );
-		return !comp.IsValid() ? Team.Unassigned : comp.Team;
+		if ( gameObject.Root.Components.Get<Pawn>() is { IsValid: true } pawn )
+		{
+			return pawn.Team;
+		}
+
+		if ( gameObject.Root.Components.Get<PlayerState>() is { IsValid: true } state )
+		{
+			return state.Team;
+		}
+
+		return Team.Unassigned;
 	}
 
 	//
@@ -76,11 +70,19 @@ public static class TeamExtensions
 	}
 
 	/// <summary>
-	/// Are these two <see cref="PlayerController"/>s friends with each other?
+	/// Are these two <see cref="PlayerPawn"/>s friends with each other?
 	/// </summary>
-	public static bool IsFriendly( this PlayerController self, PlayerController other )
+	public static bool IsFriendly( this PlayerPawn self, PlayerPawn other )
 	{
-		return IsFriendly( self.TeamComponent.Team, other.TeamComponent.Team );
+		return IsFriendly( self.Team, other.Team );
+	}
+
+	/// <summary>
+	/// Are these two <see cref="PlayerState"/>s friends with each other?
+	/// </summary>
+	public static bool IsFriendly( this PlayerState self, PlayerState other )
+	{
+		return IsFriendly( self.Team, other.Team );
 	}
 
 	public static string GetName( this Team team )

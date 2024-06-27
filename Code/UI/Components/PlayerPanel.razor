@@ -1,17 +1,17 @@
 @namespace Facepunch.UI
 @inherits Panel
 
-@if (!Pawn.IsValid()) return;
+@if (!PlayerState.IsValid()) return;
 
 <root>
     <label class="name" style="color:@TeamColor">
-        @Pawn.DisplayName
+        @PlayerState.DisplayName
     </label>
 </root>
 
 @code
 {
-    public Pawn Pawn { get; set; }
+    public PlayerState PlayerState { get; set; }
 
-    private string TeamColor => ( Pawn?.Team.GetColor() ?? Color.White ).Hex;
+    private string TeamColor => (PlayerState?.Team.GetColor() ?? Color.White).Hex;
 }

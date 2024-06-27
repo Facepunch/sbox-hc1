@@ -14,7 +14,7 @@
             }
             else
             {
-                <label class="emphasis">$@Player.Inventory.Balance.ToString( "N0" )</label>
+                <label class="emphasis">$@PlayerState.Balance.ToString("N0")</label>
             }
         </div>
 
@@ -22,7 +22,7 @@
 
         @foreach (EquipmentSlot slot in Enum.GetValues(typeof(EquipmentSlot)))
         {
-            var weapons = EquipmentResource.All.Where( W => W.IsPurchasableForTeam( Player.TeamComponent.Team ) && W.Slot == slot );
+            var weapons = EquipmentResource.All.Where( W => W.IsPurchasableForTeam( Player.Team ) && W.Slot == slot );
             if (weapons.Count() < 1)
                 continue;
 
@@ -45,7 +45,7 @@
                                 <div class="gunicon" style="background-image:url(@resource.Icon);" />
                             }
 
-                                <label class="price @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">£@resource.Price.ToString("N0")</label>
+                                <label class="price @(GameMode.Instance?.UnlimitedMoney is true ? "hidden" : "")">ï¿½@resource.Price.ToString("N0")</label>
                         </div>
                     }
                 </div>
@@ -59,10 +59,10 @@
                 <div class="flex row gap-sm with-padding">
                     @foreach (var equipment in BuyMenuItem.GetAll())
                     {
-                        @if (!equipment.IsVisible(Player))
+                        @if (!equipment.IsVisible( Player ))
                             continue;
 
-                        <div class="button grow equipment @(equipment.IsOwned(Player) ? "owned" : "unowned") @(@CanAfford( equipment ) ? "" : "unaffordable" )" onclick=@(() => BuyEquipment( equipment ))>
+                        <div class="button grow equipment @(equipment.IsOwned( Player ) ? "owned" : "unowned") @(@CanAfford( equipment ) ? "" : "unaffordable" )" onclick=@(() => BuyEquipment( equipment ))>
                             <label>@equipment.Name</label>
 
                             @if (!string.IsNullOrEmpty(equipment.Icon))
@@ -82,7 +82,8 @@
 @code
 {
     public PlayerInventory Inventory => Player.Inventory;
-    public PlayerController Player => GameUtils.Viewer.Controller;
+    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
+    public PlayerState PlayerState => PlayerState.Viewer;
 
     private void BuyWeapon( EquipmentResource resource )
     {
@@ -106,12 +107,12 @@
 
     private bool CanAfford( EquipmentResource resource )
     {
-        return Inventory.Balance >= resource.Price;
+        return PlayerState.Balance >= resource.Price;
     }
 
-    private bool CanAfford(BuyMenuItem buyMenuItem)
+    private bool CanAfford( BuyMenuItem buyMenuItem )
     {
-        return Inventory.Balance >= buyMenuItem.GetPrice(Player);
+        return PlayerState.Balance >= buyMenuItem.GetPrice( Player );
     }
 
     private bool IsOpen = false;

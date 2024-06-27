@@ -1,11 +1,9 @@
 ﻿
 using Facepunch;
-using Sandbox.Utility;
-using Sandbox;
 using Sandbox.Events;
 using DamageInfo = Facepunch.DamageInfo;
 
-public sealed class TimedExplosive : Component, IUse, IMinimapIcon
+public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 {
 	[Property, Category( "Config" )]
 	public float Duration { get; set; } = 45f;
@@ -34,6 +32,10 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 	[HostSync] public TimeSince TimeSinceDefuseStart { get; private set; }
 	[HostSync] public TimeSince TimeSincePlanted { get; private set; }
 	[HostSync]public bool IsDefused { get; private set; }
+
+	// IDescription
+	string IDescription.DisplayName => "C4";
+	string IDescription.Icon => "/ui/items/c4.png";
 
 	public TimeSince TimeSinceLastBeep { get; private set; }
 
@@ -65,7 +67,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 
 	[RequireComponent] public Spottable Spottable { get; private set; }
 
-	public PlayerController DefusingPlayer { get; private set; }
+	public PlayerPawn DefusingPlayer { get; private set; }
 
 	string IMinimapIcon.IconPath => "ui/minimaps/icon-map_bomb.png";
 
@@ -174,7 +176,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 	[Broadcast( NetPermission.HostOnly )]
 	public void StartDefusing( Guid playerId )
 	{
-		var player = Scene.Directory.FindComponentByGuid( playerId ) as PlayerController;
+		var player = Scene.Directory.FindComponentByGuid( playerId ) as PlayerPawn;
 
 		if ( player is null )
 		{
@@ -223,17 +225,17 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon
 		DefusingPlayer = null;
 	}
 
-	public bool CanUse( PlayerController player )
+	public bool CanUse( PlayerPawn player )
 	{
-		return !IsDefused && !DefusingPlayer.IsValid() && player.TeamComponent.Team == Team.CounterTerrorist;
+		return !IsDefused && !DefusingPlayer.IsValid() && player.Team == Team.CounterTerrorist;
 	}
 
-	public void OnUse( PlayerController player )
+	public void OnUse( PlayerPawn player )
 	{
 		TimeSinceDefuseStart = 0f;
 		StartDefusing( player.Id );
 
-		RadioSounds.Play( player.TeamComponent.Team, "Hidden", "Defusing the bomb" );
+		RadioSounds.Play( player.Team, "Hidden", "Defusing the bomb" );
 
 		player.IsFrozen = true;
 	}

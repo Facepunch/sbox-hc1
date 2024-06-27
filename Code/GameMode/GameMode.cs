@@ -90,16 +90,4 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 		return component as T;
 	}
-
-	/// <summary>
-	/// RPC called by a client when they have finished respawning.
-	/// </summary>
-	[Authority]
-	public void SendSpawnConfirmation( Guid playerGuid )
-	{
-		var player = Scene.Directory.FindComponentByGuid( playerGuid ) as PlayerController
-			?? throw new Exception( $"Unknown {nameof(PlayerController)} Id: {playerGuid}" );
-
-		Scene.Dispatch( new PlayerSpawnedEvent( player ) );
-	}
 }

@@ -19,7 +19,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 	[Property] public GameObject Boom { get; set; }
 	[Property] public AudioListener AudioListener { get; set; }
 	[Property] public ColorAdjustments ColorAdjustments { get; set; }
-	[Property] public PlayerController Player { get; set; }
+	[Property] public PlayerPawn Player { get; set; }
 
 	[Property] public ChromaticAberration ChromaticAberration { get; set; }
 	[Property] public Pixelate Pixelate { get; set; }
@@ -28,30 +28,6 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
 	
 	[Property] public ScreenShaker ScreenShaker { get; set; }
-
-	bool AudioListenerModeToggled = false;
-	[DeveloperCommand( "Drop Audio Listener", "Player" )]
-	static void ToggleAudioListenerMode()
-	{
-		var player = GameUtils.Viewer.Controller;
-		if ( player.CameraController.AudioListenerModeToggled )
-		{
-			// Return the audio listener to the camera 
-			player.CameraController.AudioListener?.Destroy();
-			player.CameraController.AudioListener = player.CameraController.Components.Create<AudioListener>();
-		}
-		else
-		{
-			player.CameraController.AudioListener?.Destroy();
-
-			using var scene = Game.ActiveScene.Push();
-
-			var gameObject = new GameObject();
-			gameObject.Transform.Position = player.Transform.Position;
-			player.CameraController.AudioListener = gameObject.Components.Create<AudioListener>();
-		}
-	}
-
 	[Property] public float ThirdPersonDistance { get; set; } = 128f;
 	[Property] public float AimFovOffset { get; set; } = -5f;
 
@@ -116,7 +92,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		{
 			var tr = Scene.Trace.Ray( new Ray( Boom.Transform.Position, Boom.Transform.Rotation.Backward ), MaxBoomLength )
 				.IgnoreGameObjectHierarchy( GameObject.Root )
-				.WithoutTags( "trigger", "player" )
+				.WithoutTags( "trigger", "player", "ragdoll" )
 				.Run();
 
 			Camera.Transform.LocalPosition = Vector3.Backward * (tr.Hit ? tr.Distance - 5.0f : MaxBoomLength);
@@ -168,6 +144,9 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 
 	private void ApplyScope()
 	{
+		if ( !Player.CurrentEquipment.IsValid() )
+			return;
+
 		if ( Player?.CurrentEquipment?.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } scope )
 		{
 			var fov = scope.GetFOV();
@@ -183,12 +162,12 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		if ( !Player.IsValid() )
 			return;
 
-		if ( !Player.CurrentEquipment.IsValid() )
-			return;
-
-		if ( Player.CurrentEquipment.Tags.Has( "aiming" ) )
-		{
-			FieldOfViewOffset += AimFovOffset;
+		if ( Player.CurrentEquipment.IsValid() )
+		{ 
+			if ( Player.CurrentEquipment?.Tags.Has( "aiming" ) ?? false )
+			{
+				FieldOfViewOffset += AimFovOffset;
+			}
 		}
 
 		if ( ColorAdjustments is not null )
@@ -226,7 +205,10 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 
 	void ApplyRecoil()
 	{
-		if ( Player.CurrentEquipment.IsValid() && Player.CurrentEquipment?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } fn )
+		if ( !Player.CurrentEquipment.IsValid() )
+			return;
+
+		if ( Player.CurrentEquipment?.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) is { } fn )
 			Player.EyeAngles += fn.Current;
 	}
 
@@ -235,7 +217,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		SetBoomLength( Mode == CameraMode.FirstPerson ? 0.0f : ThirdPersonDistance );
 
 		var firstPersonPOV = Mode == CameraMode.FirstPerson && Player.IsViewer;
-		Player.Body.ShowBodyParts( !firstPersonPOV );
+		Player.Body?.SetFirstPersonView( firstPersonPOV );
 
 		if ( firstPersonPOV )
 			Player.CreateViewModel( false );

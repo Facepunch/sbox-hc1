@@ -45,6 +45,6 @@ public sealed class EnableBuyMenuDuringSpawnProtection : Component,
 {
 	public void OnGameEvent( CanOpenBuyMenuEvent eventArgs )
 	{
-		eventArgs.CanOpen = GameUtils.LocalPlayer?.HealthComponent.IsGodMode ?? false;
+		eventArgs.CanOpen = PlayerState.Local.PlayerPawn?.HealthComponent.IsGodMode ?? false;
 	}
 }

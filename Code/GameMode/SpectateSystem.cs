@@ -2,10 +2,9 @@ namespace Facepunch;
 
 public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 {
-	private PlayerController LocalPlayer => GameUtils.LocalPlayer;
-
 	public CameraMode CameraMode { get; private set; } = CameraMode.FirstPerson;
-	public bool IsSpectating => LocalPlayer?.IsSpectating ?? false;
+	// todo: make this not skip deathcams
+	public bool IsSpectating => PlayerState.Local.PlayerPawn is null;
 	public bool IsFreecam => (FreecamController as Pawn)?.IsPossessed ?? false;
 
 	[Property] public SpectateController FreecamController { get; set; }
@@ -14,22 +13,18 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 
 	private void OnSpectateBegin()
 	{
-		if ( GameUtils.Viewer.GameObject.Tags.Has( "invis" ) )
-		{
-			// Prevent us trying to spectate an invisible/spectator pawn
-			// (usually ourselves when we've just joined)
-			SpectateNextPlayer( true );
-		}
+		// try to find someone to spectate
+		SpectateNextPlayer(true);
+		_wasSpectating = true;
 	}
 
 	protected override void OnUpdate()
 	{
-		var isSpectating = LocalPlayer?.IsSpectating ?? false;
-
-		if ( isSpectating )
+		// Do we have no pawn? Spectate!
+		if ( IsSpectating )
+		{
 			UpdateSpectate();
-
-		_wasSpectating = isSpectating;
+		}
 	}
 
 	private void UpdateSpectate()
@@ -51,13 +46,13 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 		}
 		else if ( Input.Pressed( "SpectatorMode" ) )
 		{
-			if ( IsFreecam || GameUtils.Viewer.IsLocalPlayer )
+			if ( IsFreecam || PlayerState.Viewer.IsLocalPlayer )
 				return;
 
 			const int max = (int)CameraMode.ThirdPerson + 1;
 			CameraMode = (CameraMode)((((int)CameraMode) + 1) % max);
 
-			GameUtils.Viewer.Controller.CameraController.Mode = CameraMode;
+			( PlayerState.Viewer.PlayerPawn ).CameraController.Mode = CameraMode;
 		}
 	}
 
@@ -78,10 +73,12 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 			var idx = (idxCur + (direction ? i : -i) + count) % count;
 			var playerState = players.ElementAt( idx );
 
-			if ( !playerState.Controller.IsValid() )
+			var controller = playerState.PlayerPawn;
+
+			if ( !controller.IsValid() )
 				continue;
 
-			if ( playerState.Controller.IsSpectating )
+			if ( controller.HealthComponent.State != LifeState.Alive )
 				continue;
 
 			// Already spectating this guy, no need to reposess (and reset the viewmodel etc)
@@ -98,14 +95,15 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 
 	private void SpectateFreecam()
 	{
-		if ( GameUtils.Viewer.IsValid() )
+		if ( PlayerState.Viewer.IsValid() && PlayerState.Viewer.Pawn.IsValid() )
 		{
 			// Entering freecam, position ourselves at the last guy's POV
-			var lastTransform = GameUtils.Viewer.GameObject.Transform;
-			FreecamController.EyeAngles = GameUtils.Viewer.Controller.EyeAngles.ToRotation();
-			FreecamController.Transform.Position = lastTransform.Position - (Transform.Rotation.Forward * 128.0f);
+			var lastTransform = PlayerState.Viewer.Pawn.GameObject.Transform;
+			var rotation = PlayerState.Viewer.Pawn.EyeAngles;
+			FreecamController.EyeAngles = rotation;
+			FreecamController.Transform.Position = lastTransform.Position + (rotation.Forward * 8.0f);
 		}
 
-		( FreecamController as Pawn).Possess();
+		FreecamController.Possess();
 	}
 }

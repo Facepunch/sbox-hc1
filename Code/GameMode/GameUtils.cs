@@ -7,40 +7,46 @@ namespace Facepunch;
 /// </summary>
 public partial class GameUtils
 {
-	/// <summary>
-	/// The locally-controlled <see cref="PlayerController"/>, if there is one.
-	/// </summary>
-	public static PlayerController LocalPlayer = null;
-
-	/// <summary>
-	/// The <see cref="PlayerState"/> we're in the perspective of.
-	/// </summary>
-	public static PlayerState Viewer => PlayerState.CurrentView;
+	[Obsolete] public static PlayerState Viewer => PlayerState.Viewer;
 
 	/// <summary>
 	/// The <see cref="Pawn"/> we're in the perspective of if there is one.
 	/// </summary>
-	public static Pawn CurrentPawn => Game.ActiveScene?.GetSystem<PawnSystem>()?.Viewer;
+	[Obsolete] public static Pawn CurrentPawn => PlayerState.Viewer.Pawn;
+
+	/// <summary>
+	/// The locally-controlled <see cref="PlayerPawn"/>, if there is one.
+	/// </summary>
+	[Obsolete] public static PlayerPawn LocalPlayer => PlayerState.Viewer.PlayerPawn;
+
+	// TODO: use states everywhere?
+	public static IEnumerable<PlayerState> AllPlayerStates => Game.ActiveScene.GetAllComponents<PlayerState>();
+	public static IEnumerable<PlayerState> ActivePlayerStates => AllPlayerStates.Where( x => x.Team != Team.Unassigned );
+	public static IEnumerable<PlayerState> InactivePlayerStates => GetPlayerStates( Team.Unassigned );
+	public static IEnumerable<PlayerState> GetPlayerStates( Team team ) => AllPlayerStates.Where( x => x.Team == team );
 
 	/// <summary>
 	/// All players, both assigned to a team and spectating.
 	/// </summary>
-	public static IEnumerable<PlayerController> AllPlayers => Game.ActiveScene.GetAllComponents<PlayerController>();
+	public static IEnumerable<PlayerPawn> AllPlayers => Game.ActiveScene.GetAllComponents<PlayerPawn>();
 
 	/// <summary>
 	/// Players assigned to a team, so not spectating.
 	/// </summary>
-	public static IEnumerable<PlayerController> ActivePlayers => AllPlayers.Where( x => x.TeamComponent.Team != Team.Unassigned );
+	public static IEnumerable<PlayerPawn> ActivePlayers => AllPlayers.Where( x => x.Team != Team.Unassigned );
 
 	/// <summary>
 	/// Players not assigned to a team, or spectating.
 	/// </summary>
-	public static IEnumerable<PlayerController> InactivePlayers => AllPlayers.Where( x => x.TeamComponent.Team == Team.Unassigned );
+	public static IEnumerable<PlayerPawn> InactivePlayers => AllPlayers.Where( x => x.Team == Team.Unassigned );
 
 	/// <summary>
 	/// Players assigned to a particular team.
 	/// </summary>
-	public static IEnumerable<PlayerController> GetPlayers( Team team ) => AllPlayers.Where( x => x.TeamComponent.Team == team );
+	public static IEnumerable<PlayerPawn> GetPlayers( Team team ) => AllPlayers.Where( x => x.Team == team );
+
+	public static IDescription GetDescription( GameObject go ) => go.Components.Get<IDescription>( FindMode.EnabledInSelfAndDescendants );
+	public static IDescription GetDescription( Component component ) => GetDescription( component.GameObject );
 
 	/// <summary>
 	/// Get all spawn point transforms for the given team.
@@ -69,11 +75,11 @@ public partial class GameUtils
 	/// <summary>
 	/// Get a player from a component that belongs to a player or their descendants.
 	/// </summary>
-	public static PlayerController GetPlayerFromComponent( Component component )
+	public static PlayerPawn GetPlayerFromComponent( Component component )
 	{
-		if ( component is PlayerController player ) return player;
+		if ( component is PlayerPawn player ) return player;
 		if ( !component.IsValid() ) return null;
-		return !component.GameObject.IsValid() ? null : component.GameObject.Root.Components.Get<PlayerController>( FindMode.EnabledInSelfAndDescendants );
+		return !component.GameObject.IsValid() ? null : component.GameObject.Root.Components.Get<PlayerPawn>( FindMode.EnabledInSelfAndDescendants );
 	}
 
 	/// <summary>
@@ -84,6 +90,18 @@ public partial class GameUtils
 		if ( component is Pawn pawn ) return pawn;
 		if ( !component.IsValid() ) return null;
 		return !component.GameObject.IsValid() ? null : component.GameObject.Root.Components.Get<Pawn>( FindMode.EnabledInSelfAndDescendants );
+	}
+
+	/// <summary>
+	/// Get a player from a component that belongs to a player or their descendants.
+	/// </summary>
+	public static PlayerState GetPlayerState( Component component )
+	{
+		var pawn = GetPawn( component );
+		if ( !pawn.IsValid() )
+			return null;
+
+		return pawn.PlayerState;
 	}
 
 	public static Equipment FindEquipment( Component inflictor )
@@ -100,7 +118,7 @@ public partial class GameUtils
 	{
 		foreach ( var player in GetPlayers( team ) )
 		{
-			player.Inventory.GiveCash( amount );
+			player.PlayerState.GiveCash( amount );
 		}
 	}
 

@@ -10,14 +10,9 @@ public sealed class RespawnPlayers : Component,
 {
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.ActivePlayers )
+		foreach ( var player in GameUtils.ActivePlayerStates )
 		{
-			if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
-			{
-				player.Teleport( spawnAssigner.GetSpawnPoint( player ) );
-			}
-
-			player.Respawn();
+			player.Respawn( false );
 		}
 	}
 }

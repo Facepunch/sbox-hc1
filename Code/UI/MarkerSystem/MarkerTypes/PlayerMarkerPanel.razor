@@ -25,13 +25,13 @@
         {
             text-shadow: 1px 1px 1px rgba( black, 1 );
             font-weight: 900;
-            color: @Player.TeamComponent.Team.GetColor().Hex;
+            color: @Player.Team.GetColor().Hex;
         }
 
         .hp
         {
             text-shadow: 1px 1px 1px rgba( black, 1 );
-            color: @Player.TeamComponent.Team.GetColor().Hex;
+            color: @Player.Team.GetColor().Hex;
         }
 
         .weapons
@@ -51,19 +51,17 @@
         }
 
         Icon {
-            background-image-tint: @Player.TeamComponent.Team.GetColor().Hex;
+            background-image-tint: @Player.Team.GetColor().Hex;
         }
     }
 </style>
 
 <root>
-    @if ( !LocalPlayer.IsValid() )
+    @if ( !Marker.IsValid() )
         return;
 
-    @if ( Player == LocalPlayer && Viewer == LocalPlayer )
+    @if ( Player.IsPossessed )
         return;
-
-    @if ( !Marker.IsValid() ) return;
 
     @if ( Marker.IsBehind ) 
         return;
@@ -71,14 +69,10 @@
     @if ( Player?.HealthComponent?.State != LifeState.Alive )
         return;
 
-    @if ( !LocalPlayer.IsSpectating )
-    {
-        @* TODO: make the player markers show up for enemies under certain circumstances
-        when aiming at a player that's kinda close to you? *@
-        @if ( Viewer.IsValid() && !Viewer.GameObject.IsFriendly(Player.GameObject) )
-            return;
-    }
-
+    @* TODO: make the player markers show up for enemies under certain circumstances
+    when aiming at a player that's kinda close to you? *@
+    @if ( Viewer.IsValid() && !Viewer.IsFriendly(Player) )
+        return;
 
     @if ( Marker.IsOffScreen )
     {
@@ -96,7 +90,7 @@
             }
         </div>
 
-        @if( Player.Inventory.HasBomb && Player.IsFriendly( GameUtils.LocalPlayer ) )
+        @if (Player.Inventory.HasBomb && (!Viewer.IsValid() || Player.IsFriendly(Viewer)) )
         {
             <Icon File="/ui/bomb.png" size="24"></Icon>
         }
@@ -105,9 +99,8 @@
 
 @code
 {
-    public PlayerController Player => Object?.GameObject?.Components?.Get<PlayerController>();
-    private PlayerController Viewer => GameUtils.Viewer.Controller;
-    private PlayerController LocalPlayer => GameUtils.LocalPlayer;
+    public PlayerPawn Player => Object?.GameObject?.Components?.Get<PlayerPawn>();
+    private PlayerPawn Viewer => PlayerState.Viewer.PlayerPawn;
 
     private bool CanShowWeapon( Equipment equipment )
     {

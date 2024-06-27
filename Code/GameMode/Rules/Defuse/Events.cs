@@ -2,8 +2,8 @@
 
 namespace Facepunch;
 
-public record BombPlantedEvent( PlayerController Planter, GameObject Bomb, BombSite BombSite ) : IGameEvent;
-public record BombDefusedEvent( PlayerController Defuser, GameObject Bomb, BombSite BombSite ) : IGameEvent;
+public record BombPlantedEvent( PlayerPawn Planter, GameObject Bomb, BombSite BombSite ) : IGameEvent;
+public record BombDefusedEvent( PlayerPawn Defuser, GameObject Bomb, BombSite BombSite ) : IGameEvent;
 public record BombDetonatedEvent( GameObject Bomb, BombSite BombSite ) : IGameEvent;
 public record BombDroppedEvent : IGameEvent;
 public record BombPickedUpEvent : IGameEvent;

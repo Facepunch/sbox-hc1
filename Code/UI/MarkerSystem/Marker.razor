@@ -108,7 +108,7 @@
         if ( !Scene.IsValid() ) 
             return;
 
-        var camera = GameUtils.Viewer.Controller?.CameraController.Camera ?? Scene.Camera;
+        var camera = ( PlayerState.Viewer.PlayerPawn )?.CameraController.Camera ?? Scene.Camera;
         if ( !camera.IsValid() )
             return;
 
@@ -144,7 +144,7 @@
             StateHasChanged();
     }
 
-    private PlayerController Player => GameUtils.Viewer?.Controller;
+    private PlayerPawn Player => PlayerState.Viewer?.PlayerPawn;
 
     private float CalculateOpacity()
     {
@@ -152,7 +152,7 @@
 
         if ( !Object.LookOpacity ) return opacity;
 
-        var equipment = Player.CurrentEquipment.IsValid() ? Player.CurrentEquipment : null;
+        var equipment = Player.IsValid() && Player.CurrentEquipment.IsValid() ? Player.CurrentEquipment : null;
         bool isAiming = equipment?.Tags.Has("aiming") ?? false;
 
         if ( !isAiming ) return 1f;

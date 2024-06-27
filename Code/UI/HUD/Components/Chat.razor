@@ -166,11 +166,8 @@
 
         if ( ChatMode == ChatModes.Team )
         {
-            var localPlayer = GameUtils.LocalPlayer;
-            bool IsFriendly( PlayerController x ) => localPlayer.GameObject.IsFriendly(x.GameObject) || localPlayer.GameObject == x.GameObject;
-
-            var players = GameUtils.AllPlayers;
-            var friendlyGameObjects = players.Where( IsFriendly );
+            var players = GameUtils.AllPlayerStates;
+            var friendlyGameObjects = players.Where((PlayerState x) => !x.IsBot && PlayerState.Local.IsFriendly(x));
             var friendlyConnections = friendlyGameObjects.Select( x => x.Network.OwnerConnection );
 
             using ( Rpc.FilterInclude( friendlyConnections ) )
@@ -195,12 +192,17 @@
         var author = Rpc.Caller.DisplayName;
         var steamid = Rpc.Caller.SteamId;
 
-        var player = GameUtils.AllPlayers.FirstOrDefault(x => x.Network.OwnerConnection == Rpc.Caller);
-        var color = player?.GameObject?.GetTeam().GetColor() ?? Color.White;
-        var location = player?.GetZone<MapLocation>()?.Zone?.DisplayName;
+        var player = GameUtils.AllPlayerStates.FirstOrDefault(x => x.Network.OwnerConnection == Rpc.Caller);
+        var color = player.Team.GetColor();
+
+        var playerPawn = player.PlayerPawn;
+        string location = null;
+        if ( playerPawn.IsValid() )
+        {
+            location = playerPawn.GetZone<MapLocation>()?.Zone?.DisplayName;
+        }
 
         Entries.Add( new( steamid, author, message, 0.0f, chatMode, MessageType.Chat, color, tags, location ) );
-
 
         StateHasChanged();
     }

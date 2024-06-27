@@ -6,7 +6,7 @@
 
 <root class="row @(IsLocal ? "local" : "") @(IsDead ? "dead" : "") with-px-lg with-py">
     <span class="col stat-small">
-        @if ( Player.IsValid() && GameUtils.LocalPlayer.IsValid() ) 
+        @if ( Player.IsValid() ) 
         {
             @if (Player.Inventory.HasBomb && IsFriendly && Team == Team.Terrorist)
             {
@@ -20,14 +20,21 @@
     </span>
 
     <span class="col stat-small">
-        <label class="small">@(Connection.Ping.CeilToInt())</label>
+        @if ( Connection is not null )
+        {
+            <label class="small">@(Connection?.Ping.CeilToInt())</label>
+        }
+        else
+        {
+            <Icon style="background-tint: red;" File="/ui/no-connection.png" size="24" />
+        }
     </span>
 
     <span class="col playername gap-sm">
         
-        <PlayerAvatar ShowHealth=@false ShowBomb=@false class="avatar" Player=@Player />
+        <PlayerAvatar ShowHealth=@false ShowBomb=@false class="avatar" Player=@PlayerState />
         <label>
-            @Player.DisplayName
+            @PlayerState.DisplayName
         </label>
 
         @if ( IsPartyMember )
@@ -36,9 +43,9 @@
         }
     </span>
 
-    @if ( !GameMode.Instance.UnlimitedMoney && Player.IsValid() && GameUtils.LocalPlayer.IsValid() && Player.IsFriendly( GameUtils.LocalPlayer ) )
+    @if ( !GameMode.Instance.UnlimitedMoney && PlayerState.IsValid() && PlayerState.IsFriendly( PlayerState.Local ) )
     {
-        <label class="col stat-large">$@(Player.Inventory.Balance.ToString("N0")</label>
+        <label class="col stat-large">$@(PlayerState.Balance.ToString("N0")</label>
     }
     else
     {
@@ -53,22 +60,27 @@
 </root>
 
 @code {
-    public PlayerController Player { get; set; }
-    private Connection Connection => Player.Network.OwnerConnection;
-    private PlayerScore Score => Player.Components.Get<PlayerScore>();
+    public PlayerState PlayerState { get; set; }
+    public PlayerPawn Player => PlayerState.PlayerPawn;
+    private Connection Connection => PlayerState.Network.OwnerConnection;
+    private PlayerScore Score => PlayerState.Components.Get<PlayerScore>();
 
-    private bool IsFriendly => (GameUtils.LocalPlayer is null || Player.IsFriendly(GameUtils.LocalPlayer));
-    private bool IsLocal => Player.IsLocallyControlled;
-    private bool IsDead => Player.HealthComponent.State != LifeState.Alive;
+    private bool IsFriendly => PlayerState.IsFriendly( PlayerState.Local );
+    private bool IsLocal => PlayerState.IsLocalPlayer;
+    private bool IsDead => !Player.IsValid() || Player.HealthComponent.State != LifeState.Alive;
     private float KillDeathRatio => (float)Score.Kills / (float)Score.Deaths.Clamp(1, int.MaxValue);
-    private Team Team => Player.TeamComponent.Team;
+    private Team Team => PlayerState.Team;
     private bool IsPartyMember => PartyRoom.Current?.Members.Any( x => x.Id == Connection.SteamId ) ?? false;
+
+    public bool Disconnected => Connection is null;
 
     protected override int BuildHash()
     {
-        var a = HashCode.Combine(KillDeathRatio, Score.Score, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead, Connection?.Ping);
-        var b = HashCode.Combine(Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb, IsPartyMember, Player.PlayerColor);
+        var a = HashCode.Combine( KillDeathRatio, Score.Score, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead, Connection?.Ping );
+        var b = 0;
+        if ( Player.IsValid() )
+            b= HashCode.Combine( Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb, IsPartyMember, Player.PlayerColor );
 
-        return HashCode.Combine(a, b);
+        return HashCode.Combine( a, b );
     }
 }

@@ -11,7 +11,7 @@ public sealed class SpectateController : Pawn
 	/// <summary>
 	/// What are we called?
 	/// </summary>
-	public override string DisplayName => Network.OwnerConnection.DisplayName + " (spectator)";
+	public override string DisplayName => "SpectateController";
 
 	protected override void OnAwake()
 	{

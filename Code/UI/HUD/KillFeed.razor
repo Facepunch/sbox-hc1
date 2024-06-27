@@ -5,25 +5,35 @@
 <root>
     @foreach ( var entry in Entries )
     {
-        <div class="entry @(entry.IsLocal ? "local" : "")">
-            @if ( entry.DamageInfo.Attacker.IsValid() )
+        <div class="entry">
+            @if ( entry.Attacker is not null )
             {
-                <PlayerPanel Pawn=@GameUtils.GetPawn( entry.DamageInfo.Attacker ) />
+                @if ( entry.Attacker.StartsWith( "icon:" ) )
+                {
+                    <Icon File="@entry.AttackerIcon" size="32" />
+                }
+                else
+                {
+                    <label style="color:@entry.AttackerColor.Hex">@entry.Attacker</label>
+                }
             }
 
             <div class="method">
-                @if ( GameUtils.FindEquipment( entry.DamageInfo.Inflictor ) is { } weapon )
+                @if ( entry.HitboxTags.HasFlag( HitboxTags.Head ) )
                 {
-                    <div class="icon" style="background-image: url( @weapon.Resource.Icon );" />
-
-                    @if ( entry.DamageInfo.Hitbox.HasFlag( HitboxTags.Head ) )
-                    {
-                        <Icon class="headshot" File="/ui/headshot.png" size="32" />
-                    }
+                    <Icon class="headshot" File="/ui/headshot.png" size="32" />
                 }
-                else if ( entry.DamageInfo.Inflictor is TimedExplosive bomb )
+
+                @if ( entry.Inflictor is not null )
                 {
-                    <Icon File="/ui/bomb.png" size="32"></Icon>
+                    @if ( entry.Inflictor.StartsWith( "icon:" ) )
+                    {
+                        <Icon class="icon" File="@entry.InflictorIcon" size="96" />
+                    }
+                    else
+                    {
+                        <label>@entry.Inflictor</label>
+                    }
                 }
                 else
                 {
@@ -31,29 +41,73 @@
                 }
             </div>
 
-            <PlayerPanel Pawn=@GameUtils.GetPawn( entry.DamageInfo.Victim ) />
+            @if ( entry.Victim is not null )
+            {
+                @if ( entry.Victim.StartsWith( "icon:" ) )
+                {
+                    <Icon File="@entry.VictimIcon" size="32" />
+                }
+                else
+                {
+                    <label style="color:@entry.VictimColor.Hex">@entry.Victim</label>
+                }
+            }
         </div>
     }
 </root>
 
 @code
 {
-    public record Entry( DamageInfo DamageInfo, RealTimeSince TimeSinceAdded )
+    private static KillFeed Instance { get; set; } = null;
+
+    public KillFeed()
     {
-        public bool IsLocal => 
-            (GameUtils.GetPawn( DamageInfo.Attacker )?.IsLocallyControlled ?? false) ||
-            (GameUtils.GetPawn( DamageInfo.Victim )?.IsLocallyControlled ?? false);
+        Instance = this;
     }
 
-    private List<Entry> Entries { get; set; } = new();
+    public record KillFeedEntry( string Attacker, Color AttackerColor, string Inflictor, string Victim, Color VictimColor, HitboxTags HitboxTags, DamageFlags DamageFlags,
+        RealTimeSince TimeSinceAdded )
+    {
+        public string AttackerIcon => Attacker.Replace("icon:", "");
+        public string InflictorIcon => Inflictor.Replace("icon:", "");
+        public string VictimIcon => Victim.Replace( "icon:", "" );
+    }
+
+    private List<KillFeedEntry> Entries { get; set; } = new();
 
     private float Lifetime => 10f;
 
-    public void OnPlayerKilled( DamageInfo damageInfo )
+    [Broadcast] 
+    public static void BroadcastKillFeedEvent( string attacker, Color attackerColor, string inflictor, string victim, Color victimColor, HitboxTags tags, DamageFlags flags )
     {
-        var entry = new Entry( damageInfo, 0 );
-        Entries.Add( entry );
-        StateHasChanged();
+        Instance.Entries.Add( new KillFeedEntry( attacker, attackerColor, inflictor, victim, victimColor, tags, flags, 0 ) );
+        Instance.StateHasChanged();
+    }
+
+    public static void RecordEvent( DamageInfo damageInfo )
+    {
+        var attackerDesc = GameUtils.GetDescription( damageInfo.Attacker );
+        var inflictorDesc = GameUtils.GetDescription( damageInfo.Inflictor );
+        var victimDesc = GameUtils.GetDescription( damageInfo.Victim );
+
+        var attacker = attackerDesc?.DisplayName;
+        if ( !string.IsNullOrEmpty( attackerDesc.Icon ) ) attacker = $"icon:{attackerDesc.Icon}";
+
+        var inflictor = inflictorDesc?.DisplayName;
+        if ( !string.IsNullOrEmpty( inflictorDesc.Icon ) ) inflictor = $"icon:{inflictorDesc.Icon}";
+
+        var victim = victimDesc?.DisplayName;
+        if ( !string.IsNullOrEmpty( victimDesc.Icon ) ) victim = $"icon:{victimDesc.Icon}";
+
+        BroadcastKillFeedEvent(
+            attacker, attackerDesc.Color,
+            inflictor,
+            victim, victimDesc.Color,
+            //
+            damageInfo.Hitbox,
+            damageInfo.Flags
+        );
+
     }
 
     public override void Tick()

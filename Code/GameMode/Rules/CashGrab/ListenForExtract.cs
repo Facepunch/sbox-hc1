@@ -13,7 +13,7 @@ public sealed class ListenForExtract : Component, IGameEventHandler<CashPointBag
 
 	void IGameEventHandler<CashPointBagExtractedEvent>.OnGameEvent( CashPointBagExtractedEvent eventArgs )
 	{
-		var team = eventArgs.Player.TeamComponent.Team;
+		var team = eventArgs.Player.Team;
 		var teamScoring = GameMode.Instance.Get<TeamScoring>();
 		teamScoring.IncrementScore( team, CashReward );
 

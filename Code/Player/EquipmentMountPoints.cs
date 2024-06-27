@@ -14,7 +14,7 @@ public class MountPoint
 	[JsonIgnore]
 	public Dictionary<Equipment, GameObject> Mounted { get; set; } = new();
 
-	public bool Mount( Equipment equipment, PlayerController player )
+	public bool Mount( Equipment equipment, PlayerPawn player )
 	{
 		Unmount( equipment, player );
 
@@ -44,7 +44,7 @@ public class MountPoint
 		return true;
 	} 
 
-	public bool Unmount( Equipment equipment, PlayerController player )
+	public bool Unmount( Equipment equipment, PlayerPawn player )
 	{
 		if ( Mounted.TryGetValue( equipment, out var inst ) )
 		{
@@ -63,7 +63,7 @@ public sealed class EquipmentMountPoints : Component,
 	IGameEventHandler<EquipmentHolsteredEvent>,
 	IGameEventHandler<EquipmentDestroyedEvent>
 {
-	[Property] public PlayerController Player { get;  set; }
+	[Property] public PlayerPawn Player { get;  set; }
 
 	[Property] public List<MountPoint> MountPoints { get; set; } = new();
 

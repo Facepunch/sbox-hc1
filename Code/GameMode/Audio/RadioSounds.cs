@@ -102,7 +102,10 @@ public class RadioSounds : GameResource
 	/// <param name="sound"></param>
 	public static void Play( Team team, string category, string sound )
 	{
-		if ( GameUtils.LocalPlayer.HealthComponent.State != LifeState.Alive )
+		var player = PlayerState.Local.PlayerPawn;
+		if ( player is null ) return;
+
+		if ( player.HealthComponent.State != LifeState.Alive )
 			return;
 
 		// Only send this message to members of the specified team
@@ -121,14 +124,14 @@ public class RadioSounds : GameResource
 		
 		TimeSinceRadio = 0f;
 
-		var team = GameUtils.LocalPlayer.GameObject.GetTeam();
+		var team = PlayerState.Local.Team;
 		Play( team, category, sound );
 	}
 
 	[Broadcast]
 	private static void RpcPlay( Team team, string category, string sound )
 	{
-		var localPlayerTeam = GameUtils.LocalPlayer.GameObject.GetTeam();
+		var localPlayerTeam = PlayerState.Local.Team;
 
 		var soundList = All.FirstOrDefault( x => x.Team == localPlayerTeam );
 		if ( soundList is null )
@@ -154,7 +157,7 @@ public class RadioSounds : GameResource
 	[Broadcast]
 	private static void RpcPlay( Team team, RadioSound snd )
 	{
-		var localPlayerTeam = GameUtils.LocalPlayer.GameObject.GetTeam();
+		var localPlayerTeam = PlayerState.Local.Team;
 
 		var soundList = All.FirstOrDefault( x => x.Team == localPlayerTeam );
 		if ( soundList is null )

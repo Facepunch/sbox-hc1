@@ -12,7 +12,7 @@ partial class GameMode
 		StateCountDown
 	}
 
-	public string DisplayedStatus => TeamStatusText.GetValueOrDefault( GameUtils.LocalPlayer?.TeamComponent.Team ?? Team.Unassigned );
+	public string DisplayedStatus => TeamStatusText.GetValueOrDefault( PlayerState.Local.Team );
 
 	public TimeSpan? DisplayedTime => TimerMode switch
 	{

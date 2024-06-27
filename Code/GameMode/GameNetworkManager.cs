@@ -1,6 +1,7 @@
 using Sandbox.Network;
 using System.Threading.Tasks;
 using Sandbox.Events;
+using System.Threading.Channels;
 
 namespace Facepunch;
 
@@ -20,18 +21,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	{
 		PlayerId.Init();
 
-		if ( !IsMultiplayer )
-		{
-			var player = PlayerPrefab.Clone();
-
-			var playerComponent = player.Components.Get<PlayerController>();
-			if ( !playerComponent.IsValid() )
-				return;
-
-			OnPlayerJoined( playerComponent, Connection.Local );
-
-			return;
-		}
+		// TODO: create player state again
 
 		//
 		// Create a lobby if we're not connected
@@ -40,6 +30,38 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		{
 			GameNetworkSystem.CreateLobby();
 		}
+	}
+
+	/// <summary>
+	/// Tries to recycle a player state owned by this player (if they disconnected) or makes a new one.
+	/// </summary>
+	/// <param name="channel"></param>
+	/// <returns></returns>
+	private PlayerState GetOrCreatePlayerState( Connection channel = null )
+	{
+		var playerStates = Scene.GetAllComponents<PlayerState>();
+
+		var possiblePlayerState = playerStates.FirstOrDefault( x => {
+			// A candidate player state has no owner.
+			return x.Network.OwnerConnection is null && x.SteamId == channel.SteamId;
+		} );
+
+		if ( possiblePlayerState.IsValid() )
+		{
+			Log.Warning( $"Found existing player state for {channel.SteamId} that we can re-use. {possiblePlayerState}" );
+			return possiblePlayerState;
+		}
+
+		var player = PlayerPrefab.Clone();
+		player.BreakFromPrefab();
+		player.Name = $"PlayerState ({channel.DisplayName})";
+		player.Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
+
+		var playerState = player.Components.Get<PlayerState>();
+		if ( !playerState.IsValid() )
+			return null;
+
+		return playerState;
 	}
 
 	/// <summary>
@@ -52,75 +74,29 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 
 		Log.Info( $"Player '{channel.DisplayName}' is becoming active" );
 
-		var player = PlayerPrefab.Clone();
-
-		var playerComponent = player.Components.Get<PlayerController>();
-		if ( !playerComponent.IsValid() )
-			return;
-
-		OnPlayerJoined( playerComponent, channel );
-	}
-
-
-	public void OnPlayerJoined( PlayerController player, Connection channel )
-	{
-		Scene.Dispatch( new PlayerConnectedEvent( player ) );
-
-		var spawnPoint = GameUtils.GetRandomSpawnPoint( player.TeamComponent.Team );
-		player.Teleport( spawnPoint );
-		player.Initialize();
-		player.GameObject.NetworkSpawn( channel );
-
-		Scene.Dispatch( new PlayerJoinedEvent( player ) );
-		
-		if ( player.HealthComponent.State == LifeState.Alive )
-			GameMode.Instance?.SendSpawnConfirmation( player.Id );
-	}
-
-	[ConCmd( "lobby_list" )]
-	public static void LobbyList()
-	{
-		QueryLobbies();
-	}
-
-	[ConCmd( "lobby_join" )]
-	public static void JoinAnyLobby()
-	{
-		AsyncJoinAnyLobby();
-	}
-
-	private static void QueryLobbies()
-	{
-		_ = AsyncGetLobbies();
-	}
-
-	static async Task<List<LobbyInformation>> AsyncGetLobbies()
-	{
-		var lobbies = await Networking.QueryLobbies( Game.Ident );
-
-		foreach ( var lob in lobbies )
+		var playerState = GetOrCreatePlayerState( channel );
+		if ( !playerState.IsValid() )
 		{
-			Log.Info( $"{lob.Name}'s lobby [{lob.LobbyId}] ({lob.Members}/{lob.MaxMembers})" );
+			throw new Exception( $"Something went wrong when trying to create PlayerState for {channel.DisplayName}" );
 		}
 
-		return lobbies;
+		OnPlayerJoined( playerState, channel );
 	}
 
-	static async void AsyncJoinAnyLobby()
+	public void OnPlayerJoined( PlayerState playerState, Connection channel )
 	{
-		var lobbies = await AsyncGetLobbies();
+		// Dunno if we need both of these events anymore? But I'll keep them for now.
+		Scene.Dispatch( new PlayerConnectedEvent( playerState ) );
 
-		try
-		{
-			var lobby = lobbies.OrderByDescending( x => x.Members ).First( x => !x.IsFull );
-			if ( await GameNetworkSystem.TryConnectSteamId( lobby.LobbyId ) )
-			{
-				Log.Info("joined lobby!");
-			}
-		}
-		catch
-		{
-			Log.Warning( "No available lobbies" );
-		}
+		// Either spawn over network, or claim ownership
+		if ( playerState.GameObject.NetworkMode != NetworkMode.Object )
+			playerState.GameObject.NetworkSpawn( channel );
+		else
+			playerState.Network.AssignOwnership( channel );
+
+		playerState.HostInit();
+		playerState.ClientInit();
+
+		Scene.Dispatch( new PlayerJoinedEvent( playerState ) );
 	}
 }

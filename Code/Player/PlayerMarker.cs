@@ -8,7 +8,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <summary>
 	/// The player.
 	/// </summary>
-	[RequireComponent] PlayerController Player { get; set; }
+	[RequireComponent] PlayerPawn Player { get; set; }
 
 	/// <summary>
 	/// An accessor to see if the player is alive or not.
@@ -81,7 +81,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <summary>
 	/// Is this player an enemy of the viewer?
 	/// </summary>
-	bool IsEnemy => GameUtils.Viewer.Controller.TeamComponent.Team != Player.TeamComponent.Team;
+	bool IsEnemy => PlayerState.Viewer.Team != Player.Team;
 
 	/// <summary>
 	/// Did we spot this player recently?
@@ -95,12 +95,13 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <returns></returns>
 	bool IMinimapElement.IsVisible( Pawn viewer )
 	{
-		if ( Player.Tags.Has( "invis" ) )
+		if ( Player.HealthComponent.State != LifeState.Alive )
 			return false;
 
 		if ( IsAlive )
 		{
-			if ( (Player as Pawn).IsPossessed )
+			// Are we possessing this player?
+			if ( Player.IsPossessed )
 				return false;
 
 			// seen by enemy team
@@ -108,6 +109,6 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 				return true;
 		}
 
-		return viewer.Team == Player.TeamComponent.Team;
+		return viewer.Team == Player.Team;
 	}
 }

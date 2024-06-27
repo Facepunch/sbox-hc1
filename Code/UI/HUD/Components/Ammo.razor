@@ -2,6 +2,12 @@
 @inherits Panel
 @attribute [StyleSheet]
 
+@if ( !Player.IsValid() )
+    return;
+
+@if ( !Player.CurrentEquipment.IsValid() )
+    return;
+
 <root class="flex row gap align-center justify-end" style="width: 100px;">
     <label class="vital">@(AmmoComponent?.Ammo.ToString() ?? "∞")</label>
     <separator />
@@ -16,12 +22,14 @@
     public PlayerInventory Inventory => Player.Inventory;
 
     /// The player
-    public PlayerController Player => GameUtils.Viewer.Controller;
+    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
 
     private AmmoComponent AmmoComponent => Player?.CurrentEquipment?.Components?.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
 
     protected override int BuildHash()
     {
+        if ( !Player.IsValid() || !Player.CurrentEquipment.IsValid() )
+            return 0;
         return HashCode.Combine( Player, AmmoComponent?.Ammo, Player?.CurrentEquipment );
     }
 }

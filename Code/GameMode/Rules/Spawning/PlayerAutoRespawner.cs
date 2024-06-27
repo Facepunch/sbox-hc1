@@ -13,42 +13,40 @@ public sealed class PlayerAutoRespawner : Component,
 
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
 	{
-		var players = AllowSpectatorsToSpawn ? GameUtils.AllPlayers : GameUtils.ActivePlayers;
-
-		foreach ( var player in players )
+		foreach ( var player in GameUtils.AllPlayerStates )
 		{
-			if ( player.HealthComponent.State != LifeState.Dead )
-			{
+			if ( player.PlayerPawn.IsValid() && player.PlayerPawn.HealthComponent.State == LifeState.Alive )
 				continue;
+
+			if ( !player.IsConnected )
+				continue;
+
+			if ( !AllowSpectatorsToSpawn && player.Team == Team.Unassigned )
+			{
+				// don't spawn these guys right now
+				return;
 			}
 
-			switch ( player.HealthComponent.RespawnState )
+			switch ( player.RespawnState )
 			{
-				case RespawnState.None:
-					player.HealthComponent.RespawnState = RespawnState.CountingDown;
+				case RespawnState.Requested:
+					player.RespawnState = RespawnState.Delayed;
 
 					using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
 					{
 						GameMode.Instance.ShowToast( "Respawning...", duration: RespawnDelaySeconds );
 					}
-
 					break;
 
-				case RespawnState.CountingDown:
-					if ( player.HealthComponent.TimeSinceLifeStateChanged > RespawnDelaySeconds )
+				case RespawnState.Delayed:
+					if ( player.TimeSinceRespawnStateChanged > RespawnDelaySeconds )
 					{
-						player.HealthComponent.RespawnState = RespawnState.Ready;
-
-						// TODO: click to respawn?
-
-						if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
-						{
-							player.Teleport( spawnAssigner.GetSpawnPoint( player ) );
-						}
-
-						player.Respawn();
+						player.RespawnState = RespawnState.Immediate;
 					}
+					break;
 
+				case RespawnState.Immediate:
+					player.Respawn( true );
 					break;
 			}
 		}

@@ -26,12 +26,6 @@ public partial class HealthComponent : Component, IRespawnable
 	public TimeSince TimeSinceLifeStateChanged { get; private set; } = 1f;
 
 	/// <summary>
-	/// Are we ready to respawn?
-	/// </summary>
-	[HostSync]
-	public RespawnState RespawnState { get; set; }
-
-	/// <summary>
 	/// A list of all Respawnable things on this GameObject
 	/// </summary>
 	protected IEnumerable<IRespawnable> Respawnables => GameObject.Root.Components.GetAll<IRespawnable>(FindMode.EnabledInSelfAndDescendants);
@@ -39,8 +33,8 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// What's our health?
 	/// </summary>
-	[HostSync, Change( nameof( OnHealthPropertyChanged ))]
-	public float Health { get; set; }
+	[HostSync, Change( nameof( OnHealthPropertyChanged ) )]
+	public float Health { get; set; } = 100f;
 
 	public float MaxHealth => GetGlobal<PlayerGlobals>().MaxHealth;
 
@@ -95,7 +89,7 @@ public partial class HealthComponent : Component, IRespawnable
 
 		State = LifeState.Dead;
 
-		BroadcastKill( damageInfo );
+		OnKill( damageInfo );
 	}
 
 	private DamageInfo WithThisAsVictim( DamageInfo damageInfo )
@@ -132,11 +126,13 @@ public partial class HealthComponent : Component, IRespawnable
 			damageInfo.Hitbox, damageInfo.Flags );
 	}
 
-	private void BroadcastKill( DamageInfo damageInfo )
+	private void OnKill( DamageInfo damageInfo )
 	{
 		BroadcastKill( damageInfo.Damage, damageInfo.Position, damageInfo.Force,
 			damageInfo.Attacker?.Id ?? default, damageInfo.Inflictor?.Id ?? default,
 			damageInfo.Hitbox, damageInfo.Flags );
+
+		KillFeed.RecordEvent( damageInfo );
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
@@ -180,13 +176,6 @@ public enum LifeState
 {
 	Alive,
 	Dead
-}
-
-public enum RespawnState
-{
-	None,
-	CountingDown,
-	Ready
 }
 
 /// <summary>

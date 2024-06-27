@@ -68,17 +68,17 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 		return true;
 	}
 
-	Transform ISpawnAssigner.GetSpawnPoint( PlayerController player )
+	Transform ISpawnAssigner.GetSpawnPoint( PlayerState player )
 	{
 		var allPlayers = GameUtils.ActivePlayers
-			.Where( x => x != player )
+			.Where( x => x.PlayerState != player )
 			.Where( x => x.HealthComponent.State == LifeState.Alive )
 			.Select( x => x.Transform.World )
 			.ToArray();
 
 		var enemyPlayers = GameUtils.ActivePlayers
-			.Where( x => x != player )
-			.Where( x => !x.IsFriendly( player ) )
+			.Where( x => x.PlayerState != player )
+			.Where( x => !x.PlayerState.IsFriendly( player ) )
 			.Where( x => x.HealthComponent.State == LifeState.Alive )
 			.Select( x => x.Transform.World )
 			.ToArray();
@@ -96,7 +96,7 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 
 		// Fallback
 
-		Log.Warning( $"Used fallback spawn for {player.GameObject.Name}" );
+		Log.Warning( $"Used fallback spawn for {player.DisplayName}" );
 
 		return spawns[0];
 	}

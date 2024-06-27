@@ -1,9 +1,6 @@
-using Sandbox;
-using Sandbox.Events;
-
 namespace Facepunch;
 
-public sealed partial class PlayerController : Pawn, IRespawnable
+public sealed partial class PlayerPawn : Pawn, IDescription
 {
 	/// <summary>
 	/// The player's body
@@ -46,11 +43,6 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 	[RequireComponent] public Spottable Spottable { get; set; }
 
 	/// <summary>
-	/// Unique Ids of this player
-	/// </summary>
-	[RequireComponent] public PlayerId PlayerId { get; set; }
-
-	/// <summary>
 	/// A reference to the View Model's camera. This will be disabled by the View Model.
 	/// </summary>
 	[Property] public CameraComponent ViewModelCamera { get; set; }
@@ -70,10 +62,9 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 	/// </summary>
 	public SkinnedModelRenderer BodyRenderer => Body.Components.Get<SkinnedModelRenderer>();
 
-	/// <summary>
-	/// Pawn
-	/// </summary>
-	public override Team Team => TeamComponent.Team;
+	// IDescription
+	string IDescription.DisplayName => DisplayName;
+	Color IDescription.Color => Team.GetColor();
 
 	/// <summary>
 	/// Pawn
@@ -84,13 +75,6 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 
 	protected override void OnStart()
 	{
-		if ( !IsProxy && !PlayerState.IsBot )
-		{
-			// Set this as our local player and possess it.
-			GameUtils.LocalPlayer = this;
-			PlayerState.Possess();
-		}
-
 		// TODO: expose these parameters please
 		TagBinder.BindTag( "no_shooting", () => IsSprinting || TimeSinceSprintChanged < 0.25f || TimeSinceWeaponDeployed < 0.66f );
 		TagBinder.BindTag( "no_aiming", () => IsSprinting || TimeSinceSprintChanged < 0.25f || TimeSinceGroundedChanged < 0.25f );
@@ -102,6 +86,11 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 
 	protected override void OnUpdate()
 	{
+		if (HealthComponent.State == LifeState.Dead)
+		{
+			UpdateDead();
+		}
+
 		OnUpdateMovement();
 
 		CrouchAmount = CrouchAmount.LerpTo( IsCrouching ? 1 : 0, Time.Delta * CrouchLerpSpeed() );
@@ -111,6 +100,16 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 		if ( IsLocallyControlled )
 		{
 			DebugUpdate();
+		}
+	}
+
+	// deathcam
+	private void UpdateDead()
+	{
+		if ((Input.Pressed( "attack1" ) && !PlayerState.IsRespawning) || PlayerState.IsBot )
+		{
+			GameObject.Destroy();
+			return;
 		}
 	}
 
@@ -141,7 +140,9 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 		}
 
 		if ( HealthComponent.State != LifeState.Alive )
+		{
 			return;
+		}
 
 		if ( Networking.IsHost && PlayerState.IsBot )
 		{
@@ -158,7 +159,9 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 		}
 
 		if ( !IsLocallyControlled )
+		{
 			return;
+		}
 
 		_previousVelocity = cc.Velocity;
 
@@ -170,15 +173,5 @@ public sealed partial class PlayerController : Pawn, IRespawnable
 		UpdateRecoilAndSpread();
 		ApplyAcceleration();
 		ApplyMovement();
-	}
-
-	public void AssignTeam( Team team )
-	{
-		if ( !Networking.IsHost )
-			return;
-
-		TeamComponent.Team = team;
-
-		Scene.Dispatch( new TeamAssignedEvent( this, team ) );
 	}
 }
