@@ -12,7 +12,7 @@ public sealed class RespawnPlayers : Component,
 	{
 		foreach ( var player in GameUtils.ActivePlayerStates )
 		{
-			player.Respawn();
+			player.Respawn( false );
 		}
 	}
 }

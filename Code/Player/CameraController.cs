@@ -92,7 +92,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		{
 			var tr = Scene.Trace.Ray( new Ray( Boom.Transform.Position, Boom.Transform.Rotation.Backward ), MaxBoomLength )
 				.IgnoreGameObjectHierarchy( GameObject.Root )
-				.WithoutTags( "trigger", "player" )
+				.WithoutTags( "trigger", "player", "ragdoll" )
 				.Run();
 
 			Camera.Transform.LocalPosition = Vector3.Backward * (tr.Hit ? tr.Distance - 5.0f : MaxBoomLength);
@@ -159,10 +159,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		if ( !Player.IsValid() )
 			return;
 
-		if ( !Player.CurrentEquipment.IsValid() )
-			return;
-
-		if ( Player.CurrentEquipment.Tags.Has( "aiming" ) )
+		if ( Player.CurrentEquipment?.Tags.Has( "aiming" ) ?? false )
 		{
 			FieldOfViewOffset += AimFovOffset;
 		}
@@ -211,7 +208,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		SetBoomLength( Mode == CameraMode.FirstPerson ? 0.0f : ThirdPersonDistance );
 
 		var firstPersonPOV = Mode == CameraMode.FirstPerson && Player.IsViewer;
-		Player.Body.SetFirstPersonView( firstPersonPOV );
+		Player.Body?.SetFirstPersonView( firstPersonPOV );
 
 		if ( firstPersonPOV )
 			Player.CreateViewModel( false );

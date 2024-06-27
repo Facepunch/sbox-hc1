@@ -26,13 +26,8 @@ public partial class PlayerState
 
 	public bool IsRespawning => RespawnState is RespawnState.Delayed;
 
-	public void Spawn()
+	private void Spawn()
 	{
-		if ( PlayerPawn.IsValid() )
-			return;
-
-		Log.Info( $"Spawning player.. ( {GameObject.Name} ({DisplayName}, {Team}) )" );
-
 		// :S
 		var spawnPoint = new Transform();
 		if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
@@ -53,12 +48,19 @@ public partial class PlayerState
 		pawn.OnHostRespawn();
 	}
 
-	public void Respawn()
+	public void Respawn( bool forceNew )
 	{
-		if ( PlayerPawn.IsValid() )
-			PlayerPawn.Respawn();
-		else
+		Log.Info( $"Spawning player.. ( {GameObject.Name} ({DisplayName}, {Team}) )" );
+
+		if ( forceNew || !PlayerPawn.IsValid() || PlayerPawn.HealthComponent.State == LifeState.Dead )
+		{
+			PlayerPawn?.GameObject.Destroy();
 			Spawn();
+		}
+		else
+		{
+			PlayerPawn.Respawn();
+		}
 	}
 
 	protected void OnRespawnStateChanged( LifeState oldValue, LifeState newValue )

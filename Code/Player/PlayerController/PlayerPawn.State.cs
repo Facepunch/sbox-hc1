@@ -22,14 +22,6 @@ public partial class PlayerPawn
 
 	public override void Kill()
 	{
-		// temp:
-		if (Networking.IsHost)
-		{
-			PlayerState.RespawnState = RespawnState.Requested;
-			GameObject.Destroy();
-			return;
-		}
-
 		if ( Networking.IsHost )
 		{
 			HealthComponent.State = LifeState.Dead;
@@ -37,9 +29,13 @@ public partial class PlayerPawn
 			ArmorComponent.Armor = 0f;
 
 			PlayerState.RespawnState = RespawnState.Requested;
+
+			CurrentEquipment = null;
+			Inventory.Clear();
+			CreateRagdoll();
 		}
 
-		EnableRagdoll();
+		PlayerBoxCollider.Enabled = false;
 
 		if ( IsProxy )
 			return;
@@ -114,23 +110,28 @@ public partial class PlayerPawn
 	[Authority]
 	public void Teleport( Vector3 position, Rotation rotation )
 	{
-		Transform.World = new( position, Rotation.Identity );
+		Transform.World = new( position, rotation );
 		Transform.ClearInterpolation();
 		EyeAngles = rotation.Angles();
 
 		if ( CharacterController.IsValid() )
 			CharacterController.Velocity = Vector3.Zero;
 	}
-	
-	private void EnableRagdoll()
+
+	[Broadcast(NetPermission.HostOnly)]
+	private void CreateRagdoll()
 	{
 		Body.SetRagdoll( true );
-		PlayerBoxCollider.Enabled = false;
+		Body.GameObject.SetParent( null, true );
+		Body.GameObject.Name = $"Ragdoll ({DisplayName})";
+
+		Body.Components.Create<DestroyBetweenRounds>();
+
+		Body = null;
 	}
 
 	private void ResetBody()
 	{
-		Body.SetRagdoll( false );
 		Body.DamageTakenForce = Vector3.Zero;
 		PlayerBoxCollider.Enabled = true;
 

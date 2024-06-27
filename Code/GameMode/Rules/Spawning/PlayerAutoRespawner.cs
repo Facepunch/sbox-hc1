@@ -15,7 +15,7 @@ public sealed class PlayerAutoRespawner : Component,
 	{
 		foreach ( var player in GameUtils.AllPlayerStates )
 		{
-			if ( player.PlayerPawn.IsValid() )
+			if ( player.PlayerPawn.IsValid() && player.PlayerPawn.HealthComponent.State == LifeState.Alive )
 				continue;
 
 			if ( !player.IsConnected )
@@ -46,7 +46,7 @@ public sealed class PlayerAutoRespawner : Component,
 					break;
 
 				case RespawnState.Immediate:
-					player.Spawn();
+					player.Respawn( true );
 					break;
 			}
 		}

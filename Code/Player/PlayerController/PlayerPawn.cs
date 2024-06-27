@@ -82,6 +82,11 @@ public sealed partial class PlayerPawn : Pawn
 
 	protected override void OnUpdate()
 	{
+		if (HealthComponent.State == LifeState.Dead)
+		{
+			UpdateDead();
+		}
+
 		OnUpdateMovement();
 
 		CrouchAmount = CrouchAmount.LerpTo( IsCrouching ? 1 : 0, Time.Delta * CrouchLerpSpeed() );
@@ -91,6 +96,16 @@ public sealed partial class PlayerPawn : Pawn
 		if ( IsLocallyControlled )
 		{
 			DebugUpdate();
+		}
+	}
+
+	// deathcam
+	private void UpdateDead()
+	{
+		if ((Input.Pressed( "attack1" ) && !PlayerState.IsRespawning) || PlayerState.IsBot )
+		{
+			GameObject.Destroy();
+			return;
 		}
 	}
 
