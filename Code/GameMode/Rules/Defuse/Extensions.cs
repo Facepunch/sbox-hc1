@@ -7,13 +7,13 @@ public static class DefuseExtensions
 	/// </summary>
 	public static bool IsPlanting( this PlayerPawn player, out BombPlantComponent BombPlantComponent )
 	{
-		if ( !player.Inventory.Current.IsValid() )
+		if ( !player.CurrentEquipment.IsValid() )
 		{
 			BombPlantComponent = null;
 			return false;
 		}
 
-		BombPlantComponent = player.Inventory.Current?.Components?.Get<BombPlantComponent>( FindMode.EnabledInSelfAndDescendants );
+		BombPlantComponent = player.CurrentEquipment?.Components?.Get<BombPlantComponent>( FindMode.EnabledInSelfAndDescendants );
 		return BombPlantComponent is { Active: true, IsPlanting: true };
 	}
 

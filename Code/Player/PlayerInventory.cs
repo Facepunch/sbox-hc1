@@ -39,7 +39,7 @@ public partial class PlayerInventory : Component
 	/// <summary>
 	/// Gets the player's current weapon.
 	/// </summary>
-	public Equipment Current => Player.CurrentEquipment;
+	private Equipment Current => Player.CurrentEquipment;
 	
 	public void Clear()
 	{
