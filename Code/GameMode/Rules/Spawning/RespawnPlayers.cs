@@ -10,7 +10,7 @@ public sealed class RespawnPlayers : Component,
 {
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.ActivePlayers )
+		foreach ( var player in GameUtils.ActivePlayerStates )
 		{
 			player.Respawn();
 		}

@@ -1,4 +1,6 @@
-﻿namespace Facepunch;
+﻿using Sandbox.Events;
+
+namespace Facepunch;
 
 public enum RespawnState
 {
@@ -22,7 +24,7 @@ public partial class PlayerState
 	/// </summary>
 	[HostSync, Change( nameof( OnRespawnStateChanged ))] public RespawnState RespawnState { get; set; }
 
-	public bool IsRespawning => RespawnState is not RespawnState.Not;
+	public bool IsRespawning => RespawnState is RespawnState.Delayed;
 
 	public void Spawn()
 	{
@@ -31,7 +33,14 @@ public partial class PlayerState
 
 		Log.Info( $"Spawning player.. ( {GameObject.Name} ({DisplayName}, {Team}) )" );
 
-		var prefab = PlayerPawnPrefab.Clone();
+		// :S
+		var spawnPoint = new Transform();
+		if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
+		{
+			spawnPoint = spawnAssigner.GetSpawnPoint( this );
+		}
+
+		var prefab = PlayerPawnPrefab.Clone( spawnPoint );
 		var pawn = prefab.Components.Get<PlayerPawn>();
 		pawn.PlayerState = this;
 		prefab.NetworkSpawn( Network.OwnerConnection );
@@ -41,7 +50,15 @@ public partial class PlayerState
 			Pawn = pawn;
 				
 		RespawnState = RespawnState.Not;
-		pawn.Respawn();
+		pawn.OnHostRespawn();
+	}
+
+	public void Respawn()
+	{
+		if ( PlayerPawn.IsValid() )
+			PlayerPawn.Respawn();
+		else
+			Spawn();
 	}
 
 	protected void OnRespawnStateChanged( LifeState oldValue, LifeState newValue )

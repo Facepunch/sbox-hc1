@@ -1,4 +1,5 @@
 using Sandbox.Diagnostics;
+using Sandbox.Events;
 
 namespace Facepunch;
 
@@ -56,8 +57,25 @@ public partial class PlayerPawn
 
 		ResetBody();
 
-		if ( !Networking.IsHost )
-			return;
+		if ( Networking.IsHost )
+		{
+			// :S
+			if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
+			{
+				var s = spawnAssigner.GetSpawnPoint( PlayerState );
+				Teleport( s );
+			}
+
+			OnHostRespawn();
+		}
+
+		if ( IsLocallyControlled )
+			OnClientRespawn();
+	}
+
+	public void OnHostRespawn()
+	{
+		Assert.True( Networking.IsHost );
 
 		HealthComponent.Health = HealthComponent.MaxHealth;
 		HealthComponent.State = LifeState.Alive;
@@ -65,12 +83,7 @@ public partial class PlayerPawn
 		ArmorComponent.HasHelmet = false;
 		ArmorComponent.Armor = 0f;
 
-		// :S
-		if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
-		{
-			var s = spawnAssigner.GetSpawnPoint( this );
-			Teleport( s );
-		}
+		EyeAngles = Transform.Rotation.Angles();
 
 		using ( Rpc.FilterInclude( Network.OwnerConnection ) )
 		{
@@ -78,18 +91,18 @@ public partial class PlayerPawn
 		}
 
 		TimeSinceLastRespawn = 0f;
+
+		Scene.Dispatch( new PlayerSpawnedEvent( this ) );
 	}
 
 	[Broadcast]
 	public void OnClientRespawn()
 	{
-		if ( PlayerState.IsLocalPlayer )
-		{ 
-			Possess();
-			OnPossess();
-		}
+		if ( PlayerState.IsBot )
+			return;
 
-		GameMode.Instance?.SendSpawnConfirmation( Id );
+		Possess();
+		OnPossess();
 	}
 
 

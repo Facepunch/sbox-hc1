@@ -14,7 +14,7 @@ public sealed class TeamSpawnAssigner : Component,
 	[Property, Title( "Tags" )]
 	public List<string> SpawnTags { get; private set; } = new();
 
-	public Transform GetSpawnPoint( PlayerPawn player )
+	public Transform GetSpawnPoint( PlayerState player )
 	{
 		var team = player.Team;
 		var spawns = GameUtils.GetSpawnPoints( team ).Shuffle();
@@ -25,7 +25,7 @@ public sealed class TeamSpawnAssigner : Component,
 		}
 
 		var playerPositions = GameUtils.ActivePlayers
-			.Where( x => x != player )
+			.Where( x => x.PlayerState != player )
 			.Where( x => x.HealthComponent.State == LifeState.Alive )
 			.Select( x => x.Transform.Position )
 			.ToArray();

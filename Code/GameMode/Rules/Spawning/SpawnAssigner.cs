@@ -2,5 +2,5 @@
 
 public interface ISpawnAssigner
 {
-	Transform GetSpawnPoint( PlayerPawn player );
+	Transform GetSpawnPoint( PlayerState player );
 }
