@@ -11,6 +11,7 @@ public partial class PlayerPawn
 	/// What are we called?
 	/// </summary>
 	public override string DisplayName => PlayerState.DisplayName;
+	public override bool IsLocallyControlled => base.IsLocallyControlled && !PlayerState.IsBot;
 
 	/// <summary>
 	/// Unique colour or team colour of this player
