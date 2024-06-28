@@ -17,7 +17,7 @@
             width: 6px;
             height: 6px;
             border-radius: 100px;
-            background-color: @Player.PlayerColor.Hex;
+            background-color: @PersonalColor.Hex;
             box-shadow: 2px 2px 2px rgba( black, 0.5 );
         }
 
@@ -25,13 +25,13 @@
         {
             text-shadow: 1px 1px 1px rgba( black, 1 );
             font-weight: 900;
-            color: @Player.Team.GetColor().Hex;
+            color: @MarkerColor.Hex;
         }
 
         .hp
         {
             text-shadow: 1px 1px 1px rgba( black, 1 );
-            color: @Player.Team.GetColor().Hex;
+            color: @MarkerColor.Hex;
         }
 
         .weapons
@@ -51,7 +51,7 @@
         }
 
         Icon {
-            background-image-tint: @Player.Team.GetColor().Hex;
+            background-image-tint: @MarkerColor.Hex;
         }
     }
 </style>
@@ -69,9 +69,7 @@
     @if ( Player?.HealthComponent?.State != LifeState.Alive )
         return;
 
-    @* TODO: make the player markers show up for enemies under certain circumstances
-    when aiming at a player that's kinda close to you? *@
-    @if ( Viewer.IsValid() && !Viewer.IsFriendly(Player) )
+    @if ( !Viewer.IsValid() )
         return;
 
     @if ( Marker.IsOffScreen )
@@ -80,19 +78,34 @@
     }
     else
     {
-        <div class="dot" />
-        <label class="name">@(Player.HealthComponent.Health.ToString( "0" ))%</label>
-        <label class="name">@Player.DisplayName</label>
-        <div class="weapons row">
-            @foreach (var wpn in Player.Inventory.Equipment.Where( CanShowWeapon ).OrderBy( x => x.Resource.Slot ) )
-            {
-                <img class="icon" src="@wpn.Resource.Icon"/>
-            }
-        </div>
-
-        @if (Player.Inventory.HasBomb && (!Viewer.IsValid() || Player.IsFriendly(Viewer)) )
+        @if ( Friendly )
         {
-            <Icon File="/ui/bomb.png" size="24"></Icon>
+            <div class="dot" />
+            <label class="name">@(Player.HealthComponent.Health.ToString( "0" ))%</label>
+            <label class="name">@Player.DisplayName</label>
+            <div class="weapons row">
+                @foreach (var wpn in Player.Inventory.Equipment.Where( CanShowWeapon ).OrderBy( x => x.Resource.Slot ) )
+                {
+                    <img class="icon" src="@wpn.Resource.Icon"/>
+                }
+            </div>
+
+            @if (Player.Inventory.HasBomb && (!Viewer.IsValid() || Player.IsFriendly(Viewer)) )
+            {
+                <Icon File="/ui/bomb.png" size="24"></Icon>
+            }
+        }
+        else
+        {
+            @if (IsInView)
+            {
+                <div class="dot" />
+
+                @if (LookingAt)
+                {
+                    <label class="name">@Player.DisplayName</label>
+                }
+            }
         }
     }
 </root>
@@ -101,6 +114,38 @@
 {
     public PlayerPawn Player => Object?.GameObject?.Components?.Get<PlayerPawn>();
     private PlayerPawn Viewer => PlayerState.Viewer.PlayerPawn;
+    public Color MarkerColor => !Friendly ? Color.Red : Player.Team.GetColor();
+    public Color PersonalColor => !Friendly ? Color.Red : Player.PlayerColor;
+
+    bool LookingAt => MathF.Abs( Marker.CenterDistance.x ) < 0.1f && MathF.Abs( Marker.CenterDistance.y ) < 0.2f;
+
+    private float MaxEnemyDistance => 512f;
+
+    SceneTraceResult GetTrace()
+    {
+        var distance = Viewer.AimRay.Position.Distance( Player.AimRay.Position );
+        if (distance > MaxEnemyDistance) return default;
+
+        var direction = (Player.AimRay.Position - Viewer.AimRay.Position).Normal;
+        var tr = Scene.Trace.Ray( Viewer.AimRay.Position, Viewer.AimRay.Position + direction * distance )
+            .IgnoreGameObjectHierarchy( Viewer.GameObject )
+            .Run();
+
+        return tr;
+    }
+
+    bool IsInView
+    {
+        get
+        {
+            var tr = GetTrace();
+            if ( !tr.Hit ) return false;
+
+            return tr.GameObject.Root == Player.GameObject;
+        }
+    }
+
+    bool Friendly => Viewer.IsValid() && Viewer.IsFriendly( Player );
 
     private bool CanShowWeapon( Equipment equipment )
     {
