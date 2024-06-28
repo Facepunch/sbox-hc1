@@ -1,0 +1,145 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "cultist_upper.vmat"
+								to = "models/player/t_side/t_side_player_01/t_upper.vmat"
+							},
+							{
+								from = "cultist_balaclava.vmat"
+								to = "models/player/t_side/t_side_player_01/t_balaclava.vmat"
+							},
+							{
+								from = "cultist_bits.vmat"
+								to = "models/player/t_side/t_side_player_01/t_bag.vmat"
+							},
+							{
+								from = "cultist_lower.vmat"
+								to = "models/player/t_side/t_side_player_01/t_lower.vmat"
+							},
+							{
+								from = "m_playermodelhead.vmat"
+								to = "models/humans/heads/frank/playermodelhead_frank.vmat"
+							},
+							{
+								from = "m_playermodeleyes.vmat"
+								to = "models/humans/misc/playermodeleyes_light.vmat"
+							},
+							{
+								from = "pasted__m_playermodelbody1.vmat"
+								to = "models/humans/bodies/malelight/playermodelbody_malelight.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = "materials/default.vmat"
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						filename = "models/player/t_side/t_side_player_01/t_side_player_01.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = true
+							exception_list = 
+							[
+								"bag_low",
+								"legs_low",
+								"coat_low",
+								"gloves_low",
+								"radio_low",
+								"lace_low",
+								"shoe_low",
+								"straps_low",
+								"balaclava_low",
+								"pasted__MESH_MERGED1",
+								"hands_LOD0",
+								"balaclava_LOD0",
+								"legs_LOD0",
+								"coat_LOD0",
+								"bag_LOD0",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						filename = "models/humans/heads/adam/PlayerModelHead_Adam.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						filename = "models/humans/heads/adam/PlayerModelEyesJaw_Adam.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = 
+							[
+								"PlayerMouthMale_Adam_LOD0",
+							]
+						}
+					},
+				]
+			},
+			{
+				_class = "ModelModifierList"
+				children = 
+				[
+					{
+						_class = "ModelModifier_ScaleAndMirror"
+						scale = 0.3937
+						mirror_x = false
+						mirror_y = false
+						mirror_z = false
+						flip_bone_forward = false
+						swap_left_and_right_bones = false
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+		base_model_name = ""
+	}
+}
