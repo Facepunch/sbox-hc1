@@ -22,7 +22,11 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	{
 		PlayerId.Init();
 
-		// TODO: create player state again
+		if ( !IsMultiplayer )
+		{
+			OnActive( Connection.Local );
+			return;
+		}
 
 		//
 		// Create a lobby if we're not connected
@@ -73,8 +77,6 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	/// <param name="channel"></param>
 	public void OnActive( Connection channel )
 	{
-		if ( !IsMultiplayer ) return;
-
 		Log.Info( $"Player '{channel.DisplayName}' is becoming active" );
 
 		var playerState = GetOrCreatePlayerState( channel );
