@@ -92,13 +92,14 @@
     private void MapDropDown_ValueChanged( PanelEvent ev )
     {
         SelectedMap = ev.Value as MapSystem.Map;
-        
+
         // Update supported gamemodes
         GameModes = GameMode.GetAll( SelectedMap.SceneFile );
         GameModeDropDown.Options = GameModes
             .Select( x => new Option( x.Title, x ) )
             .ToList();
 
+        SelectedGameMode = GameModes.FirstOrDefault();
     }
 
     protected override void OnAfterTreeRender( bool firstTime )

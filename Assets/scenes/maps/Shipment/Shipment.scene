@@ -2,138 +2,24 @@
   "__guid": "90a2c641-2bda-4f1b-9cca-8dd10ef5e1cc",
   "GameObjects": [
     {
-      "__guid": "0f04ee6a-6956-44a5-851e-aa6b5151fa34",
+      "__guid": "935ca745-3895-4453-882d-abc9839189aa",
       "Flags": 0,
-      "Name": "GameNetworkManager",
-      "Position": "-403.784,-123.1075,41.92808",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Facepunch.GameNetworkManager",
-          "__guid": "b7996461-15c3-4a17-97fa-ad71cef223d7",
-          "IsMultiplayer": true,
-          "PlayerStatePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/player/playerstate.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "1bb638d5-5b55-46be-8a18-b14ead057ed4",
-      "Flags": 0,
-      "Name": "Testing Mode",
-      "Position": "0,0,240.3786",
+      "Name": "Game",
       "Enabled": true,
       "NetworkMode": 1,
       "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Facepunch.GameMode",
-          "__guid": "8ed315e5-026c-40fd-a052-bba2c7ba3cf0",
-          "Description": "",
-          "MaxBalance": 16000,
-          "Title": "No Gamemode",
-          "UnlimitedMoney": true
-        },
-        {
-          "__type": "Facepunch.TeamSpawnAssigner",
-          "__guid": "6f3ac065-fa7f-4944-acbf-61ef8ab1f042",
-          "__enabled": false,
-          "SpawnTags": []
-        },
-        {
-          "__type": "Facepunch.DefaultEquipment",
-          "__guid": "20fa0f9a-ca5b-4c9a-b077-c830bb13fae6",
-          "Armor": 100,
-          "BothTeams": true,
-          "DefuseKit": false,
-          "Helmet": true,
-          "LoadoutsEnabled": true,
-          "RefillAmmo": true,
-          "Team": "Terrorist",
-          "Weapons": [
-            "weapons/knife/knife.equip",
-            "weapons/usp/usp.equip",
-            "weapons/special/cash_bag/cash_bag.equip"
-          ]
-        },
-        {
-          "__type": "Facepunch.BotManager",
-          "__guid": "894835ad-98a7-4609-a533-93bd07350535"
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "214972d7-519b-4123-9e1f-b320c1ffdc9c",
-          "Flags": 0,
-          "Name": "States",
-          "Position": "0,0,0",
-          "Enabled": true,
-          "NetworkMode": 1,
-          "NetworkInterpolation": true,
-          "Components": [
-            {
-              "__type": "Sandbox.Events.StateMachineComponent",
-              "__guid": "4ee9aa02-ed82-47f7-bda3-05a633847aae",
-              "CurrentState": {
-                "_type": "component",
-                "component_id": "212f57d7-dbf6-41de-b321-26e28edb0e3f",
-                "go": "2c67d39f-ee65-47c7-859b-38c0bdc89d7d",
-                "component_type": "StateComponent"
-              }
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "2c67d39f-ee65-47c7-859b-38c0bdc89d7d",
-              "Flags": 0,
-              "Name": "Waiting",
-              "Position": "0,0,0",
-              "Enabled": true,
-              "NetworkMode": 1,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.Events.StateComponent",
-                  "__guid": "212f57d7-dbf6-41de-b321-26e28edb0e3f",
-                  "DefaultDuration": 60
-                },
-                {
-                  "__type": "Facepunch.ShowStatusText",
-                  "__guid": "07e32699-e248-498f-8079-cac8582afd0b",
-                  "BothTeams": true,
-                  "StatusText": "Testing Mode",
-                  "Team": "Unassigned"
-                },
-                {
-                  "__type": "Facepunch.BuyAnywhere",
-                  "__guid": "610123a8-4ab7-4fd2-80e2-b91885488ed5"
-                },
-                {
-                  "__type": "Facepunch.EnableBuyMenu",
-                  "__guid": "aa4d1bdc-4414-4a2b-b417-1fb61adccd63",
-                  "InBuyZoneOnly": false,
-                  "TimeLimit": 0
-                },
-                {
-                  "__type": "Facepunch.PlayerAutoRespawner",
-                  "__guid": "5f2c5d86-a8b2-4488-b8b6-f03b5c56a6a9",
-                  "AllowSpectatorsToSpawn": true,
-                  "RespawnDelaySeconds": 1
-                },
-                {
-                  "__type": "Facepunch.DefaultBalance",
-                  "__guid": "ba2460e2-2ce8-488c-ae80-f178779a6f5d",
-                  "Value": 16000
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      "__Prefab": "scenes/maps/defusemap_01/game_setup.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "2746dc66-cc65-47e3-a264-8e07f3ee18c7",
+      "Flags": 0,
+      "Name": "Team Deathmatch",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/game_modes/team_deathmatch.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "00344a8c-fa5e-45ae-b12a-10bb781a1dc3",
@@ -333,33 +219,6 @@
         }
       ],
       "Children": []
-    },
-    {
-      "__guid": "2f24889f-5315-4aa8-85f4-0290c0a85b4b",
-      "Flags": 0,
-      "Name": "HUD",
-      "Position": "-11.66301,-170.663,499.0976",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.ScreenPanel",
-          "__guid": "b45558e7-d9de-4bac-922f-5fba675ec69c",
-          "AutoScreenScale": true,
-          "Opacity": 1,
-          "Scale": 1,
-          "ZIndex": 100
-        },
-        {
-          "__type": "Facepunch.UI.MainHUD",
-          "__guid": "63ee13b4-55b5-4e7e-acf5-3afd83dae8ce"
-        },
-        {
-          "__type": "Facepunch.UI.DeveloperMenu",
-          "__guid": "6758759d-b4f5-4684-948d-08e4dc1fcd4e"
-        }
-      ]
     },
     {
       "__guid": "c7447723-157b-4466-9736-6e7c99c62b8e",
@@ -2934,7 +2793,7 @@
   },
   "Title": "Shipment",
   "Description": "",
-  "LastSaved": "2024-06-28T13:24:11.2613148\u002B01:00",
+  "LastSaved": "2024-06-28T14:07:50.9754607\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "facepunch.cone_dev",

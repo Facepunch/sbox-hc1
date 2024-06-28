@@ -31,6 +31,7 @@
         "BothTeams": true,
         "DefuseKit": false,
         "Helmet": true,
+        "LoadoutsEnabled": true,
         "RefillAmmo": true,
         "Team": "Terrorist",
         "Weapons": [
@@ -43,6 +44,10 @@
         "__guid": "c82d52b1-a9e2-4e71-9bbe-496694888959",
         "AllowLateJoiners": true,
         "MaxTeamSize": 10
+      },
+      {
+        "__type": "Facepunch.BotManager",
+        "__guid": "83a62c25-6c75-4ee0-abb7-7d7f1d033fe6"
       }
     ],
     "Children": [
@@ -111,6 +116,7 @@
               {
                 "__type": "Facepunch.PlayerAutoRespawner",
                 "__guid": "eb59db6f-2e1b-4290-8ea3-98f00b7ad4bc",
+                "AllowSpectatorsToSpawn": false,
                 "RespawnDelaySeconds": 3
               },
               {
@@ -225,6 +231,7 @@
                   "go": "41dcf6fc-64e0-406a-badf-6b879c370c0b",
                   "component_type": "StateComponent"
                 },
+                "MatchPoint": true,
                 "TargetScore": 100,
                 "TerroristVictoryState": {
                   "_type": "component",
@@ -236,6 +243,7 @@
               {
                 "__type": "Facepunch.PlayerAutoRespawner",
                 "__guid": "879c4006-f472-4c34-972d-7778361d9b3e",
+                "AllowSpectatorsToSpawn": false,
                 "RespawnDelaySeconds": 3
               },
               {
