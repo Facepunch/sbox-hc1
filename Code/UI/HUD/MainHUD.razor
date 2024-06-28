@@ -4,7 +4,7 @@
 @if (!IsHudEnabled)
     return;
 
-@if (PlayerState.Viewer is null)
+@if ( !PlayerState.Viewer.IsValid() || !PlayerState.Viewer.Pawn.IsValid() )
     return;
 
 <root>
