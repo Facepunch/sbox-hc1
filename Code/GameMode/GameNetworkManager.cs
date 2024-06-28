@@ -2,6 +2,7 @@ using Sandbox.Network;
 using System.Threading.Tasks;
 using Sandbox.Events;
 using System.Threading.Channels;
+using Sandbox.Diagnostics;
 
 namespace Facepunch;
 
@@ -10,7 +11,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	/// <summary>
 	/// Which player prefab should we spawn?
 	/// </summary>
-	[Property] public GameObject PlayerPrefab { get; set; }
+	[Property] public GameObject PlayerStatePrefab { get; set; }
 
 	/// <summary>
 	/// Is this game multiplayer? If not, we won't create a lobby.
@@ -52,7 +53,9 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 			return possiblePlayerState;
 		}
 
-		var player = PlayerPrefab.Clone();
+		Assert.True( PlayerStatePrefab.IsValid(), "Could not spawn player as no PlayerStatePrefab assigned." );
+
+		var player = PlayerStatePrefab.Clone();
 		player.BreakFromPrefab();
 		player.Name = $"PlayerState ({channel.DisplayName})";
 		player.Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );

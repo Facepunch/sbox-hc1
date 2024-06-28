@@ -31,7 +31,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 
 	public void AddBot()
 	{
-		var player = GameNetworkManager.Instance.PlayerPrefab.Clone();
+		var player = GameNetworkManager.Instance.PlayerStatePrefab.Clone();
 		player.Name = $"PlayerState (BOT)";
 
 		var playerState = player.Components.Get<PlayerState>();

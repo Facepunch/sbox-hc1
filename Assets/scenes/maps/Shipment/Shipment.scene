@@ -14,9 +14,9 @@
           "__type": "Facepunch.GameNetworkManager",
           "__guid": "b7996461-15c3-4a17-97fa-ad71cef223d7",
           "IsMultiplayer": true,
-          "PlayerPrefab": {
+          "PlayerStatePrefab": {
             "_type": "gameobject",
-            "prefab": "prefabs/player/player.prefab"
+            "prefab": "prefabs/player/playerstate.prefab"
           }
         }
       ]
@@ -124,6 +124,7 @@
                 {
                   "__type": "Facepunch.PlayerAutoRespawner",
                   "__guid": "5f2c5d86-a8b2-4488-b8b6-f03b5c56a6a9",
+                  "AllowSpectatorsToSpawn": true,
                   "RespawnDelaySeconds": 1
                 },
                 {
