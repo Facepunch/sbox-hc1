@@ -14,8 +14,14 @@
     </div>
 
     <div class="layout flex-grow" />
-    
+
     <div class="layout padding-insane column gap" style="width: 30%;">
+        <label class="text">Map</label>
+        <OptionSelect @ref=MapDropDown
+                text="@SelectedMap?.SceneFile?.Title"
+                value.changed=@MapDropDown_ValueChanged>
+        </OptionSelect>
+
         <label class="text">Game mode</label>
         <OptionSelect @ref=GameModeDropDown
                 text="@SelectedGameMode?.Title"
@@ -39,7 +45,6 @@
 
     private GameModeInfo _selectedGameMode;
 
-    public SceneFile Map { get; private set; }
     public IReadOnlyList<GameModeInfo> GameModes { get; private set; }
 
     public GameModeInfo SelectedGameMode
@@ -52,12 +57,23 @@
         }
     }
 
+    private MapSystem.Map _selectedMap;
+    public MapSystem.Map SelectedMap
+    {
+        get => _selectedMap;
+        set
+        {
+            _selectedMap = value;
+        }
+    }
+
     public OptionSelect GameModeDropDown { get; private set; }
+    public OptionSelect MapDropDown { get; private set; }
 
     public void OnNavigationOpen()
     {
-        Map ??= ResourceLibrary.Get<SceneFile>( "scenes/maps/defusemap_01/de_garry_hammer.scene" );
-        GameModes = GameMode.GetAll( Map );
+        SelectedMap = MapSystem.All.FirstOrDefault();
+        GameModes = GameMode.GetAll( SelectedMap.SceneFile );
         SelectedGameMode = GameModes.FirstOrDefault();
     }
 
@@ -65,12 +81,24 @@
     {
         Log.Info( $"{SelectedGameMode.Path}" );
 
-        Game.ActiveScene.Load( Map );
+        Game.ActiveScene.Load( SelectedMap.SceneFile );
     }
 
     private void GameModeDropDown_ValueChanged( PanelEvent ev )
     {
         SelectedGameMode = ev.Value as GameModeInfo;
+    }
+
+    private void MapDropDown_ValueChanged( PanelEvent ev )
+    {
+        SelectedMap = ev.Value as MapSystem.Map;
+        
+        // Update supported gamemodes
+        GameModes = GameMode.GetAll( SelectedMap.SceneFile );
+        GameModeDropDown.Options = GameModes
+            .Select( x => new Option( x.Title, x ) )
+            .ToList();
+
     }
 
     protected override void OnAfterTreeRender( bool firstTime )
@@ -81,6 +109,10 @@
 
         GameModeDropDown.Options = GameModes
             .Select( x => new Option( x.Title, x ) )
+            .ToList();
+
+        MapDropDown.Options = MapSystem.All
+            .Select( x => new Option( x.SceneFile.Title, x ) )
             .ToList();
     }
 }
