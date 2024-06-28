@@ -34,7 +34,7 @@ internal class PlayerColors : SingletonComponent<PlayerColors>
 			return Color.White;
 
 		// todo: make this a gamemode setting?
-		bool bigTeamMode = GameUtils.GetPlayers( team ).Count() > Colors.Length;
+		bool bigTeamMode = GameUtils.GetPlayerPawns( team ).Count() > Colors.Length;
 
 		int idx = player.PlayerState.PlayerId.TeamUniqueId;
 		if ( bigTeamMode || idx == -1 || idx >= Colors.Length )

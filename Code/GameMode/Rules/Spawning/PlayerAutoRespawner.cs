@@ -32,7 +32,7 @@ public sealed class PlayerAutoRespawner : Component,
 				case RespawnState.Requested:
 					player.RespawnState = RespawnState.Delayed;
 
-					using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
+					using ( Rpc.FilterInclude( player.Connection ) )
 					{
 						GameMode.Instance.ShowToast( "Respawning...", duration: RespawnDelaySeconds );
 					}

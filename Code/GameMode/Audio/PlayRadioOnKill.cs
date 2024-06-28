@@ -13,7 +13,7 @@ public sealed class PlayRadioOnKill : Component,
 
 	private int GetAliveCount( Team team )
 	{
-		return GameUtils.GetPlayers( team ).Where( x => x.HealthComponent.State == LifeState.Alive ).Count();
+		return GameUtils.GetPlayerPawns( team ).Where( x => x.HealthComponent.State == LifeState.Alive ).Count();
 	}
 
 	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )

@@ -72,7 +72,7 @@ public sealed class ClearEquipment : Component,
 {
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.ActivePlayers )
+		foreach ( var player in GameUtils.PlayerPawns )
 		{
 			player.Inventory.Clear();
 		}

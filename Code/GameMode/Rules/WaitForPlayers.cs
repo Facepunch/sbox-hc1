@@ -43,7 +43,7 @@ public sealed class WaitForPlayers : Component,
 
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
 	{
-		var playerCount = GameUtils.AllPlayers.Count();
+		var playerCount = GameUtils.PlayerPawns.Count();
 
 		if ( IsPostponed || playerCount < MinPlayerCount )
 		{

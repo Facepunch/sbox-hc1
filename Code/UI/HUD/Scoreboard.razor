@@ -97,7 +97,7 @@
     protected override int BuildHash()
     {
         if ( !IsActive ) return 0;
-        return HashCode.Combine( IsActive, GroupedPlayers, Status, Time, GameUtils.AllPlayers );
+        return HashCode.Combine( IsActive, GroupedPlayers, Status, Time, PlayerStates );
     }
 
     public override void Tick()

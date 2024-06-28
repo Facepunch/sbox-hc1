@@ -78,7 +78,7 @@ public class RadioSounds : GameResource
 		if ( !Networking.IsHost ) return;
 
 		// Only send this message to members of the specified team
-		using ( Rpc.FilterInclude( GameUtils.GetPlayers( team ).Select( x => x.Network.OwnerConnection ) ) )
+		using ( Rpc.FilterInclude( GameUtils.GetPlayerStates( team ).Select( x => x.Connection ) ) )
 		{
 			RpcPlay( team, snd );
 		}
@@ -109,7 +109,7 @@ public class RadioSounds : GameResource
 			return;
 
 		// Only send this message to members of the specified team
-		using ( Rpc.FilterInclude( GameUtils.GetPlayers( team ).Select( x => x.Network.OwnerConnection ) ) )
+		using ( Rpc.FilterInclude( GameUtils.GetPlayerStates( team ).Select( x => x.Connection ) ) )
 		{
 			Chat.Instance?.AddText( sound, Chat.ChatModes.Team, "radio" );
 			RpcPlay( team, category, sound );

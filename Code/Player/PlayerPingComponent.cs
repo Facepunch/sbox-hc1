@@ -86,7 +86,7 @@ public partial class PlayerPingComponent : Component
 
 		var ping = pingObject.Components.Create<WorldPingComponent>();
 		ping.Owner = Player.PlayerState;
-		pingObject.Name = $"Ping from {ping.Owner.Network.OwnerConnection.DisplayName}";
+		pingObject.Name = $"Ping from {ping.Owner.DisplayName}";
 
 		if ( targetId.HasValue )
 			ping.Target = Scene.Directory.FindComponentByGuid( targetId.Value );

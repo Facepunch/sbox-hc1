@@ -138,7 +138,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		if ( !Resource.DropOnDisconnect )
 			return;
 		
-		var player = GameUtils.AllPlayers.FirstOrDefault( x => x.Network.OwnerConnection == connection );
+		var player = GameUtils.PlayerPawns.FirstOrDefault( x => x.Network.OwnerConnection == connection );
 		if ( !player.IsValid() ) return;
 		
 		DroppedEquipment.Create( Resource, player.Transform.Position + Vector3.Up * 32f, Rotation.Identity, this );

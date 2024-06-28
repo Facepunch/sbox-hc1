@@ -44,7 +44,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 
 		var possiblePlayerState = playerStates.FirstOrDefault( x => {
 			// A candidate player state has no owner.
-			return x.Network.OwnerConnection is null && x.SteamId == channel.SteamId;
+			return x.Connection is null && x.SteamId == channel.SteamId;
 		} );
 
 		if ( possiblePlayerState.IsValid() )

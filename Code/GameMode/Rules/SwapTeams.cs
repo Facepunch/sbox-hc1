@@ -10,17 +10,17 @@ public sealed class SwapTeams : Component,
 {
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		var ts = GameUtils.GetPlayers( Team.Terrorist ).ToArray();
-		var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).ToArray();
+		var ts = GameUtils.GetPlayerStates( Team.Terrorist ).ToArray();
+		var cts = GameUtils.GetPlayerStates( Team.CounterTerrorist ).ToArray();
 
 		foreach ( var player in ts )
 		{
-			player.PlayerState.AssignTeam( Team.CounterTerrorist );
+			player.AssignTeam( Team.CounterTerrorist );
 		}
 
 		foreach ( var player in cts )
 		{
-			player.PlayerState.AssignTeam( Team.Terrorist );
+			player.AssignTeam( Team.Terrorist );
 		}
 
 		Scene.Dispatch( new TeamsSwappedEvent() );

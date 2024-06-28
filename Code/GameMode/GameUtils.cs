@@ -1,5 +1,3 @@
-using Facepunch.UI;
-
 namespace Facepunch;
 
 /// <summary>
@@ -7,43 +5,19 @@ namespace Facepunch;
 /// </summary>
 public partial class GameUtils
 {
-	[Obsolete] public static PlayerState Viewer => PlayerState.Viewer;
-
-	/// <summary>
-	/// The <see cref="Pawn"/> we're in the perspective of if there is one.
-	/// </summary>
-	[Obsolete] public static Pawn CurrentPawn => PlayerState.Viewer.Pawn;
-
-	/// <summary>
-	/// The locally-controlled <see cref="PlayerPawn"/>, if there is one.
-	/// </summary>
-	[Obsolete] public static PlayerPawn LocalPlayer => PlayerState.Viewer.PlayerPawn;
-
-	// TODO: use states everywhere?
 	public static IEnumerable<PlayerState> AllPlayerStates => Game.ActiveScene.GetAllComponents<PlayerState>();
 	public static IEnumerable<PlayerState> ActivePlayerStates => AllPlayerStates.Where( x => x.Team != Team.Unassigned );
-	public static IEnumerable<PlayerState> InactivePlayerStates => GetPlayerStates( Team.Unassigned );
 	public static IEnumerable<PlayerState> GetPlayerStates( Team team ) => AllPlayerStates.Where( x => x.Team == team );
 
 	/// <summary>
-	/// All players, both assigned to a team and spectating.
+	/// All player pawns currently in the world.
 	/// </summary>
-	public static IEnumerable<PlayerPawn> AllPlayers => Game.ActiveScene.GetAllComponents<PlayerPawn>();
+	public static IEnumerable<PlayerPawn> PlayerPawns => Game.ActiveScene.GetAllComponents<PlayerPawn>();
 
 	/// <summary>
-	/// Players assigned to a team, so not spectating.
+	/// All player pawns currently in the world, assigned to a particular team.
 	/// </summary>
-	public static IEnumerable<PlayerPawn> ActivePlayers => AllPlayers.Where( x => x.Team != Team.Unassigned );
-
-	/// <summary>
-	/// Players not assigned to a team, or spectating.
-	/// </summary>
-	public static IEnumerable<PlayerPawn> InactivePlayers => AllPlayers.Where( x => x.Team == Team.Unassigned );
-
-	/// <summary>
-	/// Players assigned to a particular team.
-	/// </summary>
-	public static IEnumerable<PlayerPawn> GetPlayers( Team team ) => AllPlayers.Where( x => x.Team == team );
+	public static IEnumerable<PlayerPawn> GetPlayerPawns( Team team ) => PlayerPawns.Where( x => x.Team == team );
 
 	public static IDescription GetDescription( GameObject go ) => go.Components.Get<IDescription>( FindMode.EnabledInSelfAndDescendants );
 	public static IDescription GetDescription( Component component ) => GetDescription( component.GameObject );
@@ -112,14 +86,6 @@ public partial class GameUtils
 		}
 
 		return null;
-	}
-
-	public static void GiveTeamIncome( Team team, int amount )
-	{
-		foreach ( var player in GetPlayers( team ) )
-		{
-			player.PlayerState.GiveCash( amount );
-		}
 	}
 
 	/// <summary>
