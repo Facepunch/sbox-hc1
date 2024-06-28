@@ -70,13 +70,13 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 
 	Transform ISpawnAssigner.GetSpawnPoint( PlayerState player )
 	{
-		var allPlayers = GameUtils.ActivePlayers
+		var allPlayers = GameUtils.PlayerPawns
 			.Where( x => x.PlayerState != player )
 			.Where( x => x.HealthComponent.State == LifeState.Alive )
 			.Select( x => x.Transform.World )
 			.ToArray();
 
-		var enemyPlayers = GameUtils.ActivePlayers
+		var enemyPlayers = GameUtils.PlayerPawns
 			.Where( x => x.PlayerState != player )
 			.Where( x => !x.PlayerState.IsFriendly( player ) )
 			.Where( x => x.HealthComponent.State == LifeState.Alive )

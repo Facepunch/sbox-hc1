@@ -87,8 +87,8 @@
             EnemyTeamScore = teamScoring.OpposingTeamScoreFormatted;
         }
 
-        MyTeamPlayers = GameUtils.GetPlayerStates(MyTeam);
-        EnemyTeamPlayers = GameUtils.GetPlayerStates(EnemyTeam);
+        MyTeamPlayers = GameUtils.GetPlayers(MyTeam);
+        EnemyTeamPlayers = GameUtils.GetPlayers(EnemyTeam);
     }
 
     protected override int BuildHash()

@@ -4,6 +4,8 @@ namespace Facepunch;
 
 public partial class PlayerVoiceComponent : Voice
 {
+	[Property] public PlayerState PlayerState { get; set; }
+
 	IVoiceFilter Filter { get; set; }
 
 	protected override void OnStart()

@@ -62,7 +62,7 @@
 @code {
     public PlayerState PlayerState { get; set; }
     public PlayerPawn Player => PlayerState.PlayerPawn;
-    private Connection Connection => PlayerState.Network.OwnerConnection;
+    private Connection Connection => PlayerState.Connection;
     private PlayerScore Score => PlayerState.Components.Get<PlayerScore>();
 
     private bool IsFriendly => PlayerState.IsFriendly( PlayerState.Local );

@@ -12,8 +12,6 @@ public sealed class TeamAssigner : Component,
 	IGameEventHandler<PlayerConnectedEvent>,
 	IGameEventHandler<PlayerJoinedEvent>
 {
-	// TODO: remember which team players were on when they disconnected, put them back on the same team
-
 	[Property] public int MaxTeamSize { get; set; } = 5;
 
 	/// <summary>
@@ -24,16 +22,16 @@ public sealed class TeamAssigner : Component,
 
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.InactivePlayers.ToArray() )
+		foreach ( var player in GameUtils.GetPlayers(Team.Unassigned) )
 		{
-			AssignTeam( player.PlayerState, true );
+			AssignTeam( player, true );
 		}
 	}
 
 	private void AssignTeam( PlayerState player, bool dispatch )
 	{
-		var ts = GameUtils.GetPlayerStates( Team.Terrorist ).Count();
-		var cts = GameUtils.GetPlayerStates( Team.CounterTerrorist ).Count();
+		var ts = GameUtils.GetPlayers( Team.Terrorist ).Count();
+		var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).Count();
 
 		var assignTeam = Team.Unassigned;
 

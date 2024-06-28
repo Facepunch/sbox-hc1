@@ -28,7 +28,7 @@ public sealed class SpecialWeaponAllocator : Component,
 			return;
 		}
 
-		var playersOnTeam = GameUtils.GetPlayers( Team ).Shuffle();
+		var playersOnTeam = GameUtils.GetPlayerPawns( Team ).Shuffle();
 
 		if ( playersOnTeam.Count == 0 )
 		{
@@ -40,7 +40,7 @@ public sealed class SpecialWeaponAllocator : Component,
 		var playerToGiveTo = playersOnTeam[0];
 
 		// Conna: this is a special weapon for a specific team. Remove it for everyone.
-		foreach ( var player in GameUtils.AllPlayers )
+		foreach ( var player in GameUtils.PlayerPawns )
 		{
 			player.Inventory.Remove( Weapon );
 		}

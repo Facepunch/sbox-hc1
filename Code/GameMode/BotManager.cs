@@ -66,7 +66,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 	[DeveloperCommand( "Kick all Bots", "Game Loop" )]
 	private static void Command_Kick_Bots()
 	{
-		foreach ( var player in GameUtils.AllPlayerStates )
+		foreach ( var player in GameUtils.AllPlayers )
 		{
 			if ( player.IsBot )
 			{

@@ -25,7 +25,7 @@ public sealed class TeamSpawnAssigner : Component,
 			return GameUtils.GetRandomSpawnPoint(Team.Unassigned);
 		}
 
-		var playerPositions = GameUtils.ActivePlayers
+		var playerPositions = GameUtils.PlayerPawns
 			.Where( x => x.PlayerState != player )
 			.Where( x => x.HealthComponent.State == LifeState.Alive )
 			.Select( x => x.Transform.Position )

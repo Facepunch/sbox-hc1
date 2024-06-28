@@ -59,6 +59,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( IsHudEnabled, PlayerState.Viewer is null );
+        return HashCode.Combine( IsHudEnabled, PlayerState.Viewer.IsValid(), PlayerState.Viewer.Pawn.IsValid() );
     }
 }

@@ -12,7 +12,7 @@
                 }
 
                 <Icon class="square rounded shrink-0" File="/ui/chat/radio.png" size="24" style="transform: scale( @GetAmplitudeScale( voice ) )" />
-                <img class="avatar" src="avatar:@player.Network.OwnerConnection.SteamId" />
+                <img class="avatar" src="avatar:@player.SteamId" />
                 <PlayerPanel PlayerState=@player />
             </div>
         </div>
@@ -22,7 +22,7 @@
 
 @code
 {
-    public IEnumerable<Voice> VoiceList => Scene.GetAllComponents<Voice>();
+    public IEnumerable<PlayerVoiceComponent> VoiceList => Scene.GetAllComponents<PlayerVoiceComponent>().Where( x => x.PlayerState.IsConnected );
 
     private PlayerState GetPlayer( Voice voice )
     {

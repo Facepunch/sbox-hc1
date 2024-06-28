@@ -12,7 +12,7 @@ public sealed class FreezePlayers : Component,
 {
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.ActivePlayers )
+		foreach ( var player in GameUtils.PlayerPawns )
 		{
 			player.IsFrozen = true;
 		}
@@ -20,7 +20,7 @@ public sealed class FreezePlayers : Component,
 
 	void IGameEventHandler<LeaveStateEvent>.OnGameEvent( LeaveStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.ActivePlayers )
+		foreach ( var player in GameUtils.PlayerPawns )
 		{
 			player.IsFrozen = false;
 		}

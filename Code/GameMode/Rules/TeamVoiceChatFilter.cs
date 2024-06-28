@@ -15,6 +15,6 @@ public partial class TeamVoiceChatFilter : Component, IVoiceFilter
 	{
 		return Scene.GetAllComponents<PlayerState>()
 			.Where( DontSendFilter )
-			.Select( x => x.Network.OwnerConnection );
+			.Select( x => x.Connection );
 	}
 }

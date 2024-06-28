@@ -31,18 +31,18 @@ public sealed class TeamEliminated : Component,
 
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		_bothTeamsHadPlayers = GameUtils.GetPlayers( Team.CounterTerrorist ).Any()
-			&& GameUtils.GetPlayers( Team.Terrorist ).Any();
+		_bothTeamsHadPlayers = GameUtils.GetPlayerPawns( Team.CounterTerrorist ).Any()
+			&& GameUtils.GetPlayerPawns( Team.Terrorist ).Any();
 	}
 
 	private bool IsTeamEliminated( Team team )
 	{
-		return GameUtils.GetPlayers( team ).All( x => x.HealthComponent.State == LifeState.Dead );
+		return GameUtils.GetPlayerPawns( team ).All( x => x.HealthComponent.State == LifeState.Dead );
 	}
 
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
 	{
-		if ( !_bothTeamsHadPlayers && !GameUtils.InactivePlayers.Any() )
+		if ( !_bothTeamsHadPlayers && !GameUtils.GetPlayers( Team.Unassigned ).Any() )
 		{
 			// Let you test stuff in single player
 			return;

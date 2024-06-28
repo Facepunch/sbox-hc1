@@ -13,7 +13,7 @@ public sealed class PlayerAutoRespawner : Component,
 
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.AllPlayerStates )
+		foreach ( var player in GameUtils.AllPlayers )
 		{
 			if ( player.PlayerPawn.IsValid() && player.PlayerPawn.HealthComponent.State == LifeState.Alive )
 				continue;
@@ -32,7 +32,7 @@ public sealed class PlayerAutoRespawner : Component,
 				case RespawnState.Requested:
 					player.RespawnState = RespawnState.Delayed;
 
-					using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
+					using ( Rpc.FilterInclude( player.Connection ) )
 					{
 						GameMode.Instance.ShowToast( "Respawning...", duration: RespawnDelaySeconds );
 					}

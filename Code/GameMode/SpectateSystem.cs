@@ -11,13 +11,6 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 	
 	private bool _wasSpectating { get; set; }
 
-	private void OnSpectateBegin()
-	{
-		// try to find someone to spectate
-		SpectateNextPlayer(true);
-		_wasSpectating = true;
-	}
-
 	protected override void OnUpdate()
 	{
 		// Do we have no pawn? Spectate!
@@ -29,10 +22,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 
 	private void UpdateSpectate()
 	{
-		if ( !_wasSpectating )
-			OnSpectateBegin();
-
-		if ( Input.Pressed( "SpectatorNext" ) )
+		if ( Input.Pressed( "SpectatorNext" ) || !PlayerState.Viewer.Pawn.IsValid() )
 		{
 			SpectateNextPlayer( true );
 		}

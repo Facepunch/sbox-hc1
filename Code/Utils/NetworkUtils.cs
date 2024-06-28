@@ -23,6 +23,6 @@ public partial class NetworkUtils
 	{
 		return Rpc.FilterInclude(
 			GameUtils.GetPlayers( team )
-			.Select( x => x.Network.OwnerConnection ) );
+			.Select( x => x.Connection ) );
 	}
 }

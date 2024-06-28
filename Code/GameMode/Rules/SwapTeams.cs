@@ -15,12 +15,12 @@ public sealed class SwapTeams : Component,
 
 		foreach ( var player in ts )
 		{
-			player.PlayerState.AssignTeam( Team.CounterTerrorist );
+			player.AssignTeam( Team.CounterTerrorist );
 		}
 
 		foreach ( var player in cts )
 		{
-			player.PlayerState.AssignTeam( Team.Terrorist );
+			player.AssignTeam( Team.Terrorist );
 		}
 
 		Scene.Dispatch( new TeamsSwappedEvent() );

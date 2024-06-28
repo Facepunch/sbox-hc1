@@ -82,10 +82,10 @@ public partial class PlayerState : Component
 	/// </summary>
 	public Pawn Pawn
 	{
-		get => Scene.Directory.FindComponentByGuid( pawnGuid ) as PlayerPawn;
+		get => Scene.Directory.FindComponentByGuid( pawnGuid ) as Pawn;
 		set => pawnGuid = value.Id;
 	}
-	[HostSync, JsonIgnore] private Guid pawnGuid { get; set; } = Guid.Empty;
+	[Sync, JsonIgnore] private Guid pawnGuid { get; set; } = Guid.Empty;
 
 	public void HostInit()
 	{

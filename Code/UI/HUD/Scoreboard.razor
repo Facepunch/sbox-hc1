@@ -80,7 +80,7 @@
     public string Name => GameMode.Instance?.Title;
     public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
 
-    public IEnumerable<PlayerState> PlayerStates => GameUtils.AllPlayerStates;
+    public IEnumerable<PlayerState> PlayerStates => GameUtils.AllPlayers;
 
     private List<IGrouping<Team, PlayerState>> GroupedPlayers
     {
@@ -97,7 +97,7 @@
     protected override int BuildHash()
     {
         if ( !IsActive ) return 0;
-        return HashCode.Combine( IsActive, GroupedPlayers, Status, Time, GameUtils.AllPlayers );
+        return HashCode.Combine( IsActive, GroupedPlayers, Status, Time, PlayerStates );
     }
 
     public override void Tick()

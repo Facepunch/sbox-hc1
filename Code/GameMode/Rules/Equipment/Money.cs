@@ -28,7 +28,7 @@ public sealed class ResetBalance : Component,
 
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.ActivePlayers )
+		foreach ( var player in GameUtils.PlayerPawns )
 		{
 			player.PlayerState.SetCash( Value );
 		}
@@ -64,7 +64,7 @@ public sealed class GiveTeamIncome : Component,
 
 		foreach ( var player in GameUtils.GetPlayers( Team ) )
 		{
-			player.PlayerState.GiveCash( incomeEventArgs.Value );
+			player.GiveCash( incomeEventArgs.Value );
 		}
 	}
 }
