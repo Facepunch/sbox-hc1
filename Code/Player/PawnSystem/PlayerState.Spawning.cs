@@ -34,6 +34,10 @@ public partial class PlayerState
 		{
 			spawnPoint = spawnAssigner.GetSpawnPoint( this );
 		}
+		else
+		{
+			spawnPoint = GameUtils.GetRandomSpawnPoint( Team );
+		}
 
 		var prefab = PlayerPawnPrefab.Clone( spawnPoint );
 		var pawn = prefab.Components.Get<PlayerPawn>();
