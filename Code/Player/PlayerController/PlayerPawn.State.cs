@@ -3,6 +3,11 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
+public record OnPlayerRagdolledEvent : IGameEvent
+{
+	public float DestroyTime { get; set; } = 0f;
+}
+
 public partial class PlayerPawn
 {
 	/// <summary>
@@ -126,7 +131,18 @@ public partial class PlayerPawn
 		Body.GameObject.SetParent( null, true );
 		Body.GameObject.Name = $"Ragdoll ({DisplayName})";
 
-		Body.Components.Create<DestroyBetweenRounds>();
+		var ev = new OnPlayerRagdolledEvent();
+		Scene.Dispatch( ev );
+
+		if ( ev.DestroyTime > 0f )
+		{
+			var comp = Body.Components.Create<TimedDestroyComponent>();
+			comp.Time = ev.DestroyTime;
+		}
+		else
+		{
+			Body.Components.Create<DestroyBetweenRounds>();
+		}
 
 		Body = null;
 	}
