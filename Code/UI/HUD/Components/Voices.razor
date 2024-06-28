@@ -22,7 +22,7 @@
 
 @code
 {
-    public IEnumerable<Voice> VoiceList => Scene.GetAllComponents<Voice>();
+    public IEnumerable<PlayerVoiceComponent> VoiceList => Scene.GetAllComponents<PlayerVoiceComponent>().Where( x => x.PlayerState.IsConnected );
 
     private PlayerState GetPlayer( Voice voice )
     {
