@@ -10,7 +10,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 {
 	[Property, Group( "Bullet" )] public float BaseDamage { get; set; } = 25.0f;
 	[Property, Group( "Bullet" )] public float FireRate { get; set; } = 0.2f;
-	[Property, Group( "Bullet" )] public float DryFireDelay { get; set; } = 1f;
+	[Property, Group( "Bullet" )] public float DryShootDelay { get; set; } = 0.15f;
 	[Property, Group( "Bullet" )] public float BulletSize { get; set; } = 1.0f;
 	[Property, Group( "Bullet" )] public int BulletCount { get; set; } = 1;
 
@@ -549,7 +549,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 			// Dry fire
 			if ( !AmmoComponent.HasAmmo )
 			{
-				if ( TimeSinceShoot < DryFireDelay )
+				if ( TimeSinceShoot < DryShootDelay )
 					return;
 
 				DryShoot();
