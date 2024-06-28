@@ -10,8 +10,8 @@ public sealed class SwapTeams : Component,
 {
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		var ts = GameUtils.GetPlayerStates( Team.Terrorist ).ToArray();
-		var cts = GameUtils.GetPlayerStates( Team.CounterTerrorist ).ToArray();
+		var ts = GameUtils.GetPlayers( Team.Terrorist ).ToArray();
+		var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).ToArray();
 
 		foreach ( var player in ts )
 		{

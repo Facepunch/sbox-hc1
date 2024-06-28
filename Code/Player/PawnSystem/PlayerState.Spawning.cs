@@ -54,6 +54,9 @@ public partial class PlayerState
 
 	public void Respawn( bool forceNew )
 	{
+		if ( Team == Team.Unassigned )
+			return;
+
 		Log.Info( $"Spawning player.. ( {GameObject.Name} ({DisplayName}, {Team}) )" );
 
 		if ( forceNew || !PlayerPawn.IsValid() || PlayerPawn.HealthComponent.State == LifeState.Dead )

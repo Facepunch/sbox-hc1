@@ -22,7 +22,7 @@ public partial class NetworkUtils
 	public static IDisposable RpcTeam( Team team )
 	{
 		return Rpc.FilterInclude(
-			GameUtils.GetPlayerStates( team )
+			GameUtils.GetPlayers( team )
 			.Select( x => x.Connection ) );
 	}
 }

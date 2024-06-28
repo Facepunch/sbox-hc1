@@ -62,7 +62,7 @@ public sealed class GiveTeamIncome : Component,
 
 		Scene.Dispatch( incomeEventArgs );
 
-		foreach ( var player in GameUtils.GetPlayerStates( Team ) )
+		foreach ( var player in GameUtils.GetPlayers( Team ) )
 		{
 			player.GiveCash( incomeEventArgs.Value );
 		}

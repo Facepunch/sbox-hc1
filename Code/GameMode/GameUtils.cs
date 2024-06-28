@@ -5,17 +5,23 @@ namespace Facepunch;
 /// </summary>
 public partial class GameUtils
 {
-	public static IEnumerable<PlayerState> AllPlayerStates => Game.ActiveScene.GetAllComponents<PlayerState>();
-	public static IEnumerable<PlayerState> ActivePlayerStates => AllPlayerStates.Where( x => x.Team != Team.Unassigned );
-	public static IEnumerable<PlayerState> GetPlayerStates( Team team ) => AllPlayerStates.Where( x => x.Team == team );
+	/// <summary>
+	/// All players in the game (includes disconnected players before expiration).
+	/// </summary>
+	public static IEnumerable<PlayerState> AllPlayers => Game.ActiveScene.GetAllComponents<PlayerState>();
 
 	/// <summary>
-	/// All player pawns currently in the world.
+	/// Get all players on a team.
+	/// </summary>
+	public static IEnumerable<PlayerState> GetPlayers( Team team ) => AllPlayers.Where( x => x.Team == team );
+
+	/// <summary>
+	/// Every <seealso cref="PlayerPawn"/> currently in the world.
 	/// </summary>
 	public static IEnumerable<PlayerPawn> PlayerPawns => Game.ActiveScene.GetAllComponents<PlayerPawn>();
 
 	/// <summary>
-	/// All player pawns currently in the world, assigned to a particular team.
+	/// Every <seealso cref="PlayerPawn"/> currently in the world, on the given team.
 	/// </summary>
 	public static IEnumerable<PlayerPawn> GetPlayerPawns( Team team ) => PlayerPawns.Where( x => x.Team == team );
 

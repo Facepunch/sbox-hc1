@@ -13,7 +13,7 @@ public sealed class PlayerAutoRespawner : Component,
 
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.AllPlayerStates )
+		foreach ( var player in GameUtils.AllPlayers )
 		{
 			if ( player.PlayerPawn.IsValid() && player.PlayerPawn.HealthComponent.State == LifeState.Alive )
 				continue;

@@ -42,7 +42,7 @@ public sealed class TeamEliminated : Component,
 
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
 	{
-		if ( !_bothTeamsHadPlayers && !GameUtils.GetPlayerStates( Team.Unassigned ).Any() )
+		if ( !_bothTeamsHadPlayers && !GameUtils.GetPlayers( Team.Unassigned ).Any() )
 		{
 			// Let you test stuff in single player
 			return;

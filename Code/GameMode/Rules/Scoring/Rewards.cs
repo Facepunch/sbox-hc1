@@ -59,7 +59,7 @@ public sealed class DefuseObjectiveRewards : Component,
 	{
 		eventArgs.Defuser?.PlayerState.GiveCash( BombDefuseReward );
 
-		foreach ( var player in GameUtils.GetPlayerStates( Team.Terrorist ) )
+		foreach ( var player in GameUtils.GetPlayers( Team.Terrorist ) )
 		{
 			player.GiveCash( BombPlantTeamReward );
 		}

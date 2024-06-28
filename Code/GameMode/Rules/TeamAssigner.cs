@@ -22,7 +22,7 @@ public sealed class TeamAssigner : Component,
 
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		foreach ( var player in GameUtils.GetPlayerStates(Team.Unassigned) )
+		foreach ( var player in GameUtils.GetPlayers(Team.Unassigned) )
 		{
 			AssignTeam( player, true );
 		}
@@ -30,8 +30,8 @@ public sealed class TeamAssigner : Component,
 
 	private void AssignTeam( PlayerState player, bool dispatch )
 	{
-		var ts = GameUtils.GetPlayerStates( Team.Terrorist ).Count();
-		var cts = GameUtils.GetPlayerStates( Team.CounterTerrorist ).Count();
+		var ts = GameUtils.GetPlayers( Team.Terrorist ).Count();
+		var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).Count();
 
 		var assignTeam = Team.Unassigned;
 
