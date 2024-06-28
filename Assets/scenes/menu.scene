@@ -5,8 +5,8 @@
       "__guid": "adb42f1f-2599-449a-a6fa-407e0c9029bd",
       "Flags": 0,
       "Name": "Camera",
-      "Position": "-4440.262,-1274.093,358.4633",
-      "Rotation": "-0.04697734,0.131926,0.3321497,0.9327729",
+      "Position": "-500.7552,-361.1633,61.6848",
+      "Rotation": "0.05129277,-0.01412807,0.9627315,0.2651746",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -27,6 +27,28 @@
           "Viewport": "0,0,1,1",
           "ZFar": 10000,
           "ZNear": 10
+        },
+        {
+          "__type": "Sandbox.ChromaticAberration",
+          "__guid": "80606ac7-db48-4878-bdc3-819a0b37b52b",
+          "__enabled": false,
+          "Offset": "1,0,0",
+          "Scale": 1
+        },
+        {
+          "__type": "Sandbox.AmbientOcclusion",
+          "__guid": "2a2ce462-ac86-48dc-9683-b0aeed728d7b",
+          "Intensity": 16,
+          "Quality": "High",
+          "Radius": 32
+        },
+        {
+          "__type": "Sandbox.DepthOfField",
+          "__guid": "4ab165f1-ddd0-4bc2-a059-aedcb6c5ae2f",
+          "BackBlur": true,
+          "BlurSize": 100,
+          "FocalDistance": 780.66,
+          "FrontBlur": false
         }
       ]
     },
@@ -66,7 +88,9 @@
         {
           "__type": "Sandbox.MapInstance",
           "__guid": "e7c5f4e8-56a9-4bf9-bfa8-0afdec5fe6b1",
+          "__version": 1,
           "MapName": "maps/de_garry/de_garry.vmap",
+          "NoOrigin": true,
           "UseMapFromLaunch": false
         }
       ],
@@ -96,7 +120,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-06-03T14:07:39.0268765\u002B01:00",
+  "LastSaved": "2024-06-28T13:13:46.2360055\u002B01:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
