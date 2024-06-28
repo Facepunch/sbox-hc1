@@ -31,6 +31,7 @@
         "BothTeams": true,
         "DefuseKit": false,
         "Helmet": true,
+        "LoadoutsEnabled": true,
         "RefillAmmo": true,
         "Team": "Terrorist",
         "Weapons": [
@@ -40,11 +41,7 @@
       },
       {
         "__type": "Facepunch.BotManager",
-        "__guid": "8f2a629c-0d39-4eb1-a17a-03df62cfcc4b",
-        "Drone": {
-          "_type": "gameobject",
-          "prefab": "prefabs/player/drone.prefab"
-        }
+        "__guid": "8f2a629c-0d39-4eb1-a17a-03df62cfcc4b"
       },
       {
         "__type": "Facepunch.ScoreFormat",
@@ -97,6 +94,11 @@
         "__guid": "8a67f3b3-2589-422a-b3aa-f5cc67630d9f",
         "InBuyZoneOnly": true,
         "TimeLimit": 0
+      },
+      {
+        "__type": "Facepunch.PlayerRagdollBehavior",
+        "__guid": "70dcc203-3e77-4c1f-bb6b-37fa1d42585e",
+        "DestroyTime": 10
       }
     ],
     "Children": [
@@ -159,6 +161,7 @@
               {
                 "__type": "Facepunch.PlayerAutoRespawner",
                 "__guid": "941f07d5-e38a-4836-8162-85dcc2038650",
+                "AllowSpectatorsToSpawn": false,
                 "RespawnDelaySeconds": 3
               },
               {
@@ -276,6 +279,7 @@
                   {
                     "__type": "Facepunch.PlayerAutoRespawner",
                     "__guid": "6bccc323-93ec-4e6f-b9f4-ab11f9bbb12e",
+                    "AllowSpectatorsToSpawn": false,
                     "RespawnDelaySeconds": 3
                   },
                   {
@@ -429,6 +433,7 @@
                   {
                     "__type": "Facepunch.PlayerAutoRespawner",
                     "__guid": "42c68dff-25ac-480c-a775-b79b3386f8da",
+                    "AllowSpectatorsToSpawn": false,
                     "RespawnDelaySeconds": 3
                   },
                   {
@@ -474,6 +479,7 @@
                   {
                     "__type": "Facepunch.PlayerAutoRespawner",
                     "__guid": "12a97954-1e65-40d9-95bf-96011179928b",
+                    "AllowSpectatorsToSpawn": false,
                     "RespawnDelaySeconds": 3
                   },
                   {
