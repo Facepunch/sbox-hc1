@@ -1,0 +1,39 @@
+@import "/UI/Styles/Theme.scss";
+
+MapCard
+{
+    position: relative;
+    min-width: 386px;
+    background-color: rgba( black, 0.5 );
+    overflow: hidden;
+    flex-direction: column;
+
+    .header
+    {
+        padding-bottom: 8px;
+    }
+
+    > .background
+    {
+        flex-grow: 1;
+        background-size: cover;
+        background-position: center;
+        mask-size: cover;
+        flex-direction: column;
+        padding: 8px;
+        border-radius: 2px;
+        border: 1px solid rgba( white, 0.50 );
+        aspect-ratio: 1.7777778;
+    }
+
+    > .container
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: 8px 16px;
+        gap: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

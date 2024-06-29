@@ -1,0 +1,19 @@
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+
+<root class="button standard @(Selected ? "selected" : "")">
+    <label class="emphasis">@GameMode.Title</label>
+    <label class="small">@GameMode.Description</label>
+</root>
+
+@code
+{
+    public GameModeInfo GameMode { get; set; }
+    public Action<GameModeInfo> OnSelected { get; set; }
+    public bool Selected { get; set; }
+
+    protected override void OnClick( MousePanelEvent e )
+    {
+        OnSelected?.Invoke( GameMode );
+    }
+}

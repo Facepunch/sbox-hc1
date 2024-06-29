@@ -15,18 +15,12 @@
 
     <div class="layout flex-grow" />
 
-    <div class="layout padding-insane column gap" style="width: 30%;">
+    <div class="layout padding-insane column gap" style="width: 100%;">
         <label class="text">Map</label>
-        <OptionSelect @ref=MapDropDown
-                text="@SelectedMap?.SceneFile?.Title"
-                value.changed=@MapDropDown_ValueChanged>
-        </OptionSelect>
+        <MapList SelectedMap:bind=@SelectedMap GameMode:bind=@SelectedGameMode OnSelected=@OnMapSelected />
 
         <label class="text">Game mode</label>
-        <OptionSelect @ref=GameModeDropDown
-                text="@SelectedGameMode?.Title"
-                value.changed=@GameModeDropDown_ValueChanged>
-        </OptionSelect>
+        <GameModeList SelectedGameMode:bind=@SelectedGameMode @ref="GameModeList" />
     </div>
 
     <div class="layout flex-grow" />
@@ -41,79 +35,36 @@
 
 @code
 {
-    // TODO: map selection
+    public MapDefinition SelectedMap { get; set; }
+    public GameModeInfo SelectedGameMode { get; set; }
 
-    private GameModeInfo _selectedGameMode;
+    public GameModeList GameModeList { get; set; }
 
-    public IReadOnlyList<GameModeInfo> GameModes { get; private set; }
-
-    public GameModeInfo SelectedGameMode
+    public void OnMapSelected( MapDefinition map )
     {
-        get => _selectedGameMode;
-        set
-        {
-            _selectedGameMode = value;
-            GameMode.ActivePath = value?.Path;
-        }
-    }
-
-    private MapSystem.Map _selectedMap;
-    public MapSystem.Map SelectedMap
-    {
-        get => _selectedMap;
-        set
-        {
-            _selectedMap = value;
-        }
-    }
-
-    public OptionSelect GameModeDropDown { get; private set; }
-    public OptionSelect MapDropDown { get; private set; }
-
-    public void OnNavigationOpen()
-    {
-        SelectedMap = MapSystem.All.FirstOrDefault();
-        GameModes = GameMode.GetAll( SelectedMap.SceneFile );
-        SelectedGameMode = GameModes.FirstOrDefault();
-    }
-
-    private void Join()
-    {
-        Log.Info( $"{SelectedGameMode.Path}" );
-
-        Game.ActiveScene.Load( SelectedMap.SceneFile );
-    }
-
-    private void GameModeDropDown_ValueChanged( PanelEvent ev )
-    {
-        SelectedGameMode = ev.Value as GameModeInfo;
-    }
-
-    private void MapDropDown_ValueChanged( PanelEvent ev )
-    {
-        SelectedMap = ev.Value as MapSystem.Map;
-
-        // Update supported gamemodes
-        GameModes = GameMode.GetAll( SelectedMap.SceneFile );
-        GameModeDropDown.Options = GameModes
-            .Select( x => new Option( x.Title, x ) )
-            .ToList();
-
-        SelectedGameMode = GameModes.FirstOrDefault();
+        GameModeList.Filter( map );
+        SelectedGameMode = GameModeList.GameModes.FirstOrDefault();
     }
 
     protected override void OnAfterTreeRender( bool firstTime )
     {
-        base.OnAfterTreeRender( firstTime );
+        if ( !firstTime )
+            return;
 
-        if ( !firstTime ) return;
+        SelectedMap = MapSystem.All.FirstOrDefault();
+        SelectedGameMode = GameMode.GetAll( SelectedMap.SceneFile ).FirstOrDefault();
+        GameModeList.Filter( SelectedMap );
+    }
 
-        GameModeDropDown.Options = GameModes
-            .Select( x => new Option( x.Title, x ) )
-            .ToList();
+    private void Join()
+    {
+        if (SelectedGameMode is null)
+            return;
 
-        MapDropDown.Options = MapSystem.All
-            .Select( x => new Option( x.SceneFile.Title, x ) )
-            .ToList();
+        if (SelectedMap is null)
+            return;
+
+        GameMode.ActivePath = SelectedGameMode?.Path;
+        Game.ActiveScene.Load( SelectedMap.SceneFile );
     }
 }

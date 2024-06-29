@@ -1,0 +1,25 @@
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+
+<root class="button standard @(Selected ? "selected" : "")" style="padding: 8px;">
+    <div class="header">
+        <label class="emphasis">@Map.Title</label>
+    </div>
+
+    <div class="background" style="background-image: url( @Map.Background )">
+        <div class="grow" />
+        <label class="emphasis" style="color: white;">@Map.Description</label>
+    </div>
+</root>
+
+@code
+{
+    public MapDefinition Map { get; set; }
+    public Action<MapDefinition> OnSelected { get; set; }
+    public bool Selected { get; set; }
+
+    protected override void OnClick( MousePanelEvent e )
+    {
+        OnSelected?.Invoke( Map );
+    }
+}

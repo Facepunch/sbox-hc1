@@ -1,0 +1,31 @@
+@namespace Facepunch.UI
+
+<root class="layout with-gap">
+    @foreach ( var map in MapSystem.All )
+    {
+        <MapCard Map=@map Selected=@( SelectedMap == map ) OnSelected=@DoSelect />
+    }
+</root>
+
+@code
+{
+    public MapDefinition SelectedMap { get; set; }
+    public GameModeInfo GameMode { get; set; }
+    public Action<MapDefinition> OnSelected { get; set; }
+
+    public void DoSelect( MapDefinition map )
+    {
+        SelectedMap = map;
+        OnSelected?.Invoke( map );
+    }
+
+    protected override void OnAfterTreeRender( bool firstTime )
+    {
+        // 
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( GameMode, SelectedMap );
+    }
+}
