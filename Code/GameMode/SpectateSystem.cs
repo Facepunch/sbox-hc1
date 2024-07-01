@@ -15,7 +15,6 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 	{
 		// try to find someone to spectate
 		SpectateNextPlayer( true );
-		_wasSpectating = true;
 	}
 
 	protected override void OnUpdate()
@@ -25,12 +24,17 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 		{
 			UpdateSpectate();
 		}
+
+		_wasSpectating = IsSpectating;
 	}
 
 	private void UpdateSpectate()
 	{
 		if ( !_wasSpectating )
 			OnSpectateBegin();
+
+		if ( !PlayerState.Viewer.IsValid() )
+			return;
 
 		if ( Input.Pressed( "SpectatorNext" ) || !PlayerState.Viewer.Pawn.IsValid() )
 		{

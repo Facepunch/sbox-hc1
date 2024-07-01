@@ -1,6 +1,9 @@
 @namespace Facepunch.UI
 @attribute [StyleSheet]
 
+@if ( !Player.IsValid() )
+    return;
+
 <root>
     <div @ref="Overlay" class="overlay mask-scope" />
 

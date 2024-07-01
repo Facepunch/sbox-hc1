@@ -120,9 +120,10 @@ public partial class PlayerState : Component
 	{
 		// called from Pawn when one is newly possessed, update Local and Viewer, invoke RPCs for observers
 
-		if ( !pawn.IsProxy )
+		Local.Pawn = pawn;
+
+		if ( pawn.Network.Active )
 		{
-			Local.Pawn = pawn;
 			Local.OnNetPossessed();
 		}
 
