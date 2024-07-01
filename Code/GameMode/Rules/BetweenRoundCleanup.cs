@@ -16,6 +16,12 @@ public sealed class BetweenRoundCleanup : Component,
 	[Early]
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
+		Dispatch();
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	public void Dispatch()
+	{
 		Scene.Dispatch( new BetweenRoundCleanupEvent() );
 	}
 }
