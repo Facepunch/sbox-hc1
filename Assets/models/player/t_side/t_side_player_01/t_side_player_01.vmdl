@@ -1402,6 +1402,73 @@
 					},
 				]
 			},
+			{
+				_class = "GameDataList"
+				children = 
+				[
+					{
+						_class = "LookAtChain"
+						name = "AimChain"
+						lookat_chain = 
+						{
+							name = ""
+							bones = 
+							[
+								{
+									name = "Spine2"
+									weight = 1.0
+								},
+								{
+									name = "Spine1"
+									weight = 0.6
+								},
+								{
+									name = "Spine"
+									weight = 0.3
+								},
+								{
+									name = "Hips"
+									weight = 0.0
+								},
+							]
+						}
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "forward_reference_modelspace"
+						children = 
+						[
+							{
+								_class = "AttachmentInfluence"
+								parent_bone = "head"
+								relative_origin = [ 0.0, -3.0, 0.0 ]
+								relative_angles = [ 0.0, 90.0, 90.0 ]
+								weight = 1.0
+							},
+						]
+						parent_bone = "Hips"
+						relative_origin = [ 0.0, -3.0, 0.0 ]
+						relative_angles = [ 0.0, 90.0, 90.0 ]
+						weight = 1.0
+						ignore_rotation = true
+					},
+					{
+						_class = "Attachment"
+						name = "forward_reference"
+						parent_bone = "head"
+						relative_origin = [ 0.0, 0.0, 0.0 ]
+						relative_angles = [ 0.0, 90.0, 90.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
