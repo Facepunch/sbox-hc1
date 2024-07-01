@@ -94,7 +94,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		Scene.Dispatch( new PlayerConnectedEvent( playerState ) );
 
 		// Either spawn over network, or claim ownership
-		if ( playerState.GameObject.NetworkMode != NetworkMode.Object )
+		if ( !playerState.Network.Active )
 			playerState.GameObject.NetworkSpawn( channel );
 		else
 			playerState.Network.AssignOwnership( channel );
