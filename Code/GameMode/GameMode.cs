@@ -55,11 +55,15 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 		Scene.Dispatch( new GamemodeInitializedEvent( Title ) );
 
 		base.OnStart();
+
+		GameUtils.LogPlayers();
 	}
 
 	void INetworkListener.OnBecameHost( Connection previousHost )
 	{
 		Log.Info( "We became the host, taking over the game loop..." );
+
+		GameUtils.LogPlayers();
 	}
 
 	private StateComponent _prevState;

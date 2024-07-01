@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace Facepunch;
 
 /// <summary>
@@ -89,5 +91,45 @@ public partial class GameUtils
 	{
 		var sc = ResourceLibrary.Get<SceneFile>( "scenes/menu.scene" );
 		Game.ActiveScene.Load( sc );
+	}
+
+	/// <summary>
+	/// Log all known player states to the console.
+	/// </summary>
+	public static void LogPlayers()
+	{
+		var writer = new StringWriter();
+
+		writer.WriteLine( "All players:" );
+
+		foreach ( var player in AllPlayers )
+		{
+			writer.WriteLine( $"  {player.GameObject.Name}:" );
+			writer.WriteLine( $"    Id: {player.GameObject.Id}" );
+			writer.WriteLine( $"    DisplayName: {player.DisplayName}" );
+			writer.WriteLine( $"    IsConnected: {player.IsConnected}" );
+			writer.WriteLine( $"    IsLocalPlayer: {player.IsLocalPlayer}" );
+			writer.WriteLine( $"    Connection: {(player.Connection is { } connection ? $"{connection.Id} ({connection.DisplayName})" : "null")}" );
+			writer.WriteLine( $"    Team: {player.Team}" );
+			writer.WriteLine( $"    UniqueId: {player.PlayerId?.UniqueId}" );
+			writer.WriteLine( $"    TeamUniqueId: {player.PlayerId?.TeamUniqueId}" );
+			writer.WriteLine( $"    Pawn: {player.Pawn?.ToString() ?? "null"}" );
+		}
+
+		writer.WriteLine();
+		writer.WriteLine( "All connections:" );
+
+		foreach ( var connection in Connection.All )
+		{
+			writer.WriteLine( $"  {connection.Name}:" );
+			writer.WriteLine( $"    Id: {connection.Id}" );
+			writer.WriteLine( $"    DisplayName: {connection.DisplayName}" );
+			writer.WriteLine( $"    PartyId: {connection.PartyId}" );
+			writer.WriteLine( $"    SteamId: {connection.SteamId}" );
+			writer.WriteLine( $"    IsConnecting: {connection.IsConnecting}" );
+			writer.WriteLine( $"    IsActive: {connection.IsActive}" );
+		}
+
+		Log.Info( writer.ToString() );
 	}
 }
