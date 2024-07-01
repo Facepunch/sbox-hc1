@@ -5,99 +5,56 @@
 @implements INavigatorPage
 @namespace Facepunch.UI
 
-<root class="hc1">
-    <div class="layout padding-insane column">
-        <div class="logo">
-            <img src="/ui/teams/operators_logo_banner.png" />
-        </div>
+<root class="hc1 layout padding-insane">
+    <div class="page header">
+        <img class="logo" src="/ui/teams/operators_logo_banner.png" />
+
+        <div class="divider" />
+
+        <label class="title">SERVER BROWSER</label>
     </div>
 
-    <div class="layout flex-grow" />
-
-    <div class="layout padding-insane column with-scroll with-gap" style="width: 30%;">
-        <a class="text ">Lobby list</a>
-        @if ( ShowFakeLobbies )
-        {
-            @for ( int i = 0; i < 4; i++ )
-            {
-                <LobbyRow onclick=@( () => OpenLobbyPage() ) />
-            }
-        }
-
-        @foreach ( var lobby in FetchedLobbies )
-        {
-            <LobbyRow @Lobby=@(new Lobby( lobby )) onclick=@( () => OpenLobbyPage( lobby ) ) />
-        }
-
-        @if ( IsSearching )
-        {
-            <div class="button standard">Searching for lobbies...</div>
-        }
-
-        @if ( !IsSearching && FetchedLobbies.Count() == 0 )
-        {
-            <div class="button standard">No lobbies found...</div>
-        }
+    <div class="flex grow">
+        <ServerBrowser CurrentLobby:bind=@Lobby  @ref="Browser" />
     </div>
 
-    <div class="layout padding-insane column" style="width: 30%;">
-        <div class="layout column gap">
+    <div class="page footer">
+        <div class="layout row gap flex-grow">
+            <a class="button standard" href="/">back</a>
+            <div style="flex-grow: 1;"/>
+            <div class="button standard" onclick=@(() => Create())>Create a server</div>
             <div class="button standard" onclick=@(() => Refresh())>refresh</div>
-            <a class="button standard" href="/">return</a>
+            <div class="button standard @(Lobby.HasValue ? "" : "no-anim disabled")" onclick=@(() => Join())>Connect</div>
         </div>
     </div>
 </root>
 
 @code
 {
-    [ConVar( "fp_ui_show_fake_lobbies" )]
-    public static bool ShowFakeLobbies { get; set; }
+    public ServerBrowser Browser { get; set; }
 
-    private List<LobbyInformation> FetchedLobbies { get; set; } = new();
-
-    private bool IsSearching = true;
-
-    protected override void OnAfterTreeRender( bool firstTime )
-    {
-        if ( firstTime )
-        {
-            FetchLobbies();
-        }
-    }
-
-    private bool IsEditorLobby( LobbyInformation lobby )
-    {
-        if ( Game.IsEditor ) return false;
-        return lobby.IsEditorLobby();
-    }
-
-    protected async void FetchLobbies()
-    {
-        IsSearching = true;
-        FetchedLobbies = new();
-        StateHasChanged();
-
-        var lobbies = await Networking.QueryLobbies( Game.Ident );
-
-        IsSearching = false;
-        FetchedLobbies = lobbies.Where( x => !IsEditorLobby( x ) ).ToList();
-        StateHasChanged();
-    }
+    public Lobby? Lobby { get; set; }
 
     private void Refresh()
     {
-        FetchLobbies();
+        Browser.Refresh();
     }
 
-    private void OpenLobbyPage( LobbyInformation x )
+    private void Create()
     {
-        LobbyPage.Lobby = new Lobby( x );
-        this.Navigate( "/lobby" );
+        this.Navigate( "/new" );
     }
 
-    private void OpenLobbyPage()
+    private async void Join()
     {
-        LobbyPage.Lobby = new Lobby();
-        this.Navigate( "/lobby" );
+        if ( !Lobby.HasValue ) return;
+
+        var lobby = Lobby.Value;
+        if ( lobby.IsFull ) return;
+
+        if ( await GameNetworkSystem.TryConnectSteamId( lobby.LobbyId ) )
+		{
+			Log.Info( "joined lobby!" );
+		}
     }
 }

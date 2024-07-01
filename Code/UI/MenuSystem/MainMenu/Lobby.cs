@@ -12,14 +12,41 @@ public partial struct Lobby
 	/// </summary>
 	public LobbyInformation? _lobby;
 
-	public string Name => _lobby?.Name ?? "Tony";
+	public ulong? FakeId = null;
+
+	public string Name => _lobby?.Name ?? "Tony's game";
 	public int Members => _lobby?.Members ?? 8;
 	public int MaxMembers => _lobby?.MaxMembers ?? 8;
-	public string Map => _lobby?.Map;
 	public ulong OwnerId => _lobby?.OwnerId ?? 0;
-	public ulong LobbyId => _lobby?.LobbyId ?? 0;
+	public ulong LobbyId => FakeId.HasValue ? FakeId.Value : _lobby?.LobbyId ?? 0;
 	public bool IsFull => _lobby?.IsFull ?? (Members >= MaxMembers);
 	public bool IsEditorLobby => _lobby?.IsEditorLobby() ?? false;
+
+	public string Map
+	{
+		get
+		{
+			if ( _lobby?.Data.TryGetValue( "hc1-map", out string map ) ?? false )
+			{
+				return map;
+			}
+
+			return _lobby?.Map ?? "Unknown";
+		}
+	}
+
+	public string GameMode
+	{
+		get
+		{
+			if ( _lobby?.Data.TryGetValue( "hc1-gm", out string gm ) ?? false )
+			{
+				return gm;
+			}
+
+			return "Unknown";
+		}
+	}
 
 	public Lobby( LobbyInformation lobby )
 	{

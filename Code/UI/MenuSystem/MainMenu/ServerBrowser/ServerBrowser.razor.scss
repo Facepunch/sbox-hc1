@@ -1,0 +1,69 @@
+@import "/UI/Styles/Theme.scss";
+
+ServerBrowser
+{
+    flex-grow: 1;
+    flex-direction: row;
+
+    .list
+    {
+        flex-basis: 65%;
+        flex-direction: column;
+        background-color: rgba( black, 0.5 );
+        backdrop-filter: $blur;
+
+        > .header
+        {
+            backdrop-filter: $blur;
+            background-color: rgba( black, 0.45 );
+            padding: 10px 16px;
+            gap: 64px;
+            width: 100%;
+            flex-direction: row;
+            border-radius: 2px;
+            flex-shrink: 0;
+
+            label
+            {
+                color: $terror-color;
+            }
+        }
+    }
+
+    .current
+    {
+        border-left: 1px solid $terror-color;
+        background-color: rgba( black, 0.35 );
+        flex-grow: 1;
+        flex-direction: column;
+        backdrop-filter: $blur;
+
+        > .header
+        {
+            backdrop-filter: $blur;
+            background-color: rgba( black, 0.35 );
+            padding: 10px 16px;
+            gap: 64px;
+            width: 100%;
+            flex-direction: row;
+            border-radius: 2px;
+            flex-shrink: 0;
+            justify-content: flex-end;
+
+            label
+            {
+                color: $terror-color;
+            }
+        }
+    }
+
+    .servers
+    {
+        border-radius: 2px;
+        flex-direction: column;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 100%;
+        mask-mode: alpha;
+    }
+}

@@ -8,11 +8,6 @@
     <div class="background" />
 
     <div class="navigator-canvas" slot="navigator-canvas" />
-	
-	<div class="footer">
-    	<div style="flex-grow: 1;"/>
-    	<div class="logo" />
-    </div>
 </root>
 
 @code
@@ -22,7 +17,6 @@
         DefaultUrl = "/";
 	    AddDestination( "/", typeof( LandingPage ) );
 	    AddDestination( "/lobbies", typeof( LobbyList ) );
-	    AddDestination( "/lobby", typeof( LobbyPage ) );
 	    AddDestination( "/new", typeof( CreateLobbyPage ) );
 	    AddDestination( "/settings", typeof( SettingsPage ) );
     }

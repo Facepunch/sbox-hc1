@@ -1,4 +1,5 @@
 $button-standard-padding: 12px 24px;
+$button-small-padding: 8px 24px;
 
 .hc1 .button
 {
@@ -9,7 +10,7 @@ $button-standard-padding: 12px 24px;
     &.standard
     {
         padding: $button-standard-padding;
-        background-color: rgba( black, 0.5 );
+        background-color: rgba( black, 0.35 );
         pointer-events: all;
         cursor: pointer;
         text-transform: uppercase;
@@ -18,6 +19,12 @@ $button-standard-padding: 12px 24px;
         border-radius: 2px;
         cursor: pointer;
         backdrop-filter: $blur;
+        border: 0.8px solid rgba( black, 0.35 );
+
+        &.smaller
+        {
+            padding: $button-small-padding;
+        }
 
         label
         {
@@ -25,15 +32,18 @@ $button-standard-padding: 12px 24px;
             transition: all 0.1s ease;
         }
 
-        &:hover, &.selected
+        &:not( .disabled )
         {
-            background-color: rgba( white, 1 );
-            sound-in: ui.button.over;
-
-            label
+            &:hover, &.selected
             {
-                color: black;
-                text-shadow: 1px 1px 2px rgba( black, 0 );
+                background-color: rgba( white, 1 );
+                sound-in: ui.button.over;
+
+                label
+                {
+                    color: black;
+                    text-shadow: 1px 1px 2px rgba( black, 0 );
+                }
             }
         }
 
@@ -57,12 +67,22 @@ $button-standard-padding: 12px 24px;
         {
             &:hover
             {
-                padding: 16px 24px;
+                padding: 12px 32px;
             }
 
             &:active
             {
                 transform: scale(1.01);
+            }
+        }
+
+        &.disabled
+        {
+            cursor: default;
+
+            label
+            {
+                color: grey;
             }
         }
     }

@@ -6,6 +6,42 @@ $layout-insane-padding: 64px;
 $hud-deadzone-x: 32px;
 $hud-deadzone-y: 16px;
 
+.page
+{
+    &.header
+    {
+        padding: 12px 24px;
+        background-color: rgba( black, 0.5 );
+        backdrop-filter: $blur;
+        position: relative;
+        align-items: center;
+        border-bottom: 1px solid $terror-color;
+
+        .divider
+        {
+            width: 0.5px;
+            height: 100%;
+            background-image: linear-gradient( to top, rgba( white, 0 ), white, rgba( white, 0 ) );
+            margin-right: 20px;
+        }
+
+        .title
+        {
+            font-size: 32px;
+            text-shadow: 0px 3px 3px rgba( black, 0.5 );
+        }
+    }
+
+    &.footer
+    {
+        border-top: 1px solid $terror-color;
+        padding: 16px;
+        backdrop-filter: $blur;
+        position: relative;
+        align-items: center;
+    }
+}
+
 .layout
 {
     &.padding
@@ -50,6 +86,11 @@ $hud-deadzone-y: 16px;
     &.gap, &.with-gap
     {
         gap: 8px;
+    }
+
+    &.gap-insane, &.with-gap-insane
+    {
+        gap: 64px;
     }
 
     &.flex-grow, &.grow

@@ -47,30 +47,6 @@ MainMenuRoot, PauseMenuRoot
         background-image: linear-gradient( to right, #13192aff 0%, rgba( black, 0 ) 99% );
     }
 
-    > .footer
-    {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 48px;
-        flex-shrink: 0;
-        padding-right: 8px;
-        align-items: center;
-
-        .logo
-        {
-            width: 32px;
-            height: 32px;
-            mask-mode: luminance;
-            background-color: rgba( 255, 255, 255, 1 );
-            mask-position: center;
-            mask-size: 32px;
-            opacity: 0.3;
-            mask-image: url( ui/fp.png );
-        }
-    }
-
     > .navigator-canvas
     {
         flex-direction: column;
@@ -114,14 +90,6 @@ LandingPage
         pointer-events: all;
         height: 128px;
     }
-
-    &:hover
-    {
-        .logo
-        {
-            animation: logoanim 2s linear infinite;
-        }
-    }
 }
 
 .navigator-body
@@ -130,20 +98,12 @@ LandingPage
 
     .logo
     {
-        left: -32px;
-        top: -32px;
-        width: 256px;
-        pointer-events: all;
-        height: 128px;
+        position: relative;
+        width: 128px;
+        aspect-ratio: 2;
         flex-shrink: 0;
-    }
-
-    &:hover
-    {
-        .logo
-        {
-            animation: logoanim 2s linear infinite;
-        }
+        top: -4px;
+        margin-left: -30px;
     }
 }
 

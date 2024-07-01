@@ -1,0 +1,22 @@
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+
+<root class="@(IsSelected ? "selected" : "")">
+    <label>@Lobby.Name</label>
+    <div class="grow" />
+    <label>@Lobby.Map</label>
+    <label>@(Lobby.Members) / @(Lobby.MaxMembers)</label>
+</root>
+
+@code
+{
+    public Lobby Lobby { get; set; }
+    public Action<Lobby> OnSelected { get; set; }
+
+    public bool IsSelected { get; set; }
+
+    protected override void OnClick( MousePanelEvent e )
+    {
+        OnSelected?.Invoke( Lobby );
+    }
+}
