@@ -1,0 +1,45 @@
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+
+<root>
+    <div @ref="Overlay" class="overlay mask-scope" />
+
+    @if ( Player.IsValid() && !Player.InPlayArea )
+    {
+        <div class="warning">
+            <label class="important">Return to the AO</label>
+            <label class="important">@Elapsed</label>
+        </div>
+    }
+
+</root>
+
+@code
+{
+    public Panel Overlay { get; set; }
+    public PlayerPawn Player => PlayerState.Viewer.Pawn as PlayerPawn;
+
+    public string Elapsed => TimeSpan.FromSeconds( Player.TimeUntilPlayAreaKill ).ToString( @"ss\:fff" );
+
+    float GetOpacity()
+    {
+        if (Player.InPlayArea) return 0f;
+        return 1f;
+    }
+
+    public override void Tick()
+    {
+        if ( Overlay.IsValid() )
+        {
+            Overlay.Style.Opacity = GetOpacity();
+        }
+    }
+
+    protected override int BuildHash()
+    {
+        if ( !Player.IsValid() ) return 1;
+
+        return HashCode.Combine( Time.Now );
+        //return HashCode.Combine( Player.InPlayArea, Player.TimeUntilPlayAreaKill );
+    }
+}

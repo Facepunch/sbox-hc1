@@ -600,6 +600,40 @@
         "Description": "Team vs. Team mode where respawns are immediate. Highest scoring team wins.",
         "Title": "Team Deathmatch"
       }
+    },
+    {
+      "__guid": "97fd44cf-b710-4979-b7f9-c41fc93cf4bb",
+      "Flags": 0,
+      "Name": "Play Area",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Zone",
+          "__guid": "2f2e4d30-0b4c-4a6a-aea9-e32d3b56a461",
+          "Color": "1,1,1,1"
+        },
+        {
+          "__type": "Facepunch.PlayArea",
+          "__guid": "a7b95c3a-206c-4641-b0b9-b21b7f8c97c8",
+          "KillTime": 5,
+          "Zone": {
+            "_type": "component",
+            "component_id": "2f2e4d30-0b4c-4a6a-aea9-e32d3b56a461",
+            "go": "97fd44cf-b710-4979-b7f9-c41fc93cf4bb",
+            "component_type": "Zone"
+          }
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "c2f39499-5987-42f6-b5ab-eb8a330a45a4",
+          "Center": "168.8,0,0",
+          "IsTrigger": true,
+          "Scale": "3000,2500,1250",
+          "Static": true
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -625,7 +659,7 @@
   },
   "Title": "Edinburgh",
   "Description": "",
-  "LastSaved": "2024-06-29T16:30:21.9539953\u002B01:00",
+  "LastSaved": "2024-07-01T09:11:59.0980737\u002B01:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

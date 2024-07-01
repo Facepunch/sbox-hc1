@@ -165,6 +165,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription
 
 		_previousVelocity = cc.Velocity;
 
+		UpdatePlayArea();
 		UpdateUse();
 		BuildWishInput();
 		BuildWishVelocity();
@@ -173,5 +174,37 @@ public sealed partial class PlayerPawn : Pawn, IDescription
 		UpdateRecoilAndSpread();
 		ApplyAcceleration();
 		ApplyMovement();
+	}
+
+	[HostSync] public bool InPlayArea { get; set; } = true;
+	[HostSync] public RealTimeUntil TimeUntilPlayAreaKill { get; set; } = 10f;
+	[Property] public float OutOfPlayAreaKillTime { get; set; } = 5f;
+
+	void UpdatePlayArea()
+	{
+		// Don't have any play areas, dont bother.
+		if ( PlayArea.Count < 1 )
+			return;
+
+		var playArea = GetZone<PlayArea>();
+		if ( !playArea.IsValid() )
+		{
+			if ( InPlayArea )
+			{
+				Log.Info( $"No longer in play area, {OutOfPlayAreaKillTime}" );
+				// not in the play area, kill them soon
+				InPlayArea = false;
+				TimeUntilPlayAreaKill = OutOfPlayAreaKillTime;
+			}
+		}
+		else if ( !InPlayArea )
+		{
+			InPlayArea = true;
+		}
+
+		if ( !InPlayArea && TimeUntilPlayAreaKill )
+		{
+			HealthComponent.TakeDamage( new DamageInfo( this as Component, 999, Hitbox: HitboxTags.Chest ) );
+		}
 	}
 }
