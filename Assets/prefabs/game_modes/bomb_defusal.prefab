@@ -233,6 +233,12 @@
               {
                 "__type": "ResetScores",
                 "__guid": "dd0d2444-b755-4db1-8074-3067912a6e62"
+              },
+              {
+                "__type": "Facepunch.TeamAssigner",
+                "__guid": "07759ff2-f643-4a09-859c-579af117267d",
+                "AllowLateJoiners": false,
+                "MaxTeamSize": 5
               }
             ],
             "Children": [
@@ -1074,6 +1080,10 @@
           {
             "Id": "36deea8a-f5b4-4a7b-b9c0-9d2b21f7e032",
             "Property": "MaxTeamSize"
+          },
+          {
+            "Id": "07759ff2-f643-4a09-859c-579af117267d",
+            "Property": "MaxTeamSize"
           }
         ]
       },
@@ -1190,6 +1200,18 @@
           {
             "Id": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
             "Property": "LoadoutsEnabled"
+          }
+        ]
+      },
+      {
+        "Id": "AllowLateJoiners",
+        "Title": "Allow Late Joiners",
+        "Description": "Let people join a after a match starts.",
+        "Group": "Setup",
+        "Targets": [
+          {
+            "Id": "07759ff2-f643-4a09-859c-579af117267d",
+            "Property": "AllowLateJoiners"
           }
         ]
       }

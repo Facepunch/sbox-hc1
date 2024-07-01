@@ -71,7 +71,10 @@ public sealed class TeamAssigner : Component,
 
 	void IGameEventHandler<PlayerJoinedEvent>.OnGameEvent( PlayerJoinedEvent eventArgs )
 	{
-		// Calling this will invoke callbacks for any ITeamAssignedListener listeners.
-		eventArgs.Player.AssignTeam( eventArgs.Player.Team );
+		if ( AllowLateJoiners )
+		{
+			// Calling this will invoke callbacks for any ITeamAssignedListener listeners.
+			eventArgs.Player.AssignTeam( eventArgs.Player.Team );
+		}
 	}
 }
