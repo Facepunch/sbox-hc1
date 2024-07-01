@@ -5074,6 +5074,41 @@
           ]
         }
       ]
+    },
+    {
+      "__guid": "992edeb8-76c1-42ad-ab92-6f1457ebfb77",
+      "Flags": 0,
+      "Name": "Play Area",
+      "Position": "-2128,224,0",
+      "Tags": "zone",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Zone",
+          "__guid": "6f8c6047-777f-476b-a724-5afa2ca1bbb6",
+          "Color": "1,1,1,1"
+        },
+        {
+          "__type": "Facepunch.PlayArea",
+          "__guid": "c5473d2e-df7a-4a7b-95bc-c80c6043a822",
+          "Zone": {
+            "_type": "component",
+            "component_id": "6f8c6047-777f-476b-a724-5afa2ca1bbb6",
+            "go": "992edeb8-76c1-42ad-ab92-6f1457ebfb77",
+            "component_type": "Zone"
+          }
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "451c0c01-7bf2-4857-9ce5-be6e35addf54",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "6000,5000,1250",
+          "Static": true
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -5099,7 +5134,7 @@
   },
   "Title": "Refinery",
   "Description": "",
-  "LastSaved": "2024-06-29T12:29:32.0248263\u002B01:00",
+  "LastSaved": "2024-07-01T09:36:22.7319203\u002B01:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
