@@ -183,7 +183,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription
 	void UpdatePlayArea()
 	{
 		// Don't have any play areas, dont bother.
-		if ( PlayArea.Count < 1 )
+		if ( Scene.GetSystem<PlayAreaSystem>().Count < 1 )
 			return;
 
 		var playArea = GetZone<PlayArea>();

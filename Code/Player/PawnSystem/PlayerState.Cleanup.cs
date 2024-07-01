@@ -22,8 +22,8 @@ public partial class PlayerState : Component.INetworkListener
 
 	protected override void OnUpdate()
 	{
-		if ( !IsProxy ) return;
 		if ( IsConnected ) return;
+		if ( IsProxy ) return;
 
 		if ( TimeSinceDisconnected > DisconnectCleanupTime )
 		{

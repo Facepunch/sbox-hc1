@@ -121,7 +121,7 @@ public partial class PlayerPawn
 			CharacterController.Velocity = Vector3.Zero;
 	}
 
-	[Broadcast(NetPermission.HostOnly)]
+	[Broadcast( NetPermission.HostOnly )]
 	private void CreateRagdoll()
 	{
 		if ( !Body.IsValid() )
