@@ -11,6 +11,8 @@ public sealed class PlayerScore : Component,
 	IGameEventHandler<BombDetonatedEvent>,
 	IGameEventHandler<BombPlantedEvent>
 {
+	[Property] public PlayerState PlayerState { get; set; }
+
 	[HostSync, Property, ReadOnly] 
 	public int Kills { get; set; } = 0;
 
@@ -53,7 +55,8 @@ public sealed class PlayerScore : Component,
 		if ( !damageInfo.Attacker.IsValid() ) return;
 		if ( !damageInfo.Victim.IsValid() ) return;
 
-		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
+		var thisPlayer = PlayerState?.PlayerPawn;
+		if ( !thisPlayer.IsValid() ) return;
 
 		var killerPlayer = GameUtils.GetPlayerFromComponent( damageInfo.Attacker );
 		var victimPlayer = GameUtils.GetPlayerFromComponent( damageInfo.Victim );
