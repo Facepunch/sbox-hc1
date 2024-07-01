@@ -1,0 +1,144 @@
+@import "/UI/Styles/Theme.scss";
+
+Page
+{
+    flex-grow: 1;
+    flex-shrink: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+
+    .header
+    {
+        flex-direction: column;
+        flex-shrink: 0;
+    }
+
+    .subheader
+    {
+        flex-direction: column;
+        flex-shrink: 0;
+        background-image: linear-gradient( to right, rgba( black, 0.75 ), rgba( black, 0 ) );
+    }
+
+    .align-center
+    {
+        align-items: center;
+    }
+
+    .line
+    {
+        position: relative;
+        width: 100%;
+        height: 1px;
+        background-color: rgba( $terror-color, 0.75 );
+
+        &.fade
+        {
+            background-color: transparent;
+            background-image: linear-gradient( to right, rgba( $terror-color, 0.75 ), rgba( $terror-color, 0 ) 50% );
+        }
+    }
+
+    .body
+    {
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .inset
+    {
+        position: relative;
+        margin-left: 64px;
+        margin-right: 64px;
+    }
+
+    .inset-top
+    {
+        margin-top: 16px;
+    }
+
+    .inset-bottom
+    {
+        margin-top: 32px;
+    }
+
+    .footer
+    {
+        flex-direction: column;
+        flex-shrink: 0;
+    }
+
+    .absolute
+    {
+        position: absolute;
+    }
+
+    .is-me
+    {
+        color: $terror-color;
+    }
+
+    .unready
+    {
+        color: $terror-color;
+    }
+
+    .party-info
+    {
+        top: -34px;
+    }
+
+    .party-deck
+    {
+        position: relative;
+    }
+
+    .ready-status
+    {
+        top: 64px;
+    }
+
+    .row
+    {
+        flex-direction: row;
+        gap: 8px;
+
+        &.with-bg
+        {
+            background-color: rgba( black, 0.5 );
+            backdrop-filter: blur( 15px );
+        }
+    }
+
+    .column
+    {
+        flex-direction: column;
+
+        &.with-gap
+        {
+            gap: 8px;
+        }
+
+        &.with-bg
+        {
+            background-color: rgba( black, 0.5 );
+            backdrop-filter: blur( 15px );
+        }
+    }
+
+    .logo
+    {
+        align-items: center;
+
+        img
+        {
+            width: 128px;
+            height: 71px;
+        }
+    }
+}

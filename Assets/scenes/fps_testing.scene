@@ -2,55 +2,14 @@
   "__guid": "90a2c641-2bda-4f1b-9cca-8dd10ef5e1cc",
   "GameObjects": [
     {
-      "__guid": "0f04ee6a-6956-44a5-851e-aa6b5151fa34",
+      "__guid": "e237b3b6-67f2-4a25-abba-103a472e15d2",
       "Flags": 0,
-      "Name": "GameNetworkManager",
-      "Position": "-403.784,-123.1075,41.92808",
+      "Name": "game_setup (1)",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Facepunch.GameNetworkManager",
-          "__guid": "b7996461-15c3-4a17-97fa-ad71cef223d7",
-          "IsMultiplayer": true,
-          "PlayerStatePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/player/playerstate.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "a6e992cd-dd4a-4f22-a9d9-2f64c2bbeaf1",
-      "Flags": 0,
-      "Name": "HUD",
-      "Position": "149.995,149.995,-212.125",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Facepunch.UI.MainHUD",
-          "__guid": "6e28300f-85b3-481c-bb45-5cdc65f0350e"
-        },
-        {
-          "__type": "Chat",
-          "__guid": "3dcc6fe9-cfb0-485f-8e28-ac3c98b489c6"
-        },
-        {
-          "__type": "Facepunch.UI.DeveloperMenu",
-          "__guid": "0c29bdc3-e2f8-47d3-b608-c404b7f0074e"
-        },
-        {
-          "__type": "Sandbox.ScreenPanel",
-          "__guid": "b806cc9e-01c0-4bda-955f-03022c8a2b44",
-          "AutoScreenScale": true,
-          "Opacity": 1,
-          "Scale": 1,
-          "ZIndex": 100
-        }
-      ]
+      "__Prefab": "scenes/maps/defusemap_01/game_setup.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "c412d993-fb43-4fbd-b441-5eb3e2fda96a",
@@ -65,53 +24,6 @@
         "Description": "Team v. Team mode where respawns are immediate. Highest scoring team wins.",
         "Title": "Team Deathmatch"
       }
-    },
-    {
-      "__guid": "e50408e9-d0fa-4d23-83bf-e40665036556",
-      "Flags": 0,
-      "Name": "ScreenShaker",
-      "Position": "215.4145,21.87663,-207.636",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Facepunch.ScreenShaker",
-          "__guid": "b492001d-6beb-4214-9759-d0ace3701075"
-        }
-      ]
-    },
-    {
-      "__guid": "ff1674f1-47a7-459e-8f55-c5ffb2f87286",
-      "Flags": 0,
-      "Name": "Spectating",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Facepunch.SpectateSystem",
-          "__guid": "88a29c48-5557-4dd0-81fd-39307de1b7a9",
-          "FreecamController": {
-            "_type": "component",
-            "component_id": "bb6a601e-8a6e-4288-8f0a-9c1a203d6dbc",
-            "go": "b620949a-e8b7-4120-8f2c-37eb9815ca42",
-            "component_type": "SpectateController"
-          }
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "b620949a-e8b7-4120-8f2c-37eb9815ca42",
-          "Flags": 0,
-          "Name": "SpectatePawn",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "__Prefab": "prefabs/player/spectate.prefab",
-          "__PrefabVariables": {}
-        }
-      ]
     },
     {
       "__guid": "00344a8c-fa5e-45ae-b12a-10bb781a1dc3",
@@ -4549,7 +4461,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-07-01T10:19:53.8083029\u002B01:00",
+  "LastSaved": "2024-07-01T22:12:57.1969406\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "facepunch.concrete_simple",

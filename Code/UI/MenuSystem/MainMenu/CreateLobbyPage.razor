@@ -7,30 +7,39 @@
 @namespace Facepunch.UI
 
 <root class="hc1">
-    <div class="layout padding-insane column">
-        <div class="logo">
-            <img src="/ui/teams/operators_logo_banner.png" />
-        </div>
-    </div>
+    <Page>
+        <Header>
+            Create a Game
+        </Header>
 
-    <div class="layout flex-grow" />
+        <Body>
+            <div class="layout column">
+                <div class="inset column layout with-background">
+                    <div class="line" />
 
-    <div class="layout padding-insane column gap" style="width: 100%;">
-        <label class="text">Map</label>
-        <MapList SelectedMap:bind=@SelectedMap GameMode:bind=@SelectedGameMode OnSelected=@OnMapSelected />
+                    <div class="layout padding-extra with-gap column">
+                        <label class="text">Map</label>
+                        <MapList SelectedMap:bind=@SelectedMap GameMode:bind=@SelectedGameMode OnSelected=@OnMapSelected />
+                    </div>
+                </div>
 
-        <label class="text">Game mode</label>
-        <GameModeList SelectedGameMode:bind=@SelectedGameMode @ref="GameModeList" />
-    </div>
+                <div class="inset column layout with-background">
+                    <div class="layout padding-extra with-gap column">
+                        <label class="text">Game mode</label>
+                        <GameModeList SelectedGameMode:bind=@SelectedGameMode @ref="GameModeList" />
+                    </div>
 
-    <div class="layout flex-grow" />
+                    <div class="line" />
+                </div>
+            </div>
+        </Body>
 
-    <div class="layout padding-insane column" style="width: 30%;">
-        <div class="layout column gap">
+        <Footer>
+            <div style="flex-grow: 1;" />
             <div class="button standard" onclick=@Join>start game</div>
-            <a class="button standard" href="/">Back</a>
-        </div>
-    </div>
+        </Footer>
+    </Page>
+
 </root>
 
 @code

@@ -2,10 +2,10 @@
 @attribute [StyleSheet]
 
 <root class="@(IsSelected ? "selected" : "")">
-    <label>@Lobby.Name</label>
+    <label class="small">@Lobby.Name</label>
     <div class="grow" />
-    <label>@Lobby.Map</label>
-    <label>@(Lobby.Members) / @(Lobby.MaxMembers)</label>
+    <label class="small">@Lobby.Map</label>
+    <label class="small">@(Lobby.Members) / @(Lobby.MaxMembers)</label>
 </root>
 
 @code

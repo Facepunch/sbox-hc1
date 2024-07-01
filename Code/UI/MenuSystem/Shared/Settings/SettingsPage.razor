@@ -5,41 +5,48 @@
 @namespace Facepunch.UI
 
 <root class="hc1">
-    <div class="layout column padding-insane">
-        <div class="logo">
-            <img src="/ui/teams/operators_logo_banner.png" />
-        </div>
-    </div>
+    <Page>
+        <Header>
+            <div class="row gap align-center layout grow">
+                <label>Settings</label>
+            </div>
+        </Header>
 
-    <div class="layout padding-insane-x with-scroll-x row with-gap" style="padding-bottom: 16px;">
-            @foreach ( var grouping in TypeLibrary.GetPropertyDescriptions( GameSettingsSystem.Current ).GroupBy( x => x.Group )  )
+        <SubHeader>
+            @foreach (var grouping in TypeLibrary.GetPropertyDescriptions(GameSettingsSystem.Current).GroupBy(x => x.Group))
             {
-                <div class="button standard no-anim extra-x-padding @(SelectedGroup == grouping.Key ? "selected" : "")" onclick=@(() => SetGroup( grouping.Key ) )>@grouping.Key</div>
+                <div class="button standard smaller no-anim extra-x-padding @(SelectedGroup == grouping.Key ? "selected" : "")" onclick=@(() => SetGroup( grouping.Key ) )>@grouping.Key</div>
             }
-    </div>
+        </SubHeader>
 
-    <div class="layout padding-insane-x with-scroll with-gap column">
-        @if ( !string.IsNullOrEmpty( SelectedGroup ) )
-        {
-            @foreach ( var property in TypeLibrary.GetPropertyDescriptions( GameSettingsSystem.Current ).Where( x => x.Group == SelectedGroup ) )
-            {
-                <SettingEntry Target=@GameSettingsSystem.Current Description=@property />
-            }
-        }
-    </div>
+        <Body>
+            <div class="layout column">
+                <div class="layout padding-insane-x with-scroll column">
+                    <div class="line" />
 
-    <div class="layout flex-grow" />
+                    <div class="column with-bg layout padding-extra with-gap">
+                        @if ( !string.IsNullOrEmpty( SelectedGroup ) )
+                        {
+                            @foreach ( var property in TypeLibrary.GetPropertyDescriptions( GameSettingsSystem.Current ).Where( x => x.Group == SelectedGroup ) )
+                            {
+                                <SettingEntry Target=@GameSettingsSystem.Current Description=@property />
+                            }
+                        }
+                    </div>
 
-    <div class="layout padding-insane column" style="width: 30%;">
-        <div class="layout column gap">
+                    <div class="line" />
+                </div>
+            </div>
+        </Body>
+
+        <Footer>
+            <div style="flex-grow: 1;" />
             <div class="button standard" onclick=@(() => Game.Overlay.ShowBinds())>
                 EDIT INPUT BINDINGS
             </div>
-
             <button class="button standard" onclick=@(()=>Save())>Save</button>
-            <a class="button standard" href="/">Back</a>
-        </div>
-    </div>
+        </Footer>
+    </Page>
 </root>
 
 @code

@@ -1,6 +1,6 @@
 @namespace Facepunch.UI
 
-<root class="layout with-gap">
+<root class="layout with-gap wrap">
     @foreach ( var map in MapSystem.All )
     {
         <MapCard Map=@map Selected=@( SelectedMap == map ) OnSelected=@DoSelect />

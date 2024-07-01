@@ -7,10 +7,10 @@
 <root>
     <div class="list">
         <div class="header">
-            <label>Name</label>
+            <label class="small slight">Name</label>
             <div class="grow" />
-            <label>Map</label>
-            <label>Players</label>
+            <label class="small slight">Map</label>
+            <label class="small slight">Players</label>
         </div>
 
         <div class="servers">
@@ -32,13 +32,13 @@
                 @if (IsSearching)
                 {
                     <div class="flex align-center justify-center">
-                        <label class="vital">Looking for servers...</label>
+                        <label class="small slight" style="margin-top: 32px;">Looking for servers...</label>
                     </div>
                 }
                 else if (FetchedLobbies.Count() < 1)
                 {
                     <div class="flex align-center justify-center">
-                        <label class="vital">No servers found...</label>
+                        <label class="small slight" style="margin-top: 32px;">No servers found...</label>
                     </div>
                 }
                 @foreach ( var lobby in FetchedLobbies )
@@ -52,7 +52,7 @@
 
     <div class="current">
         <div class="header">
-            Server
+            <label class="small slight">Server</label>
         </div>
 
         <div class="layout column padding-extra gap">

@@ -5,28 +5,24 @@
 @implements INavigatorPage
 @namespace Facepunch.UI
 
-<root class="hc1 layout padding-insane">
-    <div class="page header">
-        <img class="logo" src="/ui/teams/operators_logo_banner.png" />
+<root class="hc1">
+    <Page>
+        <Header>
+            Server Browser
+        </Header>
 
-        <div class="divider" />
+        <Body>
+            <div class="layout grow padding-insane">
+                <ServerBrowser CurrentLobby:bind=@Lobby  @ref="Browser" />
+            </div>
+        </Body>
 
-        <label class="title">SERVER BROWSER</label>
-    </div>
-
-    <div class="flex grow">
-        <ServerBrowser CurrentLobby:bind=@Lobby  @ref="Browser" />
-    </div>
-
-    <div class="page footer">
-        <div class="layout row gap flex-grow">
-            <a class="button standard" href="/">back</a>
-            <div style="flex-grow: 1;"/>
-            <div class="button standard" onclick=@(() => Create())>Create a server</div>
+        <Footer>
+            <div style="flex-grow: 1;" />
             <div class="button standard" onclick=@(() => Refresh())>refresh</div>
             <div class="button standard @(Lobby.HasValue ? "" : "no-anim disabled")" onclick=@(() => Join())>Connect</div>
-        </div>
-    </div>
+        </Footer>
+    </Page>
 </root>
 
 @code

@@ -5,20 +5,26 @@
 @namespace Facepunch.UI
 
 <root class="hc1">
-    <div class="layout padding-insane column">
-        <div class="logo">
-            <img src="/ui/teams/operators_logo_banner.png" />
-        </div>
-    </div>
+    <Page>
+        <Header>
 
-    <div class="layout flex-grow" />
+        </Header>
 
-    <div class="layout padding-insane column" style="width: 30%;">
-        <div class="layout column gap">
-            <a class="button standard" href="/settings">Settings</a>
-            <button class="button standard" onclick=@Disconnect>Disconnect</button>
-        </div>
-    </div>
+        <Body>
+            <div class="inset column layout with-background" style="width: 15%;">
+                <div class="line" />
+                <div class="layout padding-extra with-gap column">
+                    <button class="button standard" onclick=@(()=>Disconnect())><i>play_circle_outline</i>Disconnect</button>
+                </div>
+
+                <div class="line" />
+            </div>
+        </Body>
+
+        <Footer>
+            
+        </Footer>
+    </Page>
 </root>
 
 @code

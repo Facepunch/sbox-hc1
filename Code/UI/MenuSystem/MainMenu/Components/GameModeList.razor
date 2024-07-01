@@ -2,7 +2,7 @@
 
 @if ( GameModes is null ) return;
 
-<root class="layout with-gap">
+<root class="layout with-gap wrap">
     @foreach ( var gameMode in GameModes )
     {
         <GameModeCard GameMode=@gameMode Selected=@( SelectedGameMode == gameMode ) OnSelected=@DoSelect />

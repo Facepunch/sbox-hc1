@@ -108,7 +108,13 @@
         if ( !Scene.IsValid() ) 
             return;
 
-        var camera = ( PlayerState.Viewer.PlayerPawn )?.CameraController.Camera ?? Scene.Camera;
+        PlayerPawn pawn = null;
+        if ( PlayerState.Viewer.IsValid() && PlayerState.Viewer.PlayerPawn.IsValid() )
+        {
+            pawn = PlayerState.Viewer.PlayerPawn;
+        }
+
+        var camera = pawn.IsValid() ? pawn.CameraController.Camera : Scene.Camera;
         if ( !camera.IsValid() )
             return;
 
@@ -144,7 +150,17 @@
             StateHasChanged();
     }
 
-    private PlayerPawn Player => PlayerState.Viewer?.PlayerPawn;
+    private PlayerPawn Player
+    {
+        get 
+        {
+            if ( PlayerState.Viewer.IsValid() && PlayerState.Viewer.PlayerPawn.IsValid() ) 
+            {
+                return PlayerState.Viewer.PlayerPawn;
+            }
+            return null;
+        }
+    }
 
     private float CalculateOpacity()
     {

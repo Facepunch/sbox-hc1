@@ -1,0 +1,212 @@
+@using Sandbox.UI
+@using Sandbox.Razor
+
+@inherits Panel
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+
+<root>
+    <div class="inset-top" />
+
+    <div class="header">
+        <div class="row inset" style="margin-bottom: 4px;">
+            <label class="small slight">Version 0.1</label>
+            <div class="grow" />
+            <label class="small slight">Systems Online</label>
+        </div>
+
+        <div class="line" />
+
+        <div class="row with-bg">
+            <div class="row inset grow">
+                <div class="logo">
+                    <img src="/ui/teams/operators_logo_banner.png" />
+                    <label class="important">HC1</label>
+                </div>
+
+                <div class="align-center" style="margin-left: 16px;">
+                    @if (Header != null)
+                    {
+                        @Header
+                    }
+                </div>
+
+
+                <div class="grow" />
+
+                <div class="row layout with-gap with-padding">
+                    <a class="button standard" href="/settings">
+                        <i>settings</i>
+                        Settings
+                    </a>
+
+                    <div class="button standard" onclick=@(()=>Quit())>
+                        <i>power_settings_new</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="line" />
+    </div>
+
+    @if (SubHeader != null)
+    {
+        <div class="subheader">
+            <div class="row inset grow with-padding">
+                @SubHeader
+            </div>
+            <div class="line fade" />
+        </div>
+    }
+
+    <div class="body">
+        @if ( Body != null )
+        {
+            @Body
+        }
+    </div>
+
+    <div class="footer">
+        <div class="line" />
+
+        <div class="row with-bg">
+            <div class="row inset grow with-gap with-padding">
+
+                @if ( !NoHomeButton )
+                {
+                    <a class="button standard">
+                        <i>home</i>
+                    </a>
+                }
+
+                <div class="party-deck layout with-gap">
+                    <div class="absolute party-info">
+                        @if ( Party is not null )
+                        {
+                            <label class="small slight">@(Party?.Owner)'s party (@(Party?.Members.Count() ?? 1))</label>
+                        }
+                        else
+                        {
+
+                        }
+                    </div>
+
+                    @if ( Party is null )
+                    {
+                        <div class="button standard">
+                            <i class="is-me">visibility</i>
+                            <label class="is-me">DevulTj</label>
+                        </div>
+                    }
+                    else
+                    {
+                        @foreach ( var member in Party.Members )
+                        {
+                            @{
+                                var isMe = member.IsMe;
+                                var isMeStr = isMe ? "is-me" : "";
+                            }
+
+                            <div class="button standard">
+                                <i class="@isMeStr">visibility</i>
+                                <label class="@isMeStr">@member.Name</label>
+
+                                @if ( !NoSocial )
+                                {
+                                    <label class="absolute ready-status small slight">
+                                        Ready
+                                    </label>
+                                }
+                            </div>
+                        }
+
+                        @if ( !NoSocial )
+                        {
+                            <div class="button standard" onclick=@(() => InviteOverlay())>
+                                <i>person_add_alt</i>
+                            </div>
+                        }
+                    }
+                </div>
+
+                @if (Footer != null)
+                {
+                    @Footer
+                }
+
+                <div class="grow">
+
+                </div>
+
+                @if ( !NoSocial )
+                {
+                    @if ( Party is not null )
+                    {
+                        <div class="button standard" onclick=@(() => LeaveParty())>
+                            <i>logout</i>
+                            Leave Party
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="button standard" onclick=@(() => CreateParty())>
+                            <i>group_add</i>
+                            Create Party
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="line" />
+    </div>
+
+    <div class="inset-bottom" />
+</root>
+
+@code
+{
+    public RenderFragment Header { get; set; }
+    public RenderFragment SubHeader { get; set; }
+    public RenderFragment Body { get; set; }
+    public RenderFragment Footer { get; set; }
+
+    public bool NoHomeButton { get; set; }
+    public bool NoSocial { get; set; }
+
+    public PartyRoom Party => PartyRoom.Current;
+
+    public void LeaveParty()
+    {
+        Party?.Leave();
+    }
+
+    public void CreateParty()
+    {
+        PartyRoom.Create( 4, "My Party", true );
+    }
+
+    public void InviteOverlay()
+    {
+        if ( Game.IsEditor )
+        {
+            Facepunch.UI.Toast.Instance.Show( "Menu Overlays not supported in the editor" );
+        }
+
+        Game.Overlay.ShowFriendsList( new Sandbox.Modals.FriendsListModalOptions()
+		{
+			 ShowOfflineMembers = false,
+		} );
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( Party, Party?.Members.Count() );
+    }
+
+    public void Quit()
+    {
+        Game.Close();
+    }
+}

@@ -20,13 +20,16 @@ $button-small-padding: 8px 24px;
         cursor: pointer;
         backdrop-filter: $blur;
         border: 0.8px solid rgba( black, 0.35 );
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
 
         &.smaller
         {
             padding: $button-small-padding;
         }
 
-        label
+        label, i
         {
             text-shadow: 1px 1px 2px rgba( black, 0.5 );
             transition: all 0.1s ease;
@@ -39,7 +42,7 @@ $button-small-padding: 8px 24px;
                 background-color: rgba( white, 1 );
                 sound-in: ui.button.over;
 
-                label
+                label, i
                 {
                     color: black;
                     text-shadow: 1px 1px 2px rgba( black, 0 );
@@ -84,6 +87,17 @@ $button-small-padding: 8px 24px;
             {
                 color: grey;
             }
+        }
+
+
+        label
+        {
+            height: 24px;
+        }
+
+        i
+        {
+            height: 20px;
         }
     }
 }
