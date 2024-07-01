@@ -4,7 +4,7 @@
 <root>
     <div @ref="Overlay" class="overlay mask-scope" />
 
-    @if ( Player.IsValid() && !Player.InPlayArea )
+    @if ( Player.IsValid() && !Player.InPlayArea && Player.HealthComponent.State == LifeState.Alive )
     {
         <div class="warning">
             <label class="important">Return to the AO</label>
