@@ -69,10 +69,10 @@
 
     public void Trigger( DamageInfo damageInfo )
     {
-        if ( damageInfo.Attacker is PlayerPawn attacker )
+        if ( damageInfo.Victim is PlayerPawn victim )
         {
-            var hc = attacker.HealthComponent;
-            var isKill = hc.Health <= 0f;
+            var hc = victim.HealthComponent;
+            var isKill = hc.Health - damageInfo.Damage <= 0f;
             TimeUntilHitmarkerRemove = isKill ? 0.5f : 0.2f;
             Hitmarker.SetClass( "is-kill", isKill );
             Hitmarker.SetClass( "is-headshot", damageInfo.Hitbox.HasFlag( HitboxTags.Head ) );
