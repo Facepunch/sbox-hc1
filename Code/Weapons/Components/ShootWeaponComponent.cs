@@ -210,7 +210,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		decalRenderer.Size = new( size, size, depth );
 
 		// Clean these up between rounds
-		GameObject.Components.Create<DestroyBetweenRounds>();
+		gameObject.Components.Create<DestroyBetweenRounds>();
 
 		// Creates a destruction component to destroy the gameobject after a while
 		gameObject.DestroyAsync( destroyTime );
