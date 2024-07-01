@@ -105,6 +105,9 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// </summary>
 	protected void UpdateRenderMode()
 	{
+		if ( !Owner.IsValid() )
+			return;
+
 		ModelRenderer.RenderType = !Owner.IsViewer 
 			? Sandbox.ModelRenderer.ShadowRenderType.On 
 			: Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
