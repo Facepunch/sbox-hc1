@@ -119,11 +119,11 @@
 
     bool LookingAt => MathF.Abs( Marker.CenterDistance.x ) < 0.1f && MathF.Abs( Marker.CenterDistance.y ) < 0.2f;
 
-    private float MaxEnemyDistance => 512f;
+    private float MaxEnemyDistance => 262144;
 
     SceneTraceResult GetTrace()
     {
-        var distance = Viewer.AimRay.Position.Distance( Player.AimRay.Position );
+        var distance = Viewer.AimRay.Position.DistanceSquared( Player.AimRay.Position );
         if (distance > MaxEnemyDistance) return default;
 
         var direction = (Player.AimRay.Position - Viewer.AimRay.Position).Normal;
