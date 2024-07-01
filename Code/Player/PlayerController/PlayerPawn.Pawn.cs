@@ -26,6 +26,11 @@ public partial class PlayerPawn
 		SetupCamera();
 	}
 
+	protected override void OnEnabled()
+	{
+		Spottable.Team = Team;
+	}
+
 	private void SetupCamera()
 	{
 		// if we're spectating a remote player, use the camera mode preference
