@@ -94,7 +94,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 		}
 
 		// Tags will be better so we can just react to stimuli.
-		Equipment.ViewModel?.ModelRenderer.Set( "b_reload", true );
+		Equipment.ViewModel?.ModelRenderer?.Set( "b_reload", true );
 		Equipment.Owner?.BodyRenderer?.Set( "b_reload", true );
 
 		foreach ( var kv in GetReloadSounds() )
@@ -111,8 +111,8 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 			IsReloading = false;
 
 		// Tags will be better so we can just react to stimuli.
-		Equipment.ViewModel?.ModelRenderer.Set( "b_reload", false );
-		Equipment.Owner?.BodyRenderer.Set( "b_reload", false );
+		Equipment.ViewModel?.ModelRenderer?.Set( "b_reload", false );
+		Equipment.Owner?.BodyRenderer?.Set( "b_reload", false );
 	}
 
 	[Broadcast( NetPermission.OwnerOnly )]
