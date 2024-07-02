@@ -73,6 +73,6 @@ public partial class PlayerPawn
 			Outline.ObscuredColor = Team.GetColor();
 		else
 			Outline.ObscuredColor = PlayerState.Viewer.Team == Team
-				? PlayerColor : Color.Transparent;
+				? PlayerState.PlayerColor : Color.Transparent;
 	}
 }

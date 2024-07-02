@@ -14,11 +14,6 @@ public partial class PlayerPawn
 	public override bool IsLocallyControlled => base.IsLocallyControlled && !PlayerState.IsBot;
 
 	/// <summary>
-	/// Unique colour or team colour of this player
-	/// </summary>
-	public Color PlayerColor => PlayerColors.Instance?.GetColor(this) ?? Team.GetColor();
-
-	/// <summary>
 	/// Called when possessed.
 	/// </summary>
 	public override void OnPossess()

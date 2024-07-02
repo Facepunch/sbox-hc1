@@ -32,7 +32,7 @@
 {
     public PlayerState Player { get; set; }
     public bool IsFriendly => PlayerState.Local.IsFriendly(Player);
-    public Color PlayerColor => Player.PlayerPawn.IsValid() ? Player.PlayerPawn.PlayerColor : Color.White;
+    public Color PlayerColor => Player.PlayerPawn.IsValid() ? Player.PlayerColor : Color.White;
 
     public bool ShowBomb { get; set; } = true;
     public bool ShowHealth { get; set; } = true;
@@ -49,12 +49,11 @@
 
     protected override int BuildHash()
     {
-        int hash = HashCode.Combine(Player, IsFriendly);
+        var hash = HashCode.Combine( Player, IsFriendly );
 
-        if (Player.PlayerPawn.IsValid())
-        {
-            hash = HashCode.Combine(hash, Player.PlayerPawn.HealthComponent.Health, Player.PlayerPawn.HealthComponent.State, Player.PlayerPawn.PlayerColor);
-        }
+        if ( Player.PlayerPawn.IsValid() )
+            hash = HashCode.Combine(hash, Player.PlayerPawn.HealthComponent.Health, Player.PlayerPawn.HealthComponent.State, Player.PlayerColor);
+        
         return hash;
     }
 }

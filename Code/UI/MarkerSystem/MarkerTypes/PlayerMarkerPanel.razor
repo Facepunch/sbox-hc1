@@ -115,7 +115,7 @@
     public PlayerPawn Player => Object?.GameObject?.Components?.Get<PlayerPawn>();
     private PlayerPawn Viewer => PlayerState.Viewer.PlayerPawn;
     public Color MarkerColor => !Friendly ? Color.Red : Player.Team.GetColor();
-    public Color PersonalColor => !Friendly ? Color.Red : Player.PlayerColor;
+    public Color PersonalColor => !Friendly ? Color.Red : Player.PlayerState.PlayerColor;
 
     bool LookingAt => MathF.Abs( Marker.CenterDistance.x ) < 0.1f && MathF.Abs( Marker.CenterDistance.y ) < 0.2f;
 

@@ -55,6 +55,7 @@ public partial class PlayerState : Component
 	/// The team this player is on.
 	/// </summary>
 	[Property, Group( "Setup" ), HostSync, Change( nameof( OnTeamPropertyChanged ) )]
+	
 	public Team Team { get; set; }
 
 	/// <summary>
@@ -66,6 +67,11 @@ public partial class PlayerState : Component
 	/// Is this the local player for this client
 	/// </summary>
 	public bool IsLocalPlayer => !IsProxy && !IsBot && Connection == Connection.Local;
+	
+	/// <summary>
+	/// Unique colour or team color of this player
+	/// </summary>
+	public Color PlayerColor => PlayerColors.Instance?.GetColor( this ) ?? Team.GetColor();
 
 	/// <summary>
 	/// The main PlayerPawn of this player if one exists, will not change when the player possesses gadgets etc. (synced)
