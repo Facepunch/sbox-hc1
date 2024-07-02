@@ -16,10 +16,13 @@ public partial class AimWeaponComponent : InputWeaponComponent
 		if ( Tags.Has( "no_aiming" ) ) return false;
 		// if ( Tags.Has( "reloading" ) ) return false;
 
+		if ( !Player.IsValid() )
+			return false;
+
 		// Player controller
-		if ( !Player?.IsGrounded ?? false ) return false;
-		if ( Player?.IsSprinting ?? false ) return false;
-		if ( Player?.Tags.Has( "no_aiming" ) ?? false ) return false;
+		if ( !Player.IsGrounded ) return false;
+		if ( Player.IsSprinting ) return false;
+		if ( Player.Tags.Has( "no_aiming" ) ) return false;
 
 		return true;
 	}
