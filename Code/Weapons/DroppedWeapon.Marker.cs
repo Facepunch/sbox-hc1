@@ -9,6 +9,9 @@ partial class DroppedEquipment : IMinimapIcon
 
 	bool IMinimapElement.IsVisible( Pawn viewer )
 	{
+		if ( Resource.Slot != EquipmentSlot.Special )
+			return false;
+
 		// only showing C4 right now
 		if ( Spottable is not null )
 		{
