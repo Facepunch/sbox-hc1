@@ -13,16 +13,32 @@ public sealed class SoundEmitter : Component
 	[Property] public SoundEvent SoundEvent { get; set; }
 
 	/// <summary>
-	/// Shoulud we follow the current GameObject?
+	/// Should we follow the current GameObject?
 	/// </summary>
 	[Property] public bool Follow { get; set; } = true;
 
+	/// <summary>
+	/// Should the GameObject be destroyed when the sound has finished?
+	/// </summary>
+	[Property] public bool DestroyOnFinish { get; set; } = true;
+	
+	[Property, ToggleGroup( "VolumeModifier", Label = "Volume Modifier" )]
+	public bool VolumeModifier { get; set; } = false;
+	
+	[Property, ToggleGroup( "VolumeModifier" )]
+	public Curve VolumeOverTime { get; set; } = new( new Curve.Frame( 0f, 1f ), new Curve.Frame( 1f, 1f ) );
+
+	[Property, ToggleGroup( "VolumeModifier" )]
+	public float LifeTime { get; set; } = 1f;
+
+	private TimeSince TimeSincePlayed { get; set; }
+	
 	public void Play()
 	{
-		handle?.Stop( 0.0f );
+		handle?.Stop();
 
 		if ( SoundEvent == null ) return;
-
+		TimeSincePlayed = 0f;
 		handle = Sound.Play( SoundEvent, Transform.Position );
 	}
 
@@ -35,15 +51,21 @@ public sealed class SoundEmitter : Component
 	{
 		if ( handle is null ) return;
 
-		// If we stopped playing, kill the game object
+		// If we stopped playing, kill the game object (maybe)
 		if ( handle.IsStopped )
 		{
-			GameObject.Destroy();
+			if ( DestroyOnFinish )
+				GameObject.Destroy();
 		}
 		// Otherwise, let's keep updating the position
 		else if ( Follow )
 		{
 			handle.Position = GameObject.Transform.Position;
+		}
+
+		if ( VolumeModifier )
+		{
+			handle.Volume = VolumeOverTime.Evaluate( TimeSincePlayed / LifeTime );
 		}
 	}
 }
@@ -66,8 +88,11 @@ public static partial class GameObjectExtensions
 
 		var gameObject = self.Scene.CreateObject();
 		gameObject.Name = sndEvent.ResourceName;
-		if ( follow ) gameObject.Parent = self;
-		else gameObject.Transform.World = self.Transform.World;
+		
+		if ( follow )
+			gameObject.Parent = self;
+		else
+			gameObject.Transform.World = self.Transform.World;
 
 		var emitter = gameObject.Components.Create<SoundEmitter>();
 		emitter.SoundEvent = sndEvent;
