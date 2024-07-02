@@ -61,7 +61,7 @@
     }
 
     <div class="body">
-        @if (Body != null)
+        @if ( Body != null )
         {
             @Body
         }
@@ -73,7 +73,7 @@
         <div class="row with-bg">
             <div class="row inset grow with-gap with-padding">
 
-                @if (!NoHomeButton)
+                @if ( !NoHomeButton )
                 {
                     <a class="button standard">
                         <i>home</i>
@@ -82,7 +82,7 @@
 
                 <div class="party-deck layout with-gap">
                     <div class="absolute party-info">
-                        @if (Party is not null)
+                        @if ( Party is not null )
                         {
                             <label class="small slight">@(Party?.Owner)'s party (@(Party?.Members.Count() ?? 1))</label>
                         }
@@ -92,7 +92,7 @@
                         }
                     </div>
 
-                    @if (Party is null)
+                    @if ( Party is null )
                     {
                         <div class="button standard">
                             <i class="is-me">visibility</i>
@@ -101,7 +101,7 @@
                     }
                     else
                     {
-                        @foreach (var member in Party.Members)
+                        @foreach ( var member in Party.Members )
                         {
                             @{
                                 var isMe = member.IsMe;
@@ -112,7 +112,7 @@
                                 <i class="@isMeStr">visibility</i>
                                 <label class="@isMeStr">@member.Name</label>
 
-                                @if (!NoSocial)
+                                @if ( !NoSocial )
                                 {
                                     <label class="absolute ready-status small slight">
                                         Ready
@@ -121,7 +121,7 @@
                             </div>
                         }
 
-                        @if (!NoSocial)
+                        @if ( !NoSocial )
                         {
                             <div class="button standard" onclick=@(() => InviteOverlay())>
                                 <i>person_add_alt</i>
@@ -139,9 +139,9 @@
 
                 </div>
 
-                @if (!NoSocial)
+                @if ( !NoSocial )
                 {
-                    @if (Party is not null)
+                    @if ( Party is not null )
                     {
                         <div class="button standard" onclick=@(() => LeaveParty())>
                             <i>logout</i>
@@ -184,25 +184,25 @@
 
     public void CreateParty()
     {
-        PartyRoom.Create(4, "My Party", true);
+        PartyRoom.Create( 4, "My Party", true );
     }
 
     public void InviteOverlay()
     {
-        if (Game.IsEditor)
+        if ( Game.IsEditor )
         {
-            Facepunch.UI.Toast.Instance.Show("Menu Overlays not supported in the editor");
+            Facepunch.UI.Toast.Instance.Show( "Menu Overlays not supported in the editor" );
         }
 
-        Game.Overlay.ShowFriendsList(new Sandbox.Modals.FriendsListModalOptions()
-            {
-                ShowOfflineMembers = false,
-            });
+        Game.Overlay.ShowFriendsList( new Sandbox.Modals.FriendsListModalOptions()
+		{
+			 ShowOfflineMembers = false,
+		} );
     }
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Party, Party?.Members.Count());
+        return HashCode.Combine( Party, Party?.Members.Count() );
     }
 
     public void Quit()
