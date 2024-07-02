@@ -1,6 +1,6 @@
 @using Sandbox.UI
 @using Sandbox.Razor
-
+@using Sandbox.Utility
 @inherits Panel
 @namespace Facepunch.UI
 @attribute [StyleSheet]
@@ -96,7 +96,7 @@
                     {
                         <div class="button standard">
                             <i class="is-me">visibility</i>
-                            <label class="is-me">DevulTj</label>
+                            <label class="is-me">@Steam.PersonaName</label>
                         </div>
                     }
                     else
