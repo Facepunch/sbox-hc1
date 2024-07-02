@@ -80,6 +80,8 @@ public sealed partial class PlayerPawn : Pawn, IDescription
 		TagBinder.BindTag( "no_aiming", () => IsSprinting || TimeSinceSprintChanged < 0.25f || TimeSinceGroundedChanged < 0.25f );
 
 		GameObject.Name = $"Player ({DisplayName})";
+
+		CameraController.SetActive( IsViewer );
 	}
 
 	public SceneTraceResult CachedEyeTrace { get; private set; }

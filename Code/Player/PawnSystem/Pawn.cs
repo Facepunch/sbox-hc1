@@ -96,8 +96,11 @@ public abstract class Pawn : Component, IRespawnable
 	/// </summary>
 	public void DePossess() => DePossess( this );
 	public static void DePossess( Pawn pawn )
-	{
-		if ( pawn.IsValid() && pawn.IsPossessed )
+	{ 
+		bool wasPossessed = pawn.IsValid() && pawn.IsPossessed;
+		Current = null;
+
+		if ( wasPossessed )
 		{
 			pawn?.OnDePossess();
 
@@ -107,8 +110,6 @@ public abstract class Pawn : Component, IRespawnable
 				pawn.SteamId = 0;
 			}
 		}
-
-		Current = null;
 	}
 
 	public virtual void OnPossess() { }

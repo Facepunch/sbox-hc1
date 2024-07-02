@@ -183,10 +183,6 @@ public partial class PlayerPawn
 
 			CameraController.UpdateFromEyes( _smoothEyeHeight );
 		}
-		else
-		{
-			CameraController.SetActive( false );
-		}
 
 		if ( Body.IsValid() )
 		{

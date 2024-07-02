@@ -13,21 +13,16 @@ public partial class PlayerPawn
 	public override string DisplayName => PlayerState.DisplayName;
 	public override bool IsLocallyControlled => base.IsLocallyControlled && !PlayerState.IsBot;
 
-	/// <summary>
-	/// Called when possessed.
-	/// </summary>
-	public override void OnPossess()
-	{
-		SetupCamera();
-	}
-
 	protected override void OnEnabled()
 	{
 		Spottable.Team = Team;
 	}
 
-	private void SetupCamera()
-	{
+	/// <summary>
+	/// Called when possessed.
+	/// </summary>
+	public override void OnPossess()
+	{ 
 		// if we're spectating a remote player, use the camera mode preference
 		// otherwise: first person for now
 		var spectateSystem = SpectateSystem.Instance;
