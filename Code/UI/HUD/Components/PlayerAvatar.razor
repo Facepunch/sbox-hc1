@@ -3,7 +3,7 @@
 
 @attribute [StyleSheet]
 
-<root class="@AvatarClasses" style="@(IsFriendly && Player.PlayerPawn.IsValid() ? $"box-shadow: 0 0 0 2px {Player.PlayerPawn.PlayerColor.Hex}" : "")">
+<root class="@AvatarClasses" style="@(IsFriendly && Player.PlayerPawn.IsValid() ? $"box-shadow: 0 0 0 2px {PlayerColor.Hex}" : "")">
     <div class="avatar">
         <img class="image" src="avatar:@Player.SteamId" />
     </div>
@@ -32,6 +32,7 @@
 {
     public PlayerState Player { get; set; }
     public bool IsFriendly => PlayerState.Local.IsFriendly(Player);
+    public Color PlayerColor => Player.PlayerPawn.IsValid() ? Player.PlayerPawn.PlayerColor : Color.White;
 
     public bool ShowBomb { get; set; } = true;
     public bool ShowHealth { get; set; } = true;
