@@ -22,7 +22,12 @@
       {
         "__type": "Facepunch.SmokeGrenade",
         "__guid": "bd0a943d-9e14-456d-a557-d7a1c2fb545e",
-        "Lifetime": 3
+        "FuseEffectDelay": 1.5,
+        "Lifetime": 3,
+        "PrefabOnExplode": {
+          "_type": "gameobject",
+          "prefab": "weapons/throwable/m18_smoke_grenade/smoke_particles.prefab"
+        }
       },
       {
         "__type": "Sandbox.BoxCollider",
@@ -32,6 +37,10 @@
         "Scale": "2.5,2.5,5.5",
         "Static": false,
         "Surface": "weapons/throwable/m18_smoke_grenade/smoke_grenade.surface"
+      },
+      {
+        "__type": "DestroyBetweenRounds",
+        "__guid": "1437420e-c288-4150-a4a7-837a64cf9409"
       }
     ],
     "Children": [
@@ -53,7 +62,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

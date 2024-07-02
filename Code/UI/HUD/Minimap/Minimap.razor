@@ -18,8 +18,8 @@
                         if (!volume.IsValid() || (PlayerState.Viewer.Pawn is PlayerPawn player && !volume.IsVisible( player )))
                             continue;
                             
-                        <div class="volume" style="@GetBox(volume) @GetBoxStyles(volume)" >
-                            <div class="bg" style="@GetLineStyles(volume)" />
+                        <div class="volume" style="@GetBox( volume ) @GetBoxStyles( volume )" >
+                            <div class="bg" style="@GetLineStyles( volume )" />
                         </div>
                     }
                 </div>
@@ -46,9 +46,10 @@
 
                     <div class="marker" style="background-image: url( @icon.IconPath ); @style z-index: @icon.IconOrder;" />
                 }
-                if (element is IMinimapLabel label)
+                
+                if ( element is IMinimapLabel label )
                 {
-                    <div class="label" style="@WorldToMap(label.WorldPosition) @LabelStyles( label )">
+                    <div class="label" style="@WorldToMap( label.WorldPosition ) @LabelStyles( label )">
                         @label.Label
                     </div>
                 }
