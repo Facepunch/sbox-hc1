@@ -150,7 +150,7 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEven
 
 	// Damage Acceleration
 	[Property, Group( "Damage Acceleration" )] public float TakeDamageAccelerationDampenTime { get; set; } = 1f;
-	[Property, Group( "Damage Acceleration" )] public float TakeDamageAccelerationOffset { get; set; } = 0.3f;
+	[Property, Group( "Damage Acceleration" )] public float TakeDamageAccelerationOffset { get; set; } = 0.5f;
 
 	/// <summary>
 	/// Apply armor and helmet damage modifications.
