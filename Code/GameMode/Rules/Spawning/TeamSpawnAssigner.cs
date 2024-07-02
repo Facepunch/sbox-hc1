@@ -21,7 +21,7 @@ public sealed class TeamSpawnAssigner : Component,
 
 		if ( spawns.Count == 0 && player.Team != Team.Unassigned )
 		{
-			Log.Error( $"No spawn points for team {team}!" );
+			Log.Warning( $"No spawn points for team {team}!" );
 			return GameUtils.GetRandomSpawnPoint(Team.Unassigned);
 		}
 
