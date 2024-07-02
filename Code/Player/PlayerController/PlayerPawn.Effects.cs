@@ -34,7 +34,10 @@ public partial class PlayerPawn
 
 	private bool IsOutlineVisible()
 	{
-		if ( (this as Pawn).IsPossessed )
+		if ( !HealthComponent.IsValid() )
+			return false;
+
+		if ( IsPossessed )
 			return false;
 
 		if ( HealthComponent.State != LifeState.Alive )
@@ -49,7 +52,8 @@ public partial class PlayerPawn
 		if ( HealthComponent.IsGodMode )
 			return true;
 
-		return Team == PlayerState.Viewer?.Team;
+		var viewer = PlayerState.Viewer;
+		return !viewer.IsValid() || Team == viewer.Team;
 	}
 
 	private void UpdateOutline()

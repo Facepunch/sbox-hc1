@@ -14,7 +14,7 @@ public abstract class EquipmentComponent : Component
 	/// <summary>
 	/// The player.
 	/// </summary>
-	protected PlayerPawn Player { get; set; }
+	protected PlayerPawn Player => Equipment.Owner;
 
 	protected void BindTag( string tag, Func<bool> predicate ) => Equipment.BindTag( tag, predicate );
 
@@ -22,7 +22,6 @@ public abstract class EquipmentComponent : Component
 	{
 		// Cache the weapon on awake
 		Equipment = Components.Get<Equipment>( FindMode.EverythingInSelfAndAncestors );
-		Player = Equipment.Owner;
 
 		base.OnAwake();
 	}

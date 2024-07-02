@@ -153,10 +153,12 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		}
 
 		// Third person
-		Equipment.Owner?.BodyRenderer?.Set( "b_attack", true );
+		if ( Equipment.Owner.IsValid() && Equipment.Owner.BodyRenderer.IsValid() )
+			Equipment.Owner.BodyRenderer.Set( "b_attack", true );
 
 		// First person
-		Equipment.ViewModel?.ModelRenderer.Set( "b_attack", true );
+		if ( Equipment.ViewModel.IsValid() )
+			Equipment.ViewModel.ModelRenderer.Set( "b_attack", true );
 	}
 
 	private LegacyParticleSystem CreateParticleSystem( string particle, Vector3 pos, Rotation rot, float decay = 5f )
