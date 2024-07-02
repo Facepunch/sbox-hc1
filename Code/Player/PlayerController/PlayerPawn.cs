@@ -60,7 +60,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription
 	/// <summary>
 	/// Finds the first <see cref="SkinnedModelRenderer"/> on <see cref="Body"/>
 	/// </summary>
-	public SkinnedModelRenderer BodyRenderer => Body.Components.Get<SkinnedModelRenderer>();
+	public SkinnedModelRenderer BodyRenderer => Body?.Components?.Get<SkinnedModelRenderer>();
 
 	// IDescription
 	string IDescription.DisplayName => DisplayName;
