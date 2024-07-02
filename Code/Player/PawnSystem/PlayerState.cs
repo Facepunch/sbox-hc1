@@ -78,8 +78,8 @@ public partial class PlayerState : Component
 	/// </summary>
 	public PlayerPawn PlayerPawn
 	{
-		get => Scene.Directory.FindComponentByGuid( playerPawnGuid ) as PlayerPawn;
-		set => playerPawnGuid = value.Id;
+		get => Scene?.Directory.FindComponentByGuid( playerPawnGuid ) as PlayerPawn;
+		private set => playerPawnGuid = value.Id;
 	}
 	[HostSync, JsonIgnore] private Guid playerPawnGuid { get; set; }
 
@@ -88,8 +88,8 @@ public partial class PlayerState : Component
 	/// </summary>
 	public Pawn Pawn
 	{
-		get => Scene.Directory.FindComponentByGuid( pawnGuid ) as Pawn;
-		set => pawnGuid = value.Id;
+		get => Scene?.Directory.FindComponentByGuid( pawnGuid ) as Pawn;
+		private set => pawnGuid = value.Id;
 	}
 	[Sync, JsonIgnore] private Guid pawnGuid { get; set; } = Guid.Empty;
 
