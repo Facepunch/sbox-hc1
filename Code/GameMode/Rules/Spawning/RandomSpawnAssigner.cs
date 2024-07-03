@@ -7,7 +7,7 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 	/// Use spawns that include at least one of these tags.
 	/// </summary>
 	[Property, Title( "Tags" )]
-	public List<string> SpawnTags { get; private set; } = new();
+	public TagSet SpawnTags { get; private set; } = new();
 
 	/// <summary>
 	/// Avoid spawning within this radius of an enemy player.
