@@ -156,8 +156,7 @@
     public override void Tick()
     {
         var player = Player;
-
-        bool visible = player.IsValid() && player.HealthComponent.State == LifeState.Alive && player.CameraController.Mode == CameraMode.FirstPerson;
+        var visible = player.IsValid() && player.HealthComponent.State == LifeState.Alive && player.CameraController.Mode == CameraMode.FirstPerson;
 
         if ( Equipment.IsValid() && Equipment.Tags.Has( "aiming" ) )
             visible = CrosshairOverride;
@@ -169,10 +168,10 @@
         UpdateDistance();
 
         var currentTrace = player.CachedEyeTrace;
-        if ( currentTrace.Hit )
+        if ( currentTrace.Hit && currentTrace.GameObject.IsValid() )
         {
             var targetPlayer = currentTrace.GameObject.Root.Components.Get<PlayerPawn>();
-            if (targetPlayer.IsValid())
+            if ( targetPlayer.IsValid() )
             {
                 var friendly = targetPlayer.IsFriendly( Player );
                 IsFriendly = friendly;
@@ -191,12 +190,11 @@
         {
             SetClass( "enemy", false );
             SetClass( "friendly", false );
-
         }
     }
 
     protected override int BuildHash()
     {
-        return HashCode.Combine(Time.Now);
+        return HashCode.Combine( Time.Now );
     }
 }
