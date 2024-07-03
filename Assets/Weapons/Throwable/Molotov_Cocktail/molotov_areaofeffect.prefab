@@ -2,8 +2,8 @@
   "RootObject": {
     "__guid": "b8ecd362-c345-47ea-93ad-dc4fd7940528",
     "Flags": 0,
-    "Name": "smoke_particles",
-    "Tags": "particles",
+    "Name": "molotov_areaofeffect",
+    "Tags": "particles,fire",
     "Enabled": true,
     "NetworkMode": 2,
     "NetworkInterpolation": true,
@@ -41,7 +41,7 @@
           "Constants": "1,0,0,0"
         },
         "Bumpiness": {},
-        "Collision": false,
+        "Collision": true,
         "CollisionRadius": 1,
         "Damping": {
           "Constants": "1,0,0,0"
@@ -56,8 +56,6 @@
           "Constants": "1,0,0,0"
         },
         "Gradient": {
-          "Type": "Range",
-          "Evaluation": "Particle",
           "GradientA": {
             "color": [
               {
@@ -76,13 +74,15 @@
             ],
             "alpha": []
           },
-          "ConstantA": "0.33488,0.33488,0.33488,1",
-          "ConstantB": "0.13488,0.13488,0.13488,1"
+          "ConstantA": "1,1,1,1",
+          "ConstantB": "1,1,1,1"
         },
         "Lifetime": {
-          "Constants": "20,0,0,0"
+          "Type": "Range",
+          "Evaluation": "Particle",
+          "Constants": "1,2,0,0"
         },
-        "MaxParticles": 100,
+        "MaxParticles": 50,
         "PerParticleTimeScale": {
           "Constants": "1,0,0,0"
         },
@@ -126,9 +126,11 @@
         "Scale": {
           "Type": "Range",
           "Evaluation": "Particle",
-          "Constants": "150,200,0,0"
+          "Constants": "16,32,0,0"
         },
-        "SequenceId": {},
+        "SequenceId": {
+          "Constants": "1,0,0,0"
+        },
         "SequenceSpeed": {
           "Constants": "1,0,0,0"
         },
@@ -136,7 +138,7 @@
           "Constants": "1,0,0,0"
         },
         "SheetSequence": false,
-        "Space": "World",
+        "Space": "Local",
         "StartVelocity": {
           "Constants": "1,0,0,0"
         },
@@ -160,21 +162,8 @@
         "RotationOffset": 0,
         "Scale": 1,
         "Shadows": false,
-        "SortMode": "ByDistance",
-        "Texture": "materials/particle/particle_smokegrenade.vtex"
-      },
-      {
-        "__type": "Sandbox.ParticleSphereEmitter",
-        "__guid": "2df42b3b-c8c2-4aeb-ade3-195039449a3f",
-        "Burst": 1,
-        "Delay": 0,
-        "DestroyOnEnd": true,
-        "Duration": 20,
-        "Loop": false,
-        "OnEdge": false,
-        "Radius": 150,
-        "Rate": 100,
-        "Velocity": 50
+        "SortMode": "Unsorted",
+        "Texture": "materials/effects/fire_cloud2_color_tga_cc140e7a.generated.vtex"
       },
       {
         "__type": "DestroyBetweenRounds",
@@ -196,6 +185,37 @@
             "x": 1
           }
         ]
+      },
+      {
+        "__type": "Sandbox.ParticleRingEmitter",
+        "__guid": "41fbf6a5-17b1-4dbb-bf19-8ad266e33029",
+        "Angle": {
+          "Constants": "360,0,0,0"
+        },
+        "AngleStart": {},
+        "Burst": 50,
+        "Delay": 0,
+        "DestroyOnEnd": false,
+        "Duration": 5,
+        "Flatness": {},
+        "Loop": true,
+        "Radius": {
+          "Constants": "40,0,0,0"
+        },
+        "Rate": 50,
+        "Thickness": {
+          "Constants": "10,0,0,0"
+        },
+        "VelocityFromCenter": {},
+        "VelocityFromRing": {}
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "f1adc480-00e7-4dbc-9805-5a2d70416e36",
+        "Center": "0,0,0",
+        "IsTrigger": true,
+        "Scale": "80,80,12",
+        "Static": false
       }
     ],
     "Children": [],

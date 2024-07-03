@@ -34,9 +34,7 @@ public abstract class BaseGrenade : Component
 	protected virtual void Explode()
 	{
 		if ( PrefabOnExplode.IsValid() )
-		{
 			PrefabOnExplode.Clone( Transform.Position );
-		}
 
 		if ( IsProxy ) return;
 		GameObject.Destroy();
