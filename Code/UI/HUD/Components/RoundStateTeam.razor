@@ -11,8 +11,7 @@
             <label class="important with-px-lg" style="min-width: 75px; flex-shrink: 0; text-align: center;">@Score</label>
         }
 
-        @* TODO: Gamemode rule *@
-        @if ( PlayerCount <= 10 )
+        @if ( PlayerCount <= MaxPlayers )
         {
             @foreach ( var values in Players )
             {
@@ -48,6 +47,7 @@
     public IconPositions IconPosition { get; set; } = IconPositions.Left;
 
     private int PlayerCount => GameUtils.AllPlayers.Count();
+    private int MaxPlayers => GameMode.Instance?.Get<HudOptions>()?.FullAvatarDisplayPlayerLimit ?? 10;
 
     private string TeamColor => Team.GetColor().Hex;
 
