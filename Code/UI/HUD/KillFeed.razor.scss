@@ -6,42 +6,48 @@ KillFeed
     top: $safe-zone-y;
     right: $safe-zone-x;
     flex-direction: column;
-    gap: 16px;
+    gap: 0px;
     align-items: flex-end;
 
     .entry
     {
-        padding: 0px 16px;
+        padding: 4px 16px;
         gap: 8px;
         justify-content: flex-start;
         align-items: center;
         border-radius: $rounding;
 
-        &.local
-        {
-            border: 1px solid $red;
-            background-color: rgba( $red, 0.1 );
-        }
-
         .method
         {
+            gap: 8px;
             align-items: center;
-
-            .headshot
-            {
-                background-tint: red;
-            }
         }
 
         .icon
         {
             height: 24px;
+            width: 60px;
             justify-content: center;
             align-items: center;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            transform: rotateZ(180deg) rotateX(180deg);
+
+            Icon
+            {
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                transform: rotateZ(180deg) rotateX(180deg);
+            }
+        }
+
+        .attacker, .victim
+        {
+            &.is-me
+            {
+                background-color: rgba( white, 1 );
+                color: black;
+                padding: 2px 10px;
+                border-radius: 2px;
+            }
         }
     }
 }

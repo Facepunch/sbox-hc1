@@ -8,22 +8,19 @@
         <div class="entry">
             @if ( entry.Attacker is not null )
             {
-                @if ( entry.Attacker.StartsWith( "icon:" ) )
-                {
-                    <Icon File="@entry.AttackerIcon" size="24" />
-                }
-                else
-                {
-                    <label style="color:@entry.AttackerColor.Hex">@entry.Attacker</label>
-                }
+                <div class="attacker @(IsMe( entry.Attacker ) ? "is-me" : "")">
+                    @if ( IsMe( entry.Attacker ) )
+                    {
+                        <label style="">@entry.Attacker</label>
+                    }
+                    else
+                    {
+                        <label style="color:@entry.AttackerColor.Hex">@entry.Attacker</label>
+                    }
+                </div>
             }
 
             <div class="method">
-                @if ( entry.HitboxTags.HasFlag( HitboxTags.Head ) )
-                {
-                    <Icon class="headshot" File="/ui/headshot.png" size="24" />
-                }
-
                 @if ( entry.Inflictor is not null )
                 {
                     @if ( entry.Inflictor.StartsWith( "icon:" ) )
@@ -38,6 +35,12 @@
                     {
                         <label>@entry.Inflictor</label>
                     }
+
+                    @if ( entry.HitboxTags.HasFlag( HitboxTags.Head ) )
+                    {
+                        <Icon class="headshot" File="/ui/headshot.png" size="24" />
+                    }
+
                 }
                 else
                 {
@@ -47,14 +50,16 @@
 
             @if ( entry.Victim is not null )
             {
-                @if ( entry.Victim.StartsWith( "icon:" ) )
-                {
-                    <Icon File="@entry.VictimIcon" size="24" />
-                }
-                else
-                {
-                    <label style="color:@entry.VictimColor.Hex">@entry.Victim</label>
-                }
+                <div class="victim">
+                    @if ( IsMe( entry.Victim ) )
+                    {
+                        <label style="">@entry.Victim</label>
+                    }
+                    else
+                    {
+                        <label style="color:@entry.VictimColor.Hex">@entry.Victim</label>
+                    }
+                </div>
             }
         </div>
     }
@@ -69,6 +74,11 @@
         Instance = this;
     }
 
+    public bool IsMe( string name )
+    {
+        return Sandbox.Utility.Steam.PersonaName.Equals( name );
+    }
+
     public record KillFeedEntry( string Attacker, Color AttackerColor, string Inflictor, string Victim, Color VictimColor, HitboxTags HitboxTags, DamageFlags DamageFlags,
         RealTimeSince TimeSinceAdded )
     {
@@ -79,7 +89,7 @@
 
     private List<KillFeedEntry> Entries { get; set; } = new();
 
-    private float Lifetime => 10;
+    private float Lifetime => 666;
 
     [Broadcast] 
     public static void BroadcastKillFeedEvent( string attacker, Color attackerColor, string inflictor, string victim, Color victimColor, HitboxTags tags, DamageFlags flags )

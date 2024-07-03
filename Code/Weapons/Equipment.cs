@@ -81,7 +81,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 
 	// IDescription
 	string IDescription.DisplayName => Resource.Name;
-	string IDescription.Icon => Resource.Icon;
+	// string IDescription.Icon => Resource.Icon;
 
 	/// <summary>
 	/// Is this equipment currently deployed by the player?
