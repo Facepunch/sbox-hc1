@@ -18,26 +18,26 @@
       {
         "__type": "Facepunch.DefaultEquipment",
         "__guid": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
-        "Armor": 0,
-        "BothTeams": true,
-        "DefuseKit": false,
-        "Helmet": false,
+        "Armor": 100,
+        "DefuseKit": true,
+        "Helmet": true,
         "LoadoutsEnabled": false,
         "RefillAmmo": true,
-        "Team": "Terrorist",
         "TeamLoadouts": [
           {
             "Team": "Terrorist",
             "Equipment": [
               "weapons/usp/usp.equip",
-              "weapons/knife/knife.equip"
+              "weapons/knife/knife.equip",
+              "weapons/m4a1/m4a1.equip"
             ]
           },
           {
             "Team": "CounterTerrorist",
             "Equipment": [
               "weapons/usp_sd/usp_sd.equip",
-              "weapons/knife_bayonet/knife_bayonet.equip"
+              "weapons/knife_bayonet/knife_bayonet.equip",
+              "weapons/m4a1/m4a1.equip"
             ]
           }
         ]
@@ -105,21 +105,10 @@
                 "__guid": "d56b1c52-df76-49c0-a972-d08c080ba023"
               },
               {
-                "__type": "Facepunch.EnableBuyMenu",
-                "__guid": "84ff0616-05f1-4774-a390-ce9525baab9a",
-                "InBuyZoneOnly": false,
-                "TimeLimit": 0
-              },
-              {
                 "__type": "Facepunch.PlayerAutoRespawner",
                 "__guid": "941f07d5-e38a-4836-8162-85dcc2038650",
                 "AllowSpectatorsToSpawn": false,
                 "RespawnDelaySeconds": 3
-              },
-              {
-                "__type": "Facepunch.DefaultBalance",
-                "__guid": "f9e53ea8-60fc-44a6-a844-0ad36bd116cd",
-                "Value": 16000
               },
               {
                 "__type": "Facepunch.TeamAssigner",
