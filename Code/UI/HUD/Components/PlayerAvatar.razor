@@ -7,19 +7,12 @@
     var pawn = Player.PlayerPawn;
 }
 
-<root class="@AvatarClasses" style="@(IsFriendly && Player.PlayerPawn.IsValid() ? $"box-shadow: 0 0 0 2px {PlayerColor.Hex}" : "")">
-    <div class="avatar">
+<root class="@AvatarClasses">
+    <div class="avatar" style="@(IsFriendly && Player.PlayerPawn.IsValid() ? $"border: 0.5px solid {PlayerColor.Hex}" : "")">
         <img class="image" src="avatar:@Player.SteamId" />
     </div>
 
     @if ( !pawn.IsValid() ) return;
-
-    @if (ShowHealth && pawn.HealthComponent.State == LifeState.Alive && IsFriendly)
-    {
-        <div class="health">
-            <div class="health-inner" style="width:@(Player.PlayerPawn.HealthComponent.Health)%" />
-        </div>
-    }
 
     @if (ShowBomb && pawn.Inventory.HasBomb && IsFriendly)
     {
@@ -29,6 +22,13 @@
     @if ( IsDead )
     {
         <div style="background-image: url( ui/dead.png )" class="overlay" />
+    }
+
+    @if (ShowHealth && pawn.HealthComponent.State == LifeState.Alive && IsFriendly)
+    {
+        <div class="health">
+            <div class="health-inner" style="width:@(Player.PlayerPawn.HealthComponent.Health)%" />
+        </div>
     }
 </root>
 
