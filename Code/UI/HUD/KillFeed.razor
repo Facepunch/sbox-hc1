@@ -105,18 +105,18 @@
         var victimDesc = GameUtils.GetDescription( damageInfo.Victim );
 
         var attacker = attackerDesc?.DisplayName;
-        if ( !string.IsNullOrEmpty( attackerDesc.Icon ) ) attacker = $"icon:{attackerDesc.Icon}";
+        if ( !string.IsNullOrEmpty( attackerDesc?.Icon ) ) attacker = $"icon:{attackerDesc.Icon}";
 
         var inflictor = inflictorDesc?.DisplayName;
-        if ( !string.IsNullOrEmpty( inflictorDesc.Icon ) ) inflictor = $"icon:{inflictorDesc.Icon}";
+        if ( !string.IsNullOrEmpty( inflictorDesc?.Icon ) ) inflictor = $"icon:{inflictorDesc.Icon}";
 
         var victim = victimDesc?.DisplayName;
-        if ( !string.IsNullOrEmpty( victimDesc.Icon ) ) victim = $"icon:{victimDesc.Icon}";
+        if ( !string.IsNullOrEmpty( victimDesc?.Icon ) ) victim = $"icon:{victimDesc.Icon}";
 
         BroadcastKillFeedEvent(
-            attacker, attackerDesc.Color,
+            attacker, attackerDesc?.Color ?? Color.White,
             inflictor,
-            victim, victimDesc.Color,
+            victim, victimDesc?.Color ?? Color.White,
             //
             damageInfo.Hitbox,
             damageInfo.Flags

@@ -32,8 +32,8 @@ public static partial class GameUtils
 	/// </summary>
 	public static IEnumerable<PlayerPawn> GetPlayerPawns( Team team ) => PlayerPawns.Where( x => x.Team == team );
 
-	public static IDescription GetDescription( GameObject go ) => go.Components.Get<IDescription>( FindMode.EnabledInSelfAndDescendants );
-	public static IDescription GetDescription( Component component ) => GetDescription( component.GameObject );
+	public static IDescription GetDescription( GameObject go ) => go?.Components.Get<IDescription>( FindMode.EnabledInSelfAndDescendants );
+	public static IDescription GetDescription( Component component ) => GetDescription( component?.GameObject );
 
 	/// <summary>
 	/// Get all spawn point transforms for the given team.
