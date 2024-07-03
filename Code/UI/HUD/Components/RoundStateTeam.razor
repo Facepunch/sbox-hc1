@@ -6,7 +6,7 @@
     <div class="inner flex row gap-sm align-center with-padding">
         <div class="background" style="@BuildStyle()"></div>
 
-        @if (IconPosition == IconPositions.Left)
+        @if ( IconPosition == IconPositions.Left && !string.IsNullOrEmpty( Score ) )
         {
             <label class="important with-px-lg" style="min-width: 75px; flex-shrink: 0; text-align: center;">@Score</label>
         }
@@ -26,7 +26,7 @@
             </div>
         }
 
-        @if (IconPosition == IconPositions.Right)
+        @if ( IconPosition == IconPositions.Right && !string.IsNullOrEmpty( Score ) )
         {
             <label class="vital with-px-lg" style="min-width: 75px; flex-shrink: 0; text-align: center;">@Score</label>
         }

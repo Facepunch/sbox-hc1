@@ -86,6 +86,11 @@
             MyTeamScore = teamScoring.MyTeamScoreFormatted;
             EnemyTeamScore = teamScoring.OpposingTeamScoreFormatted;
         }
+        else
+        {
+            MyTeamScore = null;
+            EnemyTeamScore = null;
+        }
 
         MyTeamPlayers = GameUtils.GetPlayers(MyTeam);
         EnemyTeamPlayers = GameUtils.GetPlayers(EnemyTeam);
