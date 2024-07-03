@@ -1,4 +1,5 @@
-﻿using Facepunch;
+﻿using System.Text.Json.Nodes;
+using Facepunch;
 
 /// <summary>
 /// A team spawn point.
@@ -23,5 +24,49 @@ public sealed class TeamSpawnPoint : Component
 		{
 			so.Flags.CastShadows = true;
 		}
+	}
+
+	private static JsonArray CopiedSpawnPoints { get; } = new();
+
+
+	[DeveloperCommand( "Clear Spawn Points", "Player" )]
+	private static void Dev_ClearSpawnPoints()
+	{
+		Log.Info( $"Cleared {CopiedSpawnPoints.Count} spawn point(s) from clipboard" );
+
+		CopiedSpawnPoints.Clear();
+		Clipboard.SetText( "[]" );
+	}
+
+	[DeveloperCommand( "Add Spawn Point", "Player" )]
+	private static void Dev_CopySpawnPoint()
+	{
+		var player = PlayerState.Local.PlayerPawn;
+		if ( player is null ) return;
+
+		var obj = new JsonObject
+		{
+			{ "__guid", Guid.NewGuid() },
+			{ "Name", "Spawn" },
+			{ "Position", Json.ToNode( player.Transform.Position ) },
+			{ "Rotation", Json.ToNode( Rotation.FromYaw( player.EyeAngles.yaw ) ) },
+			{ "Enabled", true },
+			{
+				"Components",
+				new JsonArray
+				{
+					new JsonObject
+					{
+						{ "__type", TypeLibrary.GetType<TeamSpawnPoint>().FullName },
+						{ "__guid", Guid.NewGuid() }
+					}
+				}
+			}
+		};
+
+		CopiedSpawnPoints.Add( obj );
+
+		Log.Info( $"Added spawn point to clipboard" );
+		Clipboard.SetText( CopiedSpawnPoints.ToString() );
 	}
 }
