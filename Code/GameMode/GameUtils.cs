@@ -2,10 +2,15 @@ using System.IO;
 
 namespace Facepunch;
 
+public interface IWeighted
+{
+	float Weight { get; }
+}
+
 /// <summary>
 /// A list of game utilities that'll help us achieve common goals with less code... I guess?
 /// </summary>
-public partial class GameUtils
+public static partial class GameUtils
 {
 	/// <summary>
 	/// All players in the game (includes disconnected players before expiration).
@@ -132,5 +137,40 @@ public partial class GameUtils
 		}
 
 		Log.Info( writer.ToString() );
+	}
+
+	public static T FromListWeighted<T>( this Random random, IReadOnlyList<T> list, T defaultValue = default )
+		where T : IWeighted
+	{
+		if ( list.Count == 0 )
+		{
+			return defaultValue;
+		}
+
+		var totalWeight = list.Sum( x => x.Weight );
+
+		if ( totalWeight <= 0f )
+		{
+			return defaultValue;
+		}
+
+		var value = random.NextSingle() * totalWeight;
+
+		foreach ( var item in list )
+		{
+			if ( item.Weight < 0f )
+			{
+				throw new ArgumentException( "Weights must all be >= 0." );
+			}
+
+			value -= item.Weight;
+
+			if ( value <= 0f )
+			{
+				return item;
+			}
+		}
+
+		throw new Exception( "We should have returned an item already!" );
 	}
 }
