@@ -16,33 +16,6 @@
         "UnlimitedMoney": true
       },
       {
-        "__type": "Facepunch.DefaultEquipment",
-        "__guid": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
-        "Armor": 100,
-        "DefuseKit": true,
-        "Helmet": true,
-        "LoadoutsEnabled": false,
-        "RefillAmmo": true,
-        "TeamLoadouts": [
-          {
-            "Team": "Terrorist",
-            "Equipment": [
-              "weapons/usp/usp.equip",
-              "weapons/knife/knife.equip",
-              "weapons/m4a1/m4a1.equip"
-            ]
-          },
-          {
-            "Team": "CounterTerrorist",
-            "Equipment": [
-              "weapons/usp_sd/usp_sd.equip",
-              "weapons/knife_bayonet/knife_bayonet.equip",
-              "weapons/m4a1/m4a1.equip"
-            ]
-          }
-        ]
-      },
-      {
         "__type": "Facepunch.BotManager",
         "__guid": "8f2a629c-0d39-4eb1-a17a-03df62cfcc4b"
       },
@@ -127,6 +100,33 @@
                 "__guid": "1beeb0e3-ee90-49b2-99f7-bf4012e85d72",
                 "SpawnRules": [],
                 "SpawnTags": ""
+              },
+              {
+                "__type": "Facepunch.DefaultEquipment",
+                "__guid": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
+                "Armor": 100,
+                "DefuseKit": true,
+                "Helmet": true,
+                "LoadoutsEnabled": false,
+                "RefillAmmo": true,
+                "TeamLoadouts": [
+                  {
+                    "Team": "Terrorist",
+                    "Equipment": [
+                      "weapons/usp/usp.equip",
+                      "weapons/knife/knife.equip",
+                      "weapons/m4a1/m4a1.equip"
+                    ]
+                  },
+                  {
+                    "Team": "CounterTerrorist",
+                    "Equipment": [
+                      "weapons/usp_sd/usp_sd.equip",
+                      "weapons/knife_bayonet/knife_bayonet.equip",
+                      "weapons/m4a1/m4a1.equip"
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -313,6 +313,172 @@
                         "__type": "Facepunch.RespawnPlayers",
                         "__guid": "1b1b0c27-e7c8-42c3-b0dd-25a7529129f5",
                         "ForceNew": true
+                      },
+                      {
+                        "__type": "Facepunch.RandomLoadoutAllocator",
+                        "__guid": "86bf674e-f016-40a9-939b-6a8ad8019240",
+                        "LoadoutTypes": [
+                          {
+                            "Title": "Pistol Round",
+                            "Weight": 1000,
+                            "OnlyAfterTeamSwap": true,
+                            "MinRoundsSince": 5,
+                            "Loadouts": [
+                              {
+                                "Team": "CounterTerrorist",
+                                "Title": "Defuser",
+                                "Weight": 1,
+                                "Equipment": [
+                                  "weapons/knife/knife.equip",
+                                  "weapons/usp_sd/usp_sd.equip",
+                                  "weapons/throwable/flashbang/flashbang_grenade.equip"
+                                ],
+                                "Armor": 100,
+                                "Helmet": true,
+                                "DefuseKit": true,
+                                "MinTeamSize": 2,
+                                "MaxPlayers": 1
+                              },
+                              {
+                                "Team": "CounterTerrorist",
+                                "Title": "Default",
+                                "Weight": 1,
+                                "Equipment": [
+                                  "weapons/knife/knife.equip",
+                                  "weapons/usp_sd/usp_sd.equip"
+                                ],
+                                "Armor": 100,
+                                "Helmet": true,
+                                "DefuseKit": true,
+                                "MaxPlayers": 10
+                              },
+                              {
+                                "Team": "Terrorist",
+                                "Title": "Default",
+                                "Weight": 1,
+                                "Equipment": [
+                                  "weapons/knife/knife.equip",
+                                  "weapons/usp/usp.equip"
+                                ],
+                                "Armor": 100,
+                                "Helmet": true,
+                                "DefuseKit": true,
+                                "MaxPlayers": 10
+                              }
+                            ]
+                          },
+                          {
+                            "Title": "Full Buy",
+                            "Weight": 1,
+                            "Loadouts": [
+                              {
+                                "Team": "Terrorist",
+                                "Title": "Flashbang",
+                                "Weight": 1,
+                                "Equipment": [
+                                  "weapons/knife/knife.equip",
+                                  "weapons/usp/usp.equip",
+                                  "weapons/m4a1/m4a1.equip",
+                                  "weapons/throwable/flashbang/flashbang_grenade.equip"
+                                ],
+                                "Armor": 100,
+                                "Helmet": true,
+                                "DefuseKit": true,
+                                "MaxPlayers": 10
+                              },
+                              {
+                                "Team": "Terrorist",
+                                "Title": "Smoke Grenade",
+                                "Weight": 1,
+                                "Equipment": [
+                                  "weapons/knife/knife.equip",
+                                  "weapons/usp/usp.equip",
+                                  "weapons/m4a1/m4a1.equip",
+                                  "weapons/throwable/m18_smoke_grenade/smoke_grenade.equip"
+                                ],
+                                "Armor": 100,
+                                "Helmet": true,
+                                "DefuseKit": true,
+                                "MaxPlayers": 10
+                              },
+                              {
+                                "Team": "Terrorist",
+                                "Title": "HE Grenade",
+                                "Weight": 1,
+                                "Equipment": [
+                                  "weapons/knife/knife.equip",
+                                  "weapons/usp/usp.equip",
+                                  "weapons/m4a1/m4a1.equip",
+                                  "weapons/throwable/he_grenade/he_grenade.equip"
+                                ],
+                                "Armor": 100,
+                                "Helmet": true,
+                                "DefuseKit": true,
+                                "MaxPlayers": 10
+                              },
+                              {
+                                "Team": "Terrorist",
+                                "Title": "Sniper",
+                                "Weight": 1,
+                                "Equipment": [
+                                  "weapons/knife/knife.equip",
+                                  "weapons/usp/usp.equip",
+                                  "weapons/m700/m700.equip"
+                                ],
+                                "Armor": 100,
+                                "Helmet": true,
+                                "DefuseKit": true,
+                                "MinTeamSize": 2,
+                                "MaxPlayers": 1
+                              },
+                              {
+                                "Team": "CounterTerrorist",
+                                "Title": "Flashbang",
+                                "Weight": 1,
+                                "Equipment": [
+                                  "weapons/knife/knife.equip",
+                                  "weapons/usp/usp.equip",
+                                  "weapons/m4a1/m4a1.equip",
+                                  "weapons/throwable/flashbang/flashbang_grenade.equip"
+                                ],
+                                "Armor": 100,
+                                "Helmet": true,
+                                "DefuseKit": true,
+                                "MaxPlayers": 10
+                              },
+                              {
+                                "Team": "CounterTerrorist",
+                                "Title": "HE Grenade",
+                                "Weight": 1,
+                                "Equipment": [
+                                  "weapons/knife/knife.equip",
+                                  "weapons/usp/usp.equip",
+                                  "weapons/m4a1/m4a1.equip",
+                                  "weapons/throwable/he_grenade/he_grenade.equip"
+                                ],
+                                "Armor": 100,
+                                "Helmet": true,
+                                "DefuseKit": true,
+                                "MaxPlayers": 10
+                              },
+                              {
+                                "Team": "CounterTerrorist",
+                                "Title": "Sniper",
+                                "Weight": 1,
+                                "Equipment": [
+                                  "weapons/knife/knife.equip",
+                                  "weapons/usp/usp.equip",
+                                  "weapons/m700/m700.equip"
+                                ],
+                                "Armor": 100,
+                                "Helmet": true,
+                                "DefuseKit": true,
+                                "MinTeamSize": 2,
+                                "MaxPlayers": 1
+                              }
+                            ]
+                          }
+                        ]
                       }
                     ]
                   },
