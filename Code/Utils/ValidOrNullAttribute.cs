@@ -10,11 +10,6 @@ public sealed class ValidOrNullAttribute : Attribute
 {
 	internal static T OnPropertyGet<T>( WrappedPropertyGet<T> p )
 	{
-		if ( p.Value is IValid valid )
-		{
-			return valid.IsValid ? p.Value : default;
-		}
-
-		return p.Value;
+		return p.Value is IValid { IsValid: false } ? default : p.Value;
 	}
 }
