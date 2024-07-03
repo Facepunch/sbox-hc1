@@ -2,7 +2,7 @@
   "RootObject": {
     "__guid": "c3320be8-52b0-401d-808e-137a9aa8673a",
     "Flags": 0,
-    "Name": "w_smoke_grenade",
+    "Name": "w_molotov_grenade",
     "Tags": "player",
     "Enabled": true,
     "NetworkMode": 2,
@@ -12,6 +12,7 @@
         "__type": "Facepunch.Equipment",
         "__guid": "b1203128-bcc3-4e5b-9ed6-5b4f7816762e",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "Handedness": "Right",
         "HoldType": "HoldItem",
         "ModelRenderer": {
           "_type": "component",
@@ -19,7 +20,7 @@
           "go": "c20c139f-b5b8-4eda-a44d-16bf46e3badf",
           "component_type": "SkinnedModelRenderer"
         },
-        "Resource": "weapons/throwable/m18_smoke_grenade/smoke_grenade.equip",
+        "Resource": "weapons/throwable/molotov_cocktail/molotov_grenade.equip",
         "SpeedPenalty": 0
       },
       {
@@ -42,7 +43,7 @@
             "__guid": "629961e9-5b4d-4573-8f25-2ba814183458",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
-            "Model": "weapons/throwable/m18_smoke_grenade/v_m18_smoke_grenade.vmdl",
+            "Model": "weapons/throwable/molotov_cocktail/v_molotov_cocktail.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -64,17 +65,17 @@
             "InputActions": [
               "Attack1"
             ],
-            "InputType": "Down",
             "Prefab": {
               "_type": "gameobject",
-              "prefab": "weapons/throwable/m18_smoke_grenade/smoke_grenade.prefab"
+              "prefab": "weapons/throwable/molotov_cocktail/molotov_grenade.prefab"
             },
             "RequiresAllInputActions": false,
             "ThrowPower": 800
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
