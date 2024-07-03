@@ -19,10 +19,10 @@
         }
         else
         {
-            <label class="status">@Status</label>
+            <label class="status uppercase">@Status</label>
             @if (Time.HasValue)
             {
-                <label class="emphasis">@(Time?.ToString(@"m\:ss"))</label>
+                <label class="emphasis uppercase">@(Time?.ToString(@"m\:ss"))</label>
             }
         }
     </div>

@@ -7,16 +7,12 @@
 <root class="flex absolute inset-0 align-center justify-center hidden @(IsOpen ? "visible" : "")">
     <div class="flex column with-padding gap-sm">
 
-        <div class="with-background with-padding">
-            @if ( GameMode.Instance?.UnlimitedMoney is true )
-            {
-                <label class="emphasis">Unlimited Funds</label>
-            }
-            else
-            {
+        @if ( GameMode.Instance?.UnlimitedMoney is false )
+        {
+            <div class="with-background with-padding">
                 <label class="emphasis">$@PlayerState.Balance.ToString("N0")</label>
-            }
-        </div>
+            </div>
+        }
 
         <div class="with-rounding flex row gap-sm">
 
@@ -30,7 +26,7 @@
                 continue;
 
             <div class="flex column shrink-0 with-background">
-                <label class="title text-center with-padding">@slot</label>
+                <label class="title text-center with-padding uppercase">@slot</label>
                 <div class="flex column gap-sm with-padding">
                     @foreach (EquipmentResource resource in weapons)
                     {
@@ -55,7 +51,7 @@
 
         <div class="with-rounding flex row gap-sm">
             <div class="flex column shrink-0 with-background grow">
-                <label class="title text-center with-padding">Equipment</label>
+                <label class="title text-center with-padding uppercase">Equipment</label>
                 <div class="flex row gap-sm with-padding">
                     @foreach (var equipment in BuyMenuItem.GetAll())
                     {

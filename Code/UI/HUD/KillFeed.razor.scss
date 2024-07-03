@@ -6,13 +6,13 @@ KillFeed
     top: $safe-zone-y;
     right: $safe-zone-x;
     flex-direction: column;
-    gap: 4px;
+    gap: 16px;
     align-items: flex-end;
 
     .entry
     {
         padding: 0px 16px;
-        gap: 16px;
+        gap: 8px;
         justify-content: flex-start;
         align-items: center;
         border-radius: $rounding;
@@ -35,8 +35,9 @@ KillFeed
 
         .icon
         {
-            width: 64px;
-            height: 48px;
+            height: 24px;
+            justify-content: center;
+            align-items: center;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

@@ -9,8 +9,8 @@
 <root class="hidden flex absolute inset-0 align-center justify-center">
     <table class="with-background with-padding-lg">
         <div class="title">
-            <label class="important">@(Name) - @(Status)</label>
-            <label class="important">@(Time?.ToString(@"m\:ss"))</label>
+            <label class="important uppercase">@(Name) - @(Status)</label>
+            <label class="important uppercase">@(Time?.ToString(@"m\:ss"))</label>
         </div>
 
         @for ( int i = 0; i < GroupedPlayers.Count(); i++ )
