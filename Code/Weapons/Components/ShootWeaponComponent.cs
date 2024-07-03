@@ -14,7 +14,8 @@ public enum FireMode
 
 [Icon( "track_changes" )]
 [Title( "Bullet" ), Group( "Weapon Components" )]
-public partial class ShootWeaponComponent : InputWeaponComponent
+public partial class ShootWeaponComponent : InputWeaponComponent,
+	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	[Property, Group( "Bullet" )] public float BaseDamage { get; set; } = 25.0f;
 	[Property, Group( "Bullet" )] public float FireRate { get; set; } = 0.2f;
@@ -586,6 +587,13 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 	[Sync] public int BurstCount { get; set; } = 0;
 
+	private void ClearBurst()
+	{
+		TimeSinceBurstFinished = 0;
+		IsBurstFiring = false;
+		BurstCount = 0;
+	}
+
 	protected override void OnInputUpdate()
 	{
 		if ( Input.Pressed( "FireMode" ) )
@@ -594,11 +602,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 			return;
 		}
 
-		if ( IsBurstFiring && BurstCount >= BurstAmount - 1 )
+		if ( IsBurstFiring && BurstCount >= BurstAmount - 1 || ( Tags.Has( "reloading" ) && IsBurstFiring ) )
 		{
-			TimeSinceBurstFinished = 0;
-			IsBurstFiring = false;
-			BurstCount = 0;
+			ClearBurst();
 		}
 
 		if ( CurrentFireMode == FireMode.Burst && IsBurstFiring && CanShoot() )
@@ -670,6 +676,10 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		// Toast.Instance?.Show( $"{CurrentFireMode}", ToastType.Generic, 1f );
 
 		TimeSinceFireModeSwitch = 0;
-		TimeSinceBurstFinished = 0;
+	}
+
+	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
+	{
+		ClearBurst();
 	}
 }

@@ -60,6 +60,11 @@ public partial class ViewModel : Component, IEquipment
 		// Somehow?
 		if ( Owner.IsValid() )
 			Owner.OnJump += OnPlayerJumped;
+
+		if ( Equipment.Components.Get<ShootWeaponComponent>( FindMode.EverythingInSelfAndDescendants ) is { } shoot )
+		{
+			OnFireMode( shoot.CurrentFireMode );
+		}
 	}
 
 	void OnPlayerJumped()
@@ -241,6 +246,5 @@ public partial class ViewModel : Component, IEquipment
 		};
 
 		ModelRenderer.Set( "firing_mode", mode );
-
 	}
 }
