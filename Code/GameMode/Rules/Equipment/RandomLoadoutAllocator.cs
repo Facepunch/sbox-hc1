@@ -33,7 +33,7 @@ public sealed class RandomLoadoutAllocator : Component,
 		/// <summary>
 		/// How many rounds since this was last used?
 		/// </summary>
-		[JsonIgnore]
+		[JsonIgnore, Hide]
 		public int RoundsSince { get; set; } = int.MaxValue;
 	}
 
@@ -62,6 +62,7 @@ public sealed class RandomLoadoutAllocator : Component,
 		/// <summary>
 		/// How many players currently have this loadout.
 		/// </summary>
+		[JsonIgnore, Hide]
 		public int Players { get; set; }
 
 		public void ApplyTo( PlayerPawn player )
@@ -90,9 +91,9 @@ public sealed class RandomLoadoutAllocator : Component,
 	[Property]
 	public List<LoadoutType> LoadoutTypes { get; set; } = new();
 
-	private bool _teamsSwapped;
+	private bool _teamsSwapped = true;
 
-	[After<RespawnPlayers>, After<DefaultEquipment>]
+	[After<RespawnPlayers>, Before<SpecialWeaponAllocator>]
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
 		if ( SelectLoadoutType() is not {} loadoutType )
@@ -107,6 +108,8 @@ public sealed class RandomLoadoutAllocator : Component,
 		foreach ( var teamPlayers in GameUtils.PlayerPawns.GroupBy( x => x.Team ) )
 		{
 			var teamSize = teamPlayers.Count();
+
+			Log.Info( $"{teamPlayers.Key} team size: {teamSize}" );
 
 			var teamLoadouts = loadoutType.Loadouts
 				.Where( x => x.Team == teamPlayers.Key )
@@ -130,6 +133,8 @@ public sealed class RandomLoadoutAllocator : Component,
 				var loadout = Random.Shared.FromListWeighted( teamLoadouts );
 
 				loadout.ApplyTo( player );
+
+				player.Inventory.SwitchToBest();
 
 				if ( loadout.Players >= loadout.MaxPlayers )
 				{
@@ -170,6 +175,8 @@ public sealed class RandomLoadoutAllocator : Component,
 		{
 			loadoutType.RoundsSince = int.MaxValue;
 		}
+
+		_teamsSwapped = true;
 	}
 
 	void IGameEventHandler<TeamsSwappedEvent>.OnGameEvent( TeamsSwappedEvent eventArgs )

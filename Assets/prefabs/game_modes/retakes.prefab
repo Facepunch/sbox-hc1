@@ -313,10 +313,46 @@
                         "__type": "Facepunch.RespawnPlayers",
                         "__guid": "1b1b0c27-e7c8-42c3-b0dd-25a7529129f5",
                         "ForceNew": true
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "4403ed17-c00e-44a3-bb43-c2002a17f7dd",
+                    "Flags": 0,
+                    "Name": "Freeze Time",
+                    "Enabled": true,
+                    "NetworkMode": 1,
+                    "NetworkInterpolation": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.Events.StateComponent",
+                        "__guid": "38e754d5-a42e-4ffd-adcf-545b2f90a92a",
+                        "DefaultDuration": 1,
+                        "DefaultNextState": {
+                          "_type": "component",
+                          "component_id": "e9bda68c-0038-4946-adb6-6920dc1e3b42",
+                          "go": "6d898668-f72c-4a0d-9d6f-5cd271995341",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.ShowCountDown",
+                        "__guid": "4147f4b3-7d06-4393-8a66-78d9d1a166f1"
+                      },
+                      {
+                        "__type": "Facepunch.ShowStatusText",
+                        "__guid": "cb568ad0-a5ea-471e-8a1c-186b7a6e4a17",
+                        "BothTeams": true,
+                        "StatusText": "Prepare",
+                        "Team": "Unassigned"
+                      },
+                      {
+                        "__type": "Facepunch.FreezePlayers",
+                        "__guid": "e2ddbaad-7772-4437-8e93-be2b6896ed0c"
                       },
                       {
                         "__type": "Facepunch.RandomLoadoutAllocator",
-                        "__guid": "86bf674e-f016-40a9-939b-6a8ad8019240",
+                        "__guid": "919febaf-24f6-4867-905b-4032fa855494",
                         "LoadoutTypes": [
                           {
                             "Title": "Pistol Round",
@@ -479,42 +515,6 @@
                             ]
                           }
                         ]
-                      }
-                    ]
-                  },
-                  {
-                    "__guid": "4403ed17-c00e-44a3-bb43-c2002a17f7dd",
-                    "Flags": 0,
-                    "Name": "Freeze Time",
-                    "Enabled": true,
-                    "NetworkMode": 1,
-                    "NetworkInterpolation": true,
-                    "Components": [
-                      {
-                        "__type": "Sandbox.Events.StateComponent",
-                        "__guid": "38e754d5-a42e-4ffd-adcf-545b2f90a92a",
-                        "DefaultDuration": 1,
-                        "DefaultNextState": {
-                          "_type": "component",
-                          "component_id": "e9bda68c-0038-4946-adb6-6920dc1e3b42",
-                          "go": "6d898668-f72c-4a0d-9d6f-5cd271995341",
-                          "component_type": "StateComponent"
-                        }
-                      },
-                      {
-                        "__type": "Facepunch.ShowCountDown",
-                        "__guid": "4147f4b3-7d06-4393-8a66-78d9d1a166f1"
-                      },
-                      {
-                        "__type": "Facepunch.ShowStatusText",
-                        "__guid": "cb568ad0-a5ea-471e-8a1c-186b7a6e4a17",
-                        "BothTeams": true,
-                        "StatusText": "Prepare",
-                        "Team": "Unassigned"
-                      },
-                      {
-                        "__type": "Facepunch.FreezePlayers",
-                        "__guid": "e2ddbaad-7772-4437-8e93-be2b6896ed0c"
                       },
                       {
                         "__type": "Facepunch.SpecialWeaponAllocator",
