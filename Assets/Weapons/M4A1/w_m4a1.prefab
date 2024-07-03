@@ -126,18 +126,21 @@
             "BulletCount": 1,
             "BulletSize": 1,
             "BulletSpread": 0,
-            "DryFireDelay": 1,
+            "BurstAmount": 3,
+            "BurstEndDelay": 0.2,
+            "CurrentFireMode": "Automatic",
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
+            "DryShootDelay": 0.15,
             "EjectionPrefab": {
               "_type": "gameobject",
               "prefab": "prefabs/weapon_effects/556_casing.prefab"
             },
+            "FireModeSwitchDelay": 0.3,
             "FireRate": 680,
             "InAirSpreadMultiplier": 2,
             "InputActions": [
               "Attack1"
             ],
-            "InputType": "Down",
             "MaxEffectsPlayDistance": 4194304,
             "MaxRange": 10000,
             "MaxRicochetAngle": 45,
@@ -151,6 +154,10 @@
             "RequiresAmmoComponent": true,
             "RicochetMaxHits": 2,
             "ShootSound": "sounds/weapons/m4a1/m4_shot.sound",
+            "SupportedFireModes": [
+              "Automatic",
+              "Semi"
+            ],
             "VelocitySpreadScale": 0.25
           },
           {
@@ -172,7 +179,6 @@
             "InputActions": [
               "Reload"
             ],
-            "InputType": "Down",
             "ReloadTime": 1.5,
             "RequiresAllInputActions": false,
             "SingleReload": false,
@@ -213,10 +219,10 @@
                 "-2.830189,1.652542",
                 "-2.806604,1.504237",
                 "-1.674528,1.207627",
-                "-0.5424533,1.186441",
+                "-0.5424528,1.186441",
                 "2.16981,1.165254",
                 "2.759433,1.080508",
-                "3.042453,1.016949",
+                "3.042452,1.016949",
                 "2.971697,0.8898305",
                 "2.004716,0.6991526",
                 "0.8962269,0.6355932",
@@ -240,7 +246,6 @@
             "InputActions": [
               "Attack2"
             ],
-            "InputType": "Down",
             "RequiresAllInputActions": false
           },
           {

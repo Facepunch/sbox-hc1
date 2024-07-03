@@ -108,14 +108,17 @@
             "BulletCount": 1,
             "BulletSize": 1,
             "BulletSpread": 0,
-            "DryFireDelay": 1,
+            "BurstAmount": 3,
+            "BurstEndDelay": 0.2,
+            "CurrentFireMode": "Semi",
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
+            "DryShootDelay": 0.15,
+            "FireModeSwitchDelay": 0.3,
             "FireRate": 60,
             "InAirSpreadMultiplier": 2,
             "InputActions": [
               "Attack1"
             ],
-            "InputType": "Pressed",
             "MaxEffectsPlayDistance": 4194304,
             "MaxRange": 1024000,
             "MaxRicochetAngle": 45,
@@ -129,6 +132,9 @@
             "RequiresAmmoComponent": true,
             "RicochetMaxHits": 2,
             "ShootSound": "sounds/weapons/m700/m700_shot.sound",
+            "SupportedFireModes": [
+              "Semi"
+            ],
             "VelocitySpreadScale": 0.25
           },
           {
@@ -150,7 +156,6 @@
             "InputActions": [
               "Reload"
             ],
-            "InputType": "Down",
             "ReloadTime": 1.5,
             "RequiresAllInputActions": false,
             "SingleReload": false,
@@ -179,7 +184,6 @@
             "InputActions": [
               "Attack2"
             ],
-            "InputType": "Pressed",
             "RequiresAllInputActions": false,
             "ScopeOverlay": "weapons/m700/scope.vmat",
             "UnzoomSound": "sounds/weapons/m700/m700_zoom.sound",

@@ -129,18 +129,21 @@
             "BulletCount": 1,
             "BulletSize": 1,
             "BulletSpread": 0,
-            "DryFireDelay": 1,
+            "BurstAmount": 3,
+            "BurstEndDelay": 0.2,
+            "CurrentFireMode": "Automatic",
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
+            "DryShootDelay": 0.15,
             "EjectionPrefab": {
               "_type": "gameobject",
               "prefab": "prefabs/weapon_effects/9mm_casing.prefab"
             },
+            "FireModeSwitchDelay": 0.3,
             "FireRate": 740,
             "InAirSpreadMultiplier": 2,
             "InputActions": [
               "Attack1"
             ],
-            "InputType": "Down",
             "MaxEffectsPlayDistance": 4194304,
             "MaxRange": 1024000,
             "MaxRicochetAngle": 45,
@@ -154,6 +157,11 @@
             "RequiresAmmoComponent": true,
             "RicochetMaxHits": 2,
             "ShootSound": "sounds/guns/mp5/smg1_shoot.sound",
+            "SupportedFireModes": [
+              "Automatic",
+              "Burst",
+              "Semi"
+            ],
             "VelocitySpreadScale": 0.25
           },
           {
@@ -175,7 +183,6 @@
             "InputActions": [
               "Reload"
             ],
-            "InputType": "Down",
             "ReloadTime": 1.5,
             "RequiresAllInputActions": false,
             "SingleReload": false,
@@ -193,7 +200,7 @@
               "Points": [
                 "-0.0251255,4.851695",
                 "-0.0251255,4.639831",
-                "-0.04187632,4.470339",
+                "-0.04187679,4.470339",
                 "-0.1758795,4.279661",
                 "-0.4103851,4.067797",
                 "-0.6783919,3.877119",
@@ -201,21 +208,21 @@
                 "-1.130653,3.601695",
                 "-1.281407,3.368644",
                 "-1.080402,3.15678",
-                "-0.477387,2.902542",
+                "-0.4773865,2.902542",
                 "0.0251255,2.711864",
                 "0.4438858,2.542373",
                 "0.8961477,2.309322",
                 "1.147404,2.13983",
                 "1.331658,1.927966",
                 "1.231156,1.800848",
-                "0.7956452,1.567797",
+                "0.7956457,1.567797",
                 "0.4773865,1.419492",
                 "0.1088781,1.25",
                 "-0.3098826,1.059322",
                 "-0.7118931,0.8474576",
-                "-0.9128985,0.7415254",
-                "-0.9966497,0.6567795",
-                "-0.8123956,0.5084746",
+                "-0.9128981,0.7415254",
+                "-0.9966502,0.6567795",
+                "-0.8123951,0.5084746",
                 "-0.5276384,0.3601695",
                 "-0.226131,0.2330509",
                 "-0.0251255,0.1483051"
@@ -234,7 +241,6 @@
             "InputActions": [
               "Attack2"
             ],
-            "InputType": "Down",
             "RequiresAllInputActions": false
           },
           {

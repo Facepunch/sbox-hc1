@@ -245,6 +245,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 			} );
 
 			var viewModelComponent = viewModelGameObject.Components.Get<ViewModel>();
+			viewModelComponent.PlayDeployEffects = playDeployEffects;
 
 			// equipment needs to know about the ViewModel
 			ViewModel = viewModelComponent;
@@ -276,11 +277,15 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		
 		base.OnStart();
 	}
-	
+
+	bool HasCreatedViewModel { get; set; } = false;
+
 	protected virtual void OnDeployed()
 	{
 		if ( Owner.IsValid() && Owner.IsViewer && Owner.CameraController.Mode == CameraMode.FirstPerson )
-			CreateViewModel();
+			CreateViewModel( !HasCreatedViewModel );
+
+		HasCreatedViewModel = true;
 
 		if ( ModelRenderer.IsValid() )
 			ModelRenderer.Enabled = true;

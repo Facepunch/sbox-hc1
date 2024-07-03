@@ -1,8 +1,16 @@
+using Facepunch.UI;
 using Sandbox.Events;
 
 namespace Facepunch;
 
 public record WeaponShotEvent : IGameEvent;
+
+public enum FireMode
+{
+	Semi,
+	Automatic,
+	Burst
+}
 
 [Icon( "track_changes" )]
 [Title( "Bullet" ), Group( "Weapon Components" )]
@@ -24,10 +32,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 
 	[Property, Group( "Penetration" )] public float PenetrationThickness { get; set; } = 32f;
 
-
 	[Property, Group( "Effects" )] public GameObject MuzzleFlashPrefab { get; set; }
 	[Property, Group( "Effects" )] public GameObject EjectionPrefab { get; set; }
-
 
 	/// <summary>
 	/// What sound should we play when we fire?
@@ -69,6 +75,39 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 	/// How far will we trace away from a gunshot wound, to make blood splatters?
 	/// </summary>
 	[Property, Group( "Effects" )] public float BloodEjectDistance { get; set; } = 512f;
+
+	/// <summary>
+	/// How quickly can we switch fire mode?
+	/// </summary>
+	[Property, Group( "Fire Modes" )] public float FireModeSwitchDelay { get; set; } = 0.3f;
+
+	/// <summary>
+	/// What fire modes do we support?
+	/// </summary>
+	[Property, Group( "Fire Modes" )]
+	public List<FireMode> SupportedFireModes { get; set; } = new()
+	{
+		FireMode.Automatic
+	};
+
+	/// <summary>
+	/// What's our current fire mode? (Or Default)
+	/// </summary>
+	[Property, Sync, Group( "Fire Modes" )] public FireMode CurrentFireMode { get; set; } = FireMode.Automatic;
+
+	/// <summary>
+	/// How many bullets describes a burst?
+	/// </summary>
+	[Property, Group( "Fire Modes" )] public int BurstAmount { get; set; } = 3;
+
+	/// <summary>
+	/// How long after we finish a burst until we can shoot again?
+	/// </summary>
+	[Property, Group( "Fire Modes" )] public float BurstEndDelay { get; set; } = 0.2f;
+
+	[Sync] public TimeSince TimeSinceFireModeSwitch { get; set; }
+	[Sync] public TimeSince TimeSinceBurstFinished { get; set; }
+	[Sync] public bool IsBurstFiring { get; set; }
 
 	/// <summary>
 	/// Accessor for the aim ray.
@@ -246,6 +285,11 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		if ( AmmoComponent is not null )
 		{
 			AmmoComponent.Ammo--;
+		}
+
+		if ( CurrentFireMode == FireMode.Burst )
+		{
+			IsBurstFiring = true;
 		}
 
 		DoShootEffects();
@@ -540,22 +584,92 @@ public partial class ShootWeaponComponent : InputWeaponComponent
 		return true;
 	}
 
-	protected override void OnInput()
+	[Sync] public int BurstCount { get; set; } = 0;
+
+	protected override void OnInputUpdate()
 	{
-		if ( CanShoot() )
+		if ( Input.Pressed( "FireMode" ) )
 		{
+			CycleFireMode();
+			return;
+		}
+
+		if ( IsBurstFiring && BurstCount >= BurstAmount - 1 )
+		{
+			TimeSinceBurstFinished = 0;
+			IsBurstFiring = false;
+			BurstCount = 0;
+		}
+
+		if ( CurrentFireMode == FireMode.Burst && IsBurstFiring && CanShoot() )
+		{
+			BurstCount++;
 			Shoot();
 		}
-		else
-		{
-			// Dry fire
-			if ( !AmmoComponent.HasAmmo )
-			{
-				if ( TimeSinceShoot < DryShootDelay )
-					return;
 
-				DryShoot();
+		bool wantsToShoot = IsDown();
+
+		// HACK
+		if ( CurrentFireMode == FireMode.Semi )
+		{
+			wantsToShoot = Input.Pressed( "attack1" );
+		}
+
+		if ( wantsToShoot )
+		{
+			if ( !CanShoot() )
+			{
+				// Dry fire
+				if ( !AmmoComponent.HasAmmo )
+				{
+					if ( TimeSinceShoot < DryShootDelay )
+						return;
+
+					DryShoot();
+				}
+			}
+			else
+			{
+				if ( IsBurstFiring ) return;
+				if ( TimeSinceBurstFinished < BurstEndDelay ) return;
+
+				Shoot();
 			}
 		}
+	}
+
+	protected int GetFireModeIndex( FireMode fireMode )
+	{
+		int i = 0;
+		foreach ( var mode in SupportedFireModes )
+		{
+			if ( mode == fireMode ) return i;
+			i++;
+		}
+
+		return 0;
+	}
+
+	public void CycleFireMode()
+	{
+		if ( TimeSinceFireModeSwitch < FireModeSwitchDelay ) return;
+		if ( IsBurstFiring ) return;
+		if ( IsDown() ) return;
+
+		var curIndex = GetFireModeIndex( CurrentFireMode );
+		var length = SupportedFireModes.Count;
+		var newIndex = (curIndex + 1 + length) % length;
+
+		// We didn't change anything
+		if ( newIndex == curIndex ) return;
+
+		CurrentFireMode = SupportedFireModes[newIndex];
+
+		Equipment.ViewModel?.OnFireMode( CurrentFireMode );
+
+		// Toast.Instance?.Show( $"{CurrentFireMode}", ToastType.Generic, 1f );
+
+		TimeSinceFireModeSwitch = 0;
+		TimeSinceBurstFinished = 0;
 	}
 }

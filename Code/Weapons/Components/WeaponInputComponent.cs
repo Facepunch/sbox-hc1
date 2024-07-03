@@ -8,13 +8,6 @@ namespace Facepunch;
 public abstract class InputWeaponComponent : EquipmentComponent,
 	IGameEventHandler<EquipmentDeployedEvent>
 {
-	public enum InputListenerType
-	{
-		Pressed,
-		Down,
-		Released
-	}
-
 	/// <summary>
 	/// What input action are we going to listen for?
 	/// </summary>
@@ -24,11 +17,6 @@ public abstract class InputWeaponComponent : EquipmentComponent,
 	/// Should we perform the action when ALL input actions match, or any?
 	/// </summary>
 	[Property, Category( "Base" )] public bool RequiresAllInputActions { get; set; }
-
-	/// <summary>
-	/// What kind of input are we listening for?
-	/// </summary>
-	[Property, Category( "Base" )] public InputListenerType InputType { get; set; } = InputListenerType.Down;
 
 	/// <summary>
 	/// ActionGraphs action so you can do stuff with visual scripting.
@@ -43,27 +31,6 @@ public abstract class InputWeaponComponent : EquipmentComponent,
 		{
 			RunningWhileDeployed = InputActions.Any( x => Input.Down( x ) );
 		}
-	}
-
-	/// <summary>
-	/// Gets the input method
-	/// </summary>
-	/// <param name="action"></param>
-	/// <returns></returns>
-	public bool GetInputMethod( string action )
-	{
-		if ( RunningWhileDeployed ) return false;
-
-		if ( InputType == InputListenerType.Pressed )
-		{
-			return Input.Pressed( action );
-		}
-		else if ( InputType == InputListenerType.Down )
-		{
-			return Input.Down( action );
-		}
-		
-		return Input.Released( action );
 	}
 
 	bool isDown = false;
@@ -93,6 +60,11 @@ public abstract class InputWeaponComponent : EquipmentComponent,
 		//
 	}
 
+	protected virtual void OnInputUpdate()
+	{
+		//
+	}
+
 	protected override void OnFixedUpdate()
 	{
 		if ( !Equipment.IsValid() )
@@ -104,7 +76,7 @@ public abstract class InputWeaponComponent : EquipmentComponent,
 		
 		if ( !Equipment.Owner.IsValid() )
 			return;
-		
+
 		// We only care about input actions coming from the owning object.
 		if ( !Equipment.Owner.IsLocallyControlled )
 			return;
@@ -114,18 +86,23 @@ public abstract class InputWeaponComponent : EquipmentComponent,
 			RunningWhileDeployed = false;
 		}
 
+		if ( RunningWhileDeployed )
+			return;
+
+		OnInputUpdate();
+
 		bool matched = false;
 
 		foreach ( var action in InputActions )
 		{
-			var success = GetInputMethod( action );
+			var down = Input.Down( action );
 
-			if ( RequiresAllInputActions && !success )
+			if ( RequiresAllInputActions && !down )
 			{
 				matched = false;
 				break;
 			}
-			if ( success )
+			if ( down )
 			{
 				matched = true;
 			}

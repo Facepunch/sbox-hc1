@@ -1,3 +1,4 @@
+
 namespace Facepunch;
 
 /// <summary>
@@ -46,12 +47,15 @@ public partial class ViewModel : Component, IEquipment
 
 	IEnumerable<IViewModelOffset> Offsets => Equipment.Components.GetAll<IViewModelOffset>( FindMode.EverythingInSelfAndDescendants );
 
+	protected override void OnAwake()
+	{
+		ModelRenderer?.Set( "b_deploy_skip", true );
+	}
+
 	protected override void OnStart()
 	{
 		if ( IsThrowable )
 			ModelRenderer?.Set( "throwable_type", (int)ThrowableType );
-		else
-			ModelRenderer?.Set( "b_deploy", true );
 
 		// Somehow?
 		if ( Owner.IsValid() )
@@ -169,6 +173,18 @@ public partial class ViewModel : Component, IEquipment
 
 	[Property] public ThrowableTypeEnum ThrowableType { get; set; }
 
+	/// <summary>
+	/// Should we play deploy effects?
+	/// </summary>
+	public bool PlayDeployEffects
+	{
+		set
+		{
+			ModelRenderer?.Set( "b_deploy", value );
+			ModelRenderer?.Set( "b_deploy_skip", !value );
+		}
+	}
+
 	private void ApplyThrowableAnimations()
 	{
 		var throwFn = Equipment.Components.Get<ThrowWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
@@ -212,5 +228,19 @@ public partial class ViewModel : Component, IEquipment
 
 		Transform.LocalRotation = lerpedlocalRotation;
 		Transform.LocalPosition = lerpedLocalPosition;
+	}
+
+	public void OnFireMode( FireMode currentFireMode )
+	{
+		var mode = currentFireMode switch
+		{
+			FireMode.Semi => 1,
+			FireMode.Automatic => 3,
+			FireMode.Burst => 2,
+			_ => 0
+		};
+
+		ModelRenderer.Set( "firing_mode", mode );
+
 	}
 }
