@@ -16,10 +16,6 @@
         "UnlimitedMoney": true
       },
       {
-        "__type": "Facepunch.RoundCounter",
-        "__guid": "0bcf0905-c31b-4fd3-9e30-ca45eab602ef"
-      },
-      {
         "__type": "Facepunch.DefaultEquipment",
         "__guid": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
         "Armor": 0,
@@ -83,7 +79,7 @@
               {
                 "__type": "Sandbox.Events.StateComponent",
                 "__guid": "edbe1e51-c4ca-4673-b67a-5674096a8220",
-                "DefaultDuration": 60,
+                "DefaultDuration": 10,
                 "DefaultNextState": {
                   "_type": "component",
                   "component_id": "b593cc58-e030-4625-abcf-236e7e7b6384",
@@ -95,7 +91,7 @@
                 "__type": "Facepunch.WaitForPlayers",
                 "__guid": "7e92a240-73c1-4860-9025-6e4f64c27b4f",
                 "MinPlayerCount": 2,
-                "SkipPlayerCount": 10
+                "SkipPlayerCount": 5
               },
               {
                 "__type": "Facepunch.ShowStatusText",
@@ -133,10 +129,9 @@
                 "TargetRatio": 1
               },
               {
-                "__type": "Facepunch.RandomSpawnAssigner",
-                "__guid": "ec76aaf6-2b22-4985-bcae-329db5d89051",
-                "MinEnemyDistance": 512,
-                "SkipLineOfSightTestDistance": 2048,
+                "__type": "Facepunch.TeamSpawnAssigner",
+                "__guid": "1beeb0e3-ee90-49b2-99f7-bf4012e85d72",
+                "SpawnRules": [],
                 "SpawnTags": ""
               }
             ]
@@ -310,13 +305,6 @@
                         "__type": "Facepunch.RespawnPlayers",
                         "__guid": "1b1b0c27-e7c8-42c3-b0dd-25a7529129f5",
                         "ForceNew": true
-                      },
-                      {
-                        "__type": "Facepunch.SpecialWeaponAllocator",
-                        "__guid": "227b6e04-fe0a-48d7-85c2-75b0254a781f",
-                        "SpawnPointTag": "planter",
-                        "Team": "Terrorist",
-                        "Weapon": "weapons/c4/c4.equip"
                       }
                     ]
                   },
@@ -334,8 +322,8 @@
                         "DefaultDuration": 1,
                         "DefaultNextState": {
                           "_type": "component",
-                          "component_id": "ffa72673-9c28-4bf8-a0f2-b8eb3e73944b",
-                          "go": "e2155f6e-7202-4fde-9e9f-972fb87dac92",
+                          "component_id": "e9bda68c-0038-4946-adb6-6920dc1e3b42",
+                          "go": "6d898668-f72c-4a0d-9d6f-5cd271995341",
                           "component_type": "StateComponent"
                         }
                       },
@@ -353,6 +341,48 @@
                       {
                         "__type": "Facepunch.FreezePlayers",
                         "__guid": "e2ddbaad-7772-4437-8e93-be2b6896ed0c"
+                      },
+                      {
+                        "__type": "Facepunch.SpecialWeaponAllocator",
+                        "__guid": "cd47a451-098f-4458-a882-17d1329ac56f",
+                        "SpawnPointTag": "planter",
+                        "Team": "Terrorist",
+                        "Weapon": "weapons/c4/c4.equip"
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "6d898668-f72c-4a0d-9d6f-5cd271995341",
+                    "Flags": 0,
+                    "Name": "Before Plant",
+                    "Enabled": true,
+                    "NetworkMode": 1,
+                    "NetworkInterpolation": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.Events.StateComponent",
+                        "__guid": "e9bda68c-0038-4946-adb6-6920dc1e3b42",
+                        "DefaultDuration": 1,
+                        "DefaultNextState": {
+                          "_type": "component",
+                          "component_id": "e782b3b5-7699-4fc2-baca-11cc0ccfe3b5",
+                          "go": "c4175b34-32ea-4bd7-8ab4-9464ecc9f906",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.AutoBombPlant",
+                        "__guid": "4ed0b402-5816-4c8f-918c-7350067d3daa"
+                      },
+                      {
+                        "__type": "Facepunch.BombPlantedEventComponent",
+                        "__guid": "48a16c4c-63a1-4eee-baed-9d38dc82d3fb",
+                        "NextState": {
+                          "_type": "component",
+                          "component_id": "ffa72673-9c28-4bf8-a0f2-b8eb3e73944b",
+                          "go": "e2155f6e-7202-4fde-9e9f-972fb87dac92",
+                          "component_type": "StateComponent"
+                        }
                       }
                     ]
                   },
@@ -406,10 +436,6 @@
                         }
                       },
                       {
-                        "__type": "Facepunch.AutoBombPlant",
-                        "__guid": "b10e6121-2e43-4bdc-b797-1fa5504b71f0"
-                      },
-                      {
                         "__type": "Facepunch.ShowStatusIcon",
                         "__guid": "d0a63684-f740-460e-aa80-687424d55ec0",
                         "IconPath": "/ui/items/c4.png"
@@ -440,7 +466,13 @@
                       {
                         "__type": "Sandbox.Events.StateComponent",
                         "__guid": "385d9bf9-8adc-4b89-88af-dda216c9d38e",
-                        "DefaultDuration": 5
+                        "DefaultDuration": 5,
+                        "DefaultNextState": {
+                          "_type": "component",
+                          "component_id": "9269103b-219e-4886-89b9-efcfce1f1ee1",
+                          "go": "3092e09d-2b87-48a4-bd44-e77deca7778b",
+                          "component_type": "StateComponent"
+                        }
                       },
                       {
                         "__type": "Facepunch.IncrementTeamScore",
@@ -551,16 +583,16 @@
                     ]
                   },
                   {
-                    "__guid": "e876e4bc-4c3c-470e-9786-6a750381c4c6",
+                    "__guid": "17dbb5a8-4d87-4040-9536-8ed42df16c01",
                     "Flags": 0,
-                    "Name": "End Round",
+                    "Name": "Swap Teams",
                     "Enabled": true,
                     "NetworkMode": 1,
                     "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
-                        "__guid": "81da66d0-027a-43f8-9306-88dfafa3a3f8",
+                        "__guid": "540328b1-bdd9-4c32-b515-3824c42c2227",
                         "DefaultDuration": 0,
                         "DefaultNextState": {
                           "_type": "component",
@@ -570,35 +602,10 @@
                         }
                       },
                       {
-                        "__type": "Facepunch.IncrementRoundCounter",
-                        "__guid": "05e1ae65-18c1-4b93-907e-d0d9cfbf3588"
+                        "__type": "Facepunch.SwapTeams",
+                        "__guid": "2c48ca2b-1924-47fb-ace4-2180e88ebc34"
                       }
                     ]
-                  }
-                ]
-              },
-              {
-                "__guid": "17dbb5a8-4d87-4040-9536-8ed42df16c01",
-                "Flags": 0,
-                "Name": "Swap Teams",
-                "Enabled": true,
-                "NetworkMode": 1,
-                "NetworkInterpolation": true,
-                "Components": [
-                  {
-                    "__type": "Sandbox.Events.StateComponent",
-                    "__guid": "540328b1-bdd9-4c32-b515-3824c42c2227",
-                    "DefaultDuration": 0,
-                    "DefaultNextState": {
-                      "_type": "component",
-                      "component_id": "9269103b-219e-4886-89b9-efcfce1f1ee1",
-                      "go": "3092e09d-2b87-48a4-bd44-e77deca7778b",
-                      "component_type": "StateComponent"
-                    }
-                  },
-                  {
-                    "__type": "Facepunch.SwapTeams",
-                    "__guid": "2c48ca2b-1924-47fb-ace4-2180e88ebc34"
                   }
                 ]
               }

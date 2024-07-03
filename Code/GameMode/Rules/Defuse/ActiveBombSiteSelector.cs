@@ -36,5 +36,7 @@ public sealed class ActiveBombSiteSelector : Component,
 		{
 			spawn.Enabled = spawn.GameObject.Tags.Contains( name );
 		}
+
+		GameMode.Instance.ShowToast( $"Retakes: {bombSite.Zone.DisplayName}", duration: 3f );
 	}
 }

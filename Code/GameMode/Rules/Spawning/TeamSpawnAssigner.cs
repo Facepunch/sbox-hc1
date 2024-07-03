@@ -46,6 +46,11 @@ public sealed class TeamSpawnAssigner : Component,
 
 		foreach ( var rule in SpawnRules )
 		{
+			if ( rule.Team != player.Team )
+			{
+				continue;
+			}
+
 			var matchingPlayers = playerPositions
 				.Count( x => x.Tags.Contains( rule.Tag, StringComparer.OrdinalIgnoreCase ) );
 
