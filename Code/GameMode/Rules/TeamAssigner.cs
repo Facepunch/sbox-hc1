@@ -15,6 +15,11 @@ public sealed class TeamAssigner : Component,
 	[Property] public int MaxTeamSize { get; set; } = 5;
 
 	/// <summary>
+	/// Target number of Ts per CT.
+	/// </summary>
+	[Property] public float TargetRatio { get; set; } = 1f;
+
+	/// <summary>
 	/// If true, new players will be assigned as soon as they join. Otherwise, teams
 	/// will only be assigned when this game state is entered.
 	/// </summary>
@@ -30,22 +35,7 @@ public sealed class TeamAssigner : Component,
 
 	private void AssignTeam( PlayerState player, bool dispatch )
 	{
-		var ts = GameUtils.GetPlayers( Team.Terrorist ).Count();
-		var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).Count();
-
-		var assignTeam = Team.Unassigned;
-
-		if ( ts < MaxTeamSize || cts < MaxTeamSize )
-		{
-			var compare = ts.CompareTo( cts );
-
-			if ( compare == 0 )
-			{
-				compare = Random.Shared.Next( 2 ) * 2 - 1;
-			}
-
-			assignTeam = compare < 0 ? Team.Terrorist : Team.CounterTerrorist;
-		}
+		var assignTeam = SelectTeam();
 
 		if ( dispatch )
 		{
@@ -59,6 +49,42 @@ public sealed class TeamAssigner : Component,
 		{
 			player.Team = assignTeam;
 		}
+	}
+
+	public float GetTeamCountScore( int ts, int cts )
+	{
+		if ( ts > MaxTeamSize || cts > MaxTeamSize ) return float.PositiveInfinity;
+		if ( ts == 0 || cts == 0 ) return 1000f;
+
+		var ratio = (float)ts / cts;
+
+		return Math.Abs( ratio - TargetRatio );
+	}
+
+	private Team SelectTeam()
+	{
+		var ts = GameUtils.GetPlayers( Team.Terrorist ).Count();
+		var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).Count();
+
+		var tScore = GetTeamCountScore( ts + 1, cts );
+		var ctScore = GetTeamCountScore( ts, cts + 1 );
+
+		if ( float.IsInfinity( tScore ) && float.IsInfinity( ctScore ) )
+		{
+			return Team.Unassigned;
+		}
+
+		return tScore.CompareTo( ctScore ) switch
+		{
+			> 0 => Team.CounterTerrorist,
+			< 0 => Team.Terrorist,
+			_ => RandomTeam()
+		};
+	}
+
+	private static Team RandomTeam()
+	{
+		return Random.Shared.NextSingle() < 0.5f ? Team.Terrorist : Team.CounterTerrorist;
 	}
 
 	void IGameEventHandler<PlayerConnectedEvent>.OnGameEvent( PlayerConnectedEvent eventArgs )

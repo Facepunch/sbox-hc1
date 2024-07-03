@@ -12,12 +12,12 @@ public sealed class TeamSpawnAssigner : Component,
 	/// Use spawns that include at least one of these tags.
 	/// </summary>
 	[Property, Title( "Tags" )]
-	public List<string> SpawnTags { get; private set; } = new();
+	public TagSet SpawnTags { get; private set; } = new();
 
 	public Transform GetSpawnPoint( PlayerState player )
 	{
 		var team = player.Team;
-		var spawns = GameUtils.GetSpawnPoints( team ).Shuffle();
+		var spawns = GameUtils.GetSpawnPoints( team, SpawnTags.ToArray() ).Shuffle();
 
 		if ( spawns.Count == 0 && player.Team != Team.Unassigned )
 		{

@@ -1,7 +1,8 @@
 ﻿@namespace Facepunch
 @attribute [StyleSheet]
+@inherits Panel
 
-@if (!PlayerState.Viewer.Pawn.IsValid()) return;
+@if ( !PlayerState.Viewer.Pawn.IsValid() ) return;
 
 <root class="with-rounding @(FullMode ? "big" : "radar")" style="border: 1px solid @(TeamColor.WithAlpha( 0.5f ).Hex)">
     @if (Renderer.IsValid())
@@ -17,8 +18,8 @@
                         if (!volume.IsValid() || (PlayerState.Viewer.Pawn is PlayerPawn player && !volume.IsVisible( player )))
                             continue;
                             
-                        <div class="volume" style="@GetBox(volume) @GetBoxStyles(volume)" >
-                            <div class="bg" style="@GetLineStyles(volume)" />
+                        <div class="volume" style="@GetBox( volume ) @GetBoxStyles( volume )" >
+                            <div class="bg" style="@GetLineStyles( volume )" />
                         </div>
                     }
                 </div>
@@ -28,35 +29,36 @@
         <div class="markers">
             @foreach ( var element in Game.ActiveScene.GetAllComponents<IMinimapElement>() )
             {
-                @if (!element.IsValid() || (PlayerState.Viewer.Pawn is PlayerPawn player && !element.IsVisible(player)))
+                @if ( !element.IsValid() || ( PlayerState.Viewer.Pawn is PlayerPawn player && !element.IsVisible( player ) ) )
                     continue;
 
                 @if ( element is IMinimapIcon icon && !string.IsNullOrEmpty( icon.IconPath ) )
                 {
-                    string style = WorldToMap(icon.WorldPosition);
+                    string style = WorldToMap( icon.WorldPosition );
 
-                    if (icon is IDirectionalMinimapIcon dir && dir.EnableDirectional)
-                        style += RotationToMap(dir.Direction);
+                    if ( icon is IDirectionalMinimapIcon { EnableDirectional: true } dir )
+                        style += RotationToMap( dir.Direction );
                     else
-                        style += RotationToMap(FixedMode ? 0 : PlayerState.Viewer.Pawn?.EyeAngles.yaw ?? 0);
+                        style += RotationToMap( FixedMode ? 0 : PlayerState.Viewer.Pawn?.EyeAngles.yaw ?? 0 );
 
                     if (icon is ICustomMinimapIcon custom)
                         style += custom.CustomStyle;
 
                     <div class="marker" style="background-image: url( @icon.IconPath ); @style z-index: @icon.IconOrder;" />
                 }
-                if (element is IMinimapLabel label)
+                
+                if ( element is IMinimapLabel label )
                 {
-                    <div class="label" style="@WorldToMap(label.WorldPosition) @LabelStyles( label )">
+                    <div class="label" style="@WorldToMap( label.WorldPosition ) @LabelStyles( label )">
                         @label.Label
                     </div>
                 }
             }
 
             <!-- POV Marker -->
-            @if (PlayerState.Viewer.Pawn is not PlayerPawn || PlayerState.Viewer.Pawn?.HealthComponent?.State == LifeState.Alive)
+            @if ( PlayerState.Viewer.Pawn is not PlayerPawn || PlayerState.Viewer.Pawn?.HealthComponent?.State == LifeState.Alive )
             {
-                <div class="marker @(SpectateSystem.Instance?.IsFreecam ?? false ? "" : "viewer")" style="@WorldToMap(ViewPos) @RotationToMap(ViewYaw) background-tint: @ViewerColor.Hex" />
+                <div class="marker @(SpectateSystem.Instance?.IsFreecam ?? false ? "" : "viewer")" style="@WorldToMap( ViewPos ) @RotationToMap( ViewYaw ) background-tint: @ViewerColor.Hex" />
             }
 
         </div>
@@ -70,7 +72,7 @@
     public Color TeamColor => PlayerState.Viewer.Team.GetColor();
     private PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
 
-    public Color ViewerColor => Player?.PlayerColor ?? Color.White;
+    public Color ViewerColor => PlayerState.Viewer.PlayerColor;
 
     public Vector3 ViewPos => PlayerState.Viewer.Pawn?.Transform.Position ?? Vector3.Zero;
     public float ViewYaw => PlayerState.Viewer.Pawn?.EyeAngles.yaw ?? 0;
@@ -78,15 +80,15 @@
     public float Zoom => 2;
 
     // shows full map, embiggened
-    public bool FullMode => Input.Down("score");
+    public bool FullMode => Input.Down( "score" );
     // doesn't rotate the map with the player
     public bool FixedMode => FullMode;
 
     // generic
     string WorldToMap( Vector3 worldPosition )
     {
-        var position = FullMode ? Renderer.FromWorld(worldPosition) : Renderer.FromWorldRadar(worldPosition, ViewPos, FixedMode ? 0 : ViewYaw, Zoom);
-        return $"left: {Length.Fraction(position.x)}; top: {Length.Fraction(position.y)};";
+        var position = FullMode ? Renderer.FromWorld( worldPosition ) : Renderer.FromWorldRadar( worldPosition, ViewPos, FixedMode ? 0 : ViewYaw, Zoom );
+        return $"left: {Length.Fraction( position.x )}; top: {Length.Fraction( position.y )};";
     }
 
     string LabelStyles( IMinimapLabel label )
@@ -126,17 +128,17 @@
     {
         if (FullMode) return "left: 0; top: 0; width: 100%; height: 100%;";
         var position = -Renderer.FromWorld(ViewPos) * Zoom;
-        return $"position: absolute; left: {Length.Fraction(position.x)}; top: {Length.Fraction(position.y)}; width: {Zoom * 100}%; height: {Zoom * 100}%";
+        return $"position: absolute; left: {Length.Fraction( position.x )}; top: {Length.Fraction( position.y )}; width: {Zoom * 100}%; height: {Zoom * 100}%";
     }
 
     string MapRot()
     {
-        if (FixedMode) return "transform: none;";
+        if ( FixedMode ) return "transform: none;";
         return $"transform-origin: center center; transform: rotate({(FixedMode ? 0 : ViewYaw)}deg); ";
     }
 
     protected override int BuildHash()
     {
-        return System.HashCode.Combine( Time.Now );
+        return HashCode.Combine( Time.Now );
     }
 }

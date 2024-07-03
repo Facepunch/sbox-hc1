@@ -1,0 +1,95 @@
+{
+  "RootObject": {
+    "__guid": "a9609d9e-aa5a-4e77-8a5e-1410999a3a7f",
+    "Flags": 0,
+    "Name": "w_knife_bayonet",
+    "Tags": "player",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Facepunch.Equipment",
+        "__guid": "f46bf723-97c8-4415-a45d-069538684bd6",
+        "DeploySound": "sounds/guns/knife/knife.deploy.sound",
+        "Handedness": "Right",
+        "HoldType": "Swing",
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "021866f7-aefb-48e4-a6ad-024110b74821",
+          "go": "f3a00090-d124-4fe9-b1e3-b5846a2ad3dd",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "MountedPrefab": {
+          "_type": "gameobject",
+          "prefab": "weapons/knife_bayonet/mount_knife_bayonet.prefab"
+        },
+        "Resource": "weapons/knife_bayonet/knife_bayonet.equip",
+        "SpeedPenalty": 0
+      },
+      {
+        "__type": "Facepunch.TagBinder",
+        "__guid": "b2de65d3-2a49-4d42-a7af-0b4faf9f7a41"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "f3a00090-d124-4fe9-b1e3-b5846a2ad3dd",
+        "Flags": 0,
+        "Name": "Mdl",
+        "Position": "0.6115569,-3.630465,2.188348",
+        "Rotation": "-0.1967144,-0.7191653,-0.2256082,0.6270611",
+        "Scale": "1.5,1.5,1.5",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "021866f7-aefb-48e4-a6ad-024110b74821",
+            "BodyGroups": 18446744073709551615,
+            "CreateBoneObjects": false,
+            "Model": "models/weapons/sbox_melee_m9bayonet/w_m9bayonet.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          }
+        ]
+      },
+      {
+        "__guid": "e0b6f84a-933e-4d12-9c33-4e41df80b06a",
+        "Flags": 0,
+        "Name": "Functions",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Facepunch.MeleeWeaponComponent",
+            "__guid": "78a7e471-152c-4266-b4e9-53992ee7c202",
+            "BaseDamage": 50,
+            "FireRate": 1,
+            "InputActions": [
+              "Attack1",
+              "Attack2"
+            ],
+            "InputType": "Down",
+            "MaxRange": 64,
+            "RequiresAllInputActions": false,
+            "Size": 1,
+            "SwingSound": "sounds/guns/knife/knife.swing.sound"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.w_m9bayonet"
+  ],
+  "__version": 1
+}

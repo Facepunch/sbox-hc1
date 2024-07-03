@@ -58,6 +58,8 @@ public sealed class PlayerFootsteps : Component
 
 		var scale = Player.IsSprinting ? SprintFootstepScale : FootstepScale;
 		var handle = Sound.Play( sound, tr.HitPosition + tr.Normal * 5 );
+		if ( !handle.IsValid() ) return;
+		
 		handle.Volume *= e.Volume;
 		handle.Occlusion = false;
 		handle.Decibels = FootstepBaseDecibels * scale;

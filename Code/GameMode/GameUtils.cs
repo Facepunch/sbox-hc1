@@ -18,12 +18,12 @@ public partial class GameUtils
 	public static IEnumerable<PlayerState> GetPlayers( Team team ) => AllPlayers.Where( x => x.Team == team );
 
 	/// <summary>
-	/// Every <seealso cref="PlayerPawn"/> currently in the world.
+	/// Every <see cref="PlayerPawn"/> currently in the world.
 	/// </summary>
 	public static IEnumerable<PlayerPawn> PlayerPawns => Game.ActiveScene.GetAllComponents<PlayerPawn>();
 
 	/// <summary>
-	/// Every <seealso cref="PlayerPawn"/> currently in the world, on the given team.
+	/// Every <see cref="PlayerPawn"/> currently in the world, on the given team.
 	/// </summary>
 	public static IEnumerable<PlayerPawn> GetPlayerPawns( Team team ) => PlayerPawns.Where( x => x.Team == team );
 

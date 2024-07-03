@@ -3,21 +3,25 @@
 
 @attribute [StyleSheet]
 
+@{
+    var pawn = Player.PlayerPawn;
+}
+
 <root class="@AvatarClasses" style="@(IsFriendly && Player.PlayerPawn.IsValid() ? $"box-shadow: 0 0 0 2px {PlayerColor.Hex}" : "")">
     <div class="avatar">
         <img class="image" src="avatar:@Player.SteamId" />
     </div>
 
-    @if (!Player.PlayerPawn.IsValid()) return;
+    @if ( !pawn.IsValid() ) return;
 
-    @if (ShowHealth && Player.PlayerPawn.HealthComponent.State == LifeState.Alive && IsFriendly)
+    @if (ShowHealth && pawn.HealthComponent.State == LifeState.Alive && IsFriendly)
     {
         <div class="health">
             <div class="health-inner" style="width:@(Player.PlayerPawn.HealthComponent.Health)%" />
         </div>
     }
 
-    @if (ShowBomb && Player.PlayerPawn.Inventory.HasBomb && IsFriendly)
+    @if (ShowBomb && pawn.Inventory.HasBomb && IsFriendly)
     {
         <Icon File="/ui/bomb.png" size="24" class="bomb-indicator"></Icon>
     }
@@ -31,8 +35,8 @@
 @code
 {
     public PlayerState Player { get; set; }
-    public bool IsFriendly => PlayerState.Local.IsFriendly(Player);
-    public Color PlayerColor => Player.PlayerPawn.IsValid() ? Player.PlayerPawn.PlayerColor : Color.White;
+    public bool IsFriendly => PlayerState.Local.IsFriendly( Player );
+    public Color PlayerColor => Player.PlayerPawn.IsValid() ? Player.PlayerColor : Color.White;
 
     public bool ShowBomb { get; set; } = true;
     public bool ShowHealth { get; set; } = true;
@@ -49,12 +53,12 @@
 
     protected override int BuildHash()
     {
-        int hash = HashCode.Combine(Player, IsFriendly);
+        var hash = HashCode.Combine( Player, IsFriendly );
+        var pawn = Player.PlayerPawn;
 
-        if (Player.PlayerPawn.IsValid())
-        {
-            hash = HashCode.Combine(hash, Player.PlayerPawn.HealthComponent.Health, Player.PlayerPawn.HealthComponent.State, Player.PlayerPawn.PlayerColor);
-        }
+        if ( pawn.IsValid() )
+            hash = HashCode.Combine( hash, pawn.HealthComponent.Health, pawn.HealthComponent.State, Player.PlayerColor );
+        
         return hash;
     }
 }

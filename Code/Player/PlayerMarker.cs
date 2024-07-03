@@ -69,7 +69,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 		get
 		{
 			if ( IsEnemy ) return "background-image-tint: rgba(255, 0, 0, 1 );";
-			return $"background-image-tint: {Player.PlayerColor.Hex}";
+			return $"background-image-tint: {Player.PlayerState.PlayerColor.Hex}";
 		}
 	}
 
