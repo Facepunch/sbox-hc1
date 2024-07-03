@@ -57,11 +57,19 @@ public partial class PlayerPawn
 
 		if ( Networking.IsHost )
 		{
+			SpawnPointTags.Clear();
+
 			// :S
 			if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
 			{
 				var s = spawnAssigner.GetSpawnPoint( PlayerState );
-				Teleport( s );
+
+				foreach ( var tag in s.Tags )
+				{
+					SpawnPointTags.Add( tag );
+				}
+
+				Teleport( s.Transform );
 			}
 
 			OnHostRespawn();

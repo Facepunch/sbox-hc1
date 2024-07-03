@@ -20,6 +20,12 @@ public sealed class SpecialWeaponAllocator : Component,
 	[Property]
 	public Team Team { get; set; }
 
+	/// <summary>
+	/// Only give equipment to players that spawned at a point with this tag.
+	/// </summary>
+	[Property]
+	public string SpawnPointTag { get; set; }
+
 	[After<RespawnPlayers>]
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
@@ -28,7 +34,9 @@ public sealed class SpecialWeaponAllocator : Component,
 			return;
 		}
 
-		var playersOnTeam = GameUtils.GetPlayerPawns( Team ).Shuffle();
+		var playersOnTeam = GameUtils.GetPlayerPawns( Team )
+			.Where( x => string.IsNullOrEmpty( SpawnPointTag ) || x.SpawnPointTags.Contains( SpawnPointTag, StringComparer.OrdinalIgnoreCase ) )
+			.Shuffle();
 
 		if ( playersOnTeam.Count == 0 )
 		{

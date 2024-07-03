@@ -21,7 +21,7 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 	[Property]
 	public float SkipLineOfSightTestDistance { get; set; } = 2048;
 
-	private bool IsValidSpawnPoint( Transform spawn, IReadOnlyList<Transform> allPlayers, IReadOnlyList<Transform> enemyPlayers )
+	private bool IsValidSpawnPoint( SpawnPointInfo spawn, IReadOnlyList<Transform> allPlayers, IReadOnlyList<Transform> enemyPlayers )
 	{
 		// Don't spawn inside another player
 
@@ -68,7 +68,7 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 		return true;
 	}
 
-	Transform ISpawnAssigner.GetSpawnPoint( PlayerState player )
+	SpawnPointInfo ISpawnAssigner.GetSpawnPoint( PlayerState player )
 	{
 		var allPlayers = GameUtils.PlayerPawns
 			.Where( x => x.PlayerState != player )

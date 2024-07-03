@@ -2,6 +2,15 @@
 
 namespace Facepunch;
 
+public class SpawnRule
+{
+	public Team Team { get; set; }
+	public string Tag { get; set; }
+
+	public int MinPlayers { get; set; }
+	public int MaxPlayers { get; set; }
+}
+
 /// <summary>
 /// Use team-specific spawn points.
 /// </summary>
@@ -14,7 +23,10 @@ public sealed class TeamSpawnAssigner : Component,
 	[Property, Title( "Tags" )]
 	public TagSet SpawnTags { get; private set; } = new();
 
-	public Transform GetSpawnPoint( PlayerState player )
+	[Property, InlineEditor]
+	public List<SpawnRule> SpawnRules { get; private set; } = new();
+
+	public SpawnPointInfo GetSpawnPoint( PlayerState player )
 	{
 		var team = player.Team;
 		var spawns = GameUtils.GetSpawnPoints( team, SpawnTags.ToArray() ).Shuffle();
@@ -27,13 +39,32 @@ public sealed class TeamSpawnAssigner : Component,
 
 		var playerPositions = GameUtils.PlayerPawns
 			.Where( x => x.PlayerState != player )
+			.Where( x => x.TimeSinceLastRespawn < 1f )
 			.Where( x => x.HealthComponent.State == LifeState.Alive )
-			.Select( x => x.Transform.Position )
+			.Select( x => (x.Transform.Position, Tags: x.SpawnPointTags) )
 			.ToArray();
+
+		foreach ( var rule in SpawnRules )
+		{
+			var matchingPlayers = playerPositions
+				.Count( x => x.Tags.Contains( rule.Tag, StringComparer.OrdinalIgnoreCase ) );
+
+			if ( matchingPlayers >= rule.MaxPlayers )
+			{
+				continue;
+			}
+
+			if ( matchingPlayers < rule.MinPlayers )
+			{
+				spawns = spawns
+					.Where( x => x.Tags.Contains( rule.Tag, StringComparer.OrdinalIgnoreCase ) )
+					.ToArray();
+			}
+		}
 
 		foreach ( var spawn in spawns )
 		{
-			if ( playerPositions.All( x => (x - spawn.Position).LengthSquared > 32f * 32f ) )
+			if ( playerPositions.All( x => (x.Position - spawn.Position).LengthSquared > 32f * 32f ) )
 			{
 				return spawn;
 			}

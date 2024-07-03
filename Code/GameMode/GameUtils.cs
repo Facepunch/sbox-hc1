@@ -33,20 +33,21 @@ public partial class GameUtils
 	/// <summary>
 	/// Get all spawn point transforms for the given team.
 	/// </summary>
-	public static IEnumerable<Transform> GetSpawnPoints( Team team, params string[] tags ) => Game.ActiveScene
+	public static IEnumerable<SpawnPointInfo> GetSpawnPoints( Team team, params string[] tags ) => Game.ActiveScene
 		.GetAllComponents<TeamSpawnPoint>()
 		.Where( x => x.Team == team )
 		.Where( x => tags.Length == 0 || tags.Any( x.Tags.Contains )  )
-		.Select( x => x.Transform.World )
+		.Select( x => new SpawnPointInfo( x.Transform.World, x.GameObject.Tags.ToArray() ) )
 		.Concat( Game.ActiveScene.GetAllComponents<SpawnPoint>()
-			.Select( x => x.Transform.World ) );
+			.Select( x => new SpawnPointInfo( x.Transform.World, x.GameObject.Tags.ToArray() ) ) );
 
 	/// <summary>
 	/// Pick a random spawn point for the given team.
 	/// </summary>
-	public static Transform GetRandomSpawnPoint( Team team, params string[] tags )
+	public static SpawnPointInfo GetRandomSpawnPoint( Team team, params string[] tags )
 	{
-		return Random.Shared.FromArray( GetSpawnPoints( team, tags ).ToArray(), Transform.Zero );
+		return Random.Shared.FromArray( GetSpawnPoints( team, tags ).ToArray(),
+			new SpawnPointInfo( Transform.Zero, Array.Empty<string>() ) );
 	}
 
 	/// <summary>

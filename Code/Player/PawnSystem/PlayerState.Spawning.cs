@@ -28,20 +28,20 @@ public partial class PlayerState
 
 	private void Spawn()
 	{
-		// :S
-		var spawnPoint = new Transform();
-		if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
+		var spawnPoint = GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner
+			? spawnAssigner.GetSpawnPoint( this )
+			: GameUtils.GetRandomSpawnPoint( Team );
+
+		var prefab = PlayerPawnPrefab.Clone( spawnPoint.Transform );
+		var pawn = prefab.Components.Get<PlayerPawn>();
+
+		pawn.PlayerState = this;
+
+		foreach ( var tag in spawnPoint.Tags )
 		{
-			spawnPoint = spawnAssigner.GetSpawnPoint( this );
-		}
-		else
-		{
-			spawnPoint = GameUtils.GetRandomSpawnPoint( Team );
+			pawn.SpawnPointTags.Add( tag );
 		}
 
-		var prefab = PlayerPawnPrefab.Clone( spawnPoint );
-		var pawn = prefab.Components.Get<PlayerPawn>();
-		pawn.PlayerState = this;
 		prefab.NetworkSpawn( Network.OwnerConnection );
 
 		PlayerPawn = pawn;

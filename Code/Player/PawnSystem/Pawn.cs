@@ -26,6 +26,12 @@ public abstract class Pawn : Component, IRespawnable
 	}
 
 	/// <summary>
+	/// The tags of the last spawn point of this pawn.
+	/// </summary>
+	[HostSync]
+	public NetList<string> SpawnPointTags { get; private set; } = new();
+
+	/// <summary>
 	/// What team does this pawn belong to?
 	/// </summary>
 	public virtual Team Team
