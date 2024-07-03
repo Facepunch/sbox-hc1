@@ -9,6 +9,17 @@
     return;
 
 <root class="flex row gap align-center justify-end" style="width: 100px;">
+    @if ( Shoot.IsValid() )
+    {
+        <div class="layout firemode gap">
+            @if ( Shoot.SupportedFireModes.Count > 1 )
+            {
+             <InputHint Action="FireMode" />
+            }
+            <Icon File=@FireModeFile size="24" />
+        </div>
+    }
+
     <label class="vital">@(AmmoComponent?.Ammo.ToString() ?? "∞")</label>
     <separator />
     <label class="important">@(AmmoComponent?.MaxAmmo.ToString() ?? "∞")</label>
@@ -26,10 +37,22 @@
 
     private AmmoComponent AmmoComponent => Player?.CurrentEquipment?.Components?.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
 
+    public ShootWeaponComponent Shoot => Player.CurrentEquipment.IsValid() ? Player.CurrentEquipment.Components.Get<ShootWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) : null;
+
+    private string FireModeFile
+    {
+        get
+        {
+            if ( !Shoot.IsValid() ) return null;
+
+            return $"ui/firemode/{Shoot.CurrentFireMode.ToString().ToLowerInvariant()}.png";
+        }
+    }
+
     protected override int BuildHash()
     {
         if ( !Player.IsValid() || !Player.CurrentEquipment.IsValid() )
             return 0;
-        return HashCode.Combine( Player, AmmoComponent?.Ammo, Player?.CurrentEquipment );
+        return HashCode.Combine( Player, AmmoComponent?.Ammo, Player?.CurrentEquipment, FireModeFile );
     }
 }

@@ -1,9 +1,31 @@
 @import "/UI/Styles/Theme.scss";
 
-Ammo {
-    separator {
+Ammo
+{
+    separator
+    {
         width: 1px;
         height: 16px;
         background-color: rgba( white, 0.5 );
+    }
+
+    .vital, .important
+    {
+        min-width: 32px;
+    }
+
+    .firemode
+    {
+        align-items: center;
+        margin-top: 4px;
+
+        InputHint
+        {
+            img
+            {
+                width: 32px;
+                height: 32px;
+            }
+        }
     }
 }
