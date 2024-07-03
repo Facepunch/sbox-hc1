@@ -9,7 +9,10 @@ public sealed class PlayerScore : Component,
 	IGameEventHandler<KillEvent>,
 	IGameEventHandler<BombDefusedEvent>,
 	IGameEventHandler<BombDetonatedEvent>,
-	IGameEventHandler<BombPlantedEvent>
+	IGameEventHandler<BombPlantedEvent>,
+	IGameEventHandler<RoundCounterIncrementedEvent>,
+	IGameEventHandler<RoundCounterResetEvent>,
+	IGameEventHandler<ResetScoresEvent>
 {
 	[Property] public PlayerState PlayerState { get; set; }
 
@@ -21,6 +24,9 @@ public sealed class PlayerScore : Component,
 
 	[HostSync, Property, ReadOnly] 
 	public int Score { get; set; } = 0;
+
+	[HostSync]
+	public NetList<int> ScoreHistory { get; private set; } = new();
 
 	[HostSync]
 	public bool WasBombPlanter { get; private set; }
@@ -158,5 +164,26 @@ public sealed class PlayerScore : Component,
 			// Teammate is alive when the bomb explodes
 			Score += BombExplodeTeamAliveScore;
 		}
+	}
+
+	void IGameEventHandler<ResetScoresEvent>.OnGameEvent( ResetScoresEvent eventArgs )
+	{
+		Kills = 0;
+		Deaths = 0;
+		Score = 0;
+
+		ScoreHistory.Clear();
+
+		WasBombPlanter = false;
+	}
+
+	void IGameEventHandler<RoundCounterIncrementedEvent>.OnGameEvent( RoundCounterIncrementedEvent eventArgs )
+	{
+		ScoreHistory.Add( Score - ScoreHistory.LastOrDefault() );
+	}
+
+	void IGameEventHandler<RoundCounterResetEvent>.OnGameEvent( RoundCounterResetEvent eventArgs )
+	{
+		ScoreHistory.Clear();
 	}
 }
