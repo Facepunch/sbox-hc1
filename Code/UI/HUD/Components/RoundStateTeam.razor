@@ -11,14 +11,25 @@
             <label class="important with-px-lg" style="min-width: 75px; flex-shrink: 0; text-align: center;">@Score</label>
         }
 
-        @foreach (var values in Players)
+        @* TODO: Gamemode rule *@
+        @if ( PlayerCount <= 10 )
         {
-            <PlayerAvatar @Player=@values />
+            @foreach ( var values in Players )
+            {
+                <PlayerAvatar @Player=@values />
+            }
+        }
+        else
+        {
+            <div class="flex row align-center gap-sm">
+                <i class="emphasis">person</i>
+                <label class="emphasis">@Players.Count()</label>
+            </div>
         }
 
         @if (IconPosition == IconPositions.Right)
         {
-            <label class="important with-px-lg" style="min-width: 75px; flex-shrink: 0; text-align: center;">@Score</label>
+            <label class="vital with-px-lg" style="min-width: 75px; flex-shrink: 0; text-align: center;">@Score</label>
         }
     </div>
 </root>
@@ -35,6 +46,8 @@
     public Team Team { get; set; }
     public IEnumerable<PlayerState> Players { get; set; }
     public IconPositions IconPosition { get; set; } = IconPositions.Left;
+
+    private int PlayerCount => GameUtils.AllPlayers.Count();
 
     private string TeamColor => Team.GetColor().Hex;
 
