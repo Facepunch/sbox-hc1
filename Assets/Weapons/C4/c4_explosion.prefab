@@ -10,59 +10,6 @@
       {
         "__type": "Facepunch.TimedDestroyComponent",
         "__guid": "239fc8d2-9acd-481a-bfb5-b10a2bb2c9be",
-        "OnComponentStart": {
-          "__version": 7,
-          "__guid": "fbdfc1fe-0c3e-4317-ab29-9b8d6c7517e7",
-          "UserData": {
-            "Title": "On Component Start",
-            "ReferencedComponentTypes": []
-          },
-          "Variables": [],
-          "Nodes": [
-            {
-              "Id": 0,
-              "Type": "input"
-            },
-            {
-              "Id": 2,
-              "Type": "resource.ref",
-              "Properties": {
-                "T": "Sandbox.SoundEvent",
-                "value": "sounds/world/impact/door.metal.slam.sound"
-              },
-              "UserData": {
-                "Position": "-16,128"
-              }
-            },
-            {
-              "Id": 3,
-              "Type": "sound.play",
-              "UserData": {
-                "Position": "288,32"
-              }
-            }
-          ],
-          "Links": [
-            {
-              "SrcId": 0,
-              "SrcName": "_signal",
-              "DstId": 3,
-              "DstName": "_signal"
-            },
-            {
-              "SrcId": 0,
-              "SrcName": "_target",
-              "DstId": 3,
-              "DstName": "_this"
-            },
-            {
-              "SrcId": 2,
-              "SrcName": "_result",
-              "DstId": 3,
-              "DstName": "soundEvent"
-            }
-          ]
-        },
         "Time": 10,
         "TimeUntilDestroy": {
           "Relative": -8434.768,
