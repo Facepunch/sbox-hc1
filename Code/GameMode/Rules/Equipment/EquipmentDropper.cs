@@ -16,11 +16,12 @@ public partial class EquipmentDropper : Component,
 	/// <summary>
 	/// Can we drop this weapon?
 	/// </summary>
+	/// <param name="player"></param>
 	/// <param name="weapon"></param>
 	/// <returns></returns>
-	private bool CanDrop( Equipment weapon )
+	private bool CanDrop( PlayerPawn player, Equipment weapon )
 	{
-		if ( GameMode.Instance.Get<DefaultEquipment>()?.Weapons.Contains( weapon.Resource ) is true )
+		if ( GameMode.Instance.Get<DefaultEquipment>().Contains( player.Team, weapon.Resource ) is true )
 			return false;
 
 		if ( weapon.Resource.Slot == EquipmentSlot.Melee ) 
@@ -38,7 +39,7 @@ public partial class EquipmentDropper : Component,
 			return;
 
 		var droppables = player.Inventory.Equipment
-			.Where( CanDrop )
+			.Where( x => CanDrop( player, x ) )
 			.ToList();
 
 		for ( var i = droppables.Count - 1; i >= 0; i-- )
