@@ -9,8 +9,9 @@
 <root class="hidden flex absolute inset-0 align-center justify-center">
     <table class="with-background with-padding-lg">
         <div class="title">
-            <label class="important uppercase">@(Name) - @(Status)</label>
-            <label class="important uppercase">@(Time?.ToString(@"m\:ss"))</label>
+            <label class="important uppercase left">@(Status is null ? Name : $"{Name} - {Status}")</label>
+            <label class="important uppercase center">@(RoundNumber is { } roundNumber && RoundLimit is { } roundLimit ? $"Round {roundNumber} of {roundLimit}" : "")</label>
+            <label class="important uppercase right">@(Time?.ToString( @"m\:ss" ) ?? " ")</label>
         </div>
 
         @for ( int i = 0; i < GroupedPlayers.Count(); i++ )
@@ -80,6 +81,9 @@
     public string Name => GameMode.Instance?.Title;
     public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
 
+    public int? RoundNumber => GameMode.Instance.Get<RoundCounter>()?.Round;
+    public int? RoundLimit => GameMode.Instance.Get<RoundLimit>()?.MaxRounds;
+
     public IEnumerable<PlayerState> PlayerStates => GameUtils.AllPlayers;
 
     private List<IGrouping<Team, PlayerState>> GroupedPlayers
@@ -97,7 +101,7 @@
     protected override int BuildHash()
     {
         if ( !IsActive ) return 0;
-        return HashCode.Combine( IsActive, GroupedPlayers, Status, Time, PlayerStates );
+        return HashCode.Combine( IsActive, GroupedPlayers, Status, Time, PlayerStates, RoundNumber, RoundLimit );
     }
 
     public override void Tick()
