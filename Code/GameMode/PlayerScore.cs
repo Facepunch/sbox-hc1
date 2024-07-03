@@ -99,7 +99,7 @@ public sealed class PlayerScore : Component,
 
 	void IGameEventHandler<BombPlantedEvent>.OnGameEvent( BombPlantedEvent eventArgs )
 	{
-		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
+		var thisPlayer = PlayerState?.PlayerPawn;
 		var planterPlayer = eventArgs.Planter;
 
 		if ( planterPlayer == thisPlayer )
@@ -116,7 +116,7 @@ public sealed class PlayerScore : Component,
 
 	void IGameEventHandler<BombDefusedEvent>.OnGameEvent( BombDefusedEvent eventArgs )
 	{
-		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
+		var thisPlayer = PlayerState?.PlayerPawn;
 		var defuserPlayer = eventArgs.Defuser;
 
 		if ( defuserPlayer == thisPlayer )
@@ -124,7 +124,7 @@ public sealed class PlayerScore : Component,
 			// Defuser is the current player
 			Score += DefuserScore;
 		}
-		else
+		else if ( thisPlayer is not null )
 		{
 			// Defuser is a teammate
 			if ( defuserPlayer.Team == thisPlayer.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
@@ -136,13 +136,11 @@ public sealed class PlayerScore : Component,
 
 	void IGameEventHandler<BombDetonatedEvent>.OnGameEvent( BombDetonatedEvent eventArgs )
 	{
-		var thisPlayer = GameUtils.GetPlayerFromComponent( this );
-
+		var thisPlayer = PlayerState?.PlayerPawn;
 		var planterPlayer = GameUtils.PlayerPawns
 			.FirstOrDefault( x => x.PlayerState.Components.Get<PlayerScore>() is { WasBombPlanter: true } );
-		var planterPlayerComponent = GameUtils.GetPlayerFromComponent( planterPlayer );
 
-		if ( planterPlayerComponent == thisPlayer )
+		if ( planterPlayer == thisPlayer )
 		{
 			if ( planterPlayer?.HealthComponent.State == LifeState.Alive )
 			{
@@ -155,7 +153,7 @@ public sealed class PlayerScore : Component,
 				Score += BombExplodePlanterDeadScore;
 			}
 		}
-		else if ( planterPlayerComponent?.Team == thisPlayer.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
+		else if ( planterPlayer?.Team == thisPlayer?.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
 		{
 			// Teammate is alive when the bomb explodes
 			Score += BombExplodeTeamAliveScore;
