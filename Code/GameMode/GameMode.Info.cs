@@ -72,7 +72,7 @@ partial class GameMode
 				info = info with
 				{
 					Title = titleOverride ?? info.Title,
-					Description = descriptionOverride ?? info.Title
+					Description = descriptionOverride ?? info.Description
 				};
 
 				infos.Add( info );
