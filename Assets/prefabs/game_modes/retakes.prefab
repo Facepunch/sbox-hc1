@@ -45,6 +45,10 @@
       {
         "__type": "Facepunch.BotManager",
         "__guid": "8f2a629c-0d39-4eb1-a17a-03df62cfcc4b"
+      },
+      {
+        "__type": "Facepunch.RoundCounter",
+        "__guid": "90369e67-62c7-4e94-9f7d-00cb9fa8cc90"
       }
     ],
     "Children": [
@@ -114,6 +118,7 @@
                 "__type": "Facepunch.TeamAssigner",
                 "__guid": "e3a735f5-8456-49fb-aedb-65d386d57bfe",
                 "AllowLateJoiners": true,
+                "AutoBalanceMode": "Random",
                 "MaxTeamSize": 10,
                 "TargetRatio": 1
               },
@@ -164,13 +169,6 @@
               {
                 "__type": "Facepunch.FreezePlayers",
                 "__guid": "9dabf43b-2795-4877-a135-327a1630d0ce"
-              },
-              {
-                "__type": "Facepunch.TeamAssigner",
-                "__guid": "36deea8a-f5b4-4a7b-b9c0-9d2b21f7e032",
-                "AllowLateJoiners": true,
-                "MaxTeamSize": 5,
-                "TargetRatio": 1
               }
             ]
           },
@@ -214,6 +212,19 @@
                   }
                 ],
                 "SpawnTags": "retakes"
+              },
+              {
+                "__type": "Facepunch.RoundLimit",
+                "__guid": "120864c6-aaa8-4155-8594-cd53f152f032",
+                "FinalRoundFirstHalfMessage": "",
+                "FinalRoundMessage": "Final round",
+                "MaxRounds": 30,
+                "NextState": {
+                  "_type": "component",
+                  "component_id": "f9e6010f-47d4-4ed7-8b24-ecfd9853c9e7",
+                  "go": "7b6daed5-5d86-4294-b269-65868fd14bdc",
+                  "component_type": "StateComponent"
+                }
               }
             ],
             "Children": [
@@ -239,6 +250,14 @@
                   {
                     "__type": "Facepunch.ActiveBombSiteSelector",
                     "__guid": "39ddda49-41af-4849-9df3-f5f15bce70c4"
+                  },
+                  {
+                    "__type": "Facepunch.TeamAssigner",
+                    "__guid": "444796df-12fd-464e-982f-32090cfde481",
+                    "AllowLateJoiners": false,
+                    "AutoBalanceMode": "LowestScorersLastRound",
+                    "MaxTeamSize": 5,
+                    "TargetRatio": 0.76
                   }
                 ],
                 "Children": [
@@ -593,6 +612,31 @@
                       {
                         "__type": "Facepunch.SwapTeams",
                         "__guid": "2c48ca2b-1924-47fb-ace4-2180e88ebc34"
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "d7204862-6308-4522-8a98-fec8c790fd43",
+                    "Flags": 0,
+                    "Name": "End Round",
+                    "Enabled": true,
+                    "NetworkMode": 1,
+                    "NetworkInterpolation": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.Events.StateComponent",
+                        "__guid": "b2673d9f-33ea-4e7d-a644-27a399a37a85",
+                        "DefaultDuration": 0,
+                        "DefaultNextState": {
+                          "_type": "component",
+                          "component_id": "9269103b-219e-4886-89b9-efcfce1f1ee1",
+                          "go": "3092e09d-2b87-48a4-bd44-e77deca7778b",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "__type": "Facepunch.IncrementRoundCounter",
+                        "__guid": "ca8c14f0-4238-4b74-9d75-d1c3d31e7500"
                       }
                     ]
                   }
