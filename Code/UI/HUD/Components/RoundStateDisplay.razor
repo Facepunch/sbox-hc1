@@ -3,7 +3,7 @@
 @attribute [StyleSheet]
 
 <root class="hud with-deadzone top-middle flex justify-center row">
-    @if (MyTeamPlayers is not null && MyTeamPlayers.Count() > 0)
+    @if ( MyTeamPlayers is not null )
     {
         <RoundStateTeam Score="@MyTeamScore" Team="@MyTeam" Players="@MyTeamPlayers" iconPosition="Right" />
     }
@@ -27,7 +27,7 @@
         }
     </div>
 
-    @if (EnemyTeamPlayers is not null && EnemyTeamPlayers.Count() > 0)
+    @if ( EnemyTeamPlayers is not null )
     {
         <RoundStateTeam Score="@EnemyTeamScore" Team="@EnemyTeam" Players="@EnemyTeamPlayers" iconPosition="Left" />
     }
