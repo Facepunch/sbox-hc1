@@ -80,7 +80,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		Graphics.Blit( ScopeOverlay, attrs );
 	}
 
-	protected override void OnInput()
+	protected override void OnInputDown()
 	{
 		if ( ZoomLevel < ZoomLevels.Count )
 		{
