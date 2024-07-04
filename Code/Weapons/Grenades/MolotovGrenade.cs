@@ -1,15 +1,20 @@
+using System.Threading.Tasks;
+
 namespace Facepunch;
 
 [Title( "Molotov Grenade" )]
 public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener
 {
 	[Property] public GameObject FireNodePrefab { get; set; }
-	[Property] public RangedFloat FireRadiusPerNode { get; set; } = new( 16f, 150f );
+	[Property] public float FireRadius { get; set; } = 200f;
 	[Property] public int FireNodesToSpawn { get; set; } = 20;
+	[Property] public RangedFloat SpreadDelay { get; set; } = new( 0.1f, 0.2f );
+	
+	private bool IsSpreadingFire { get; set; }
 	
 	void ICollisionListener.OnCollisionStart( Collision collision )
 	{
-		if ( !Networking.IsHost )
+		if ( !Networking.IsHost || IsSpreadingFire )
 			return;
 		
 		var isValidCollision = collision.Other.Collider is MapCollider;
@@ -24,34 +29,34 @@ public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener
 
 		// Did we pretty much land on flat surface?
 		if ( dot > -0.5f ) return;
-
-		//SpreadFire( collision.Contact.Point + collision.Contact.Normal * 8f, FireNodesToSpawn, FireSpreadCount );
-
-		var position = collision.Contact.Point + collision.Contact.Normal * 8f;
-		var go = FireNodePrefab.Clone( position );
-		go.NetworkSpawn();
-
-		SpreadFireNetworked( position, Time.Now.CeilToInt() );
 		
-		Explode();
+		var position = collision.Contact.Point + collision.Contact.Normal * 8f;
+		var rotation = Rotation.LookAt( collision.Contact.Normal );
+		SpreadFireNetworked( position, rotation, Time.Now.CeilToInt() );
 	}
 
 	[Broadcast]
-	void SpreadFireNetworked( Vector3 position, int seed )
+	async void SpreadFireNetworked( Vector3 position, Rotation rotation, int seed )
 	{
-		Game.SetRandomSeed( seed );
-		SpreadFireInSphere( position, 16f, 150f );
+		if ( PrefabOnExplode.IsValid() )
+			PrefabOnExplode.Clone( position );
+		
+		FireNodePrefab.Clone( position, rotation );
+		
+		await SpreadFireInSphere( new( seed ), position );
+		GameObject.Destroy();
 	}
 
-	void SpreadFireInSphere( Vector3 position, float minRadius, float maxRadius )
+	async Task SpreadFireInSphere( Random rnd, Vector3 position )
 	{
-		for ( var i = 0; i < FireNodesToSpawn; i++ )
+		IsSpreadingFire = true;
+
+		var sunflower = Sunflower( FireNodesToSpawn, 2 );
+		Log.Info( sunflower.Count );
+
+		foreach ( var v in sunflower )
 		{
-			var angle = Game.Random.Float( 0f, 360f );
-			var randomRadius = FireRadiusPerNode.GetValue();
-			var x = randomRadius * MathF.Cos( angle );
-			var y = randomRadius * MathF.Sin( angle );
-			var targetPosition = new Vector3( position.x + x, position.y + y, position.z + 32f );
+			var targetPosition = new Vector3( position.x + v.x * FireRadius, position.y + v.y * FireRadius, position.z + 32f );
 			var trace = Scene.Trace.Ray( position, targetPosition )
 				.Run();
 			
@@ -61,9 +66,41 @@ public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener
 			if ( !trace.Hit ) continue;
 
 			var spawnPosition = trace.HitPosition + trace.Normal * 8f;
+			var rotation = Rotation.LookAt( trace.Normal );
 			
-			var go = FireNodePrefab.Clone( spawnPosition );
-			go.NetworkSpawn();
+			FireNodePrefab.Clone( spawnPosition, rotation );
+			
+			await Task.DelaySeconds( rnd.Float( SpreadDelay.RangeValue.x, SpreadDelay.RangeValue.y ) );
 		}
+	}
+	
+	List<Vector2> Sunflower( int n, float alpha = 0, bool geodesic = false )
+	{
+		var phi = (1 + MathF.Sqrt( 5 )) / 2;
+		var stride = 360f * phi;
+		
+		float radius( float k, float d, float b )
+		{
+			return k > d - b ? 1 : MathF.Sqrt( k - 0.5f ) / MathF.Sqrt( d - (b + 1) / 2 );
+		}
+    
+		var b = (int)(alpha * MathF.Sqrt( n ) );
+		var points = new List<Vector2>();
+		
+		for ( var k = 0; k < n; k++ )
+		{
+			var r = radius( k, n, b );
+			var theta = geodesic ? k * 360f * phi : k * stride;
+			var x = !float.IsNaN( r * MathF.Cos( theta ) ) ? r * MathF.Cos( theta ) : 0;
+			var y = !float.IsNaN( r * MathF.Sin( theta ) ) ? r * MathF.Sin( theta ) : 0;
+			points.Add( new(x, y) );
+		}
+		
+		return points;
+	}
+	
+	protected override bool CanExplode()
+	{
+		return !IsSpreadingFire;
 	}
 }

@@ -5,6 +5,7 @@ public partial class SmokeGrenade : BaseGrenade
 {
 	[Property] public GameObject FuseEffect { get; set; }
 	[Property] public float FuseEffectDelay { get; set; } = 1.5f;
+	[Property] public float ExtinguishRadius { get; set; } = 128f;
 	
 	private TimeUntil FuseEffectStartTime { get; set; }
 
@@ -22,5 +23,20 @@ public partial class SmokeGrenade : BaseGrenade
 		}
 		
 		base.OnUpdate();
+	}
+
+	protected override void Explode()
+	{
+		base.Explode();
+
+		var radius = ExtinguishRadius * ExtinguishRadius;
+
+		foreach ( var node in MolotovFireNode.All )
+		{
+			if ( node.Transform.Position.DistanceSquared( Transform.Position ) <= radius )
+			{
+				node.Extinguish();
+			}
+		}
 	}
 }

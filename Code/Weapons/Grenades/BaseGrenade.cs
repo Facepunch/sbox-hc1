@@ -22,12 +22,17 @@ public abstract class BaseGrenade : Component
 
 	protected override void OnUpdate()
 	{
-		if ( IsProxy ) return;
+		if ( IsProxy || !CanExplode() ) return;
 		
 		if ( TimeSinceCreated > Lifetime )
 		{
 			Explode();
 		}
+	}
+
+	protected virtual bool CanExplode()
+	{
+		return true;
 	}
 
 	[Broadcast]
