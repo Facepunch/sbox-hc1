@@ -49,7 +49,12 @@ public enum DamageFlags
 	/// <summary>
 	/// The victim fell.
 	/// </summary>
-	FallDamage = 16
+	FallDamage = 16,
+	
+	/// <summary>
+	/// The victim was burned.
+	/// </summary>
+	Burn = 32
 }
 
 /// <summary>

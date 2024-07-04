@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public sealed partial class PlayerPawn : Pawn, IDescription
+public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 {
 	/// <summary>
 	/// The player's body
@@ -65,6 +65,15 @@ public sealed partial class PlayerPawn : Pawn, IDescription
 	// IDescription
 	string IDescription.DisplayName => DisplayName;
 	Color IDescription.Color => Team.GetColor();
+	
+	// IAreaDamageReceiver
+	void IAreaDamageReceiver.ApplyAreaDamage( AreaDamage component )
+	{
+		var dmg = new DamageInfo( component, component.Damage, component, component.Transform.Position,
+			Flags: component.DamageFlags );
+		
+		HealthComponent.TakeDamage( dmg );
+	}
 
 	/// <summary>
 	/// Pawn
