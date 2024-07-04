@@ -9,6 +9,11 @@
             @if ( entry.Attacker is not null )
             {
                 <div class="attacker @(IsMe( entry.Attacker ) ? "is-me" : "")">
+                    @if ( entry.DamageFlags.HasFlag( DamageFlags.AirShot ) )
+                    {
+                        <Icon style="background-tint: black;" File="/ui/wings.png" size="24" />
+                    }
+
                     @if ( IsMe( entry.Attacker ) )
                     {
                         <label style="">@entry.Attacker</label>
@@ -36,7 +41,6 @@
                         <label>@entry.Inflictor</label>
                     }
 
-                    
                     if ( entry.DamageFlags.HasFlag( DamageFlags.WallBang ) )
                     {
                         <Icon File="/ui/wallbang.png" size="32" />

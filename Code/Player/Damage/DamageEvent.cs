@@ -57,9 +57,14 @@ public enum DamageFlags
 	Burn = 32,
 
 	/// <summary>
-	/// Wallbanged impact.
+	/// Did the attacker shoot through a wall?
 	/// </summary>
 	WallBang = 64,
+
+	/// <summary>
+	/// Was the attacker in the air when doing this damage?
+	/// </summary>
+	AirShot = 128,
 }
 
 /// <summary>

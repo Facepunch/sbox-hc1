@@ -328,6 +328,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 
 				var damageFlags = DamageFlags.None;
 				if ( count > 0 ) damageFlags |= DamageFlags.WallBang;
+				if ( !Player.IsGrounded ) damageFlags |= DamageFlags.AirShot;
 
 				using ( Rpc.FilterInclude( Connection.Host ) )
 				{
