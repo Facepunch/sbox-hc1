@@ -67,6 +67,17 @@
         }
     </div>
 
+
+    @if (SubFooter != null)
+    {
+        <div class="subfooter">
+            <div class="line fade" />
+            <div class="row inset grow with-padding">
+                @SubFooter
+            </div>
+        </div>
+    }
+
     <div class="footer">
         <div class="line" />
 
@@ -81,17 +92,6 @@
                 }
 
                 <div class="party-deck layout with-gap">
-                    <div class="absolute party-info">
-                        @if ( Party is not null )
-                        {
-                            <label class="small slight">@(Party?.Owner)'s party (@(Party?.Members.Count() ?? 1))</label>
-                        }
-                        else
-                        {
-
-                        }
-                    </div>
-
                     @if ( Party is null )
                     {
                         <div class="button standard">
@@ -171,6 +171,7 @@
     public RenderFragment SubHeader { get; set; }
     public RenderFragment Body { get; set; }
     public RenderFragment Footer { get; set; }
+    public RenderFragment SubFooter { get; set; }
 
     public bool NoHomeButton { get; set; }
     public bool NoSocial { get; set; }
