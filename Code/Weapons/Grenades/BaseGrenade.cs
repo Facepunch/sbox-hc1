@@ -5,6 +5,7 @@ public abstract class BaseGrenade : Component
 	[Sync] public Guid ThrowerId { get; set; }
 	[Property] public float Lifetime { get; set; }
 	[Property] public GameObject PrefabOnExplode { get; set; }
+	[Property] public bool CanDealDamage { get; set; }
 
 	public PlayerPawn Player => (PlayerPawn)Scene.Directory.FindComponentByGuid( ThrowerId );
 

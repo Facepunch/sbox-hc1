@@ -191,6 +191,15 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 		{
 			Sound.Play( DefuseStartSound, Transform.Position );
 		}
+
+		if ( Networking.IsHost )
+		{
+			RadioSounds.Play( player.Team, "Hidden", "Defusing the bomb" );
+
+			player.IsFrozen = true;
+
+			Scene.Dispatch( new BombDefuseStartEvent( DefusingPlayer, GameObject, BombSite ) );
+		}
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
@@ -234,10 +243,6 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 	{
 		TimeSinceDefuseStart = 0f;
 		StartDefusing( player.Id );
-
-		RadioSounds.Play( player.Team, "Hidden", "Defusing the bomb" );
-
-		player.IsFrozen = true;
 	}
 
 	bool IMinimapElement.IsVisible( Pawn viewer )
