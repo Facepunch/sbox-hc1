@@ -1,5 +1,6 @@
 using Facepunch.UI;
 using Sandbox.Events;
+using System.Text;
 
 namespace Facepunch;
 
@@ -325,9 +326,12 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 
 				// Inflict damage on whatever we find.
 
+				var damageFlags = DamageFlags.None;
+				if ( count > 0 ) damageFlags |= DamageFlags.WallBang;
+
 				using ( Rpc.FilterInclude( Connection.Host ) )
 				{
-					InflictDamage( tr.GameObject!.Id, damage, tr.EndPosition, tr.Direction, tr.GetHitboxTags() );
+					InflictDamage( tr.GameObject!.Id, damage, tr.EndPosition, tr.Direction, tr.GetHitboxTags(), damageFlags );
 				}
 
 				count++;
@@ -339,12 +343,12 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	}
 
 	[Broadcast]
-	private void InflictDamage( Guid targetObjectId, float damage, Vector3 pos, Vector3 dir, HitboxTags hitbox )
+	private void InflictDamage( Guid targetObjectId, float damage, Vector3 pos, Vector3 dir, HitboxTags hitbox, DamageFlags flags )
 	{
 		var target = Scene.Directory.FindByGuid( targetObjectId );
 
 		// target?.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerPawn.HealthComponent.Id, Weapon.Id, hitbox );
-		target?.TakeDamage( new DamageInfo( Equipment.Owner, damage, Equipment, pos, dir * damage, hitbox ) );
+		target?.TakeDamage( new DamageInfo( Equipment.Owner, damage, Equipment, pos, dir * damage, hitbox, flags ) );
 	}
 
 	private float CalculateDamageFalloff( float damage, float distance )

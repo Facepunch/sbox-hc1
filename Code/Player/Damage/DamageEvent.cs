@@ -54,7 +54,12 @@ public enum DamageFlags
 	/// <summary>
 	/// The victim was burned.
 	/// </summary>
-	Burn = 32
+	Burn = 32,
+
+	/// <summary>
+	/// Wallbanged impact.
+	/// </summary>
+	WallBang = 64,
 }
 
 /// <summary>

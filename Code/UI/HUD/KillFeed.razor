@@ -36,11 +36,16 @@
                         <label>@entry.Inflictor</label>
                     }
 
+                    
+                    if ( entry.DamageFlags.HasFlag( DamageFlags.WallBang ) )
+                    {
+                        <Icon File="/ui/wallbang.png" size="32" />
+                    }
+
                     @if ( entry.HitboxTags.HasFlag( HitboxTags.Head ) )
                     {
                         <Icon class="headshot" File="/ui/headshot.png" size="24" />
                     }
-
                 }
                 else
                 {
