@@ -31,17 +31,16 @@ public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener
 		if ( dot > -0.5f ) return;
 		
 		var position = collision.Contact.Point + collision.Contact.Normal * 8f;
-		var rotation = Rotation.LookAt( collision.Contact.Normal );
-		SpreadFireNetworked( position, rotation, Time.Now.CeilToInt() );
+		SpreadFireNetworked( position, Time.Now.CeilToInt() );
 	}
 
 	[Broadcast]
-	async void SpreadFireNetworked( Vector3 position, Rotation rotation, int seed )
+	async void SpreadFireNetworked( Vector3 position, int seed )
 	{
 		if ( PrefabOnExplode.IsValid() )
 			PrefabOnExplode.Clone( position );
 		
-		FireNodePrefab.Clone( position, rotation );
+		FireNodePrefab.Clone( position, Rotation.Identity );
 		
 		await SpreadFireInSphere( new( seed ), position );
 		GameObject.Destroy();
@@ -66,9 +65,7 @@ public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener
 			if ( !trace.Hit ) continue;
 
 			var spawnPosition = trace.HitPosition + trace.Normal * 8f;
-			var rotation = Rotation.LookAt( trace.Normal );
-			
-			FireNodePrefab.Clone( spawnPosition, rotation );
+			FireNodePrefab.Clone( spawnPosition, Rotation.Identity );
 			
 			await Task.DelaySeconds( rnd.Float( SpreadDelay.RangeValue.x, SpreadDelay.RangeValue.y ) );
 		}
