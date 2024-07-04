@@ -7,7 +7,7 @@
 <root class="hud with-deadzone column">
     @foreach ( var slotGroup in Inventory.Equipment.OrderBy( x => x.Resource.Slot ).GroupBy( x => x.Resource.Slot ) )
     {
-        <div class="group @GroupClasses( slotGroup.Key )">
+        <div class="layout group @GroupClasses( slotGroup.Key )">
             <div class="background" />
 
             <InputHint Action="Slot@(SlotIndex(slotGroup.Key))" class="small" Size="@InputGlyphSize.Small" />
@@ -31,7 +31,7 @@
         var wpn = CurrentEquipment;
         if (!wpn.IsValid()) return "";
 
-        if (wpn.Resource.Slot == slot) return "active";
+        if (wpn.Resource.Slot == slot) return "active color-border-right";
 
         return "";
     }

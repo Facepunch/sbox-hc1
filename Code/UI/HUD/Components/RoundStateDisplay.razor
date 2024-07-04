@@ -12,7 +12,7 @@
         <div class="grow"></div>        
     }
 
-    <div class="flex column with-background with-padding h-full align-center justify-center" style="min-width: 195px; height: 60px;">
+    <div class="layout flex column with-background with-padding h-full align-center justify-center color-borders" style="min-width: 195px; height: 60px;">
         @if ( GameMode.Instance?.Get<ShowStatusIcon>() is { IconPath: { } path } )
         {
             <Icon File="@path" size="64" />

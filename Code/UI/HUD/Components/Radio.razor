@@ -7,7 +7,7 @@
     if ( sounds == null ) return;
 }
 
-<root class="@(IsOpen ? "open" : "") with-background">
+<root class="@(IsOpen ? "open" : "") layout with-background color-borders">
     @if ( string.IsNullOrEmpty( SelectedCategory ) )
     {
         @for ( int i = 0; i < sounds.TeamSounds.Count; i++ )
@@ -22,7 +22,7 @@
 
         <div class="row">
             <InputHint Action="Radio" Size=@InputGlyphSize.Small />
-            <label>close</label>
+            <label>Close</label>
         </div>
     }
     else
@@ -38,7 +38,7 @@
 
         <div class="row">
             <InputHint Action="Radio" Size=@InputGlyphSize.Small />
-            <label>back</label>
+            <label>Back</label>
         </div>
     }
 </root>

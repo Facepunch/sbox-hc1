@@ -170,3 +170,17 @@
         flex-shrink: 0;
     }
 }
+
+.line
+{
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: rgba( $terror-color, 0.75 );
+
+    &.fade
+    {
+        background-color: transparent;
+        background-image: linear-gradient( to right, rgba( $terror-color, 0.75 ), rgba( $terror-color, 0 ) 50% );
+    }
+}

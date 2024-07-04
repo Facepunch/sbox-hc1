@@ -7,7 +7,7 @@
 @attribute [StyleSheet]
 
 <root class="hidden flex absolute inset-0 align-center justify-center">
-    <table class="with-background with-padding-lg">
+    <table class="with-background with-padding-lg layout color-borders">
         <div class="title">
             <label class="important uppercase left">@(Status is null ? Name : $"{Name} - {Status}")</label>
             <label class="important uppercase center">@(RoundNumber is { } roundNumber && RoundLimit is { } roundLimit ? $"Round {roundNumber} of {roundLimit}" : "")</label>

@@ -114,8 +114,20 @@ $hud-deadzone-y: 16px;
         pointer-events: all;
     }
 
-    &.wrap {
+    &.wrap
+    {
         flex-wrap: wrap;
+    }
+
+    &.color-borders
+    {
+        border-top: 1px solid $terror-color;
+        border-bottom: 1px solid $terror-color;
+    }
+
+    &.color-border-right
+    {
+        border-right: 1px solid $terror-color;
     }
 }
 

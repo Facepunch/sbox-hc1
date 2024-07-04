@@ -24,17 +24,22 @@ Chat {
     }
 }
 
-Chat.open {
-    .chat-container {
+Chat.open
+{
+    .chat-container
+    {
         background-color: $background;
-        border-radius: $rounding;
         backdrop-filter: $blur;
+        border-top: 1px solid $terror-color;
+        border-bottom: 1px solid $terror-color;
 
-        .when-open {
+        .when-open
+        {
             display: flex;
         }
 
-        .when-not-open {
+        .when-not-open
+        {
             display: none;
         }
     }
