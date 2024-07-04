@@ -631,6 +631,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 					if ( TimeSinceShoot < DryShootDelay )
 						return;
 
+					if ( Tags.Has( "reloading" ) )
+						return;
+
 					DryShoot();
 				}
 			}
