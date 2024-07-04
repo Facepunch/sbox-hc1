@@ -43,20 +43,10 @@
         }
     </span>
 
-    @if ( !GameMode.Instance.UnlimitedMoney && PlayerState.IsValid() && PlayerState.IsFriendly( PlayerState.Local ) )
+    @foreach ( var x in IScore.Find( PlayerState ) )
     {
-        <label class="col stat-large">$@(PlayerState.Balance.ToString("N0")</label>
+        <label class="col stat">@(x.Value)</label>
     }
-    else
-    {
-        <label class="col stat-large"></label>
-    }
-
-    <label class="col stat">@(Score.Score)</label>
-    <label class="col stat">@(Score.Kills)</label>
-    <label class="col stat">@(Score.Deaths)</label>
-
-    <label class="col stat">@(KillDeathRatio.ToString("0.00"))</label>
 </root>
 
 @code {

@@ -47,18 +47,11 @@
                     <label class="col stat-small small"></label>
                     <label class="col stat-small small"></label>
                     <label class="col playername small"></label>
-                    @if ( !GameMode.Instance.UnlimitedMoney )
+                   
+                    @foreach ( var x in IScore.Find( PlayerState.Local ) )
                     {
-                        <label class="col stat-large small">Balance</label>
+                        <label class="col stat">@(x.Attribute.Name)</label>
                     }
-                    else
-                    {
-                        <label class="col stat-large small"></label>
-                    }
-                    <label class="col stat small">Score</label>
-                    <label class="col stat small">Kills</label>
-                    <label class="col stat small">Deaths</label>
-                    <label class="col stat small">Ratio</label>
                 </div>
 
                 @foreach ( var player in group )
