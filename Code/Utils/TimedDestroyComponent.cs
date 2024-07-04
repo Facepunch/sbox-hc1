@@ -13,7 +13,7 @@ public sealed class TimedDestroyComponent : Component
 	/// <summary>
 	/// The real time until we destroy the GameObject.
 	/// </summary>
-	[ReadOnly] TimeUntil TimeUntilDestroy { get; set; } = 0;
+	[Property, ReadOnly] TimeUntil TimeUntilDestroy { get; set; } = 0;
 
 	protected override void OnStart()
 	{
