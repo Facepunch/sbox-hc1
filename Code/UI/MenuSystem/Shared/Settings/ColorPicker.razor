@@ -1,0 +1,46 @@
+@namespace Facepunch.UI
+
+<root class="layout column">
+    <ColorSlider Value:bind="@Value" />
+
+    <div class="layout padding gap align-center" style="width: 100%; justify-content: center;">
+        <div class="layout padding with-background flex center space-between" style="width: 180px;">
+            <label class="small slight">Red</label>
+            <TextEntry Value:bind="@Red" />
+        </div>
+
+        <div class="layout padding with-background flex center space-between" style="width: 180px;">
+            <label class="small slight">Green</label>
+            <TextEntry Value:bind="@Red" />
+        </div>
+
+        <div class="layout padding with-background flex center space-between" style="width: 180px;">
+            <label class="small slight">Blue</label>
+            <TextEntry Value:bind="@Blue" />
+        </div>
+    </div>
+
+</root>
+
+@code
+{
+    public Color Value { get; set; } = Color.Red;
+
+    public int Red
+    {
+        get => Value.ToColor32().r;
+        set => Value = Value with { r = (float)value / 255f };
+    }
+
+    public int Green
+    {
+        get => Value.ToColor32().g;
+        set => Value = Value with { g = (float)value / 255f };
+    }
+
+    public int Blue
+    {
+        get => Value.ToColor32().b;
+        set => Value = Value with { b = (float)value / 255f };
+    }
+}

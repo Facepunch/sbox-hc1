@@ -47,12 +47,12 @@
                 <label class="name">@Description.Title</label>
                 <div class="grow" />
                 <div class="value-area">
-                    <div class="box" style="background-color: @Value;"/>
+                    <div class="box" style="background-color: @Value; border-radius: 100px; border: 1px solid white;"/>
                 </div>
             </div>
 
-            <div class="control with-background">
-                <TextEntry Value:bind="@Value" />
+            <div class="control with-background layout column">
+                <ColorPicker Value:bind="@Value" />
             </div>
         }
     }

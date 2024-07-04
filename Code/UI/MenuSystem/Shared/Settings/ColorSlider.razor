@@ -1,0 +1,43 @@
+@namespace Facepunch.UI
+
+<style>
+    ColorSlider {
+        position: relative;
+        width: 100%;
+        padding: 8px;
+        justify-content: center;
+        align-items: center;
+
+        pointer-events: all;
+
+        img {
+            pointer-events: none;
+            border: 0.5px solid white;
+            box-shadow: 0px 0px 5px rgba( white, 0.5 );
+            width: 360px;
+            height: 150px;
+        }
+
+        .cursor
+        {
+            pointer-events: none;
+            position: absolute;
+            border-radius: 100px;
+            width: 16px;
+            aspect-ratio: 1;
+            border: 2px solid rgba( white, 0.75 );
+            box-shadow: 2px 2px 10px rgba( black, 0.75 );
+            transform: translateX(-50%) translateY(-50%);
+        }
+    }
+</style>
+
+<root>
+    <img class="layer" @ref="Image" />
+    <div class="cursor" @ref="Cursor" />
+</root>
+
+@code
+{
+    public Color Value { get; set; } = Color.Red;
+}
