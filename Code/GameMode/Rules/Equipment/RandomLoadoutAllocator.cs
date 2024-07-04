@@ -16,16 +16,20 @@ public sealed class RandomLoadoutAllocator : Component,
 	{
 		[KeyProperty]
 		public string Title { get; set; } = "Unnamed";
+
+		[JsonIgnore( Condition = JsonIgnoreCondition.Never )]
 		public float Weight { get; set; } = 1f;
 
 		/// <summary>
 		/// If true, this loadout is only valid immediately after a team swap.
 		/// </summary>
+		[JsonIgnore( Condition = JsonIgnoreCondition.Never )]
 		public bool OnlyAfterTeamSwap { get; set; }
 
 		/// <summary>
 		/// Minimum number of rounds between this loadout type.
 		/// </summary>
+		[JsonIgnore( Condition = JsonIgnoreCondition.Never )]
 		public int MinRoundsSince { get; set; }
 
 		public List<Loadout> Loadouts { get; set; } = new();
@@ -41,22 +45,34 @@ public sealed class RandomLoadoutAllocator : Component,
 	{
 		[KeyProperty]
 		public Team Team { get; set; }
+
 		[KeyProperty]
 		public string Title { get; set; } = "Unnamed";
+
+		[JsonIgnore( Condition = JsonIgnoreCondition.Never )]
 		public float Weight { get; set; } = 1f;
+
 		public List<EquipmentResource> Equipment { get; set; } = new();
+
+		[JsonIgnore( Condition = JsonIgnoreCondition.Never )]
 		public int Armor { get; set; } = 100;
+
+		[JsonIgnore( Condition = JsonIgnoreCondition.Never )]
 		public bool Helmet { get; set; } = true;
+
+		[JsonIgnore( Condition = JsonIgnoreCondition.Never )]
 		public bool DefuseKit { get; set; } = true;
 
 		/// <summary>
 		/// How many players must be on the team for this loadout to be valid.
 		/// </summary>
+		[JsonIgnore( Condition = JsonIgnoreCondition.Never )]
 		public int MinTeamSize { get; set; } = 0;
 
 		/// <summary>
 		/// How many players can have this loadout.
 		/// </summary>
+		[JsonIgnore( Condition = JsonIgnoreCondition.Never )]
 		public int MaxPlayers { get; set; } = 10;
 
 		/// <summary>
@@ -68,8 +84,6 @@ public sealed class RandomLoadoutAllocator : Component,
 		public void ApplyTo( PlayerPawn player )
 		{
 			++Players;
-
-			player.Inventory.Clear();
 
 			player.Inventory.HasDefuseKit = DefuseKit && player.Team == Team.CounterTerrorist;
 
