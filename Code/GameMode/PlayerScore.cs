@@ -49,7 +49,7 @@ public interface IScore
 public class ScoreAttribute : System.Attribute
 {
 	public string Name { get; set; }
-	public string Format { get; set; } = "0";
+	public string Format { get; set; } = "{0}";
 	public string ShowIf { get; set; } = null;
 
 	public ScoreAttribute( string name )
@@ -82,7 +82,7 @@ public sealed class PlayerScore : Component,
 	[HostSync, Property, ReadOnly, Score( "Points" ), Order( -1 )] 
 	public int Score { get; set; } = 0;
 
-	[Score( "Ratio", Format = "0.00" ), Order( 50 )]
+	[Score( "Ratio", Format = "{0:0.00}" ), Order( 50 )]
 	public float Ratio => (float)Kills / (float)Deaths.Clamp( 1, int.MaxValue );
 
 	[HostSync]
