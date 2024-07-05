@@ -3,18 +3,14 @@
 
 @attribute [StyleSheet]
 
-@{
-    var pawn = Player.PlayerPawn;
-}
-
 <root class="@AvatarClasses">
-    <div class="avatar" style="@(IsFriendly && Player.PlayerPawn.IsValid() ? $"border: 0.5px solid {PlayerColor.Hex}" : "")">
+    <div class="avatar" style="@(IsFriendly && Player.IsValid() ? $"border: 0.5px solid {PlayerColor.Hex}" : "")">
         <img class="image" src="avatar:@Player.SteamId" />
     </div>
 
-    @if ( !pawn.IsValid() ) return;
+    @if ( !Pawn.IsValid() ) return;
 
-    @if (ShowBomb && pawn.Inventory.HasBomb && IsFriendly)
+    @if (ShowBomb && Pawn.Inventory.HasBomb && IsFriendly)
     {
         <Icon File="/ui/bomb.png" size="24" class="bomb-indicator"></Icon>
     }
@@ -24,7 +20,7 @@
         <div style="background-image: url( ui/dead.png )" class="overlay" />
     }
 
-    @if (ShowHealth && pawn.HealthComponent.State == LifeState.Alive && IsFriendly)
+    @if (ShowHealth && Pawn.HealthComponent.State == LifeState.Alive && IsFriendly)
     {
         <div class="health">
             <div class="health-inner" style="width:@(Player.PlayerPawn.HealthComponent.Health)%" />
@@ -34,13 +30,14 @@
 
 @code
 {
+    public PlayerPawn Pawn => Player.IsValid() ? Player.PlayerPawn : null;
     public PlayerState Player { get; set; }
     public bool IsFriendly => PlayerState.Local.IsFriendly( Player );
-    public Color PlayerColor => Player.PlayerPawn.IsValid() ? Player.PlayerColor : Color.White;
+    public Color PlayerColor => Player.IsValid() ? Player.PlayerColor : Color.White;
+    private bool IsDead => !Pawn.IsValid() || Pawn?.HealthComponent.State != LifeState.Alive;
 
     public bool ShowBomb { get; set; } = true;
     public bool ShowHealth { get; set; } = true;
-    private bool IsDead => Player.PlayerPawn?.HealthComponent.State != LifeState.Alive;
 
     private string AvatarClasses
     {
@@ -54,10 +51,9 @@
     protected override int BuildHash()
     {
         var hash = HashCode.Combine( Player, IsFriendly );
-        var pawn = Player.PlayerPawn;
 
-        if ( pawn.IsValid() )
-            hash = HashCode.Combine( hash, pawn.HealthComponent.Health, pawn.HealthComponent.State, Player.PlayerColor );
+        if ( Pawn.IsValid() )
+            hash = HashCode.Combine( hash, Pawn.HealthComponent.Health, Pawn.HealthComponent.State, Player.PlayerColor );
         
         return hash;
     }

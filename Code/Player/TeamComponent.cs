@@ -66,6 +66,7 @@ public static class TeamExtensions
 	/// <returns></returns>
 	public static bool IsFriendly( this GameObject self, GameObject other )
 	{
+		if ( !self.IsValid() || !other.IsValid() ) return false;
 		return IsFriendly( self.GetTeam(), other.GetTeam() );
 	}
 
@@ -74,6 +75,7 @@ public static class TeamExtensions
 	/// </summary>
 	public static bool IsFriendly( this PlayerPawn self, PlayerPawn other )
 	{
+		if ( !self.IsValid() || !other.IsValid() ) return false;
 		return IsFriendly( self.Team, other.Team );
 	}
 
@@ -82,6 +84,7 @@ public static class TeamExtensions
 	/// </summary>
 	public static bool IsFriendly( this PlayerState self, PlayerState other )
 	{
+		if ( !self.IsValid() || !other.IsValid() ) return false;
 		return IsFriendly( self.Team, other.Team );
 	}
 

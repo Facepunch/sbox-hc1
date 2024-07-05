@@ -46,7 +46,7 @@ public partial class PlayerPawn
 		if ( Team == Team.Unassigned )
 			return false;
 
-		if ( SpectateSystem.Instance.IsSpectating )
+		if ( SpectateSystem.Instance.IsValid() && SpectateSystem.Instance.IsSpectating )
 			return true;
 
 		if ( HealthComponent.IsGodMode )
