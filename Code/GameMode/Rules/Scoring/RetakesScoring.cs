@@ -20,7 +20,7 @@ public sealed class RetakesScoring : Component, IScore,
 	IGameEventHandler<ResetScoresEvent>
 {
 	/// <summary>
-	/// How many rounds has this player successfully defended.
+	/// How many rounds has this player been on the winning team.
 	/// </summary>
 	[Score( "Wins" ), Order( -2 ), HostSync] public int Wins { get; set; }
 
@@ -31,22 +31,23 @@ public sealed class RetakesScoring : Component, IScore,
 }
 
 /// <summary>
-/// Give points to all the defenders for winning the round.
+/// Give points to all players on the winning team.
 /// </summary>
 public sealed class IncreaseRetakesWins : Component,
 	IGameEventHandler<EnterStateEvent>
 {
+	/// <summary>
+	/// Which team won?
+	/// </summary>
+	[Property]
+	public Team Team { get; set; }
+
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		Log.Info( $"Giving points!" );
-
-		foreach ( var player in GameUtils.GetPlayers( Team.Terrorist ) )
+		foreach ( var player in GameUtils.GetPlayers( Team ) )
 		{
-			Log.Info( $"Player: {player.DisplayName}" );
-
 			if ( player.Components.Get<RetakesScoring>( FindMode.EverythingInChildren ) is { } scoring )
 			{
-				Log.Info( $"Found RetakesScoring: {scoring.Wins}" );
 				scoring.Wins += 1;
 			}
 		}
