@@ -441,20 +441,6 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		return Vector3.Reflect( tr.Direction, tr.Normal ).Normal;
 	}
 
-	/* private void DrawLineSegment( Vector3 start, Vector3 end, int depth = 0, int count = 10 )
-	{
-		var hue = (depth / (float)count % 360f) * 360f;
-		var color = new ColorHsv( hue, 1, 1, 1 );
-
-		var line = DebugOverlay.Line( start, end, color.ToColor(), 5 );
-		line.GameObject.Name = $"Line {depth}";
-		var sphere = DebugOverlay.Sphere( start, 4, color.ToColor(), 5 );
-		sphere.GameObject.Name = $"Start Sphere for Line {depth}";
-
-		var endSph = DebugOverlay.Sphere( end, 8, color.ToColor(), 5 );
-		endSph.GameObject.Name = $"End Sphere for Line {depth}";
-	} */
-
 	/// <summary>
 	/// Runs a trace with all the data we have supplied it, and returns the result
 	/// </summary>
