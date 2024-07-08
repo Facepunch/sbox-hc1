@@ -6,8 +6,30 @@ namespace Facepunch;
 [Hide]
 public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 {
-	[Property] private NetList<NetworkedOption> Options { get; set; } = new();
-	[Property] public NetList<NetworkedVote> Votes { get; set; } = new();
+	/// <summary>
+	/// Our networked list of voting options.
+	/// </summary>
+	[Sync] private NetList<NetworkedOption> Options { get; set; } = new();
+
+	/// <summary>
+	/// Our networked list of votes.
+	/// </summary>
+	[Sync] public NetList<NetworkedVote> Votes { get; set; } = new();
+
+	/// <summary>
+	/// How long until we decide who won?
+	/// </summary>
+	public RealTimeUntil TimeUntilDecidedWinner { get; private set; } = 0;
+
+	/// <summary>
+	/// How long until we move server?
+	/// </summary>
+	public RealTimeUntil TimeUntilTransfer { get; private set; } = 0;
+
+	/// <summary>
+	/// Which option is the winner?
+	/// </summary>
+	public Option? WinningOption { get; private set; }
 
 	public IEnumerable<Option> VoteOptions => FromNetworked( Options );
 
@@ -28,10 +50,6 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 		TimeUntilDecidedWinner = 15;
 		ScreenPanel.ZIndex = 999;
 	}
-
-	public RealTimeUntil TimeUntilDecidedWinner { get; private set; } = 0;
-	public RealTimeUntil TimeUntilTransfer { get; private set; } = 0;
-	public Option? WinningOption { get; private set; }
 
 	protected override void OnUpdate()
 	{
