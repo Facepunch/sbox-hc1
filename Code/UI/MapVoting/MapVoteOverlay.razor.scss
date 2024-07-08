@@ -1,0 +1,106 @@
+@import "/UI/Styles/Theme.scss";
+
+MapVoteOverlay
+{
+    pointer-events: all;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .main
+    {
+        flex-grow: 1;
+    }
+
+    .bg
+    {
+        width: 100%;
+        aspect-ratio: 1.7788;
+    }
+
+    .card
+    {
+        flex-grow: 0;
+        width: 32%;
+        overflow: hidden;
+        transition: all 0.1s ease;
+        border: 0.5px solid rgba( black, 0.2 );
+
+
+        .win-fade
+        {
+            flex-shrink: 0;
+            background-image: linear-gradient( to right, $terror-color, rgba( $terror-color, 0 ) );
+        }
+
+        .background
+        {
+        }
+
+        .footer
+        {
+            transition: all 0.1s ease;
+            height: 100px;
+        }
+
+        .avatar
+        {
+            transition: all 0.1s ease;
+        }
+
+        .votes
+        {
+            gap: 4px;
+        }
+
+        .avatar
+        {
+            width: 32px;
+            height: 32px;
+            border-radius: 100px;
+            border: 1px solid white;
+        }
+
+        &.winning
+        {
+            border: 2px solid $terror-color;
+            transform: scale( 1.02 );
+
+            .name
+            {
+                color: $terror-color;
+            }
+
+            .footer
+            {
+                background-image: linear-gradient( to right, rgba( black, 0.3 ), rgba( black, 0.9 ) );
+            }
+
+            .background
+            {
+                filter: saturate(120%);
+            }
+        }
+
+        &:hover
+        {
+            transform: scale( 0.99 );
+            cursor: pointer;
+
+            label
+            {
+                color: black;
+            }
+
+            .footer
+            {
+                background-color: white;
+            }
+
+            .avatar
+            {
+                border: 1px solid black;
+            }
+        }
+    }
+}

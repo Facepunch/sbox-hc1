@@ -1,0 +1,59 @@
+@namespace Facepunch.UI
+
+<root class="layout flex column card with-background @(IsWinning ? "winning" : "")">
+    <div class="bg flex column">
+        <img src="@Option.Map.Background" />
+
+        @if (IsWinning)
+        {
+            <div class="win-fade row with-background layout padding flex gap align-center">
+                <i class="white">label_important</i>
+                <label class="white">Currently Winning...</label>
+            </div>
+        }
+    </div>
+
+
+    <div class="row footer flex column justify-center">
+        <div class="flex row">
+
+            <div class="layout padding-extra flex column grow">
+                <label class="name important white uppercase">@Option.Map.Title</label>
+                <label class="mode small slight">@Option.Mode.Title</label>
+            </div>
+
+            <div class="layout votes padding-extra flex column align-end">
+                <div class="flex column">
+                    <div class="flex gap-xs">
+                        <label class="white">
+                            @Votes.Count()
+                        </label>
+                        <div>
+                            <label class="white">vote(s)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex row" style="gap: 4px">
+                    @foreach (var vote in Votes)
+                    {
+                        <img class="avatar" src="avatar:@vote.VoterId" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</root>
+
+@code
+{
+    public MapVoteSystem.Option Option { get; set; }
+    public List<MapVoteSystem.NetworkedVote> Votes { get; set; } = new();
+
+    public int Index { get; set; }
+    public bool IsWinning { get; set; }
+
+    protected override void OnClick( MousePanelEvent e )
+    {
+        MapVoteSystem.Instance.Vote( Index );
+    }
+}
