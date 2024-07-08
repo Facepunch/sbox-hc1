@@ -1,0 +1,34 @@
+﻿@using System.Text;
+@namespace Facepunch.UI
+@inherits Panel
+
+@attribute [StyleSheet]
+
+@if ( !Player.IsValid() || Player.HealthComponent.State == LifeState.Alive || LastDamageInfo is null )
+    return;
+
+@if ( GameUtils.GetPlayerFromComponent( LastDamageInfo.Attacker ) is not { } killerPlayer )
+    return;
+
+<root class="hud with-deadzone flex column">
+    <div class="flex row">
+        <img class="image" src="avatar:@killerPlayer.SteamId" />
+        <div class="flex column with-background with-padding h-full align-left justify-center" style="min-width: 275px;">
+            <label class="text small upper">KILLED BY</label>
+            <label>@killerPlayer.DisplayName</label>
+        </div>
+    </div>
+</root>
+
+@code
+{
+    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
+
+    public DamageInfo LastDamageInfo => PlayerState.Local.LastDamageInfo;
+    public SpectateSystem SpectateSystem => SpectateSystem.Instance;
+
+    protected override int BuildHash()
+    {
+        return !Player.IsValid() ? 0 : HashCode.Combine( Player.HealthComponent.State, Player, Time.Now );
+    }
+}

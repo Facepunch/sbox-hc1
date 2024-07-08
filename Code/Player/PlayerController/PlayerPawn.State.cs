@@ -25,11 +25,10 @@ public partial class PlayerPawn
 	/// </summary>
 	[HostSync] public TimeSince TimeSinceLastRespawn { get; private set; }
 
-	public override void Kill()
+	public override void OnKill( DamageInfo damageInfo )
 	{
 		if ( Networking.IsHost )
 		{
-			HealthComponent.State = LifeState.Dead;
 			ArmorComponent.HasHelmet = false;
 			ArmorComponent.Armor = 0f;
 
@@ -44,13 +43,15 @@ public partial class PlayerPawn
 		if ( IsProxy )
 			return;
 
+		PlayerState.OnKill( damageInfo );
+
 		Holster();
 
 		_previousVelocity = Vector3.Zero;
 		CameraController.Mode = CameraMode.ThirdPerson;
 	}
 
-	public override void Respawn()
+	public override void OnRespawn()
 	{
 		_previousVelocity = Vector3.Zero;
 		Body.DamageTakenForce = Vector3.Zero;
@@ -84,7 +85,6 @@ public partial class PlayerPawn
 		Assert.True( Networking.IsHost );
 
 		HealthComponent.Health = HealthComponent.MaxHealth;
-		HealthComponent.State = LifeState.Alive;
 
 		ArmorComponent.HasHelmet = false;
 		ArmorComponent.Armor = 0f;

@@ -19,6 +19,8 @@ public partial class PlayerState
 
 	[Property] public TimeSince TimeSinceRespawnStateChanged;
 
+	public DamageInfo LastDamageInfo { get; private set; }
+
 	/// <summary>
 	/// Are we ready to respawn?
 	/// </summary>
@@ -66,12 +68,22 @@ public partial class PlayerState
 		}
 		else
 		{
-			PlayerPawn.Respawn();
+			PlayerPawn.OnRespawn();
 		}
+	}
+
+	public void OnKill( DamageInfo damageInfo )
+	{
+		LastDamageInfo = damageInfo;
 	}
 
 	protected void OnRespawnStateChanged( LifeState oldValue, LifeState newValue )
 	{
 		TimeSinceRespawnStateChanged = 0f;
+	}
+
+	public PlayerPawn GetLastKiller()
+	{
+		return GameUtils.GetPlayerFromComponent( LastDamageInfo?.Attacker );
 	}
 }

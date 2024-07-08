@@ -170,6 +170,12 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 			}
 		}
 
+		// deathcam, "zoom" at target.
+		if ( Player.HealthComponent.State == LifeState.Dead )
+		{
+			FieldOfViewOffset += AimFovOffset; 
+		}
+
 		if ( ColorAdjustments is not null )
 		{
 			ColorAdjustments.Saturation = Player.HealthComponent.IsGodMode

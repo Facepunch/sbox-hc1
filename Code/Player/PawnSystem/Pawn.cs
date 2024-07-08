@@ -124,9 +124,6 @@ public abstract class Pawn : Component, IRespawnable
 	public virtual void OnPossess() { }
 	public virtual void OnDePossess() { }
 
-	[Broadcast( NetPermission.HostOnly )]
-	public virtual void Respawn() { }
-
-	[Broadcast( NetPermission.HostOnly )]
-	public virtual void Kill() { }
+	public virtual void OnRespawn() { }
+	public virtual void OnKill( DamageInfo damageInfo ) { }
 }

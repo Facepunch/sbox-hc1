@@ -119,6 +119,14 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	// deathcam
 	private void UpdateDead()
 	{
+		if ( !IsLocallyControlled )
+			return;
+
+		if ( PlayerState.GetLastKiller() is { } killerPlayer )
+		{
+			EyeAngles = Rotation.LookAt( killerPlayer.Transform.Position - Transform.Position, Vector3.Up );
+		}
+
 		if ((Input.Pressed( "attack1" ) && !PlayerState.IsRespawning) || PlayerState.IsBot )
 		{
 			GameObject.Destroy();

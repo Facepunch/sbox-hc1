@@ -49,7 +49,7 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 		ApplyForces();
 	}
 
-	public override void Kill()
+	public override void OnKill( DamageInfo damageInfo )
 	{
 		Explosion?.Clone( Transform.Position );
 

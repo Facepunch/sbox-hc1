@@ -42,7 +42,7 @@ public partial class HealthComponent : Component, IRespawnable
 	/// What's our life state?
 	/// </summary>
 	[Group( "Life State" ), HostSync, Change( nameof( OnStatePropertyChanged ) )]
-	public LifeState State { get; set; }
+	public LifeState State { get; private set; }
 
 	/// <summary>
 	/// Called when <see cref="Health"/> is changed across the network.
@@ -57,19 +57,6 @@ public partial class HealthComponent : Component, IRespawnable
 	protected void OnStatePropertyChanged( LifeState oldValue, LifeState newValue )
 	{
 		TimeSinceLifeStateChanged = 0f;
-		
-		switch ( newValue )
-		{
-			case LifeState.Alive:
-				Health = MaxHealth;
-				Respawnables.ToList().ForEach( x => x.Respawn() );
-				break;
-			case LifeState.Dead:
-				Health = 0f;
-				Respawnables.ToList()
-					.ForEach( x => x.Kill() );
-				break;
-		}
 	}
 
 	public void TakeDamage( DamageInfo damageInfo )
@@ -87,6 +74,7 @@ public partial class HealthComponent : Component, IRespawnable
 
 		if ( Health > 0f || State != LifeState.Alive ) return;
 
+		Health = 0f;
 		State = LifeState.Dead;
 
 		OnKill( damageInfo );
@@ -165,6 +153,7 @@ public partial class HealthComponent : Component, IRespawnable
 			Victim = this
 		};
 
+		Respawnables.ToList().ForEach( x => x.OnKill( damageInfo ) );
 		Scene.Dispatch( new KillEvent( damageInfo ) );
 	}
 }
@@ -183,6 +172,6 @@ public enum LifeState
 /// </summary>
 public interface IRespawnable
 {
-	public void Respawn() { }
-	public void Kill() { }
+	public void OnRespawn() { }
+	public void OnKill( DamageInfo damageInfo ) { }
 }

@@ -118,7 +118,7 @@ public sealed class TeamAssigner : Component,
 
 			// Respawn the player's pawn since we might've changed their spawn
 			if ( player.PlayerPawn.IsValid() )
-				player.PlayerPawn.Respawn();
+				player.PlayerPawn.OnRespawn();
 		}
 	}
 
@@ -143,7 +143,7 @@ public sealed class TeamAssigner : Component,
 
 			// Respawn the player's pawn since we might've changed their spawn
 			if ( player.PlayerPawn.IsValid() )
-				player.PlayerPawn.Respawn();
+				player.PlayerPawn.OnRespawn();
 		}
 		else
 		{

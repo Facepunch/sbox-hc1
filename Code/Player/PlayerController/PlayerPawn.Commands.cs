@@ -36,7 +36,7 @@ public partial class PlayerPawn
 	{
 		var player = PlayerState.Local.PlayerPawn;
 		if ( player is null ) return;
-		player.Kill();
+		player.HealthComponent.TakeDamage( new DamageInfo(player, float.MaxValue ) ); // this is brutal
 	}
 
 	[DeveloperCommand( "Give $1k", "Player" )]

@@ -52,6 +52,15 @@ public partial class PlayerPawn
 		if ( HealthComponent.IsGodMode )
 			return true;
 
+		if ( PlayerState.Local.PlayerPawn.IsValid() &&
+			PlayerState.Local.PlayerPawn.HealthComponent.State == LifeState.Dead)
+		{ 
+			if ( PlayerState.Local.GetLastKiller() == this )
+			{
+				return true;
+			}
+		}
+
 		var viewer = PlayerState.Viewer;
 		return !viewer.IsValid() || Team == viewer.Team;
 	}
@@ -69,7 +78,9 @@ public partial class PlayerPawn
 		Outline.Color = Color.Transparent;
 		Outline.InsideColor = HealthComponent.IsGodMode ? Color.White.WithAlpha( 0.1f ) : Color.Transparent;
 
-		if ( SpectateSystem.Instance.IsSpectating )
+		if ( PlayerState.Local.GetLastKiller() == this )
+			Outline.ObscuredColor = Color.Red;
+		else if ( SpectateSystem.Instance.IsSpectating )
 			Outline.ObscuredColor = Team.GetColor();
 		else
 			Outline.ObscuredColor = PlayerState.Viewer.Team == Team
