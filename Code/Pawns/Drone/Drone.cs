@@ -67,9 +67,10 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 
 	protected override void OnUpdate()
 	{
+		currentInput.Reset();
+
 		if ( IsLocallyControlled )
 		{
-			currentInput.Reset();
 			currentInput.movement = Input.AnalogMove.WithZ( 0f ).Normal;
 			currentInput.throttle = (Input.Down( "Jump" ) ? 1 : 0) + (Input.Down( "Duck" ) ? -1 : 0);
 			currentInput.yaw = -Input.AnalogLook.yaw;
@@ -89,7 +90,7 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 
 	protected void ApplyForces()
 	{
-		if ( !IsLocallyControlled )
+		if ( IsProxy )
 			return;
 
 		if ( !Rigidbody.IsValid() )
