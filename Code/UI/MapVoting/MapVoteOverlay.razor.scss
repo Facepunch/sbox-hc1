@@ -6,6 +6,14 @@ MapVoteOverlay
     position: absolute;
     width: 100%;
     height: 100%;
+    opacity: 1;
+    transition: opacity 0.5s ease, transform 0.25s ease;
+
+    &:intro
+    {
+        transform: scale(1.2);
+        opacity: 0;
+    }
 
     .main
     {
