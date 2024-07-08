@@ -163,6 +163,8 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 		return viewer.Team == Team;
 	}
 
+	public override string NameType => "Drone";
+
 	string ICustomMinimapIcon.CustomStyle => $"background-image-tint: {Team.GetColor().Hex}";
 	string IMinimapIcon.IconPath => "ui/icons/drone.png";
 

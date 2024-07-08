@@ -1,0 +1,50 @@
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+
+@if ( !Player.IsValid() )
+    return;
+
+@if ( Player.Components.Get<DeployedPawnHandler>() is null )
+    return;
+
+@if ( Player.Components.Get<DeployedPawnHandler>().Pawn is null )
+    return;
+
+<root>
+    <div class="warning">
+        <div class="flex layout align-center grow">
+            <label class="small slight">@Message</label>
+            <div class="grow" />
+            <InputHint class="small" Action="Use" />
+        </div>
+    </div>
+</root>
+
+@code
+{
+    public Panel Overlay { get; set; }
+    public PlayerState Player => PlayerState.Viewer;
+
+    public string Message
+    {
+        get
+        {
+            if ( Player.Components.Get<DeployedPawnHandler>() is { } handler )
+            {
+                if ( Player.Pawn == handler.Pawn )
+                    return $"Exit {handler.Pawn.NameType}";
+                else
+                    return $"Return to {handler.Pawn.NameType}";
+            }
+
+            return "";
+        }
+    }
+
+    protected override int BuildHash()
+    {
+        if ( !Player.IsValid() ) return 1;
+
+        return HashCode.Combine( Time.Now );
+    }
+}

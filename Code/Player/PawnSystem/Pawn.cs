@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.Text.Json.Serialization;
 
 namespace Facepunch;
@@ -39,6 +40,8 @@ public abstract class Pawn : Component, IRespawnable
 		get => PlayerState.Team;
 		set => PlayerState.Team = value;
 	}
+
+	public virtual string NameType { get; } = "Pawn";
 
 	/// <summary>
 	/// An accessor for health component if we have one.

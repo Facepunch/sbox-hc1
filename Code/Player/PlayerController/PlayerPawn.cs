@@ -82,6 +82,8 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 	public override CameraComponent Camera => CameraController.Camera;
 
+	public override string NameType => "Player";
+
 	protected override void OnStart()
 	{
 		// TODO: expose these parameters please
