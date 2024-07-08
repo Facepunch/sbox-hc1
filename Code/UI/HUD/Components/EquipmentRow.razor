@@ -14,13 +14,8 @@
             </div>
 
             <span style="gap: 4px; align-items: flex-end;">
-                @if (IsActive)
+                @if ( IsActive )
                 {
-                    @if ( Equipment?.Owner != PlayerState.Viewer.Pawn && ( Equipment?.Owner?.IsValid() ?? false ) )
-                    {
-                        <label style="font-size: 14px; color: lightgrey">@(Equipment?.Owner?.DisplayName)'s</label>
-                    }
-
                     <label class="gunname">@Equipment.Resource.Name</label>
                 }
             </span>
