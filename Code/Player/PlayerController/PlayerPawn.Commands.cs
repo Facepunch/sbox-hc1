@@ -36,7 +36,7 @@ public partial class PlayerPawn
 	{
 		var player = PlayerState.Local.PlayerPawn;
 		if ( player is null ) return;
-		player.HealthComponent.TakeDamage( new DamageInfo(player, float.MaxValue ) ); // this is brutal
+		Host_Suicide();
 	}
 
 	[DeveloperCommand( "Give $1k", "Player" )]
@@ -44,6 +44,20 @@ public partial class PlayerPawn
 	{
 		var player = PlayerState.Local.PlayerPawn;
 		if ( player is null ) return;
-		player.PlayerState.GiveCash(1000);
+		player.PlayerState.GiveCash( 1000 );
+	}
+
+	[Authority]
+	private static void Host_Suicide()
+	{
+		Log.Info( Rpc.Caller + "called Host_Suicide" );
+		
+		var pawn = Game.ActiveScene.GetAllComponents<PlayerPawn>()
+			.FirstOrDefault( p => p.Network.OwnerConnection == Rpc.Caller );
+
+		if ( !pawn.IsValid() )
+			return;
+		
+		pawn.HealthComponent.TakeDamage( new( pawn, float.MaxValue ) );
 	}
 }
