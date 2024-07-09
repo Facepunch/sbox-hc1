@@ -51,7 +51,7 @@ public partial class PlayerState
 			Pawn = pawn;
 				
 		RespawnState = RespawnState.Not;
-		pawn.OnHostRespawn();
+		pawn.OnRespawn();
 	}
 
 	public void Respawn( bool forceNew )

@@ -53,36 +53,33 @@ public partial class PlayerPawn
 
 	public override void OnRespawn()
 	{
+		Assert.True( Networking.IsHost );
+
+		OnHostRespawn();
+		OnClientRespawn();
+	}
+
+	private void OnHostRespawn()
+	{
+		Assert.True( Networking.IsHost );
+
 		_previousVelocity = Vector3.Zero;
 		Body.DamageTakenForce = Vector3.Zero;
 
-		if ( Networking.IsHost )
+		SpawnPointTags.Clear();
+
+		// :S
+		if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
 		{
-			SpawnPointTags.Clear();
+			var s = spawnAssigner.GetSpawnPoint( PlayerState );
 
-			// :S
-			if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
+			foreach ( var tag in s.Tags )
 			{
-				var s = spawnAssigner.GetSpawnPoint( PlayerState );
-
-				foreach ( var tag in s.Tags )
-				{
-					SpawnPointTags.Add( tag );
-				}
-
-				Teleport( s.Transform );
+				SpawnPointTags.Add( tag );
 			}
 
-			OnHostRespawn();
+			Teleport( s.Transform );
 		}
-
-		if ( IsLocallyControlled )
-			OnClientRespawn();
-	}
-
-	public void OnHostRespawn()
-	{
-		Assert.True( Networking.IsHost );
 
 		HealthComponent.Health = HealthComponent.MaxHealth;
 
@@ -91,27 +88,20 @@ public partial class PlayerPawn
 
 		EyeAngles = Transform.Rotation.Angles();
 
-		using ( Rpc.FilterInclude( Network.OwnerConnection ) )
-		{
-			OnClientRespawn();
-		}
-
 		TimeSinceLastRespawn = 0f;
 
 		ResetBody();
 		Scene.Dispatch( new PlayerSpawnedEvent( this ) );
 	}
 
-	[Broadcast]
-	public void OnClientRespawn()
+	[Authority]
+	private void OnClientRespawn()
 	{
 		if ( PlayerState.IsBot )
 			return;
 
 		Possess();
-		OnPossess();
 	}
-
 
 	public void Teleport( Transform transform )
 	{
