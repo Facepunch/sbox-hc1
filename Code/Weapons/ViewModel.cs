@@ -31,6 +31,7 @@ public partial class ViewModel : Component, IEquipment
 	[Property, Group( "GameObjects" )] public GameObject EjectionPort { get; set; }
 
 	[Property] public SkinnedModelRenderer ModelRenderer { get; set; }
+	[Property, Range( 0, 1 )] public float IronsightsFireScale { get; set; } = 0.2f;
 
 	private float YawInertiaScale => 2f;
 	private float PitchInertiaScale => 2f;
@@ -158,7 +159,7 @@ public partial class ViewModel : Component, IEquipment
 
 		// Ironsights
 		ModelRenderer.Set( "ironsights", Equipment.Tags.Has( "aiming" ) ? 1 : 0 );
-		ModelRenderer.Set( "ironsights_fire_scale", Equipment.Tags.Has( "aiming" ) ? 0.2f : 0f );
+		ModelRenderer.Set( "ironsights_fire_scale", Equipment.Tags.Has( "aiming" ) ? IronsightsFireScale : 0f );
 
 		// Handedness
 		ModelRenderer.Set( "b_twohanded", true );
