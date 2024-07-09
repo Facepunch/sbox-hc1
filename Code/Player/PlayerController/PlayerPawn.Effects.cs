@@ -52,13 +52,12 @@ public partial class PlayerPawn
 		if ( HealthComponent.IsGodMode )
 			return true;
 
-		if ( PlayerState.Local.PlayerPawn.IsValid() &&
-			PlayerState.Local.PlayerPawn.HealthComponent.State == LifeState.Dead)
+		var playerState = PlayerState.Local;
+		if ( playerState.IsValid() && playerState.PlayerPawn.IsValid() &&
+		     playerState.PlayerPawn.HealthComponent.State == LifeState.Dead )
 		{ 
-			if ( PlayerState.Local.GetLastKiller() == this )
-			{
+			if ( playerState.GetLastKiller() == this )
 				return true;
-			}
 		}
 
 		var viewer = PlayerState.Viewer;
