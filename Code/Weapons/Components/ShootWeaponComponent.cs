@@ -309,9 +309,6 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 
 				if ( tr.Distance == 0 )
 					continue;
-
-				if ( count > 0 )
-					CreateImpactEffects( tr.Surface, tr.StartPosition, -tr.Normal );
 				
 				CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
 				DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
