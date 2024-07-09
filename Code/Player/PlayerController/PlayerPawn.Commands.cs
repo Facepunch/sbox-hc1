@@ -50,8 +50,6 @@ public partial class PlayerPawn
 	[Authority]
 	private static void Host_Suicide()
 	{
-		Log.Info( Rpc.Caller + "called Host_Suicide" );
-		
 		var pawn = Game.ActiveScene.GetAllComponents<PlayerPawn>()
 			.FirstOrDefault( p => p.Network.OwnerConnection == Rpc.Caller );
 
