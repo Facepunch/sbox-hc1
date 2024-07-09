@@ -158,11 +158,9 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEven
 	[Early]
 	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
 	{
-		var damageInfo = eventArgs.DamageInfo;
-
-		if ( damageInfo.WasFallDamage && !EnableFallDamage )
+		if ( eventArgs.DamageInfo.WasFallDamage && !EnableFallDamage )
 		{
-			eventArgs.DamageInfo = eventArgs.DamageInfo with { Damage = 0f };
+			eventArgs.ClearDamage();
 			return;
 		}
 
@@ -173,14 +171,14 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEven
 			return;
 		}
 
-		eventArgs.DamageInfo = eventArgs.DamageInfo with { Damage = eventArgs.DamageInfo.Damage * config.DamageScale };
+		eventArgs.ScaleDamage( config.DamageScale );
 
-		if ( config.HelmetProtects && damageInfo.HasHelmet )
+		if ( config.HelmetProtects && eventArgs.DamageInfo.HasHelmet )
 		{
-			eventArgs.DamageInfo = eventArgs.DamageInfo with { RemoveHelmet = true };
 			eventArgs.ApplyArmor( BaseHelmetReduction );
+			eventArgs.RemoveHelmet();
 		}
-		else if ( config.ArmorProtects && damageInfo.HasArmor )
+		else if ( config.ArmorProtects && eventArgs.DamageInfo.HasArmor )
 		{
 			eventArgs.ApplyArmor( BaseArmorReduction );
 		}

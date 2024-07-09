@@ -124,7 +124,31 @@ public class ModifyDamageEvent : IGameEvent
 	}
 
 	/// <summary>
-	/// Scales <see cref="ModifiedDamage"/> by <paramref name="damageScale"/>, adding the difference to <see cref="ArmorDamage"/>.
+	/// Clears all health and armor damage from this event.
+	/// </summary>
+	public void ClearDamage()
+	{
+		DamageInfo = DamageInfo with { Damage = 0f, ArmorDamage = 0f, RemoveHelmet = false };
+	}
+
+	/// <summary>
+	/// Scales health damage by the given multiplier.
+	/// </summary>
+	public void ScaleDamage( float scale )
+	{
+		DamageInfo = DamageInfo with { Damage = DamageInfo.Damage * scale };
+	}
+
+	/// <summary>
+	/// Flag that the victim's helmet should be removed when this damage is applied.
+	/// </summary>
+	public void RemoveHelmet()
+	{
+		DamageInfo = DamageInfo with { RemoveHelmet = true };
+	}
+
+	/// <summary>
+	/// Scales <see cref="DamageInfo.Damage"/> by <paramref name="damageScale"/>, adding the difference to <see cref="DamageInfo.ArmorDamage"/>.
 	/// </summary>
 	public void ApplyArmor( float damageScale )
 	{
