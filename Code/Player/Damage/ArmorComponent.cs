@@ -5,7 +5,7 @@ namespace Facepunch;
 /// <summary>
 /// A pawn might have armor, which reduces damage.
 /// </summary>
-public partial class ArmorComponent : Component, IGameEventHandler<ModifyDamageEvent>
+public partial class ArmorComponent : Component, IGameEventHandler<ModifyDamageTakenEvent>
 {
 	[Property, ReadOnly, HostSync]
 	public float Armor { get; set; }
@@ -39,7 +39,7 @@ public partial class ArmorComponent : Component, IGameEventHandler<ModifyDamageE
 	}
 
 	[Early]
-	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
+	void IGameEventHandler<ModifyDamageTakenEvent>.OnGameEvent( ModifyDamageTakenEvent eventArgs )
 	{
 		if ( Armor > 0f ) eventArgs.AddFlag( DamageFlags.Armor );
 		if ( HasHelmet ) eventArgs.AddFlag( DamageFlags.Helmet );

@@ -98,9 +98,24 @@ public partial class HealthComponent : Component, IRespawnable
 
 	private DamageInfo ModifyDamage( DamageInfo damageInfo )
 	{
-		var modifyEvent = new ModifyDamageEvent( damageInfo );
+		damageInfo = ModifyDamage<ModifyDamageGivenEvent>( damageInfo.Attacker?.GameObject.Root, damageInfo );
+		damageInfo = ModifyDamage<ModifyDamageTakenEvent>( damageInfo.Victim?.GameObject.Root, damageInfo );
+		damageInfo = ModifyDamage<ModifyDamageGlobalEvent>( Scene, damageInfo );
 
-		Scene.Dispatch( modifyEvent );
+		return damageInfo;
+	}
+
+	private static DamageInfo ModifyDamage<T>( GameObject root, DamageInfo damageInfo )
+		where T : ModifyDamageEvent, new()
+	{
+		if ( root is null )
+		{
+			return damageInfo;
+		}
+
+		var modifyEvent = new T { DamageInfo = damageInfo };
+
+		root.Dispatch( modifyEvent );
 
 		return modifyEvent.DamageInfo;
 	}

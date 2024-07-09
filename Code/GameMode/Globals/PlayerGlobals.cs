@@ -6,7 +6,7 @@ namespace Facepunch;
 /// <summary>
 /// A list of globals that are relevant to the player. Health, armor, VFX that we don't want to hardcode somewhere.
 /// </summary>
-public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEvent>
+public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageGlobalEvent>
 {
 	/// <summary>
 	/// What's the player's max HP?
@@ -156,7 +156,7 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEven
 	/// Apply armor and helmet damage modifications.
 	/// </summary>
 	[Early]
-	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
+	void IGameEventHandler<ModifyDamageGlobalEvent>.OnGameEvent( ModifyDamageGlobalEvent eventArgs )
 	{
 		if ( eventArgs.DamageInfo.WasFallDamage && !EnableFallDamage )
 		{

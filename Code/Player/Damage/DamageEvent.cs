@@ -113,15 +113,9 @@ public record DamageInfo( Component Attacker, float Damage, Component Inflictor 
 /// <summary>
 /// Event dispatched on the host when something takes damage, so it can be modified.
 /// </summary>
-/// <param name="Damage">Information about the damage.</param>
-public class ModifyDamageEvent : IGameEvent
+public abstract class ModifyDamageEvent : IGameEvent
 {
 	public DamageInfo DamageInfo { get; set; }
-
-	public ModifyDamageEvent( DamageInfo damageInfo )
-	{
-		DamageInfo = damageInfo;
-	}
 
 	/// <summary>
 	/// Clears all health and armor damage from this event.
@@ -174,6 +168,28 @@ public class ModifyDamageEvent : IGameEvent
 	{
 		DamageInfo = DamageInfo with { Flags = DamageInfo.Flags & flag };
 	}
+}
+
+/// <summary>
+/// Event dispatched on the host when this object is about to take damage, so it can be modified.
+/// </summary>
+public class ModifyDamageTakenEvent : ModifyDamageEvent
+{
+}
+
+/// <summary>
+/// Event dispatched on the host when this object is about to deal damage, so it can be modified.
+/// </summary>
+public class ModifyDamageGivenEvent : ModifyDamageEvent
+{
+}
+
+/// <summary>
+/// Event dispatched on the host when any object is about to deal damage, so it can be modified.
+/// </summary>
+public class ModifyDamageGlobalEvent : ModifyDamageEvent
+{
+
 }
 
 /// <summary>
