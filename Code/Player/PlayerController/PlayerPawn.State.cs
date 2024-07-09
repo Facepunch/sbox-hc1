@@ -64,7 +64,11 @@ public partial class PlayerPawn
 		Assert.True( Networking.IsHost );
 
 		_previousVelocity = Vector3.Zero;
-		Body.DamageTakenForce = Vector3.Zero;
+
+		if ( Body is not null )
+		{
+			Body.DamageTakenForce = Vector3.Zero;
+		}
 
 		SpawnPointTags.Clear();
 
