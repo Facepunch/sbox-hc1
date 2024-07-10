@@ -10,7 +10,7 @@
 @if ( GameUtils.GetPlayerFromComponent( LastDamageInfo.Attacker ) is not { } killerPlayer )
     return;
 
-<root class="hud with-deadzone flex column">
+<root class="hud with-deadzone flex column gap">
     <div class="flex row">
         <img class="image" src="avatar:@killerPlayer.SteamId" />
         <div class="flex column with-background with-padding h-full align-left justify-center" style="min-width: 275px;">
@@ -18,14 +18,38 @@
             <label>@killerPlayer.DisplayName</label>
         </div>
     </div>
+
+    @if ( DamageEntries is not null && DamageEntries.Count > 0 )
+    {
+        <div class="flex column layout with-background with-padding">
+            @foreach (var entry in DamageEntries)
+            {
+                <div class="flex row gap-xs">
+
+                    <label>@(entry.Damage.CeilToInt()) damage from</label>
+                    <label>@GetName(entry.Attacker)</label>
+
+                </div>
+            }
+        </div>
+    }
 </root>
 
 @code
 {
     public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
 
+    public List<Facepunch.DamageInfo> DamageEntries => GameMode.Instance?.Get<DamageTracker>()?.GetDamageOnMe();
+
     public DamageInfo LastDamageInfo => PlayerState.Local.LastDamageInfo;
     public SpectateSystem SpectateSystem => SpectateSystem.Instance;
+
+    public string GetName( Component attacker )
+    {
+        var ply = GameUtils.GetDescription( attacker );
+
+        return ply.DisplayName;
+    }
 
     protected override int BuildHash()
     {

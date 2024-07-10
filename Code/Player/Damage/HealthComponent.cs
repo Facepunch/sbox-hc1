@@ -151,6 +151,8 @@ public partial class HealthComponent : Component, IRespawnable
 
 		GameObject.Root.Dispatch( new DamageTakenEvent( damageInfo ) );
 
+		Scene.Dispatch( new DamageTakenGlobalEvent( damageInfo ) );
+
 		if ( damageInfo.Attacker.IsValid() )
 		{
 			damageInfo.Attacker.GameObject.Root.Dispatch( new DamageGivenEvent( damageInfo ) );

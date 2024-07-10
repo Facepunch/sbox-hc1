@@ -199,6 +199,12 @@ public class ModifyDamageGlobalEvent : ModifyDamageEvent
 public record DamageTakenEvent( DamageInfo DamageInfo ) : IGameEvent;
 
 /// <summary>
+/// Event dispatched to everything when a <see cref="HealthComponent"/> takes damage.
+/// </summary>
+/// <param name="DamageInfo"></param>
+public record DamageTakenGlobalEvent ( DamageInfo DamageInfo ) : IGameEvent;
+
+/// <summary>
 /// Event dispatched on a root object that inflicted damage on another object.
 /// </summary>
 /// <param name="Damage">Information about the damage.</param>
