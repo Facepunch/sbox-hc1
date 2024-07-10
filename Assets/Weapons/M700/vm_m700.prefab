@@ -6,6 +6,9 @@
     "Tags": "viewmodel,player",
     "Enabled": true,
     "NetworkMode": 0,
+    "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "Facepunch.ViewModel",
@@ -45,10 +48,14 @@
         "__guid": "7986730a-3a71-4e1c-83a3-72c7940271d2",
         "Flags": 0,
         "Name": "Cube",
-        "Position": "12.47607,-5.960934,-9.9523",
+        "Position": "13.04371,-5.948087,-9.772047",
         "Rotation": "-0.03556848,-0.0116994,0.000416422,0.9992986",
         "Scale": "0.75,1,1",
         "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "NetworkOrphaned": 0,
+        "OwnerTransfer": 1,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
@@ -65,14 +72,50 @@
             "Flags": 0,
             "Name": "Eject",
             "Position": "0,0.0000002980232,5.964143",
-            "Enabled": true
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true,
+            "NetworkOrphaned": 0,
+            "OwnerTransfer": 1
           },
           {
             "__guid": "19f361be-9dcf-493c-8c70-46db578766c3",
             "Flags": 0,
             "Name": "Muzzle",
             "Position": "21.15613,0.0000007748604,5.964143",
-            "Enabled": true
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true,
+            "NetworkOrphaned": 0,
+            "OwnerTransfer": 1
+          }
+        ]
+      },
+      {
+        "__guid": "6e9b8dc7-218e-4106-a93e-b4a08fdd117c",
+        "Flags": 0,
+        "Name": "Object",
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "NetworkOrphaned": 0,
+        "OwnerTransfer": 1,
+        "Components": [
+          {
+            "__type": "Sandbox.CameraComponent",
+            "__guid": "75e79c6b-1a6f-44d5-97a6-37f41f556897",
+            "BackgroundColor": "0.33333,0.46275,0.52157,1",
+            "ClearFlags": "All",
+            "FieldOfView": 90,
+            "IsMainCamera": true,
+            "Orthographic": false,
+            "OrthographicHeight": 1204,
+            "Priority": 1,
+            "RenderExcludeTags": "",
+            "RenderTags": "",
+            "TargetEye": "None",
+            "Viewport": "0,0,1,1",
+            "ZFar": 10000,
+            "ZNear": 1
           }
         ]
       }
