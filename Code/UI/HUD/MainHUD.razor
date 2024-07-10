@@ -1,5 +1,7 @@
 @namespace Facepunch.UI
+@using Sandbox.Events
 @inherits PanelComponent
+@implements IGameEventHandler<OnScoreAddedEvent>
 
 @if (!IsHudEnabled)
     return;
@@ -38,6 +40,8 @@
         </div>
 
         <Radio />
+
+        <ScoringSystem @ref="ScoringSystem" />
     </canvas>
     
     <!-- Full-screen overlays -->
@@ -60,7 +64,14 @@
         IsHudEnabled = !IsHudEnabled;
     }
 
+    public ScoringSystem ScoringSystem { get; set; }
+
     public KillFeed KillFeed { get; set; }
+
+    void IGameEventHandler<OnScoreAddedEvent>.OnGameEvent( OnScoreAddedEvent eventArgs )
+    {
+        ScoringSystem.OnScore( eventArgs.Score, eventArgs.Reason );
+    }
 
     protected override int BuildHash()
     {

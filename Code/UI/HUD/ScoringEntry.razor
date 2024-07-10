@@ -1,0 +1,25 @@
+@namespace Facepunch.UI
+@attribute [StyleSheet]
+
+<root>
+    <label class="slight">@Reason</label>
+    <label class="">@Score</label>
+</root>
+
+@code
+{
+    public int Score { get; set; }
+    public string Reason { get; set; }
+
+    public RealTimeSince TimeSinceCreated { get; set; }
+
+    public ScoringEntry()
+    {
+        TimeSinceCreated = 0;
+    }
+
+    public override void Tick()
+    {
+        if ( TimeSinceCreated > 5 ) Delete();
+    }
+}

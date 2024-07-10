@@ -2,6 +2,12 @@
 
 namespace Facepunch.UI;
 
+public record OnScoreAddedEvent : IGameEvent
+{
+	public int Score { get; set; }
+	public string Reason { get; set; }
+}
+
 /// <summary>
 /// Plop this on something you're using <see cref="ScoreAttribute"/> for. We could codegen this attribute on components that use it to save this hassle.
 /// </summary>
@@ -80,7 +86,27 @@ public sealed class PlayerScore : Component,
 	public int Deaths { get; set; } = 0;
 
 	[HostSync, Property, ReadOnly, Score( "Points" ), Order( -1 )] 
-	public int Score { get; set; } = 0;
+	public int Score { get; private set; } = 0;
+
+	public void AddScore( int score, string reason = null )
+	{
+		Score += score;
+
+		using ( Rpc.FilterInclude( Network.OwnerConnection ) )
+		{
+			SendScoreAdded( score, reason );
+		}
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	private void SendScoreAdded( int score, string reason = null )
+	{
+		Scene.Dispatch<OnScoreAddedEvent>( new OnScoreAddedEvent()
+		{
+			Score = score,
+			Reason = reason
+		} );
+	}
 
 	[Score( "Ratio", Format = "{0:0.00}" ), Order( 50 )]
 	public float Ratio => (float)Kills / (float)Deaths.Clamp( 1, int.MaxValue );
@@ -91,28 +117,28 @@ public sealed class PlayerScore : Component,
 	[HostSync]
 	public bool WasBombPlanter { get; private set; }
 
-	private const int KillScore = 2;
-	private const int AssistScore = 1;
-	private const int TeamKillScore = -1;
-	private const int SuicideScore = -1;
+	private const int KillScore = 25;
+	private const int AssistScore = 10;
+	private const int TeamKillScore = -25;
+	private const int SuicideScore = -10;
 
 	// Planting the C4 explosive
-	private const int PlantScore = 2;
+	private const int PlantScore = 25;
 
 	// Bomb planter alive when the bomb explodes
-	private const int BombExplodePlanterAliveScore = 2;
+	private const int BombExplodePlanterAliveScore = 35;
 
 	// Bomb planter dead when the bomb explodes
-	private const int BombExplodePlanterDeadScore = 1;
+	private const int BombExplodePlanterDeadScore = 10;
 
 	// Other Ts alive when the bomb explodes
-	private const int BombExplodeTeamAliveScore = 1;
+	private const int BombExplodeTeamAliveScore = 25;
 
 	// Defusing bomb
-	private const int DefuserScore = 2;
+	private const int DefuserScore = 50;
 
 	// Other CTs alive when the bomb is defused
-	private const int DefuseTeamAliveScore = 1;
+	private const int DefuseTeamAliveScore = 25;
 
 	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
 	{
@@ -152,13 +178,13 @@ public sealed class PlayerScore : Component,
 			{
 				// Killed by suicide
 				Kills--;
-				Score += SuicideScore;
+				AddScore( SuicideScore, "Suicide" );
 			}
 			else
 			{
 				// Valid kill, add score
 				Kills++;
-				Score += KillScore;
+				AddScore( KillScore, "Killed a player" );
 			}
 		}
 		else if ( victimPlayer == thisPlayer )
@@ -179,7 +205,8 @@ public sealed class PlayerScore : Component,
 		if ( planterPlayer == thisPlayer )
 		{
 			// Planter is the current player
-			Score += PlantScore;
+			AddScore( PlantScore, "Planted the bomb" );
+
 			WasBombPlanter = true;
 		}
 		else
@@ -196,14 +223,15 @@ public sealed class PlayerScore : Component,
 		if ( defuserPlayer == thisPlayer )
 		{
 			// Defuser is the current player
-			Score += DefuserScore;
+			AddScore( DefuserScore, "Defused the bomb" );
+
 		}
 		else if ( thisPlayer is not null )
 		{
 			// Defuser is a teammate
 			if ( defuserPlayer.Team == thisPlayer.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
 			{
-				Score += DefuseTeamAliveScore;
+				AddScore( DefuseTeamAliveScore, "Team defused the bomb" );
 			}
 		}
 	}
@@ -219,18 +247,18 @@ public sealed class PlayerScore : Component,
 			if ( planterPlayer?.HealthComponent.State == LifeState.Alive )
 			{
 				// Planter is alive when the bomb explodes
-				Score += BombExplodePlanterAliveScore;
+				AddScore( BombExplodePlanterAliveScore, "Bomb exploded" );
 			}
 			else
 			{
 				// Planter is dead when the bomb explodes
-				Score += BombExplodePlanterDeadScore;
+				AddScore( BombExplodePlanterDeadScore, "Bomb exploded" );
 			}
 		}
 		else if ( planterPlayer?.Team == thisPlayer?.Team && thisPlayer.HealthComponent.State == LifeState.Alive )
 		{
 			// Teammate is alive when the bomb explodes
-			Score += BombExplodeTeamAliveScore;
+			AddScore( BombExplodeTeamAliveScore, "Bomb exploded" );
 		}
 	}
 
