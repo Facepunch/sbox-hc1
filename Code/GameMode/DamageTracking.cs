@@ -32,6 +32,34 @@ public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlo
 		return list;
 	}
 
+	public struct GroupedDamage
+	{
+		public PlayerState Attacker { get; set; }
+		public int Count { get; set; }
+		public float Damage { get; set; }
+	}
+
+	public List<GroupedDamage> GetGroupedDamage( PlayerState player )
+	{
+		var groups = new List<GroupedDamage>();
+
+		GetDamageInflictedTo( player )
+			.GroupBy( x => x.Attacker )
+			.ToList()
+			.ForEach( group =>
+		{
+			groups.Add( new()
+			{
+				Attacker = group.First().Attacker is Pawn pawn ? pawn.PlayerState : null,
+				Count = group.Count(),
+				Damage = group.Sum( x => x.Damage )
+			} );
+		} );
+
+
+		return groups;
+	}
+
 	public void Refresh()
 	{
 		Registry.Clear();

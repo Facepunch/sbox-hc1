@@ -22,13 +22,11 @@
     @if ( DamageEntries is not null && DamageEntries.Count > 0 )
     {
         <div class="flex column layout with-background with-padding">
-            @foreach (var entry in DamageEntries)
+            @foreach ( var entry in DamageEntries )
             {
                 <div class="flex row gap-xs">
-
-                    <label>@(entry.Damage.CeilToInt()) damage from</label>
-                    <label>@GetName(entry.Attacker)</label>
-
+                    <label>@(entry.Damage.CeilToInt()) damage in @(entry.Count) hits - </label>
+                    <label>@entry.Attacker.DisplayName</label>
                 </div>
             }
         </div>
@@ -39,7 +37,7 @@
 {
     public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
 
-    public List<Facepunch.DamageInfo> DamageEntries => GameMode.Instance?.Get<DamageTracker>()?.GetDamageOnMe();
+    public List<DamageTracker.GroupedDamage> DamageEntries => GameMode.Instance?.Get<DamageTracker>()?.GetGroupedDamage( PlayerState.Local );
 
     public DamageInfo LastDamageInfo => PlayerState.Local.LastDamageInfo;
     public SpectateSystem SpectateSystem => SpectateSystem.Instance;
