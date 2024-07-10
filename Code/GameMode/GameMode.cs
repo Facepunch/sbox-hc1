@@ -25,6 +25,8 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 	public StateMachineComponent StateMachine => _stateMachine ??= Components.GetInDescendantsOrSelf<StateMachineComponent>();
 
+	private TimeSince _sinceLastSoundHandleLog;
+
 	protected override void OnAwake()
 	{
 		if ( Networking.IsHost )
@@ -57,6 +59,27 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 		base.OnStart();
 
 		GameUtils.LogPlayers();
+	}
+
+	protected override void OnUpdate()
+	{
+		base.OnUpdate();
+
+		if ( _sinceLastSoundHandleLog > 5f )
+		{
+			_sinceLastSoundHandleLog = 0f;
+
+			var list = new List<SoundHandle>();
+			SoundHandle.GetActive( list );
+
+			var mostCommon = list
+				.GroupBy( x => x.Name )
+				.Select( x => (Name: x.Key, Count: x.Count()) )
+				.OrderByDescending( x => x.Count )
+				.FirstOrDefault();
+
+			Log.Info( $"Active sound handle count: {list.Count}, most common: {mostCommon.Name} ({mostCommon.Count})" );
+		}
 	}
 
 	void INetworkListener.OnBecameHost( Connection previousHost )
