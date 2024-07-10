@@ -151,7 +151,11 @@ public partial class PlayerPawn
 
 	private void ResetBody()
 	{
-		Body.DamageTakenForce = Vector3.Zero;
+		if ( Body is not null )
+		{
+			Body.DamageTakenForce = Vector3.Zero;
+		}
+
 		PlayerBoxCollider.Enabled = true;
 
 		Outfitter.OnResetState( this );

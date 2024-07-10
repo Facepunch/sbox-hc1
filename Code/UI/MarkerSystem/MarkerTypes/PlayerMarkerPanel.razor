@@ -140,6 +140,7 @@
         {
             var tr = GetTrace();
             if ( !tr.Hit ) return false;
+            if ( Player is null ) return false;
 
             return tr.GameObject.Root == Player.GameObject;
         }
@@ -158,7 +159,7 @@
     {
         if ( firstTime ) 
         {
-            Log.Info( $"MarkerPanelTypeOverride: Created PlayerMarkerPanel for \"{Player.DisplayName}\"" );
+            Log.Info( $"MarkerPanelTypeOverride: Created PlayerMarkerPanel for \"{Player?.DisplayName}\"" );
         }
     }
 
