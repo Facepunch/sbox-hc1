@@ -90,8 +90,6 @@ public partial class PlayerPawn
 		ArmorComponent.HasHelmet = false;
 		ArmorComponent.Armor = 0f;
 
-		EyeAngles = Transform.Rotation.Angles();
-
 		TimeSinceLastRespawn = 0f;
 
 		ResetBody();
