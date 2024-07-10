@@ -1,3 +1,5 @@
+using Facepunch.UI;
+
 namespace Facepunch;
 
 public partial class PlayerPawn
@@ -45,6 +47,15 @@ public partial class PlayerPawn
 		var player = PlayerState.Local.PlayerPawn;
 		if ( player is null ) return;
 		player.PlayerState.GiveCash( 1000 );
+	}
+
+
+	[DeveloperCommand( "Give Scores", "Player" )]
+	private static void Command_Scores()
+	{
+		var player = PlayerState.Local.PlayerPawn;
+		if ( player is null ) return;
+		player.PlayerState.Components.Get<PlayerScore>().AddScore( 25, "Killed a player" );
 	}
 
 	[Authority]

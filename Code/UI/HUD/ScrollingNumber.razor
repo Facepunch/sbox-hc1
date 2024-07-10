@@ -1,0 +1,22 @@
+@namespace Facepunch.UI
+
+<root>
+    <label class="important">@SmoothValue.CeilToInt()</label>
+</root>
+
+@code
+{
+    public float SmoothValue { get; set; } = 0f;
+    public int Value { get; set; } = 0;
+    public float Speed = 50f;
+
+    public override void Tick()
+    {
+        SmoothValue = SmoothValue.Approach( (float)Value, Speed * Time.Delta );
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( SmoothValue );
+    }
+}
