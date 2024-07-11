@@ -174,13 +174,11 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
-	public void StartDefusing( Guid playerId )
+	public void StartDefusing( PlayerPawn player )
 	{
-		var player = Scene.Directory.FindComponentByGuid( playerId ) as PlayerPawn;
-
 		if ( player is null )
 		{
-			Log.Warning( $"Unknown defuser {playerId}!" );
+			Log.Warning( $"Unknown defuser" );
 			return;
 		}
 
@@ -242,7 +240,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 	public void OnUse( PlayerPawn player )
 	{
 		TimeSinceDefuseStart = 0f;
-		StartDefusing( player.Id );
+		StartDefusing( player );
 	}
 
 	bool IMinimapElement.IsVisible( Pawn viewer )

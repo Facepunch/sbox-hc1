@@ -329,7 +329,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 
 				using ( Rpc.FilterInclude( Connection.Host ) )
 				{
-					InflictDamage( tr.GameObject!.Id, damage, tr.EndPosition, tr.Direction, tr.GetHitboxTags(), damageFlags );
+					InflictDamage( tr.GameObject, damage, tr.EndPosition, tr.Direction, tr.GetHitboxTags(), damageFlags );
 				}
 
 				count++;
@@ -341,10 +341,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	}
 
 	[Broadcast]
-	private void InflictDamage( Guid targetObjectId, float damage, Vector3 pos, Vector3 dir, HitboxTags hitbox, DamageFlags flags )
+	private void InflictDamage( GameObject target, float damage, Vector3 pos, Vector3 dir, HitboxTags hitbox, DamageFlags flags )
 	{
-		var target = Scene.Directory.FindByGuid( targetObjectId );
-
 		// target?.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerPawn.HealthComponent.Id, Weapon.Id, hitbox );
 		target?.TakeDamage( new DamageInfo( Equipment.Owner, damage, Equipment, pos, dir * damage, hitbox, flags ) );
 	}

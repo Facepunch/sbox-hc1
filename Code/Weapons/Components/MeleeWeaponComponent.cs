@@ -97,19 +97,16 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 
 			using ( Rpc.FilterInclude( Connection.Host ) )
 			{
-				InflictKnifeDamage( tr.GameObject.Id, tr.EndPosition, tr.Direction );
+				InflictKnifeDamage( tr.GameObject, tr.EndPosition, tr.Direction );
 			}
 		}
 	}
 
 	[Broadcast]
-	private void InflictKnifeDamage( Guid targetObjectId, Vector3 pos, Vector3 dir )
+	private void InflictKnifeDamage( GameObject target, Vector3 pos, Vector3 dir )
 	{
-		var obj = Scene.Directory.FindByGuid( targetObjectId );
-
 		// TODO: backstab detection
-
-		obj?.TakeDamage( new DamageInfo( Equipment.Owner, BaseDamage, Equipment, pos, dir * 64f, HitboxTags.UpperBody, DamageFlags.Melee ) );
+		target?.TakeDamage( new DamageInfo( Equipment.Owner, BaseDamage, Equipment, pos, dir * 64f, HitboxTags.UpperBody, DamageFlags.Melee ) );
 	}
 
 	protected virtual Ray WeaponRay => Equipment.Owner.AimRay;

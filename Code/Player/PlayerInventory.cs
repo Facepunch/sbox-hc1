@@ -69,9 +69,8 @@ public partial class PlayerInventory : Component
 	}
 
 	[Broadcast]
-	public void Drop( Guid weaponId )
+	public void Drop( Equipment weapon )
 	{
-		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Equipment;
 		if ( !weapon.IsValid() )
 			return;
 
@@ -108,7 +107,7 @@ public partial class PlayerInventory : Component
 
 		if ( Input.Pressed( "Drop" ) && Current.IsValid() )
 		{
-			Drop( Current.Id );
+			Drop( Current );
 			return;
 		}
 
@@ -286,7 +285,7 @@ public partial class PlayerInventory : Component
 		{
 			var slotCurrent = Equipment.FirstOrDefault( equipment => equipment.Enabled && equipment.Resource.Slot == resource.Slot );
 			if ( slotCurrent.IsValid() )
-				Drop( slotCurrent.Id );
+				Drop( slotCurrent );
 		}
 
 		if ( !resource.MainPrefab.IsValid() )

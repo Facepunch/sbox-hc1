@@ -45,7 +45,7 @@ partial class PlayerPawn
 
 		if ( usable.IsValid() && usable.CanUse( this ) )
 		{
-			UpdateLastUsedObject( (usable as Component)?.GameObject.Id ?? Guid.Empty );
+			UpdateLastUsedObject( usable as Component );
 			usable.OnUse( this );
 		}
 		else if ( Team == Team.Terrorist && GetZone<BombSite>() is not null )
@@ -56,9 +56,9 @@ partial class PlayerPawn
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
-	private void UpdateLastUsedObject( Guid id )
+	private void UpdateLastUsedObject( Component component )
 	{
-		LastUsedObject = Scene.Directory.FindByGuid( id );
+		LastUsedObject = component.GameObject;
 	}
 }
 

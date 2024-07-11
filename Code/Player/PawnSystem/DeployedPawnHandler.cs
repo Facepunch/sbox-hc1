@@ -1,19 +1,11 @@
 using Sandbox.Diagnostics;
-using System.Text.Json.Serialization;
 
 namespace Facepunch;
 
 public partial class DeployedPawnHandler : Component
 {
 	[RequireComponent] PlayerState PlayerState { get; set; }
-
-	[Property] public Pawn Pawn
-	{
-		get => Scene?.Directory.FindComponentByGuid( pawnGuid ) as Pawn;
-		private set => pawnGuid = value.Id;
-	}
-
-	[Sync, JsonIgnore] private Guid pawnGuid { get; set; } = Guid.Empty;
+	[Sync] public Pawn Pawn { get; set; }
 
 	public void PossessPlayerPawn()
 	{

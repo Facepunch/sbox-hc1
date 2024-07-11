@@ -125,25 +125,22 @@ public partial class HealthComponent : Component, IRespawnable
 		Log.Info( damageInfo );
 
 		BroadcastDamage( damageInfo.Damage, damageInfo.Position, damageInfo.Force,
-			damageInfo.Attacker?.Id ?? default, damageInfo.Inflictor?.Id ?? default,
+			damageInfo.Attacker, damageInfo.Inflictor,
 			damageInfo.Hitbox, damageInfo.Flags );
 	}
 
 	private void OnKill( DamageInfo damageInfo )
 	{
 		BroadcastKill( damageInfo.Damage, damageInfo.Position, damageInfo.Force,
-			damageInfo.Attacker?.Id ?? default, damageInfo.Inflictor?.Id ?? default,
+			damageInfo.Attacker, damageInfo.Inflictor,
 			damageInfo.Hitbox, damageInfo.Flags );
 
 		KillFeed.RecordEvent( damageInfo );
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
-	private void BroadcastDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, HitboxTags hitbox = default, DamageFlags flags = default )
+	private void BroadcastDamage( float damage, Vector3 position, Vector3 force, Component attacker, Component inflictor = default, HitboxTags hitbox = default, DamageFlags flags = default )
 	{
-		var attacker = Scene.Directory.FindComponentByGuid( attackerId );
-		var inflictor = Scene.Directory.FindComponentByGuid( inflictorId );
-
 		var damageInfo = new DamageInfo( attacker, damage, inflictor, position, force, hitbox, flags )
 		{
 			Victim = GameUtils.GetPlayerFromComponent( this )
@@ -160,11 +157,8 @@ public partial class HealthComponent : Component, IRespawnable
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
-	private void BroadcastKill( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, HitboxTags hitbox = default, DamageFlags flags = default )
+	private void BroadcastKill( float damage, Vector3 position, Vector3 force, Component attacker, Component inflictor = default, HitboxTags hitbox = default, DamageFlags flags = default )
 	{
-		var attacker = Scene.Directory.FindComponentByGuid( attackerId );
-		var inflictor = Scene.Directory.FindComponentByGuid( inflictorId );
-
 		var damageInfo = new DamageInfo( attacker, damage, inflictor, position, force, hitbox, flags )
 		{
 			Victim = this

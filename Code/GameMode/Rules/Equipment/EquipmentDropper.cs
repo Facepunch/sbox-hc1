@@ -44,7 +44,7 @@ public partial class EquipmentDropper : Component,
 
 		for ( var i = droppables.Count - 1; i >= 0; i-- )
 		{
-			player.Inventory.Drop( droppables[i].Id );
+			player.Inventory.Drop( droppables[i] );
 		}
 
 		if ( Categories.Count < 1 )

@@ -98,7 +98,7 @@ public partial class ThrowWeaponComponent : InputWeaponComponent,
 
 			var grenade = dropped.Components.Get<BaseGrenade>();
 			if ( grenade.IsValid() )
-				grenade.ThrowerId = player.Id;
+				grenade.Player = player;
 
 			dropped.Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
 			dropped.NetworkSpawn();

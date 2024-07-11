@@ -51,10 +51,9 @@ public partial class PlayerPawn :
 	}
 
 	[Authority]
-	private void SetCurrentWeapon( Guid weaponId )
+	private void SetCurrentWeapon( Equipment equipment )
 	{
-		var weapon = Scene.Directory.FindComponentByGuid( weaponId ) as Equipment;
-		SetCurrentEquipment( weapon );
+		SetCurrentEquipment( equipment );
 	}
 
 	[Authority]
@@ -83,7 +82,7 @@ public partial class PlayerPawn :
 		if ( IsProxy )
 		{
 			if ( Networking.IsHost )
-				SetCurrentWeapon( weapon.Id );
+				SetCurrentWeapon( weapon );
 
 			return;
 		}
