@@ -85,7 +85,12 @@ public sealed class EquipmentResourceEditor : BaseResourceEditor<EquipmentResour
 
 		if ( comp is ShootWeaponComponent shootWeapon )
 		{
-			Layout.Add( new ShootWeaponDebugWidget( Resource, shootWeapon ) );
+			var debugWidget = new ShootWeaponDebugWidget( Resource, shootWeapon );
+
+			Layout.Add( debugWidget );
+
+			Object.OnPropertyChanged += _ => debugWidget.UpdateGrid();
+			serialized.OnPropertyChanged += _ => debugWidget.UpdateGrid();
 		}
 	}
 
