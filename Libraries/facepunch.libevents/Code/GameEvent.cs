@@ -49,9 +49,30 @@ public static class GameEvent
 			ordering = HandlerOrderingCache[typeof(T)] = GetHandlerOrdering<T>();
 		}
 
+		List<Exception>? exceptions = null;
+
 		foreach ( var handler in handlers.OrderBy( x => ordering[x.GetType()] ) )
 		{
-			handler.OnGameEvent( eventArgs );
+			try
+			{
+				handler.OnGameEvent( eventArgs );
+			}
+			catch ( Exception e )
+			{
+				exceptions ??= new();
+				exceptions.Add( e );
+			}
+		}
+
+		switch ( exceptions?.Count )
+		{
+			case 1:
+				Log.Error( exceptions[0] );
+				break;
+
+			case > 1:
+				Log.Error( new AggregateException( exceptions ) );
+				break;
 		}
 	}
 

@@ -24,6 +24,11 @@ public sealed class StateMachineComponent : Component
 	private StateComponent? _currentState;
 
 	/// <summary>
+	/// How many instant state transitions in a row until we throw an error?
+	/// </summary>
+	public const int MaxInstantTransitions = 16;
+
+	/// <summary>
 	/// Which state is currently active?
 	/// </summary>
 	[Property, HostSync]
@@ -119,23 +124,28 @@ public sealed class StateMachineComponent : Component
 
 		current.Update();
 
-		if ( NextState is not { } next || !(Time.Now >= NextStateTime) )
-		{
-			return;
-		}
+		var transitions = 0;
 
-		if ( next.DefaultNextState is not null )
+		while ( transitions++ < MaxInstantTransitions )
 		{
-			Transition( next.DefaultNextState, next.DefaultDuration );
-		}
-		else
-		{
-			ClearTransition();
-		}
+			if ( NextState is not { } next || !(Time.Now >= NextStateTime) )
+			{
+				return;
+			}
 
-		CurrentState = next;
+			if ( next.DefaultNextState is not null )
+			{
+				Transition( next.DefaultNextState, next.DefaultDuration );
+			}
+			else
+			{
+				ClearTransition();
+			}
 
-		EnableActiveStates( true );
+			CurrentState = next;
+
+			EnableActiveStates( true );
+		}
 	}
 
 	/// <summary>
