@@ -18,14 +18,14 @@ public enum FireMode
 public partial class ShootWeaponComponent : InputWeaponComponent,
 	IGameEventHandler<EquipmentHolsteredEvent>
 {
-	[Property, Group( "Bullet" )] public float BaseDamage { get; set; } = 25.0f;
-	[Property, Group( "Bullet" )] public float FireRate { get; set; } = 0.2f;
+	[Property, Group( "Bullet" ), EquipmentResourceProperty] public float BaseDamage { get; set; } = 25.0f;
+	[Property, Group( "Bullet" ), EquipmentResourceProperty] public float FireRate { get; set; } = 0.2f;
 	[Property, Group( "Bullet" )] public float DryShootDelay { get; set; } = 0.15f;
 	[Property, Group( "Bullet" )] public float BulletSize { get; set; } = 1.0f;
-	[Property, Group( "Bullet" )] public int BulletCount { get; set; } = 1;
+	[Property, Group( "Bullet" ), EquipmentResourceProperty] public int BulletCount { get; set; } = 1;
 
-	[Property, Group( "Bullet Falloff" )] public Curve BaseDamageFalloff { get; set; } = new( new List<Curve.Frame>() { new( 0, 1 ), new( 1, 0 ) } );
-	[Property, Group( "Bullet Falloff" )] public float MaxRange { get; set; } = 1024000;
+	[Property, Group( "Bullet Falloff" ), EquipmentResourceProperty] public Curve BaseDamageFalloff { get; set; } = new( new List<Curve.Frame>() { new( 0, 1 ), new( 1, 0 ) } );
+	[Property, Group( "Bullet Falloff" ), EquipmentResourceProperty] public float MaxRange { get; set; } = 1024000;
 
 	[Property, Group( "Bullet Spread" )] public float BulletSpread { get; set; } = 0;
 	[Property, Group( "Bullet Spread" )] public float PlayerVelocityLimit { get; set; } = 300f;
