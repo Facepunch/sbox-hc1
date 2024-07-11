@@ -362,6 +362,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	/// <returns></returns>
 	private bool IsNearby( Vector3 position )
 	{
+		if ( !Scene.Camera.IsValid() ) return false;
 		return position.DistanceSquared( Scene.Camera.Transform.Position ) < MaxEffectsPlayDistance;
 	}
 
