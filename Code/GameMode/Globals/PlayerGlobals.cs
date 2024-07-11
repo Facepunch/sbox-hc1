@@ -30,15 +30,18 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageGlob
 		Cloud.Material( "jase.bloodsplatter04" )
 	};
 
+	public const float DefaultArmorReduction = 0.775f;
+	public const float DefaultHelmetReduction = 0.775f;
+
 	/// <summary>
 	/// How much should we scale damage by if the player is using armor?
 	/// </summary>
-	[Property, Group( "Damage" )] public float BaseArmorReduction { get; set; } = 0.775f;
+	[Property, Group( "Damage" )] public float BaseArmorReduction { get; set; } = DefaultArmorReduction;
 
 	/// <summary>
 	/// How much should we scale damage by if the player is wearing a helmet?
 	/// </summary>
-	[Property, Group( "Damage" )] public float BaseHelmetReduction { get; set; } = 0.775f;
+	[Property, Group( "Damage" )] public float BaseHelmetReduction { get; set; } = DefaultHelmetReduction;
 
 	/// <summary>
 	/// How much spread should we have when aiming down the sights?
@@ -85,17 +88,22 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageGlob
 		public bool HelmetProtects { get; set; }
 	}
 
+	public static List<HitboxConfig> GetDefaultHitboxConfigs()
+	{
+		return new()
+		{
+			new HitboxConfig { Tags = HitboxTags.Head, DamageScale = 5f, HelmetProtects = true },
+			new HitboxConfig { Tags = HitboxTags.UpperBody | HitboxTags.Arm, ArmorProtects = true },
+			new HitboxConfig { Tags = HitboxTags.LowerBody, DamageScale = 1.25f },
+			new HitboxConfig { Tags = HitboxTags.Leg, DamageScale = 0.75f }
+		};
+	}
+
 	/// <summary>
 	/// Custom damage scales / armor info for each hitbox tag. Uses the first match in the list.
 	/// </summary>
 	[Property, Group( "Damage" )]
-	public List<HitboxConfig> Hitboxes { get; set; } = new()
-	{
-		new HitboxConfig { Tags = HitboxTags.Head, DamageScale = 5f, HelmetProtects = true },
-		new HitboxConfig { Tags = HitboxTags.UpperBody | HitboxTags.Arm, ArmorProtects = true },
-		new HitboxConfig { Tags = HitboxTags.LowerBody, DamageScale = 1.25f },
-		new HitboxConfig { Tags = HitboxTags.Leg, DamageScale = 0.75f }
-	};
+	public List<HitboxConfig> Hitboxes { get; set; } = GetDefaultHitboxConfigs();
 
 	/// <summary>
 	/// If true, pop off helmets on headshots.
@@ -164,35 +172,55 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageGlob
 			return;
 		}
 
-		if ( Hitboxes.FirstOrDefault( x => (x.Tags & eventArgs.DamageInfo.Hitbox) != 0 ) is not { } config )
+		var resource = (eventArgs.DamageInfo.Inflictor as Equipment)?.Resource;
+
+		GetDamageModifications(
+			eventArgs.DamageInfo.Flags, eventArgs.DamageInfo.Hitbox,
+			resource?.ArmorReduction ?? BaseArmorReduction,
+			resource?.HelmetReduction ?? BaseHelmetReduction,
+			Hitboxes,
+			out var damageScale, out var armorReduction, out var removeHelmet );
+
+		eventArgs.ScaleDamage( damageScale );
+		eventArgs.ApplyArmor( armorReduction );
+
+		if ( removeHelmet )
+		{
+			eventArgs.RemoveHelmet();
+		}
+	}
+
+	public static void GetDamageModifications(
+		DamageFlags damageFlags,
+		HitboxTags hitboxTags,
+		float baseArmorReduction,
+		float baseHelmetReduction,
+		IReadOnlyList<HitboxConfig> hitboxConfigs,
+		out float damageScale,
+		out float armorReduction,
+		out bool removeHelmet )
+	{
+		damageScale = 1f;
+		armorReduction = 1f;
+		removeHelmet = false;
+
+		if ( hitboxConfigs.FirstOrDefault( x => (x.Tags & hitboxTags) != 0 ) is not { } config )
 		{
 			// We don't have any special rules for this hitbox
 
 			return;
 		}
 
-		eventArgs.ScaleDamage( config.DamageScale );
+		damageScale = config.DamageScale;
 
-		if ( config.HelmetProtects && eventArgs.DamageInfo.HasHelmet )
+		if ( config.HelmetProtects && (damageFlags & DamageFlags.Helmet) != 0 )
 		{
-			var reduction = BaseHelmetReduction;
-			if ( eventArgs.DamageInfo.Inflictor is Equipment weapon )
-			{
-				reduction = weapon.Resource.HelmetReduction;
-			}
-
-			eventArgs.ApplyArmor( reduction );
-			eventArgs.RemoveHelmet();
+			armorReduction = baseHelmetReduction;
+			removeHelmet = true;
 		}
-		else if ( config.ArmorProtects && eventArgs.DamageInfo.HasArmor )
+		else if ( config.ArmorProtects && (damageFlags & DamageFlags.Armor) != 0 )
 		{
-			var reduction = BaseArmorReduction;
-			if ( eventArgs.DamageInfo.Inflictor is Equipment weapon )
-			{
-				reduction = weapon.Resource.ArmorReduction;
-			}
-
-			eventArgs.ApplyArmor( reduction );
+			armorReduction = baseArmorReduction;
 		}
 	}
 }

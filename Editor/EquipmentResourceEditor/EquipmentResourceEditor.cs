@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using Editor;
 using Sandbox;
+using Sandbox.UI;
+using Label = Editor.Label;
 
 namespace Facepunch.Editor;
 
@@ -79,6 +82,11 @@ public sealed class EquipmentResourceEditor : BaseResourceEditor<EquipmentResour
 		sheet.AddGroup( typeDesc.Title, properties );
 
 		Layout.Add( sheet );
+
+		if ( comp is ShootWeaponComponent shootWeapon )
+		{
+			Layout.Add( new ShootWeaponDebugWidget( Resource, shootWeapon ) );
+		}
 	}
 
 	private JsonObject FindComponentJson( JsonObject obj, TypeDescription typeDesc )
@@ -112,5 +120,81 @@ public sealed class EquipmentResourceEditor : BaseResourceEditor<EquipmentResour
 		}
 
 		return null;
+	}
+}
+
+file sealed class ShootWeaponDebugWidget : Widget
+{
+	public EquipmentResource Resource { get; }
+	public ShootWeaponComponent ShootWeapon { get; }
+
+	public ShootWeaponDebugWidget( EquipmentResource resource, ShootWeaponComponent shootWeapon )
+	{
+		Resource = resource;
+		ShootWeapon = shootWeapon;
+
+		var grid = Layout.Grid();
+
+		grid.VerticalSpacing = 4;
+		grid.HorizontalSpacing = 8;
+
+		Layout = grid;
+		Layout.Margin = new Margin( 16f, 16f, 16f, 16f );
+
+		UpdateGrid();
+	}
+
+	private static (bool ArmorHelmet, HitboxTags HitboxTags)[] Cases { get; } =
+	{
+		(false, HitboxTags.Head), (true, HitboxTags.Head),
+		(false, HitboxTags.Chest), (true, HitboxTags.Chest)
+	};
+
+	public void UpdateGrid()
+	{
+		var grid = (GridLayout) Layout;
+
+		grid.Clear( true );
+
+		grid.AddCell( 0, 0, new Label.Small( "Body Part" ), alignment: TextFlag.Center );
+		grid.AddCell( 1, 0, new Label.Small( "Armor" ), alignment: TextFlag.Center );
+		grid.AddCell( 2, 0, new Label.Small( "Damage" ), alignment: TextFlag.Center );
+		grid.AddCell( 3, 0, new Label.Small( "Shots to Kill" ), alignment: TextFlag.Center );
+
+		var hitboxConifgs = PlayerGlobals.GetDefaultHitboxConfigs();
+
+		for ( var i = 0; i < Cases.Length; i++ )
+		{
+			var damageCase = Cases[i];
+			var row = i + 1;
+
+			var flags = damageCase.ArmorHelmet
+				? DamageFlags.Armor | DamageFlags.Helmet
+				: 0;
+
+			PlayerGlobals.GetDamageModifications( flags, damageCase.HitboxTags,
+				Resource.ArmorReduction ?? PlayerGlobals.DefaultArmorReduction,
+				Resource.HelmetReduction ?? PlayerGlobals.DefaultHelmetReduction,
+				hitboxConifgs, out var damageScale, out var armorReduction, out _ );
+
+			var damage = ShootWeapon.BaseDamage;
+
+			damage *= damageScale;
+			damage *= armorReduction;
+
+			grid.AddCell( 0, row, new Label( damageCase.HitboxTags.ToString() ), alignment: TextFlag.Center );
+			grid.AddCell( 1, row, new Label( damageCase.ArmorHelmet ? "\u2611" : "\u2610" ), alignment: TextFlag.Center );
+			grid.AddCell( 2, row, new Label( damage.ToString( "F1" ) ), alignment: TextFlag.Center );
+			grid.AddCell( 3, row, new Label( Math.Ceiling( 100f / damage ).ToString( "N0" ) ), alignment: TextFlag.Center );
+		}
+	}
+
+	protected override void OnPaint()
+	{
+		base.OnPaint();
+
+		Paint.ClearPen();
+		Paint.SetBrush( Theme.ControlBackground.Lighten( 0.5f ) );
+		Paint.DrawRect( Layout.InnerRect.Grow( 8f ) );
 	}
 }
