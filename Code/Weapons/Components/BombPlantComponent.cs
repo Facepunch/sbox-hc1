@@ -84,9 +84,9 @@ public partial class BombPlantComponent : InputWeaponComponent
 		BroadcastPlant();
 	}
 
-	public void FinishPlant()
+	public void FinishPlant( Vector3? position = null )
 	{
-		PlantBombOnHost( Equipment.Owner.Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
+		PlantBombOnHost( position ?? Equipment.Owner.Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
 	}
 
 	[Broadcast]
