@@ -51,6 +51,19 @@ public partial class PlayerPawn
 		CameraController.Mode = CameraMode.ThirdPerson;
 	}
 
+	public void SetSpawnPoint( SpawnPointInfo spawnPoint )
+	{
+		SpawnPosition = spawnPoint.Position;
+		SpawnRotation = spawnPoint.Rotation;
+
+		SpawnPointTags.Clear();
+
+		foreach ( var tag in spawnPoint.Tags )
+		{
+			SpawnPointTags.Add( tag );
+		}
+	}
+
 	public override void OnRespawn()
 	{
 		Assert.True( Networking.IsHost );
@@ -65,24 +78,11 @@ public partial class PlayerPawn
 
 		_previousVelocity = Vector3.Zero;
 
+		Teleport( SpawnPosition, SpawnRotation );
+
 		if ( Body is not null )
 		{
 			Body.DamageTakenForce = Vector3.Zero;
-		}
-
-		SpawnPointTags.Clear();
-
-		// :S
-		if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
-		{
-			var s = spawnAssigner.GetSpawnPoint( PlayerState );
-
-			foreach ( var tag in s.Tags )
-			{
-				SpawnPointTags.Add( tag );
-			}
-
-			Teleport( s.Transform );
 		}
 
 		HealthComponent.Health = HealthComponent.MaxHealth;

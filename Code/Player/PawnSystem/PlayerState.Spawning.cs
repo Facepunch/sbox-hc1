@@ -28,21 +28,14 @@ public partial class PlayerState
 
 	public bool IsRespawning => RespawnState is RespawnState.Delayed;
 
-	private void Spawn()
+	private void Spawn( SpawnPointInfo spawnPoint )
 	{
-		var spawnPoint = GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner
-			? spawnAssigner.GetSpawnPoint( this )
-			: GameUtils.GetRandomSpawnPoint( Team );
-
 		var prefab = PlayerPawnPrefab.Clone( spawnPoint.Transform );
 		var pawn = prefab.Components.Get<PlayerPawn>();
 
 		pawn.PlayerState = this;
 
-		foreach ( var tag in spawnPoint.Tags )
-		{
-			pawn.SpawnPointTags.Add( tag );
-		}
+		pawn.SetSpawnPoint( spawnPoint );
 
 		prefab.NetworkSpawn( Network.OwnerConnection );
 
@@ -59,15 +52,22 @@ public partial class PlayerState
 		if ( Team == Team.Unassigned )
 			return;
 
-		Log.Info( $"Spawning player.. ( {GameObject.Name} ({DisplayName}, {Team}) )" );
+		var spawnPoint = GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner
+			? spawnAssigner.GetSpawnPoint( this )
+			: GameUtils.GetRandomSpawnPoint( Team );
+
+		Log.Info( $"Spawning player.. ( {GameObject.Name} ({DisplayName}, {Team}), {spawnPoint.Position}, [{string.Join( ", ", spawnPoint.Tags )}] )" );
 
 		if ( forceNew || !PlayerPawn.IsValid() || PlayerPawn.HealthComponent.State == LifeState.Dead )
 		{
 			PlayerPawn?.GameObject?.Destroy();
-			Spawn();
+			PlayerPawn = null;
+
+			Spawn( spawnPoint );
 		}
 		else
 		{
+			PlayerPawn.SetSpawnPoint( spawnPoint );
 			PlayerPawn.OnRespawn();
 		}
 	}

@@ -25,6 +25,18 @@ public abstract class Pawn : Component, IRespawnable
 	}
 
 	/// <summary>
+	/// The position this player last spawned at.
+	/// </summary>
+	[HostSync]
+	public Vector3 SpawnPosition { get; set; }
+
+	/// <summary>
+	/// The rotation this player last spawned at.
+	/// </summary>
+	[HostSync]
+	public Rotation SpawnRotation { get; set; }
+
+	/// <summary>
 	/// The tags of the last spawn point of this pawn.
 	/// </summary>
 	[HostSync]
