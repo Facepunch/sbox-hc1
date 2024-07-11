@@ -118,7 +118,10 @@ public partial class PlayerPawn
 		EyeAngles = rotation.Angles();
 
 		if ( CharacterController.IsValid() )
+		{
 			CharacterController.Velocity = Vector3.Zero;
+			CharacterController.IsOnGround = true;
+		}
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
