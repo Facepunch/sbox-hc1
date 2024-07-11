@@ -22,13 +22,11 @@ public sealed class SwapTeams : Component,
 		foreach ( var player in ts )
 		{
 			player.AssignTeam( Team.CounterTerrorist );
-			player.Respawn( true );
 		}
 
 		foreach ( var player in cts )
 		{
 			player.AssignTeam( Team.Terrorist );
-			player.Respawn( true );
 		}
 
 		Game.ActiveScene.Dispatch( new TeamsSwappedEvent() );
