@@ -63,7 +63,7 @@ public partial class PlayerState
 
 		if ( forceNew || !PlayerPawn.IsValid() || PlayerPawn.HealthComponent.State == LifeState.Dead )
 		{
-			PlayerPawn?.GameObject.Destroy();
+			PlayerPawn?.GameObject?.Destroy();
 			Spawn();
 		}
 		else

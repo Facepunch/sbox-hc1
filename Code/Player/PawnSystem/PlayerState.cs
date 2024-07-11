@@ -76,7 +76,7 @@ public partial class PlayerState : Component
 	/// <summary>
 	/// The main PlayerPawn of this player if one exists, will not change when the player possesses gadgets etc. (synced)
 	/// </summary>
-	[HostSync] public PlayerPawn PlayerPawn { get; set; }
+	[HostSync, ValidOrNull] public PlayerPawn PlayerPawn { get; set; }
 
 	/// <summary>
 	/// The pawn this player is currently in possession of (synced - unless the pawn is not networked)
