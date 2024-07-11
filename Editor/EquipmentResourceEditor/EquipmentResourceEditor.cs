@@ -58,8 +58,6 @@ public sealed class EquipmentResourceEditor : BaseResourceEditor<EquipmentResour
 		var prefabJson = prefabFile?.RootObject;
 		if ( prefabJson is null ) return;
 
-		var prefabAsset = AssetSystem.FindByPath( prefabFile.ResourcePath );
-
 		var compJson = FindComponentJson( prefabJson, typeDesc );
 		if ( compJson is null ) return;
 

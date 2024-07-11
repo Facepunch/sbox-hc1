@@ -4,9 +4,9 @@ namespace Facepunch;
 [Title( "Melee" ), Group( "Weapon Components" )]
 public partial class MeleeWeaponComponent : InputWeaponComponent
 {
-	[Property, Category( "Config" )] public float BaseDamage { get; set; } = 25.0f;
-	[Property, Category( "Config" )] public float FireRate { get; set; } = 0.2f;
-	[Property, Category( "Config" )] public float MaxRange { get; set; } = 1024000;
+	[Property, Category( "Config" ), EquipmentResourceProperty] public float BaseDamage { get; set; } = 25.0f;
+	[Property, Category( "Config" ), EquipmentResourceProperty] public float FireRate { get; set; } = 0.2f;
+	[Property, Category( "Config" ), EquipmentResourceProperty] public float MaxRange { get; set; } = 1024000;
 	[Property, Category( "Config" )] public float Size { get; set; } = 1.0f;
 
 	[Property, Group( "Sounds" )] public SoundEvent SwingSound { get; set; }

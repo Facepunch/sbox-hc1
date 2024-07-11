@@ -6,8 +6,8 @@ namespace Facepunch;
 public partial class ThrowWeaponComponent : InputWeaponComponent,
 	IGameEventHandler<EquipmentHolsteredEvent>
 {
-	[Property] public float CookTime { get; set; } = 0.5f;
-	[Property] public GameObject Prefab { get; set; }
+	[Property, EquipmentResourceProperty] public float CookTime { get; set; } = 0.5f;
+	[Property, EquipmentResourceProperty] public GameObject Prefab { get; set; }
 	[Property] public float ThrowPower { get; set; } = 1200f;
 
 	public enum State
