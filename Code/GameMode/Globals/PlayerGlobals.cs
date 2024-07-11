@@ -175,12 +175,24 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageGlob
 
 		if ( config.HelmetProtects && eventArgs.DamageInfo.HasHelmet )
 		{
-			eventArgs.ApplyArmor( BaseHelmetReduction );
+			var reduction = BaseHelmetReduction;
+			if ( eventArgs.DamageInfo.Inflictor is Equipment weapon )
+			{
+				reduction = weapon.Resource.HelmetReduction;
+			}
+
+			eventArgs.ApplyArmor( reduction );
 			eventArgs.RemoveHelmet();
 		}
 		else if ( config.ArmorProtects && eventArgs.DamageInfo.HasArmor )
 		{
-			eventArgs.ApplyArmor( BaseArmorReduction );
+			var reduction = BaseArmorReduction;
+			if ( eventArgs.DamageInfo.Inflictor is Equipment weapon )
+			{
+				reduction = weapon.Resource.ArmorReduction;
+			}
+
+			eventArgs.ApplyArmor( reduction );
 		}
 	}
 }

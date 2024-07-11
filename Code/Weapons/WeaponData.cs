@@ -111,7 +111,13 @@ public partial class EquipmentResource : GameResource
 
 	[Category( "Dropping" )]
 	public Vector3 DroppedCenter { get; set; } = new( 0, 0, 0 );
-	
+
+	[Category( "Damage" )]
+	public float ArmorReduction { get; set; } = 0.775f;
+
+	[Category( "Damage" )]
+	public float HelmetReduction { get; set; } = 0.775f;
+
 	public bool IsPurchasableForTeam( Team team )
 	{
 		return Team == Team.Unassigned || Team == team;
