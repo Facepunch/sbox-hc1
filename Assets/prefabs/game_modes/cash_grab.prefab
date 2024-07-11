@@ -5,7 +5,6 @@
     "Name": "cash_grab",
     "Enabled": true,
     "NetworkMode": 1,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Facepunch.GameMode",
@@ -22,18 +21,17 @@
       {
         "__type": "Facepunch.TeamSpawnAssigner",
         "__guid": "fe095be3-3702-44db-9d46-fd191f054ea3",
+        "SpawnRules": [],
         "SpawnTags": ""
       },
       {
         "__type": "Facepunch.DefaultEquipment",
         "__guid": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
         "Armor": 100,
-        "BothTeams": true,
         "DefuseKit": false,
         "Helmet": true,
         "LoadoutsEnabled": true,
         "RefillAmmo": true,
-        "Team": "Terrorist",
         "TeamLoadouts": [
           {
             "Team": "Terrorist",
@@ -99,7 +97,9 @@
         "__type": "Facepunch.TeamAssigner",
         "__guid": "fb65991f-7f22-4b25-88f3-438705b877da",
         "AllowLateJoiners": true,
-        "MaxTeamSize": 10
+        "AutoBalanceMode": "Random",
+        "MaxTeamSize": 10,
+        "TargetRatio": 1
       },
       {
         "__type": "Facepunch.EnableBuyMenu",
@@ -111,6 +111,13 @@
         "__type": "Facepunch.PlayerRagdollBehavior",
         "__guid": "70dcc203-3e77-4c1f-bb6b-37fa1d42585e",
         "DestroyTime": 10
+      },
+      {
+        "__type": "Facepunch.DamageTracker",
+        "__guid": "ba2ba2a9-5138-45bc-8d25-7958e5aad274",
+        "ClearBetweenRounds": true,
+        "ClearOnRespawn": true,
+        "Registry": {}
       }
     ],
     "Children": [
@@ -120,7 +127,6 @@
         "Name": "States",
         "Enabled": true,
         "NetworkMode": 1,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.Events.StateMachineComponent",
@@ -140,7 +146,6 @@
             "Name": "Waiting",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -193,7 +198,6 @@
             "Name": "Preparing",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -229,7 +233,8 @@
               },
               {
                 "__type": "Facepunch.RespawnPlayers",
-                "__guid": "836a9f51-f0cd-4c73-93fe-bfa982936d7b"
+                "__guid": "836a9f51-f0cd-4c73-93fe-bfa982936d7b",
+                "ForceNew": false
               }
             ]
           },
@@ -239,7 +244,6 @@
             "Name": "Play Game",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -264,7 +268,6 @@
                 "Name": "Spawn Cash Point",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -321,7 +324,6 @@
                 "Name": "Open Cash Point",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -369,7 +371,6 @@
                 "Name": "Cash Grabbed - Activate Extract",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -418,7 +419,6 @@
                 "Name": "Extract Failed",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -464,7 +464,6 @@
                 "Name": "Extract Finished",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -518,7 +517,6 @@
             "Name": "T Win Game",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -548,7 +546,6 @@
             "Name": "CT Win Game",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",

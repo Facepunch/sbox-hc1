@@ -5,7 +5,6 @@
     "Name": "bomb_defusal",
     "Enabled": true,
     "NetworkMode": 1,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Facepunch.GameMode",
@@ -30,18 +29,17 @@
       {
         "__type": "Facepunch.TeamSpawnAssigner",
         "__guid": "fe095be3-3702-44db-9d46-fd191f054ea3",
+        "SpawnRules": [],
         "SpawnTags": ""
       },
       {
         "__type": "Facepunch.DefaultEquipment",
         "__guid": "3047e6e9-5b10-4f00-8c15-b5071a95ec49",
         "Armor": 0,
-        "BothTeams": true,
         "DefuseKit": false,
         "Helmet": false,
         "LoadoutsEnabled": false,
         "RefillAmmo": true,
-        "Team": "Terrorist",
         "TeamLoadouts": [
           {
             "Team": "Terrorist",
@@ -81,6 +79,13 @@
       {
         "__type": "Facepunch.BotManager",
         "__guid": "8f2a629c-0d39-4eb1-a17a-03df62cfcc4b"
+      },
+      {
+        "__type": "Facepunch.DamageTracker",
+        "__guid": "800e6b75-595b-4b94-b521-2ed8b44a6460",
+        "ClearBetweenRounds": true,
+        "ClearOnRespawn": false,
+        "Registry": {}
       }
     ],
     "Children": [
@@ -90,7 +95,6 @@
         "Name": "States",
         "Enabled": true,
         "NetworkMode": 1,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.Events.StateMachineComponent",
@@ -110,7 +114,6 @@
             "Name": "Waiting",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -127,7 +130,9 @@
                 "__type": "Facepunch.TeamAssigner",
                 "__guid": "49a0734b-7af2-4771-81c2-876a43fa7a61",
                 "AllowLateJoiners": true,
-                "MaxTeamSize": 5
+                "AutoBalanceMode": "Random",
+                "MaxTeamSize": 5,
+                "TargetRatio": 1
               },
               {
                 "__type": "Facepunch.WaitForPlayers",
@@ -171,7 +176,6 @@
             "Name": "Preparing",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -209,7 +213,9 @@
                 "__type": "Facepunch.TeamAssigner",
                 "__guid": "36deea8a-f5b4-4a7b-b9c0-9d2b21f7e032",
                 "AllowLateJoiners": true,
-                "MaxTeamSize": 5
+                "AutoBalanceMode": "Random",
+                "MaxTeamSize": 5,
+                "TargetRatio": 1
               }
             ]
           },
@@ -219,7 +225,6 @@
             "Name": "Play Game",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -250,7 +255,9 @@
                 "__type": "Facepunch.TeamAssigner",
                 "__guid": "07759ff2-f643-4a09-859c-579af117267d",
                 "AllowLateJoiners": false,
-                "MaxTeamSize": 5
+                "AutoBalanceMode": "Random",
+                "MaxTeamSize": 5,
+                "TargetRatio": 1
               }
             ],
             "Children": [
@@ -260,7 +267,6 @@
                 "Name": "Start Half",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -290,7 +296,6 @@
                 "Name": "Play Round",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -336,7 +341,6 @@
                     "Name": "Cleanup",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -361,7 +365,6 @@
                     "Name": "Respawn Players",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -376,7 +379,8 @@
                       },
                       {
                         "__type": "Facepunch.RespawnPlayers",
-                        "__guid": "1b1b0c27-e7c8-42c3-b0dd-25a7529129f5"
+                        "__guid": "1b1b0c27-e7c8-42c3-b0dd-25a7529129f5",
+                        "ForceNew": false
                       },
                       {
                         "__type": "Facepunch.SpecialWeaponAllocator",
@@ -392,7 +396,6 @@
                     "Name": "Freeze Time",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -434,7 +437,6 @@
                     "Name": "Before Plant",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -536,7 +538,6 @@
                     "Name": "After Plant",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -605,7 +606,6 @@
                     "Name": "T Victory",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -646,7 +646,6 @@
                         "Name": "CTs Eliminated",
                         "Enabled": true,
                         "NetworkMode": 1,
-                        "NetworkInterpolation": true,
                         "Components": [
                           {
                             "__type": "Sandbox.Events.StateComponent",
@@ -679,7 +678,6 @@
                         "Name": "Bomb Detonated",
                         "Enabled": true,
                         "NetworkMode": 1,
-                        "NetworkInterpolation": true,
                         "Components": [
                           {
                             "__type": "Sandbox.Events.StateComponent",
@@ -712,7 +710,6 @@
                         "Name": "Toast",
                         "Enabled": true,
                         "NetworkMode": 1,
-                        "NetworkInterpolation": true,
                         "Components": [
                           {
                             "__type": "Sandbox.Events.StateComponent",
@@ -755,7 +752,6 @@
                     "Name": "CT Victory",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -796,7 +792,6 @@
                         "Name": "Ts Eliminated",
                         "Enabled": true,
                         "NetworkMode": 1,
-                        "NetworkInterpolation": true,
                         "Components": [
                           {
                             "__type": "Sandbox.Events.StateComponent",
@@ -829,7 +824,6 @@
                         "Name": "Bomb Defused",
                         "Enabled": true,
                         "NetworkMode": 1,
-                        "NetworkInterpolation": true,
                         "Components": [
                           {
                             "__type": "Sandbox.Events.StateComponent",
@@ -869,7 +863,6 @@
                         "Name": "Toast",
                         "Enabled": true,
                         "NetworkMode": 1,
-                        "NetworkInterpolation": true,
                         "Components": [
                           {
                             "__type": "Sandbox.Events.StateComponent",
@@ -912,7 +905,6 @@
                     "Name": "End Round",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -939,7 +931,6 @@
                 "Name": "End Half",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -981,7 +972,6 @@
                 "Name": "Swap Teams",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -1008,7 +998,6 @@
             "Name": "Post Game",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",

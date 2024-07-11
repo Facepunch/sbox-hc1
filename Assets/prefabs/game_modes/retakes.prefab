@@ -5,7 +5,6 @@
     "Name": "retakes",
     "Enabled": true,
     "NetworkMode": 1,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Facepunch.GameMode",
@@ -22,6 +21,13 @@
       {
         "__type": "Facepunch.RoundCounter",
         "__guid": "90369e67-62c7-4e94-9f7d-00cb9fa8cc90"
+      },
+      {
+        "__type": "Facepunch.DamageTracker",
+        "__guid": "328b1997-ab41-4112-92e9-5e8db8844705",
+        "ClearBetweenRounds": true,
+        "ClearOnRespawn": false,
+        "Registry": {}
       }
     ],
     "Children": [
@@ -31,7 +37,6 @@
         "Name": "States",
         "Enabled": true,
         "NetworkMode": 1,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.Events.StateMachineComponent",
@@ -51,7 +56,6 @@
             "Name": "Waiting",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -136,7 +140,6 @@
             "Name": "Preparing",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -178,7 +181,6 @@
             "Name": "Play Game",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -271,7 +273,6 @@
                 "Name": "Play Round",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -304,7 +305,6 @@
                     "Name": "Cleanup",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -333,7 +333,6 @@
                     "Name": "Respawn Players",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -359,7 +358,6 @@
                     "Name": "Freeze Time",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -745,7 +743,6 @@
                     "Name": "Before Plant",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -780,7 +777,6 @@
                     "Name": "After Plant",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -853,7 +849,6 @@
                     "Name": "T Victory",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -920,7 +915,6 @@
                     "Name": "CT Victory",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -980,7 +974,6 @@
                     "Name": "Swap Teams",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -1005,7 +998,6 @@
                     "Name": "End Round",
                     "Enabled": true,
                     "NetworkMode": 1,
-                    "NetworkInterpolation": true,
                     "Components": [
                       {
                         "__type": "Sandbox.Events.StateComponent",
@@ -1034,7 +1026,6 @@
             "Name": "Post Game",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
