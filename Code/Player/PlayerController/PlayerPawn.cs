@@ -116,6 +116,9 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 		}
 	}
 
+	private float DeathcamSkipTime => 5f;
+	private float DeathcamIgnoreInputTime => 1f;
+
 	// deathcam
 	private void UpdateDead()
 	{
@@ -127,10 +130,10 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 			EyeAngles = Rotation.LookAt( killerPlayer.Transform.Position - Transform.Position, Vector3.Up );
 		}
 
-		if ( ( ( Input.Pressed( "attack1" ) || Input.Pressed( "attack2" ) ) && !PlayerState.IsRespawning ) || PlayerState.IsBot )
+		if ( ( ( Input.Pressed( "attack1" ) || Input.Pressed( "attack2" ) ) && !PlayerState.IsRespawning ) || PlayerState.IsBot || PlayerState.LastDamageInfo.TimeSinceEvent > DeathcamSkipTime )
 		{
 			// Don't let players immediately switch
-			if ( PlayerState.LastDamageInfo.TimeSinceEvent < 1f ) return;
+			if ( PlayerState.LastDamageInfo.TimeSinceEvent < DeathcamIgnoreInputTime ) return;
 
 			GameObject.Destroy();
 			return;
