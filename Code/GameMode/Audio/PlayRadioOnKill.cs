@@ -18,6 +18,9 @@ public sealed class PlayRadioOnKill : Component,
 
 	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
 	{
+		if ( !Networking.IsHost )
+			return;
+
 		var damageInfo = eventArgs.DamageInfo;
 		var victimTeam = damageInfo.Victim.GameObject.GetTeam();
 

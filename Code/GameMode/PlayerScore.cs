@@ -142,6 +142,9 @@ public sealed class PlayerScore : Component,
 
 	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
 	{
+		if ( !Networking.IsHost )
+			return;
+
 		var damageInfo = eventArgs.DamageInfo;
 
 		if ( !damageInfo.Attacker.IsValid() ) return;

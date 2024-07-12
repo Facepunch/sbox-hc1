@@ -38,6 +38,9 @@ public partial class EquipmentDropper : Component,
 
 	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
 	{
+		if ( !Networking.IsHost )
+			return;
+
 		var player = GameUtils.GetPlayerFromComponent( eventArgs.DamageInfo.Victim );
 		if ( !player.IsValid() )
 			return;

@@ -15,6 +15,9 @@ public sealed class KillRewards : Component, IGameEventHandler<KillEvent>
 
 	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
 	{
+		if ( !Networking.IsHost )
+			return;
+
 		var damageInfo = eventArgs.DamageInfo;
 
 		if ( GameUtils.GetPlayerFromComponent( damageInfo.Attacker ) is not { } killerPlayer )
