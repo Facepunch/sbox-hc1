@@ -104,6 +104,11 @@ public record DamageInfo( Component Attacker, float Damage, Component Inflictor 
 	/// <inheritdoc cref="DamageFlags.FallDamage"/>
 	public bool WasFallDamage => Flags.HasFlag( DamageFlags.FallDamage );
 
+	/// <summary>
+	/// How long since this damage info event happened?
+	/// </summary>
+	public RealTimeSince TimeSinceEvent { get; init; } = 0;
+
 	public override string ToString()
 	{
 		return $"\"{Attacker}\" - \"{Victim}\" with \"{Inflictor}\" ({Damage} damage)";

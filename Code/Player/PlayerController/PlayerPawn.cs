@@ -129,6 +129,9 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 		if ( ( ( Input.Pressed( "attack1" ) || Input.Pressed( "attack2" ) ) && !PlayerState.IsRespawning ) || PlayerState.IsBot )
 		{
+			// Don't let players immediately switch
+			if ( PlayerState.LastDamageInfo.TimeSinceEvent < 1f ) return;
+
 			GameObject.Destroy();
 			return;
 		}
