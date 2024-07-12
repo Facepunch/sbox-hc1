@@ -127,7 +127,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 			EyeAngles = Rotation.LookAt( killerPlayer.Transform.Position - Transform.Position, Vector3.Up );
 		}
 
-		if ((Input.Pressed( "attack1" ) && !PlayerState.IsRespawning) || PlayerState.IsBot )
+		if ( ( ( Input.Pressed( "attack1" ) || Input.Pressed( "attack2" ) ) && !PlayerState.IsRespawning ) || PlayerState.IsBot )
 		{
 			GameObject.Destroy();
 			return;
