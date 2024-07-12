@@ -164,8 +164,9 @@ public partial class HealthComponent : Component, IRespawnable
 			Victim = this
 		};
 
-		Respawnables.ToList().ForEach( x => x.OnKill( damageInfo ) );
 		Scene.Dispatch( new KillEvent( damageInfo ) );
+
+		Respawnables.ToList().ForEach( x => x.OnKill( damageInfo ) );
 	}
 }
 
