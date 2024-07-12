@@ -68,16 +68,24 @@ public partial class PlayerInventory : Component
 		}
 	}
 
-	[Broadcast]
 	public void Drop( Equipment weapon )
 	{
+		using ( Rpc.FilterInclude( Connection.Host ) )
+		{
+			DropHost( weapon );
+		}
+	}
+
+	[Broadcast]
+	private void DropHost( Equipment weapon )
+	{
+		if ( !Networking.IsHost )
+			return;
+
 		if ( !weapon.IsValid() )
 			return;
 
-		if ( weapon.Resource.Slot == EquipmentSlot.Melee )
-			return;
-
-		if ( !Networking.IsHost )
+		if ( GameMode.Instance.Get<EquipmentDropper>() is not { } dropper || !dropper.CanDrop( Player, weapon ) )
 			return;
 
 		var tr = Scene.Trace.Ray( new Ray( Player.AimRay.Position, Player.AimRay.Forward ), 128 )
