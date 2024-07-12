@@ -10,13 +10,21 @@
 @if ( GameUtils.GetPlayerFromComponent( LastDamageInfo.Attacker ) is not { } killerPlayer )
     return;
 
-<root class="hud with-deadzone flex column gap">
+<root class="hud with-deadzone flex column gap-xs">
     <div class="flex row">
         <img class="image" src="avatar:@killerPlayer.SteamId" />
         <div class="flex column with-background with-padding h-full align-left justify-center" style="min-width: 275px;">
             <label class="text small upper">KILLED BY</label>
             <label>@killerPlayer.DisplayName</label>
         </div>
+    </div>
+
+    <div class="flex row layout with-background with-padding align-center">
+        <label>Press</label>
+        <InputHint class="small" Action="Attack1" />
+        <label>or</label>
+        <InputHint class="small" Action="Attack2" />
+        <label>to start spectating</label>
     </div>
 
     @if ( DamageEntries is not null && DamageEntries.Count > 0 )
