@@ -21,6 +21,14 @@ public partial class PlayerPawn :
 	/// </summary>
 	public float Spread { get; set; }
 
+	/// <summary>
+	/// Can we open and use the buy menu?
+	/// </summary>
+	public bool CanBuy => HealthComponent.State == LifeState.Alive && IsInBuyZone;
+
+	private bool IsInBuyZone => PlayerState?.BuyMenuMode is BuyMenuMode.EnabledEverywhere
+		|| PlayerState?.BuyMenuMode is BuyMenuMode.EnabledInBuyZone && GetZone<BuyZone>() is not null;
+
 	private void UpdateRecoilAndSpread()
 	{
 		bool isAiming = CurrentEquipment.IsValid() && CurrentEquipment.Tags.Has( "aiming" );

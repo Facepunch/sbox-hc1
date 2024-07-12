@@ -77,8 +77,8 @@
 
 @code
 {
-    public PlayerInventory Inventory => Player.Inventory;
-    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
+    public PlayerInventory Inventory => Player?.Inventory;
+    public PlayerPawn Player => PlayerState.Viewer?.PlayerPawn;
     public PlayerState PlayerState => PlayerState.Viewer;
 
     private void BuyWeapon( EquipmentResource resource )
@@ -120,12 +120,14 @@
 
     public override void Tick()
     {
-        if ( Input.Pressed( "BuyMenu" ) && BuySystem.IsEnabled() )
+        if ( Player?.CanBuy is true )
         {
-            Toggle();
+            if ( Input.Pressed( "BuyMenu" ) )
+            {
+                Toggle();
+            }
         }
-
-        if ( !BuySystem.IsEnabled() )
+        else
         {
             IsOpen = false;
         }

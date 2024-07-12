@@ -17,12 +17,12 @@
     public PlayerInventory Inventory => Player?.Inventory;
 
     /// The player
-    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
+    public PlayerPawn Player => PlayerState.Viewer?.PlayerPawn;
 
     /// The player state
     public PlayerState PlayerState => PlayerState.Viewer;
 
-    public bool CanOpen => BuySystem.IsEnabled();
+    public bool CanOpen => Player.CanBuy;
 
     protected override int BuildHash()
     {

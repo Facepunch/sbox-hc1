@@ -3,6 +3,13 @@ using Sandbox.Diagnostics;
 
 namespace Facepunch;
 
+public enum BuyMenuMode
+{
+	Disabled,
+	EnabledInBuyZone,
+	EnabledEverywhere
+}
+
 public partial class PlayerState : IScore
 {
 	private int _balance = 16_000;
@@ -16,6 +23,9 @@ public partial class PlayerState : IScore
 		get => GameMode.Instance?.UnlimitedMoney is true ? GameMode.Instance.MaxBalance : _balance;
 		set => _balance = GameMode.Instance?.UnlimitedMoney is true ? GameMode.Instance.MaxBalance : value;
 	}
+
+	[HostSync]
+	public BuyMenuMode BuyMenuMode { get; set; }
 
 	private bool ShouldShowBalance()
 	{
