@@ -1,0 +1,33 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/blendable.shader"
+
+	F_MULTIBLEND 1 // 2 Layers
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Material A ----
+	g_flTintColorA "[1.000000 1.000000 1.000000 0.000000]"
+	TextureAmbientOcclusionA "materials/stone/red_roof_tile_ambientocclusion.png"
+	TextureBlendMaskA "materials/stone/red_roof_tile_height.png"
+	TextureColorA "materials/stone/red_roof_tile_basecolor.png"
+	TextureMetalnessA "materials/default/default_metal.tga"
+	TextureNormalA "materials/stone/red_roof_tile_normal.png"
+	TextureRoughnessA "materials/stone/red_roof_tile_roughness.png"
+	TextureTintMaskA "materials/default/default.tga"
+
+	//---- Material B ----
+	g_flBlendSoftnessB "0.500"
+	g_flTintColorB "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordScale2 "[1.000 1.000]"
+	TextureAmbientOcclusionB "materials/stone/red_roof_tile_moss_ambientocclusion.png"
+	TextureBlendMaskB "materials/stone/red_roof_tile_moss_ambientocclusion.png"
+	TextureColorB "materials/stone/red_roof_tile_moss_basecolor.png"
+	TextureMetalnessB "materials/default/default_metal.tga"
+	TextureNormalB "materials/stone/red_roof_tile_moss_normal.png"
+	TextureRoughnessB "materials/stone/red_roof_tile_moss_roughness.png"
+	TextureTintMaskB "materials/default/default.tga"
+}

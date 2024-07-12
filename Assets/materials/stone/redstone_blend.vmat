@@ -1,0 +1,45 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/blendable.shader"
+
+	F_MULTIBLEND 2 // 3 Layers
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Material A ----
+	g_flTintColorA "[1.000000 1.000000 1.000000 0.000000]"
+	TextureAmbientOcclusionA "materials/stone/redstone_3_roughness.png"
+	TextureBlendMaskA "materials/stone/redstone_mask.png"
+	TextureColorA "materials/stone/redstone_3_basecolor.png"
+	TextureMetalnessA "materials/default/default_metal.tga"
+	TextureNormalA "materials/stone/redstone_normal.png"
+	TextureRoughnessA "materials/stone/redstone_3_roughness.png"
+	TextureTintMaskA "materials/default/default.tga"
+
+	//---- Material B ----
+	g_flBlendSoftnessB "0.668"
+	g_flTintColorB "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordScale2 "[1.000 1.000]"
+	TextureAmbientOcclusionB "materials/stone/redstone_2_ambientocclusion.png"
+	TextureBlendMaskB "materials/stone/redstone_mask.png"
+	TextureColorB "materials/stone/redstone_2_basecolor.png"
+	TextureMetalnessB "materials/default/default_metal.tga"
+	TextureNormalB "materials/stone/redstone_normal.png"
+	TextureRoughnessB "materials/stone/redstone_2_roughness.png"
+	TextureTintMaskB "materials/default/default.tga"
+
+	//---- Material C ----
+	g_flBlendSoftnessC "0.320"
+	g_flTintColorC "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordScale3 "[1.000 1.000]"
+	TextureAmbientOcclusionC "materials/stone/redstone_3_roughness.png"
+	TextureBlendMaskC "materials/stone/redstone_mask.png"
+	TextureColorC "materials/stone/redstone_3_moss_basecolor.png"
+	TextureMetalnessC "materials/default/default_metal.tga"
+	TextureNormalC "materials/stone/redstone_normal.png"
+	TextureRoughnessC "materials/stone/redstone_3_roughness.png"
+	TextureTintMaskC "materials/default/default.tga"
+}

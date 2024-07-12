@@ -1,0 +1,95 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "stone_framed_window_glass.vmat"
+								to = "models/props/stone_framed_window/stone_framed_window_glass.vmat"
+							},
+							{
+								from = "stone_framed_window.vmat"
+								to = "models/props/stone_framed_window/stone_framed_window.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+					{
+						_class = "MaterialGroup"
+						name = "unlit"
+						remaps = 
+						[
+							{
+								from = "models/props/stone_framed_window/stone_framed_window_glass.vmat"
+								to = "models/props/stone_framed_window/stone_framed_window_glass2.vmat"
+							},
+						]
+					},
+					{
+						_class = "MaterialGroup"
+						name = "open"
+						remaps = 
+						[
+							{
+								from = "models/props/stone_framed_window/stone_framed_window_glass.vmat"
+								to = "models/props/stone_framed_window/stone_framed_window_glass3.vmat"
+							},
+						]
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ -4.759187, 0.0, 0.0 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 7.817537, 48.072838, 67.136848 ]
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						filename = "models/props/stone_framed_window/stone_framed_window.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+		base_model_name = ""
+	}
+}

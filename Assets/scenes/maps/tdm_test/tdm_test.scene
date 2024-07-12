@@ -1,13 +1,11 @@
 {
-  "__guid": "1ed834b3-51e5-48db-9395-012a5d420035",
+  "__guid": "6381f1cf-d426-4f0f-847e-843c88605dc7",
   "GameObjects": [
     {
       "__guid": "54218e88-3198-4c2e-aa7b-c4d7564f37af",
       "Flags": 0,
       "Name": "Map",
       "Position": "-963.5741,-1006.22,1460.143",
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MapInstance",
@@ -24,8 +22,6 @@
       "Flags": 0,
       "Name": "Map",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MapInstance",
@@ -34,6 +30,35 @@
           "MapName": "maps/tdm_test/tdm_test.vmap",
           "NoOrigin": true,
           "UseMapFromLaunch": false
+        },
+        {
+          "__type": "Sandbox.Tonemapping",
+          "__guid": "52c42b87-871d-4549-a6b5-a2c58fb49045",
+          "__version": 1,
+          "ExposureBias": 2,
+          "ExposureCompensation": 0,
+          "ExposureMethod": "RGB",
+          "MaximumExposure": 2,
+          "MinimumExposure": 1,
+          "Mode": "ACES",
+          "Rate": 1
+        },
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "ea4a7c5b-e61c-4dba-8ef1-ffdda51c823c",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 60,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
         }
       ],
       "Children": []
@@ -42,12 +67,10 @@
       "__guid": "fd1d9c0c-fd6a-455e-a0b9-d8b5e2bacabc",
       "Flags": 0,
       "Name": "Deathmatch Spawn (39)",
-      "Position": "-551.2118,-164.4679,66.32228",
+      "Position": "-510.0552,-141.9898,66.32231",
       "Rotation": "0,0,0.00000001390912,-1",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -61,10 +84,8 @@
       "Flags": 0,
       "Name": "Minimap Renderer",
       "Position": "313.1532,90.72009,-1677.782",
-      "Scale": "0.5817428,0.5777969,1",
+      "Scale": "0.5817428,0.7524928,1",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Facepunch.MinimapRenderer",
@@ -84,8 +105,6 @@
       "Rotation": "0,0,-0.7071067,-0.7071068",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -102,8 +121,6 @@
       "Rotation": "0,0,0.00000001390912,-1",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -120,8 +137,6 @@
       "Rotation": "0,0,0.00000001390912,-1",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -138,8 +153,6 @@
       "Rotation": "0,0,-1,-0.0000002086163",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -156,8 +169,6 @@
       "Rotation": "0,0,-1,-0.0000002086163",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -174,8 +185,6 @@
       "Rotation": "0,0,-0.7933533,-0.6087615",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -192,8 +201,6 @@
       "Rotation": "0,0,-0.7071067,-0.7071068",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -210,8 +217,6 @@
       "Rotation": "0,0,0.00000001390912,-1",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -228,8 +233,6 @@
       "Rotation": "0,0,0.00000001390912,-1",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -246,8 +249,6 @@
       "Rotation": "0,0,0.00000001390912,-1",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -264,8 +265,6 @@
       "Rotation": "0,0,0.00000001390912,-1",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -282,8 +281,6 @@
       "Rotation": "0,0,-0.7071067,-0.7071068",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -300,8 +297,6 @@
       "Rotation": "0,0,-0.9999999,-0.0000001490116",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -318,8 +313,6 @@
       "Rotation": "0,0,-0.9999999,-0.0000001490116",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -336,8 +329,6 @@
       "Rotation": "0,0,-0.7071069,0.7071065",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -354,8 +345,6 @@
       "Rotation": "0,0,-0.9999999,-0.0000001788139",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -372,8 +361,6 @@
       "Rotation": "0,0,-0.9999999,-0.0000001788139",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -390,8 +377,6 @@
       "Rotation": "0,0,-0.9999999,-0.0000001788139",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -408,8 +393,6 @@
       "Rotation": "0,0,-0.9999999,-0.0000001788139",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -426,8 +409,6 @@
       "Rotation": "0,0,-0.9999999,-0.0000001788139",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -444,8 +425,6 @@
       "Rotation": "0,0,-0.9999999,-0.0000001788139",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -462,8 +441,6 @@
       "Rotation": "0,0,-0.9999999,-0.0000001788139",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -480,8 +457,6 @@
       "Rotation": "0,0,-0.7071067,-0.7071068",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -498,8 +473,6 @@
       "Rotation": "0,0,-0.7071067,-0.7071068",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -516,8 +489,6 @@
       "Rotation": "0,0,-0.7071067,-0.7071068",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -534,8 +505,6 @@
       "Rotation": "0,0,-0.7071067,-0.7071068",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -552,8 +521,6 @@
       "Rotation": "0,0,-0.9999999,-0.0000001490116",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -570,8 +537,6 @@
       "Rotation": "0,0,-0.9999999,-0.0000001490116",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -587,8 +552,6 @@
       "Position": "-588.6009,915.217,-10.01701",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -604,8 +567,6 @@
       "Position": "-732.5868,1116.637,24.55167",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -621,8 +582,6 @@
       "Position": "-746.8152,546.0549,24.55158",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -638,8 +597,6 @@
       "Position": "-746.8152,149.4275,24.55158",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -655,8 +612,6 @@
       "Position": "-746.8152,351.6802,91.149",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -672,8 +627,6 @@
       "Position": "-997.6753,351.6802,91.149",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -689,8 +642,6 @@
       "Position": "-822.8604,-284.1661,48.45349",
       "Tags": "deathmatch",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -705,7 +656,6 @@
       "Name": "Game",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "__Prefab": "scenes/maps/defusemap_01/game_setup.prefab",
       "__PrefabVariables": {}
     },
@@ -715,7 +665,6 @@
       "Name": "Team Deathmatch",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "__Prefab": "prefabs/game_modes/team_deathmatch.prefab",
       "__PrefabVariables": {
         "Description": "Team vs. Team mode where respawns are immediate. Highest scoring team wins.",
@@ -729,8 +678,6 @@
       "Scale": "1,1.061718,1",
       "Tags": "zone",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Zone",
@@ -758,24 +705,122 @@
       ]
     },
     {
-      "__guid": "a423e275-5fe8-446e-9396-e7da1063ddc6",
+      "__guid": "de149fda-a17e-47a8-ae42-7c68850b29ea",
       "Flags": 0,
       "Name": "Point Light",
-      "Position": "15.88861,1001.047,102.8741",
+      "Position": "162.3102,1082.45,501.7066",
       "Tags": "light_point,light",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.PointLight",
-          "__guid": "d5fc2716-af86-4fb3-b884-d955c4715601",
+          "__guid": "084efb42-5657-45d0-8978-b2421797f646",
           "Attenuation": 1,
           "FogMode": "Enabled",
           "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
+          "LightColor": "0.9907,0.93847,0.67736,1",
           "Radius": 400,
           "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "e410c2f1-3aa7-4179-8e51-9a24a5e4511a",
+      "Flags": 0,
+      "Name": "Point Light (1)",
+      "Position": "148.3205,1082.45,363.9602",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "565d1378-3f71-4f48-8e65-2856704135af",
+          "Attenuation": 1,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.9907,0.93847,0.67736,1",
+          "Radius": 400,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "ec0c4a3e-4bba-4c0d-b9dd-fb43e0ff9c3a",
+      "Flags": 0,
+      "Name": "Point Light (2)",
+      "Position": "931.1174,186.1901,166.9482",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "5821bd1a-01ad-4422-b7a7-3f5899ad53c8",
+          "Attenuation": 0.92,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "1,0.70698,0.49767,1",
+          "Radius": 400,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "7b354134-97a7-47d4-b2ad-311151271b48",
+      "Flags": 0,
+      "Name": "Point Light (7)",
+      "Position": "822.377,700.5948,169.6298",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "3afa40c2-bc4a-4307-a449-7cd4e7201bc6",
+          "Attenuation": 0.21,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.9907,0.82359,0.67736,1",
+          "Radius": 400,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "e75c6d0e-72f3-46f5-aeb5-2c92fb21ffad",
+      "Flags": 0,
+      "Name": "Point Light (3)",
+      "Position": "715.6138,-279.0625,127.8311",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "6c07d2a5-25a8-40e1-be7b-93b0289d2747",
+          "Attenuation": 1.06,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "1,0.20465,0.98674,1",
+          "Radius": 400,
+          "Shadows": false
+        }
+      ]
+    },
+    {
+      "__guid": "f426c710-9f95-4827-9e33-a41571f0fed6",
+      "Flags": 0,
+      "Name": "Point Light (4)",
+      "Position": "639.7382,-393.4624,123.5148",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "d9427097-d6b1-49a6-ba6c-60193ec78ac4",
+          "Attenuation": 0.97,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "1,0.20465,0.98674,1",
+          "Radius": 400,
+          "Shadows": false
         }
       ]
     }

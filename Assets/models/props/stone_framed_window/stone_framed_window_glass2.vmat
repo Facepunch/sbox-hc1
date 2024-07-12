@@ -1,0 +1,56 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/simple_3layer_parallax.shader"
+
+	//---- Color ----
+	g_flModelTintAmount "1.000"
+	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
+
+	//---- Fade ----
+	g_flFadeExponent "1.000"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Material 0 ----
+	g_flFace0Displacement "0.000"
+	g_flMaterial0TintAmount "1.000"
+	g_flMetalnessA "1.000"
+	g_vTexCoordOffset0 "[0.000 0.000]"
+	g_vTexCoordScale0 "[1.000 1.000]"
+	TextureAmbientOcclusionA "models/props/stone_framed_window/stone_framed_window_glass_ao.tga"
+	TextureColorA "models/props/stone_framed_window/stone_framed_window_glass_color.tga"
+	TextureMaskA "models/props/stone_framed_window/stone_framed_window_mask2.png"
+	TextureNormalA "models/props/stone_framed_window/stone_framed_window_glass_normal.tga"
+	TextureRoughnessA "models/props/stone_framed_window/stone_framed_window_glass_rough.tga"
+
+	//---- Material 1 ----
+	g_flFace1Displacement "-73.171"
+	g_flMaterial1EmissiveLevel "0.000"
+	g_flMaterial1TintAmount "0.000"
+	g_flMetalnessB "0.000"
+	g_vTexCoordOffset1 "[-0.048 -0.721]"
+	g_vTexCoordScale1 "[1.000 0.700]"
+	TextureColorB "models/props/stone_framed_window/stone_framed_window_glass_curtains2.png"
+	TextureEmissiveB "materials/default/default.tga"
+	TextureMaskB "models/props/stone_framed_window/stone_framed_window_mask3.png"
+
+	//---- Material 2 ----
+	g_flFace2Displacement "-630.662"
+	g_flMaterial2EmissiveLevel "4.878"
+	g_flMaterial2TintAmount "0.000"
+	g_flMetalnessC "0.000"
+	g_vTexCoordOffset2 "[0.125 0.308]"
+	g_vTexCoordScale2 "[0.500 0.500]"
+	TextureColorC "models/props/stone_framed_window/stone_framed_window_interior.png"
+	TextureEmissiveC "models/props/stone_framed_window/stone_framed_window_interior.png"
+
+	//---- Texture Coordinates ----
+	g_nScaleTexCoordUByModelScaleAxis "0"
+	g_nScaleTexCoordVByModelScaleAxis "0"
+	g_vTexCoordOffset "[0.000 0.000]"
+	g_vTexCoordScale "[1.000 1.000]"
+	g_vTexCoordScrollSpeed "[0.000 0.000]"
+}
