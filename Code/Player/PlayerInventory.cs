@@ -68,16 +68,21 @@ public partial class PlayerInventory : Component
 		}
 	}
 
-	public void Drop( Equipment weapon )
+	/// <summary>
+	/// Try to drop the given held equipment item.
+	/// </summary>
+	/// <param name="weapon">Item to drop.</param>
+	/// <param name="forceRemove">If we can't drop, remove it from the inventory anyway.</param>
+	public void Drop( Equipment weapon, bool forceRemove = false )
 	{
 		using ( Rpc.FilterInclude( Connection.Host ) )
 		{
-			DropHost( weapon );
+			DropHost( weapon, forceRemove );
 		}
 	}
 
 	[Broadcast]
-	private void DropHost( Equipment weapon )
+	private void DropHost( Equipment weapon, bool forceRemove )
 	{
 		if ( !Networking.IsHost )
 			return;
@@ -85,27 +90,32 @@ public partial class PlayerInventory : Component
 		if ( !weapon.IsValid() )
 			return;
 
-		if ( GameMode.Instance.Get<EquipmentDropper>() is not { } dropper || !dropper.CanDrop( Player, weapon ) )
-			return;
+		var canDrop = GameMode.Instance.Get<EquipmentDropper>() is { } dropper && dropper.CanDrop( Player, weapon );
 
-		var tr = Scene.Trace.Ray( new Ray( Player.AimRay.Position, Player.AimRay.Forward ), 128 )
-			.IgnoreGameObjectHierarchy( GameObject.Root )
-			.WithoutTags( "trigger" )
-			.Run();
-
-		var position = tr.Hit ? tr.HitPosition + tr.Normal * weapon.Resource.WorldModel.Bounds.Size.Length : Player.AimRay.Position + Player.AimRay.Forward * 32f;
-		var rotation = Rotation.From( 0, Player.EyeAngles.yaw + 90, 90 );
-
-		var baseVelocity = Player.CharacterController.Velocity;
-		var droppedWeapon = DroppedEquipment.Create( weapon.Resource, position, rotation, weapon );
-
-		if ( !tr.Hit )
+		if ( canDrop )
 		{
-			droppedWeapon.Rigidbody.Velocity = baseVelocity + Player.AimRay.Forward * 200.0f + Vector3.Up * 50;
-			droppedWeapon.Rigidbody.AngularVelocity = Vector3.Random * 8.0f;
+			var tr = Scene.Trace.Ray( new Ray( Player.AimRay.Position, Player.AimRay.Forward ), 128 )
+				.IgnoreGameObjectHierarchy( GameObject.Root )
+				.WithoutTags( "trigger" )
+				.Run();
+
+			var position = tr.Hit ? tr.HitPosition + tr.Normal * weapon.Resource.WorldModel.Bounds.Size.Length : Player.AimRay.Position + Player.AimRay.Forward * 32f;
+			var rotation = Rotation.From( 0, Player.EyeAngles.yaw + 90, 90 );
+
+			var baseVelocity = Player.CharacterController.Velocity;
+			var droppedWeapon = DroppedEquipment.Create( weapon.Resource, position, rotation, weapon );
+
+			if ( !tr.Hit )
+			{
+				droppedWeapon.Rigidbody.Velocity = baseVelocity + Player.AimRay.Forward * 200.0f + Vector3.Up * 50;
+				droppedWeapon.Rigidbody.AngularVelocity = Vector3.Random * 8.0f;
+			}
 		}
 
-		RemoveWeapon( weapon );
+		if ( canDrop || forceRemove )
+		{
+			RemoveWeapon( weapon );
+		}
 	}
 
 	protected override void OnUpdate()
@@ -293,7 +303,7 @@ public partial class PlayerInventory : Component
 		{
 			var slotCurrent = Equipment.FirstOrDefault( equipment => equipment.Enabled && equipment.Resource.Slot == resource.Slot );
 			if ( slotCurrent.IsValid() )
-				Drop( slotCurrent );
+				Drop( slotCurrent, true );
 		}
 
 		if ( !resource.MainPrefab.IsValid() )
