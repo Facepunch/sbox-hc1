@@ -1,0 +1,64 @@
+﻿@using System.Text;
+@namespace Facepunch.UI
+@inherits Panel
+
+@attribute [StyleSheet]
+
+@if ( !Player.IsValid() || Player.HealthComponent.State == LifeState.Alive || LastDamageInfo is null )
+    return;
+
+@if ( GameUtils.GetPlayerFromComponent( LastDamageInfo.Attacker ) is not { } killerPlayer )
+    return;
+
+<root class="hud with-deadzone flex column gap-xs">
+    <div class="flex row">
+        <img class="image" src="avatar:@killerPlayer.SteamId" />
+        <div class="flex column with-background with-padding h-full align-left justify-center" style="min-width: 275px;">
+            <label class="text small upper">KILLED BY</label>
+            <label>@killerPlayer.DisplayName</label>
+        </div>
+    </div>
+
+    <div class="flex row layout with-background with-padding align-center">
+        <label>Press</label>
+        <InputHint class="small" Action="Attack1" />
+        <label>or</label>
+        <InputHint class="small" Action="Attack2" />
+        <label>to start spectating</label>
+    </div>
+
+    @if ( DamageEntries is not null && DamageEntries.Count > 0 )
+    {
+        <div class="flex column layout with-background with-padding">
+            @foreach ( var entry in DamageEntries )
+            {
+                <div class="flex row gap-xs">
+                    <label>@(entry.Damage.CeilToInt()) damage in @(entry.Count) hits - </label>
+                    <label>@entry.Attacker.DisplayName</label>
+                </div>
+            }
+        </div>
+    }
+</root>
+
+@code
+{
+    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
+
+    public List<DamageTracker.GroupedDamage> DamageEntries => GameMode.Instance?.Get<DamageTracker>()?.GetGroupedDamage( PlayerState.Local );
+
+    public DamageInfo LastDamageInfo => PlayerState.Local.LastDamageInfo;
+    public SpectateSystem SpectateSystem => SpectateSystem.Instance;
+
+    public string GetName( Component attacker )
+    {
+        var ply = GameUtils.GetDescription( attacker );
+
+        return ply.DisplayName;
+    }
+
+    protected override int BuildHash()
+    {
+        return !Player.IsValid() ? 0 : HashCode.Combine( Player.HealthComponent.State, Player, Time.Now );
+    }
+}

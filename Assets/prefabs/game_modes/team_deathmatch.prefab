@@ -6,6 +6,8 @@
     "Enabled": true,
     "NetworkMode": 1,
     "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "Facepunch.GameMode",
@@ -22,18 +24,17 @@
       {
         "__type": "Facepunch.TeamSpawnAssigner",
         "__guid": "49109783-18b2-44e7-8f29-0dcddd0a6da9",
+        "SpawnRules": [],
         "SpawnTags": ""
       },
       {
         "__type": "Facepunch.DefaultEquipment",
         "__guid": "b1260496-0fea-43a7-a741-411cdc0108bc",
         "Armor": 100,
-        "BothTeams": true,
         "DefuseKit": false,
         "Helmet": true,
         "LoadoutsEnabled": true,
         "RefillAmmo": true,
-        "Team": "Terrorist",
         "TeamLoadouts": [
           {
             "Team": "Terrorist",
@@ -55,7 +56,9 @@
         "__type": "Facepunch.TeamAssigner",
         "__guid": "c82d52b1-a9e2-4e71-9bbe-496694888959",
         "AllowLateJoiners": true,
-        "MaxTeamSize": 10
+        "AutoBalanceMode": "Random",
+        "MaxTeamSize": 10,
+        "TargetRatio": 1
       },
       {
         "__type": "Facepunch.BotManager",
@@ -65,6 +68,13 @@
         "__type": "Facepunch.PlayerRagdollBehavior",
         "__guid": "c041252e-1262-42a4-b630-c032cce27ace",
         "DestroyTime": 10
+      },
+      {
+        "__type": "Facepunch.DamageTracker",
+        "__guid": "2d5f9694-5062-485f-9ea2-0ca6c18d167d",
+        "ClearBetweenRounds": true,
+        "ClearOnRespawn": true,
+        "Registry": {}
       }
     ],
     "Children": [
@@ -75,6 +85,8 @@
         "Enabled": true,
         "NetworkMode": 1,
         "NetworkInterpolation": true,
+        "NetworkOrphaned": 0,
+        "OwnerTransfer": 1,
         "Components": [
           {
             "__type": "Sandbox.Events.StateMachineComponent",
@@ -95,6 +107,8 @@
             "Enabled": true,
             "NetworkMode": 1,
             "NetworkInterpolation": true,
+            "NetworkOrphaned": 0,
+            "OwnerTransfer": 1,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -150,6 +164,8 @@
             "Enabled": true,
             "NetworkMode": 1,
             "NetworkInterpolation": true,
+            "NetworkOrphaned": 0,
+            "OwnerTransfer": 1,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -192,6 +208,8 @@
             "Enabled": true,
             "NetworkMode": 1,
             "NetworkInterpolation": true,
+            "NetworkOrphaned": 0,
+            "OwnerTransfer": 1,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -233,7 +251,8 @@
               },
               {
                 "__type": "Facepunch.RespawnPlayers",
-                "__guid": "39bfe2ad-98a5-4fc8-aab8-cbc29f1ffd05"
+                "__guid": "39bfe2ad-98a5-4fc8-aab8-cbc29f1ffd05",
+                "ForceNew": false
               },
               {
                 "__type": "Facepunch.EnableBuyMenuDuringSpawnProtection",
@@ -281,6 +300,8 @@
                 "Enabled": true,
                 "NetworkMode": 1,
                 "NetworkInterpolation": true,
+                "NetworkOrphaned": 0,
+                "OwnerTransfer": 1,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -321,6 +342,8 @@
             "Enabled": true,
             "NetworkMode": 1,
             "NetworkInterpolation": true,
+            "NetworkOrphaned": 0,
+            "OwnerTransfer": 1,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -347,6 +370,8 @@
                 "Enabled": true,
                 "NetworkMode": 1,
                 "NetworkInterpolation": true,
+                "NetworkOrphaned": 0,
+                "OwnerTransfer": 1,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -388,6 +413,8 @@
                 "Enabled": true,
                 "NetworkMode": 1,
                 "NetworkInterpolation": true,
+                "NetworkOrphaned": 0,
+                "OwnerTransfer": 1,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -443,6 +470,8 @@
                 "Enabled": true,
                 "NetworkMode": 1,
                 "NetworkInterpolation": true,
+                "NetworkOrphaned": 0,
+                "OwnerTransfer": 1,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -500,6 +529,8 @@
             "Enabled": true,
             "NetworkMode": 1,
             "NetworkInterpolation": true,
+            "NetworkOrphaned": 0,
+            "OwnerTransfer": 1,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",

@@ -66,11 +66,18 @@
 
     protected override int BuildHash()
     {
-        var a = HashCode.Combine( KillDeathRatio, Score.Score, Score.Kills, Score.Deaths, Connection, IsLocal, IsDead, Connection?.Ping );
-        var b = 0;
-        if ( Player.IsValid() )
-            b = HashCode.Combine( Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb, IsPartyMember, Player.PlayerState.PlayerColor );
+        var hash = HashCode.Combine( Connection, IsLocal, IsDead, Connection?.Ping );
 
-        return HashCode.Combine( a, b );
+        if ( Player.IsValid() )
+        {
+            hash = HashCode.Combine( hash, Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb, IsPartyMember, Player.PlayerState.PlayerColor );
+        }
+
+        foreach ( var x in IScore.Find( PlayerState ) )
+        {
+            hash = HashCode.Combine( hash, x.Value );
+        }
+
+        return hash;
     }
 }

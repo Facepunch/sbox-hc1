@@ -9,7 +9,7 @@ public abstract class Pawn : Component, IRespawnable
 	/// <summary>
 	/// The player state ID
 	/// </summary>
-	[HostSync] private Guid playerStateId { get; set;}
+	[HostSync] private PlayerState playerState { get; set; }
 
 	/// <summary>
 	/// This pawn's PlayerState
@@ -18,12 +18,23 @@ public abstract class Pawn : Component, IRespawnable
 	{
 		get
 		{
-			if ( playerStateId == Guid.Empty ) return PlayerState.Local;
-			return Scene.Directory.FindComponentByGuid( playerStateId ) as PlayerState;
+			if ( !playerState.IsValid() ) return PlayerState.Local;
+			return playerState;
 		}
-
-		set => playerStateId = value.Id;
+		set => playerState = value;
 	}
+
+	/// <summary>
+	/// The position this player last spawned at.
+	/// </summary>
+	[HostSync]
+	public Vector3 SpawnPosition { get; set; }
+
+	/// <summary>
+	/// The rotation this player last spawned at.
+	/// </summary>
+	[HostSync]
+	public Rotation SpawnRotation { get; set; }
 
 	/// <summary>
 	/// The tags of the last spawn point of this pawn.
@@ -39,6 +50,8 @@ public abstract class Pawn : Component, IRespawnable
 		get => PlayerState.Team;
 		set => PlayerState.Team = value;
 	}
+
+	public virtual string NameType { get; } = "Pawn";
 
 	/// <summary>
 	/// An accessor for health component if we have one.
@@ -121,9 +134,6 @@ public abstract class Pawn : Component, IRespawnable
 	public virtual void OnPossess() { }
 	public virtual void OnDePossess() { }
 
-	[Broadcast( NetPermission.HostOnly )]
-	public virtual void Respawn() { }
-
-	[Broadcast( NetPermission.HostOnly )]
-	public virtual void Kill() { }
+	public virtual void OnRespawn() { }
+	public virtual void OnKill( DamageInfo damageInfo ) { }
 }

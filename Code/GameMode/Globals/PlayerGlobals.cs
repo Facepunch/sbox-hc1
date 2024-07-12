@@ -6,7 +6,7 @@ namespace Facepunch;
 /// <summary>
 /// A list of globals that are relevant to the player. Health, armor, VFX that we don't want to hardcode somewhere.
 /// </summary>
-public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEvent>
+public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageGlobalEvent>
 {
 	/// <summary>
 	/// What's the player's max HP?
@@ -30,15 +30,18 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEven
 		Cloud.Material( "jase.bloodsplatter04" )
 	};
 
+	public const float DefaultArmorReduction = 0.775f;
+	public const float DefaultHelmetReduction = 0.775f;
+
 	/// <summary>
 	/// How much should we scale damage by if the player is using armor?
 	/// </summary>
-	[Property, Group( "Damage" )] public float BaseArmorReduction { get; set; } = 0.775f;
+	[Property, Group( "Damage" )] public float BaseArmorReduction { get; set; } = DefaultArmorReduction;
 
 	/// <summary>
 	/// How much should we scale damage by if the player is wearing a helmet?
 	/// </summary>
-	[Property, Group( "Damage" )] public float BaseHelmetReduction { get; set; } = 0.775f;
+	[Property, Group( "Damage" )] public float BaseHelmetReduction { get; set; } = DefaultHelmetReduction;
 
 	/// <summary>
 	/// How much spread should we have when aiming down the sights?
@@ -85,17 +88,22 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEven
 		public bool HelmetProtects { get; set; }
 	}
 
+	public static List<HitboxConfig> GetDefaultHitboxConfigs()
+	{
+		return new()
+		{
+			new HitboxConfig { Tags = HitboxTags.Head, DamageScale = 5f, HelmetProtects = true },
+			new HitboxConfig { Tags = HitboxTags.UpperBody | HitboxTags.Arm, ArmorProtects = true },
+			new HitboxConfig { Tags = HitboxTags.LowerBody, DamageScale = 1.25f },
+			new HitboxConfig { Tags = HitboxTags.Leg, DamageScale = 0.75f }
+		};
+	}
+
 	/// <summary>
 	/// Custom damage scales / armor info for each hitbox tag. Uses the first match in the list.
 	/// </summary>
 	[Property, Group( "Damage" )]
-	public List<HitboxConfig> Hitboxes { get; set; } = new()
-	{
-		new HitboxConfig { Tags = HitboxTags.Head, DamageScale = 5f, HelmetProtects = true },
-		new HitboxConfig { Tags = HitboxTags.UpperBody | HitboxTags.Arm, ArmorProtects = true },
-		new HitboxConfig { Tags = HitboxTags.LowerBody, DamageScale = 1.25f },
-		new HitboxConfig { Tags = HitboxTags.Leg, DamageScale = 0.75f }
-	};
+	public List<HitboxConfig> Hitboxes { get; set; } = GetDefaultHitboxConfigs();
 
 	/// <summary>
 	/// If true, pop off helmets on headshots.
@@ -156,33 +164,63 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageEven
 	/// Apply armor and helmet damage modifications.
 	/// </summary>
 	[Early]
-	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
+	void IGameEventHandler<ModifyDamageGlobalEvent>.OnGameEvent( ModifyDamageGlobalEvent eventArgs )
 	{
-		var damageInfo = eventArgs.DamageInfo;
-
-		if ( damageInfo.WasFallDamage && !EnableFallDamage )
+		if ( eventArgs.DamageInfo.WasFallDamage && !EnableFallDamage )
 		{
-			eventArgs.DamageInfo = eventArgs.DamageInfo with { Damage = 0f };
+			eventArgs.ClearDamage();
 			return;
 		}
 
-		if ( Hitboxes.FirstOrDefault( x => (x.Tags & eventArgs.DamageInfo.Hitbox) != 0 ) is not { } config )
+		var resource = (eventArgs.DamageInfo.Inflictor as Equipment)?.Resource;
+
+		GetDamageModifications(
+			eventArgs.DamageInfo.Flags, eventArgs.DamageInfo.Hitbox,
+			resource?.ArmorReduction ?? BaseArmorReduction,
+			resource?.HelmetReduction ?? BaseHelmetReduction,
+			Hitboxes,
+			out var damageScale, out var armorReduction, out var removeHelmet );
+
+		eventArgs.ScaleDamage( damageScale );
+		eventArgs.ApplyArmor( armorReduction );
+
+		if ( removeHelmet )
+		{
+			eventArgs.RemoveHelmet();
+		}
+	}
+
+	public static void GetDamageModifications(
+		DamageFlags damageFlags,
+		HitboxTags hitboxTags,
+		float baseArmorReduction,
+		float baseHelmetReduction,
+		IReadOnlyList<HitboxConfig> hitboxConfigs,
+		out float damageScale,
+		out float armorReduction,
+		out bool removeHelmet )
+	{
+		damageScale = 1f;
+		armorReduction = 1f;
+		removeHelmet = false;
+
+		if ( hitboxConfigs.FirstOrDefault( x => (x.Tags & hitboxTags) != 0 ) is not { } config )
 		{
 			// We don't have any special rules for this hitbox
 
 			return;
 		}
 
-		eventArgs.DamageInfo = eventArgs.DamageInfo with { Damage = eventArgs.DamageInfo.Damage * config.DamageScale };
+		damageScale = config.DamageScale;
 
-		if ( config.HelmetProtects && damageInfo.HasHelmet )
+		if ( config.HelmetProtects && (damageFlags & DamageFlags.Helmet) != 0 )
 		{
-			eventArgs.DamageInfo = eventArgs.DamageInfo with { RemoveHelmet = true };
-			eventArgs.ApplyArmor( BaseHelmetReduction );
+			armorReduction = baseHelmetReduction;
+			removeHelmet = true;
 		}
-		else if ( config.ArmorProtects && damageInfo.HasArmor )
+		else if ( config.ArmorProtects && (damageFlags & DamageFlags.Armor) != 0 )
 		{
-			eventArgs.ApplyArmor( BaseArmorReduction );
+			armorReduction = baseArmorReduction;
 		}
 	}
 }

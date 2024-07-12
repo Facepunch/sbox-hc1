@@ -76,22 +76,12 @@ public partial class PlayerState : Component
 	/// <summary>
 	/// The main PlayerPawn of this player if one exists, will not change when the player possesses gadgets etc. (synced)
 	/// </summary>
-	public PlayerPawn PlayerPawn
-	{
-		get => Scene?.Directory.FindComponentByGuid( playerPawnGuid ) as PlayerPawn;
-		private set => playerPawnGuid = value.Id;
-	}
-	[HostSync, JsonIgnore] private Guid playerPawnGuid { get; set; }
+	[HostSync, ValidOrNull] public PlayerPawn PlayerPawn { get; set; }
 
 	/// <summary>
 	/// The pawn this player is currently in possession of (synced - unless the pawn is not networked)
 	/// </summary>
-	public Pawn Pawn
-	{
-		get => Scene?.Directory.FindComponentByGuid( pawnGuid ) as Pawn;
-		private set => pawnGuid = value.Id;
-	}
-	[Sync, JsonIgnore] private Guid pawnGuid { get; set; } = Guid.Empty;
+	[Sync] public Pawn Pawn { get; set; }
 
 	public void HostInit()
 	{

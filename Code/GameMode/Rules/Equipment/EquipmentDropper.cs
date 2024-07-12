@@ -3,7 +3,7 @@ using Sandbox.Events;
 namespace Facepunch;
 
 /// <summary>
-/// Players drop their held weapon when killed.
+/// Controls what equipment can be dropped by players, either when killed or with a key bind.
 /// </summary>
 public partial class EquipmentDropper : Component,
 	IGameEventHandler<KillEvent>
@@ -14,16 +14,20 @@ public partial class EquipmentDropper : Component,
 	[Property] public List<EquipmentSlot> Categories { get; set; } = new();
 
 	/// <summary>
+	/// If true, only drop at most one weapon and one item of utility on death,
+	/// preferring most expensive. All special items are dropped, if allowed in
+	/// <see cref="Categories"/>.
+	/// </summary>
+	[Property] public bool LimitedDropOnDeath { get; set; } = true;
+
+	/// <summary>
 	/// Can we drop this weapon?
 	/// </summary>
 	/// <param name="player"></param>
 	/// <param name="weapon"></param>
 	/// <returns></returns>
-	private bool CanDrop( PlayerPawn player, Equipment weapon )
+	public bool CanDrop( PlayerPawn player, Equipment weapon )
 	{
-		if ( GameMode.Instance.Get<DefaultEquipment>().Contains( player.Team, weapon.Resource ) is true )
-			return false;
-
 		if ( weapon.Resource.Slot == EquipmentSlot.Melee ) 
 			return false;
 
@@ -34,20 +38,50 @@ public partial class EquipmentDropper : Component,
 
 	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
 	{
+		if ( !Networking.IsHost )
+			return;
+
 		var player = GameUtils.GetPlayerFromComponent( eventArgs.DamageInfo.Victim );
 		if ( !player.IsValid() )
 			return;
 
-		var droppables = player.Inventory.Equipment
+		var droppable = player.Inventory.Equipment
 			.Where( x => CanDrop( player, x ) )
-			.ToList();
+			.OrderByDescending( x => x.Resource.Price )
+			.ToArray();
 
-		for ( var i = droppables.Count - 1; i >= 0; i-- )
+		if ( LimitedDropOnDeath )
 		{
-			player.Inventory.Drop( droppables[i].Id );
+			// One weapon, one util, all special
+
+			var weapon = droppable
+				.FirstOrDefault( x => x.Resource.Slot is EquipmentSlot.Primary or EquipmentSlot.Secondary or EquipmentSlot.Melee );
+
+			var util = droppable
+				.FirstOrDefault( x => x.Resource.Slot is EquipmentSlot.Utility );
+
+			var special = droppable
+				.Where( x => x.Resource.Slot is EquipmentSlot.Special );
+
+			if ( weapon is not null )
+				player.Inventory.Drop( weapon );
+
+			if ( util is not null )
+				player.Inventory.Drop( util );
+
+			foreach ( var equipment in special )
+			{
+				player.Inventory.Drop( equipment );
+			}
+		}
+		else
+		{
+			foreach ( var equipment in droppable )
+			{
+				player.Inventory.Drop( equipment );
+			}
 		}
 
-		if ( Categories.Count < 1 )
-			player.Inventory.Clear();
+		player.Inventory.Clear();
 	}
 }

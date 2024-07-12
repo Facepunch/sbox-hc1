@@ -18,14 +18,14 @@ public enum FireMode
 public partial class ShootWeaponComponent : InputWeaponComponent,
 	IGameEventHandler<EquipmentHolsteredEvent>
 {
-	[Property, Group( "Bullet" )] public float BaseDamage { get; set; } = 25.0f;
-	[Property, Group( "Bullet" )] public float FireRate { get; set; } = 0.2f;
+	[Property, Group( "Bullet" ), EquipmentResourceProperty] public float BaseDamage { get; set; } = 25.0f;
+	[Property, Group( "Bullet" ), EquipmentResourceProperty] public float FireRate { get; set; } = 0.2f;
 	[Property, Group( "Bullet" )] public float DryShootDelay { get; set; } = 0.15f;
 	[Property, Group( "Bullet" )] public float BulletSize { get; set; } = 1.0f;
-	[Property, Group( "Bullet" )] public int BulletCount { get; set; } = 1;
+	[Property, Group( "Bullet" ), EquipmentResourceProperty] public int BulletCount { get; set; } = 1;
 
-	[Property, Group( "Bullet Falloff" )] public Curve BaseDamageFalloff { get; set; } = new( new List<Curve.Frame>() { new( 0, 1 ), new( 1, 0 ) } );
-	[Property, Group( "Bullet Falloff" )] public float MaxRange { get; set; } = 1024000;
+	[Property, Group( "Bullet Falloff" ), EquipmentResourceProperty] public Curve BaseDamageFalloff { get; set; } = new( new List<Curve.Frame>() { new( 0, 1 ), new( 1, 0 ) } );
+	[Property, Group( "Bullet Falloff" ), EquipmentResourceProperty] public float MaxRange { get; set; } = 1024000;
 
 	[Property, Group( "Bullet Spread" )] public float BulletSpread { get; set; } = 0;
 	[Property, Group( "Bullet Spread" )] public float PlayerVelocityLimit { get; set; } = 300f;
@@ -309,9 +309,6 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 
 				if ( tr.Distance == 0 )
 					continue;
-
-				if ( count > 0 )
-					CreateImpactEffects( tr.Surface, tr.StartPosition, -tr.Normal );
 				
 				CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
 				DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
@@ -332,7 +329,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 
 				using ( Rpc.FilterInclude( Connection.Host ) )
 				{
-					InflictDamage( tr.GameObject!.Id, damage, tr.EndPosition, tr.Direction, tr.GetHitboxTags(), damageFlags );
+					InflictDamage( tr.GameObject, damage, tr.EndPosition, tr.Direction, tr.GetHitboxTags(), damageFlags );
 				}
 
 				count++;
@@ -344,10 +341,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	}
 
 	[Broadcast]
-	private void InflictDamage( Guid targetObjectId, float damage, Vector3 pos, Vector3 dir, HitboxTags hitbox, DamageFlags flags )
+	private void InflictDamage( GameObject target, float damage, Vector3 pos, Vector3 dir, HitboxTags hitbox, DamageFlags flags )
 	{
-		var target = Scene.Directory.FindByGuid( targetObjectId );
-
 		// target?.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerPawn.HealthComponent.Id, Weapon.Id, hitbox );
 		target?.TakeDamage( new DamageInfo( Equipment.Owner, damage, Equipment, pos, dir * damage, hitbox, flags ) );
 	}
@@ -367,6 +362,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	/// <returns></returns>
 	private bool IsNearby( Vector3 position )
 	{
+		if ( !Scene.Camera.IsValid() ) return false;
 		return position.DistanceSquared( Scene.Camera.Transform.Position ) < MaxEffectsPlayDistance;
 	}
 
@@ -440,20 +436,6 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 
 		return Vector3.Reflect( tr.Direction, tr.Normal ).Normal;
 	}
-
-	/* private void DrawLineSegment( Vector3 start, Vector3 end, int depth = 0, int count = 10 )
-	{
-		var hue = (depth / (float)count % 360f) * 360f;
-		var color = new ColorHsv( hue, 1, 1, 1 );
-
-		var line = DebugOverlay.Line( start, end, color.ToColor(), 5 );
-		line.GameObject.Name = $"Line {depth}";
-		var sphere = DebugOverlay.Sphere( start, 4, color.ToColor(), 5 );
-		sphere.GameObject.Name = $"Start Sphere for Line {depth}";
-
-		var endSph = DebugOverlay.Sphere( end, 8, color.ToColor(), 5 );
-		endSph.GameObject.Name = $"End Sphere for Line {depth}";
-	} */
 
 	/// <summary>
 	/// Runs a trace with all the data we have supplied it, and returns the result

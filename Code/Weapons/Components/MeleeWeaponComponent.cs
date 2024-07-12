@@ -4,9 +4,9 @@ namespace Facepunch;
 [Title( "Melee" ), Group( "Weapon Components" )]
 public partial class MeleeWeaponComponent : InputWeaponComponent
 {
-	[Property, Category( "Config" )] public float BaseDamage { get; set; } = 25.0f;
-	[Property, Category( "Config" )] public float FireRate { get; set; } = 0.2f;
-	[Property, Category( "Config" )] public float MaxRange { get; set; } = 1024000;
+	[Property, Category( "Config" ), EquipmentResourceProperty] public float BaseDamage { get; set; } = 25.0f;
+	[Property, Category( "Config" ), EquipmentResourceProperty] public float FireRate { get; set; } = 0.2f;
+	[Property, Category( "Config" ), EquipmentResourceProperty] public float MaxRange { get; set; } = 1024000;
 	[Property, Category( "Config" )] public float Size { get; set; } = 1.0f;
 
 	[Property, Group( "Sounds" )] public SoundEvent SwingSound { get; set; }
@@ -97,19 +97,16 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 
 			using ( Rpc.FilterInclude( Connection.Host ) )
 			{
-				InflictKnifeDamage( tr.GameObject.Id, tr.EndPosition, tr.Direction );
+				InflictKnifeDamage( tr.GameObject, tr.EndPosition, tr.Direction );
 			}
 		}
 	}
 
 	[Broadcast]
-	private void InflictKnifeDamage( Guid targetObjectId, Vector3 pos, Vector3 dir )
+	private void InflictKnifeDamage( GameObject target, Vector3 pos, Vector3 dir )
 	{
-		var obj = Scene.Directory.FindByGuid( targetObjectId );
-
 		// TODO: backstab detection
-
-		obj?.TakeDamage( new DamageInfo( Equipment.Owner, BaseDamage, Equipment, pos, dir * 64f, HitboxTags.UpperBody, DamageFlags.Melee ) );
+		target?.TakeDamage( new DamageInfo( Equipment.Owner, BaseDamage, Equipment, pos, dir * 64f, HitboxTags.UpperBody, DamageFlags.Melee ) );
 	}
 
 	protected virtual Ray WeaponRay => Equipment.Owner.AimRay;

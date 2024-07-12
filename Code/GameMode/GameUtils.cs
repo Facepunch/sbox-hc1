@@ -25,7 +25,7 @@ public static partial class GameUtils
 	/// <summary>
 	/// Every <see cref="PlayerPawn"/> currently in the world.
 	/// </summary>
-	public static IEnumerable<PlayerPawn> PlayerPawns => Game.ActiveScene.GetAllComponents<PlayerPawn>();
+	public static IEnumerable<PlayerPawn> PlayerPawns => AllPlayers.Select( x => x.PlayerPawn ).Where( x => x.IsValid() );
 
 	/// <summary>
 	/// Every <see cref="PlayerPawn"/> currently in the world, on the given team.

@@ -25,11 +25,10 @@ public partial class PlayerPawn
 	/// </summary>
 	[HostSync] public TimeSince TimeSinceLastRespawn { get; private set; }
 
-	public override void Kill()
+	public override void OnKill( DamageInfo damageInfo )
 	{
 		if ( Networking.IsHost )
 		{
-			HealthComponent.State = LifeState.Dead;
 			ArmorComponent.HasHelmet = false;
 			ArmorComponent.Armor = 0f;
 
@@ -44,57 +43,52 @@ public partial class PlayerPawn
 		if ( IsProxy )
 			return;
 
+		PlayerState.OnKill( damageInfo );
+
 		Holster();
 
 		_previousVelocity = Vector3.Zero;
 		CameraController.Mode = CameraMode.ThirdPerson;
 	}
 
-	public override void Respawn()
+	public void SetSpawnPoint( SpawnPointInfo spawnPoint )
 	{
-		_previousVelocity = Vector3.Zero;
-		Body.DamageTakenForce = Vector3.Zero;
+		SpawnPosition = spawnPoint.Position;
+		SpawnRotation = spawnPoint.Rotation;
 
-		if ( Networking.IsHost )
+		SpawnPointTags.Clear();
+
+		foreach ( var tag in spawnPoint.Tags )
 		{
-			SpawnPointTags.Clear();
-
-			// :S
-			if ( GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner )
-			{
-				var s = spawnAssigner.GetSpawnPoint( PlayerState );
-
-				foreach ( var tag in s.Tags )
-				{
-					SpawnPointTags.Add( tag );
-				}
-
-				Teleport( s.Transform );
-			}
-
-			OnHostRespawn();
+			SpawnPointTags.Add( tag );
 		}
-
-		if ( IsLocallyControlled )
-			OnClientRespawn();
 	}
 
-	public void OnHostRespawn()
+	public override void OnRespawn()
 	{
 		Assert.True( Networking.IsHost );
 
+		OnHostRespawn();
+		OnClientRespawn();
+	}
+
+	private void OnHostRespawn()
+	{
+		Assert.True( Networking.IsHost );
+
+		_previousVelocity = Vector3.Zero;
+
+		Teleport( SpawnPosition, SpawnRotation );
+
+		if ( Body is not null )
+		{
+			Body.DamageTakenForce = Vector3.Zero;
+		}
+
 		HealthComponent.Health = HealthComponent.MaxHealth;
-		HealthComponent.State = LifeState.Alive;
 
 		ArmorComponent.HasHelmet = false;
 		ArmorComponent.Armor = 0f;
-
-		EyeAngles = Transform.Rotation.Angles();
-
-		using ( Rpc.FilterInclude( Network.OwnerConnection ) )
-		{
-			OnClientRespawn();
-		}
 
 		TimeSinceLastRespawn = 0f;
 
@@ -102,16 +96,14 @@ public partial class PlayerPawn
 		Scene.Dispatch( new PlayerSpawnedEvent( this ) );
 	}
 
-	[Broadcast]
-	public void OnClientRespawn()
+	[Authority]
+	private void OnClientRespawn()
 	{
 		if ( PlayerState.IsBot )
 			return;
 
 		Possess();
-		OnPossess();
 	}
-
 
 	public void Teleport( Transform transform )
 	{
@@ -126,7 +118,10 @@ public partial class PlayerPawn
 		EyeAngles = rotation.Angles();
 
 		if ( CharacterController.IsValid() )
+		{
 			CharacterController.Velocity = Vector3.Zero;
+			CharacterController.IsOnGround = true;
+		}
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
@@ -157,7 +152,11 @@ public partial class PlayerPawn
 
 	private void ResetBody()
 	{
-		Body.DamageTakenForce = Vector3.Zero;
+		if ( Body is not null )
+		{
+			Body.DamageTakenForce = Vector3.Zero;
+		}
+
 		PlayerBoxCollider.Enabled = true;
 
 		Outfitter.OnResetState( this );

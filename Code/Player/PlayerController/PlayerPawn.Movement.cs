@@ -175,7 +175,7 @@ public partial class PlayerPawn
 		// Eye input
 		if ( IsPossessed && cc.IsValid() )
 		{
-			if ( IsLocallyControlled )
+			if ( IsLocallyControlled && HealthComponent.State == LifeState.Alive )
 			{
 				EyeAngles += Input.AnalogLook * AimDampening;
 				EyeAngles = EyeAngles.WithPitch( EyeAngles.pitch.Clamp( -90, 90 ) );
@@ -253,8 +253,13 @@ public partial class PlayerPawn
 
 		if ( IsNoclipping )
 		{
+			var vertical = 0f;
+			if ( Input.Down( "Jump" ) ) vertical = 1f;
+			if ( Input.Down( "Duck" ) ) vertical = -1f;
+
 			cc.IsOnGround = false;
 			cc.Velocity = WishMove.Normal * EyeAngles.ToRotation() * NoclipSpeed;
+			cc.Velocity += Vector3.Up * vertical * NoclipSpeed;
 		}
 
 		cc.ApplyFriction( GetFriction() );
@@ -294,7 +299,7 @@ public partial class PlayerPawn
 			OnSprintChanged( wasSprinting, IsSprinting );
 		}
 
-		IsCrouching = Input.Down( "Duck" );
+		IsCrouching = Input.Down( "Duck" ) && !IsNoclipping;
 		
 		IsUsing = Input.Down( "Use" );
 

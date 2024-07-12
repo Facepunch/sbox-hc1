@@ -51,7 +51,7 @@
 
     private string TeamColor => Team.GetColor().Hex;
 
-    public int PlayerHash => Players?.GetHashCode<PlayerState>(x => x?.SteamId.GetHashCode() ?? 0) ?? 0;
+    public int PlayerHash => Players?.GetHashCode<PlayerState>(x => HashCode.Combine( x?.SteamId, x?.Team ?? Team.Unassigned ) ) ?? 0;
 
     protected override int BuildHash()
     {

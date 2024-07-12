@@ -118,7 +118,7 @@ public sealed class TeamAssigner : Component,
 
 			// Respawn the player's pawn since we might've changed their spawn
 			if ( player.PlayerPawn.IsValid() )
-				player.PlayerPawn.Respawn();
+				player.Respawn( true );
 		}
 	}
 
@@ -137,13 +137,15 @@ public sealed class TeamAssigner : Component,
 	{
 		var assignTeam = SelectTeam();
 
+		if ( assignTeam == player.Team )
+		{
+			return;
+		}
+
 		if ( dispatch )
 		{
 			player.AssignTeam( assignTeam );
-
-			// Respawn the player's pawn since we might've changed their spawn
-			if ( player.PlayerPawn.IsValid() )
-				player.PlayerPawn.Respawn();
+			player.Respawn( true );
 		}
 		else
 		{

@@ -49,7 +49,7 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 		ApplyForces();
 	}
 
-	public override void Kill()
+	public override void OnKill( DamageInfo damageInfo )
 	{
 		Explosion?.Clone( Transform.Position );
 
@@ -67,9 +67,10 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 
 	protected override void OnUpdate()
 	{
+		currentInput.Reset();
+
 		if ( IsLocallyControlled )
 		{
-			currentInput.Reset();
 			currentInput.movement = Input.AnalogMove.WithZ( 0f ).Normal;
 			currentInput.throttle = (Input.Down( "Jump" ) ? 1 : 0) + (Input.Down( "Duck" ) ? -1 : 0);
 			currentInput.yaw = -Input.AnalogLook.yaw;
@@ -89,7 +90,7 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 
 	protected void ApplyForces()
 	{
-		if ( !IsLocallyControlled )
+		if ( IsProxy )
 			return;
 
 		if ( !Rigidbody.IsValid() )
@@ -161,6 +162,8 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 
 		return viewer.Team == Team;
 	}
+
+	public override string NameType => "Drone";
 
 	string ICustomMinimapIcon.CustomStyle => $"background-image-tint: {Team.GetColor().Hex}";
 	string IMinimapIcon.IconPath => "ui/icons/drone.png";

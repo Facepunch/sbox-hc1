@@ -1,0 +1,57 @@
+@import "/UI/Styles/Theme.scss";
+
+ScoringSystem
+{
+    position: absolute;
+    right: 40%;
+    bottom: 30%;
+    gap: 16px;
+    padding: 16px;
+    flex-direction: column;
+    transition: all 0.2s ease;
+    opacity: 1;
+    justify-content: center;
+
+    &.hidden
+    {
+        opacity: 0;
+    }
+
+    &:not( .hidden )
+    {
+        .line
+        {
+            width: 2px;
+            height: 100%;
+            background-color: $terror-color;
+        }
+    }
+
+    .number
+    {
+        justify-content: flex-end;
+        position: relative;
+        top: -6px;
+        min-width: 40px;
+    }
+}
+
+ScoringEntry
+{
+    gap: 16px;
+    align-items: center;
+    transition: all 0.2s ease;
+    opacity: 1;
+
+    &:intro
+    {
+        opacity: 0;
+        transform: translateX(200px);
+    }
+
+    &:outro
+    {
+        opacity: 0;
+        transform: translateX(-200px);
+    }
+}

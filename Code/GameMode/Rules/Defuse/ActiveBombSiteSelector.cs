@@ -9,10 +9,7 @@ namespace Facepunch;
 public sealed class ActiveBombSiteSelector : Component,
 	IGameEventHandler<EnterStateEvent>
 {
-	[HostSync]
-	public Guid CurrentBombSiteId { get; set; }
-
-	public BombSite CurrentBombSite => Scene.Directory.FindComponentByGuid( CurrentBombSiteId ) as BombSite;
+	[HostSync] public BombSite CurrentBombSite { get; set; }
 
 	public void OnGameEvent( EnterStateEvent eventArgs )
 	{
@@ -27,7 +24,7 @@ public sealed class ActiveBombSiteSelector : Component,
 
 		var bombSite = Random.Shared.FromArray( bombSites );
 
-		CurrentBombSiteId = bombSite.Id;
+		CurrentBombSite = bombSite;
 
 		var name = bombSite.GameObject.Name.ToLower();
 		var spawns = Scene.Components.GetAll<TeamSpawnPoint>( FindMode.EverythingInSelfAndDescendants );

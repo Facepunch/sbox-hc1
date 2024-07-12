@@ -14,12 +14,24 @@
 						remaps = 
 						[
 							{
-								from = "01 - default.vmat"
-								to = "materials/dev/reflectivity_10b.vmat"
+								from = "v_ranged_sight.vmat"
+								to = "weapons/m700/v_ranged_sight.vmat"
 							},
 							{
-								from = "02 - default.vmat"
-								to = "materials/dev/reflectivity_30b.vmat"
+								from = "v_m700_a.vmat"
+								to = "weapons/m700/v_m700_a.vmat"
+							},
+							{
+								from = "v_m700_b.vmat"
+								to = "weapons/m700/v_m700_b.vmat"
+							},
+							{
+								from = "v_m700_c.vmat"
+								to = "weapons/m700/v_m700_c.vmat"
+							},
+							{
+								from = "v_m700_magazine.vmat"
+								to = "weapons/m700/v_m700_magazine.vmat"
 							},
 						]
 						use_global_default = false
@@ -34,6 +46,18 @@
 					{
 						_class = "RenderMeshFile"
 						name = "M700"
+						children = 
+						[
+							{
+								_class = "RenderMeshMarkup"
+								material_search_path = ""
+								use_expensive_tangents = true
+								high_high_precision_texcoords = false
+								calc_per_vertex_curvature = false
+								prefer_high_density_tris_in_uv_density_calc = false
+								cpu_access = false
+							},
+						]
 						filename = "weapons/m700/v_m700.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -48,12 +72,25 @@
 							exception_list = 
 							[
 								"v_m700",
+								"m700",
 							]
 						}
 					},
 					{
 						_class = "RenderMeshFile"
 						name = "Magazine"
+						children = 
+						[
+							{
+								_class = "RenderMeshMarkup"
+								material_search_path = ""
+								use_expensive_tangents = true
+								high_high_precision_texcoords = false
+								calc_per_vertex_curvature = false
+								prefer_high_density_tris_in_uv_density_calc = false
+								cpu_access = false
+							},
+						]
 						filename = "weapons/m700/v_m700.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -68,12 +105,25 @@
 							exception_list = 
 							[
 								"v_m700_magazine",
+								"m700_magazine",
 							]
 						}
 					},
 					{
 						_class = "RenderMeshFile"
 						name = "Ranged_Sight"
+						children = 
+						[
+							{
+								_class = "RenderMeshMarkup"
+								material_search_path = ""
+								use_expensive_tangents = true
+								high_high_precision_texcoords = false
+								calc_per_vertex_curvature = false
+								prefer_high_density_tris_in_uv_density_calc = false
+								cpu_access = false
+							},
+						]
 						filename = "weapons/m700/v_m700.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -89,6 +139,8 @@
 							[
 								"v_sight_ranged",
 								"v_m700_rail",
+								"ranged_sight",
+								"m700_rail",
 							]
 						}
 					},
@@ -150,6 +202,21 @@
 							},
 						]
 						hidden_in_tools = false
+					},
+				]
+			},
+			{
+				_class = "ModelModifierList"
+				children = 
+				[
+					{
+						_class = "ModelModifier_ScaleAndMirror"
+						scale = 0.3937
+						mirror_x = false
+						mirror_y = false
+						mirror_z = false
+						flip_bone_forward = false
+						swap_left_and_right_bones = false
 					},
 				]
 			},

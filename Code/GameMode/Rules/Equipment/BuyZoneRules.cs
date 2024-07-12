@@ -7,7 +7,8 @@ namespace Facepunch;
 /// </summary>
 public sealed class EnableBuyMenu : Component,
 	IGameEventHandler<EnterStateEvent>,
-	IGameEventHandler<CanOpenBuyMenuEvent>
+	IGameEventHandler<UpdateStateEvent>,
+	IGameEventHandler<LeaveStateEvent>
 {
 	/// <summary>
 	/// Disable the buy menu after this time limit, if greater than zero.
@@ -22,18 +23,31 @@ public sealed class EnableBuyMenu : Component,
 
 	[Property] public bool InBuyZoneOnly { get; set; }
 
+	public BuyMenuMode BuyMenuMode => Time.Now < DisableTime
+		? InBuyZoneOnly ? BuyMenuMode.EnabledInBuyZone : BuyMenuMode.EnabledEverywhere
+		: BuyMenuMode.Disabled;
+
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
 		StartTime = Time.Now;
 	}
 
-	[Early]
-	void IGameEventHandler<CanOpenBuyMenuEvent>.OnGameEvent( CanOpenBuyMenuEvent eventArgs )
-	{ 
-		var enabled = Time.Now < DisableTime;
-		eventArgs.CanOpen = enabled;
+	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
+	{
+		var mode = BuyMenuMode;
 
-		if ( InBuyZoneOnly && !BuySystem.IsInBuyZone() ) eventArgs.CanOpen = false; 
+		foreach ( var player in GameUtils.AllPlayers )
+		{
+			player.BuyMenuMode = mode;
+		}
+	}
+
+	void IGameEventHandler<LeaveStateEvent>.OnGameEvent( LeaveStateEvent eventArgs )
+	{
+		foreach ( var player in GameUtils.AllPlayers )
+		{
+			player.BuyMenuMode = BuyMenuMode.Disabled;
+		}
 	}
 }
 
@@ -41,10 +55,24 @@ public sealed class EnableBuyMenu : Component,
 /// Enable the buy menu for players that are spawn protected.
 /// </summary>
 public sealed class EnableBuyMenuDuringSpawnProtection : Component,
-	IGameEventHandler<CanOpenBuyMenuEvent>
+	IGameEventHandler<UpdateStateEvent>,
+	IGameEventHandler<LeaveStateEvent>
 {
-	public void OnGameEvent( CanOpenBuyMenuEvent eventArgs )
+	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
 	{
-		eventArgs.CanOpen = PlayerState.Local.PlayerPawn?.HealthComponent.IsGodMode ?? false;
+		foreach ( var player in GameUtils.AllPlayers )
+		{
+			player.BuyMenuMode = player.PlayerPawn is { HealthComponent: { IsGodMode: true } }
+				? BuyMenuMode.EnabledEverywhere
+				: BuyMenuMode.Disabled;
+		}
+	}
+
+	void IGameEventHandler<LeaveStateEvent>.OnGameEvent( LeaveStateEvent eventArgs )
+	{
+		foreach ( var player in GameUtils.AllPlayers )
+		{
+			player.BuyMenuMode = BuyMenuMode.Disabled;
+		}
 	}
 }

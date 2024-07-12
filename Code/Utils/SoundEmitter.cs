@@ -68,6 +68,12 @@ public sealed class SoundEmitter : Component
 			handle.Volume = VolumeOverTime.Evaluate( TimeSincePlayed / LifeTime );
 		}
 	}
+
+	protected override void OnDestroy()
+	{
+		handle?.Stop();
+		handle = null;
+	}
 }
 
 public static partial class GameObjectExtensions

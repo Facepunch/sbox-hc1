@@ -23,6 +23,6 @@ public sealed class AutoBombPlant : Component,
 			return;
 		}
 
-		bomb.FinishPlant();
+		bomb.FinishPlant( bombCarrier.SpawnPosition );
 	}
 }

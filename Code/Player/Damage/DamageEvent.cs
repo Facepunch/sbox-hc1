@@ -104,6 +104,11 @@ public record DamageInfo( Component Attacker, float Damage, Component Inflictor 
 	/// <inheritdoc cref="DamageFlags.FallDamage"/>
 	public bool WasFallDamage => Flags.HasFlag( DamageFlags.FallDamage );
 
+	/// <summary>
+	/// How long since this damage info event happened?
+	/// </summary>
+	public RealTimeSince TimeSinceEvent { get; init; } = 0;
+
 	public override string ToString()
 	{
 		return $"\"{Attacker}\" - \"{Victim}\" with \"{Inflictor}\" ({Damage} damage)";
@@ -113,18 +118,36 @@ public record DamageInfo( Component Attacker, float Damage, Component Inflictor 
 /// <summary>
 /// Event dispatched on the host when something takes damage, so it can be modified.
 /// </summary>
-/// <param name="Damage">Information about the damage.</param>
-public class ModifyDamageEvent : IGameEvent
+public abstract class ModifyDamageEvent : IGameEvent
 {
 	public DamageInfo DamageInfo { get; set; }
 
-	public ModifyDamageEvent( DamageInfo damageInfo )
+	/// <summary>
+	/// Clears all health and armor damage from this event.
+	/// </summary>
+	public void ClearDamage()
 	{
-		DamageInfo = damageInfo;
+		DamageInfo = DamageInfo with { Damage = 0f, ArmorDamage = 0f, RemoveHelmet = false };
 	}
 
 	/// <summary>
-	/// Scales <see cref="ModifiedDamage"/> by <paramref name="damageScale"/>, adding the difference to <see cref="ArmorDamage"/>.
+	/// Scales health damage by the given multiplier.
+	/// </summary>
+	public void ScaleDamage( float scale )
+	{
+		DamageInfo = DamageInfo with { Damage = DamageInfo.Damage * scale };
+	}
+
+	/// <summary>
+	/// Flag that the victim's helmet should be removed when this damage is applied.
+	/// </summary>
+	public void RemoveHelmet()
+	{
+		DamageInfo = DamageInfo with { RemoveHelmet = true };
+	}
+
+	/// <summary>
+	/// Scales <see cref="DamageInfo.Damage"/> by <paramref name="damageScale"/>, adding the difference to <see cref="DamageInfo.ArmorDamage"/>.
 	/// </summary>
 	public void ApplyArmor( float damageScale )
 	{
@@ -153,10 +176,38 @@ public class ModifyDamageEvent : IGameEvent
 }
 
 /// <summary>
+/// Event dispatched on the host when this object is about to take damage, so it can be modified.
+/// </summary>
+public class ModifyDamageTakenEvent : ModifyDamageEvent
+{
+}
+
+/// <summary>
+/// Event dispatched on the host when this object is about to deal damage, so it can be modified.
+/// </summary>
+public class ModifyDamageGivenEvent : ModifyDamageEvent
+{
+}
+
+/// <summary>
+/// Event dispatched on the host when any object is about to deal damage, so it can be modified.
+/// </summary>
+public class ModifyDamageGlobalEvent : ModifyDamageEvent
+{
+
+}
+
+/// <summary>
 /// Event dispatched on a root object containing a <see cref="HealthComponent"/> that took damage.
 /// </summary>
 /// <param name="Damage">Information about the damage.</param>
 public record DamageTakenEvent( DamageInfo DamageInfo ) : IGameEvent;
+
+/// <summary>
+/// Event dispatched to everything when a <see cref="HealthComponent"/> takes damage.
+/// </summary>
+/// <param name="DamageInfo"></param>
+public record DamageTakenGlobalEvent ( DamageInfo DamageInfo ) : IGameEvent;
 
 /// <summary>
 /// Event dispatched on a root object that inflicted damage on another object.

@@ -1,0 +1,39 @@
+@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+<root class="@HiddenClasses flex row">
+	<div class="layout flex column" @ref="Layout" />
+	<div class="line" />
+	<ScrollingNumber class="scroll @(Layout.Children.Count() < 1 ? "hidden" : "" ) number" Value=@Total />
+</root>
+
+@code
+{
+	public Panel Layout { get; set; }
+	public int Total { get; set; } = 0;
+
+	public string HiddenClasses => Layout?.Children.Count() < 1 ? "hidden" : "";
+
+	public void OnScore( int amount, string reason )
+	{
+		Layout.AddChild( new ScoringEntry()
+		{
+			Score = amount,
+			Reason = reason
+		} );
+
+		Total += amount;
+	}
+
+	public override void Tick()
+	{
+		if ( ( Layout?.Children.Count() ?? 0 ) < 1 )
+			Total = 0;
+	}
+
+	protected override int BuildHash()
+	{
+		return HashCode.Combine( Total );
+	}
+}

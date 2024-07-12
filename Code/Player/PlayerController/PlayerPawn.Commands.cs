@@ -1,3 +1,5 @@
+using Facepunch.UI;
+
 namespace Facepunch;
 
 public partial class PlayerPawn
@@ -36,7 +38,7 @@ public partial class PlayerPawn
 	{
 		var player = PlayerState.Local.PlayerPawn;
 		if ( player is null ) return;
-		player.Kill();
+		Host_Suicide();
 	}
 
 	[DeveloperCommand( "Give $1k", "Player" )]
@@ -44,6 +46,27 @@ public partial class PlayerPawn
 	{
 		var player = PlayerState.Local.PlayerPawn;
 		if ( player is null ) return;
-		player.PlayerState.GiveCash(1000);
+		player.PlayerState.GiveCash( 1000 );
+	}
+
+
+	[DeveloperCommand( "Give Scores", "Player" )]
+	private static void Command_Scores()
+	{
+		var player = PlayerState.Local.PlayerPawn;
+		if ( player is null ) return;
+		player.PlayerState.Components.Get<PlayerScore>().AddScore( 25, "Killed a player" );
+	}
+
+	[Authority]
+	private static void Host_Suicide()
+	{
+		var pawn = Game.ActiveScene.GetAllComponents<PlayerPawn>()
+			.FirstOrDefault( p => p.Network.OwnerConnection == Rpc.Caller );
+
+		if ( !pawn.IsValid() )
+			return;
+		
+		pawn.HealthComponent.TakeDamage( new( pawn, float.MaxValue ) );
 	}
 }

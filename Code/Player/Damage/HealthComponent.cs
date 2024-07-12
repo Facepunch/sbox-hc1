@@ -42,7 +42,7 @@ public partial class HealthComponent : Component, IRespawnable
 	/// What's our life state?
 	/// </summary>
 	[Group( "Life State" ), HostSync, Change( nameof( OnStatePropertyChanged ) )]
-	public LifeState State { get; set; }
+	public LifeState State { get; private set; }
 
 	/// <summary>
 	/// Called when <see cref="Health"/> is changed across the network.
@@ -57,19 +57,6 @@ public partial class HealthComponent : Component, IRespawnable
 	protected void OnStatePropertyChanged( LifeState oldValue, LifeState newValue )
 	{
 		TimeSinceLifeStateChanged = 0f;
-		
-		switch ( newValue )
-		{
-			case LifeState.Alive:
-				Health = MaxHealth;
-				Respawnables.ToList().ForEach( x => x.Respawn() );
-				break;
-			case LifeState.Dead:
-				Health = 0f;
-				Respawnables.ToList()
-					.ForEach( x => x.Kill() );
-				break;
-		}
 	}
 
 	public void TakeDamage( DamageInfo damageInfo )
@@ -87,9 +74,10 @@ public partial class HealthComponent : Component, IRespawnable
 
 		if ( Health > 0f || State != LifeState.Alive ) return;
 
+		Health = 0f;
 		State = LifeState.Dead;
 
-		OnKill( damageInfo );
+		Kill( damageInfo );
 	}
 
 	private DamageInfo WithThisAsVictim( DamageInfo damageInfo )
@@ -110,9 +98,24 @@ public partial class HealthComponent : Component, IRespawnable
 
 	private DamageInfo ModifyDamage( DamageInfo damageInfo )
 	{
-		var modifyEvent = new ModifyDamageEvent( damageInfo );
+		damageInfo = ModifyDamage<ModifyDamageGivenEvent>( damageInfo.Attacker?.GameObject.Root, damageInfo );
+		damageInfo = ModifyDamage<ModifyDamageTakenEvent>( damageInfo.Victim?.GameObject.Root, damageInfo );
+		damageInfo = ModifyDamage<ModifyDamageGlobalEvent>( Scene, damageInfo );
 
-		Scene.Dispatch( modifyEvent );
+		return damageInfo;
+	}
+
+	private static DamageInfo ModifyDamage<T>( GameObject root, DamageInfo damageInfo )
+		where T : ModifyDamageEvent, new()
+	{
+		if ( root is null )
+		{
+			return damageInfo;
+		}
+
+		var modifyEvent = new T { DamageInfo = damageInfo };
+
+		root.Dispatch( modifyEvent );
 
 		return modifyEvent.DamageInfo;
 	}
@@ -122,31 +125,30 @@ public partial class HealthComponent : Component, IRespawnable
 		Log.Info( damageInfo );
 
 		BroadcastDamage( damageInfo.Damage, damageInfo.Position, damageInfo.Force,
-			damageInfo.Attacker?.Id ?? default, damageInfo.Inflictor?.Id ?? default,
+			damageInfo.Attacker, damageInfo.Inflictor,
 			damageInfo.Hitbox, damageInfo.Flags );
 	}
 
-	private void OnKill( DamageInfo damageInfo )
+	private void Kill( DamageInfo damageInfo )
 	{
 		BroadcastKill( damageInfo.Damage, damageInfo.Position, damageInfo.Force,
-			damageInfo.Attacker?.Id ?? default, damageInfo.Inflictor?.Id ?? default,
+			damageInfo.Attacker, damageInfo.Inflictor,
 			damageInfo.Hitbox, damageInfo.Flags );
 
 		KillFeed.RecordEvent( damageInfo );
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
-	private void BroadcastDamage( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, HitboxTags hitbox = default, DamageFlags flags = default )
+	private void BroadcastDamage( float damage, Vector3 position, Vector3 force, Component attacker, Component inflictor = default, HitboxTags hitbox = default, DamageFlags flags = default )
 	{
-		var attacker = Scene.Directory.FindComponentByGuid( attackerId );
-		var inflictor = Scene.Directory.FindComponentByGuid( inflictorId );
-
 		var damageInfo = new DamageInfo( attacker, damage, inflictor, position, force, hitbox, flags )
 		{
 			Victim = GameUtils.GetPlayerFromComponent( this )
 		};
 
 		GameObject.Root.Dispatch( new DamageTakenEvent( damageInfo ) );
+
+		Scene.Dispatch( new DamageTakenGlobalEvent( damageInfo ) );
 
 		if ( damageInfo.Attacker.IsValid() )
 		{
@@ -155,17 +157,16 @@ public partial class HealthComponent : Component, IRespawnable
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
-	private void BroadcastKill( float damage, Vector3 position, Vector3 force, Guid attackerId, Guid inflictorId = default, HitboxTags hitbox = default, DamageFlags flags = default )
+	private void BroadcastKill( float damage, Vector3 position, Vector3 force, Component attacker, Component inflictor = default, HitboxTags hitbox = default, DamageFlags flags = default )
 	{
-		var attacker = Scene.Directory.FindComponentByGuid( attackerId );
-		var inflictor = Scene.Directory.FindComponentByGuid( inflictorId );
-
 		var damageInfo = new DamageInfo( attacker, damage, inflictor, position, force, hitbox, flags )
 		{
 			Victim = this
 		};
 
 		Scene.Dispatch( new KillEvent( damageInfo ) );
+
+		Respawnables.ToList().ForEach( x => x.OnKill( damageInfo ) );
 	}
 }
 
@@ -183,6 +184,6 @@ public enum LifeState
 /// </summary>
 public interface IRespawnable
 {
-	public void Respawn() { }
-	public void Kill() { }
+	public void OnRespawn() { }
+	public void OnKill( DamageInfo damageInfo ) { }
 }

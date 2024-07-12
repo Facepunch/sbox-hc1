@@ -5,12 +5,12 @@ namespace Facepunch;
 /// <summary>
 /// Dispatched on the host when a player starts being spawn protected.
 /// </summary>
-public record SpawnProtectionStart( PlayerPawn Player ) : IGameEvent;
+public record SpawnProtectionStartEvent( PlayerPawn Player ) : IGameEvent;
 
 /// <summary>
 /// Dispatched on the host when a player stops being spawn protected.
 /// </summary>
-public record SpawnProtectionEnd( PlayerPawn Player ) : IGameEvent;
+public record SpawnProtectionEndEvent( PlayerPawn Player ) : IGameEvent;
 
 /// <summary>
 /// Makes respawned players invulnerable for a given duration, or until they move / shoot.
@@ -68,7 +68,7 @@ public sealed class SpawnProtection : Component,
 			GameMode.Instance.ShowToast( "Spawn Protected", duration: MaxDurationSeconds );
 		}
 
-		Scene.Dispatch( new SpawnProtectionStart( player ) );
+		Scene.Dispatch( new SpawnProtectionStartEvent( player ) );
 	}
 
 	public void Disable( PlayerPawn player )
@@ -82,6 +82,6 @@ public sealed class SpawnProtection : Component,
 			GameMode.Instance.HideToast();
 		}
 
-		Scene.Dispatch( new SpawnProtectionEnd( player ) );
+		Scene.Dispatch( new SpawnProtectionEndEvent( player ) );
 	}
 }

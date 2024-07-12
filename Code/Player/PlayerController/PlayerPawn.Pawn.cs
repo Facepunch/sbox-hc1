@@ -15,6 +15,12 @@ public partial class PlayerPawn
 
 	protected override void OnEnabled()
 	{
+		if ( !Spottable.IsValid() )
+		{
+			Log.Warning( $"No spottable on PlayerPawn Enabled - {this}" );
+			return;
+		}
+
 		Spottable.Team = Team;
 	}
 

@@ -69,9 +69,11 @@
 
     public void Trigger( DamageInfo damageInfo )
     {
-        if ( damageInfo.Victim is PlayerPawn victim )
+        if ( damageInfo.Victim is PlayerPawn victim && victim.IsValid() )
         {
             var hc = victim.HealthComponent;
+            if ( !hc.IsValid() ) return;
+
             var isKill = hc.Health - damageInfo.Damage <= 0f;
             TimeUntilHitmarkerRemove = isKill ? 0.5f : 0.2f;
             Hitmarker.SetClass( "is-kill", isKill );

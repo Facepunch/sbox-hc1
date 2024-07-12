@@ -1,0 +1,79 @@
+@namespace Facepunch.UI
+@inherits PanelComponent
+
+<root class="hc1 hud layout grow flex column">
+    <div class="layout main with-background padding-extra column">
+        <div class="layout flex column padding-extra center">
+            @if ( MapVoteSystem.WinningOption is { } option )
+            {
+                <label class="vital white uppercase">Changing Map</label>
+            }
+            else
+            {
+                <label class="vital white uppercase">@TimeSpan.FromSeconds(MapVoteSystem.TimeUntilDecidedWinner).ToString(@"mm\:ss")</label>
+                <label class="small slight">Vote for the next map.</label>
+            }
+        </div>
+
+        @if ( !MapVoteSystem.IsValid() )
+        {
+            <div class="grow" />
+            <div class="button standard warning">Something went wrong</div>
+            <div class="grow" />
+            return;
+        }
+
+        <div class="layout flex gap wrap grow padding-extra">
+
+            @for ( int i = 0; i < Options.Count(); i++ )
+            {
+                var option = Options.ElementAt( i );
+                var votes = GetOptionVotes( i );
+
+                <MapVoteCard Option=@option Votes=@votes.ToList() Index=@i IsWinning=@IsHighest( i ) />
+            }
+        </div>
+
+        <div class="layout gap padding-extra flex">
+            <div class="grow" />
+            <div class="button standard" onclick=@(()=>GameUtils.ReturnToMainMenu())><i>logout</i>Leave game</div>
+        </div>
+    </div>
+</root>
+
+@code
+{
+    public MapVoteSystem MapVoteSystem => MapVoteSystem.Instance;
+    public IEnumerable<MapVoteSystem.Option> Options => MapVoteSystem.VoteOptions;
+
+    public IEnumerable<MapVoteSystem.NetworkedVote> GetOptionVotes( int index ) => MapVoteSystem.Votes.Where( x => x.Option == index );
+    public bool IsHighest( int i )
+    {
+        Dictionary<int, int> dict = new();
+
+        foreach ( var vote in MapVoteSystem.Votes )
+        {
+            if ( !dict.TryGetValue( vote.Option, out var _ ) ) 
+            {
+                dict.Add( vote.Option, 0 );
+            }
+
+            dict[vote.Option]++;
+        }
+
+        var highestScoring = dict.OrderByDescending( x => x.Value ).ToDictionary( pair => pair.Key, pair => pair.Value ).FirstOrDefault();
+
+        if ( highestScoring.Value < 1 ) return false;
+        return highestScoring.Key == i;
+    }
+
+    public void Vote( int index )
+    {
+        MapVoteSystem.Vote( index );
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( MapVoteSystem.Votes.Count, MapVoteSystem.TimeUntilDecidedWinner.Fraction );
+    }
+}

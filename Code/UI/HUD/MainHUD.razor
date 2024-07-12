@@ -1,5 +1,7 @@
 @namespace Facepunch.UI
+@using Sandbox.Events
 @inherits PanelComponent
+@implements IGameEventHandler<OnScoreAddedEvent>
 
 @if (!IsHudEnabled)
     return;
@@ -24,6 +26,7 @@
         <EquipmentOverlay />
         <PlayerInfo />
         <Spectating />
+        <Deathcam />
 
         <RoundStateDisplay />
         <DefuseKitDisplay />
@@ -37,6 +40,8 @@
         </div>
 
         <Radio />
+
+        <ScoringSystem @ref="ScoringSystem" />
     </canvas>
     
     <!-- Full-screen overlays -->
@@ -45,6 +50,7 @@
     <Scoreboard />
 
     <PlayAreaOverlay />
+    <DeployedPawnOverlay />
 </root>
 
 @code 
@@ -58,10 +64,17 @@
         IsHudEnabled = !IsHudEnabled;
     }
 
+    public ScoringSystem ScoringSystem { get; set; }
+
     public KillFeed KillFeed { get; set; }
+
+    void IGameEventHandler<OnScoreAddedEvent>.OnGameEvent( OnScoreAddedEvent eventArgs )
+    {
+        ScoringSystem.OnScore( eventArgs.Score, eventArgs.Reason );
+    }
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( IsHudEnabled, PlayerState.Viewer.IsValid(), PlayerState.Viewer.Pawn.IsValid() );
+        return HashCode.Combine( IsHudEnabled, PlayerState.Viewer.IsValid(), PlayerState.Viewer.IsValid() && PlayerState.Viewer.Pawn.IsValid() );
     }
 }

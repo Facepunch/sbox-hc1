@@ -44,8 +44,11 @@ public partial class PlayerPawn : IGameEventHandler<DamageGivenEvent>, IGameEven
 		TimeUntilAccelerationRecovered = Global.TakeDamageAccelerationDampenTime;
 		AccelerationAddedScale = Global.TakeDamageAccelerationOffset;
 
-		Body.DamageTakenPosition = position;
-		Body.DamageTakenForce = force.Normal * damageInfo.Damage * Game.Random.Float( 5f, 20f );
+		if ( attacker != victim )
+		{
+			Body.DamageTakenPosition = position;
+			Body.DamageTakenForce = force.Normal * damageInfo.Damage * Game.Random.Float( 5f, 20f );
+		}
 
 		// Headshot effects
 		if ( damageInfo.Hitbox.HasFlag( HitboxTags.Head ) )

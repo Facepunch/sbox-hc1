@@ -10,7 +10,7 @@
             <div class="inset column layout with-background" style="width: 15%;">
                 <div class="line" />
                 <div class="layout padding-extra with-gap column">
-                    <button class="button standard" onclick=@(()=>Disconnect())><i>play_circle_outline</i>Disconnect</button>
+                    <button class="button standard" onclick=@(()=>GameUtils.ReturnToMainMenu())><i>play_circle_outline</i>Disconnect</button>
                 </div>
 
                 <div class="line" />
@@ -21,9 +21,4 @@
 
 @code
 {
-    void Disconnect()
-    {
-        var sc = ResourceLibrary.Get<SceneFile>( "scenes/menu.scene" );
-        Game.ActiveScene.Load( sc );
-    }
 }

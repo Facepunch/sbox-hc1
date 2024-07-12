@@ -2,19 +2,19 @@
 Easily dispatch events in your scene when stuff happens.
 
 ## Basics
-Declare an event type with all the properties you want to pass around.
+Declare an event type implementing `IGameEvent` with all the properties you want to pass around.
 ```csharp
-public record DamagedEventArgs(
+public record DamagedEvent(
     GameObject Attacker,
     GameObject Victim,
-    int Damage );
+    int Damage ) : IGameEvent;
 ```
 Implement `IGameEventHandler<T>` for your custom event type in a `Component`.
 ```csharp
-public sealed class MyComponent
-    : Component, IGameEventHandler<DamagedEventArgs>
+public sealed class MyComponent : Component,
+    IGameEventHandler<DamagedEvent>
 {
-    public void OnGameEvent( DamagedEventArgs eventArgs )
+    public void OnGameEvent( DamagedEvent eventArgs )
     {
         Log.Info( $"{eventArgs.Victim.Name} says \"Ouch!\"" );
     }
@@ -22,7 +22,7 @@ public sealed class MyComponent
 ```
 Dispatch the event on a `GameObject` or the `Scene`, which will notify any components in its descendants.
 ```csharp
-GameObject.Dispatch( new DamagedEventArgs( attacker, victim, 50 ) );
+GameObject.Dispatch( new DamagedEvent( attacker, victim, 50 ) );
 ```
 
 ## Invocation order
@@ -33,7 +33,7 @@ You can control the order that handlers are invoked using attributes on the hand
 * `After<T>`: run this after T's handler
 ```csharp
 [Early, After<SomeOtherComponent>]
-public void OnGameEvent( DamagedEventArgs eventArgs )
+public void OnGameEvent( DamagedEvent eventArgs )
 {
     Log.Info( $"{eventArgs.Victim.Name} says \"Ouch!\"" );
 }

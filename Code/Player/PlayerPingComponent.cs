@@ -69,9 +69,9 @@ public partial class PlayerPingComponent : Component
 	/// This gets networked to people on the same team.
 	/// </summary>
 	/// <param name="position"></param>
-	/// <param name="targetId"></param>
+	/// <param name="target"></param>
 	[Broadcast( NetPermission.OwnerOnly )]
-	public void Ping( Vector3 position, Guid? targetId = null )
+	public void Ping( Vector3 position, Component target = null )
 	{
 		// Destroy any active pings
 		if ( WorldPing.IsValid() )
@@ -88,8 +88,8 @@ public partial class PlayerPingComponent : Component
 		ping.Owner = Player.PlayerState;
 		pingObject.Name = $"Ping from {ping.Owner.DisplayName}";
 
-		if ( targetId.HasValue )
-			ping.Target = Scene.Directory.FindComponentByGuid( targetId.Value );
+		if ( target.IsValid() )
+			ping.Target = target;
 
 		WorldPing = ping;
 		// trigger the ping to be destroyed at some point
@@ -159,7 +159,7 @@ public partial class PlayerPingComponent : Component
 			// Send a RPC to my teammates
 			using ( NetworkUtils.RpcMyTeam() )
 			{
-				Ping( tr.EndPosition, target?.Id );
+				Ping( tr.EndPosition, target );
 			}
 		}
 	}

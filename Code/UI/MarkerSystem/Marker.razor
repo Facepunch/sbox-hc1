@@ -38,7 +38,14 @@
     BaseMarkerPanel CustomPanel { get; set; }
 
 
-    private float ChevronAngle => Scene.Camera.PointToScreenNormal( Object.MarkerPosition ).Angle( new( 0.5f, 0.5f ) ) - 180f; 
+    private float ChevronAngle 
+    {
+        get
+        {
+            if ( !Scene.Camera.IsValid() ) return 0f;
+            return Scene.Camera.PointToScreenNormal( Object.MarkerPosition ).Angle( new( 0.5f, 0.5f ) ) - 180f; 
+       }
+    }
 
 
     public bool ClampToScreen { get; set; } = false;
