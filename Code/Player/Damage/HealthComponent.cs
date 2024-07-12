@@ -77,7 +77,7 @@ public partial class HealthComponent : Component, IRespawnable
 		Health = 0f;
 		State = LifeState.Dead;
 
-		OnKill( damageInfo );
+		Kill( damageInfo );
 	}
 
 	private DamageInfo WithThisAsVictim( DamageInfo damageInfo )
@@ -129,7 +129,7 @@ public partial class HealthComponent : Component, IRespawnable
 			damageInfo.Hitbox, damageInfo.Flags );
 	}
 
-	private void OnKill( DamageInfo damageInfo )
+	private void Kill( DamageInfo damageInfo )
 	{
 		BroadcastKill( damageInfo.Damage, damageInfo.Position, damageInfo.Force,
 			damageInfo.Attacker, damageInfo.Inflictor,
