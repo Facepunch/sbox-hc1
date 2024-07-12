@@ -5,7 +5,14 @@
 
 <root class="@AvatarClasses">
     <div class="avatar" style="@(IsFriendly && Player.IsValid() ? $"border: 0.5px solid {PlayerColor.Hex}" : "")">
-        <img class="image" src="avatar:@Player.SteamId" />
+        @if ( Player.IsBot )
+        {
+            <img class="image" src="/ui/bot_avatar.png" />
+        }
+        else
+        {
+            <img class="image" src="avatar:@Player.SteamId" />
+        }
     </div>
 
     @if ( !Pawn.IsValid() ) return;
