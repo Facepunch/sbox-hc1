@@ -122,11 +122,6 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn,
 	/// When we're not in a team that has any outfits, what team should we fall back to (preferably one with some outfits!)
 	/// </summary>
 	[Property] public Team FallbackTeam { get; set; }
-
-	/// <summary>
-	/// Should we enable helmet physics when the helmet breaks?
-	/// </summary>
-	[Property] public bool EnableHelmetPhysics { get; set; } = true;
 	
 	/// <summary>
 	/// We store the player's avatar over the network so everyone knows what everyone looks like.

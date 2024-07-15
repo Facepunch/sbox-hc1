@@ -76,9 +76,6 @@ public class ArmorWithHelmetEquipment : BuyMenuItem
 	{
 		player.ArmorComponent.Armor = player.ArmorComponent.MaxArmor;
 		player.ArmorComponent.HasHelmet = true;
-
-		//Reset the player's outfit
-		player.Outfitter.OnResetState( player );
 	}
 
 	public override bool IsOwned( PlayerPawn player )
