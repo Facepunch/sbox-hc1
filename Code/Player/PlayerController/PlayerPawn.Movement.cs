@@ -532,7 +532,7 @@ public partial class PlayerPawn
 	// TODO: expose to global
 	float GetEyeHeightOffset()
 	{
-		if ( IsCrouching ) return -32f;
+		if ( IsCrouching ) return -16f;
 		if ( HealthComponent.State == LifeState.Dead ) return -48f;
 		return 0f;
 	}
