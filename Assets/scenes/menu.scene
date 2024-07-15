@@ -8,8 +8,6 @@
       "Position": "-2867.201,1484.403,54.60954",
       "Rotation": "-0.02474655,0.02336088,0.7267512,0.6860573",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.CameraComponent",
@@ -59,8 +57,6 @@
       "Position": "-4440.262,-1274.093,358.4633",
       "Rotation": "-0.04697734,0.131926,0.3321497,0.9327729",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.ScreenPanel",
@@ -82,8 +78,6 @@
       "Name": "Object",
       "Position": "-1159.925,-133.1735,38.5157",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MapInstance",
@@ -103,8 +97,6 @@
       "Position": "-2876.395,1684.421,0.0001696399",
       "Rotation": "0,0,0.1274795,0.9918411",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Facepunch.PartyPodium",
@@ -146,8 +138,6 @@
           "Position": "0,0,0",
           "Rotation": "0,0,-0.7071067,0.7071068",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Facepunch.PartyMember",
@@ -162,13 +152,24 @@
             {
               "__type": "Sandbox.SkinnedModelRenderer",
               "__guid": "2659e1e1-c594-4a90-9be0-bac22a84b84e",
-              "__enabled": false,
+              "AnimationGraph": "animgraphs/human_idle_player.vanmgrph",
               "BodyGroups": 18446744073709551615,
               "CreateBoneObjects": true,
               "Model": "models/player/t_side/t_side_player_01/t_side_player_01.vmdl",
               "RenderType": "On",
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
+            },
+            {
+              "__type": "Facepunch.IdleAnimator",
+              "__guid": "efdfd8da-1500-4b43-aab6-3eb5292a16bc",
+              "IdleType": "WithPistol",
+              "Renderer": {
+                "_type": "component",
+                "component_id": "2659e1e1-c594-4a90-9be0-bac22a84b84e",
+                "go": "0f6920d5-ec5a-4e2c-b7db-341de76e9136",
+                "component_type": "SkinnedModelRenderer"
+              }
             }
           ],
           "Children": [
@@ -176,64 +177,53 @@
               "__guid": "d40f0465-0558-468c-878a-d7675749b906",
               "Flags": 4,
               "Name": "Hips",
-              "Position": "0,0,0",
+              "Position": "0.6326299,0.07157796,36.34002",
+              "Rotation": "0.4999998,0.4999997,0.4999999,0.5000007",
               "Enabled": true,
-              "NetworkMode": 2,
-              "NetworkInterpolation": true,
               "Children": [
                 {
                   "__guid": "7484a401-1b81-4029-a6df-12e88cc333e1",
                   "Flags": 4,
                   "Name": "Spine",
-                  "Position": "0,0,0",
+                  "Position": "0.00001310557,3.955334,-0.3792278",
+                  "Rotation": "-0.04777518,-0.00000005282606,-0.00000005214503,0.998858",
                   "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
                   "Children": [
                     {
                       "__guid": "c37361d3-2067-4ab8-b754-a6f524ab053f",
                       "Flags": 4,
                       "Name": "Spine1",
-                      "Position": "0,0,0",
+                      "Position": "0.00001262873,4.635723,-0.000009536743",
                       "Enabled": true,
-                      "NetworkMode": 2,
-                      "NetworkInterpolation": true,
                       "Children": [
                         {
                           "__guid": "21f4402f-4f2d-40de-9f7e-eb3f8a3d6114",
                           "Flags": 4,
                           "Name": "Spine2",
-                          "Position": "0,0,0",
+                          "Position": "0.00001612306,5.297993,-0.00001430511",
                           "Enabled": true,
-                          "NetworkMode": 2,
-                          "NetworkInterpolation": true,
                           "Children": [
                             {
                               "__guid": "f60d350f-11c2-4563-8c53-28deca90e920",
                               "Flags": 4,
                               "Name": "Neck",
-                              "Position": "0,0,0",
+                              "Position": "0.0000179112,5.960232,-0.000004768372",
+                              "Rotation": "0.04777515,0.00000002302376,-0.00000003726186,0.998858",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "f250e941-d8ea-442e-86c1-289b12061f03",
                                   "Flags": 4,
                                   "Name": "Head",
-                                  "Position": "0,0,0",
+                                  "Position": "0.00002130121,4.267899,0.9326495",
                                   "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true,
                                   "Children": [
                                     {
                                       "__guid": "604869d4-9c80-49d0-99a7-f8980d5d3241",
                                       "Flags": 4,
                                       "Name": "HeadTop_End",
-                                      "Position": "0,0,0",
-                                      "Enabled": true,
-                                      "NetworkMode": 2,
-                                      "NetworkInterpolation": true
+                                      "Position": "0.00002837926,9.232132,2.017491",
+                                      "Enabled": true
                                     }
                                   ]
                                 }
@@ -243,73 +233,64 @@
                               "__guid": "ef729cdd-b1f5-4817-b79d-57604965c7ac",
                               "Flags": 4,
                               "Name": "LeftShoulder",
-                              "Position": "0,0,0",
+                              "Position": "2.638018,4.971939,-0.1481605",
+                              "Rotation": "-0.5641614,-0.4146661,0.5967607,-0.391983",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "8c2ceb12-b8f0-4e96-922b-48b6985fea1f",
                                   "Flags": 4,
                                   "Name": "LeftArm",
-                                  "Position": "0,0,0",
+                                  "Position": "-0.00001239777,5.566038,-0.000003814697",
+                                  "Rotation": "0.2781614,0.05689923,-0.01650893,0.9587054",
                                   "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true,
                                   "Children": [
                                     {
                                       "__guid": "d341aa7a-9e2f-4ac7-90f2-cf17449f780a",
                                       "Flags": 4,
                                       "Name": "LeftForeArm",
-                                      "Position": "0,0,0",
+                                      "Position": "-0.00001382828,8.463627,-0.00006866455",
+                                      "Rotation": "-0.03954544,-0.005976826,0.1493351,0.9879774",
                                       "Enabled": true,
-                                      "NetworkMode": 2,
-                                      "NetworkInterpolation": true,
                                       "Children": [
                                         {
                                           "__guid": "434d9a46-a29b-47a3-a169-47f416350b7b",
                                           "Flags": 4,
                                           "Name": "LeftHand",
-                                          "Position": "0,0,0",
+                                          "Position": "-0.00001144409,10.99329,-0.00002670288",
+                                          "Rotation": "-0.00613298,-0.07468568,-0.02355364,0.99691",
                                           "Enabled": true,
-                                          "NetworkMode": 2,
-                                          "NetworkInterpolation": true,
                                           "Children": [
                                             {
                                               "__guid": "d1078774-7a7b-4997-994d-9622f5b7f767",
                                               "Flags": 4,
                                               "Name": "LeftHandThumb1",
-                                              "Position": "0,0,0",
+                                              "Position": "-0.8544426,1.323871,0.6278267",
+                                              "Rotation": "0.1876772,0.03712675,0.190477,0.9628694",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "7d566bd7-9e66-4d16-9640-a00c941d9510",
                                                   "Flags": 4,
                                                   "Name": "LeftHandThumb2",
-                                                  "Position": "0,0,0",
+                                                  "Position": "-0.2288265,1.337471,-0.00008392334",
+                                                  "Rotation": "0.009351127,-0.000000007450912,0.00000008196003,0.9999564",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "7ee2c71e-d7eb-4c84-8b76-f34a28a86435",
                                                       "Flags": 4,
                                                       "Name": "LeftHandThumb3",
-                                                      "Position": "0,0,0",
+                                                      "Position": "0.07667732,1.460102,-0.00009536743",
+                                                      "Rotation": "-0.1421273,-0.00000005833423,-0.0000001957019,0.9898484",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "f24d90cb-dacd-4966-98a8-b98199146374",
                                                           "Flags": 4,
                                                           "Name": "LeftHandThumb4",
-                                                          "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Position": "0.1520672,1.235859,-0.00008392334",
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -321,37 +302,32 @@
                                               "__guid": "e413aa16-07e9-4253-a088-31ff3289f9b3",
                                               "Flags": 4,
                                               "Name": "LeftHandIndex1",
-                                              "Position": "0,0,0",
+                                              "Position": "-1.517254,4.109418,-0.01714325",
+                                              "Rotation": "0.1203274,-0.006572528,-0.05414354,0.9912349",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "daeb457f-0ce3-4bf5-a8ad-4d48879e479d",
                                                   "Flags": 4,
                                                   "Name": "LeftHandIndex2",
-                                                  "Position": "0,0,0",
+                                                  "Position": "0.05598354,1.239,-0.00005722046",
+                                                  "Rotation": "0.2258299,-0.00000007361356,-0.0000001185465,0.9741667",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "5f22b14a-98af-476b-9d28-963ce902e9d8",
                                                       "Flags": 4,
                                                       "Name": "LeftHandIndex3",
-                                                      "Position": "0,0,0",
+                                                      "Position": "-0.02502251,1.182386,-0.00009536743",
+                                                      "Rotation": "0.03746394,-0.00000001491164,-0.00000008946983,0.9992979",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "4a088835-51c9-485d-9ab8-c3cac5f2e5fd",
                                                           "Flags": 4,
                                                           "Name": "LeftHandIndex4",
-                                                          "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Position": "-0.03104591,0.9690361,-0.0001010895",
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -363,37 +339,32 @@
                                               "__guid": "e6b367ef-dbaa-4322-a1a2-4f031bb834a1",
                                               "Flags": 4,
                                               "Name": "LeftHandRing1",
-                                              "Position": "0,0,0",
+                                              "Position": "0.5057278,3.991746,0.01093674",
+                                              "Rotation": "0.2002451,-0.02233516,-0.1085783,0.9734546",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "151ac12c-aabd-47ed-ad4d-d59cce9edcb5",
                                                   "Flags": 4,
                                                   "Name": "LeftHandRing2",
-                                                  "Position": "0,0,0",
+                                                  "Position": "0.03573322,1.248182,-0.00008773804",
+                                                  "Rotation": "0.1566237,-0.0000000697791,-0.0000002300824,0.9876583",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "2d56ab86-201f-4be6-a671-e87e40405e41",
                                                       "Flags": 4,
                                                       "Name": "LeftHandRing3",
-                                                      "Position": "0,0,0",
+                                                      "Position": "0.003105164,1.123753,-0.00008583069",
+                                                      "Rotation": "-0.001418768,0.00000002793972,0.000000005587945,0.999999",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "3088f8eb-e030-4650-89cd-8e4a6b3926e2",
                                                           "Flags": 4,
                                                           "Name": "LeftHandRing4",
-                                                          "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Position": "-0.03891563,0.9431725,-0.00009727478",
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -413,73 +384,64 @@
                               "__guid": "377735d6-b442-4c71-ae2d-78b127e4e310",
                               "Flags": 4,
                               "Name": "RightShoulder",
-                              "Position": "0,0,0",
+                              "Position": "-2.637978,4.961815,-0.04233789",
+                              "Rotation": "0.576859,-0.4054377,0.5860547,0.3992415",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "1fae3ad3-8100-4229-a96c-f8a0e7b3aea3",
                                   "Flags": 4,
                                   "Name": "RightArm",
-                                  "Position": "0,0,0",
+                                  "Position": "0.000009059906,5.566009,-0.000007629395",
+                                  "Rotation": "0.2796684,-0.1237682,0.03638258,0.9513902",
                                   "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true,
                                   "Children": [
                                     {
                                       "__guid": "7d34e1e9-e39c-493e-ac1c-371fd472db38",
                                       "Flags": 4,
                                       "Name": "RightForeArm",
-                                      "Position": "0,0,0",
+                                      "Position": "0.00001049042,8.483753,0",
+                                      "Rotation": "-0.06449906,0.01102786,-0.1681716,0.9835835",
                                       "Enabled": true,
-                                      "NetworkMode": 2,
-                                      "NetworkInterpolation": true,
                                       "Children": [
                                         {
                                           "__guid": "2b7ae15e-8acf-455b-9e76-afc3aa61fccd",
                                           "Flags": 4,
                                           "Name": "RightHand",
-                                          "Position": "0,0,0",
+                                          "Position": "0.000003576279,11.00184,-0.00001144409",
+                                          "Rotation": "-0.009750876,0.1514594,0.02387047,0.9881271",
                                           "Enabled": true,
-                                          "NetworkMode": 2,
-                                          "NetworkInterpolation": true,
                                           "Children": [
                                             {
                                               "__guid": "78fcd0bc-a459-4f58-a2d8-12cec0f0d121",
                                               "Flags": 4,
                                               "Name": "RightHandThumb1",
-                                              "Position": "0,0,0",
+                                              "Position": "0.8695087,1.327286,0.6053352",
+                                              "Rotation": "0.1821755,-0.03331294,-0.1767683,0.9666723",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "fe2bc8f6-46d0-4186-85b6-0ed3331bd30a",
                                                   "Flags": 4,
                                                   "Name": "RightHandThumb2",
-                                                  "Position": "0,0,0",
+                                                  "Position": "0.2748432,1.330549,-0.0001144409",
+                                                  "Rotation": "0.00824628,-0.00000003585716,-0.0000001117626,0.999966",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "8cf9fb78-1c46-42ba-81b1-1e52480c58f1",
                                                       "Flags": 4,
                                                       "Name": "RightHandThumb3",
-                                                      "Position": "0,0,0",
+                                                      "Position": "-0.04036331,1.450994,-0.0001220703",
+                                                      "Rotation": "-0.06237454,0.0000001684318,-0.00000005225584,0.9980528",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "b13dfc2d-5056-47ba-b7d4-2b41b8177d83",
                                                           "Flags": 4,
                                                           "Name": "RightHandThumb4",
-                                                          "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Position": "-0.2344265,1.36517,-0.00003814697",
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -491,37 +453,32 @@
                                               "__guid": "d626d52f-09a4-4c6a-9ce4-2e03264d8a90",
                                               "Flags": 4,
                                               "Name": "RightHandIndex1",
-                                              "Position": "0,0,0",
+                                              "Position": "1.647778,4.408752,-0.04246521",
+                                              "Rotation": "0.163545,0.02101971,0.1257321,0.9782651",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "460e77da-cd67-4877-8fc1-ea78ade9699d",
                                                   "Flags": 4,
                                                   "Name": "RightHandIndex2",
-                                                  "Position": "0,0,0",
+                                                  "Position": "-0.01633453,1.208002,-0.00006866455",
+                                                  "Rotation": "0.1999347,0.00000003041647,-0.00000006558552,0.9798092",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "c5012577-8869-4ac6-a03a-99ab164a703e",
                                                       "Flags": 4,
                                                       "Name": "RightHandIndex3",
-                                                      "Position": "0,0,0",
+                                                      "Position": "0.005698204,1.092541,-0.00005912781",
+                                                      "Rotation": "0.07720855,0.000000003736446,-0.00000006725603,0.997015",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "a3441f14-3cda-4912-9813-70b09e85b65a",
                                                           "Flags": 4,
                                                           "Name": "RightHandIndex4",
-                                                          "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Position": "0.0106411,0.8747025,-0.0000295639",
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -533,41 +490,54 @@
                                               "__guid": "5fac47a7-34e0-42e8-9fd0-749b21dc034a",
                                               "Flags": 4,
                                               "Name": "RightHandRing1",
-                                              "Position": "0,0,0",
+                                              "Position": "-0.5492611,4.381688,0.004131317",
+                                              "Rotation": "0.2381193,0.02619343,0.1061576,0.9650615",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "efa2de33-fa97-4bf4-b30c-7f59f61852bf",
                                                   "Flags": 4,
                                                   "Name": "RightHandRing2",
-                                                  "Position": "0,0,0",
+                                                  "Position": "-0.03374958,1.147181,-0.00008964539",
+                                                  "Rotation": "0.15107,0.000000007537087,-0.0000001017507,0.988523",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "e90f4387-6113-44ea-b073-4540a55cbe2b",
                                                       "Flags": 4,
                                                       "Name": "RightHandRing3",
-                                                      "Position": "0,0,0",
+                                                      "Position": "-0.004810333,1.053711,-0.00004005432",
+                                                      "Rotation": "-0.07188633,0.00000001307234,-0.00000004668694,0.9974129",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "04f51736-709e-4433-b7d2-cecce65f2a61",
                                                           "Flags": 4,
                                                           "Name": "RightHandRing4",
-                                                          "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Position": "0.03857613,0.7880592,-0.00007820129",
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
                                                   ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "__guid": "b0e6490f-7af1-49c5-a906-66e0042f1970",
+                                              "Flags": 0,
+                                              "Name": "Cube",
+                                              "Position": "-1.94213,6.208215,1.099772",
+                                              "Rotation": "0.5123932,0.4777496,0.5697322,0.429668",
+                                              "Enabled": true,
+                                              "Components": [
+                                                {
+                                                  "__type": "Sandbox.ModelRenderer",
+                                                  "__guid": "e54e966c-05f1-49fc-89a2-00135c8bac42",
+                                                  "BodyGroups": 9493,
+                                                  "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
+                                                  "RenderType": "On",
+                                                  "Tint": "1,1,1,1"
                                                 }
                                               ]
                                             }
@@ -589,46 +559,40 @@
                   "__guid": "ceebeff7-ceb5-497e-8416-750bd74d01ed",
                   "Flags": 4,
                   "Name": "LeftUpLeg",
-                  "Position": "0,0,0",
+                  "Position": "4.118315,-2.195415,-0.4840594",
+                  "Rotation": "-0.0008999481,-0.02060331,0.9988348,-0.04363023",
                   "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
                   "Children": [
                     {
                       "__guid": "9564c87b-b58a-40aa-9577-92356d3af817",
                       "Flags": 4,
                       "Name": "LeftLeg",
-                      "Position": "0,0,0",
+                      "Position": "0.00001716614,15.03872,-0.00003743172",
+                      "Rotation": "-0.03062042,-0.0007093436,0.0231531,0.9992627",
                       "Enabled": true,
-                      "NetworkMode": 2,
-                      "NetworkInterpolation": true,
                       "Children": [
                         {
                           "__guid": "8856dcf8-c781-4e55-9563-2ab2c1356172",
                           "Flags": 4,
                           "Name": "LeftFoot",
-                          "Position": "0,0,0",
+                          "Position": "0.00001430511,14.3379,-0.00003552437",
+                          "Rotation": "0.4642861,0.00370004,-0.001939442,0.8856754",
                           "Enabled": true,
-                          "NetworkMode": 2,
-                          "NetworkInterpolation": true,
                           "Children": [
                             {
                               "__guid": "c4ae0753-26c5-4cbd-a1df-6a827e9b0fc2",
                               "Flags": 4,
                               "Name": "LeftToeBase",
-                              "Position": "0,0,0",
+                              "Position": "0.000007629395,7.545102,0.000002145767",
+                              "Rotation": "0.343287,-0.09716947,0.03573284,0.933507",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "c04192ae-ae18-4516-b795-ce349d36eb51",
                                   "Flags": 4,
                                   "Name": "LeftToe_End",
-                                  "Position": "0,0,0",
-                                  "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true
+                                  "Position": "0.000004291534,2.96084,0.000003755093",
+                                  "Enabled": true
                                 }
                               ]
                             }
@@ -642,46 +606,40 @@
                   "__guid": "171dd200-a9f8-474d-8438-c8ac6b13696a",
                   "Flags": 4,
                   "Name": "RightUpLeg",
-                  "Position": "0,0,0",
+                  "Position": "-4.118295,-2.195412,-0.3830568",
+                  "Rotation": "0.0009070277,-0.02076628,0.9988315,0.04362877",
                   "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
                   "Children": [
                     {
                       "__guid": "e3447e18-88db-478a-a1fa-073296fc21e2",
                       "Flags": 4,
                       "Name": "RightLeg",
-                      "Position": "0,0,0",
+                      "Position": "-0.0000295639,15.03894,-0.00002300739",
+                      "Rotation": "-0.03209999,0.0007434167,-0.02314241,0.9992164",
                       "Enabled": true,
-                      "NetworkMode": 2,
-                      "NetworkInterpolation": true,
                       "Children": [
                         {
                           "__guid": "e99f662b-d3ed-43c0-ac24-6e0e9ebfa4e5",
                           "Flags": 4,
                           "Name": "RightFoot",
-                          "Position": "0,0,0",
+                          "Position": "-0.0000243187,14.3428,-0.00002145767",
+                          "Rotation": "0.4641761,-0.00370745,0.001943457,0.885733",
                           "Enabled": true,
-                          "NetworkMode": 2,
-                          "NetworkInterpolation": true,
                           "Children": [
                             {
                               "__guid": "a2784a0a-a104-4282-b133-9e4a6e29adbc",
                               "Flags": 4,
                               "Name": "RightToeBase",
-                              "Position": "0,0,0",
+                              "Position": "-0.000007152557,7.514194,-0.000004410744",
+                              "Rotation": "0.3449,0.1004414,-0.03714871,0.9325103",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "857cfb4c-68ad-4a12-8684-08c042c2b0f3",
                                   "Flags": 4,
                                   "Name": "RightToe_End",
-                                  "Position": "0,0,0",
-                                  "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true
+                                  "Position": "-0.000008106232,2.839983,-0.000000834465",
+                                  "Enabled": true
                                 }
                               ]
                             }
@@ -702,8 +660,6 @@
           "Position": "51.22281,16.48056,-0.00000007075141",
           "Rotation": "0,0,-0.8668587,0.4985538",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Facepunch.PartyMember",
@@ -719,6 +675,7 @@
               "__type": "Sandbox.SkinnedModelRenderer",
               "__guid": "8d0c297b-31a9-46d2-a18c-75bee750ef63",
               "__enabled": false,
+              "AnimationGraph": "animgraphs/human_idle_player.vanmgrph",
               "BodyGroups": 18446744073709551615,
               "CreateBoneObjects": true,
               "Model": "models/player/t_side/t_side_player_01/t_side_player_01.vmdl",
@@ -734,8 +691,6 @@
               "Name": "Hips",
               "Position": "0,0,0",
               "Enabled": true,
-              "NetworkMode": 2,
-              "NetworkInterpolation": true,
               "Children": [
                 {
                   "__guid": "e1ac0497-4a9e-4a3f-9071-c0af7f58ebb8",
@@ -743,8 +698,6 @@
                   "Name": "Spine",
                   "Position": "0,0,0",
                   "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
                   "Children": [
                     {
                       "__guid": "e69289e5-eb73-4f44-8e18-765553b08d08",
@@ -752,8 +705,6 @@
                       "Name": "Spine1",
                       "Position": "0,0,0",
                       "Enabled": true,
-                      "NetworkMode": 2,
-                      "NetworkInterpolation": true,
                       "Children": [
                         {
                           "__guid": "dbd25339-4090-4dae-a520-c21910409f1e",
@@ -761,8 +712,6 @@
                           "Name": "Spine2",
                           "Position": "0,0,0",
                           "Enabled": true,
-                          "NetworkMode": 2,
-                          "NetworkInterpolation": true,
                           "Children": [
                             {
                               "__guid": "0c1d249e-2be2-4a51-916b-ba5a75340425",
@@ -770,8 +719,6 @@
                               "Name": "Neck",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "22577b11-e359-4be8-9c55-f818378b7232",
@@ -779,17 +726,13 @@
                                   "Name": "Head",
                                   "Position": "0,0,0",
                                   "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true,
                                   "Children": [
                                     {
                                       "__guid": "9993e3e4-ffdb-41c6-a816-1d706742e63c",
                                       "Flags": 4,
                                       "Name": "HeadTop_End",
                                       "Position": "0,0,0",
-                                      "Enabled": true,
-                                      "NetworkMode": 2,
-                                      "NetworkInterpolation": true
+                                      "Enabled": true
                                     }
                                   ]
                                 }
@@ -801,8 +744,6 @@
                               "Name": "LeftShoulder",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "652f6d06-d22c-41ff-8c4b-1f3d44785ceb",
@@ -810,8 +751,6 @@
                                   "Name": "LeftArm",
                                   "Position": "0,0,0",
                                   "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true,
                                   "Children": [
                                     {
                                       "__guid": "c480e7c4-f424-4869-a4d9-e480f2cc3600",
@@ -819,8 +758,6 @@
                                       "Name": "LeftForeArm",
                                       "Position": "0,0,0",
                                       "Enabled": true,
-                                      "NetworkMode": 2,
-                                      "NetworkInterpolation": true,
                                       "Children": [
                                         {
                                           "__guid": "0db29e38-23ad-4f86-bd82-5b960092da6f",
@@ -828,8 +765,6 @@
                                           "Name": "LeftHand",
                                           "Position": "0,0,0",
                                           "Enabled": true,
-                                          "NetworkMode": 2,
-                                          "NetworkInterpolation": true,
                                           "Children": [
                                             {
                                               "__guid": "f66eddf1-23f8-413d-b4fb-73c05bf6d529",
@@ -837,8 +772,6 @@
                                               "Name": "LeftHandThumb1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "36640565-68ee-4812-8b6a-05892dfcc7a4",
@@ -846,8 +779,6 @@
                                                   "Name": "LeftHandThumb2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "3b52f9ae-32cf-4f26-a111-e241c9124a48",
@@ -855,17 +786,13 @@
                                                       "Name": "LeftHandThumb3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "9ee4d03c-75b4-4701-b954-568b85443fdd",
                                                           "Flags": 4,
                                                           "Name": "LeftHandThumb4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -879,8 +806,6 @@
                                               "Name": "LeftHandIndex1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "535012f0-ddef-4f7c-b27b-3c07623b2d20",
@@ -888,8 +813,6 @@
                                                   "Name": "LeftHandIndex2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "0880b0b5-44dc-4a2d-b273-55f4867178c5",
@@ -897,17 +820,13 @@
                                                       "Name": "LeftHandIndex3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "29923db0-e551-4b37-9e72-8b08419984b6",
                                                           "Flags": 4,
                                                           "Name": "LeftHandIndex4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -921,8 +840,6 @@
                                               "Name": "LeftHandRing1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "044e2235-8057-4fd6-8584-80bf15e6b885",
@@ -930,8 +847,6 @@
                                                   "Name": "LeftHandRing2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "ee082bfd-d963-495d-87d2-96dfa04cd122",
@@ -939,17 +854,13 @@
                                                       "Name": "LeftHandRing3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "19449b80-cdc9-4de4-868d-6ff15f4804a7",
                                                           "Flags": 4,
                                                           "Name": "LeftHandRing4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -971,8 +882,6 @@
                               "Name": "RightShoulder",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "e88d88b9-198c-4fea-a502-c4b38e74fd07",
@@ -980,8 +889,6 @@
                                   "Name": "RightArm",
                                   "Position": "0,0,0",
                                   "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true,
                                   "Children": [
                                     {
                                       "__guid": "6753a0c2-8149-4cdf-b3ef-3e0808863b51",
@@ -989,8 +896,6 @@
                                       "Name": "RightForeArm",
                                       "Position": "0,0,0",
                                       "Enabled": true,
-                                      "NetworkMode": 2,
-                                      "NetworkInterpolation": true,
                                       "Children": [
                                         {
                                           "__guid": "e3f476c7-25b2-48c7-a248-47c3aa005dbd",
@@ -998,8 +903,6 @@
                                           "Name": "RightHand",
                                           "Position": "0,0,0",
                                           "Enabled": true,
-                                          "NetworkMode": 2,
-                                          "NetworkInterpolation": true,
                                           "Children": [
                                             {
                                               "__guid": "14829928-d3f9-4df1-85d4-27ba7ce0b57e",
@@ -1007,8 +910,6 @@
                                               "Name": "RightHandThumb1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "61328378-83aa-4184-bd27-ec5daca66a80",
@@ -1016,8 +917,6 @@
                                                   "Name": "RightHandThumb2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "1a30f25b-2dbe-4d10-b22c-0c1205ad948d",
@@ -1025,17 +924,13 @@
                                                       "Name": "RightHandThumb3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "7c352008-a8f8-4189-849c-b59834ec18df",
                                                           "Flags": 4,
                                                           "Name": "RightHandThumb4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -1049,8 +944,6 @@
                                               "Name": "RightHandIndex1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "55589eed-dbbb-4fd6-a827-b3f241184aaf",
@@ -1058,8 +951,6 @@
                                                   "Name": "RightHandIndex2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "d529353d-a38d-4ebd-9fc3-d914abf2ea93",
@@ -1067,17 +958,13 @@
                                                       "Name": "RightHandIndex3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "b63645c9-8130-4733-8c41-7bf333b817b6",
                                                           "Flags": 4,
                                                           "Name": "RightHandIndex4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -1091,8 +978,6 @@
                                               "Name": "RightHandRing1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "e3738e20-1bca-4f1a-89de-5a5d8a6c54b0",
@@ -1100,8 +985,6 @@
                                                   "Name": "RightHandRing2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "53bf8f2a-41fc-4c30-bccb-d81222610440",
@@ -1109,17 +992,13 @@
                                                       "Name": "RightHandRing3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "082a1a43-e3d1-4e7f-b896-34c95770a30c",
                                                           "Flags": 4,
                                                           "Name": "RightHandRing4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -1147,8 +1026,6 @@
                   "Name": "LeftUpLeg",
                   "Position": "0,0,0",
                   "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
                   "Children": [
                     {
                       "__guid": "67601e13-cbf7-4a0c-b985-93db71c56411",
@@ -1156,8 +1033,6 @@
                       "Name": "LeftLeg",
                       "Position": "0,0,0",
                       "Enabled": true,
-                      "NetworkMode": 2,
-                      "NetworkInterpolation": true,
                       "Children": [
                         {
                           "__guid": "4f16481f-47b1-43d5-948e-5b4c5d99967f",
@@ -1165,8 +1040,6 @@
                           "Name": "LeftFoot",
                           "Position": "0,0,0",
                           "Enabled": true,
-                          "NetworkMode": 2,
-                          "NetworkInterpolation": true,
                           "Children": [
                             {
                               "__guid": "a105fdc0-e49c-46c7-8921-3cf1d001ea84",
@@ -1174,17 +1047,13 @@
                               "Name": "LeftToeBase",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "0536bbf1-09e2-4a63-b32c-d4bbc80ccee9",
                                   "Flags": 4,
                                   "Name": "LeftToe_End",
                                   "Position": "0,0,0",
-                                  "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true
+                                  "Enabled": true
                                 }
                               ]
                             }
@@ -1200,8 +1069,6 @@
                   "Name": "RightUpLeg",
                   "Position": "0,0,0",
                   "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
                   "Children": [
                     {
                       "__guid": "22530f07-b572-482d-aaea-59981cb6f73a",
@@ -1209,8 +1076,6 @@
                       "Name": "RightLeg",
                       "Position": "0,0,0",
                       "Enabled": true,
-                      "NetworkMode": 2,
-                      "NetworkInterpolation": true,
                       "Children": [
                         {
                           "__guid": "8b5f14af-02a0-4cc6-a117-1157735758e4",
@@ -1218,8 +1083,6 @@
                           "Name": "RightFoot",
                           "Position": "0,0,0",
                           "Enabled": true,
-                          "NetworkMode": 2,
-                          "NetworkInterpolation": true,
                           "Children": [
                             {
                               "__guid": "a62013be-c825-4f5e-ab7f-04aae13d1f5d",
@@ -1227,17 +1090,13 @@
                               "Name": "RightToeBase",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "2af52ddc-782d-4dc8-bf4f-19e61dc0a7a7",
                                   "Flags": 4,
                                   "Name": "RightToe_End",
                                   "Position": "0,0,0",
-                                  "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true
+                                  "Enabled": true
                                 }
                               ]
                             }
@@ -1258,8 +1117,6 @@
           "Position": "-44.00322,41.37017,-0.00000007070776",
           "Rotation": "0,0,-0.6487275,0.7610207",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Facepunch.PartyMember",
@@ -1275,6 +1132,7 @@
               "__type": "Sandbox.SkinnedModelRenderer",
               "__guid": "92a956b7-f8c5-488e-9419-c890e7c02786",
               "__enabled": false,
+              "AnimationGraph": "animgraphs/human_idle_player.vanmgrph",
               "BodyGroups": 18446744073709551615,
               "CreateBoneObjects": true,
               "Model": "models/player/t_side/t_side_player_01/t_side_player_01.vmdl",
@@ -1290,8 +1148,6 @@
               "Name": "Hips",
               "Position": "0,0,0",
               "Enabled": true,
-              "NetworkMode": 2,
-              "NetworkInterpolation": true,
               "Children": [
                 {
                   "__guid": "d9ebebf0-66e5-4897-b9cf-5a1fc90e55e9",
@@ -1299,8 +1155,6 @@
                   "Name": "Spine",
                   "Position": "0,0,0",
                   "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
                   "Children": [
                     {
                       "__guid": "44511012-9421-482b-ae52-adfc83182495",
@@ -1308,8 +1162,6 @@
                       "Name": "Spine1",
                       "Position": "0,0,0",
                       "Enabled": true,
-                      "NetworkMode": 2,
-                      "NetworkInterpolation": true,
                       "Children": [
                         {
                           "__guid": "47fcf080-3cb7-451d-b4d1-9947e2f26c0b",
@@ -1317,8 +1169,6 @@
                           "Name": "Spine2",
                           "Position": "0,0,0",
                           "Enabled": true,
-                          "NetworkMode": 2,
-                          "NetworkInterpolation": true,
                           "Children": [
                             {
                               "__guid": "75af4eef-dd08-4472-a3b2-3aad808ceffa",
@@ -1326,8 +1176,6 @@
                               "Name": "Neck",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "b576436e-e38c-4d7f-98cc-fc216c862bd2",
@@ -1335,17 +1183,13 @@
                                   "Name": "Head",
                                   "Position": "0,0,0",
                                   "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true,
                                   "Children": [
                                     {
                                       "__guid": "4c36871d-134b-4ba8-9f32-76eec8e55c07",
                                       "Flags": 4,
                                       "Name": "HeadTop_End",
                                       "Position": "0,0,0",
-                                      "Enabled": true,
-                                      "NetworkMode": 2,
-                                      "NetworkInterpolation": true
+                                      "Enabled": true
                                     }
                                   ]
                                 }
@@ -1357,8 +1201,6 @@
                               "Name": "LeftShoulder",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "358e75e7-fe78-4e69-83c1-5a17e91be994",
@@ -1366,8 +1208,6 @@
                                   "Name": "LeftArm",
                                   "Position": "0,0,0",
                                   "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true,
                                   "Children": [
                                     {
                                       "__guid": "d48b03a9-aeda-474f-a263-39ce583b575a",
@@ -1375,8 +1215,6 @@
                                       "Name": "LeftForeArm",
                                       "Position": "0,0,0",
                                       "Enabled": true,
-                                      "NetworkMode": 2,
-                                      "NetworkInterpolation": true,
                                       "Children": [
                                         {
                                           "__guid": "9eff5f0a-64df-4b9f-a60f-42100dab4918",
@@ -1384,8 +1222,6 @@
                                           "Name": "LeftHand",
                                           "Position": "0,0,0",
                                           "Enabled": true,
-                                          "NetworkMode": 2,
-                                          "NetworkInterpolation": true,
                                           "Children": [
                                             {
                                               "__guid": "01d4a4d5-421e-4cc8-8e14-ff079fe9f828",
@@ -1393,8 +1229,6 @@
                                               "Name": "LeftHandThumb1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "2af8beac-885e-4b83-a4f8-05c1383d293a",
@@ -1402,8 +1236,6 @@
                                                   "Name": "LeftHandThumb2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "7e1ce524-0bdc-45dc-b5b1-ffe9f18ea6a1",
@@ -1411,17 +1243,13 @@
                                                       "Name": "LeftHandThumb3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "141109ef-3bcc-4458-8221-35c74e0f1333",
                                                           "Flags": 4,
                                                           "Name": "LeftHandThumb4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -1435,8 +1263,6 @@
                                               "Name": "LeftHandIndex1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "6ddd9b1a-6b34-4d85-be8e-d676dced4bc4",
@@ -1444,8 +1270,6 @@
                                                   "Name": "LeftHandIndex2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "dc3a737d-2e84-44e0-9f70-8c00bf913d69",
@@ -1453,17 +1277,13 @@
                                                       "Name": "LeftHandIndex3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "d0b75644-3512-4c2f-a586-0555dc08817e",
                                                           "Flags": 4,
                                                           "Name": "LeftHandIndex4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -1477,8 +1297,6 @@
                                               "Name": "LeftHandRing1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "190a587c-336d-4a01-9714-62d2c6e060ce",
@@ -1486,8 +1304,6 @@
                                                   "Name": "LeftHandRing2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "ab133274-f676-4549-bec7-bde6adf629a2",
@@ -1495,17 +1311,13 @@
                                                       "Name": "LeftHandRing3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "647eee1c-ee17-4b55-9ef9-cb34c26a70f6",
                                                           "Flags": 4,
                                                           "Name": "LeftHandRing4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -1527,8 +1339,6 @@
                               "Name": "RightShoulder",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "630d46b6-2728-49bf-9e3b-abb57ef360a1",
@@ -1536,8 +1346,6 @@
                                   "Name": "RightArm",
                                   "Position": "0,0,0",
                                   "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true,
                                   "Children": [
                                     {
                                       "__guid": "18df3f17-689c-4084-9a14-a00d442ec499",
@@ -1545,8 +1353,6 @@
                                       "Name": "RightForeArm",
                                       "Position": "0,0,0",
                                       "Enabled": true,
-                                      "NetworkMode": 2,
-                                      "NetworkInterpolation": true,
                                       "Children": [
                                         {
                                           "__guid": "64b7268a-761b-43c5-883b-21e97a927ab8",
@@ -1554,8 +1360,6 @@
                                           "Name": "RightHand",
                                           "Position": "0,0,0",
                                           "Enabled": true,
-                                          "NetworkMode": 2,
-                                          "NetworkInterpolation": true,
                                           "Children": [
                                             {
                                               "__guid": "8650d65d-cd3f-4fde-bce9-92b87b2733ee",
@@ -1563,8 +1367,6 @@
                                               "Name": "RightHandThumb1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "22a0488e-89ea-4374-9d5a-7eedb25707c1",
@@ -1572,8 +1374,6 @@
                                                   "Name": "RightHandThumb2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "b73bd0ef-a6db-4395-9c48-594db7e5022c",
@@ -1581,17 +1381,13 @@
                                                       "Name": "RightHandThumb3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "d248c70e-4a91-4100-884f-77c270bc0e20",
                                                           "Flags": 4,
                                                           "Name": "RightHandThumb4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -1605,8 +1401,6 @@
                                               "Name": "RightHandIndex1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "f639cfa2-885a-4b94-a8dd-5c120d91c910",
@@ -1614,8 +1408,6 @@
                                                   "Name": "RightHandIndex2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "263c452c-217f-4187-b8bd-35eabc7d0cde",
@@ -1623,17 +1415,13 @@
                                                       "Name": "RightHandIndex3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "d5b3204c-39e5-4efe-bab8-8be733ac8de3",
                                                           "Flags": 4,
                                                           "Name": "RightHandIndex4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -1647,8 +1435,6 @@
                                               "Name": "RightHandRing1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "4602056e-7e86-4874-909b-ccf8b78243ac",
@@ -1656,8 +1442,6 @@
                                                   "Name": "RightHandRing2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "a91d1ebf-94a5-4bdf-8d3a-66a62bd1a9cd",
@@ -1665,17 +1449,13 @@
                                                       "Name": "RightHandRing3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "4e59e72e-5253-406b-a896-b2ac17cc2a54",
                                                           "Flags": 4,
                                                           "Name": "RightHandRing4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -1703,8 +1483,6 @@
                   "Name": "LeftUpLeg",
                   "Position": "0,0,0",
                   "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
                   "Children": [
                     {
                       "__guid": "c7c7a12c-6b17-4cdf-968b-a1ee4cfce9ae",
@@ -1712,8 +1490,6 @@
                       "Name": "LeftLeg",
                       "Position": "0,0,0",
                       "Enabled": true,
-                      "NetworkMode": 2,
-                      "NetworkInterpolation": true,
                       "Children": [
                         {
                           "__guid": "5d39a643-0c6a-430e-b8ee-28e8ad80a34b",
@@ -1721,8 +1497,6 @@
                           "Name": "LeftFoot",
                           "Position": "0,0,0",
                           "Enabled": true,
-                          "NetworkMode": 2,
-                          "NetworkInterpolation": true,
                           "Children": [
                             {
                               "__guid": "fe649cfc-f773-4015-b517-aa65b706e558",
@@ -1730,17 +1504,13 @@
                               "Name": "LeftToeBase",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "5f8a57fc-928f-48b7-a8a1-34bd010cb047",
                                   "Flags": 4,
                                   "Name": "LeftToe_End",
                                   "Position": "0,0,0",
-                                  "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true
+                                  "Enabled": true
                                 }
                               ]
                             }
@@ -1756,8 +1526,6 @@
                   "Name": "RightUpLeg",
                   "Position": "0,0,0",
                   "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
                   "Children": [
                     {
                       "__guid": "49bb157c-bcda-4322-950a-7b07ff1247bb",
@@ -1765,8 +1533,6 @@
                       "Name": "RightLeg",
                       "Position": "0,0,0",
                       "Enabled": true,
-                      "NetworkMode": 2,
-                      "NetworkInterpolation": true,
                       "Children": [
                         {
                           "__guid": "49688de8-df8a-45e3-86d3-159f4658f9ce",
@@ -1774,8 +1540,6 @@
                           "Name": "RightFoot",
                           "Position": "0,0,0",
                           "Enabled": true,
-                          "NetworkMode": 2,
-                          "NetworkInterpolation": true,
                           "Children": [
                             {
                               "__guid": "6faf5c4c-066d-400d-9dcb-9cbe072f942a",
@@ -1783,17 +1547,13 @@
                               "Name": "RightToeBase",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "fbc1d7ce-fbee-48d6-80fa-316c1d5e1b7c",
                                   "Flags": 4,
                                   "Name": "RightToe_End",
                                   "Position": "0,0,0",
-                                  "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true
+                                  "Enabled": true
                                 }
                               ]
                             }
@@ -1814,8 +1574,6 @@
           "Position": "86.98792,-22.73626,-0.00000000001455192",
           "Rotation": "0,0,-0.9293294,0.3692517",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Facepunch.PartyMember",
@@ -1831,6 +1589,7 @@
               "__type": "Sandbox.SkinnedModelRenderer",
               "__guid": "6897caf1-e212-41ce-b78e-3497e8de0217",
               "__enabled": false,
+              "AnimationGraph": "animgraphs/human_idle_player.vanmgrph",
               "BodyGroups": 18446744073709551615,
               "CreateBoneObjects": true,
               "Model": "models/player/t_side/t_side_player_01/t_side_player_01.vmdl",
@@ -1846,8 +1605,6 @@
               "Name": "Hips",
               "Position": "0,0,0",
               "Enabled": true,
-              "NetworkMode": 2,
-              "NetworkInterpolation": true,
               "Children": [
                 {
                   "__guid": "0c3b0315-0ef6-4a6b-a885-fddbd9517830",
@@ -1855,8 +1612,6 @@
                   "Name": "Spine",
                   "Position": "0,0,0",
                   "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
                   "Children": [
                     {
                       "__guid": "fb2e885c-ea5e-470c-a6dd-33827e7ba18d",
@@ -1864,8 +1619,6 @@
                       "Name": "Spine1",
                       "Position": "0,0,0",
                       "Enabled": true,
-                      "NetworkMode": 2,
-                      "NetworkInterpolation": true,
                       "Children": [
                         {
                           "__guid": "1df2dd88-f495-4962-90e6-7bc13f6065ff",
@@ -1873,8 +1626,6 @@
                           "Name": "Spine2",
                           "Position": "0,0,0",
                           "Enabled": true,
-                          "NetworkMode": 2,
-                          "NetworkInterpolation": true,
                           "Children": [
                             {
                               "__guid": "f86f3207-0131-4af0-a985-ae8ecf4284d9",
@@ -1882,8 +1633,6 @@
                               "Name": "Neck",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "382b7423-96c6-4242-afe5-5972f88cae50",
@@ -1891,17 +1640,13 @@
                                   "Name": "Head",
                                   "Position": "0,0,0",
                                   "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true,
                                   "Children": [
                                     {
                                       "__guid": "c2a000a5-7b3f-494e-a339-7f882513041b",
                                       "Flags": 4,
                                       "Name": "HeadTop_End",
                                       "Position": "0,0,0",
-                                      "Enabled": true,
-                                      "NetworkMode": 2,
-                                      "NetworkInterpolation": true
+                                      "Enabled": true
                                     }
                                   ]
                                 }
@@ -1913,8 +1658,6 @@
                               "Name": "LeftShoulder",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "98202ef0-a08b-4bb9-bbd0-657407aa488e",
@@ -1922,8 +1665,6 @@
                                   "Name": "LeftArm",
                                   "Position": "0,0,0",
                                   "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true,
                                   "Children": [
                                     {
                                       "__guid": "bf08a923-810e-4558-b49a-27ba7ecd6741",
@@ -1931,8 +1672,6 @@
                                       "Name": "LeftForeArm",
                                       "Position": "0,0,0",
                                       "Enabled": true,
-                                      "NetworkMode": 2,
-                                      "NetworkInterpolation": true,
                                       "Children": [
                                         {
                                           "__guid": "49a92927-69f1-452d-9379-ba3dea43d399",
@@ -1940,8 +1679,6 @@
                                           "Name": "LeftHand",
                                           "Position": "0,0,0",
                                           "Enabled": true,
-                                          "NetworkMode": 2,
-                                          "NetworkInterpolation": true,
                                           "Children": [
                                             {
                                               "__guid": "82b119cf-4d87-4681-80f0-f93890add44f",
@@ -1949,8 +1686,6 @@
                                               "Name": "LeftHandThumb1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "fde2a802-b177-4862-bad3-7acd50bb6e3b",
@@ -1958,8 +1693,6 @@
                                                   "Name": "LeftHandThumb2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "f3ad00c3-90d6-435b-ad4b-414e807259a0",
@@ -1967,17 +1700,13 @@
                                                       "Name": "LeftHandThumb3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "cca7945e-3735-4607-a9ba-a33f09b85c86",
                                                           "Flags": 4,
                                                           "Name": "LeftHandThumb4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -1991,8 +1720,6 @@
                                               "Name": "LeftHandIndex1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "3ce44938-734c-4f0a-b505-74be90fa9626",
@@ -2000,8 +1727,6 @@
                                                   "Name": "LeftHandIndex2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "fdf675f7-13b3-4054-9866-dedbee44332c",
@@ -2009,17 +1734,13 @@
                                                       "Name": "LeftHandIndex3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "7a095bfa-d2ad-47ad-ae32-c435d5877da6",
                                                           "Flags": 4,
                                                           "Name": "LeftHandIndex4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -2033,8 +1754,6 @@
                                               "Name": "LeftHandRing1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "75253a60-513a-457b-b3ee-af0ace8c8e99",
@@ -2042,8 +1761,6 @@
                                                   "Name": "LeftHandRing2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "00c751bc-b151-4fe2-a46e-aa11720f6ff8",
@@ -2051,17 +1768,13 @@
                                                       "Name": "LeftHandRing3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "4e93ccbd-eac9-4ccf-b737-aaf73aa3f80d",
                                                           "Flags": 4,
                                                           "Name": "LeftHandRing4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -2083,8 +1796,6 @@
                               "Name": "RightShoulder",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "fd301866-0ce4-44f3-ad27-0edb48b77270",
@@ -2092,8 +1803,6 @@
                                   "Name": "RightArm",
                                   "Position": "0,0,0",
                                   "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true,
                                   "Children": [
                                     {
                                       "__guid": "a87346cb-6ff7-4f2e-8d1a-3cd686e74da6",
@@ -2101,8 +1810,6 @@
                                       "Name": "RightForeArm",
                                       "Position": "0,0,0",
                                       "Enabled": true,
-                                      "NetworkMode": 2,
-                                      "NetworkInterpolation": true,
                                       "Children": [
                                         {
                                           "__guid": "e197faa9-9298-489a-8308-4dbe4b538f1f",
@@ -2110,8 +1817,6 @@
                                           "Name": "RightHand",
                                           "Position": "0,0,0",
                                           "Enabled": true,
-                                          "NetworkMode": 2,
-                                          "NetworkInterpolation": true,
                                           "Children": [
                                             {
                                               "__guid": "6c1f4b4e-df3e-4f96-828a-1efb6e66a6ba",
@@ -2119,8 +1824,6 @@
                                               "Name": "RightHandThumb1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "b6b96d82-fb00-42ae-83c1-610e3bf012bc",
@@ -2128,8 +1831,6 @@
                                                   "Name": "RightHandThumb2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "2bc94499-d9bc-49b8-86a8-a2ccef98ab6a",
@@ -2137,17 +1838,13 @@
                                                       "Name": "RightHandThumb3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "16f885b3-4e03-49d5-accc-d27bfc5dd97d",
                                                           "Flags": 4,
                                                           "Name": "RightHandThumb4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -2161,8 +1858,6 @@
                                               "Name": "RightHandIndex1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "a5dc75d9-0290-46c3-8327-8ef26c111542",
@@ -2170,8 +1865,6 @@
                                                   "Name": "RightHandIndex2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "b5c50217-d9a0-4c57-a669-ef62f0d5d76e",
@@ -2179,17 +1872,13 @@
                                                       "Name": "RightHandIndex3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "9d02ea9e-cdf8-4a78-b663-1030cc82b575",
                                                           "Flags": 4,
                                                           "Name": "RightHandIndex4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -2203,8 +1892,6 @@
                                               "Name": "RightHandRing1",
                                               "Position": "0,0,0",
                                               "Enabled": true,
-                                              "NetworkMode": 2,
-                                              "NetworkInterpolation": true,
                                               "Children": [
                                                 {
                                                   "__guid": "ffa7068c-a746-4c00-b06d-ac0f50633cfc",
@@ -2212,8 +1899,6 @@
                                                   "Name": "RightHandRing2",
                                                   "Position": "0,0,0",
                                                   "Enabled": true,
-                                                  "NetworkMode": 2,
-                                                  "NetworkInterpolation": true,
                                                   "Children": [
                                                     {
                                                       "__guid": "b4c38518-745e-484e-91f2-68e3ff07cecd",
@@ -2221,17 +1906,13 @@
                                                       "Name": "RightHandRing3",
                                                       "Position": "0,0,0",
                                                       "Enabled": true,
-                                                      "NetworkMode": 2,
-                                                      "NetworkInterpolation": true,
                                                       "Children": [
                                                         {
                                                           "__guid": "ac37f047-634f-48ed-a011-ffdc25803049",
                                                           "Flags": 4,
                                                           "Name": "RightHandRing4",
                                                           "Position": "0,0,0",
-                                                          "Enabled": true,
-                                                          "NetworkMode": 2,
-                                                          "NetworkInterpolation": true
+                                                          "Enabled": true
                                                         }
                                                       ]
                                                     }
@@ -2259,8 +1940,6 @@
                   "Name": "LeftUpLeg",
                   "Position": "0,0,0",
                   "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
                   "Children": [
                     {
                       "__guid": "f1598f0e-f6e1-47b9-bd94-99e14a74cc59",
@@ -2268,8 +1947,6 @@
                       "Name": "LeftLeg",
                       "Position": "0,0,0",
                       "Enabled": true,
-                      "NetworkMode": 2,
-                      "NetworkInterpolation": true,
                       "Children": [
                         {
                           "__guid": "3454c5cd-c889-4534-9d96-f9f2e10df752",
@@ -2277,8 +1954,6 @@
                           "Name": "LeftFoot",
                           "Position": "0,0,0",
                           "Enabled": true,
-                          "NetworkMode": 2,
-                          "NetworkInterpolation": true,
                           "Children": [
                             {
                               "__guid": "ad2a923e-7b19-4ac9-b5d0-194f912379d2",
@@ -2286,17 +1961,13 @@
                               "Name": "LeftToeBase",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "46d47e1c-d000-4c1d-bc4b-78ae66cb4a72",
                                   "Flags": 4,
                                   "Name": "LeftToe_End",
                                   "Position": "0,0,0",
-                                  "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true
+                                  "Enabled": true
                                 }
                               ]
                             }
@@ -2312,8 +1983,6 @@
                   "Name": "RightUpLeg",
                   "Position": "0,0,0",
                   "Enabled": true,
-                  "NetworkMode": 2,
-                  "NetworkInterpolation": true,
                   "Children": [
                     {
                       "__guid": "f36eb964-c471-4547-b6f5-fb2b006d3efd",
@@ -2321,8 +1990,6 @@
                       "Name": "RightLeg",
                       "Position": "0,0,0",
                       "Enabled": true,
-                      "NetworkMode": 2,
-                      "NetworkInterpolation": true,
                       "Children": [
                         {
                           "__guid": "259c7eb8-51a2-42ea-a19b-849136cdf8fd",
@@ -2330,8 +1997,6 @@
                           "Name": "RightFoot",
                           "Position": "0,0,0",
                           "Enabled": true,
-                          "NetworkMode": 2,
-                          "NetworkInterpolation": true,
                           "Children": [
                             {
                               "__guid": "6ed83eed-966b-4c0e-912a-26f2907ef8d4",
@@ -2339,17 +2004,13 @@
                               "Name": "RightToeBase",
                               "Position": "0,0,0",
                               "Enabled": true,
-                              "NetworkMode": 2,
-                              "NetworkInterpolation": true,
                               "Children": [
                                 {
                                   "__guid": "96ac2e55-3219-4dc0-9a80-5133db006627",
                                   "Flags": 4,
                                   "Name": "RightToe_End",
                                   "Position": "0,0,0",
-                                  "Enabled": true,
-                                  "NetworkMode": 2,
-                                  "NetworkInterpolation": true
+                                  "Enabled": true
                                 }
                               ]
                             }
@@ -2389,8 +2050,9 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-07-01T17:42:10.2706036\u002B01:00",
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.w_usp"
+  ],
   "__version": 1
 }
