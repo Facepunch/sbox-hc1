@@ -102,8 +102,8 @@ public sealed class AnimationHelper : Component
 		Target.Set( "move_direction", angle );
 		Target.Set( "move_speed", Velocity.Length );
 		Target.Set( "move_groundspeed", Velocity.WithZ( 0 ).Length );
-		Target.Set( "move_y", sideward );
-		Target.Set( "move_x", forward );
+		Target.Set( "move_y", sideward.LerpInverse( 0, 225, false ) );
+		Target.Set( "move_x", forward.LerpInverse( 0, 225, false ) );
 		Target.Set( "move_z", Velocity.z );
 	}
 
