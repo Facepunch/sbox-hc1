@@ -5,8 +5,6 @@
     "Name": "w_spaghelli",
     "Tags": "player",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Facepunch.Equipment",
@@ -45,12 +43,9 @@
         "__guid": "092bf9bf-6f26-4ec8-844b-c1e3d184478a",
         "Flags": 0,
         "Name": "Model",
-        "Position": "6.886,0,-7.335",
-        "Rotation": "0,-0.01657987,0,0.9998626",
-        "Scale": "1.2,1.2,1.2",
+        "Position": "-1.734847,-1.448787,-2.061305",
+        "Rotation": "0.2558626,-0.5530001,0.2399593,-0.7557409",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
@@ -69,18 +64,14 @@
             "Flags": 0,
             "Name": "Muzzle",
             "Position": "0,0,0",
-            "Enabled": true,
-            "NetworkMode": 2,
-            "NetworkInterpolation": true
+            "Enabled": true
           },
           {
             "__guid": "8010d538-161c-486a-9781-1e812c0cc52d",
             "Flags": 0,
             "Name": "EjectionPort",
             "Position": "-0.2785015,-1.175216,6.871462",
-            "Enabled": true,
-            "NetworkMode": 2,
-            "NetworkInterpolation": true
+            "Enabled": true
           }
         ]
       },
@@ -89,8 +80,6 @@
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Facepunch.AmmoComponent",
@@ -133,18 +122,21 @@
             "BulletCount": 10,
             "BulletSize": 1,
             "BulletSpread": 0.13,
-            "DryFireDelay": 1,
+            "BurstAmount": 3,
+            "BurstEndDelay": 0.2,
+            "CurrentFireMode": "Automatic",
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
+            "DryShootDelay": 0.15,
             "EjectionPrefab": {
               "_type": "gameobject",
               "prefab": "prefabs/weapon_effects/12g_casing.prefab"
             },
+            "FireModeSwitchDelay": 0.3,
             "FireRate": 175,
             "InAirSpreadMultiplier": 2,
             "InputActions": [
               "Attack1"
             ],
-            "InputType": "Pressed",
             "MaxEffectsPlayDistance": 4194304,
             "MaxRange": 1024000,
             "MaxRicochetAngle": 45,
@@ -158,6 +150,9 @@
             "RequiresAmmoComponent": true,
             "RicochetMaxHits": 2,
             "ShootSound": "sounds/guns/r870/shotgun1_shoot.sound",
+            "SupportedFireModes": [
+              "Automatic"
+            ],
             "VelocitySpreadScale": 0.25
           },
           {
@@ -174,7 +169,6 @@
             "InputActions": [
               "Reload"
             ],
-            "InputType": "Pressed",
             "ReloadTime": 0.5,
             "RequiresAllInputActions": false,
             "SingleReload": true,
@@ -202,7 +196,6 @@
             "InputActions": [
               "Attack2"
             ],
-            "InputType": "Down",
             "RequiresAllInputActions": false
           },
           {
