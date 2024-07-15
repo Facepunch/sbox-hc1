@@ -23,11 +23,6 @@ public sealed class PlayerOutfit
 	public List<string> DiscardSubcategories { get; set; } = new();
 
 	/// <summary>
-	/// Handle the helmet separately, this'll get applied only when the player has a helmet purchased.
-	/// </summary>
-	[Property] public Clothing Helmet { get; set; }
-
-	/// <summary>
 	/// Wear the outfit
 	/// </summary>
 	/// <param name="outfitter"></param>
@@ -61,13 +56,6 @@ public sealed class PlayerOutfit
 		// Take off the hat
 		if ( hat is not null )
 			container.Toggle( hat.Clothing );
-
-		// Do we have a helmet?
-		if ( outfitter.PlayerPawn.ArmorComponent.HasHelmet )
-		{
-			// Turn on our helmet override
-			container.Toggle( Helmet );
-		}
 
 		// Apply to player
 		container.Apply( outfitter.Body.Renderer );
@@ -108,7 +96,6 @@ public sealed class TeamOutfits
 /// A component that handles what a player wears.
 /// </summary>
 public partial class PlayerOutfitter : Component, Component.INetworkSpawn, 
-	IGameEventHandler<HelmetChangedEvent>,
 	IGameEventHandler<TeamChangedEvent>
 {
 	/// <summary>
@@ -214,57 +201,6 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn,
 	public void OnNetworkSpawn( Connection owner )
 	{
 		Avatar = owner.GetUserData( "avatar" );
-	}
-
-	/// <summary>
-	/// Called when the player's helmet state has changed.
-	/// </summary>
-	/// <param name="eventArgs"></param>
-	void IGameEventHandler<HelmetChangedEvent>.OnGameEvent( HelmetChangedEvent eventArgs )
-	{
-		if ( PlayerPawn?.HealthComponent?.State != LifeState.Alive )
-			return;
-
-		if ( eventArgs.HasHelmet )
-		{
-			UpdateCurrent();
-		}
-		else
-		{
-			if ( !EnableHelmetPhysics )
-			{
-				UpdateCurrent();
-			}
-			else
-			{
-				var player = PlayerPawn;
-				var helmetRenderer = player.Body.Components.GetAll<SkinnedModelRenderer>()
-					.FirstOrDefault( x => x.Model.ResourcePath == CurrentOutfit.Helmet.Model );
-
-				if ( !helmetRenderer.IsValid() )
-					return;
-
-				helmetRenderer.GameObject.SetParent( null );
-				helmetRenderer.GameObject.Tags.Add( "no_player" );
-				helmetRenderer.BoneMergeTarget = null;
-
-				var phys = helmetRenderer.Components.Create<SphereCollider>();
-				phys.Radius = 10f;
-				phys.Center = new( 0, 0, 64 );
-
-				var rb = helmetRenderer.Components.Create<Rigidbody>();
-				rb.RigidbodyFlags |= RigidbodyFlags.DisableCollisionSounds;
-
-				var destroy = helmetRenderer.Components.Create<TimedDestroyComponent>();
-				destroy.Time = 5;
-
-				var rot = player.EyeAngles.ToRotation();
-
-				// Kinda just cheesy random values to make it look good
-				rb.Velocity = Vector3.Up * 100f + rot.Left * 25f + rot.Backward * 100f;
-				rb.AngularVelocity = rot.Backward * 10f;
-			}
-		}
 	}
 
 	void IGameEventHandler<TeamChangedEvent>.OnGameEvent( TeamChangedEvent eventArgs )
