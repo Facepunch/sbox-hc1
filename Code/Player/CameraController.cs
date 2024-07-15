@@ -107,10 +107,14 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 	}
 
 	float walkBob = 0;
-
-	Rotation lerpedRotation = Rotation.Identity;
-
 	private float LerpBobSpeed = 0;
+
+	[DeveloperCommand( "Toggle Third Person", "Player" )]
+	public static void ToggleThirdPerson()
+	{
+		var pl = PlayerState.Local.PlayerPawn;
+		pl.CameraController.Mode = pl.CameraController.Mode == CameraMode.FirstPerson ? CameraMode.ThirdPerson : CameraMode.FirstPerson;
+	}
 
 	/// <summary>
 	/// Bob the view!
