@@ -61,7 +61,10 @@ public partial class PlayerPawn
 		}
 
 		var viewer = PlayerState.Viewer;
-		return !viewer.IsValid() || Team == viewer.Team;
+		if ( viewer.IsValid() )
+			return Team == viewer.Team;
+
+		return false;
 	}
 
 	private void UpdateOutline()
