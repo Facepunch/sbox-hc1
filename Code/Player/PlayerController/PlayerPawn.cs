@@ -48,11 +48,6 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	[Property] public CameraComponent ViewModelCamera { get; set; }
 
 	/// <summary>
-	/// Handles the player's outfit
-	/// </summary>
-	[Property] public PlayerOutfitter Outfitter { get; set; }
-
-	/// <summary>
 	/// Get a quick reference to the real Camera GameObject.
 	/// </summary>
 	public GameObject CameraGameObject => CameraController.Camera.GameObject;
