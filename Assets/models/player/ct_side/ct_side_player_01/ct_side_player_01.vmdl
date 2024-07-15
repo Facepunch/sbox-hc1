@@ -14,8 +14,24 @@
 						remaps = 
 						[
 							{
+								from = "body_01.vmat"
+								to = "models/humans/bodies/maledark/playermodelbody_maledark.vmat"
+							},
+							{
+								from = "body_eyes.vmat"
+								to = "models/humans/misc/playermodeleyes_light.vmat"
+							},
+							{
+								from = "head.vmat"
+								to = "models/humans/heads/adam/playermodelhead_adam.vmat"
+							},
+							{
 								from = "officer_outfit_bags.vmat"
 								to = "models/player/ct_side/ct_side_player_01/ct_bags.vmat"
+							},
+							{
+								from = "officer_outfit_hat.vmat"
+								to = "models/player/ct_side/ct_side_player_01/ct_hat.vmat"
 							},
 							{
 								from = "officer_outfit_lower.vmat"
@@ -24,22 +40,6 @@
 							{
 								from = "officer_outfit_upper.vmat"
 								to = "models/player/ct_side/ct_side_player_01/ct_upper.vmat"
-							},
-							{
-								from = "officer_outfit_hat.vmat"
-								to = "models/player/ct_side/ct_side_player_01/ct_hat.vmat"
-							},
-							{
-								from = "body_eyes.vmat"
-								to = "models/humans/misc/playermodeleyes_light.vmat"
-							},
-							{
-								from = "body_01.vmat"
-								to = "models/humans/bodies/maledark/playermodelbody_maledark.vmat"
-							},
-							{
-								from = "head.vmat"
-								to = "models/humans/heads/adam/playermodelhead_adam.vmat"
 							},
 						]
 						use_global_default = false
@@ -63,36 +63,102 @@
 						parent_bone = ""
 						import_filter = 
 						{
-							exclude_by_default = true
-							exception_list = 
-							[
-								"hat_low",
-								"cuff_low",
-								"radio_low",
-								"mace_low",
-								"holster_low",
-								"mace_holder_low",
-								"upper_low",
-								"gloves_low",
-								"buttons_low",
-								"strap_low",
-								"shoes_low",
-								"lace_low",
-								"lace_ends_low",
-								"pasted__lace_hold_low",
-								"lower_low",
-								"body",
-								"eyes",
-								"bags_low",
-							]
+							exclude_by_default = false
+							exception_list = [  ]
 						}
+					},
+				]
+			},
+			{
+				_class = "ModelModifierList"
+				children = 
+				[
+					{
+						_class = "ModelModifier_ScaleAndMirror"
+						scale = 0.3937
+						mirror_x = false
+						mirror_y = false
+						mirror_z = false
+						flip_bone_forward = false
+						swap_left_and_right_bones = false
+					},
+				]
+			},
+			{
+				_class = "AnimationList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/player/prefabs/prefab_animation_list.vmdl_prefab"
+					},
+				]
+				default_root_bone_name = ""
+			},
+			{
+				_class = "WeightListList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/player/t_side/t_side_player_01/prefabs/prefab_weight_lists.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "GameDataList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/player/t_side/t_side_player_01/prefabs/prefab_game_data_list.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/player/t_side/t_side_player_01/prefabs/prefab_attachment_list.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "HitboxSetList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/player/prefabs/prefab_hitbox_set_list.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/player/prefabs/prefab_physics_shape_list.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "PhysicsJointList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/player/prefabs/prefab_physics_joint_list.vmdl_prefab"
 					},
 				]
 			},
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
-		anim_graph_name = ""
+		anim_graph_name = "animgraphs/human_player.vanmgrph"
 		base_model_name = ""
 	}
 }
