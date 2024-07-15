@@ -9,20 +9,62 @@
 			{
 				key = 
 				{
-					m_id = 350378380
+					m_id = 30021948
 				}
 				value = 
 				{
 					_class = "CSequenceAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -496.0, -16.0 ]
+					m_vecPosition = [ 21.473066, 98.358437 ]
 					m_nNodeID = 
 					{
-						m_id = 350378380
+						m_id = 30021948
 					}
 					m_sNote = ""
 					m_tagSpans = [  ]
-					m_sequenceName = "idle_03"
+					m_sequenceName = "hold_knife"
+					m_playbackSpeed = 1.0
+					m_bLoop = false
+				}
+			},
+			{
+				key = 
+				{
+					m_id = 278524626
+				}
+				value = 
+				{
+					_class = "CSequenceAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -192.0, 240.0 ]
+					m_nNodeID = 
+					{
+						m_id = 278524626
+					}
+					m_sNote = ""
+					m_tagSpans = [  ]
+					m_sequenceName = "idle_leaning"
+					m_playbackSpeed = 1.0
+					m_bLoop = false
+				}
+			},
+			{
+				key = 
+				{
+					m_id = 480043168
+				}
+				value = 
+				{
+					_class = "CSequenceAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -452.977356, -71.820808 ]
+					m_nNodeID = 
+					{
+						m_id = 480043168
+					}
+					m_sNote = ""
+					m_tagSpans = [  ]
+					m_sequenceName = "hold_rifle"
 					m_playbackSpeed = 1.0
 					m_bLoop = false
 				}
@@ -36,7 +78,7 @@
 				{
 					_class = "CSelectorAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -16.0, -96.0 ]
+					m_vecPosition = [ -32.0, -96.0 ]
 					m_nNodeID = 
 					{
 						m_id = 585437185
@@ -67,7 +109,7 @@
 						{
 							m_nodeID = 
 							{
-								m_id = 4294967295
+								m_id = 30021948
 							}
 							m_outputID = 
 							{
@@ -84,9 +126,35 @@
 								m_id = 4294967295
 							}
 						},
+						{
+							m_nodeID = 
+							{
+								m_id = 1058066686
+							}
+							m_outputID = 
+							{
+								m_id = 4294967295
+							}
+						},
+						{
+							m_nodeID = 
+							{
+								m_id = 278524626
+							}
+							m_outputID = 
+							{
+								m_id = 4294967295
+							}
+						},
 					]
 					m_tags = 
 					[
+						{
+							m_id = 4294967295
+						},
+						{
+							m_id = 4294967295
+						},
 						{
 							m_id = 4294967295
 						},
@@ -204,6 +272,27 @@
 					m_sNote = ""
 					m_tagSpans = [  ]
 					m_sequenceName = "idle_pistol_01"
+					m_playbackSpeed = 1.0
+					m_bLoop = false
+				}
+			},
+			{
+				key = 
+				{
+					m_id = 1058066686
+				}
+				value = 
+				{
+					_class = "CSequenceAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ 57.46624, 27.49688 ]
+					m_nNodeID = 
+					{
+						m_id = 1058066686
+					}
+					m_sNote = ""
+					m_tagSpans = [  ]
+					m_sequenceName = "sitting_idle"
 					m_playbackSpeed = 1.0
 					m_bLoop = false
 				}
@@ -354,27 +443,6 @@
 			{
 				key = 
 				{
-					m_id = 1722556145
-				}
-				value = 
-				{
-					_class = "CSequenceAnimNode"
-					m_sName = "Unnamed"
-					m_vecPosition = [ -512.0, -80.0 ]
-					m_nNodeID = 
-					{
-						m_id = 1722556145
-					}
-					m_sNote = ""
-					m_tagSpans = [  ]
-					m_sequenceName = "idle_03"
-					m_playbackSpeed = 1.0
-					m_bLoop = false
-				}
-			},
-			{
-				key = 
-				{
 					m_id = 1902714245
 				}
 				value = 
@@ -394,7 +462,7 @@
 							{
 								m_nodeID = 
 								{
-									m_id = 1722556145
+									m_id = 480043168
 								}
 								m_outputID = 
 								{
@@ -410,7 +478,7 @@
 							{
 								m_nodeID = 
 								{
-									m_id = 350378380
+									m_id = 480043168
 								}
 								m_outputID = 
 								{
@@ -484,6 +552,8 @@
 					"with_rifle",
 					"with_knife",
 					"with_pistol",
+					"sitting",
+					"leaning",
 				]
 			},
 		]

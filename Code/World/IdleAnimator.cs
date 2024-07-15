@@ -5,7 +5,9 @@ public enum IdleType
 	Default,
 	WithRifle,
 	WithKnife,
-	WithPistol
+	WithPistol,
+	Sitting,
+	Leaning
 }
 
 public sealed class IdleAnimator : Component
