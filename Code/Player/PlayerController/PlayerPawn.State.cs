@@ -85,10 +85,13 @@ public partial class PlayerPawn
 			Body.DamageTakenForce = Vector3.Zero;
 		}
 
-		HealthComponent.Health = HealthComponent.MaxHealth;
+		if ( HealthComponent.State != LifeState.Alive )
+		{
+			ArmorComponent.HasHelmet = false;
+			ArmorComponent.Armor = 0f;
+		}
 
-		ArmorComponent.HasHelmet = false;
-		ArmorComponent.Armor = 0f;
+		HealthComponent.Health = HealthComponent.MaxHealth;
 
 		TimeSinceLastRespawn = 0f;
 
