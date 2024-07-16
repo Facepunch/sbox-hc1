@@ -1044,6 +1044,26 @@
                                                   ]
                                                 }
                                               ]
+                                            },
+                                            {
+                                              "__guid": "372ab36e-0ede-44a7-9235-1083333b7496",
+                                              "Flags": 0,
+                                              "Name": "Object",
+                                              "Position": "-1.837678,9.72701,0.5712334",
+                                              "Rotation": "0.5066648,0.4931225,0.5102668,0.4896415",
+                                              "Enabled": true,
+                                              "Components": [
+                                                {
+                                                  "__type": "Sandbox.SkinnedModelRenderer",
+                                                  "__guid": "fc035b4d-bfd1-4379-b40b-445928d0f2fd",
+                                                  "BodyGroups": 27,
+                                                  "CreateBoneObjects": false,
+                                                  "Model": "weapons/m700/v_m700.vmdl",
+                                                  "RenderType": "On",
+                                                  "Tint": "1,1,1,1",
+                                                  "UseAnimGraph": true
+                                                }
+                                              ]
                                             }
                                           ]
                                         }
@@ -2232,6 +2252,44 @@
           "Strength": 0.17
         }
       ]
+    },
+    {
+      "__guid": "07de3c77-9e9f-4b55-bcd6-ba6d092cac18",
+      "Flags": 0,
+      "Name": "Model",
+      "Position": "840.6085,-15.13504,-34.04357",
+      "Rotation": "0.1860221,0.6158993,0.7460858,0.1715211",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "4d05f931-93b4-4c52-848d-95ad0772f1a0",
+          "BodyGroups": 18446744073709551615,
+          "CreateBoneObjects": false,
+          "Model": "models/dev/duffelbag/dufflebag_money.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        }
+      ]
+    },
+    {
+      "__guid": "a41fbf57-d60c-4ff1-b7de-17fe8fb25e59",
+      "Flags": 0,
+      "Name": "c4_bomb",
+      "Position": "847.0364,-1.579651,-58.39697",
+      "Rotation": "-0.3812855,0.5134215,0.423739,0.6414555",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "59c2f0e6-6302-4755-8b7e-6b3335ffe5fd",
+          "BodyGroups": 18446744073709551615,
+          "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -2240,7 +2298,7 @@
     "NetworkFrequency": 60,
     "NetworkInterpolation": true,
     "ThreadedAnimation": true,
-    "TimeScale": 0,
+    "TimeScale": 1,
     "UseFixedUpdate": true,
     "NavMesh": {
       "Enabled": false,
@@ -2259,6 +2317,7 @@
   "Description": "",
   "ResourceVersion": 1,
   "__references": [
+    "facepunch.dufflebag_money",
     "facepunch.w_usp"
   ],
   "__version": 1
