@@ -62,6 +62,10 @@ public partial class ViewModel : Component, IEquipment
 		if ( Owner.IsValid() )
 			Owner.OnJump += OnPlayerJumped;
 
+		// Somehow this can happen?
+		if ( !Equipment.IsValid() )
+			return;
+
 		if ( Equipment.Components.Get<ShootWeaponComponent>( FindMode.EverythingInSelfAndDescendants ) is { } shoot )
 		{
 			OnFireMode( shoot.CurrentFireMode );
