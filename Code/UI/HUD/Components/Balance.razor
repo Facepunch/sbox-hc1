@@ -14,10 +14,10 @@
     /// <summary>
     /// The player's inventory
     /// </summary>
-    public PlayerInventory Inventory => Player?.Inventory;
+    public PlayerInventory Inventory => Player.IsValid() ? Player.Inventory : null;
 
     /// The player
-    public PlayerPawn Player => PlayerState.Viewer?.PlayerPawn;
+    public PlayerPawn Player => PlayerState.IsValid() ? PlayerState.PlayerPawn : null;
 
     /// The player state
     public PlayerState PlayerState => PlayerState.Viewer;
@@ -26,6 +26,9 @@
 
     protected override int BuildHash()
     {
+        if ( !PlayerState.IsValid() ) return 0;
+        if ( !GameMode.Instance.IsValid() ) return 0;
+
         return HashCode.Combine(PlayerState?.Balance, CanOpen, GameMode.Instance?.UnlimitedMoney);
     }   
 }
