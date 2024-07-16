@@ -74,7 +74,13 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 		if ( _isUsed ) return;
 		_isUsed = true;
 
+		if ( !player.IsValid() ) 
+			return;
+
 		var weapon = player.Inventory.Give( Resource );
+
+		if ( !weapon.IsValid() )
+			return;
 
 		foreach ( var state in weapon.Components.GetAll<IDroppedWeaponState>() )
 		{
