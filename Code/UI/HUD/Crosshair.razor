@@ -93,7 +93,7 @@
     {
         var dist = BaseDistance;
 
-        if ( GameSettingsSystem.Current.DynamicCrosshair )
+        if ( GameSettingsSystem.Current is not null && GameSettingsSystem.Current.DynamicCrosshair )
         {
             dist += SpreadDistance;
 
