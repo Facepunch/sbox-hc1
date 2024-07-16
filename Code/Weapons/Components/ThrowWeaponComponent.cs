@@ -30,14 +30,34 @@ public partial class ThrowWeaponComponent : InputWeaponComponent,
 		ThrowState = State.Idle;
 	}
 
+	protected bool CanThrow()
+	{
+		// Player
+		if ( Equipment.Owner.IsFrozen )
+			return false;
+
+		return true;
+	}
+
 	protected override void OnInputDown()
 	{
+		if ( !CanThrow() )
+			return;
+
 		ThrowState = State.Cook;
 		TimeSinceAction = 0;
 	}
 
 	protected override void OnInputUp()
 	{
+		if ( !CanThrow() )
+		{
+			ThrowState = State.Idle;
+			TimeSinceAction = 0;
+
+			return;
+		}
+
 		if ( TimeSinceAction > CookTime && ThrowState == State.Cook )
 		{
 			ThrowState = State.Throwing;

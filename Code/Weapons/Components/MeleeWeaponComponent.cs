@@ -133,6 +133,10 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 	/// </summary>
 	public bool CanSwing()
 	{
+		// Player
+		if ( Equipment.Owner.IsFrozen )
+			return false;
+
 		// Delay checks
 		return TimeSinceSwing >= FireRate;
 	}
