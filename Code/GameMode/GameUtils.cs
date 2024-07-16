@@ -119,7 +119,7 @@ public static partial class GameUtils
 			writer.WriteLine( $"    Team: {player.Team}" );
 			writer.WriteLine( $"    UniqueId: {player.PlayerId?.UniqueId}" );
 			writer.WriteLine( $"    TeamUniqueId: {player.PlayerId?.TeamUniqueId}" );
-			writer.WriteLine( $"    Pawn: {player.Pawn?.ToString() ?? "null"}" );
+			writer.WriteLine( $"    PlayerPawn: {player.PlayerPawn?.ToString() ?? "null"}" );
 		}
 
 		writer.WriteLine();
