@@ -5,19 +5,22 @@
     "Name": "w_decoy_grenade",
     "Tags": "player",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Facepunch.Equipment",
         "__guid": "2616c5a1-c941-46a6-9042-865a309e5e62",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "Handedness": "Right",
         "HoldType": "HoldItem",
         "ModelRenderer": {
           "_type": "component",
           "component_id": "c540655e-bc89-4c1b-8e82-3d2b56f27c29",
           "go": "fd3dcee0-7a75-446a-b2ef-4cf1b1b19105",
           "component_type": "SkinnedModelRenderer"
+        },
+        "MountedPrefab": {
+          "_type": "gameobject",
+          "prefab": "weapons/throwable/he_grenade/mounted/mounted_decoy_grenade.prefab"
         },
         "Resource": "weapons/throwable/m84_stun_grenade/decoy_grenade.equip",
         "SpeedPenalty": 0
@@ -34,8 +37,6 @@
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
@@ -54,8 +55,6 @@
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Facepunch.ThrowWeaponComponent",
@@ -64,7 +63,6 @@
             "InputActions": [
               "Attack1"
             ],
-            "InputType": "Down",
             "Prefab": {
               "_type": "gameobject",
               "prefab": "weapons/throwable/m84_stun_grenade/decoy_grenade_thrown.prefab"
@@ -74,7 +72,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

@@ -5,19 +5,22 @@
     "Name": "w_smoke_grenade",
     "Tags": "player",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Facepunch.Equipment",
         "__guid": "b1203128-bcc3-4e5b-9ed6-5b4f7816762e",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "Handedness": "Right",
         "HoldType": "HoldItem",
         "ModelRenderer": {
           "_type": "component",
           "component_id": "629961e9-5b4d-4573-8f25-2ba814183458",
           "go": "c20c139f-b5b8-4eda-a44d-16bf46e3badf",
           "component_type": "SkinnedModelRenderer"
+        },
+        "MountedPrefab": {
+          "_type": "gameobject",
+          "prefab": "weapons/throwable/he_grenade/mounted/mounted_smoke_grenade.prefab"
         },
         "Resource": "weapons/throwable/m18_smoke_grenade/smoke_grenade.equip",
         "SpeedPenalty": 0
@@ -34,8 +37,6 @@
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
@@ -54,8 +55,6 @@
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Facepunch.ThrowWeaponComponent",
@@ -64,7 +63,6 @@
             "InputActions": [
               "Attack1"
             ],
-            "InputType": "Down",
             "Prefab": {
               "_type": "gameobject",
               "prefab": "weapons/throwable/m18_smoke_grenade/smoke_grenade.prefab"
@@ -74,7 +72,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

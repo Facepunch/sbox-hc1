@@ -5,8 +5,6 @@
     "Name": "w_flashbang_grenade",
     "Tags": "player",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Facepunch.Equipment",
@@ -19,6 +17,10 @@
           "component_id": "c540655e-bc89-4c1b-8e82-3d2b56f27c29",
           "go": "fd3dcee0-7a75-446a-b2ef-4cf1b1b19105",
           "component_type": "SkinnedModelRenderer"
+        },
+        "MountedPrefab": {
+          "_type": "gameobject",
+          "prefab": "weapons/throwable/he_grenade/mounted/mounted_flashbang.prefab"
         },
         "Resource": "weapons/throwable/flashbang/flashbang_grenade.equip",
         "SpeedPenalty": 0
@@ -35,8 +37,6 @@
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
@@ -55,8 +55,6 @@
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Facepunch.ThrowWeaponComponent",
@@ -65,7 +63,6 @@
             "InputActions": [
               "Attack1"
             ],
-            "InputType": "Down",
             "Prefab": {
               "_type": "gameobject",
               "prefab": "weapons/throwable/flashbang/flashbang_grenade_thrown.prefab"
