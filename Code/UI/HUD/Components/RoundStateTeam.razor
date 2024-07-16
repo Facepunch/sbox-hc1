@@ -46,7 +46,7 @@
     public IEnumerable<PlayerState> Players { get; set; }
     public IconPositions IconPosition { get; set; } = IconPositions.Left;
 
-    private int PlayerCount => GameUtils.AllPlayers.Count();
+    private int PlayerCount => GameUtils.AllPlayers.Where( x => x.Team != Team.Unassigned ).Count();
     private int MaxPlayers => GameMode.Instance?.Get<HudOptions>()?.FullAvatarDisplayPlayerLimit ?? 10;
 
     private string TeamColor => Team.GetColor().Hex;
