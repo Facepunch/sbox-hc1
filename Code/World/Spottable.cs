@@ -9,11 +9,20 @@ public sealed class Spottable : Component,
 	IGameEventHandler<BetweenRoundCleanupEvent>,
 	IGameEventHandler<TeamChangedEvent>
 {
+	ITeam teamComponent => Components.Get<ITeam>();
+
 	/// <summary>
 	/// The team this belongs to.
 	/// Any players that aren't of this team will be able to spot this.
 	/// </summary>
-	[Property, HostSync] public Team Team { get; set; }
+	public Team Team
+	{
+		get => teamComponent?.Team ?? Team.Unassigned;
+		set
+		{
+			if ( teamComponent.IsValid() ) teamComponent.Team = value;
+		}
+	}
 
 	/// <summary>
 	/// As the position doesn't move, it'll always be spotted after it's seen once.

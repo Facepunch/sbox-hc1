@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Facepunch;
 
-public abstract class Pawn : Component, IRespawnable
+public abstract class Pawn : Component, IRespawnable, ITeam
 {
 	private static Pawn Current { get; set; }
 

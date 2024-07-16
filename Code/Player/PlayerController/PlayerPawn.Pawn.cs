@@ -13,17 +13,6 @@ public partial class PlayerPawn
 	public override string DisplayName => PlayerState.DisplayName;
 	public override bool IsLocallyControlled => base.IsLocallyControlled && !PlayerState.IsBot;
 
-	protected override void OnEnabled()
-	{
-		if ( !Spottable.IsValid() )
-		{
-			Log.Warning( $"No spottable on PlayerPawn Enabled - {this}" );
-			return;
-		}
-
-		Spottable.Team = Team;
-	}
-
 	/// <summary>
 	/// Called when possessed.
 	/// </summary>

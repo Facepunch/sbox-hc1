@@ -1,10 +1,9 @@
 ﻿using Sandbox.Diagnostics;
 using Sandbox.Events;
-using System.Text.Json.Serialization;
 
 namespace Facepunch;
 
-public partial class PlayerState : Component
+public partial class PlayerState : Component, ITeam
 {
 	/// <summary>
 	/// The player we're currently in the view of (clientside).

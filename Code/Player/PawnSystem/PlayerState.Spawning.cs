@@ -17,8 +17,7 @@ public partial class PlayerState
 	/// </summary>
 	[Property] public GameObject PlayerPawnPrefab { get; set; }
 
-	[Property] public TimeSince TimeSinceRespawnStateChanged;
-
+	public TimeSince TimeSinceRespawnStateChanged { get; private set; }
 	public DamageInfo LastDamageInfo { get; private set; }
 
 	/// <summary>

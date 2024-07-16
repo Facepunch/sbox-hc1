@@ -2,6 +2,14 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
+/// <summary>
+/// A component that has a team on it.
+/// </summary>
+public interface ITeam : IValid
+{
+	public Team Team { get; set; }
+}
+
 public enum Team
 {
 	Unassigned = 0,
@@ -11,14 +19,6 @@ public enum Team
 }
 
 public record TeamChangedEvent( Team Before, Team After ) : IGameEvent;
-
-/// <summary>
-/// Designates the team for a player.
-/// </summary>
-public partial class TeamComponent : Component
-{
-
-}
 
 public static class TeamExtensions
 {

@@ -107,11 +107,6 @@ public partial class PlayerOutfitter : Component, Component.INetworkSpawn,
 	/// A list of outfits per-team.
 	/// </summary>
 	[Property] public List<TeamOutfits> Outfits { get; set; }
-	
-	/// <summary>
-	/// A reference to the current team we're on.
-	/// </summary>
-	[Property] public TeamComponent TeamComponent { get; set; }
 
 	/// <summary>
 	/// The player controller.

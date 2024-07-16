@@ -18,7 +18,6 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 	[Property, Group( "Config" )] public float LeanMaxVelocity { get; set; } = 1000;
 
 	[RequireComponent] public DroneSounds DroneSounds { get; set; }
-	[RequireComponent] public TeamComponent TeamComponent { get; set; }
 
 	/// <summary>
 	/// What to spawn when we explode?
