@@ -9,7 +9,7 @@ public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlo
 	[Property] public bool ClearBetweenRounds { get; set; } = true;
 	[Property] public bool ClearOnRespawn { get; set; } = false;
 
-	[Property] public Dictionary<PlayerState, List<Facepunch.DamageInfo>> Registry { get; set; } = new();
+	public Dictionary<PlayerState, List<Facepunch.DamageInfo>> Registry { get; set; } = new();
 
 	[Broadcast( NetPermission.HostOnly )]
 	protected void RpcRefresh()
