@@ -73,8 +73,8 @@ public sealed class GlobalSystem : GameObjectSystem
 	/// <returns></returns>
 	public T Get<T>() where T : GlobalComponent
 	{
-		if ( Globals.TryGetValue( typeof ( T ), out var global ) )
-			return global as T;
+		if ( Globals.TryGetValue( typeof ( T ), out var existing ) && existing is T { IsValid: true } global )
+			return global;
 
 		return Create<T>();
 	}
