@@ -120,7 +120,10 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 		if ( !IsLocallyControlled )
 			return;
 
-		if ( PlayerState.GetLastKiller() is { } killerPlayer )
+		if ( !PlayerState.IsValid() )
+			return;
+
+		if ( PlayerState.GetLastKiller() is { IsValid: true } killerPlayer )
 		{
 			EyeAngles = Rotation.LookAt( killerPlayer.Transform.Position - Transform.Position, Vector3.Up );
 		}
