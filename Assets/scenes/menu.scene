@@ -170,6 +170,19 @@
                 "go": "e58fea4b-2224-4bac-a2db-580b55e63e1a",
                 "component_type": "SkinnedModelRenderer"
               }
+            },
+            {
+              "__type": "Facepunch.BoneSwapperUtility",
+              "__guid": "7dd046a7-9c3f-4a51-a9d1-8cbdab8fb14e",
+              "NewParent": {
+                "_type": "gameobject",
+                "go": "cedb6186-a89f-4bdf-a90b-86c47d2648d4"
+              },
+              "Target": {
+                "_type": "gameobject",
+                "go": "635cb12b-fe20-49d8-8e5b-0d0bf1906a73"
+              },
+              "Time": 3
             }
           ],
           "Children": [
@@ -371,6 +384,14 @@
                                                   ]
                                                 }
                                               ]
+                                            },
+                                            {
+                                              "__guid": "cedb6186-a89f-4bdf-a90b-86c47d2648d4",
+                                              "Flags": 0,
+                                              "Name": "Hand Hold",
+                                              "Position": "1.918554,6.020042,1.23347",
+                                              "Rotation": "-0.4655396,-0.499606,0.4730226,0.5567026",
+                                              "Enabled": true
                                             }
                                           ]
                                         }
@@ -522,30 +543,39 @@
                                                   ]
                                                 }
                                               ]
-                                            },
-                                            {
-                                              "__guid": "cedb6186-a89f-4bdf-a90b-86c47d2648d4",
-                                              "Flags": 0,
-                                              "Name": "Cube",
-                                              "Position": "-1.94213,6.208215,1.099772",
-                                              "Rotation": "0.5123932,0.4777496,0.5697322,0.429668",
-                                              "Enabled": true,
-                                              "Components": [
-                                                {
-                                                  "__type": "Sandbox.ModelRenderer",
-                                                  "__guid": "e18e8901-07a3-4ce8-8ffb-e567de7de0a3",
-                                                  "BodyGroups": 9493,
-                                                  "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
-                                                  "RenderType": "On",
-                                                  "Tint": "1,1,1,1"
-                                                }
-                                              ]
                                             }
                                           ]
                                         }
                                       ]
                                     }
                                   ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "__guid": "a7067bcf-56e1-4dcf-9497-a47438944865",
+                          "Flags": 0,
+                          "Name": "Gun Initial Hold",
+                          "Position": "8.005947,-10.29039,-6.258956",
+                          "Rotation": "0.6556042,-0.5218945,-0.3408621,0.4261721",
+                          "Enabled": true,
+                          "Children": [
+                            {
+                              "__guid": "635cb12b-fe20-49d8-8e5b-0d0bf1906a73",
+                              "Flags": 0,
+                              "Name": "Gun",
+                              "Position": "0,0,0",
+                              "Enabled": true,
+                              "Components": [
+                                {
+                                  "__type": "Sandbox.ModelRenderer",
+                                  "__guid": "9e32be7f-523f-46bb-9c02-52e1685f3779",
+                                  "BodyGroups": 9493,
+                                  "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
+                                  "RenderType": "On",
+                                  "Tint": "1,1,1,1"
                                 }
                               ]
                             }
