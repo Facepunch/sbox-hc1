@@ -3,7 +3,8 @@ using Sandbox.Events;
 
 [Icon( "yard" )]
 [Title( "Bomb Planting" ), Group( "Weapon Components" )]
-public partial class BombPlantComponent : InputWeaponComponent
+public partial class BombPlantComponent : InputWeaponComponent, 
+	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	/// <summary>
 	/// How long the input must be held to plant.
@@ -71,6 +72,11 @@ public partial class BombPlantComponent : InputWeaponComponent
 			var player = Equipment.Owner;
 			player.IsFrozen = true;
 		}
+
+		if ( Equipment.Owner.IsValid() )
+		{
+			Equipment.Owner.BodyRenderer.Set( "b_planting_bomb", true );
+		}
 	}
 
 	private void StartPlant()
@@ -92,7 +98,14 @@ public partial class BombPlantComponent : InputWeaponComponent
 	[Broadcast]
 	private void PlantBombOnHost( Vector3 position, Rotation rotation )
 	{
-		if ( !Networking.IsHost ) return;
+		if ( !Networking.IsHost )
+		{
+			if ( Equipment.Owner.IsValid() )
+			{
+				Equipment.Owner.BodyRenderer.Set( "b_planting_bomb", false );
+			}
+			return;
+		}
 
 		var player = Equipment.Owner;
 
@@ -120,6 +133,11 @@ public partial class BombPlantComponent : InputWeaponComponent
 
 			var player = Equipment.Owner;
 			player.IsFrozen = false;
+		}
+
+		if ( Equipment.Owner.IsValid() )
+		{
+			Equipment.Owner.BodyRenderer.Set( "b_planting_bomb", false );
 		}
 	}
 
@@ -180,6 +198,14 @@ public partial class BombPlantComponent : InputWeaponComponent
 			{
 				Sound.Play( PlantingBeepSound, Equipment.GameObject.Transform.Position );
 			}
+		}
+	}
+
+	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
+	{
+		if ( Equipment.Owner.IsValid() )
+		{
+			Equipment.Owner.BodyRenderer.Set( "b_planting_bomb", false );
 		}
 	}
 }
