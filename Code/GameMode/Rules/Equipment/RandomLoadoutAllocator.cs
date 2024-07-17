@@ -7,10 +7,7 @@ namespace Facepunch;
 /// Pick from a set of loadouts for each team.
 /// </summary>
 public sealed class RandomLoadoutAllocator : Component,
-	IGameEventHandler<EnterStateEvent>,
-	IGameEventHandler<RoundCounterIncrementedEvent>,
-	IGameEventHandler<RoundCounterResetEvent>,
-	IGameEventHandler<TeamsSwappedEvent>
+	IGameEventHandler<EnterStateEvent>
 {
 	public class LoadoutType : IWeighted
 	{
@@ -35,10 +32,10 @@ public sealed class RandomLoadoutAllocator : Component,
 		public List<Loadout> Loadouts { get; set; } = new();
 
 		/// <summary>
-		/// How many rounds since this was last used?
+		/// Which round was this loadout type last used?
 		/// </summary>
 		[JsonIgnore, Hide]
-		public int RoundsSince { get; set; } = int.MaxValue;
+		public int LastRound { get; set; }
 	}
 
 	public class Loadout : IWeighted
@@ -100,24 +97,28 @@ public sealed class RandomLoadoutAllocator : Component,
 	}
 
 	/// <summary>
-	/// Possible loadouts types to give out.
+	/// Possible loadout types to give out.
 	/// </summary>
 	[Property]
 	public List<LoadoutType> LoadoutTypes { get; set; } = new();
 
-	private bool _teamsSwapped = true;
-
 	[After<RespawnPlayers>, Before<SpecialWeaponAllocator>]
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		if ( SelectLoadoutType() is not {} loadoutType )
+		var roundCounter = GameMode.Instance.Get<RoundCounter>();
+		var roundNumber = roundCounter?.Round ?? 1;
+		var teamsSwapped = roundCounter?.RoundsSinceTeamSwap <= 1;
+
+		Log.Info( $"round no: {roundNumber}, since swap: {roundCounter?.RoundsSinceTeamSwap}" );
+
+		if ( SelectLoadoutType( roundNumber, teamsSwapped ) is not {} loadoutType )
 		{
 			return;
 		}
 
-		loadoutType.RoundsSince = 0;
+		Log.Info( $"Loadout type: {loadoutType.Title}" );
 
-		_teamsSwapped = false;
+		loadoutType.LastRound = roundNumber;
 
 		foreach ( var teamPlayers in GameUtils.PlayerPawns.GroupBy( x => x.Team ) )
 		{
@@ -158,11 +159,11 @@ public sealed class RandomLoadoutAllocator : Component,
 		}
 	}
 
-	private LoadoutType SelectLoadoutType()
+	private LoadoutType SelectLoadoutType( int roundNumber, bool teamsSwapped )
 	{
 		var types = LoadoutTypes
-			.Where( x => x.MinRoundsSince <= x.RoundsSince )
-			.Where( x => _teamsSwapped || !x.OnlyAfterTeamSwap )
+			.Where( x => x.LastRound <= 0 || x.MinRoundsSince <= roundNumber - x.LastRound )
+			.Where( x => teamsSwapped || !x.OnlyAfterTeamSwap )
 			.Where( x => x.Weight > 0f )
 			.ToArray();
 
@@ -173,28 +174,5 @@ public sealed class RandomLoadoutAllocator : Component,
 		}
 
 		return Random.Shared.FromListWeighted( types );
-	}
-
-	void IGameEventHandler<RoundCounterIncrementedEvent>.OnGameEvent( RoundCounterIncrementedEvent eventArgs )
-	{
-		foreach ( var loadoutType in LoadoutTypes )
-		{
-			loadoutType.RoundsSince += 1;
-		}
-	}
-
-	void IGameEventHandler<RoundCounterResetEvent>.OnGameEvent( RoundCounterResetEvent eventArgs )
-	{
-		foreach ( var loadoutType in LoadoutTypes )
-		{
-			loadoutType.RoundsSince = int.MaxValue;
-		}
-
-		_teamsSwapped = true;
-	}
-
-	void IGameEventHandler<TeamsSwappedEvent>.OnGameEvent( TeamsSwappedEvent eventArgs )
-	{
-		_teamsSwapped = true;
 	}
 }
