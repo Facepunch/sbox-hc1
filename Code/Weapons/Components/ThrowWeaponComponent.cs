@@ -50,23 +50,11 @@ public partial class ThrowWeaponComponent : InputWeaponComponent,
 
 	protected override void OnInputUp()
 	{
-		if ( !CanThrow() )
-		{
-			ThrowState = State.Idle;
-			TimeSinceAction = 0;
-
-			return;
-		}
-
 		if ( TimeSinceAction > CookTime && ThrowState == State.Cook )
 		{
 			ThrowState = State.Throwing;
 			TimeSinceAction = 0;
-			return;
 		}
-
-		ThrowState = State.Idle;
-		TimeSinceAction = 0;
 	}
 
 	protected override void OnUpdate()
@@ -85,6 +73,13 @@ public partial class ThrowWeaponComponent : InputWeaponComponent,
 		{
 			ThrowState = State.Idle;
 			TimeSinceAction = 0;
+		}
+
+		if ( !IsDown() && TimeSinceAction > CookTime && ThrowState == State.Cook )
+		{
+			ThrowState = State.Throwing;
+			TimeSinceAction = 0;
+			return;
 		}
 		
 		if ( ThrowState == State.Throwing && TimeSinceAction > 0.25f )
