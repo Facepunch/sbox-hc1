@@ -23,7 +23,7 @@ public sealed class RoundCounter : Component,
 	/// <summary>
 	/// Current round number, starting at 1.
 	/// </summary>
-	[Sync]
+	[HostSync, Change( nameof(OnRoundChanged) )]
 	public int Round { get; set; } = 1;
 
 	[Early]
@@ -36,6 +36,13 @@ public sealed class RoundCounter : Component,
 	void IGameEventHandler<RoundCounterIncrementedEvent>.OnGameEvent( RoundCounterIncrementedEvent eventArgs )
 	{
 		Round += 1;
+	}
+
+	private void OnRoundChanged( int oldValue, int newValue )
+	{
+		Log.Info( $"### Round {newValue}" );
+
+		GameUtils.LogPlayers();
 	}
 }
 

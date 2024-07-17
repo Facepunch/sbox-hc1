@@ -119,7 +119,18 @@ public static partial class GameUtils
 			writer.WriteLine( $"    Team: {player.Team}" );
 			writer.WriteLine( $"    UniqueId: {player.PlayerId?.UniqueId}" );
 			writer.WriteLine( $"    TeamUniqueId: {player.PlayerId?.TeamUniqueId}" );
-			writer.WriteLine( $"    PlayerPawn: {player.PlayerPawn?.ToString() ?? "null"}" );
+			writer.WriteLine( $"    PlayerPawn: {player.PlayerPawn?.Id.ToString() ?? "null"}" );
+		}
+
+		writer.WriteLine();
+		writer.WriteLine( "All pawns:" );
+
+		foreach ( var pawn in Game.ActiveScene.GetAllComponents<PlayerPawn>() )
+		{
+			writer.WriteLine( $"  {pawn.GameObject.Name}:" );
+			writer.WriteLine( $"    Id: {pawn.Id}" );
+			writer.WriteLine( $"    DisplayName: {pawn.DisplayName}" );
+			writer.WriteLine( $"    PlayerState: {pawn.PlayerState?.Id.ToString() ?? "null"}" );
 		}
 
 		writer.WriteLine();
