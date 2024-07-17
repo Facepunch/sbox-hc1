@@ -160,8 +160,11 @@
         var player = Player;
         var visible = player.IsValid() && player.HealthComponent.State == LifeState.Alive && player.CameraController.Mode == CameraMode.FirstPerson;
 
-        if ( Equipment.IsValid() && Equipment.Tags.Has( "aiming" ) )
-            visible = CrosshairOverride;
+        if ( Equipment.IsValid() )
+        {
+            if ( Equipment.Tags.Has( "aiming" ) || !Equipment.UseCrosshair )
+                visible = CrosshairOverride;
+        }
 
         SetClass( "visible", visible );
 

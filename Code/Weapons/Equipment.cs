@@ -62,6 +62,11 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	[Property, Group( "Mount Points" )] public GameObject MountedPrefab { get; set; }
 
 	/// <summary>
+	/// Should we enable the crosshair?
+	/// </summary>
+	[Property, Group( "UI" )] public bool UseCrosshair { get; set; } = true;
+
+	/// <summary>
 	/// Cached version of the owner once we fetch it.
 	/// </summary>
 	private PlayerPawn owner;
