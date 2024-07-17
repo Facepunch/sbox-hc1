@@ -42,6 +42,7 @@
     {
         get
         {
+            if ( !Object.IsValid() ) return 0f;
             if ( !Scene.Camera.IsValid() ) return 0f;
             return Scene.Camera.PointToScreenNormal( Object.MarkerPosition ).Angle( new( 0.5f, 0.5f ) ) - 180f; 
        }
