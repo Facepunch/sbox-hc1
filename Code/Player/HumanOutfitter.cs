@@ -2,12 +2,7 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public interface IOutfitter
-{
-	public void UpdateFromTeam( Team team );
-}
-
-public sealed class HumanOutfitter : Component, IOutfitter,
+public sealed class HumanOutfitter : Component,
 	IGameEventHandler<TeamChangedEvent>
 {
 	[Property] public PlayerPawn PlayerPawn { get; set; }
@@ -24,7 +19,7 @@ public sealed class HumanOutfitter : Component, IOutfitter,
 	/// </summary>
 	/// <param name="team"></param>
 	[Broadcast( NetPermission.HostOnly )]
-	private void UpdateFromTeam( Team team )
+	public void UpdateFromTeam( Team team )
 	{
 		if ( !TeamBaseModels.TryGetValue( team, out var model ) )
 		{
@@ -33,10 +28,5 @@ public sealed class HumanOutfitter : Component, IOutfitter,
 
 		Renderer.Model = model;
 		PlayerPawn.Body.Refresh();
-	}
-
-	void IOutfitter.UpdateFromTeam( Team team )
-	{
-		UpdateFromTeam( team );
 	}
 }

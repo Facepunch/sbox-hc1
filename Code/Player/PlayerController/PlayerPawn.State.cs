@@ -162,8 +162,7 @@ public partial class PlayerPawn
 
 		PlayerBoxCollider.Enabled = true;
 
-		// Update any outfitter if we have one
-		Components.Get<IOutfitter>( FindMode.EnabledInSelfAndDescendants )?
+		Components.Get<HumanOutfitter>( FindMode.EnabledInSelfAndDescendants )?
 			.UpdateFromTeam( Team );
 
 		GameObject.Tags.Set( "invis", false );
