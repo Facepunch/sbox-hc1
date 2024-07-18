@@ -435,7 +435,65 @@
           {
             "__type": "Facepunch.EquipmentMountPoints",
             "__guid": "30dc924b-2cf2-423b-85ff-17dab05e0578",
-            "MountPoints": [],
+            "MountPoints": [
+              {
+                "Slot": "Primary",
+                "GameObjects": [
+                  {
+                    "_type": "gameobject",
+                    "go": "64498d17-911e-47ed-8acd-31649619ad69"
+                  }
+                ]
+              },
+              {
+                "Slot": "Secondary",
+                "GameObjects": [
+                  {
+                    "_type": "gameobject",
+                    "go": "de4eac73-fa4b-4f53-bb14-36fd8a1caedd"
+                  }
+                ]
+              },
+              {
+                "Slot": "Melee",
+                "GameObjects": [
+                  {
+                    "_type": "gameobject",
+                    "go": "97605044-713c-4469-b4e6-8dc97fc45431"
+                  }
+                ]
+              },
+              {
+                "Slot": "Utility",
+                "GameObjects": [
+                  {
+                    "_type": "gameobject",
+                    "go": "cc0afffe-3e59-437c-be78-34f1a883d3f8"
+                  },
+                  {
+                    "_type": "gameobject",
+                    "go": "613b7fb4-7516-4ab5-a65b-78af149be9fa"
+                  },
+                  {
+                    "_type": "gameobject",
+                    "go": "e625e502-cbf4-4970-bb6b-a816aba224fa"
+                  },
+                  {
+                    "_type": "gameobject",
+                    "go": "d4b22cac-262b-48e6-a8a4-20310adf17b3"
+                  }
+                ]
+              },
+              {
+                "Slot": "Special",
+                "GameObjects": [
+                  {
+                    "_type": "gameobject",
+                    "go": "cf74371d-d211-4858-9e0b-25360d22fe97"
+                  }
+                ]
+              }
+            ],
             "Player": {
               "_type": "component",
               "component_id": "3370799f-99ac-4881-9678-016414bdb61f",
@@ -544,6 +602,48 @@
                     "Name": "r_hip_twist_02",
                     "Position": "-8.275517,0.00000004470348,-0.00001430511",
                     "Enabled": true
+                  },
+                  {
+                    "__guid": "97605044-713c-4469-b4e6-8dc97fc45431",
+                    "Flags": 0,
+                    "Name": "Knife Object",
+                    "Position": "2.669874,-6.075586,0.4651291",
+                    "Rotation": "-0.7308024,0.1482324,-0.6196586,0.2449027",
+                    "Enabled": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.SkinnedModelRenderer",
+                        "__guid": "3b42ce09-d96f-49b0-9fbb-655eaa93f986",
+                        "__enabled": false,
+                        "BodyGroups": 18446744073709551615,
+                        "CreateBoneObjects": false,
+                        "Model": "models/weapons/sbox_melee_m9bayonet/w_m9bayonet.vmdl",
+                        "RenderType": "On",
+                        "Tint": "1,1,1,1",
+                        "UseAnimGraph": true
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "de4eac73-fa4b-4f53-bb14-36fd8a1caedd",
+                    "Flags": 0,
+                    "Name": "Pistol Object",
+                    "Position": "-5.248769,-2.425979,-4.35448",
+                    "Rotation": "0.02161303,0.6907418,0.7223414,-0.02512437",
+                    "Enabled": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.SkinnedModelRenderer",
+                        "__guid": "be4d6035-b1fa-42fe-8bdf-bc3a8f068a91",
+                        "__enabled": false,
+                        "BodyGroups": 9493,
+                        "CreateBoneObjects": false,
+                        "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
+                        "RenderType": "On",
+                        "Tint": "1,1,1,1",
+                        "UseAnimGraph": true
+                      }
+                    ]
                   }
                 ]
               },
@@ -618,6 +718,90 @@
                     "Name": "l_hip_twist_02",
                     "Position": "8.276316,-0.00001439452,-0.00003385544",
                     "Enabled": true
+                  },
+                  {
+                    "__guid": "d4b22cac-262b-48e6-a8a4-20310adf17b3",
+                    "Flags": 0,
+                    "Name": "Grenade Object #1 (3)",
+                    "Position": "-1.091677,-6.03682,-0.3559978",
+                    "Rotation": "-0.6639249,0.1445369,0.679552,-0.2766265",
+                    "Enabled": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.SkinnedModelRenderer",
+                        "__guid": "0727f40e-f247-4213-8c5e-54389ac773e2",
+                        "__enabled": false,
+                        "BodyGroups": 18446744073709551615,
+                        "CreateBoneObjects": false,
+                        "Model": "weapons/throwable/he_grenade/v_he_grenade.vmdl",
+                        "RenderType": "On",
+                        "Tint": "1,1,1,1",
+                        "UseAnimGraph": true
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "e625e502-cbf4-4970-bb6b-a816aba224fa",
+                    "Flags": 0,
+                    "Name": "Grenade Object #1 (2)",
+                    "Position": "-2.248803,5.686553,-0.009929508",
+                    "Rotation": "-0.2067898,0.6472441,0.1002104,-0.7268224",
+                    "Enabled": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.SkinnedModelRenderer",
+                        "__guid": "d7ef0c2c-a5b3-4225-b024-657eba4a73d9",
+                        "__enabled": false,
+                        "BodyGroups": 18446744073709551615,
+                        "CreateBoneObjects": false,
+                        "Model": "weapons/throwable/he_grenade/v_he_grenade.vmdl",
+                        "RenderType": "On",
+                        "Tint": "1,1,1,1",
+                        "UseAnimGraph": true
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "613b7fb4-7516-4ab5-a65b-78af149be9fa",
+                    "Flags": 0,
+                    "Name": "Grenade Object #1 (1)",
+                    "Position": "-1.842999,4.505827,2.55919",
+                    "Rotation": "-0.2067898,0.6472442,0.1002104,-0.7268224",
+                    "Enabled": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.SkinnedModelRenderer",
+                        "__guid": "768d8291-9454-44ef-b818-5d0739fde012",
+                        "__enabled": false,
+                        "BodyGroups": 18446744073709551615,
+                        "CreateBoneObjects": false,
+                        "Model": "weapons/throwable/he_grenade/v_he_grenade.vmdl",
+                        "RenderType": "On",
+                        "Tint": "1,1,1,1",
+                        "UseAnimGraph": true
+                      }
+                    ]
+                  },
+                  {
+                    "__guid": "cc0afffe-3e59-437c-be78-34f1a883d3f8",
+                    "Flags": 0,
+                    "Name": "Grenade Object #1",
+                    "Position": "-1.384458,2.433611,3.816285",
+                    "Rotation": "-0.3672626,0.5716686,0.2849112,-0.67612",
+                    "Enabled": true,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.SkinnedModelRenderer",
+                        "__guid": "ddfd16f3-d470-4e3a-8b4e-2a37dccd5dec",
+                        "__enabled": false,
+                        "BodyGroups": 18446744073709551615,
+                        "CreateBoneObjects": false,
+                        "Model": "weapons/throwable/he_grenade/v_he_grenade.vmdl",
+                        "RenderType": "On",
+                        "Tint": "1,1,1,1",
+                        "UseAnimGraph": true
+                      }
+                    ]
                   }
                 ]
               },
@@ -1190,6 +1374,49 @@
                                 ]
                               }
                             ]
+                          },
+                          {
+                            "__guid": "cf74371d-d211-4858-9e0b-25360d22fe97",
+                            "Flags": 0,
+                            "Name": "Special Object",
+                            "Position": "0.4096316,-7.029046,-4.125101",
+                            "Rotation": "0.00000008940697,-0.8385909,0.5447615,0.0000002458692",
+                            "Scale": "0.6,0.6,0.6",
+                            "Enabled": true,
+                            "Components": [
+                              {
+                                "__type": "Sandbox.SkinnedModelRenderer",
+                                "__guid": "a549405a-f6ec-4c81-bd80-95f79d7c95f1",
+                                "__enabled": false,
+                                "BodyGroups": 18446744073709551615,
+                                "CreateBoneObjects": false,
+                                "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
+                                "RenderType": "On",
+                                "Tint": "1,1,1,1",
+                                "UseAnimGraph": true
+                              }
+                            ]
+                          },
+                          {
+                            "__guid": "64498d17-911e-47ed-8acd-31649619ad69",
+                            "Flags": 0,
+                            "Name": "Rifle Object",
+                            "Position": "-2.376372,-9.33029,-1.792654",
+                            "Rotation": "-0.1823791,0.0000001043081,-0.00000005960464,0.9832281",
+                            "Enabled": true,
+                            "Components": [
+                              {
+                                "__type": "Sandbox.SkinnedModelRenderer",
+                                "__guid": "459b6119-60a9-4692-ac12-7ffdf4824a8d",
+                                "__enabled": false,
+                                "BodyGroups": 171,
+                                "CreateBoneObjects": false,
+                                "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
+                                "RenderType": "On",
+                                "Tint": "1,1,1,1",
+                                "UseAnimGraph": true
+                              }
+                            ]
                           }
                         ]
                       }
@@ -1233,6 +1460,10 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.w_m4a1",
+    "facepunch.w_m9bayonet",
+    "facepunch.w_usp"
+  ],
   "__version": 1
 }
