@@ -69,7 +69,8 @@
         "__guid": "da11e85b-8377-4d51-b893-b41374e98971",
         "Categories": [
           "Special"
-        ]
+        ],
+        "LimitedDropOnDeath": true
       },
       {
         "__type": "Facepunch.TeamEarlyWinCondition",
@@ -116,8 +117,7 @@
         "__type": "Facepunch.DamageTracker",
         "__guid": "ba2ba2a9-5138-45bc-8d25-7958e5aad274",
         "ClearBetweenRounds": true,
-        "ClearOnRespawn": true,
-        "Registry": {}
+        "ClearOnRespawn": true
       }
     ],
     "Children": [
@@ -534,9 +534,8 @@
                 "__guid": "6e071f09-677f-4f8f-b3a4-076a9e0f7fa3"
               },
               {
-                "__type": "Facepunch.KillGameOnEnd",
-                "__guid": "8639ba2c-7cb9-4221-9687-16162f4cd05d",
-                "Message": "Anarchists Win - Returning to menu..."
+                "__type": "Facepunch.StartMapVotingOnEnd",
+                "__guid": "790ecde8-270b-481a-b658-52dab2edc25f"
               }
             ]
           },
@@ -563,9 +562,8 @@
                 "__guid": "93420f8a-c6a8-419a-9164-07e17e4f0710"
               },
               {
-                "__type": "Facepunch.KillGameOnEnd",
-                "__guid": "b45d3134-482f-4105-b263-5fa6d24ec7ff",
-                "Message": "Security Win - Returning to menu..."
+                "__type": "Facepunch.StartMapVotingOnEnd",
+                "__guid": "5da23c83-77b4-4502-aa8b-6823e168d78e"
               }
             ]
           }

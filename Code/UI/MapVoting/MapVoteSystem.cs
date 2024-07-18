@@ -64,13 +64,13 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 			if ( !WinningOption.HasValue )
 			{
 				// TODO: we found no winner, pick random from next best value
+				GameUtils.ReturnToMainMenu();
 			}
 		}
 
 		if ( WinningOption is not null && TimeUntilTransfer )
 		{
-			// TODO: Take me to the new map! This doesn't exist yet...
-			GameUtils.ReturnToMainMenu();
+			Game.ActiveScene.Load( WinningOption.Value.Map.SceneFile );
 		}
 	}
 

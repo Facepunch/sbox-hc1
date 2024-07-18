@@ -5,9 +5,6 @@
     "Name": "team_deathmatch",
     "Enabled": true,
     "NetworkMode": 1,
-    "NetworkInterpolation": true,
-    "NetworkOrphaned": 0,
-    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "Facepunch.GameMode",
@@ -73,8 +70,7 @@
         "__type": "Facepunch.DamageTracker",
         "__guid": "2d5f9694-5062-485f-9ea2-0ca6c18d167d",
         "ClearBetweenRounds": true,
-        "ClearOnRespawn": true,
-        "Registry": {}
+        "ClearOnRespawn": true
       }
     ],
     "Children": [
@@ -84,9 +80,6 @@
         "Name": "States",
         "Enabled": true,
         "NetworkMode": 1,
-        "NetworkInterpolation": true,
-        "NetworkOrphaned": 0,
-        "OwnerTransfer": 1,
         "Components": [
           {
             "__type": "Sandbox.Events.StateMachineComponent",
@@ -106,9 +99,6 @@
             "Name": "Waiting",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
-            "NetworkOrphaned": 0,
-            "OwnerTransfer": 1,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -163,9 +153,6 @@
             "Name": "Preparing",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
-            "NetworkOrphaned": 0,
-            "OwnerTransfer": 1,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -207,9 +194,6 @@
             "Name": "Play Game",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
-            "NetworkOrphaned": 0,
-            "OwnerTransfer": 1,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -299,9 +283,6 @@
                 "Name": "Timeout",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
-                "NetworkOrphaned": 0,
-                "OwnerTransfer": 1,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -341,9 +322,6 @@
             "Name": "Game Over",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
-            "NetworkOrphaned": 0,
-            "OwnerTransfer": 1,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -369,9 +347,6 @@
                 "Name": "Tie",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
-                "NetworkOrphaned": 0,
-                "OwnerTransfer": 1,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -412,9 +387,6 @@
                 "Name": "T Victory",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
-                "NetworkOrphaned": 0,
-                "OwnerTransfer": 1,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -469,9 +441,6 @@
                 "Name": "CT Victory",
                 "Enabled": true,
                 "NetworkMode": 1,
-                "NetworkInterpolation": true,
-                "NetworkOrphaned": 0,
-                "OwnerTransfer": 1,
                 "Components": [
                   {
                     "__type": "Sandbox.Events.StateComponent",
@@ -528,9 +497,6 @@
             "Name": "Post Game",
             "Enabled": true,
             "NetworkMode": 1,
-            "NetworkInterpolation": true,
-            "NetworkOrphaned": 0,
-            "OwnerTransfer": 1,
             "Components": [
               {
                 "__type": "Sandbox.Events.StateComponent",
@@ -542,9 +508,8 @@
                 "__guid": "35f22135-8476-417b-b33c-fea8b2524a75"
               },
               {
-                "__type": "Facepunch.KillGameOnEnd",
-                "__guid": "d43ba829-56d5-41ab-b25f-7a7d25595095",
-                "Message": "The game is over - returning to menu"
+                "__type": "Facepunch.StartMapVotingOnEnd",
+                "__guid": "ec32f16b-5053-4522-8948-4eaef65a809a"
               }
             ]
           }
