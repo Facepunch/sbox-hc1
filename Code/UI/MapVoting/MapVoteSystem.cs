@@ -56,7 +56,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 		if ( IsProxy )
 			return;
 
-		if ( TimeUntilDecidedWinner )
+		if ( TimeUntilDecidedWinner && WinningOption is null )
 		{
 			TimeUntilTransfer = 5;
 			WinningOption = GetWinningOption();
