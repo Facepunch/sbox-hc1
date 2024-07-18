@@ -1,0 +1,58 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/skin.shader"
+
+	//---- Animation ----
+	F_MORPH_SUPPORTED 1
+
+	//---- Skin ----
+	F_USE_BENT_NORMALS 1
+
+	//---- Ambient Occlusion ----
+	g_flAmbientOcclusionDirectDiffuse "1.000"
+	g_flAmbientOcclusionDirectSpecular "1.000"
+	g_vAmbientOcclusionColorBleed "[0.400000 0.149020 0.129412 0.000000]"
+	TextureAmbientOcclusion "models/player/t_side/t_side_player_01/t_player_head_ao.png"
+
+	//---- Color ----
+	g_flModelTintAmount "1.000"
+	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
+	TextureColor "models/player/t_side/t_side_player_01/t_player_head_color.png"
+
+	//---- Curvature ----
+	g_flCurvatureScale "0.706"
+
+	//---- Face Occlusion ----
+	g_flMouthInteriorBrightnessScale "1.000"
+	TextureInsideMouth "materials/default/default_black_mask.tga"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Lookup Textures ----
+	g_vAmbientNormalSoftness "[1.000000 0.301961 0.000000 0.000000]"
+	TextureDiffuseFalloff "materials/default/default_skin_diffusewarp.tga"
+
+	//---- Normal ----
+	g_flDiffuseNormalBlur "2.656"
+	TextureBentNormal "models/player/t_side/t_side_player_01/t_player_head_bentnormal.png"
+	TextureNormal "models/player/t_side/t_side_player_01/t_player_head_normal.png"
+
+	//---- Roughness ----
+	TextureRoughness "models/player/t_side/t_side_player_01/t_player_head_rough.png"
+
+	//---- Specular ----
+	g_flSecondSpecularLobeGlossiness "0.375"
+	g_flSecondSpecularLobeRatio "0.010"
+
+	//---- Texture Coordinates ----
+	g_vTexCoordOffset "[0.000 0.000]"
+	g_vTexCoordScale "[1.000 1.000]"
+
+	//---- Transmission ----
+	g_flTransmissionFalloff "1.000"
+	g_vTransmissionColor "[0.749020 0.388235 0.007843 0.000000]"
+	TextureTransmissiveMask "models/player/t_side/t_side_player_01/t_player_head_trans.png"
+}
