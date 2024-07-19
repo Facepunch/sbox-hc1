@@ -109,14 +109,16 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// <summary>
 	/// Updates the render mode, if we're locally controlling a player, we want to hide the world model.
 	/// </summary>
-	protected void UpdateRenderMode()
+	public void UpdateRenderMode( bool force = false )
 	{
-		if ( !Owner.IsValid() )
-			return;
+		var on = force || (Owner.IsValid() && !Owner.IsViewer );
 
-		ModelRenderer.Enabled = !Owner.IsViewer;
+		if ( !Owner.IsValid() && !force )
+			on = false;
 
-		ModelRenderer.RenderType = !Owner.IsViewer 
+		ModelRenderer.Enabled = on;
+
+		ModelRenderer.RenderType = on 
 			? Sandbox.ModelRenderer.ShadowRenderType.On 
 			: Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
 	}
