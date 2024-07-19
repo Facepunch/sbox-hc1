@@ -203,7 +203,7 @@ public partial class BombPlantComponent : InputWeaponComponent,
 
 	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
 	{
-		if ( Equipment.Owner.IsValid() )
+		if ( Equipment.Owner.IsValid() && Equipment.Owner.BodyRenderer.IsValid() )
 		{
 			Equipment.Owner.BodyRenderer.Set( "b_planting_bomb", false );
 		}
