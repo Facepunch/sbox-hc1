@@ -44,6 +44,12 @@ public partial class RecoilWeaponComponent : EquipmentComponent
 
 	protected override void OnUpdate()
 	{
+		if ( !Player.IsValid() )
+			return;
+
+		if ( !Player.IsLocallyControlled )
+			return;
+
 		Current = Current.LerpTo( Angles.Zero, Time.Delta * 10f );
 	}
 }

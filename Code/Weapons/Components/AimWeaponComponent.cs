@@ -29,7 +29,11 @@ public partial class AimWeaponComponent : InputWeaponComponent
 
 	protected override void OnUpdate()
 	{
-		if ( IsProxy ) return;
+		if ( !Player.IsValid() )
+			return;
+
+		if ( !Player.IsLocallyControlled ) 
+			return;
 
 		if ( !CanAim() )
 		{

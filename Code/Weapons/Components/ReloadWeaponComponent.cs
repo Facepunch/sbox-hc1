@@ -41,7 +41,11 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 
 	protected override void OnUpdate()
 	{
-		if ( IsProxy ) return;
+		if ( !Player.IsValid() )
+			return;
+
+		if ( !Player.IsLocallyControlled )
+			return;
 
 		if ( SingleReload && IsReloading && Input.Pressed( "Attack1" ) )
 		{
