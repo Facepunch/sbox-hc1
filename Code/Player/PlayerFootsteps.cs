@@ -57,6 +57,8 @@ public sealed class PlayerFootsteps : Component
 		if ( !Player.IsValid() ) 
 			return;
 
+		if ( Player.HealthComponent.State != LifeState.Alive ) return;
+
 		if ( timeSinceStep < GetStepFrequency() )
 			return;
 
