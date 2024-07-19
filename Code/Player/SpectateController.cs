@@ -20,6 +20,8 @@ public sealed class SpectateController : Pawn
 
 	protected override void OnUpdate()
 	{
+		if ( !IsLocallyControlled ) return;
+
 		EyeAngles += Input.AnalogLook;
 		EyeAngles = EyeAngles.WithPitch( EyeAngles.pitch.Clamp( -90, 90 ) );
 		Transform.Rotation = EyeAngles.ToRotation();
