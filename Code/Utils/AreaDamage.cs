@@ -10,6 +10,8 @@ public interface IAreaDamageReceiver : IValid
 [Title( "Area Damage" )]
 public class AreaDamage : Component, Component.ITriggerListener
 {
+	public Component Attacker { get; set; }
+
 	private class AreaDamageTarget
 	{
 		public IAreaDamageReceiver Receiver { get; init; }
@@ -54,10 +56,10 @@ public class AreaDamage : Component, Component.ITriggerListener
 			target = new() { Receiver = receiver, NextDamageTime = 0f };
 			Targets[receiver.Id] = target;
 		}
-		
+
 		if ( !target.NextDamageTime )
 			return;
-			
+
 		target.LastDamageTime = 0f;
 		target.NextDamageTime = Interval;
 		target.Receiver.ApplyAreaDamage( this );

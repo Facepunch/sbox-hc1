@@ -64,7 +64,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	// IAreaDamageReceiver
 	void IAreaDamageReceiver.ApplyAreaDamage( AreaDamage component )
 	{
-		var dmg = new DamageInfo( component, component.Damage, component, component.Transform.Position,
+		var dmg = new DamageInfo( component.Attacker, component.Damage, component, component.Transform.Position,
 			Flags: component.DamageFlags );
 		
 		HealthComponent.TakeDamage( dmg );

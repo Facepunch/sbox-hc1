@@ -26,6 +26,11 @@
             }
 
             <div class="method">
+                @if ( entry.DamageFlags.HasFlag( DamageFlags.Burn ) ) 
+                {
+                    <Icon File="/ui/fire.png" size="24" />
+                }
+
                 @if ( entry.Inflictor is not null )
                 {
                     @if ( entry.Inflictor.StartsWith( "icon:" ) )

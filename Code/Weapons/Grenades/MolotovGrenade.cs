@@ -34,14 +34,24 @@ public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener
 		SpreadFireNetworked( position, Time.Now.CeilToInt() );
 	}
 
+	GameObject CreateFireNode( Vector3 position )
+	{
+		var node = FireNodePrefab.Clone( position, Rotation.Identity );
+		var areaDamage = node.Components.Get<AreaDamage>();
+		if ( areaDamage.IsValid() )
+			areaDamage.Attacker = Player;
+
+		return node;
+	}
+
 	[Broadcast]
 	async void SpreadFireNetworked( Vector3 position, int seed )
 	{
 		if ( PrefabOnExplode.IsValid() )
 			PrefabOnExplode.Clone( position );
-		
-		FireNodePrefab.Clone( position, Rotation.Identity );
-		
+
+		CreateFireNode( position );
+
 		await SpreadFireInSphere( new( seed ), position );
 		GameObject.Destroy();
 	}
@@ -51,7 +61,6 @@ public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener
 		IsSpreadingFire = true;
 
 		var sunflower = Sunflower( FireNodesToSpawn, 2 );
-		Log.Info( sunflower.Count );
 
 		foreach ( var v in sunflower )
 		{
@@ -65,7 +74,7 @@ public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener
 			if ( !trace.Hit ) continue;
 
 			var spawnPosition = trace.HitPosition + trace.Normal * 8f;
-			FireNodePrefab.Clone( spawnPosition, Rotation.Identity );
+			CreateFireNode( spawnPosition );
 			
 			await Task.DelaySeconds( rnd.Float( SpreadDelay.RangeValue.x, SpreadDelay.RangeValue.y ) );
 		}
