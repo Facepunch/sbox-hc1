@@ -39,6 +39,18 @@
             }
         </div>
     }
+
+    @if ( InflictedDamageEntries is not null && InflictedDamageEntries.Count > 0 )
+    {
+        <div class="flex column layout with-background with-padding">
+            @foreach ( var entry in InflictedDamageEntries )
+            {
+                <div class="flex row gap-xs">
+                    <label>inflicted @(entry.Damage.CeilToInt()) damage in @(entry.Count) hits - </label>
+                </div>
+            }
+        </div>
+    }
 </root>
 
 @code
@@ -46,6 +58,7 @@
     public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
 
     public List<DamageTracker.GroupedDamage> DamageEntries => GameMode.Instance?.Get<DamageTracker>()?.GetGroupedDamage( PlayerState.Local );
+    public List<DamageTracker.GroupedDamage> InflictedDamageEntries => GameMode.Instance?.Get<DamageTracker>()?.GetGroupedInflictedDamage( PlayerState.Local );
 
     public DamageInfo LastDamageInfo => PlayerState.Local.LastDamageInfo;
     public SpectateSystem SpectateSystem => SpectateSystem.Instance;

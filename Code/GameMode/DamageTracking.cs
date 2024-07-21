@@ -10,6 +10,7 @@ public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlo
 	[Property] public bool ClearOnRespawn { get; set; } = false;
 
 	public Dictionary<PlayerState, List<Facepunch.DamageInfo>> Registry { get; set; } = new();
+	public Dictionary<PlayerState, List<Facepunch.DamageInfo>> MyInflictedDamage { get; set; } = new();
 
 	[Broadcast( NetPermission.HostOnly )]
 	protected void RpcRefresh()
@@ -32,6 +33,16 @@ public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlo
 		return list;
 	}
 
+	public List<Facepunch.DamageInfo> GetMyInflictedDamage( PlayerState player )
+	{
+		if ( !MyInflictedDamage.TryGetValue( player, out var list ) )
+		{
+			return new List<Facepunch.DamageInfo>();
+		}
+
+		return list;
+	}
+
 	public struct GroupedDamage
 	{
 		public PlayerState Attacker { get; set; }
@@ -47,14 +58,35 @@ public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlo
 			.GroupBy( x => x.Attacker )
 			.ToList()
 			.ForEach( group =>
-		{
-			groups.Add( new()
 			{
-				Attacker = group.First().Attacker is Pawn pawn ? pawn.PlayerState : null,
-				Count = group.Count(),
-				Damage = group.Sum( x => x.Damage )
+				groups.Add( new()
+				{
+					Attacker = group.First().Attacker is Pawn pawn ? pawn.PlayerState : null,
+					Count = group.Count(),
+					Damage = group.Sum( x => x.Damage )
+				} );
 			} );
-		} );
+
+
+		return groups;
+	}
+
+	public List<GroupedDamage> GetGroupedInflictedDamage( PlayerState player )
+	{
+		var groups = new List<GroupedDamage>();
+
+		GetMyInflictedDamage( player )
+			.GroupBy( x => x.Attacker )
+			.ToList()
+			.ForEach( group =>
+			{
+				groups.Add( new()
+				{
+					Attacker = group.First().Attacker is Pawn pawn ? pawn.PlayerState : null,
+					Count = group.Count(),
+					Damage = group.Sum( x => x.Damage )
+				} );
+			} );
 
 
 		return groups;
@@ -62,16 +94,34 @@ public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlo
 
 	public void Refresh()
 	{
+		MyInflictedDamage.Clear();
 		Registry.Clear();
 	}
 
 	void IGameEventHandler<DamageTakenGlobalEvent>.OnGameEvent( DamageTakenGlobalEvent eventArgs )
 	{
+		var attacker = eventArgs.DamageInfo.Attacker;
 		var victim = eventArgs.DamageInfo.Victim;
 		var playerState = victim is Pawn pawn ? pawn.PlayerState : null;
 
 		if ( !playerState.IsValid() )
 			return;
+
+		var attackerPlayerState = attacker is Pawn attackerPawn ? attackerPawn.PlayerState : null;
+		if ( attackerPlayerState == PlayerState.Local )
+		{
+			if ( !MyInflictedDamage.TryGetValue( playerState, out var myList ) )
+			{
+				MyInflictedDamage.Add( playerState, new()
+			{
+				eventArgs.DamageInfo
+			} );
+			}
+			else
+			{
+				myList.Add( eventArgs.DamageInfo );
+			}
+		}
 
 		if ( !Registry.TryGetValue( playerState, out var list ) )
 		{
