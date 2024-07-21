@@ -11,6 +11,7 @@ public interface IAreaDamageReceiver : IValid
 public class AreaDamage : Component, Component.ITriggerListener
 {
 	public Component Attacker { get; set; }
+	public Component Inflictor { get; set; }
 
 	private class AreaDamageTarget
 	{

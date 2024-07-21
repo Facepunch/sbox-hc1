@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 namespace Facepunch;
 
 [Title( "Molotov Grenade" )]
-public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener
+public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener, IDescription
 {
 	[Property] public GameObject FireNodePrefab { get; set; }
 	[Property] public float FireRadius { get; set; } = 200f;
@@ -11,6 +11,8 @@ public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener
 	[Property] public RangedFloat SpreadDelay { get; set; } = new( 0.1f, 0.2f );
 	
 	private bool IsSpreadingFire { get; set; }
+
+	string IDescription.DisplayName => "Molotov";
 	
 	void ICollisionListener.OnCollisionStart( Collision collision )
 	{
@@ -39,7 +41,10 @@ public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener
 		var node = FireNodePrefab.Clone( position, Rotation.Identity );
 		var areaDamage = node.Components.Get<AreaDamage>();
 		if ( areaDamage.IsValid() )
+		{
 			areaDamage.Attacker = Player;
+			areaDamage.Inflictor = this;
+		}
 
 		return node;
 	}

@@ -1,7 +1,7 @@
 namespace Facepunch;
 
 [Title( "HE Grenade" )]
-public partial class HEGrenade : BaseGrenade, IMarkerObject
+public partial class HEGrenade : BaseGrenade, IMarkerObject, IDescription
 {
 	[Property] public float DamageRadius { get; set; } = 512f;
 	[Property] public float MaxDamage { get; set; } = 100f;
@@ -27,7 +27,8 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject
 	/// <summary>
 	/// What text?
 	/// </summary>
-	string IMarkerObject.DisplayText => "Grenade";
+	string IMarkerObject.DisplayText => "HE Grenade";
+	string IDescription.DisplayName => "HE Grenade";
 
 	protected override void Explode()
 	{
