@@ -13,7 +13,22 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	/// <summary>
 	/// If we're the host, the path in the scene of the selected game mode.
 	/// </summary>
-	public static string ActivePath { get; set; }
+	public static string ActivePath { get; private set; }
+
+	/// <summary>
+	/// Sets the current gamemode for the next scene load.
+	/// </summary>
+	/// <param name="gameMode"></param>
+	public static void SetCurrent( GameModeInfo gameMode )
+	{
+		if ( gameMode is null )
+		{
+			ActivePath = null;
+			return;
+		}
+
+		ActivePath = gameMode.Path;
+	}
 
 	[Property]
 	public string Title { get; set; }

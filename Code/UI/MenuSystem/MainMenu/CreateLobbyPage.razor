@@ -72,7 +72,7 @@
         if (SelectedMap is null)
             return;
 
-        GameMode.ActivePath = SelectedGameMode?.Path;
+        GameMode.SetCurrent( SelectedGameMode );
         Game.ActiveScene.Load( SelectedMap.SceneFile );
     }
 }

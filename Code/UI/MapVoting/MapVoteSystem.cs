@@ -68,9 +68,11 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 			}
 		}
 
-		if ( WinningOption is not null && TimeUntilTransfer )
+		if ( WinningOption.HasValue && TimeUntilTransfer )
 		{
-			Game.ActiveScene.Load( WinningOption.Value.Map.SceneFile );
+			var option = WinningOption.Value;
+			GameMode.SetCurrent( option.Mode );
+			Game.ActiveScene.Load( option.Map.SceneFile );
 		}
 	}
 

@@ -10,6 +10,6 @@ public static class GameModeSystem
 	[Event( "scene.stop" )]
 	public static void StopPlaying()
 	{
-		GameMode.ActivePath = null;
+		GameMode.SetCurrent( null );
 	}
 }
