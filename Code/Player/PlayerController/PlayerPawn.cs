@@ -43,11 +43,6 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	[RequireComponent] public Spottable Spottable { get; set; }
 
 	/// <summary>
-	/// A reference to the View Model's camera. This will be disabled by the View Model.
-	/// </summary>
-	[Property] public CameraComponent ViewModelCamera { get; set; }
-
-	/// <summary>
 	/// Get a quick reference to the real Camera GameObject.
 	/// </summary>
 	public GameObject CameraGameObject => CameraController.Camera.GameObject;

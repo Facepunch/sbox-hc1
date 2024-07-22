@@ -1,0 +1,112 @@
+{
+  "RootObject": {
+    "__guid": "91c92300-c9e5-4a0d-b4ae-d26a91936fc8",
+    "Flags": 0,
+    "Name": "player_camera_with_aces",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "Sandbox.CameraComponent",
+        "__guid": "da762119-5dde-4e71-b670-7d89847453bb",
+        "BackgroundColor": "0.75478,0.83828,0.87624,1",
+        "ClearFlags": "All",
+        "FieldOfView": 90,
+        "IsMainCamera": true,
+        "Orthographic": false,
+        "OrthographicHeight": 1204,
+        "Priority": 8,
+        "RenderExcludeTags": "invis",
+        "RenderTags": "",
+        "TargetEye": "None",
+        "Viewport": "0,0,1,1",
+        "ZFar": 10000,
+        "ZNear": 1
+      },
+      {
+        "__type": "Sandbox.AudioListener",
+        "__guid": "c283a749-a1b4-4d71-97cd-6cfe6e0269f0",
+        "UseCameraDirection": true
+      },
+      {
+        "__type": "Sandbox.Highlight",
+        "__guid": "9a1e8dd1-ce52-4988-a0a6-2192d8401241"
+      },
+      {
+        "__type": "Sandbox.Bloom",
+        "__guid": "aa00f6d6-044f-4303-b133-b1db76e26a95",
+        "BloomColor": {
+          "color": [
+            {
+              "c": "1,1,1,1"
+            },
+            {
+              "t": 1,
+              "c": "1,1,1,1"
+            }
+          ],
+          "alpha": []
+        },
+        "BloomCurve": [
+          {
+            "y": 0.5
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ],
+        "Mode": "Additive",
+        "Strength": 0.15,
+        "Threshold": 0.66,
+        "ThresholdWidth": 1.65
+      },
+      {
+        "__type": "Sandbox.Sharpen",
+        "__guid": "09775e98-d3bd-4fe7-b742-4888e27b545c",
+        "Scale": 0.1
+      },
+      {
+        "__type": "Sandbox.ChromaticAberration",
+        "__guid": "a1574d00-56c9-4791-9885-9c2ce4d6d170",
+        "Offset": "2,3,0",
+        "Scale": 0
+      },
+      {
+        "__type": "Sandbox.Pixelate",
+        "__guid": "fea821b4-2c14-4aa3-ab38-da30ee64a3a3",
+        "Scale": 0
+      },
+      {
+        "__type": "Facepunch.ScreenShaker",
+        "__guid": "e405a983-581c-4843-b72d-bd6afa755f8f"
+      },
+      {
+        "__type": "Sandbox.AmbientOcclusion",
+        "__guid": "9d21f25e-4845-4991-8273-82f901d917f4",
+        "Intensity": 8,
+        "Quality": "High",
+        "Radius": 32
+      },
+      {
+        "__type": "Sandbox.Tonemapping",
+        "__guid": "eb05a807-3d9c-41bb-9620-aee1240e1ff2",
+        "__version": 1,
+        "ExposureBias": 2,
+        "ExposureCompensation": 0,
+        "ExposureMethod": "RGB",
+        "MaximumExposure": 2,
+        "MinimumExposure": 1,
+        "Mode": "ACES",
+        "Rate": 1
+      }
+    ],
+    "Children": [],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

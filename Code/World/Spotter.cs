@@ -40,7 +40,7 @@ public sealed class Spotter : Component
 
 	private void Poll( Spottable spottable )
 	{
-		var playerEyePos = Player.CameraGameObject.Transform.Position;
+		var playerEyePos = Player.AimRay.Position;
 
 		const float FOV = 85;
 		float angle = Vector3.GetAngle( Player.EyeAngles.Forward, spottable.Transform.Position - playerEyePos );

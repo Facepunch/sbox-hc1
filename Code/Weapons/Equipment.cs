@@ -137,7 +137,6 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 			if ( viewModel.IsValid() )
 			{
 				viewModel.Equipment = this;
-				viewModel.ViewModelCamera = Owner.ViewModelCamera;
 			}
 		}
 	}

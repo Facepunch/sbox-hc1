@@ -15,21 +15,28 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 	/// <summary>
 	/// A reference to the camera component we're going to be doing stuff with.
 	/// </summary>
-	[Property] public CameraComponent Camera { get; set; }
-	[Property] public GameObject Boom { get; set; }
-	[Property] public AudioListener AudioListener { get; set; }
-	[Property] public ColorAdjustments ColorAdjustments { get; set; }
+	public CameraComponent Camera { get; set; }
+	public AudioListener AudioListener { get; set; }
+	public ColorAdjustments ColorAdjustments { get; set; }
+	public ScreenShaker ScreenShaker { get; set; }
+	public ChromaticAberration ChromaticAberration { get; set; }
+	public Pixelate Pixelate { get; set; }
+
 	[Property] public PlayerPawn Player { get; set; }
 
-	[Property] public ChromaticAberration ChromaticAberration { get; set; }
-	[Property] public Pixelate Pixelate { get; set; }
+	/// <summary>
+	/// The default player camera prefab.
+	/// </summary>
+	[Property] public GameObject DefaultPlayerCameraPrefab { get; set; }
+
+	public GameObject PlayerCameraGameObject { get; set; }
 
 	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = true;
 	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
 	
-	[Property] public ScreenShaker ScreenShaker { get; set; }
 	[Property] public float ThirdPersonDistance { get; set; } = 128f;
 	[Property] public float AimFovOffset { get; set; } = -5f;
+	[Property] public GameObject Boom { get; set; }
 
 	private CameraMode _mode;
 	public CameraMode Mode
@@ -46,7 +53,18 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 	/// <summary>
 	/// Constructs a ray using the camera's GameObject
 	/// </summary>
-	public Ray AimRay => new( Camera.Transform.Position + Camera.Transform.Rotation.Forward, Camera.Transform.Rotation.Forward );
+	public Ray AimRay
+	{
+		get
+		{
+			if ( Camera.IsValid() )
+			{
+				return new( Camera.Transform.Position + Camera.Transform.Rotation.Forward, Camera.Transform.Rotation.Forward );
+			}
+
+			return new( Transform.Position + Vector3.Up * 64f, Player.EyeAngles.ToRotation().Forward );
+		}
+	}
 
 	private float FieldOfViewOffset = 0f;
 	private float TargetFieldOfView = 90f;
@@ -56,10 +74,44 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		FieldOfViewOffset -= degrees;
 	}
 
+	private GameObject GetOrCreateCameraObject()
+	{
+		var component = Scene.GetAllComponents<PlayerCameraOverride>().FirstOrDefault();
+
+		var config = new CloneConfig()
+		{
+			StartEnabled = true,
+			Parent = Boom,
+			Transform = new Transform()
+		};
+
+		if ( component.IsValid() )
+			return component.Prefab.Clone( config );
+
+		return DefaultPlayerCameraPrefab?.Clone( config );
+	}
+
 	public void SetActive( bool isActive )
 	{
-		Camera.Enabled = isActive;
-		AudioListener.Enabled = isActive;
+		if ( PlayerCameraGameObject.IsValid() )
+			PlayerCameraGameObject.Destroy();
+
+		if ( isActive )
+		{
+			PlayerCameraGameObject = GetOrCreateCameraObject();
+
+			Camera = PlayerCameraGameObject.Components.GetOrCreate<CameraComponent>();
+			Pixelate = PlayerCameraGameObject.Components.GetOrCreate<Pixelate>();
+			ChromaticAberration = PlayerCameraGameObject.Components.GetOrCreate<ChromaticAberration>();
+			AudioListener = PlayerCameraGameObject.Components.GetOrCreate<AudioListener>();
+			ScreenShaker = PlayerCameraGameObject.Components.GetOrCreate<ScreenShaker>();
+
+			// Optional
+			ColorAdjustments = PlayerCameraGameObject.Components.Get<ColorAdjustments>();
+		}
+		else
+		{
+		}
 
 		OnModeChanged();
 
@@ -139,13 +191,6 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		Boom.Transform.LocalRotation *= Rotation.FromPitch( -pitch * LerpBobSpeed * 0.5f );
 	}
 
-	protected override void OnStart()
-	{
-		// Create a highlight component if it doesn't exist on the camera.
-		Camera.Components.GetOrCreate<Highlight>();
-		base.OnStart();
-	}
-
 	private void ApplyScope()
 	{
 		if ( !Player.CurrentEquipment.IsValid() )
@@ -180,7 +225,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 			FieldOfViewOffset += AimFovOffset; 
 		}
 
-		if ( ColorAdjustments is not null )
+		if ( ColorAdjustments.IsValid() )
 		{
 			ColorAdjustments.Saturation = Player.HealthComponent.IsGodMode
 				? RespawnProtectionSaturation

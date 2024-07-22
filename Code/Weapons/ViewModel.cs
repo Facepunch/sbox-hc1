@@ -41,11 +41,6 @@ public partial class ViewModel : Component, IEquipment
 	private float YawInertia;
 	private float PitchInertia;
 
-	/// <summary>
-	/// The View Model camera 
-	/// </summary>
-	public CameraComponent ViewModelCamera { get; set; }
-
 	IEnumerable<IViewModelOffset> Offsets => Equipment.Components.GetAll<IViewModelOffset>( FindMode.EverythingInSelfAndDescendants );
 
 	protected override void OnAwake()
@@ -231,7 +226,6 @@ public partial class ViewModel : Component, IEquipment
 
 		TargetFieldOfView = TargetFieldOfView.LerpTo( baseFov + FieldOfViewOffset, Time.Delta * 10f );
 		FieldOfViewOffset = 0;
-		ViewModelCamera.FieldOfView = TargetFieldOfView;
 
 		lerpedlocalRotation = Rotation.Lerp( lerpedlocalRotation, localRotation, Time.Delta * 10f );
 		lerpedLocalPosition = lerpedLocalPosition.LerpTo( localPosition, Time.Delta * 10f );
