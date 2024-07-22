@@ -99,14 +99,10 @@ public partial class BombPlantComponent : InputWeaponComponent,
 	private void PlantBombOnHost( Vector3 position, Rotation rotation, bool ignorePlanter )
 	{
 		if ( Equipment.Owner?.BodyRenderer is { IsValid: true } bodyRenderer )
-		{
-			bodyRenderer.Set( " ", false );
-		}
+			bodyRenderer.Set( "b_planting_bomb", false );
 
 		if ( !Networking.IsHost )
-		{
 			return;
-		}
 
 		var player = Equipment.Owner;
 
