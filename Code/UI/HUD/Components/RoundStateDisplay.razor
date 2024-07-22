@@ -13,7 +13,7 @@
     }
 
     <div class="layout flex column with-background with-padding h-full align-center justify-center color-borders" style="min-width: 195px; height: 60px;">
-        @if ( GameMode.Instance?.Get<ShowStatusIcon>() is { IconPath: { } path } )
+        @if ( IconPath is { } path )
         {
             <Icon File="@path" size="64" />
         }
@@ -45,10 +45,11 @@
     private string MyTeamScore { get; set; } = "0";
     private string EnemyTeamScore { get; set; } = "0";
 
-    private IEnumerable<PlayerState> MyTeamPlayers { get; set; }
-    private IEnumerable<PlayerState> EnemyTeamPlayers { get; set; }
+    private List<PlayerState> MyTeamPlayers { get; } = new();
+    private List<PlayerState> EnemyTeamPlayers { get; } = new();
 
     public string Status => GameMode.Instance?.DisplayedStatus;
+    public string IconPath => GameMode.Instance?.Get<ShowStatusIcon>()?.IconPath;
     public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
 
     private void OnSecondElapsed()
@@ -74,10 +75,11 @@
             }
         }
 
+        MyTeamPlayers.Clear();
+        EnemyTeamPlayers.Clear();
+
         if ( MyTeam == Team.Unassigned || EnemyTeam == Team.Unassigned )
         {
-            MyTeamPlayers = null;
-            EnemyTeamPlayers = null;
             return;
         }
 
@@ -92,15 +94,33 @@
             EnemyTeamScore = null;
         }
 
-        MyTeamPlayers = GameUtils.GetPlayers(MyTeam);
-        EnemyTeamPlayers = GameUtils.GetPlayers(EnemyTeam);
+        MyTeamPlayers.AddRange( GameUtils.GetPlayers( MyTeam ) );
+        EnemyTeamPlayers.AddRange( GameUtils.GetPlayers( EnemyTeam ) );
     }
 
     protected override int BuildHash()
     {
-        var a = HashCode.Combine(MyTeamPlayers, EnemyTeamPlayers, MyTeam, EnemyTeam);
-        var b = HashCode.Combine(Status, Time.HasValue, Time?.Seconds, Time?.Minutes);
+        var hash = new HashCode();
 
-        return HashCode.Combine(a, b);
+        hash.Add( MyTeam );
+        hash.Add( EnemyTeam );
+
+        hash.Add( Status );
+        hash.Add( IconPath );
+        hash.Add( Time?.TotalSeconds );
+
+        foreach ( var player in MyTeamPlayers )
+        {
+            hash.Add( player.Id );
+            hash.Add( player.Team );
+        }
+
+        foreach ( var player in EnemyTeamPlayers )
+        {
+            hash.Add( player.Id );
+            hash.Add( player.Team );
+        }
+
+        return hash.ToHashCode();
     }
 }
