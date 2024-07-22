@@ -54,12 +54,6 @@ public partial class PlayerBody : Component
 		IsFirstPerson = firstPerson;
 
 		// Disable the player's body so it doesn't render.
-		var skinnedModels = Components.GetAll<ModelRenderer>( FindMode.EverythingInSelfAndDescendants );
-
-		foreach ( var model in skinnedModels )
-		{
-			model.Enabled = !firstPerson;
-			model.RenderType = firstPerson ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
-		}
+		Renderer.Enabled = !firstPerson;
 	}
 }

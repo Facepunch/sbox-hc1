@@ -284,8 +284,6 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 			OnDeployed();
 		else
 			OnHolstered();
-		
-		base.OnStart();
 	}
 
 	bool HasCreatedViewModel { get; set; } = false;
