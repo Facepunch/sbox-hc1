@@ -15,16 +15,16 @@
         }
     </div>
 
-    @if ( !Pawn.IsValid() ) return;
+    @if ( !Pawn.IsValid() || IsDead )
+    {
+        <div style="background-image: url( ui/dead.png )" class="overlay" />
+
+        return;
+    }
 
     @if (ShowBomb && Pawn.Inventory.HasBomb && IsFriendly)
     {
         <Icon File="/ui/bomb.png" size="24" class="bomb-indicator"></Icon>
-    }
-
-    @if ( IsDead )
-    {
-        <div style="background-image: url( ui/dead.png )" class="overlay" />
     }
 
     @if (ShowHealth && Pawn.HealthComponent.State == LifeState.Alive && IsFriendly)
