@@ -54,7 +54,7 @@ public sealed class Spotter : Component
 				.IgnoreGameObjectHierarchy( spottable.GameObject )
 				.IgnoreGameObjectHierarchy( Player.GameObject )
 				.UseHitboxes()
-				.WithoutTags( "trigger", "invis", "ragdoll", "movement", "player" )
+				.WithoutTags( "trigger", "ragdoll", "movement", "player" )
 				.Run();
 
 		if ( trace.Hit )
@@ -64,7 +64,7 @@ public sealed class Spotter : Component
 				.IgnoreGameObjectHierarchy( spottable.GameObject )
 				.IgnoreGameObjectHierarchy( Player.GameObject )
 				.UseHitboxes()
-				.WithoutTags( "trigger", "invis", "ragdoll", "movement", "player" )
+				.WithoutTags( "trigger", "ragdoll", "movement", "player" )
 				.Run();
 
 			if ( trace.Hit )

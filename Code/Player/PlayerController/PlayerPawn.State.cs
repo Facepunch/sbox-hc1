@@ -164,7 +164,5 @@ public partial class PlayerPawn
 
 		Components.Get<HumanOutfitter>( FindMode.EnabledInSelfAndDescendants )?
 			.UpdateFromTeam( Team );
-
-		GameObject.Tags.Set( "invis", false );
 	}
 }

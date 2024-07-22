@@ -55,7 +55,7 @@ public partial class FlashbangGrenade : BaseGrenade, IMarkerObject
 		if ( distance > 750f ) return;
 
 		var trace = Scene.Trace
-			.WithoutTags( "trigger", "invis", "ragdoll" )
+			.WithoutTags( "trigger", "ragdoll" )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.UseHitboxes()
 			.Ray( Transform.Position + new Vector3( 0f, 0f, 8f ), viewer.Head.Transform.Position )

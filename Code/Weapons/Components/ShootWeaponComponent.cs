@@ -407,9 +407,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	protected IEnumerable<SceneTraceResult> DoTraceBullet( Vector3 start, Vector3 end, float radius )
 	{
 		return Scene.Trace.Ray( start, end )
-			.UseHitboxes()
 			.IgnoreGameObjectHierarchy( GameObject.Root )
-			.WithoutTags( "trigger", "invis", "ragdoll", "movement", "player_clip" )
+			.WithoutTags( "trigger", "player_clip" )
 			.Size( radius )
 			.RunAll();
 	}
@@ -418,9 +417,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	protected SceneTraceResult DoTraceBulletOne( Vector3 start, Vector3 end, float radius )
 	{
 		return Scene.Trace.Ray( start, end )
-			.UseHitboxes()
 			.IgnoreGameObjectHierarchy( GameObject.Root )
-			.WithoutTags( "trigger", "invis", "ragdoll", "movement", "player_clip" )
+			.WithoutTags( "trigger", "player_clip" )
 			.Size( radius )
 			.Run();
 	}

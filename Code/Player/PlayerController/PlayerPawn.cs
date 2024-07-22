@@ -159,7 +159,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 		{
 			CachedEyeTrace = Scene.Trace.Ray( AimRay, 100000f )
 				.IgnoreGameObjectHierarchy( GameObject )
-				.WithoutTags( "invis", "ragdoll", "movement" )
+				.WithoutTags( "ragdoll", "movement" )
 				.UseHitboxes()
 				.Run();
 		}

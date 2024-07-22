@@ -16,7 +16,7 @@ public static class Explosion
 		var inflictorRoot = inflictor?.GameObject?.Root;
 
 		var trace = scene.Trace
-			.WithoutTags( "trigger", "invis", "ragdoll" );
+			.WithoutTags( "trigger", "ragdoll" );
 
 		if ( inflictorRoot.IsValid() )
 			trace = trace.IgnoreGameObjectHierarchy( inflictorRoot );
