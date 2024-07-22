@@ -90,20 +90,21 @@ public partial class BombPlantComponent : InputWeaponComponent,
 		BroadcastPlant();
 	}
 
-	public void FinishPlant( Vector3? position = null )
+	public void FinishPlant( Vector3? position = null, bool ignorePlanter = false )
 	{
-		PlantBombOnHost( position ?? Equipment.Owner.Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
+		PlantBombOnHost( position ?? Equipment.Owner.Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ), ignorePlanter );
 	}
 
 	[Broadcast]
-	private void PlantBombOnHost( Vector3 position, Rotation rotation )
+	private void PlantBombOnHost( Vector3 position, Rotation rotation, bool ignorePlanter )
 	{
+		if ( Equipment.Owner?.BodyRenderer is { IsValid: true } bodyRenderer )
+		{
+			bodyRenderer.Set( " ", false );
+		}
+
 		if ( !Networking.IsHost )
 		{
-			if ( Equipment.Owner.IsValid() )
-			{
-				Equipment.Owner.BodyRenderer.Set( "b_planting_bomb", false );
-			}
 			return;
 		}
 
@@ -120,7 +121,7 @@ public partial class BombPlantComponent : InputWeaponComponent,
 		planted.Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
 		planted.NetworkSpawn();
 
-		Scene.Dispatch( new BombPlantedEvent( player, planted, CurrentBombSite ) );
+		Scene.Dispatch( new BombPlantedEvent( ignorePlanter ? null : player, planted, CurrentBombSite ) );
 	}
 	
 	[Broadcast]
