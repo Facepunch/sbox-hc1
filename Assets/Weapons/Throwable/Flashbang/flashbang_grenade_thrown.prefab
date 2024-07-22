@@ -3,9 +3,8 @@
     "__guid": "82bb2c6e-f94a-4f0e-a889-794fa75c70e7",
     "Flags": 0,
     "Name": "flashbang_grenade_thrown",
+    "Tags": "grenade",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.Rigidbody",
@@ -26,6 +25,7 @@
       {
         "__type": "Facepunch.FlashbangGrenade",
         "__guid": "a16dd620-0a03-4ff9-a763-d9d1ca0fbe38",
+        "CanDealDamage": false,
         "EffectLifeTime": 4,
         "ExplodeSound": "sounds/weapons/grenade/flashbang_explode.sound",
         "Lifetime": 1.5,
@@ -52,8 +52,6 @@
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",

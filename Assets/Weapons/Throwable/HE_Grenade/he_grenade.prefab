@@ -3,9 +3,8 @@
     "__guid": "82bb2c6e-f94a-4f0e-a889-794fa75c70e7",
     "Flags": 0,
     "Name": "he_grenade",
+    "Tags": "grenade",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Facepunch.HEGrenade",
@@ -30,7 +29,9 @@
         "PrefabOnExplode": {
           "_type": "gameobject",
           "prefab": "weapons/throwable/he_grenade/he_explosion.prefab"
-        }
+        },
+        "ScreenShakeIntensity": 3,
+        "ScreenShakeLifeTime": 1.5
       },
       {
         "__type": "Sandbox.Rigidbody",
@@ -64,8 +65,6 @@
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
@@ -77,7 +76,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

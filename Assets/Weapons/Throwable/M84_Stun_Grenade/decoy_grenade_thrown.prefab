@@ -3,10 +3,8 @@
     "__guid": "ccdabc7c-e265-464a-9bfc-faa767c890b3",
     "Flags": 0,
     "Name": "decoy_grenade_thrown",
-    "Tags": "noblockaudio",
+    "Tags": "noblockaudio,grenade",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Sandbox.Rigidbody",
@@ -36,6 +34,7 @@
       {
         "__type": "Facepunch.DecoyGrenade",
         "__guid": "7c3bcc01-8fc7-45a1-8dee-44ebef2f335f",
+        "CanDealDamage": false,
         "ChatterSpeed": 35,
         "Effect": {
           "_type": "gameobject",
@@ -56,8 +55,6 @@
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
@@ -74,11 +71,11 @@
         "Flags": 0,
         "Name": "decoy_smoke",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
-        "__Prefab": "prefabs/equipment/decoy_smoke.prefab"
+        "__Prefab": "prefabs/equipment/decoy_smoke.prefab",
+        "__PrefabVariables": {}
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
