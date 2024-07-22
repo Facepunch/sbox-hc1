@@ -94,7 +94,26 @@
     protected override int BuildHash()
     {
         if ( !IsActive ) return 0;
-        return HashCode.Combine( IsActive, GroupedPlayers, Status, Time, PlayerStates, RoundNumber, RoundLimit );
+
+        var hash = new HashCode();
+
+        hash.Add( IsActive );
+        hash.Add( Status );
+        hash.Add( Time?.TotalSeconds );
+        hash.Add( RoundNumber );
+        hash.Add( RoundLimit );
+
+        foreach ( var team in GroupedPlayers )
+        {
+            hash.Add( team.Key );
+
+            foreach ( var player in team )
+            {
+                hash.Add( player.Id );
+            }
+        }
+
+        return hash.ToHashCode();
     }
 
     public override void Tick()
