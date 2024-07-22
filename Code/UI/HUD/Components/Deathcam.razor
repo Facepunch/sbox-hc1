@@ -30,6 +30,7 @@
     @if ( DamageEntries is not null && DamageEntries.Count > 0 )
     {
         <div class="flex column layout with-background with-padding">
+            <label class="small slight">DAMAGE TAKEN</label>
             @foreach ( var entry in DamageEntries )
             {
                 <div class="flex row gap-xs">
@@ -43,10 +44,11 @@
     @if ( InflictedDamageEntries is not null && InflictedDamageEntries.Count > 0 )
     {
         <div class="flex column layout with-background with-padding">
+            <label class="small slight">INFLICTED DAMAGE</label>
             @foreach ( var entry in InflictedDamageEntries )
             {
                 <div class="flex row gap-xs">
-                    <label>inflicted @(entry.Damage.CeilToInt()) damage in @(entry.Count) hits - </label>
+                    <label>@(entry.Damage.CeilToInt()) damage in @(entry.Count) hits</label>
                 </div>
             }
         </div>
