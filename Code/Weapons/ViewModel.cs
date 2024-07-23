@@ -15,12 +15,12 @@ public partial class ViewModel : Component, IEquipment
 	/// <summary>
 	/// A reference to the viewmodel's arms.
 	/// </summary>
-	[Property] public SkinnedModelRenderer Arms { get; set; }
+	[Property, Group( "Components" )] public SkinnedModelRenderer Arms { get; set; }
 
 	/// <summary>
 	/// Is this a throwable?
 	/// </summary>
-	[Property] public bool IsThrowable { get; set; }
+	[Property, Group( "Configuration" )] public bool IsThrowable { get; set; }
 
 	/// <summary>
 	/// Looks up the tree to find the player controller.
@@ -30,9 +30,9 @@ public partial class ViewModel : Component, IEquipment
 	[Property, Group( "GameObjects" )] public GameObject Muzzle { get; set; }
 	[Property, Group( "GameObjects" )] public GameObject EjectionPort { get; set; }
 
-	[Property] public SkinnedModelRenderer ModelRenderer { get; set; }
-	[Property, Range( 0, 1 )] public float IronsightsFireScale { get; set; } = 0.2f;
-	[Property] public bool UseMovementInertia { get; set; } = true;
+	[Property, Group( "Components" )] public SkinnedModelRenderer ModelRenderer { get; set; }
+	[Property, Range( 0, 1 ), Group( "Configuration" )] public float IronsightsFireScale { get; set; } = 0.2f;
+	[Property, Group( "Configuration" )] public bool UseMovementInertia { get; set; } = true;
 
 	private float YawInertiaScale => 2f;
 	private float PitchInertiaScale => 2f;
@@ -178,7 +178,7 @@ public partial class ViewModel : Component, IEquipment
 		Flashbang
 	}
 
-	[Property] public ThrowableTypeEnum ThrowableType { get; set; }
+	[Property, ShowIf( nameof( IsThrowable ), true ), Group( "Configuration" )] public ThrowableTypeEnum ThrowableType { get; set; }
 
 	/// <summary>
 	/// Should we play deploy effects?
