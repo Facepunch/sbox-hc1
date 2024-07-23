@@ -32,6 +32,7 @@ public partial class ViewModel : Component, IEquipment
 
 	[Property] public SkinnedModelRenderer ModelRenderer { get; set; }
 	[Property, Range( 0, 1 )] public float IronsightsFireScale { get; set; } = 0.2f;
+	[Property] public bool UseMovementInertia { get; set; } = true;
 
 	private float YawInertiaScale => 2f;
 	private float PitchInertiaScale => 2f;
@@ -142,7 +143,8 @@ public partial class ViewModel : Component, IEquipment
 		lerpedWishMove = lerpedWishMove.LerpTo( wishMove, Time.Delta * 7.0f );
 		ModelRenderer?.Set( "move_bob", moveLen.Remap( 0, 300, 0, 1, true ) );
 
-		YawInertia += lerpedWishMove.y * 10f;
+		if ( UseMovementInertia )
+			YawInertia += lerpedWishMove.y * 10f;
 
 		ModelRenderer?.Set( "aim_yaw_inertia", YawInertia * YawInertiaScale );
 		ModelRenderer?.Set( "aim_pitch_inertia", PitchInertia * PitchInertiaScale );
