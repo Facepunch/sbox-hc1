@@ -124,6 +124,9 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 	/// <param name="eyeHeight"></param>
 	internal void UpdateFromEyes( float eyeHeight )
 	{
+		if ( !Camera.IsValid() )
+			return;
+
 		// All transform effects are additive to camera local position, so we need to reset it before anything is applied
 		Camera.Transform.LocalPosition = Vector3.Zero;
 		Camera.Transform.LocalRotation = Rotation.Identity;

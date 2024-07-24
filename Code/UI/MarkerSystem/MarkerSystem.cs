@@ -43,6 +43,9 @@ public partial class MarkerSystem : Panel
 			return false;
 
 		var camera = Scene.Camera;
+		if ( !camera.IsValid() )
+			return false;
+
 		if ( marker.MarkerMaxDistance != 0f && camera.Transform.Position.Distance( marker.MarkerPosition ) > marker.MarkerMaxDistance )
 			return false;
 
