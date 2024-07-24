@@ -77,7 +77,8 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 		if ( !player.IsValid() ) 
 			return;
 
-		var weapon = player.Inventory.Give( Resource );
+		var currentActiveSlot = player.CurrentEquipment?.Resource.Slot ?? EquipmentSlot.Melee;
+		var weapon = player.Inventory.Give( Resource, Resource.Slot < currentActiveSlot );
 
 		if ( !weapon.IsValid() )
 			return;
