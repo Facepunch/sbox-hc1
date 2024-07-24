@@ -277,7 +277,7 @@ public partial class PlayerPawn
 		return Global.CrouchLerpSpeed;
 	}
 
-    private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking && WishMove.x > 0.2f;
+    private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking && !HasEquipmentTag( "no_sprint" ) && WishMove.x > 0.2f;
 	TimeSince TimeSinceSprintChanged { get; set; } = 100;
 
 	private void OnSprintChanged( bool before, bool after )
@@ -285,14 +285,17 @@ public partial class PlayerPawn
 		TimeSinceSprintChanged = 0;
 	}
 
+	private bool HasEquipmentTag( string tag )
+	{
+		return CurrentEquipment.IsValid() && CurrentEquipment.Tags.Has( tag );
+	}
+
 	private void BuildInput()
 	{
-		IsSlowWalking = Input.Down( "Walk" );
-		if ( CurrentEquipment.IsValid() )
-			IsSlowWalking |= CurrentEquipment.Tags.Has( "aiming" );
-
 		bool wasSprinting = IsSprinting;
-        IsSprinting = WantsToSprint;
+
+		IsSlowWalking = Input.Down( "Walk" ) || HasEquipmentTag( "aiming" );
+		IsSprinting = WantsToSprint;
 
 		if ( wasSprinting != IsSprinting )
 		{
