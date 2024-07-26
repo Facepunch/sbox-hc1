@@ -48,6 +48,18 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	[Property, Group( "Effects" )] public SoundEvent DryFireSound { get; set; }
 
 	/// <summary>
+	/// Tracer for the first bullet in a shot.
+	/// </summary>
+	[Property, Group( "Effects" )]
+	public ParticleSystem PrimaryTracer { get; set; } = ParticleSystem.Load( "particles/gameplay/guns/trail/trail_smoke.vpcf" );
+
+	/// <summary>
+	/// Tracer for other bullets in a shot (shotguns).
+	/// </summary>
+	[Property, Group( "Effects" )]
+	public ParticleSystem SecondaryTracer { get; set; } = ParticleSystem.Load( "particles/gameplay/guns/trail/rico_trail_smoke.vpcf" );
+
+	/// <summary>
 	/// The current weapon's ammo container.
 	/// </summary>
 	[Property, Category( "Ammo" )] public AmmoComponent AmmoComponent { get; set; }
@@ -202,14 +214,14 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 			Equipment.ViewModel.ModelRenderer.Set( "b_attack", true );
 	}
 
-	private LegacyParticleSystem CreateParticleSystem( string particle, Vector3 pos, Rotation rot, float decay = 5f )
+	private LegacyParticleSystem CreateParticleSystem( ParticleSystem particleSystem, Vector3 pos, Rotation rot, float decay = 5f )
 	{
 		var gameObject = Scene.CreateObject();
 		gameObject.Transform.Position = pos;
 		gameObject.Transform.Rotation = rot;
 
 		var p = gameObject.Components.Create<LegacyParticleSystem>();
-		p.Particles = ParticleSystem.Load( particle );
+		p.Particles = particleSystem;
 		gameObject.Transform.ClearInterpolation();
 
 		// Clean these up between rounds
@@ -374,11 +386,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	{
 		if ( !IsNearby( startPosition ) || !IsNearby( endPosition ) ) return;
 
-		var effectPath = "particles/gameplay/guns/trail/trail_smoke.vpcf";
-		if ( count > 0 ) effectPath = "particles/gameplay/guns/trail/rico_trail_smoke.vpcf";
-
 		var origin = count == 0 ? Effector?.Muzzle?.Transform.Position ?? Equipment.Transform.Position : startPosition;
-		var ps = CreateParticleSystem( effectPath, origin, Rotation.Identity, 1f );
+		var ps = CreateParticleSystem( count == 0 ? PrimaryTracer : SecondaryTracer, origin, Rotation.Identity, 1f );
 		ps.SceneObject.SetControlPoint( 0, origin );
 		ps.SceneObject.SetControlPoint( 1, endPosition );
 		ps.SceneObject.SetControlPoint( 2, distance );
