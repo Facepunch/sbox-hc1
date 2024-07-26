@@ -418,7 +418,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		return Scene.Trace.Ray( start, end )
 			.UseHitboxes()
 			.IgnoreGameObjectHierarchy( GameObject.Root )
-			.WithoutTags( "trigger", "player_clip", "movement" )
+			.WithoutTags( "trigger", "playerclip", "movement" )
 			.Size( radius )
 			.RunAll();
 	}
@@ -429,7 +429,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		return Scene.Trace.Ray( start, end )
 			.UseHitboxes()
 			.IgnoreGameObjectHierarchy( GameObject.Root )
-			.WithoutTags( "trigger", "player_clip", "movement" )
+			.WithoutTags( "trigger", "playerclip", "movement" )
 			.Size( radius )
 			.Run();
 	}
