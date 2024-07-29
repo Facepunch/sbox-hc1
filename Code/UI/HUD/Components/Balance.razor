@@ -26,6 +26,7 @@
 
     protected override int BuildHash()
     {
+        if ( !Player.IsValid() ) return 0;
         if ( !PlayerState.IsValid() ) return 0;
         if ( !GameMode.Instance.IsValid() ) return 0;
 

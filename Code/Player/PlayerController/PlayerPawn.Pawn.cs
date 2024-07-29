@@ -17,7 +17,9 @@ public partial class PlayerPawn
 	/// Called when possessed.
 	/// </summary>
 	public override void OnPossess()
-	{ 
+	{
+		CameraController.SetActive( true );
+
 		// if we're spectating a remote player, use the camera mode preference
 		// otherwise: first person for now
 		var spectateSystem = SpectateSystem.Instance;
@@ -29,8 +31,6 @@ public partial class PlayerPawn
 		{
 			CameraController.Mode = CameraMode.FirstPerson;
 		}
-
-		CameraController.SetActive( true );
 	}
 
 	public override void OnDePossess()

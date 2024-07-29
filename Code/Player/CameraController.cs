@@ -44,10 +44,16 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		get => _mode;
 		set
 		{
+			if ( _mode == value )
+				return;
+
 			_mode = value;
 			OnModeChanged();
 		}
 	}
+
+	public bool IsActive { get; private set; }
+
 	public float MaxBoomLength { get; set; }
 
 	/// <summary>
@@ -93,6 +99,8 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 
 	public void SetActive( bool isActive )
 	{
+		IsActive = isActive;
+
 		if ( PlayerCameraGameObject.IsValid() )
 			PlayerCameraGameObject.Destroy();
 
@@ -108,9 +116,6 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 
 			// Optional
 			ColorAdjustments = PlayerCameraGameObject.Components.Get<ColorAdjustments>();
-		}
-		else
-		{
 		}
 
 		OnModeChanged();
@@ -274,7 +279,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 	{
 		SetBoomLength( Mode == CameraMode.FirstPerson ? 0.0f : ThirdPersonDistance );
 
-		var firstPersonPOV = Mode == CameraMode.FirstPerson && Player.IsViewer;
+		var firstPersonPOV = Mode == CameraMode.FirstPerson && IsActive;
 		Player.Body?.SetFirstPersonView( firstPersonPOV );
 
 		if ( firstPersonPOV )
