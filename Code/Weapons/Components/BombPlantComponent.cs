@@ -73,7 +73,7 @@ public partial class BombPlantComponent : InputWeaponComponent,
 			player.IsFrozen = true;
 		}
 
-		if ( Equipment.Owner.IsValid() )
+		if ( Equipment.Owner.IsValid() && Equipment.Owner.BodyRenderer.IsValid() )
 		{
 			Equipment.Owner.BodyRenderer.Set( "b_planting_bomb", true );
 		}
@@ -132,7 +132,7 @@ public partial class BombPlantComponent : InputWeaponComponent,
 			player.IsFrozen = false;
 		}
 
-		if ( Equipment.Owner.IsValid() )
+		if ( Equipment.Owner.IsValid() && Equipment.Owner.BodyRenderer.IsValid() )
 		{
 			Equipment.Owner.BodyRenderer.Set( "b_planting_bomb", false );
 		}
