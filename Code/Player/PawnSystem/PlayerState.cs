@@ -122,7 +122,11 @@ public partial class PlayerState : Component, ITeam
 			Local.OnNetPossessed();
 		}
 
-		Assert.True( pawn.PlayerState.IsValid(), $"Attempted to possess pawn, but pawn '{pawn.DisplayName}' has no attached PlayerState!");
+		if ( !pawn.PlayerState.IsValid() )
+		{
+			Log.Warning( $"Attempted to possess pawn, but pawn '{pawn.DisplayName}' has no attached PlayerState!" );
+		}
+
 		Viewer = pawn.PlayerState;
 	}
 
