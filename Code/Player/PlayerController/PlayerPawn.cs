@@ -45,7 +45,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	/// <summary>
 	/// Get a quick reference to the real Camera GameObject.
 	/// </summary>
-	public GameObject CameraGameObject => CameraController.Camera.GameObject;
+	public GameObject CameraGameObject => CameraController?.Camera?.GameObject;
 
 	/// <summary>
 	/// Finds the first <see cref="SkinnedModelRenderer"/> on <see cref="Body"/>

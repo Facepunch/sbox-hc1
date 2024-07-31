@@ -183,7 +183,11 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 		}
 
 		DefusingPlayer = player;
-		Wires.Points[1] = DefusingPlayer.CameraGameObject;
+
+		if ( DefusingPlayer.CameraGameObject.IsValid() )
+		{
+			Wires.Points[1] = DefusingPlayer.CameraGameObject;
+		}
 
 		if ( DefuseStartSound is not null )
 		{
