@@ -1,5 +1,5 @@
 {
-  "__guid": "f5f3bda9-9fa9-40bb-9533-1e0df7f73492",
+  "__guid": "3fb8d4df-7d95-43b0-a52b-1737969563e5",
   "GameObjects": [
     {
       "__guid": "207ce4dd-fff1-4c3e-a718-be39b735fb70",
@@ -128,24 +128,24 @@
             {
               "__type": "Sandbox.GradientFog",
               "__guid": "d3b2fe6e-2d8c-43ad-a917-00e6ecaf750c",
-              "Color": "0.73025,0.90233,0.87078,0.15",
+              "Color": "0.712,0.86977,0.84084,0.15",
               "EndDistance": 4096,
               "FalloffExponent": 2,
               "Height": 1024,
-              "StartDistance": 1024,
+              "StartDistance": 1600,
               "VerticalFalloffExponent": 2
             },
             {
               "__type": "Sandbox.CubemapFog",
               "__guid": "38d473c8-9f5d-41ca-a170-4f668607a0ad",
-              "Blur": 0.53,
+              "Blur": 0.33,
               "EndDistance": 8192,
               "FalloffExponent": 1,
               "HeightExponent": 2,
               "HeightStart": 2000,
               "HeightWidth": 0,
-              "Sky": "materials/skybox/skybox_day_01.vmat",
-              "StartDistance": 2048
+              "Sky": "materials/skybox/skybox_overcast_02.vmat",
+              "StartDistance": 1600
             }
           ]
         },
@@ -178,21 +178,38 @@
             {
               "__type": "Sandbox.EnvmapProbe",
               "__guid": "00130408-83bd-4831-ac91-dcdbebfe445e",
-              "Texture": "textures/cubemaps/default2.vtex",
+              "Texture": "materials/skybox/skybox_sunrise_01_exr_61ffe767.generated.vtex",
               "Bounds": {
                 "Mins": "-2761.594,-1523.665,-1000",
                 "Maxs": "3004.938,3088.534,1000"
               },
               "DelayBetweenUpdates": 0.1,
               "Feathering": 0.02,
-              "FrameInterval": 5,
-              "MaxDistance": 5000,
+              "FrameInterval": 16,
+              "MaxDistance": 4096,
               "Projection": "Box",
-              "RenderDynamically": true,
+              "RenderDynamically": false,
               "TintColor": "1,1,1,1",
               "UpdateStrategy": "OnEnabled",
               "ZFar": 4096,
               "ZNear": 16
+            }
+          ]
+        },
+        {
+          "__guid": "6a033b1b-8ed1-4aaf-bc62-29f5edaf0eb9",
+          "Flags": 0,
+          "Name": "Camera Settings",
+          "Position": "-4210.519,-874.5353,268.8596",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Facepunch.PlayerCameraOverride",
+              "__guid": "a96bd87e-0c30-4cd7-9baa-3a5c2dad1c5b",
+              "Prefab": {
+                "_type": "gameobject",
+                "prefab": "prefabs/player/cameras/player_camera_with_aces.prefab"
+              }
             }
           ]
         }
@@ -296,48 +313,6 @@
       "Enabled": true,
       "Children": [
         {
-          "__guid": "1c558476-2038-4b54-8a19-f59f47619974",
-          "Flags": 0,
-          "Name": "decal_bombsite_b (5)",
-          "Position": "-587.4124,-2165.951,140.5845",
-          "Rotation": "0.0000002384186,-0.9999999,-0.0000001947072,0.00000000000002131628",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.DecalRenderer",
-              "__guid": "0cfcb6ec-2720-4e8c-ae88-04de0cc3ec68",
-              "CutoffAngle": 60,
-              "CutoffAngleSoftness": 5,
-              "Material": "materials/decals/decal_bombsite_b.vmat",
-              "Mod2XBlending": false,
-              "Size": "256,255,256",
-              "TintColor": "1,1,1,1",
-              "TriPlanar": false
-            }
-          ]
-        },
-        {
-          "__guid": "8dc5f9db-8442-4cde-b983-a850ac6b6492",
-          "Flags": 0,
-          "Name": "decal_bombsite_b",
-          "Position": "-1101.458,-1224.774,-597.842",
-          "Rotation": "0.7071068,-0.7071066,-0.0000001376788,0.0000001376788",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.DecalRenderer",
-              "__guid": "7d618bf0-6e88-408e-bacd-514261ff61a1",
-              "CutoffAngle": 60,
-              "CutoffAngleSoftness": 5,
-              "Material": "materials/decals/decal_bombsite_b.vmat",
-              "Mod2XBlending": false,
-              "Size": "128,128,128",
-              "TintColor": "1,1,1,1",
-              "TriPlanar": false
-            }
-          ]
-        },
-        {
           "__guid": "c3cabca4-7200-4340-ae9e-3fc10780db2b",
           "Flags": 0,
           "Name": "decal_arrow",
@@ -383,7 +358,7 @@
           "__guid": "252ddb30-2f5d-47b3-87bd-f8608b6ca2c4",
           "Flags": 0,
           "Name": "decal_cross",
-          "Position": "-1419.412,-1461.951,-899.4154",
+          "Position": "-1429.687,-1403.377,-899.4154",
           "Rotation": "-0.5,0.5,0.5,0.5",
           "Enabled": true,
           "Components": [
@@ -422,27 +397,6 @@
           ]
         },
         {
-          "__guid": "d623faf4-c147-4b7e-bbbd-eaa037e32b98",
-          "Flags": 0,
-          "Name": "decal_bombsite_b (2)",
-          "Position": "-587.4124,-1301.951,-907.4142",
-          "Rotation": "0.0000002753575,-0.0000002753576,0.7071067,-0.7071068",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.DecalRenderer",
-              "__guid": "6f2dbacf-e07b-4f03-93af-7a8bbe586cc5",
-              "CutoffAngle": 60,
-              "CutoffAngleSoftness": 5,
-              "Material": "materials/decals/decal_arrow.vmat",
-              "Mod2XBlending": false,
-              "Size": "64,32,256",
-              "TintColor": "1,1,1,1",
-              "TriPlanar": false
-            }
-          ]
-        },
-        {
           "__guid": "a3ed7fa3-a8d0-4c14-ab42-f15e4d5fc871",
           "Flags": 0,
           "Name": "decal_bombsite_b (8)",
@@ -464,52 +418,10 @@
           ]
         },
         {
-          "__guid": "9f7c36f6-bb28-4ef7-b56b-0ac56b9aa294",
-          "Flags": 0,
-          "Name": "decal_bombsite_b (1)",
-          "Position": "-587.4124,-1301.951,-859.4142",
-          "Rotation": "0.7071067,-0.7071068,-0.0000001376788,0.0000001376788",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.DecalRenderer",
-              "__guid": "a3c74e79-54ea-4d83-ada4-a63c8c9f40f6",
-              "CutoffAngle": 60,
-              "CutoffAngleSoftness": 5,
-              "Material": "materials/decals/decal_bombsite_b.vmat",
-              "Mod2XBlending": false,
-              "Size": "64,64,256",
-              "TintColor": "1,1,1,1",
-              "TriPlanar": false
-            }
-          ]
-        },
-        {
-          "__guid": "a13c9e8a-231e-4c48-b800-632b9b3dd235",
-          "Flags": 0,
-          "Name": "decal_bombsite_b",
-          "Position": "-1483.412,-1813.951,-755.4155",
-          "Rotation": "0.7071067,-0.7071068,-0.0000001376788,0.0000001376788",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.DecalRenderer",
-              "__guid": "f5fd6e99-f172-4a1b-a75f-eb763fe6d764",
-              "CutoffAngle": 60,
-              "CutoffAngleSoftness": 5,
-              "Material": "materials/decals/decal_bombsite_b.vmat",
-              "Mod2XBlending": false,
-              "Size": "64,64,256",
-              "TintColor": "1,1,1,1",
-              "TriPlanar": false
-            }
-          ]
-        },
-        {
           "__guid": "ccc7396d-31bc-48ca-931b-c3f6ffc20b7d",
           "Flags": 0,
           "Name": "decal_bombsite_a (16)",
-          "Position": "-715.4124,-1237.951,-875.4168",
+          "Position": "-715.4121,-1177.869,-875.4168",
           "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
           "Enabled": true,
           "Components": [
@@ -520,7 +432,7 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_bombsite_b.vmat",
               "Mod2XBlending": false,
-              "Size": "64,64,256",
+              "Size": "64,64,5",
               "TintColor": "1,1,1,1",
               "TriPlanar": false
             }
@@ -584,27 +496,6 @@
               "Material": "materials/decals/decal_bombsite_b.vmat",
               "Mod2XBlending": false,
               "Size": "64,64,256",
-              "TintColor": "1,1,1,1",
-              "TriPlanar": false
-            }
-          ]
-        },
-        {
-          "__guid": "9019b685-525f-4eda-bda6-aee2f1da0e38",
-          "Flags": 0,
-          "Name": "decal_bombsite_a (15)",
-          "Position": "1604.588,-1669.951,-1011.416",
-          "Rotation": "0.0000002753576,0.0000002753575,-0.7071067,-0.7071069",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.DecalRenderer",
-              "__guid": "a011dcd8-a3c7-4a17-8388-c7b7c5c3fd5d",
-              "CutoffAngle": 60,
-              "CutoffAngleSoftness": 5,
-              "Material": "materials/decals/decal_arrow.vmat",
-              "Mod2XBlending": false,
-              "Size": "64,32,23",
               "TintColor": "1,1,1,1",
               "TriPlanar": false
             }
@@ -677,7 +568,7 @@
           "__guid": "b94fcaa5-4e76-4166-9a79-21198fa8c5ec",
           "Flags": 0,
           "Name": "decal_bombsite_a (17)",
-          "Position": "-715.4124,-1237.951,-923.4168",
+          "Position": "-715.4121,-1181.297,-923.4168",
           "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
           "Enabled": true,
           "Components": [
@@ -688,7 +579,7 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
-              "Size": "64,32,256",
+              "Size": "64,32,20",
               "TintColor": "1,1,1,1",
               "TriPlanar": false
             }
@@ -773,27 +664,6 @@
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
               "Size": "64,32,256",
-              "TintColor": "1,1,1,1",
-              "TriPlanar": false
-            }
-          ]
-        },
-        {
-          "__guid": "fc0103b2-b762-45b0-a557-f955fe492368",
-          "Flags": 0,
-          "Name": "decal_bombsite_a (14)",
-          "Position": "1604.588,-1669.951,-947.4159",
-          "Rotation": "0.7071069,0.7071067,0.0000001376788,0.0000001376788",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.DecalRenderer",
-              "__guid": "d8ff66d7-7353-4970-9f64-0fba1eab6b87",
-              "CutoffAngle": 60,
-              "CutoffAngleSoftness": 5,
-              "Material": "materials/decals/decal_bombsite_a.vmat",
-              "Mod2XBlending": false,
-              "Size": "64,64,23",
               "TintColor": "1,1,1,1",
               "TriPlanar": false
             }
@@ -962,7 +832,7 @@
           "Flags": 0,
           "Name": "BombSite_A",
           "Position": "1748.588,-325.9513,-1003.27",
-          "Tags": "zone",
+          "Tags": "zone,bombsite",
           "Enabled": true,
           "__Prefab": "scenes/maps/defusemap_01/bombsite_a.prefab",
           "__PrefabVariables": {}
@@ -3979,6 +3849,7 @@
       "Name": "Door",
       "Position": "-4264,-132,96",
       "Rotation": "0,0,0.7071067,0.7071068",
+      "Tags": "noblockaudio",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/door.prefab",
@@ -3990,6 +3861,7 @@
       "Name": "Door",
       "Position": "-3704,328,160",
       "Rotation": "0,0,0.7071067,0.7071068",
+      "Tags": "noblockaudio",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/door.prefab",
@@ -4001,6 +3873,7 @@
       "Name": "Door",
       "Position": "-3207.998,440.0032,31.99999",
       "Rotation": "0,0,-0.9999999,-0.0000005384259",
+      "Tags": "noblockaudio",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/door.prefab",
@@ -4012,6 +3885,7 @@
       "Name": "Door",
       "Position": "-2716,-200,64",
       "Rotation": "0,0,0.9999999,0.0000001490116",
+      "Tags": "noblockaudio",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/door.prefab",
@@ -4023,6 +3897,7 @@
       "Name": "Door",
       "Position": "-2116,88,96",
       "Rotation": "0,0,0.0000003437187,-0.9999999",
+      "Tags": "noblockaudio",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/door.prefab",
@@ -4034,6 +3909,7 @@
       "Name": "Door",
       "Position": "-4056,937,96.00002",
       "Rotation": "0,0,1,0.0000001947072",
+      "Tags": "noblockaudio",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/door.prefab",
@@ -4049,6 +3925,7 @@
           "__type": "Sandbox.MapInstance",
           "__guid": "e7c5f4e8-56a9-4bf9-bfa8-0afdec5fe6b1",
           "__version": 1,
+          "EnableCollision": true,
           "MapName": "maps/de_garry/de_garry.vmap",
           "NoOrigin": true,
           "UseMapFromLaunch": false
@@ -4949,7 +4826,7 @@
               "__guid": "60ff13ec-9d44-45d0-8818-e4adb34c0b82",
               "Flags": 0,
               "Name": "Text (1)",
-              "Position": "-2018.639,-695.5062,55.06651",
+              "Position": "-2166.573,-841.8179,151.972",
               "Rotation": "0,0,-0.9962982,0.0859656",
               "Enabled": true,
               "Components": [
@@ -5303,32 +5180,11 @@
               ]
             },
             {
-              "__guid": "fd5f34c2-57a0-4c08-8aa7-ccd9a7dd9d07",
-              "Flags": 0,
-              "Name": "Text (2)",
-              "Position": "-1676.811,2488.409,86.813",
-              "Rotation": "-0.004972589,-0.000449575,0.09020856,0.9959119",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.TextRenderer",
-                  "__guid": "47bf885d-2ee0-48d1-b709-167327542a99",
-                  "Color": "0.67907,0.67907,0.67907,1",
-                  "FontFamily": "Poppins",
-                  "FontSize": 111.24,
-                  "FontWeight": 800,
-                  "Scale": 0.3,
-                  "Text": "B SITE",
-                  "TextAlignment": "Center"
-                }
-              ]
-            },
-            {
               "__guid": "89d89344-2d58-4d7f-b3d5-9720f38d96a2",
               "Flags": 0,
               "Name": "Text (2)",
-              "Position": "-2336.677,2646.156,180.6458",
-              "Rotation": "0.0004495741,-0.004972588,-0.9959119,0.0902088",
+              "Position": "-2227.676,3078.241,204.3314",
+              "Rotation": "0.003834048,-0.003198254,-0.7680035,-0.6404288",
               "Enabled": true,
               "Components": [
                 {
@@ -5348,7 +5204,7 @@
               "__guid": "71a8585b-cd8b-484e-9503-777742ec3051",
               "Flags": 0,
               "Name": "Text (2)",
-              "Position": "-1594.925,2840.797,214.9946",
+              "Position": "-1593.748,2834.226,215.0063",
               "Rotation": "-0.004972589,-0.000449575,0.09020859,0.9959119",
               "Enabled": true,
               "Components": [
@@ -5369,7 +5225,7 @@
               "__guid": "a4a652f8-c1db-4378-8d24-94d407f83ab0",
               "Flags": 0,
               "Name": "Text (2)",
-              "Position": "-1845.405,3147.122,35.04877",
+              "Position": "-1844.864,3156.714,49.80849",
               "Rotation": "-0.003834049,0.003198254,0.7680032,0.640429",
               "Enabled": true,
               "Components": [
@@ -5618,42 +5474,21 @@
               ]
             },
             {
-              "__guid": "e0aa3d8a-2ca8-4698-9b9e-d940071e3e6a",
-              "Flags": 0,
-              "Name": "Text (2)",
-              "Position": "-1762.918,1638.134,59.42461",
-              "Rotation": "-0.0004495753,0.004972588,0.995912,-0.09020829",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.TextRenderer",
-                  "__guid": "e6044832-b6ed-46ba-a5b7-03b09af407d9",
-                  "Color": "0.82791,0.82791,0.82791,1",
-                  "FontFamily": "Poppins",
-                  "FontSize": 64,
-                  "FontWeight": 800,
-                  "Scale": 0.6,
-                  "Text": "RAMP\n",
-                  "TextAlignment": "Center"
-                }
-              ]
-            },
-            {
               "__guid": "e5706173-65d9-4099-a3ea-0003f75f8a1f",
               "Flags": 0,
               "Name": "Text (2)",
-              "Position": "-1571.221,906.0916,311.1553",
+              "Position": "-1573.693,919.546,276.4761",
               "Rotation": "0.004972588,0.0004495766,0.09020853,0.995912",
               "Enabled": true,
               "Components": [
                 {
                   "__type": "Sandbox.TextRenderer",
                   "__guid": "08effea2-39db-420d-b226-381df8b51fe2",
-                  "Color": "1,1,1,1",
+                  "Color": "0.62326,0.62326,0.62326,1",
                   "FontFamily": "Poppins",
                   "FontSize": 85.84,
                   "FontWeight": 800,
-                  "Scale": 0.39,
+                  "Scale": 0.31,
                   "Text": "SECURITY \nSPAWN",
                   "TextAlignment": "Center"
                 }
@@ -5663,7 +5498,7 @@
               "__guid": "ba85889c-abc8-46d0-8b2c-a811100f59da",
               "Flags": 0,
               "Name": "Text (2)",
-              "Position": "-2201.732,354.5977,47.97403",
+              "Position": "-2227.913,347.3636,59.52628",
               "Rotation": "0.00383405,-0.003198252,-0.6404289,0.7680033",
               "Enabled": true,
               "Components": [
@@ -5684,7 +5519,7 @@
               "__guid": "b86beebe-ceb6-4177-af97-4419d996a8fb",
               "Flags": 0,
               "Name": "Text (2)",
-              "Position": "-1769.556,-115.4519,9.320389",
+              "Position": "-1780.722,-56.33762,35.21033",
               "Rotation": "0.004972588,0.0004495769,0.09020877,0.9959121",
               "Enabled": true,
               "Components": [
