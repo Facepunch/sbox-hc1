@@ -70,13 +70,20 @@ public partial class BombPlantComponent : InputWeaponComponent,
 			IsPlanting = true;
 
 			var player = Equipment.Owner;
-			player.IsFrozen = true;
+			if ( player.IsValid() )
+			{
+				player.IsFrozen = true;
+			}
 		}
 
-		if ( Equipment.Owner.IsValid() && Equipment.Owner.BodyRenderer.IsValid() )
-		{
+		if ( !Equipment.IsValid() )
+			return;
+
+		if ( !Equipment.Owner.IsValid() )
+			return;
+
+		if ( Equipment.Owner.BodyRenderer.IsValid() )
 			Equipment.Owner.BodyRenderer.Set( "b_planting_bomb", true );
-		}
 	}
 
 	private void StartPlant()
