@@ -211,6 +211,9 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		}
 	}
 
+	bool fetchedInitial = false;
+	float defaultSaturation = 1f;
+
 	private void Update( float eyeHeight )
 	{
 		var baseFov = GameSettingsSystem.Current.FieldOfView;
@@ -235,9 +238,15 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 
 		if ( ColorAdjustments.IsValid() )
 		{
+			if ( !fetchedInitial )
+			{
+				defaultSaturation = ColorAdjustments.Saturation;
+				fetchedInitial = true;
+			}
+
 			ColorAdjustments.Saturation = Player.HealthComponent.IsGodMode
 				? RespawnProtectionSaturation
-				: ColorAdjustments.Saturation.MoveToLinear( 1f, 1f );
+				: ColorAdjustments.Saturation.MoveToLinear( defaultSaturation, 1f );
 		}
 
 		ApplyRecoil();
