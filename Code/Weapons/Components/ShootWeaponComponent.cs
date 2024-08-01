@@ -176,7 +176,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 				{
 					Parent = Effector.Muzzle,
 					Transform = new(),
-					StartEnabled = true
+					StartEnabled = true,
+					Name = $"Muzzle flash: {Equipment.GameObject}"
 				} );
 			}
 		}
@@ -190,11 +191,11 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 				{
 					Parent = Effector.EjectionPort,
 					Transform = new(),
-					StartEnabled = true
+					StartEnabled = true,
+					Name = $"Bullet ejection: {Equipment.GameObject}"
 				} );
 			}
 		}
-
 
 		if ( ShootSound is not null )
 		{
@@ -217,6 +218,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	private LegacyParticleSystem CreateParticleSystem( ParticleSystem particleSystem, Vector3 pos, Rotation rot, float decay = 5f )
 	{
 		var gameObject = Scene.CreateObject();
+		gameObject.Name = $"Particle: {Equipment.GameObject}";
 		gameObject.Transform.Position = pos;
 		gameObject.Transform.Rotation = rot;
 
@@ -254,6 +256,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	private DecalRenderer CreateDecal( Material material, Vector3 pos, Vector3 normal, float rotation, float size, float depth, float destroyTime = 3f )
 	{
 		var gameObject = Scene.CreateObject();
+		gameObject.Name = $"Impact decal: {Equipment.GameObject}";
 		gameObject.Transform.Position = pos;
 		gameObject.Transform.Rotation = Rotation.LookAt( -normal );
 
