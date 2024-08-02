@@ -3,7 +3,8 @@ using Sandbox;
 
 public class HideObject
 {
-	[Menu("Editor", "Settings/HC1/ToggleSelection", Shortcut = "h" )]
+	[Menu("Editor", "Settings/HC1/Toggle Selection" )]
+	[Shortcut( "hc1.editor.toggleselect", "H", ShortcutType.Window )]
 	static void ToggleSelection()
 	{
 		using var scope = SceneEditorSession.Scope();
