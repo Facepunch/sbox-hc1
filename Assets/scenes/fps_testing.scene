@@ -6,8 +6,6 @@
       "Flags": 0,
       "Name": "game_setup (1)",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "scenes/maps/defusemap_01/game_setup.prefab",
       "__PrefabVariables": {}
     },
@@ -18,7 +16,6 @@
       "Position": "176,32,2",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "__Prefab": "prefabs/game_modes/team_deathmatch.prefab",
       "__PrefabVariables": {
         "Description": "Team v. Team mode where respawns are immediate. Highest scoring team wins.",
@@ -31,8 +28,6 @@
       "Name": "2D Skybox",
       "Tags": "skybox",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.SkyBox2D",
@@ -47,13 +42,12 @@
       "Flags": 0,
       "Name": "Map",
       "Position": "-963.5741,-1006.22,1460.143",
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MapInstance",
           "__guid": "6b1e7663-e999-4621-81de-03c5caab2786",
           "__version": 1,
+          "EnableCollision": true,
           "MapName": "facepunch.prison",
           "NoOrigin": true,
           "UseMapFromLaunch": false
@@ -67,8 +61,6 @@
       "Position": "-1229.633,208.6536,641.1771",
       "Rotation": "0.005628323,0.3064817,-0.0174773,0.9516995",
       "Tags": "maincamera",
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.CameraComponent",
@@ -125,8 +117,6 @@
       "Rotation": "0.07304409,0.4341696,-0.1081741,0.8913248",
       "Tags": "light_directional,light",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.DirectionalLight",
@@ -145,8 +135,6 @@
       "Name": "Box",
       "Position": "183.5545,-1983.14,-64",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -279,8 +267,6 @@
       "Position": "-669.8204,-977.5767,387.2908",
       "Rotation": "0,0,1,0.0000001947072",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Children": [
         {
           "__guid": "759cd386-300a-4977-a133-5e68dc282e20",
@@ -288,8 +274,6 @@
           "Name": "Box (4)",
           "Position": "344.0465,-720.8907,-355.2905",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MeshComponent",
@@ -418,8 +402,6 @@
           "Name": "Box (3)",
           "Position": "248.0489,-720.8903,-355.2905",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MeshComponent",
@@ -550,8 +532,6 @@
           "Name": "Box (1)",
           "Position": "152.0486,-720.8896,-355.2905",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MeshComponent",
@@ -682,8 +662,6 @@
           "Name": "Box (2)",
           "Position": "-39.95212,-720.8897,-355.2905",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MeshComponent",
@@ -812,8 +790,6 @@
           "Name": "Box",
           "Position": "56.04742,-720.8893,-355.2905",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MeshComponent",
@@ -945,8 +921,6 @@
       "Name": "Vertical",
       "Position": "-1536,464.8911,387.2905",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Children": [
         {
           "__guid": "19ad44ef-0f5a-4804-a9d5-71de32b74157",
@@ -954,8 +928,6 @@
           "Name": "Box (4)",
           "Position": "344.05,-720.8911,-355.2905",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MeshComponent",
@@ -1084,8 +1056,6 @@
           "Name": "Box (3)",
           "Position": "248.05,-720.8911,-355.2905",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MeshComponent",
@@ -1216,8 +1186,6 @@
           "Name": "Box (1)",
           "Position": "152.05,-720.8911,-355.2905",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MeshComponent",
@@ -1348,8 +1316,6 @@
           "Name": "Box (2)",
           "Position": "-39.94995,-720.8911,-355.2905",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MeshComponent",
@@ -1478,8 +1444,6 @@
           "Name": "Box",
           "Position": "56.05005,-720.8911,-355.2905",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.MeshComponent",
@@ -1612,8 +1576,6 @@
       "Position": "44.42922,159.1817,40.90297",
       "Rotation": "0,0,-0.9817033,0.1904173",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "TeamSpawnPoint",
@@ -1628,8 +1590,6 @@
       "Name": "Envmap Probe",
       "Position": "-244.1031,126.1214,23.43188",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.EnvmapProbe",
@@ -1657,8 +1617,6 @@
       "Name": "Gradient Fog",
       "Position": "-253.5244,100.7594,100.1523",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.GradientFog",
@@ -1678,8 +1636,6 @@
       "Name": "MinimapRenderer",
       "Position": "-256,-1984,0",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Facepunch.MinimapRenderer",
@@ -1700,7 +1656,6 @@
       "Tags": "noblockaudio",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "__Prefab": "prefabs/door.prefab",
       "__PrefabVariables": {}
     },
@@ -1711,8 +1666,6 @@
       "Position": "-428.2785,-180.278,-0.0001380742",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.Prop",
@@ -1734,7 +1687,6 @@
       "Tags": "noblockaudio",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "__Prefab": "prefabs/door.prefab",
       "__PrefabVariables": {}
     },
@@ -1745,8 +1697,6 @@
       "Position": "-556.2784,-180.278,-0.0001380742",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.Prop",
@@ -1765,8 +1715,6 @@
       "Name": "Box (2)",
       "Position": "768,-2352,63.97608",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -1896,8 +1844,6 @@
       "Name": "Range section",
       "Position": "768,-272,15.95215",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -2025,8 +1971,6 @@
       "Name": "Range section",
       "Position": "1216,-1312,16.01306",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -2154,8 +2098,6 @@
       "Name": "Range section (2)",
       "Position": "512,-304,0",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -2407,8 +2349,6 @@
       "Name": "Range section (1)",
       "Position": "384,-272,0",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -2660,8 +2600,6 @@
       "Name": "Range section",
       "Position": "1152,-352,0",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -2913,8 +2851,6 @@
       "Name": "Range section",
       "Position": "1024,-416,0",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -3166,8 +3102,6 @@
       "Name": "Range section",
       "Position": "896,-544,0",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -3419,8 +3353,6 @@
       "Name": "Range section",
       "Position": "768,-800,0",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -3672,8 +3604,6 @@
       "Name": "Range section",
       "Position": "640,-1312,0",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -3803,8 +3733,6 @@
       "Name": "Range section",
       "Position": "320,-1312,16.01306",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -3933,8 +3861,6 @@
       "Position": "512,-252.9264,16",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.TextRenderer",
@@ -3956,8 +3882,6 @@
       "Position": "640,-252.9264,16",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.TextRenderer",
@@ -3979,8 +3903,6 @@
       "Position": "768,-252.9264,16",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.TextRenderer",
@@ -4002,8 +3924,6 @@
       "Position": "896,-252.9264,16",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.TextRenderer",
@@ -4025,8 +3945,6 @@
       "Position": "1024,-252.9264,16",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.TextRenderer",
@@ -4048,8 +3966,6 @@
       "Position": "1152,-252.9264,16",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.TextRenderer",
@@ -4071,8 +3987,6 @@
       "Position": "384,-252.9264,16",
       "Rotation": "0,0,-0.7071067,0.7071068",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.TextRenderer",
@@ -4093,8 +4007,6 @@
       "Name": "Box (4)",
       "Position": "0,-512,1.228387",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -4164,8 +4076,6 @@
       "Name": "Box (1)",
       "Position": "80,-512,1.228387",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -4234,8 +4144,6 @@
       "Name": "Box",
       "Position": "160,-512,1.228387",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -4303,8 +4211,6 @@
       "Name": "Box (5)",
       "Position": "-80,-512,1.228387",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -4373,8 +4279,6 @@
       "Name": "Box (7)",
       "Position": "-160,-512,1.228387",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MeshComponent",
@@ -4434,6 +4338,24 @@
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": "surfaces/metal.surface"
+        }
+      ]
+    },
+    {
+      "__guid": "de730819-ece6-4c34-b1d3-d05fd8ab209a",
+      "Flags": 0,
+      "Name": "Camera Settings",
+      "Position": "1934.499,-3840.703,300.8596",
+      "Rotation": "0,0,0.7933533,0.6087615",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Facepunch.PlayerCameraOverride",
+          "__guid": "9191e7b2-8185-45c6-b867-ba102229552a",
+          "Prefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player/cameras/player_camera_with_aces.prefab"
+          }
         }
       ]
     }

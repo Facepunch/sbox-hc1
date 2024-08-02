@@ -1,5 +1,4 @@
-﻿
-public abstract class SingletonComponent<T> : Component, IHotloadManaged
+﻿public abstract class SingletonComponent<T> : Component, IHotloadManaged
 	where T : SingletonComponent<T>
 {
 	public static T Instance { get; private set; }

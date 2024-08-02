@@ -2,8 +2,6 @@ namespace Facepunch;
 
 public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 {
-	// TODO: Make a CameraController component that can be re-used between this, and other pawns.
-	[Property, Group( "Components" )] public DroneCamera CameraController { get; set; }
 	[Property, Group( "Components" )] public Rigidbody Rigidbody { get; set; }
 	[Property, Group( "Components" )] public ModelRenderer Model { get; set; }
 
@@ -18,6 +16,7 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 	[Property, Group( "Config" )] public float LeanMaxVelocity { get; set; } = 1000;
 
 	[RequireComponent] public DroneSounds DroneSounds { get; set; }
+	[RequireComponent] public PawnCameraController CameraController { get; set; }
 
 	/// <summary>
 	/// What to spawn when we explode?

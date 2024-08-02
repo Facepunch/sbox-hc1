@@ -29,8 +29,8 @@ public partial class DeployComponent : InputWeaponComponent
 		// This'll probably get removed
 		if ( dropped.Components.Get<Pawn>() is Pawn pawn && pawn.IsValid() )
 		{
-			var handler = DeployedPawnHandler.Create( pawn );
 			pawn.Possess();
+			DeployedPawnHandler.Create( pawn );
 		}
 
 		// Remove self
