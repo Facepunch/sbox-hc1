@@ -97,8 +97,26 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 			TimeUntilReload = GetReloadTime();
 		}
 
-		// Tags will be better so we can just react to stimuli.
-		Equipment.ViewModel?.ModelRenderer?.Set( "b_reload", true );
+		if ( SingleReload )
+		{
+			// Tags will be better so we can just react to stimuli.
+			Equipment.ViewModel?.ModelRenderer?.Set( "b_reloading", true );
+
+			if ( AmmoComponent.HasAmmo )
+			{
+				Equipment.ViewModel?.ModelRenderer.Set( "b_reloading_shell", true );
+			}
+			else
+			{
+				Equipment.ViewModel?.ModelRenderer.Set( "b_reloading_first_shell", true );
+			}
+		}
+		else
+		{
+			// Tags will be better so we can just react to stimuli.
+			Equipment.ViewModel?.ModelRenderer?.Set( "b_reload", true );
+		}
+
 		Equipment.Owner?.BodyRenderer?.Set( "b_reload", true );
 
 		foreach ( var kv in GetReloadSounds() )
@@ -117,6 +135,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 		// Tags will be better so we can just react to stimuli.
 		Equipment.ViewModel?.ModelRenderer?.Set( "b_reload", false );
 		Equipment.Owner?.BodyRenderer?.Set( "b_reload", false );
+		Equipment.ViewModel?.ModelRenderer?.Set( "b_reloading", false );
 	}
 
 	[Broadcast( NetPermission.OwnerOnly )]
@@ -133,7 +152,10 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 				if ( !_queueCancel && AmmoComponent.Ammo < AmmoComponent.MaxAmmo )
 					StartReload();
 				else
+				{
+					Equipment.ViewModel?.ModelRenderer?.Set( "b_reloading", false );
 					IsReloading = false;
+				}
 			}
 			else
 			{
