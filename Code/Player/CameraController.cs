@@ -1,5 +1,3 @@
-using Facepunch.UI;
-using Sandbox;
 using Sandbox.Events;
 
 namespace Facepunch;
@@ -10,33 +8,15 @@ public enum CameraMode
 	ThirdPerson
 }
 
-public sealed class CameraController : Component, IGameEventHandler<DamageTakenEvent>
+public sealed class CameraController : PawnCameraController, IGameEventHandler<DamageTakenEvent>
 {
-	/// <summary>
-	/// A reference to the camera component we're going to be doing stuff with.
-	/// </summary>
-	public CameraComponent Camera { get; set; }
-	public AudioListener AudioListener { get; set; }
-	public ColorAdjustments ColorAdjustments { get; set; }
-	public ScreenShaker ScreenShaker { get; set; }
-	public ChromaticAberration ChromaticAberration { get; set; }
-	public Pixelate Pixelate { get; set; }
-
 	[Property] public PlayerPawn Player { get; set; }
-
-	/// <summary>
-	/// The default player camera prefab.
-	/// </summary>
-	[Property] public GameObject DefaultPlayerCameraPrefab { get; set; }
-
-	public GameObject PlayerCameraGameObject { get; set; }
 
 	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = true;
 	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
 	
 	[Property] public float ThirdPersonDistance { get; set; } = 128f;
 	[Property] public float AimFovOffset { get; set; } = -5f;
-	[Property] public GameObject Boom { get; set; }
 
 	private CameraMode _mode;
 	public CameraMode Mode
@@ -51,8 +31,6 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 			OnModeChanged();
 		}
 	}
-
-	public bool IsActive { get; private set; }
 
 	public float MaxBoomLength { get; set; }
 
@@ -72,6 +50,11 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		}
 	}
 
+	protected override void OnStart()
+	{
+		// Kill PawnCameraController behavior
+	}
+
 	private float FieldOfViewOffset = 0f;
 	private float TargetFieldOfView = 90f;
 
@@ -80,43 +63,9 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 		FieldOfViewOffset -= degrees;
 	}
 
-	private GameObject GetOrCreateCameraObject()
+	public override void SetActive( bool isActive )
 	{
-		var component = Scene.GetAllComponents<PlayerCameraOverride>().FirstOrDefault();
-
-		var config = new CloneConfig()
-		{
-			StartEnabled = true,
-			Parent = Boom,
-			Transform = new Transform()
-		};
-
-		if ( component.IsValid() )
-			return component.Prefab.Clone( config );
-
-		return DefaultPlayerCameraPrefab?.Clone( config );
-	}
-
-	public void SetActive( bool isActive )
-	{
-		IsActive = isActive;
-
-		if ( PlayerCameraGameObject.IsValid() )
-			PlayerCameraGameObject.Destroy();
-
-		if ( isActive )
-		{
-			PlayerCameraGameObject = GetOrCreateCameraObject();
-
-			Camera = PlayerCameraGameObject.Components.GetOrCreate<CameraComponent>();
-			Pixelate = PlayerCameraGameObject.Components.GetOrCreate<Pixelate>();
-			ChromaticAberration = PlayerCameraGameObject.Components.GetOrCreate<ChromaticAberration>();
-			AudioListener = PlayerCameraGameObject.Components.GetOrCreate<AudioListener>();
-			ScreenShaker = PlayerCameraGameObject.Components.GetOrCreate<ScreenShaker>();
-
-			// Optional
-			ColorAdjustments = PlayerCameraGameObject.Components.Get<ColorAdjustments>();
-		}
+		base.SetActive( isActive );
 
 		OnModeChanged();
 
@@ -297,7 +246,7 @@ public sealed class CameraController : Component, IGameEventHandler<DamageTakenE
 			Player.ClearViewModel();
 	}
 
-	private void SetBoomLength(float length)
+	private void SetBoomLength( float length )
 	{
 		MaxBoomLength = length;
 	}

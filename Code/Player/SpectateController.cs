@@ -2,21 +2,14 @@ namespace Facepunch;
 
 public sealed class SpectateController : Pawn
 {
-
+	[RequireComponent] PawnCameraController PawnCameraController { get; set; }
 	[Property] public float FlySpeed = 10f;
-	[Property] public CameraComponent CameraComponent { get; set; }
-
-	public override CameraComponent Camera => CameraComponent;
+	public override CameraComponent Camera => PawnCameraController.Camera;
 
 	/// <summary>
 	/// What are we called?
 	/// </summary>
-	public override string DisplayName => "SpectateController";
-
-	protected override void OnAwake()
-	{
-		Camera.Enabled = false;
-	}
+	public override string DisplayName => "Spectator";
 
 	protected override void OnUpdate()
 	{
@@ -29,11 +22,11 @@ public sealed class SpectateController : Pawn
 
 	public override void OnDePossess()
 	{
-		Camera.Enabled = false;
+		PawnCameraController.SetActive( false );
 	}
 
 	public override void OnPossess()
 	{
-		Camera.Enabled = true;
+		PawnCameraController.SetActive( true );
 	}
 }
