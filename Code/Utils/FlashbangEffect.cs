@@ -123,7 +123,7 @@ public class FlashbangEffect : Component
 		var rect = new Rect( 0f, 0f, FreezeFrame.Width, FreezeFrame.Height );
 		Graphics.Attributes.Set( "LayerMat", Matrix.Identity );
 		Graphics.Attributes.Set( "Texture", FreezeFrame );
-		Graphics.Attributes.SetCombo( "D_BLENDMODE", BlendMode.Normal );
+		Graphics.Attributes.SetComboEnum( "D_BLENDMODE", BlendMode.Normal );
 		Graphics.DrawQuad( rect, Material.UI.Basic, new( 1f, 1f, 1f, RenderAlpha ) );
 	}
 }
