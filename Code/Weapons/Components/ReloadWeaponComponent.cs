@@ -89,10 +89,10 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 	/// <summary>
 	/// This code is really shitty, needs to be reworked soon
 	/// </summary>
-	async void DelayAnimation()
+	async void DelayAnimation( float scale = 1f )
 	{
 		bool hasAmmo = AmmoComponent.HasAmmo;
-		await GameTask.DelaySeconds( hasAmmo ? 0.5f : 0f );
+		await GameTask.DelaySeconds( ( hasAmmo ? 0.5f : 0f ) * scale );
 		Equipment.ViewModel?.ModelRenderer.Set( !hasAmmo ? "b_reloading_first_shell" : "b_reloading_shell", true );
 
 		foreach ( var kv in GetReloadSounds() )
@@ -107,6 +107,8 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 	{
 		_queueCancel = false;
 
+		bool isContinuedReload = IsReloading;
+
 		if ( !IsProxy )
 		{
 			IsReloading = true;
@@ -118,7 +120,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 			// Tags will be better so we can just react to stimuli.
 			Equipment.ViewModel?.ModelRenderer?.Set( "b_reloading", true );
 
-			DelayAnimation();
+			DelayAnimation( isContinuedReload ? 0f : 1f );
 		}
 		else
 		{
