@@ -86,6 +86,22 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 
 	bool _queueCancel = false;
 
+	/// <summary>
+	/// This code is really shitty, needs to be reworked soon
+	/// </summary>
+	async void DelayAnimation()
+	{
+		bool hasAmmo = AmmoComponent.HasAmmo;
+		await GameTask.DelaySeconds( hasAmmo ? 0.5f : 0f );
+		Equipment.ViewModel?.ModelRenderer.Set( !hasAmmo ? "b_reloading_first_shell" : "b_reloading_shell", true );
+
+		foreach ( var kv in GetReloadSounds() )
+		{
+			// Play this sound after a certain time but only if we're reloading.
+			PlayAsyncSound( kv.Key, kv.Value, () => IsReloading );
+		}
+	}
+
 	[Broadcast( NetPermission.OwnerOnly )]
 	void StartReload()
 	{
@@ -102,28 +118,21 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 			// Tags will be better so we can just react to stimuli.
 			Equipment.ViewModel?.ModelRenderer?.Set( "b_reloading", true );
 
-			if ( AmmoComponent.HasAmmo )
-			{
-				Equipment.ViewModel?.ModelRenderer.Set( "b_reloading_shell", true );
-			}
-			else
-			{
-				Equipment.ViewModel?.ModelRenderer.Set( "b_reloading_first_shell", true );
-			}
+			DelayAnimation();
 		}
 		else
 		{
 			// Tags will be better so we can just react to stimuli.
 			Equipment.ViewModel?.ModelRenderer?.Set( "b_reload", true );
+
+			foreach ( var kv in GetReloadSounds() )
+			{
+				// Play this sound after a certain time but only if we're reloading.
+				PlayAsyncSound( kv.Key, kv.Value, () => IsReloading );
+			}
 		}
 
 		Equipment.Owner?.BodyRenderer?.Set( "b_reload", true );
-
-		foreach ( var kv in GetReloadSounds() )
-		{
-			// Play this sound after a certain time but only if we're reloading.
-			PlayAsyncSound( kv.Key, kv.Value, () => IsReloading );
-		}
 	}
 	
 	[Broadcast( NetPermission.OwnerOnly )]
