@@ -17,7 +17,7 @@ public sealed class Wheel : Component
 
 	public bool IsGrounded => _groundTrace.Hit;
 
-	private const float LowSpeedThreshold = 20.0f;
+	private const float LowSpeedThreshold = 7.5f;
 
 	private SceneTraceResult _groundTrace;
 	private Rigidbody _rigidbody;
@@ -48,8 +48,6 @@ public sealed class Wheel : Component
 
 	private void UpdateWheelForces()
 	{
-		Log.Info( IsGrounded + ", " + _motorTorque + ", " + _rigidbody.Velocity );
-
 		if ( !IsGrounded )
 			return;
 
@@ -75,6 +73,15 @@ public sealed class Wheel : Component
 
 		var force = targetAcceleration / Time.Delta;
 		_rigidbody.ApplyForceAt( GameObject.Transform.Position, force );
+
+		/*
+		Gizmo.Draw.IgnoreDepth = true;
+		Gizmo.Draw.LineThickness = 2.0f;
+		Gizmo.Draw.Color = Color.Red;
+		Gizmo.Draw.Line( Transform.Position, Transform.Position + forwardForce );
+		Gizmo.Draw.Color = Color.Green;
+		Gizmo.Draw.Line( Transform.Position, Transform.Position + sideForce );
+		*/
 	}
 
 	private float CalculateSlip( Vector3 velocity, Vector3 direction, float speed )
