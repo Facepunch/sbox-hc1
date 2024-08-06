@@ -74,6 +74,9 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 	public override string NameType => "Player";
 
+	public Vehicle CurrentVehicle;
+	public bool IsInVehicle => CurrentVehicle.IsValid();
+
 	protected override void OnStart()
 	{
 		// TODO: expose these parameters please
@@ -108,6 +111,18 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 	private float DeathcamSkipTime => 5f;
 	private float DeathcamIgnoreInputTime => 1f;
+
+	private void ApplyVehicle()
+	{
+		// Shouldn't happen, but fuck it anyway
+		if ( CurrentVehicle == null )
+			return;
+
+		CurrentVehicle.SetInputState( new Vehicle.VehicleInputState()
+		{
+			direction = Input.AnalogMove
+		} );
+	}
 
 	// deathcam
 	private void UpdateDead()
@@ -193,7 +208,15 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 		UpdateRecoilAndSpread();
 		ApplyAcceleration();
-		ApplyMovement();
+
+		if ( IsInVehicle )
+		{
+			ApplyVehicle();
+		}
+		else
+		{
+			ApplyMovement();
+		}
 	}
 
 	[HostSync] public bool InPlayArea { get; set; } = true;

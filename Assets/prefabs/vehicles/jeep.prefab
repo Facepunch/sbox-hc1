@@ -1,0 +1,325 @@
+{
+  "RootObject": {
+    "__guid": "70efd2fa-6fc0-45fd-b416-38b25a451186",
+    "Flags": 0,
+    "Name": "jeep",
+    "Tags": "vehicle",
+    "Enabled": true,
+    "Children": [
+      {
+        "__guid": "9a7510c4-7e94-4beb-a2f1-90decce4fc28",
+        "Flags": 0,
+        "Name": "Model",
+        "Rotation": "0,0,-0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Facepunch.HealthComponent",
+            "__guid": "96c37e62-8582-4a6f-a2dd-41a3e2078b37",
+            "IsGodMode": false
+          },
+          {
+            "__type": "Sandbox.ModelCollider",
+            "__guid": "70b4b3be-539f-4d49-af61-35713c5cc41e",
+            "IsTrigger": false,
+            "Model": "props/willies_jeep/willies_jeep.vmdl",
+            "Static": false
+          },
+          {
+            "__type": "Sandbox.Rigidbody",
+            "__guid": "dc5060c5-76b3-486b-abdf-3b031e0b709c",
+            "AngularDamping": 1,
+            "Gravity": true,
+            "LinearDamping": 0,
+            "Locking": {},
+            "MassOverride": 2000,
+            "MotionEnabled": true,
+            "RigidbodyFlags": "DisableCollisionSounds",
+            "StartAsleep": false
+          },
+          {
+            "__type": "Facepunch.Vehicle",
+            "__guid": "d2e07c0a-b998-4a78-b8d4-ce1331b115dc",
+            "Explosion": {
+              "_type": "gameobject",
+              "prefab": "prefabs/equipment/decoy_grenade_explode.prefab"
+            },
+            "HealthComponent": {
+              "_type": "component",
+              "component_id": "96c37e62-8582-4a6f-a2dd-41a3e2078b37",
+              "go": "9a7510c4-7e94-4beb-a2f1-90decce4fc28",
+              "component_type": "HealthComponent"
+            },
+            "Model": {
+              "_type": "component",
+              "component_id": "62cfb8fa-49db-4bcd-a116-6b9c549657f4",
+              "go": "9a7510c4-7e94-4beb-a2f1-90decce4fc28",
+              "component_type": "SkinnedModelRenderer"
+            },
+            "Rigidbody": {
+              "_type": "component",
+              "component_id": "dc5060c5-76b3-486b-abdf-3b031e0b709c",
+              "go": "9a7510c4-7e94-4beb-a2f1-90decce4fc28",
+              "component_type": "Rigidbody"
+            },
+            "Torque": 20000,
+            "Wheels": [
+              {
+                "_type": "component",
+                "component_id": "a235625f-b106-47e3-9731-18afb9d69a98",
+                "go": "ae61de06-3f69-4fe4-95bf-c67fa3707373",
+                "component_type": "Wheel"
+              },
+              {
+                "_type": "component",
+                "component_id": "aa58da5f-5109-439a-a4df-854597219c98",
+                "go": "c6b600a3-8cb4-4046-939e-8398c3ff1ee6",
+                "component_type": "Wheel"
+              },
+              {
+                "_type": "component",
+                "component_id": "94aecda1-7afe-4afe-811b-fc486fe2cfa3",
+                "go": "2e361859-fcae-4352-8dfe-b3ac3a304f2b",
+                "component_type": "Wheel"
+              },
+              {
+                "_type": "component",
+                "component_id": "83901bf4-4619-4ef1-a3d1-50f8c749b1d0",
+                "go": "0452e51e-09bd-4866-8e16-5e4ae54e527b",
+                "component_type": "Wheel"
+              }
+            ]
+          },
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "62cfb8fa-49db-4bcd-a116-6b9c549657f4",
+            "BodyGroups": 18446744073709551615,
+            "CreateBoneObjects": false,
+            "MaterialOverride": "dev/helper/testgrid.vmat",
+            "Model": "props/willies_jeep/willies_jeep.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
+          },
+          {
+            "__type": "Facepunch.PawnCameraController",
+            "__guid": "af7105c2-5a58-4cfd-935a-b152eacdf75f"
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "44658a47-274e-4f9f-b4f3-9ebc92c1d805",
+            "Flags": 0,
+            "Name": "Seats",
+            "Rotation": "0,0,-0.0000003437188,-0.9999999",
+            "Enabled": true,
+            "Children": [
+              {
+                "__guid": "8e52a384-24d4-4407-b242-f82fa682212f",
+                "Flags": 0,
+                "Name": "Driver",
+                "Position": "-16,-20,12",
+                "Enabled": true
+              },
+              {
+                "__guid": "a7cb9028-f1f9-4329-a07e-6d7c9247dec5",
+                "Flags": 0,
+                "Name": "Passenger",
+                "Position": "16,-20,12",
+                "Enabled": true
+              }
+            ]
+          },
+          {
+            "__guid": "13160c0b-61bf-4dab-bbee-e71f846dbf05",
+            "Flags": 0,
+            "Name": "Wheels",
+            "Position": "-1.116726,2.78633,25.4183",
+            "Rotation": "0,0,0.7071064,-0.707107",
+            "Enabled": true,
+            "Children": [
+              {
+                "__guid": "ae61de06-3f69-4fe4-95bf-c67fa3707373",
+                "Flags": 0,
+                "Name": "Front Right Wheel",
+                "Position": "44.11234,-19.40842,-29.28116",
+                "Rotation": "0,0,0.7071064,-0.7071071",
+                "Tags": "wheel",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "920c75b3-b64b-491a-8033-868be2aaa929",
+                    "BodyGroups": 18446744073709551615,
+                    "Model": "entities/modular_vehicle/wheel_a.vmdl",
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  },
+                  {
+                    "__type": "Wheel",
+                    "__guid": "a235625f-b106-47e3-9731-18afb9d69a98",
+                    "ForwardFriction": {
+                      "ExtremumSlip": 1,
+                      "ExtremumValue": 20000,
+                      "AsymptoteSlip": 2,
+                      "AsymptoteValue": 10000,
+                      "Stiffness": 1
+                    },
+                    "MaxSuspensionLength": 8,
+                    "MinSuspensionLength": 0,
+                    "SideFriction": {
+                      "ExtremumSlip": 1,
+                      "ExtremumValue": 20000,
+                      "AsymptoteSlip": 2,
+                      "AsymptoteValue": 10000,
+                      "Stiffness": 1
+                    },
+                    "SuspensionDamping": 100,
+                    "SuspensionStiffness": 5000,
+                    "WheelRadius": 10
+                  }
+                ]
+              },
+              {
+                "__guid": "c6b600a3-8cb4-4046-939e-8398c3ff1ee6",
+                "Flags": 0,
+                "Name": "Front Left Wheel",
+                "Position": "44.11232,22.98313,-29.28116",
+                "Rotation": "-0,0,-0.7071069,-0.7071066",
+                "Tags": "wheel",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "fae96ca1-f57c-4bb1-998a-04d3b0d71a4c",
+                    "BodyGroups": 18446744073709551615,
+                    "Model": "entities/modular_vehicle/wheel_a.vmdl",
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  },
+                  {
+                    "__type": "Wheel",
+                    "__guid": "aa58da5f-5109-439a-a4df-854597219c98",
+                    "ForwardFriction": {
+                      "ExtremumSlip": 1,
+                      "ExtremumValue": 20000,
+                      "AsymptoteSlip": 2,
+                      "AsymptoteValue": 10000,
+                      "Stiffness": 1
+                    },
+                    "MaxSuspensionLength": 8,
+                    "MinSuspensionLength": 0,
+                    "SideFriction": {
+                      "ExtremumSlip": 1,
+                      "ExtremumValue": 20000,
+                      "AsymptoteSlip": 2,
+                      "AsymptoteValue": 10000,
+                      "Stiffness": 1
+                    },
+                    "SuspensionDamping": 100,
+                    "SuspensionStiffness": 5000,
+                    "WheelRadius": 10
+                  }
+                ]
+              },
+              {
+                "__guid": "2e361859-fcae-4352-8dfe-b3ac3a304f2b",
+                "Flags": 0,
+                "Name": "Rear Left Wheel",
+                "Position": "-43.46229,22.98308,-29.28116",
+                "Rotation": "-0,0,-0.7071069,-0.7071066",
+                "Tags": "wheel",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "7c9bd2df-da82-415f-b290-04acaf2afb8d",
+                    "BodyGroups": 18446744073709551615,
+                    "Model": "entities/modular_vehicle/wheel_a.vmdl",
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  },
+                  {
+                    "__type": "Wheel",
+                    "__guid": "94aecda1-7afe-4afe-811b-fc486fe2cfa3",
+                    "ForwardFriction": {
+                      "ExtremumSlip": 1,
+                      "ExtremumValue": 20000,
+                      "AsymptoteSlip": 2,
+                      "AsymptoteValue": 10000,
+                      "Stiffness": 1
+                    },
+                    "MaxSuspensionLength": 8,
+                    "MinSuspensionLength": 0,
+                    "SideFriction": {
+                      "ExtremumSlip": 1,
+                      "ExtremumValue": 20000,
+                      "AsymptoteSlip": 2,
+                      "AsymptoteValue": 10000,
+                      "Stiffness": 1
+                    },
+                    "SuspensionDamping": 100,
+                    "SuspensionStiffness": 5000,
+                    "WheelRadius": 10
+                  }
+                ]
+              },
+              {
+                "__guid": "0452e51e-09bd-4866-8e16-5e4ae54e527b",
+                "Flags": 0,
+                "Name": "Rear Right Wheel",
+                "Position": "-43.46226,-19.40849,-29.28116",
+                "Rotation": "0,0,0.7071064,-0.7071071",
+                "Tags": "wheel",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "6d8e3bb1-538c-4be5-be35-3b392256a856",
+                    "BodyGroups": 18446744073709551615,
+                    "Model": "entities/modular_vehicle/wheel_a.vmdl",
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  },
+                  {
+                    "__type": "Wheel",
+                    "__guid": "83901bf4-4619-4ef1-a3d1-50f8c749b1d0",
+                    "ForwardFriction": {
+                      "ExtremumSlip": 1,
+                      "ExtremumValue": 20000,
+                      "AsymptoteSlip": 2,
+                      "AsymptoteValue": 10000,
+                      "Stiffness": 1
+                    },
+                    "MaxSuspensionLength": 8,
+                    "MinSuspensionLength": 0,
+                    "SideFriction": {
+                      "ExtremumSlip": 1,
+                      "ExtremumValue": 20000,
+                      "AsymptoteSlip": 2,
+                      "AsymptoteValue": 10000,
+                      "Stiffness": 1
+                    },
+                    "SuspensionDamping": 100,
+                    "SuspensionStiffness": 5000,
+                    "WheelRadius": 10
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "ava.willies_jeep1",
+    "rust.wheel_a"
+  ],
+  "__version": 1
+}
