@@ -104,6 +104,7 @@ public static partial class GameUtils
 	/// </summary>
 	public static void LogPlayers()
 	{
+		/*
 		var writer = new StringWriter();
 
 		writer.WriteLine( "All players:" );
@@ -148,6 +149,7 @@ public static partial class GameUtils
 		}
 
 		Log.Info( writer.ToString() );
+		*/
 	}
 
 	public static T FromListWeighted<T>( this Random random, IReadOnlyList<T> list, T defaultValue = default )
