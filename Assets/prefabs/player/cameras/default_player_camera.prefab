@@ -2,8 +2,7 @@
   "RootObject": {
     "__guid": "91c92300-c9e5-4a0d-b4ae-d26a91936fc8",
     "Flags": 0,
-    "Name": "Player Camera",
-    "Position": "0,0,0",
+    "Name": "default_player_camera",
     "Enabled": true,
     "Components": [
       {
@@ -20,7 +19,7 @@
         "RenderTags": "",
         "TargetEye": "None",
         "Viewport": "0,0,1,1",
-        "ZFar": 10000,
+        "ZFar": 100000,
         "ZNear": 1
       },
       {
@@ -84,11 +83,14 @@
       {
         "__type": "Sandbox.AmbientOcclusion",
         "__guid": "9d21f25e-4845-4991-8273-82f901d917f4",
+        "FalloffDistance": 1,
         "Intensity": 8,
         "Quality": "High",
         "Radius": 32
       }
-    ]
+    ],
+    "Children": [],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
