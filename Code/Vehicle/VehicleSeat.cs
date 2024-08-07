@@ -75,10 +75,6 @@ public sealed class VehicleSeat : Component
 		if ( !Networking.IsHost )
 			return;
 
-		// Move player to best exit point
-		Player.Transform.Position = FindExitLocation();
-		Player.CharacterController.Velocity = Vehicle.Rigidbody.Velocity;
-
 		Player.SetCurrentEquipment( Player.Inventory.Equipment.FirstOrDefault() );
 
 		Player.CurrentSeat = null;
@@ -96,6 +92,10 @@ public sealed class VehicleSeat : Component
 		}
 
 		player.GameObject.SetParent( null, true );
+
+		// Move player to best exit point
+		player.Transform.Position = FindExitLocation();
+		player.CharacterController.Velocity = Vehicle.Rigidbody.Velocity;
 
 		using ( Rpc.FilterInclude( Connection.Host ) )
 			RpcLeave();
