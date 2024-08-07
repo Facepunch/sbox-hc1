@@ -22,6 +22,8 @@ public sealed class VehicleSeat : Component
 		Player = player;
 		player.CurrentSeat = this;
 
+		Network.AssignOwnership( Player.Network.OwnerConnection );
+
 		return true;
 	}
 
@@ -42,6 +44,8 @@ public sealed class VehicleSeat : Component
 
 		Player.CurrentSeat = null;
 		Player = null;
+
+		Network.DropOwnership();
 
 		return true;
 	}
