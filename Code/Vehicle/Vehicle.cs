@@ -26,19 +26,13 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 	[Property, Group( "Vehicle" )] public List<VehicleSeat> Seats { get; set; }
 	[Property] public float Torque { get; set; } = 15000f;
 
-	private VehicleInputState _inputState;
-
-	public void SetInputState( VehicleInputState inputState )
-	{
-		_inputState = inputState;
-	}
-
+	public VehicleInputState InputState { get; set; }
 
 	private float _currentTorque;
 
 	protected override void OnFixedUpdate()
 	{
-		float verticalInput = _inputState.direction.x;
+		float verticalInput = InputState.direction.x;
 		float targetTorque = verticalInput * Torque;
 
 		bool isBraking = (targetTorque < 0f);

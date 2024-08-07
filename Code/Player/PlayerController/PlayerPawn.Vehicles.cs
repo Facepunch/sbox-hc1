@@ -44,10 +44,10 @@ public partial class PlayerPawn
 		// Improve this later
 		if ( CurrentSeat.HasInput )
 		{
-			CurrentSeat.Vehicle.SetInputState( new Vehicle.VehicleInputState()
+			CurrentSeat.Vehicle.InputState = new Vehicle.VehicleInputState()
 			{
 				direction = Input.AnalogMove
-			} );
+			};
 		}
 	}
 }
