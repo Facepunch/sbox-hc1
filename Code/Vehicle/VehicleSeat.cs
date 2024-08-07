@@ -15,6 +15,14 @@ public sealed class VehicleSeat : Component
 		return !Player.IsValid();
 	}
 
+	[Broadcast]
+	private void BroadcastEnteredVehicle( PlayerPawn player )
+	{
+		// Zero out our transform
+		player.Transform.Local = new();
+	}
+
+	[Broadcast]
 	private void RpcEnter( PlayerPawn player )
 	{
 		if ( !Networking.IsHost )
@@ -23,8 +31,7 @@ public sealed class VehicleSeat : Component
 		Player = player;
 		player.CurrentSeat = this;
 
-		// Zero out our transform
-		player.Transform.Local = new();
+		BroadcastEnteredVehicle( player );
 
 		if ( player.CurrentEquipment.IsValid() )
 			player.CurrentEquipment?.Holster();
@@ -39,6 +46,8 @@ public sealed class VehicleSeat : Component
 		{
 			return false;
 		}
+
+		Log.Info( "Trying to enter a vehicle" );
 
 		player.GameObject.SetParent( GameObject, false );
 		player.TimeSinceSeatChanged = 0;
@@ -58,6 +67,7 @@ public sealed class VehicleSeat : Component
 		return true;
 	}
 
+	[Broadcast]
 	private void RpcLeave()
 	{
 		if ( !Networking.IsHost )
