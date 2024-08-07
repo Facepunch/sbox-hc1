@@ -6,6 +6,9 @@ public partial class PlayerPawn
 {
 	[HostSync, Property, JsonIgnore] public VehicleSeat CurrentSeat { get; set; }
 
+	public TimeSince TimeSinceSeatChanged { get; set; } = 0;
+
+
 	public bool IsInVehicle => CurrentSeat.IsValid();
 
 	private void ApplyVehicle()

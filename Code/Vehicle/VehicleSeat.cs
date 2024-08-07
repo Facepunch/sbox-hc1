@@ -23,10 +23,11 @@ public sealed class VehicleSeat : Component
 		Player = player;
 		player.CurrentSeat = this;
 
-		player.GameObject.SetParent( GameObject, false );
 		// Zero out our transform
 		player.Transform.Local = new();
-		player.CurrentEquipment?.Holster();
+
+		if ( player.CurrentEquipment.IsValid() )
+			player.CurrentEquipment?.Holster();
 
 		if ( HasInput )
 			Network.AssignOwnership( Player.Network.OwnerConnection );
@@ -39,6 +40,9 @@ public sealed class VehicleSeat : Component
 			return false;
 		}
 
+		player.GameObject.SetParent( GameObject, false );
+		player.TimeSinceSeatChanged = 0;
+
 		using ( Rpc.FilterInclude( Connection.Host ) )
 			RpcEnter( player );
 
@@ -47,6 +51,7 @@ public sealed class VehicleSeat : Component
 
 	public bool CanLeave( PlayerPawn player )
 	{
+		if ( Player.TimeSinceSeatChanged < 0.5f ) return false;
 		if ( !Player.IsValid() ) return false;
 		if ( Player != player ) return false;
 
@@ -58,10 +63,8 @@ public sealed class VehicleSeat : Component
 		if ( !Networking.IsHost )
 			return;
 
-		Player.GameObject.SetParent( null, true );
-
 		// Move player to best exit point
-		Transform.Position = FindExitLocation();
+		Player.Transform.Position = FindExitLocation();
 		Player.CharacterController.Velocity = Vehicle.Rigidbody.Velocity;
 
 		Player.SetCurrentEquipment( Player.Inventory.Equipment.FirstOrDefault() );
@@ -79,6 +82,8 @@ public sealed class VehicleSeat : Component
 		{
 			return false;
 		}
+
+		player.GameObject.SetParent( null, true );
 
 		using ( Rpc.FilterInclude( Connection.Host ) )
 			RpcLeave();
