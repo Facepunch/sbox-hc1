@@ -6,11 +6,20 @@ public sealed class VehicleSeat : Component
 	[Property] public bool HasInput { get; set; } = true;
 	[Property] public List<VehicleExitVolume> ExitVolumes { get; set; }
 
-	public PlayerPawn Player { get; private set; }
+	[HostSync] public PlayerPawn Player { get; private set; }
 
 	public bool CanEnter( PlayerPawn player )
 	{
 		return !Player.IsValid();
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	private void RpcEnter( PlayerPawn player )
+	{
+		Player = player;
+		player.CurrentSeat = this;
+
+		Network.AssignOwnership( Player.Network.OwnerConnection );
 	}
 
 	public bool Enter( PlayerPawn player )
@@ -20,11 +29,9 @@ public sealed class VehicleSeat : Component
 			return false;
 		}
 
-		Player = player;
-		player.CurrentSeat = this;
+		using var _ = Rpc.FilterInclude( Connection.Host );
 
-		if ( HasInput )
-			Network.AssignOwnership( Player.Network.OwnerConnection );
+		RpcEnter( player );
 
 		return true;
 	}
@@ -37,6 +44,15 @@ public sealed class VehicleSeat : Component
 		return true;
 	}
 
+	[Broadcast( NetPermission.HostOnly )]
+	private void RpcLeave()
+	{
+		Player.CurrentSeat = null;
+		Player = null;
+
+		Network.DropOwnership();
+	}
+	
 	public bool Leave( PlayerPawn player )
 	{
 		if ( !CanLeave( player ) )
@@ -44,11 +60,9 @@ public sealed class VehicleSeat : Component
 			return false;
 		}
 
-		Player.CurrentSeat = null;
-		Player = null;
+		using var _ = Rpc.FilterInclude( Connection.Host );
 
-		if ( HasInput )
-			Network.DropOwnership();
+		RpcLeave();
 
 		return true;
 	}
