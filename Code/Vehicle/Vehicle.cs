@@ -62,6 +62,11 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 
 	public void OnKill( DamageInfo damageInfo )
 	{
+		foreach ( var seat in Seats )
+		{
+			seat.Eject();
+		}
+
 		Explosion?.Clone( Transform.Position );
 		GameObject.Destroy();
 	}

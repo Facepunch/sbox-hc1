@@ -27,6 +27,7 @@ public sealed class VehicleSeat : Component
 
 	public bool CanLeave( PlayerPawn player )
 	{
+		if ( !Player.IsValid() ) return false;
 		if ( Player != player ) return false;
 
 		return true;
@@ -43,5 +44,10 @@ public sealed class VehicleSeat : Component
 		Player = null;
 
 		return true;
+	}
+
+	internal void Eject()
+	{
+		Leave( Player );
 	}
 }
