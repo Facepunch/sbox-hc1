@@ -1,3 +1,5 @@
+using System.Diagnostics.Metrics;
+
 namespace Facepunch;
 
 public sealed class VehicleSeat : Component
@@ -21,6 +23,11 @@ public sealed class VehicleSeat : Component
 		Player = player;
 		player.CurrentSeat = this;
 
+		player.GameObject.SetParent( GameObject, false );
+		// Zero out our transform
+		player.Transform.Local = new();
+		player.CurrentEquipment?.Holster();
+
 		if ( HasInput )
 			Network.AssignOwnership( Player.Network.OwnerConnection );
 	}
@@ -32,9 +39,8 @@ public sealed class VehicleSeat : Component
 			return false;
 		}
 
-		using var _ = Rpc.FilterInclude( Connection.Host );
-
-		RpcEnter( player );
+		using ( Rpc.FilterInclude( Connection.Host ) )
+			RpcEnter( player );
 
 		return true;
 	}
@@ -52,6 +58,14 @@ public sealed class VehicleSeat : Component
 		if ( !Networking.IsHost )
 			return;
 
+		Player.GameObject.SetParent( null, true );
+
+		// Move player to best exit point
+		Transform.Position = FindExitLocation();
+		Player.CharacterController.Velocity = Vehicle.Rigidbody.Velocity;
+
+		Player.SetCurrentEquipment( Player.Inventory.Equipment.FirstOrDefault() );
+
 		Player.CurrentSeat = null;
 		Player = null;
 
@@ -66,9 +80,8 @@ public sealed class VehicleSeat : Component
 			return false;
 		}
 
-		using var _ = Rpc.FilterInclude( Connection.Host );
-
-		RpcLeave();
+		using ( Rpc.FilterInclude( Connection.Host ) )
+			RpcLeave();
 
 		return true;
 	}

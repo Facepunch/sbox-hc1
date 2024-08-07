@@ -105,12 +105,6 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 	{
 		if ( player.CurrentSeat.IsValid() && player.CurrentSeat.Vehicle == this )
 		{
-			// Leave the seat
-			if ( player.CurrentSeat.Leave( player ) )
-			{
-				Log.Info( "Left vehicle" );
-			}
-
 			return;
 		}
 
