@@ -72,13 +72,6 @@ public sealed class Wheel : Component
 
 		var force = targetAcceleration / Time.Delta;
 		_rigidbody.ApplyForceAt( GameObject.Transform.Position, force );
-
-		Gizmo.Draw.IgnoreDepth = true;
-		Gizmo.Draw.LineThickness = 2.0f;
-		Gizmo.Draw.Color = Color.Red;
-		Gizmo.Draw.Line( Transform.Position, Transform.Position + forwardForce );
-		Gizmo.Draw.Color = Color.Green;
-		Gizmo.Draw.Line( Transform.Position, Transform.Position + sideForce );
 	}
 
 	private float CalculateSlip( Vector3 velocity, Vector3 direction, float speed )
