@@ -23,6 +23,7 @@ public partial class PlayerPawn
 			else
 			{
 				GameObject.SetParent( null, true );
+				SetCurrentEquipment( Inventory.Equipment.FirstOrDefault() );
 			}
 
 			currentSeat = value;
