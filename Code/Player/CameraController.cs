@@ -63,12 +63,22 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 		FieldOfViewOffset -= degrees;
 	}
 
+	private void UpdateRotation()
+	{
+		if ( Player.IsInVehicle )
+		{
+			Boom.Transform.Local = Boom.Transform.Local.WithRotation( Player.EyeAngles.ToRotation() );
+		}
+		else
+		{
+			Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
+		}
+	}
+
 	public override void SetActive( bool isActive )
 	{
 		base.SetActive( isActive );
-
 		OnModeChanged();
-
 		Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
 	}
 
@@ -94,7 +104,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 		}
 		else
 		{
-			Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
+			UpdateRotation();
 		}
 
 		if ( MaxBoomLength > 0 )
