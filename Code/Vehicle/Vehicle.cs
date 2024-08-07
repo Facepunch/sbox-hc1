@@ -36,7 +36,7 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 		float targetTorque = verticalInput * Torque;
 
 		bool isBraking = (targetTorque < 0f);
-		float lerpRate = isBraking ? 5.0f : 1.0f; // Brake applies quicker
+		float lerpRate = isBraking ? 1.0f : 0.5f; // Brake applies quicker
 
 		_currentTorque = _currentTorque.LerpTo( targetTorque, lerpRate * Time.Delta );
 		_currentTorque = _currentTorque.Clamp( 0, float.MaxValue );
@@ -50,7 +50,7 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 		if ( verticalInput == 0f && groundVel.Length < 32f )
 		{
 			var z = Rigidbody.Velocity.z;
-			Rigidbody.Velocity = (groundVel.Normal * (groundVel.Length * 0.1f)).WithZ( z );
+			Rigidbody.Velocity = Vector3.Zero.WithZ( z );
 		}
 	}
 
