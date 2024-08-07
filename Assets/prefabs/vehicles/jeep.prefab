@@ -147,6 +147,20 @@
                   {
                     "__type": "Facepunch.VehicleSeat",
                     "__guid": "8ddc121b-2212-467f-ac82-ef7525b94c3c",
+                    "ExitVolumes": [
+                      {
+                        "_type": "component",
+                        "component_id": "9dc72645-eedf-41a0-8970-a80f51bcc12d",
+                        "go": "b418b54f-7508-44e3-99d0-3b35e6eaf1a8",
+                        "component_type": "VehicleExitVolume"
+                      },
+                      {
+                        "_type": "component",
+                        "component_id": "66319868-467c-404f-8fc6-7cad43e21abb",
+                        "go": "2cace8e6-03e4-421c-a4a4-871b5d6b65ea",
+                        "component_type": "VehicleExitVolume"
+                      }
+                    ],
                     "HasInput": true,
                     "Vehicle": {
                       "_type": "component",
@@ -168,6 +182,20 @@
                   {
                     "__type": "Facepunch.VehicleSeat",
                     "__guid": "f168ef24-ac28-4494-b5a8-0077eee16497",
+                    "ExitVolumes": [
+                      {
+                        "_type": "component",
+                        "component_id": "d447d008-52d3-41ef-ab36-909c492a40f2",
+                        "go": "8d41a82a-1637-43ab-817b-ac58e53dcd20",
+                        "component_type": "VehicleExitVolume"
+                      },
+                      {
+                        "_type": "component",
+                        "component_id": "66319868-467c-404f-8fc6-7cad43e21abb",
+                        "go": "2cace8e6-03e4-421c-a4a4-871b5d6b65ea",
+                        "component_type": "VehicleExitVolume"
+                      }
+                    ],
                     "HasInput": false,
                     "Vehicle": {
                       "_type": "component",
@@ -480,6 +508,56 @@
                         ]
                       }
                     ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "__guid": "7b1fe230-cc5c-4059-87c1-e4f25ae474e4",
+            "Flags": 0,
+            "Name": "Exits",
+            "Enabled": true,
+            "Children": [
+              {
+                "__guid": "b418b54f-7508-44e3-99d0-3b35e6eaf1a8",
+                "Flags": 0,
+                "Name": "Driver Exit",
+                "Position": "-47.99999,0.0000004971234,16",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Facepunch.VehicleExitVolume",
+                    "__guid": "9dc72645-eedf-41a0-8970-a80f51bcc12d",
+                    "Size": "32,128,64"
+                  }
+                ]
+              },
+              {
+                "__guid": "8d41a82a-1637-43ab-817b-ac58e53dcd20",
+                "Flags": 0,
+                "Name": "Passenger Exit",
+                "Position": "47.99998,0.00000000002273737,16",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Facepunch.VehicleExitVolume",
+                    "__guid": "d447d008-52d3-41ef-ab36-909c492a40f2",
+                    "Size": "32,128,64"
+                  }
+                ]
+              },
+              {
+                "__guid": "2cace8e6-03e4-421c-a4a4-871b5d6b65ea",
+                "Flags": 0,
+                "Name": "Alt Exit",
+                "Position": "0.000000000000000004391019,0.00000000002455636,16",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Facepunch.VehicleExitVolume",
+                    "__guid": "66319868-467c-404f-8fc6-7cad43e21abb",
+                    "Size": "128,256,128"
                   }
                 ]
               }

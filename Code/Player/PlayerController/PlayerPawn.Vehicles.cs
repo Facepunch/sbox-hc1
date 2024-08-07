@@ -22,10 +22,11 @@ public partial class PlayerPawn
 			}
 			else
 			{
-				// Shoot the player up a bit, TODO: Exit points
-				Transform.Local = new Transform().WithPosition( Vector3.Up * 100f );
+				// Shoot the player up a bit
 				GameObject.SetParent( null, true );
 
+				// Move player to best exit point
+				Transform.Position = currentSeat.FindExitLocation();
 				CharacterController.Velocity = currentSeat.Vehicle.Rigidbody.Velocity;
 
 				SetCurrentEquipment( Inventory.Equipment.FirstOrDefault() );

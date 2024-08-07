@@ -4,6 +4,7 @@ public sealed class VehicleSeat : Component
 {
 	[Property] public Vehicle Vehicle { get; set; }
 	[Property] public bool HasInput { get; set; } = true;
+	[Property] public List<VehicleExitVolume> ExitVolumes { get; set; }
 
 	public PlayerPawn Player { get; private set; }
 
@@ -50,6 +51,12 @@ public sealed class VehicleSeat : Component
 			Network.DropOwnership();
 
 		return true;
+	}
+
+	public Vector3 FindExitLocation()
+	{
+		// TODO: Multiple volumes (e.g. fallback)
+		return ExitVolumes[0].CheckClosestFreeSpace( Transform.Position );
 	}
 
 	internal void Eject()
