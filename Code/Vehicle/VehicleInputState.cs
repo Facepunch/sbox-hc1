@@ -2,7 +2,7 @@
 
 public partial class Vehicle
 {
-	public struct VehicleInputState
+	public class VehicleInputState
 	{
 		public Vector3 direction;
 		public bool isBoosting;
@@ -13,13 +13,10 @@ public partial class Vehicle
 			isBoosting = false;
 		}
 
-		public static VehicleInputState CreateFromLocal()
+		public void UpdateFromLocal()
 		{
-			return new VehicleInputState()
-			{
-				direction = Input.AnalogMove,
-				isBoosting = Input.Down( "Run" )
-			};
+			direction = Input.AnalogMove;
+			isBoosting = Input.Down( "Run" );
 		}
 	}
 }

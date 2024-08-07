@@ -46,7 +46,7 @@ public partial class PlayerPawn
 		// Improve this later
 		if ( CurrentSeat.HasInput )
 		{
-			CurrentSeat.Vehicle.InputState = Vehicle.VehicleInputState.CreateFromLocal();
+			CurrentSeat.Vehicle.InputState.UpdateFromLocal();
 		}
 	}
 }
