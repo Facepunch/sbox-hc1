@@ -115,7 +115,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	private void ApplyVehicle()
 	{
 		// Shouldn't happen, but fuck it anyway
-		if ( CurrentVehicle == null )
+		if ( !CurrentVehicle.IsValid() )
 			return;
 
 		CurrentVehicle.SetInputState( new Vehicle.VehicleInputState()
