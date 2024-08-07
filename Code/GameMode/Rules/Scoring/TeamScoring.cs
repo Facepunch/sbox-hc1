@@ -1,4 +1,5 @@
-﻿using Sandbox.Events;
+﻿using Facepunch.UI;
+using Sandbox.Events;
 
 namespace Facepunch;
 
@@ -15,6 +16,11 @@ public sealed class TeamScoring : Component,
 	public NetDictionary<Team, int> Scores { get; private set; } = new();
 
 	/// <summary>
+	/// What should we set the initial scores to?
+	/// </summary>
+	[Property] public int InitialScores { get; set; } = 0;
+
+	/// <summary>
 	/// You can define a scoring format for the scores, say you want to format in currency.
 	/// </summary>
 	[HostSync] public string ScoreFormat { get; set; } = "";
@@ -29,6 +35,17 @@ public sealed class TeamScoring : Component,
 	void IGameEventHandler<ResetScoresEvent>.OnGameEvent( ResetScoresEvent eventArgs )
 	{
 		Scores.Clear();
+
+		SetInitial();
+	}
+
+	public void SetInitial()
+	{
+		if ( InitialScores != 0 )
+		{
+			Scores[Team.Terrorist] = InitialScores;
+			Scores[Team.CounterTerrorist] = InitialScores;
+		}
 	}
 
 	public string GetFormattedScore( Team team )
@@ -57,6 +74,11 @@ public sealed class TeamScoring : Component,
 	void IGameEventHandler<TeamsSwappedEvent>.OnGameEvent( TeamsSwappedEvent eventArgs )
 	{
 		Flip();
+	}
+
+	protected override void OnStart()
+	{
+		SetInitial();
 	}
 }
 
