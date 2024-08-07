@@ -2,8 +2,10 @@
 
 public sealed class Steering : Component
 {
+	[Property] public List<GameObject> Wheels { get; set; }
 	[Property] public float MaxSteeringAngle { get; set; } = 20f;
 	[Property] public float SteeringSmoothness { get; set; } = 10f;
+	[Property] public Angles Offset { get; set; }
 
 	private Vehicle ParentVehicle;
 
@@ -19,7 +21,10 @@ public sealed class Steering : Component
 
 		var inputState = ParentVehicle.InputState;
 
-		var targetRotation = Rotation.FromYaw( MaxSteeringAngle * inputState.direction.y );
-		Transform.LocalRotation = Rotation.Lerp( Transform.LocalRotation, targetRotation, Time.Delta * SteeringSmoothness );
+		foreach ( var wheel in Wheels )
+		{
+			var targetRotation = Rotation.FromYaw( MaxSteeringAngle * inputState.direction.y ) * Rotation.From( Offset );
+			wheel.Transform.LocalRotation = Rotation.Lerp( wheel.Transform.LocalRotation, targetRotation, Time.Delta * SteeringSmoothness );
+		}
 	}
 }
