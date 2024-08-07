@@ -18,6 +18,8 @@ public sealed class VehicleSeat : Component
 	[Broadcast]
 	private void BroadcastEnteredVehicle( PlayerPawn player )
 	{
+		player.GameObject.SetParent( GameObject, false );
+
 		// Zero out our transform
 		player.Transform.Local = new();
 	}
