@@ -184,22 +184,45 @@ public partial class PlayerPawn
 			CameraController.UpdateFromEyes( _smoothEyeHeight );
 		}
 
-		if ( Body.IsValid() )
+		if ( IsInVehicle )
 		{
-			Body.Transform.Rotation = Rotation.FromYaw( EyeAngles.yaw );
-		}
+			if ( Body.IsValid() )
+			{
+				Body.Transform.Local = new Transform();
+			}
 
-		if ( AnimationHelper.IsValid() )
+			if ( AnimationHelper.IsValid() )
+			{
+				AnimationHelper.WithVelocity( 0 );
+				AnimationHelper.WithWishVelocity( 0 );
+				AnimationHelper.IsGrounded = true;
+				AnimationHelper.WithLook( EyeAngles.Forward, 1, 1, 1.0f );
+				AnimationHelper.MoveStyle = AnimationHelper.MoveStyles.Run;
+				AnimationHelper.DuckLevel = 1f;
+				AnimationHelper.HoldType = AnimationHelper.HoldTypes.HoldItem;
+				AnimationHelper.AimBodyWeight = 0.1f;
+			}
+		}
+		else
 		{
-			AnimationHelper.WithVelocity( cc.Velocity );
-			AnimationHelper.WithWishVelocity( WishVelocity );
-			AnimationHelper.IsGrounded = IsGrounded;
-			AnimationHelper.WithLook( EyeAngles.Forward, 1, 1, 1.0f );
-			AnimationHelper.MoveStyle = AnimationHelper.MoveStyles.Run;
-			AnimationHelper.DuckLevel = ( MathF.Abs( _smoothEyeHeight ) / 32.0f );
-			AnimationHelper.HoldType = CurrentHoldType;
-			AnimationHelper.Handedness = CurrentEquipment.IsValid() ? CurrentEquipment.Handedness : AnimationHelper.Hand.Both;
-			AnimationHelper.AimBodyWeight = 0.1f;
+
+			if ( Body.IsValid() )
+			{
+				Body.Transform.Rotation = Rotation.FromYaw( EyeAngles.yaw );
+			}
+
+			if ( AnimationHelper.IsValid() )
+			{
+				AnimationHelper.WithVelocity( cc.Velocity );
+				AnimationHelper.WithWishVelocity( WishVelocity );
+				AnimationHelper.IsGrounded = IsGrounded;
+				AnimationHelper.WithLook( EyeAngles.Forward, 1, 1, 1.0f );
+				AnimationHelper.MoveStyle = AnimationHelper.MoveStyles.Run;
+				AnimationHelper.DuckLevel = (MathF.Abs( _smoothEyeHeight ) / 32.0f);
+				AnimationHelper.HoldType = CurrentHoldType;
+				AnimationHelper.Handedness = CurrentEquipment.IsValid() ? CurrentEquipment.Handedness : AnimationHelper.Hand.Both;
+				AnimationHelper.AimBodyWeight = 0.1f;
+			}
 		}
 
 		AimDampening = 1.0f;
@@ -535,6 +558,7 @@ public partial class PlayerPawn
 	// TODO: expose to global
 	float GetEyeHeightOffset()
 	{
+		if ( IsInVehicle ) return -24f;
 		if ( IsCrouching ) return -16f;
 		if ( HealthComponent.State == LifeState.Dead ) return -48f;
 		return 0f;

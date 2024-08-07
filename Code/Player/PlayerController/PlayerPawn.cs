@@ -90,6 +90,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 				GameObject.SetParent( value.GameObject, false );
 				// Zero out our transform
 				Transform.Local = new();
+				ClearCurrentWeapon();
 			}
 			else
 			{
