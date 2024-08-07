@@ -13,9 +13,11 @@ public sealed class VehicleSeat : Component
 		return !Player.IsValid();
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
 	private void RpcEnter( PlayerPawn player )
 	{
+		if ( !Networking.IsHost )
+			return;
+
 		Player = player;
 		player.CurrentSeat = this;
 
@@ -45,9 +47,11 @@ public sealed class VehicleSeat : Component
 		return true;
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
 	private void RpcLeave()
 	{
+		if ( !Networking.IsHost )
+			return;
+
 		Player.CurrentSeat = null;
 		Player = null;
 
