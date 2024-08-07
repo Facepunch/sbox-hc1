@@ -10,7 +10,7 @@ public record CapturePointCapturedEvent : IGameEvent
 	public Team PreviousTeam { get; set; }
 }
 
-public partial class CapturePoint : Component, IMarkerObject, Component.ITriggerListener
+public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMinimapVolume, Component.ITriggerListener
 {
 	[Property, Group( "Capture Point" )] public string FullName { get; set; } = "Alpha";
 	[Property, Group( "Capture Point" )] public string ShortName { get; set; } = "A";
@@ -29,6 +29,18 @@ public partial class CapturePoint : Component, IMarkerObject, Component.ITrigger
 	/// What text?
 	/// </summary>
 	string IMarkerObject.DisplayText => $"{ShortName}, {Team}";
+
+	public Color Color => Team.GetColor().WithAlpha( 0.1f );
+	public Color LineColor => Team.GetColor().WithAlpha( 0.5f );
+
+	public Vector3 Size => Components.Get<BoxCollider>().Scale;
+
+	string IMinimapLabel.Label => ShortName;
+	Color IMinimapLabel.LabelColor => Color.White;
+
+	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+
+	bool IMinimapElement.IsVisible( Pawn viewer ) => true;
 
 	protected static int ArraySize => Enum.GetNames( typeof( Team ) ).Length;
 
@@ -213,7 +225,7 @@ public partial class CapturePoint : Component, IMarkerObject, Component.ITrigger
 					{
 						CapturePoint = this,
 						Team = highest,
-						PreviousTeam = last
+						PreviousTeam = HighestTeam
 					} );
 				}
 				HighestTeam = highest;

@@ -12189,7 +12189,7 @@
       "__guid": "cb8fcf15-c456-4c0d-8e6b-2376d6a8fd42",
       "Flags": 0,
       "Name": "MinimapRenderer",
-      "Position": "34912.88,31026.48,-26980.19",
+      "Position": "32256,33280,-18720",
       "Enabled": true,
       "Components": [
         {
@@ -12197,7 +12197,7 @@
           "__guid": "9571b427-b7e4-42a2-ab6a-6ae45219382e",
           "CurrentMinimapPath": "ui/minimaps/cq_oman_4k.png",
           "ExportResolution": "4096,4096",
-          "Size": 35000
+          "Size": 22500
         }
       ],
       "Children": []
@@ -12213,36 +12213,53 @@
       "__PrefabVariables": {}
     },
     {
-      "__guid": "fa503677-e438-48a2-992c-eb7168e7ed81",
+      "__guid": "3c267465-1cbb-49c6-a7db-9500f1c61ef3",
       "Flags": 0,
-      "Name": "Capture Point",
+      "Name": "Point C",
+      "Position": "40256,27744,554.6089",
+      "Enabled": true,
+      "__Prefab": "prefabs/gamemode_prefabs/capture_point.prefab",
+      "__PrefabVariables": {
+        "Full Name": "Charlie",
+        "Short Name": "C",
+        "Capture Time": 10,
+        "Model": "models/gameplay/flag_pole_base/flag_pole_base.vmdl",
+        "Collider Size": "2250,2250,1500",
+        "Collider Center": "0,0,750"
+      }
+    },
+    {
+      "__guid": "783ea84a-d615-4e47-99b3-989a074a2057",
+      "Flags": 0,
+      "Name": "Point B",
       "Position": "33632,33056,1027.82",
       "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "b9130013-30c1-4b86-8e6a-efc311cbe798",
-          "BodyGroups": 18446744073709551615,
-          "Model": "models/gameplay/flag_pole_base/flag_pole_base.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "Facepunch.CapturePoint",
-          "__guid": "d4001b09-eade-44e0-a2d1-c1eeb93f7e70",
-          "CaptureTime": 10,
-          "FullName": "Alpha",
-          "ShortName": "A"
-        },
-        {
-          "__type": "Sandbox.BoxCollider",
-          "__guid": "5fa52c87-f3ce-4b14-9537-43c14051aa63",
-          "Center": "0,0,250",
-          "IsTrigger": true,
-          "Scale": "750,750,500",
-          "Static": false
-        }
-      ]
+      "__Prefab": "prefabs/gamemode_prefabs/capture_point.prefab",
+      "__PrefabVariables": {
+        "Full Name": "Bravo",
+        "Short Name": "B",
+        "Capture Time": 10,
+        "Model": "models/gameplay/flag_pole_base/flag_pole_base.vmdl",
+        "Collider Size": "3571.428,2250,500",
+        "Collider Center": "0,0,250"
+      }
+    },
+    {
+      "__guid": "fa503677-e438-48a2-992c-eb7168e7ed81",
+      "Flags": 0,
+      "Name": "Point A",
+      "Position": "25969.1,30790.95,352",
+      "Rotation": "0,0,-0.2726088,0.9621249",
+      "Enabled": true,
+      "__Prefab": "prefabs/gamemode_prefabs/capture_point.prefab",
+      "__PrefabVariables": {
+        "Full Name": "Alpha",
+        "Short Name": "A",
+        "Capture Time": 10,
+        "Model": "models/gameplay/flag_pole_base/flag_pole_base.vmdl",
+        "Collider Size": "2000,2000,500",
+        "Collider Center": "0,0,250"
+      }
     }
   ],
   "SceneProperties": {
