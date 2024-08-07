@@ -22,7 +22,10 @@ public partial class PlayerPawn
 			}
 			else
 			{
+				// Shoot the player up a bit, TODO: Exit points
+				Transform.Local = new Transform().WithPosition( Vector3.Up * 100f );
 				GameObject.SetParent( null, true );
+
 				SetCurrentEquipment( Inventory.Equipment.FirstOrDefault() );
 			}
 
