@@ -37,6 +37,7 @@ public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMi
 
 	string IMinimapLabel.Label => ShortName;
 	Color IMinimapLabel.LabelColor => Color.White;
+	Angles IMinimapVolume.Angles => GameObject.Transform.Rotation.Angles();
 
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;
 

@@ -13,4 +13,5 @@ partial class BombSite : IMinimapLabel, IMinimapVolume
 	string IMinimapLabel.Label => $"{(char)('A' + Index)}";
 	Color IMinimapLabel.LabelColor => new Color32( 255, 199, 0 );
 
+	Angles IMinimapVolume.Angles => Angles.Zero;
 }

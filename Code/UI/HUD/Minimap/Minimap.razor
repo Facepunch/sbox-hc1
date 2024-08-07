@@ -101,7 +101,15 @@
         var min = Renderer.FromWorld(volume.WorldPosition + (volume.Size / 2));
         var max = Renderer.FromWorld(volume.WorldPosition - (volume.Size / 2));
         var remappedSize = max - min;
-        return $"left: {Length.Fraction(min.x)}; top: {Length.Fraction(min.y)}; width:{Length.Fraction(remappedSize.x)}; height:{Length.Fraction(remappedSize.y)};";
+        float yaw = 0f;
+
+        // TODO: make this work in fixed mode
+        if ( FixedMode )
+        {
+            yaw = -volume.Angles.yaw;
+        }
+
+        return $"left: {Length.Fraction(min.x)}; top: {Length.Fraction(min.y)}; width:{Length.Fraction(remappedSize.x)}; height:{Length.Fraction(remappedSize.y)};transform: rotateZ({yaw}deg);";
     }
 
     string GetBoxStyles(IMinimapVolume volume)

@@ -12,6 +12,7 @@ internal class BuyZone : Component, IMinimapIcon, IMinimapVolume
 	public Vector3 Size => Components.Get<BoxCollider>().Scale;
 
 	string IMinimapIcon.IconPath => Team.GetIconPath();
+	Angles IMinimapVolume.Angles => GameObject.Transform.Rotation.Angles();
 
 	int IMinimapIcon.IconOrder => 15;
 
