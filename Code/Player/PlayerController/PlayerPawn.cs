@@ -76,7 +76,30 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 	public override string NameType => "Player";
 
-	[HostSync, Property, JsonIgnore] public VehicleSeat CurrentSeat { get; set; }
+	[HostSync, Property, JsonIgnore] private VehicleSeat currentSeat { get; set; }
+
+	// TODO: should some of this logic be in the seat/vehicle??
+	public VehicleSeat CurrentSeat
+	{
+		get => currentSeat;
+
+		set
+		{
+			if ( value.IsValid() )
+			{
+				GameObject.SetParent( value.GameObject, false );
+				// Zero out our transform
+				Transform.Local = new();
+			}
+			else
+			{
+				GameObject.SetParent( null, true );
+			}
+
+			currentSeat = value;
+		}
+	}
+
 	public bool IsInVehicle => CurrentSeat.IsValid();
 
 	protected override void OnStart()
