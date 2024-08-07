@@ -11,14 +11,14 @@
         flex-direction: column-reverse;
         text-shadow: 1px 1px 1px rgba( black, 1 );
         transform: translateY(-100%);
-       
+
         .background
         {
+            backdrop-filter-blur: 20px;
             border: 1px solid @MarkerColor.Hex;
             justify-content: center;
             align-items: center;
             aspect-ratio: 1;
-            border-radius: 256px;
             background-color: @MarkerColor.Hex;
             padding: 10px;
 
@@ -26,6 +26,14 @@
             {
                 font-size: 20px;
                 text-shadow: 1px 1px 1px rgba( black, 1 );
+            }
+
+            .bar-inner {
+                mix-blend-mode: lighten;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: rgba( @MarkerColor.Hex, 0.2 );
             }
         }
 
@@ -43,6 +51,7 @@
         return;
 
     <div class="background">
+        <div class="bar-inner" style="height:@(Point.Captured * 100)%"></div>
         <label class="name">@Point.ShortName</label>
     </div>
 </root>
