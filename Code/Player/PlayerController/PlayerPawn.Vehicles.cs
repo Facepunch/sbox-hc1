@@ -46,7 +46,8 @@ public partial class PlayerPawn
 		{
 			CurrentSeat.Vehicle.InputState = new Vehicle.VehicleInputState()
 			{
-				direction = Input.AnalogMove
+				direction = Input.AnalogMove,
+				isBoosting = Input.Down( "Run" )
 			};
 		}
 	}

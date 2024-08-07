@@ -25,6 +25,7 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 	[Property, Group( "Vehicle" )] public List<Wheel> Wheels { get; set; }
 	[Property, Group( "Vehicle" )] public List<VehicleSeat> Seats { get; set; }
 	[Property, Group( "Vehicle" )] public float Torque { get; set; } = 15000f;
+	[Property, Group( "Vehicle" )] public float BoostTorque { get; set; } = 20000f;
 	[Property, Group( "Vehicle" )] public float AccelerationRate { get; set; } = 1.0f;
 	[Property, Group( "Vehicle" )] public float DecelerationRate { get; set; } = 0.5f;
 	[Property, Group( "Vehicle" )] public float BrakingRate { get; set; } = 2.0f;
@@ -35,8 +36,11 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 
 	protected override void OnFixedUpdate()
 	{
+		float torque = InputState.isBoosting ? BoostTorque : Torque;
 		float verticalInput = InputState.direction.x;
-		float targetTorque = verticalInput * Torque;
+		float targetTorque = verticalInput * torque;
+
+		Log.Info( targetTorque );
 
 		bool isBraking = Math.Sign( verticalInput * _currentTorque ) == -1;
 		bool isDecelerating = verticalInput == 0;
