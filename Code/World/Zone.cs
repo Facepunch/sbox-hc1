@@ -60,7 +60,7 @@ public sealed class Zone : Component
 
 	protected override void DrawGizmos()
 	{
-		Gizmo.Draw.Color = Color.WithAlpha( Gizmo.IsSelected ? 0.5f : 0.25f );
+		Gizmo.Draw.Color = Color.WithAlpha( Gizmo.IsSelected ? Color.a * 0.5f : Color.a * 0.25f );
 
 		foreach ( var collider in Components.GetAll<BoxCollider>().Where( x => x.IsTrigger ) )
 		{
