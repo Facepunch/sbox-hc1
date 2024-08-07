@@ -17,7 +17,7 @@ public sealed class Wheel : Component
 
 	public bool IsGrounded => _groundTrace.Hit;
 
-	private const float LowSpeedThreshold = 20.0f;
+	private const float LowSpeedThreshold = 32.0f;
 
 	private SceneTraceResult _groundTrace;
 	private Rigidbody _rigidbody;
@@ -59,16 +59,15 @@ public sealed class Wheel : Component
 		var sideForce = Vector3.Zero;
 		var forwardForce = Vector3.Zero;
 
-		if ( wheelSpeed > LowSpeedThreshold )
-		{
-			float sideSlip = CalculateSlip( wheelVelocity, sideDir, wheelSpeed );
-			float forwardSlip = CalculateSlip( wheelVelocity, forwardDir, wheelSpeed );
+		float sideSlip = CalculateSlip( wheelVelocity, sideDir, wheelSpeed );
+		float forwardSlip = CalculateSlip( wheelVelocity, forwardDir, wheelSpeed );
 
-			sideForce = CalculateFrictionForce( SideFriction, sideSlip, sideDir );
-			forwardForce = CalculateFrictionForce( ForwardFriction, forwardSlip, forwardDir );
-		}
+		sideForce = CalculateFrictionForce( SideFriction, sideSlip, sideDir );
+		forwardForce = CalculateFrictionForce( ForwardFriction, forwardSlip, forwardDir );
 
-		var targetAcceleration = (sideForce + forwardForce);
+		float factor = wheelSpeed.LerpInverse( 0f, LowSpeedThreshold );
+
+		var targetAcceleration = (sideForce + forwardForce) * factor;
 		targetAcceleration += _motorTorque * Transform.Rotation.Forward;
 
 		var force = targetAcceleration / Time.Delta;
