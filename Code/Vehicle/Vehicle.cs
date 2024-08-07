@@ -36,6 +36,9 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 
 	protected override void OnFixedUpdate()
 	{
+		if ( IsProxy )
+			return;
+
 		float torque = InputState.isBoosting ? BoostTorque : Torque;
 		float verticalInput = InputState.direction.x;
 		float targetTorque = verticalInput * torque;

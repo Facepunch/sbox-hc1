@@ -35,6 +35,9 @@ public sealed class Wheel : Component
 		if ( !_rigidbody.IsValid() )
 			return;
 
+		if ( IsProxy )
+			return;
+
 		DoTrace();
 
 		UpdateSuspension();
