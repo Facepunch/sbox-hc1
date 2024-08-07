@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Facepunch;
 
 public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
@@ -74,8 +76,8 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 	public override string NameType => "Player";
 
-	public Vehicle CurrentVehicle;
-	public bool IsInVehicle => CurrentVehicle.IsValid();
+	[HostSync, Property, JsonIgnore] public VehicleSeat CurrentSeat { get; set; }
+	public bool IsInVehicle => CurrentSeat.IsValid();
 
 	protected override void OnStart()
 	{
@@ -115,13 +117,17 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	private void ApplyVehicle()
 	{
 		// Shouldn't happen, but fuck it anyway
-		if ( !CurrentVehicle.IsValid() )
+		if ( !CurrentSeat.IsValid() )
 			return;
 
-		CurrentVehicle.SetInputState( new Vehicle.VehicleInputState()
+		// Improve this later
+		if ( CurrentSeat.HasInput )
 		{
-			direction = Input.AnalogMove
-		} );
+			CurrentSeat.Vehicle.SetInputState( new Vehicle.VehicleInputState()
+			{
+				direction = Input.AnalogMove
+			} );
+		}
 	}
 
 	// deathcam

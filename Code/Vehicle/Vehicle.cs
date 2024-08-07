@@ -23,9 +23,8 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 	[Property] public GameObject Explosion { get; set; }
 
 	[Property, Group( "Vehicle" )] public List<Wheel> Wheels { get; set; }
-	[Property, Group( "Players" )] public PlayerPawn Driver { get; set; }
+	[Property, Group( "Vehicle" )] public List<VehicleSeat> Seats { get; set; }
 	[Property] public float Torque { get; set; } = 15000f;
-	public bool HasDriver => Driver.IsValid();
 
 	private VehicleInputState _inputState;
 
@@ -74,16 +73,31 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 
 	public bool CanUse( PlayerPawn player )
 	{
-		if ( !HasDriver )
-			return true;
-
-		return false;
+		return true;
 	}
 
 	public void OnUse( PlayerPawn player )
 	{
-		Driver = player;
-		player.CurrentVehicle = this;
+		if ( player.CurrentSeat.IsValid() && player.CurrentSeat.Vehicle == this )
+		{
+			// Leave the seat
+			if ( player.CurrentSeat.Leave( player ) )
+			{
+				Log.Info( "Left vehicle" );
+			}
+
+			return;
+		}
+
+		if ( Seats.FirstOrDefault( x => x.CanEnter( player ) ) is { } availableSeat )
+		{
+			if ( availableSeat.Enter( player ) )
+			{
+				Log.Info( "Entered vehicle" );
+			}
+
+			return;
+		}
 	}
 
 	string IMinimapIcon.IconPath => "ui/icons/vehicle.png";

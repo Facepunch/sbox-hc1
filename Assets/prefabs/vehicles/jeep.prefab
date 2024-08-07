@@ -62,6 +62,20 @@
               "go": "9a7510c4-7e94-4beb-a2f1-90decce4fc28",
               "component_type": "Rigidbody"
             },
+            "Seats": [
+              {
+                "_type": "component",
+                "component_id": "8ddc121b-2212-467f-ac82-ef7525b94c3c",
+                "go": "8e52a384-24d4-4407-b242-f82fa682212f",
+                "component_type": "VehicleSeat"
+              },
+              {
+                "_type": "component",
+                "component_id": "f168ef24-ac28-4494-b5a8-0077eee16497",
+                "go": "a7cb9028-f1f9-4329-a07e-6d7c9247dec5",
+                "component_type": "VehicleSeat"
+              }
+            ],
             "Torque": 20000,
             "Wheels": [
               {
@@ -119,14 +133,40 @@
                 "Flags": 0,
                 "Name": "Driver",
                 "Position": "-16,-20,12",
-                "Enabled": true
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Facepunch.VehicleSeat",
+                    "__guid": "8ddc121b-2212-467f-ac82-ef7525b94c3c",
+                    "HasInput": true,
+                    "Vehicle": {
+                      "_type": "component",
+                      "component_id": "d2e07c0a-b998-4a78-b8d4-ce1331b115dc",
+                      "go": "9a7510c4-7e94-4beb-a2f1-90decce4fc28",
+                      "component_type": "Vehicle"
+                    }
+                  }
+                ]
               },
               {
                 "__guid": "a7cb9028-f1f9-4329-a07e-6d7c9247dec5",
                 "Flags": 0,
                 "Name": "Passenger",
                 "Position": "16,-20,12",
-                "Enabled": true
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Facepunch.VehicleSeat",
+                    "__guid": "f168ef24-ac28-4494-b5a8-0077eee16497",
+                    "HasInput": false,
+                    "Vehicle": {
+                      "_type": "component",
+                      "component_id": "d2e07c0a-b998-4a78-b8d4-ce1331b115dc",
+                      "go": "9a7510c4-7e94-4beb-a2f1-90decce4fc28",
+                      "component_type": "Vehicle"
+                    }
+                  }
+                ]
               }
             ]
           },
