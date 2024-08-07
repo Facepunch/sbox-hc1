@@ -12,5 +12,14 @@ public partial class Vehicle
 			direction = Vector3.Zero;
 			isBoosting = false;
 		}
+
+		public static VehicleInputState CreateFromLocal()
+		{
+			return new VehicleInputState()
+			{
+				direction = Input.AnalogMove,
+				isBoosting = Input.Down( "Run" )
+			};
+		}
 	}
 }

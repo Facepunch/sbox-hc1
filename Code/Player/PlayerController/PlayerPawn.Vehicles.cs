@@ -44,11 +44,7 @@ public partial class PlayerPawn
 		// Improve this later
 		if ( CurrentSeat.HasInput )
 		{
-			CurrentSeat.Vehicle.InputState = new Vehicle.VehicleInputState()
-			{
-				direction = Input.AnalogMove,
-				isBoosting = Input.Down( "Run" )
-			};
+			CurrentSeat.Vehicle.InputState = Vehicle.VehicleInputState.CreateFromLocal();
 		}
 	}
 }
