@@ -69,8 +69,9 @@ public sealed class Wheel : Component
 		forwardForce = CalculateFrictionForce( ForwardFriction, forwardSlip, forwardDir );
 
 		float factor = wheelSpeed.LerpInverse( 0f, LowSpeedThreshold );
+		float groundFriction = _groundTrace.Surface.Friction;
 
-		var targetAcceleration = (sideForce + forwardForce) * factor;
+		var targetAcceleration = (sideForce + forwardForce) * factor * groundFriction;
 		targetAcceleration += _motorTorque * Transform.Rotation.Forward;
 
 		var force = targetAcceleration / Time.Delta;
