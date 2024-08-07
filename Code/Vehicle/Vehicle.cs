@@ -40,8 +40,6 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 		float verticalInput = InputState.direction.x;
 		float targetTorque = verticalInput * torque;
 
-		Log.Info( targetTorque );
-
 		bool isBraking = Math.Sign( verticalInput * _currentTorque ) == -1;
 		bool isDecelerating = verticalInput == 0;
 
