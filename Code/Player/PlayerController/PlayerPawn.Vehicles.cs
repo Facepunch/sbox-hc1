@@ -26,6 +26,8 @@ public partial class PlayerPawn
 				Transform.Local = new Transform().WithPosition( Vector3.Up * 100f );
 				GameObject.SetParent( null, true );
 
+				CharacterController.Velocity = currentSeat.Vehicle.Rigidbody.Velocity;
+
 				SetCurrentEquipment( Inventory.Equipment.FirstOrDefault() );
 			}
 
