@@ -2,38 +2,23 @@
 
 Layer0
 {
-	shader "shaders/complex.shader"
-
-	//---- Ambient Occlusion ----
-	g_flAmbientOcclusionDirectDiffuse "0.000"
-	g_flAmbientOcclusionDirectSpecular "0.000"
-	TextureAmbientOcclusion "materials/default/default_ao.tga"
-
-	//---- Color ----
-	g_flModelTintAmount "1.000"
-	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "materials/default/default_color.tga"
-
-	//---- Fade ----
-	g_flFadeExponent "1.000"
+	shader "shaders/hc1water.shader"
 
 	//---- Fog ----
 	g_bFogEnabled "1"
 
-	//---- Metalness ----
-	g_flMetalness "0.000"
+	//---- Material ----
+	TextureColor "materials/default/default_color.tga"
+	TextureTranslucency "materials/default/default_trans.tga"
 
-	//---- Normal ----
-	TextureNormal "materials/water/4141-normal.jpg"
-
-	//---- Roughness ----
-	g_flRoughnessScaleFactor "1.000"
-	TextureRoughness "materials/default/default_rough.tga"
-
-	//---- Texture Coordinates ----
-	g_nScaleTexCoordUByModelScaleAxis "0"
-	g_nScaleTexCoordVByModelScaleAxis "0"
-	g_vTexCoordOffset "[0.000 0.000]"
-	g_vTexCoordScale "[1.000 1.000]"
-	g_vTexCoordScrollSpeed "[0.000 0.000]"
+	//---- Water ----
+	g_flScale "5.067"
+	g_flSpeedA "[0.100 0.050]"
+	g_flSpeedB "[0.000 0.050]"
+	g_fNoiseScale "21.399"
+	g_vColorTintA "[0.388235 0.466667 0.533333 1.000000]"
+	g_vColorTintB "[0.603922 0.686275 0.721569 1.000000]"
+	g_vColorTintDeep "[0.113725 0.168627 0.274510 1.000000]"
+	NormalMapA "materials/water/water1_normal.jpg"
+	NormalMapB "materials/water/water2_normal.jpg"
 }
