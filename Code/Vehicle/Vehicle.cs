@@ -35,11 +35,10 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 		float verticalInput = InputState.direction.x;
 		float targetTorque = verticalInput * Torque;
 
-		bool isBraking = (targetTorque < 0f);
+		bool isBraking = Math.Sign( verticalInput * _currentTorque ) == -1;
 		float lerpRate = isBraking ? 1.0f : 0.5f; // Brake applies quicker
 
 		_currentTorque = _currentTorque.LerpTo( targetTorque, lerpRate * Time.Delta );
-		_currentTorque = _currentTorque.Clamp( 0, float.MaxValue );
 
 		foreach ( Wheel wheel in Wheels )
 		{
