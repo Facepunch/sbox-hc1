@@ -118,7 +118,7 @@ public sealed class Wheel : Component
 		_groundTrace = Scene.Trace
 				.Radius( 1f )
 				.IgnoreGameObjectHierarchy( GameObject )
-				.WithoutTags( "car", "vehicle", "wheel" )
+				.WithoutTags( "car", "vehicle", "wheel", "player" )
 				.FromTo( startPos, endPos )
 				.Run();
 	}
