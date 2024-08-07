@@ -36,7 +36,7 @@ public enum EquipmentSlot
 /// <summary>
 /// A resource definition for a piece of equipment. This could be a weapon, or a deployable, or a gadget, or a grenade.. Anything really.
 /// </summary>
-[GameResource( "hc1/Equipment Item", "equip", "", IconBgColor = "#5877E0", Icon = "track_changes" )]
+[GameResource( "HC1/Equipment Item", "equip", "", IconBgColor = "#5877E0", Icon = "track_changes" )]
 public partial class EquipmentResource : GameResource
 {
 	public static HashSet<EquipmentResource> All { get; set; } = new();

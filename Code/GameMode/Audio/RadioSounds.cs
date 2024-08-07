@@ -57,7 +57,7 @@ public class TeamRadioCategory
 	}
 }
 
-[GameResource( "Radio sounds", "radio", "" )]
+[GameResource( "HC1/Radio Sounds", "radio", "" )]
 public class RadioSounds : GameResource
 {
 	public static HashSet<RadioSounds> All { get; set; } = new();
