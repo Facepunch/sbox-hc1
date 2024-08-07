@@ -4,35 +4,27 @@ namespace Facepunch;
 
 public partial class PlayerPawn
 {
-	[HostSync, Property, JsonIgnore] private VehicleSeat currentSeat { get; set; }
+	[HostSync, Property, JsonIgnore, Change( nameof( OnSeatChanged ))] public VehicleSeat CurrentSeat { get; set; }
 
-	// TODO: should some of this logic be in the seat/vehicle??
-	public VehicleSeat CurrentSeat
+	void OnSeatChanged( VehicleSeat before, VehicleSeat after )
 	{
-		get => currentSeat;
-
-		set
+		if ( after.IsValid() )
 		{
-			if ( value.IsValid() )
-			{
-				GameObject.SetParent( value.GameObject, false );
-				// Zero out our transform
-				Transform.Local = new();
-				ClearCurrentWeapon();
-			}
-			else
-			{
-				// Shoot the player up a bit
-				GameObject.SetParent( null, true );
+			GameObject.SetParent( after.GameObject, false );
+			// Zero out our transform
+			Transform.Local = new();
+			ClearCurrentWeapon();
+		}
+		else
+		{
+			// Shoot the player up a bit
+			GameObject.SetParent( null, true );
 
-				// Move player to best exit point
-				Transform.Position = currentSeat.FindExitLocation();
-				CharacterController.Velocity = currentSeat.Vehicle.Rigidbody.Velocity;
+			// Move player to best exit point
+			Transform.Position = before.FindExitLocation();
+			CharacterController.Velocity = before.Vehicle.Rigidbody.Velocity;
 
-				SetCurrentEquipment( Inventory.Equipment.FirstOrDefault() );
-			}
-
-			currentSeat = value;
+			SetCurrentEquipment( Inventory.Equipment.FirstOrDefault() );
 		}
 	}
 
