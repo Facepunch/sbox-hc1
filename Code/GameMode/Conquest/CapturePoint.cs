@@ -10,7 +10,10 @@ public record CapturePointCapturedEvent : IGameEvent
 	public Team PreviousTeam { get; set; }
 }
 
-public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMinimapVolume, Component.ITriggerListener
+public record ResetCapturePointsEvent() : IGameEvent;
+
+public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMinimapVolume, Component.ITriggerListener,
+	IGameEventHandler<ResetCapturePointsEvent>
 {
 	[Property, Group( "Capture Point" )] public string FullName { get; set; } = "Alpha";
 	[Property, Group( "Capture Point" )] public string ShortName { get; set; } = "A";
@@ -69,7 +72,7 @@ public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMi
 		Capturing
 	}
 
-	public void Initialize()
+	public void ResetState()
 	{
 		if ( Networking.IsHost )
 		{
@@ -97,7 +100,7 @@ public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMi
 
 	protected override void OnStart()
 	{
-		Initialize();
+		ResetState();
 	}
 
 	internal void AddPlayer( PlayerPawn player )
@@ -237,5 +240,10 @@ public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMi
 				Team = Team.Unassigned;
 			}
 		}
+	}
+
+	void IGameEventHandler<ResetCapturePointsEvent>.OnGameEvent( ResetCapturePointsEvent eventArgs )
+	{
+		ResetState();
 	}
 }
