@@ -21,7 +21,7 @@ public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMi
 	/// <summary>
 	/// Where is the marker?
 	/// </summary>
-	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 32f;
+	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 128f;
 
 	/// <summary>
 	/// What icon?
@@ -43,6 +43,13 @@ public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMi
 	Angles IMinimapVolume.Angles => GameObject.Transform.Rotation.Angles();
 
 	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+
+	/// <summary>
+	/// Defines a custom marker panel type to instantiate. Might remove this later.
+	/// </summary>
+	Type IMarkerObject.MarkerPanelTypeOverride => typeof( UI.CapturePointMarker );
+
+	bool IMarkerObject.ShowChevron => true;
 
 	bool IMinimapElement.IsVisible( Pawn viewer ) => true;
 
@@ -232,6 +239,8 @@ public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMi
 						PreviousTeam = HighestTeam
 					} );
 				}
+
+				Team = highest;
 				HighestTeam = highest;
 			}
 			else

@@ -1,0 +1,62 @@
+@inherits BaseMarkerPanel
+@namespace Facepunch.UI
+
+@if ( !Point.IsValid() ) return;
+
+<style>
+    CapturePointMarker
+    {
+        justify-content: flex-end;
+        align-items: center;
+        flex-direction: column-reverse;
+        text-shadow: 1px 1px 1px rgba( black, 1 );
+        transform: translateY(-100%);
+       
+        .background
+        {
+            border: 1px solid @MarkerColor.Hex;
+            justify-content: center;
+            align-items: center;
+            aspect-ratio: 1;
+            border-radius: 256px;
+            background-color: @MarkerColor.Hex;
+            padding: 10px;
+
+            .name 
+            {
+                font-size: 20px;
+                text-shadow: 1px 1px 1px rgba( black, 1 );
+            }
+        }
+
+        Icon {
+            background-image-tint: @MarkerColor.Hex;
+        }
+    }
+</style>
+
+<root>
+    @if ( !Marker.IsValid() )
+        return;
+
+    @if ( !Viewer.IsValid() )
+        return;
+
+    <div class="background">
+        <label class="name">@Point.ShortName</label>
+    </div>
+</root>
+
+@code
+{
+    public CapturePoint Point => Object?.GameObject?.Components?.Get<CapturePoint>();
+    private PlayerPawn Viewer => PlayerState.Viewer.PlayerPawn;
+    public Color MarkerColor => Point.Color;
+
+    bool LookingAt => MathF.Abs( Marker.CenterDistance.x ) < 0.1f && MathF.Abs( Marker.CenterDistance.y ) < 0.2f;
+
+    protected override int BuildHash()
+    {
+        return System.HashCode.Combine( Time.Now );
+    }
+}
