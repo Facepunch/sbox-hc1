@@ -26,6 +26,7 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 	[Property, Group( "Vehicle" )] public List<VehicleSeat> Seats { get; set; }
 	[Property, Group( "Vehicle" )] public float Torque { get; set; } = 15000f;
 	[Property, Group( "Vehicle" )] public float AccelerationRate { get; set; } = 1.0f;
+	[Property, Group( "Vehicle" )] public float DecelerationRate { get; set; } = 0.5f;
 	[Property, Group( "Vehicle" )] public float BrakingRate { get; set; } = 2.0f;
 
 	public VehicleInputState InputState { get; set; }
@@ -38,7 +39,14 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 		float targetTorque = verticalInput * Torque;
 
 		bool isBraking = Math.Sign( verticalInput * _currentTorque ) == -1;
-		float lerpRate = isBraking ? BrakingRate : AccelerationRate;
+		bool isDecelerating = verticalInput == 0;
+
+		float lerpRate = AccelerationRate;
+		if ( isBraking )
+			lerpRate = BrakingRate;
+		else if ( isDecelerating )
+			lerpRate = DecelerationRate;
+
 		_currentTorque = _currentTorque.LerpTo( targetTorque, lerpRate * Time.Delta );
 
 		foreach ( Wheel wheel in Wheels )
