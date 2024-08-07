@@ -57,8 +57,7 @@ public sealed class PlayerFootsteps : Component
 		if ( !Player.IsValid() ) 
 			return;
 
-		// Don't footstep if we're parented to something
-		if ( Player.GameObject.Parent.IsValid() ) return;
+		if ( Player.IsInVehicle ) return;
 
 		if ( Player.HealthComponent.State != LifeState.Alive ) return;
 

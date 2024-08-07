@@ -1,0 +1,105 @@
+{
+  "RootObject": {
+    "__guid": "fa503677-e438-48a2-992c-eb7168e7ed81",
+    "Flags": 0,
+    "Name": "capture_point",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "Sandbox.ModelRenderer",
+        "__guid": "b9130013-30c1-4b86-8e6a-efc311cbe798",
+        "BodyGroups": 18446744073709551615,
+        "Model": "models/gameplay/flag_pole_base/flag_pole_base.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
+      },
+      {
+        "__type": "Facepunch.CapturePoint",
+        "__guid": "d4001b09-eade-44e0-a2d1-c1eeb93f7e70",
+        "CaptureTime": 10,
+        "FullName": "Alpha",
+        "ShortName": "A"
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "5fa52c87-f3ce-4b14-9537-43c14051aa63",
+        "Center": "0,0,250",
+        "IsTrigger": true,
+        "Scale": "750,750,500",
+        "Static": false
+      }
+    ],
+    "Children": [],
+    "__variables": [
+      {
+        "Id": "Full Name",
+        "Title": "Full Name",
+        "Targets": [
+          {
+            "Id": "d4001b09-eade-44e0-a2d1-c1eeb93f7e70",
+            "Property": "FullName"
+          }
+        ]
+      },
+      {
+        "Id": "Short Name",
+        "Title": "Short Name",
+        "Targets": [
+          {
+            "Id": "d4001b09-eade-44e0-a2d1-c1eeb93f7e70",
+            "Property": "ShortName"
+          }
+        ]
+      },
+      {
+        "Id": "Capture Time",
+        "Title": "Capture Time",
+        "Targets": [
+          {
+            "Id": "d4001b09-eade-44e0-a2d1-c1eeb93f7e70",
+            "Property": "CaptureTime"
+          }
+        ]
+      },
+      {
+        "Id": "Model",
+        "Title": "Model",
+        "Group": "Appearance",
+        "Targets": [
+          {
+            "Id": "b9130013-30c1-4b86-8e6a-efc311cbe798",
+            "Property": "Model"
+          }
+        ]
+      },
+      {
+        "Id": "Collider Size",
+        "Title": "Collider Size",
+        "Group": "Collider",
+        "Targets": [
+          {
+            "Id": "5fa52c87-f3ce-4b14-9537-43c14051aa63",
+            "Property": "Scale"
+          }
+        ]
+      },
+      {
+        "Id": "Collider Center",
+        "Title": "Collider Center",
+        "Group": "Collider",
+        "Targets": [
+          {
+            "Id": "5fa52c87-f3ce-4b14-9537-43c14051aa63",
+            "Property": "Center"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
