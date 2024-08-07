@@ -132,4 +132,17 @@ public sealed class Wheel : Component
 				.FromTo( startPos, endPos )
 				.Run();
 	}
+
+	protected override void DrawGizmos()
+	{
+		if ( !Gizmo.IsSelected )
+			return;
+
+		var circleAxis = (Transform.Rotation * Rotation.FromYaw( 90f )).Forward;
+		var circlePosition = Vector3.Zero;
+
+		Gizmo.Draw.IgnoreDepth = true;
+		Gizmo.Draw.Color = Color.White;
+		Gizmo.Draw.LineCircle( circlePosition, circleAxis, WheelRadius );
+	}
 }
