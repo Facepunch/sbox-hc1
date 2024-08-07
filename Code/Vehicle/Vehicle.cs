@@ -30,12 +30,25 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 	[Property, Group( "Vehicle" )] public float DecelerationRate { get; set; } = 0.5f;
 	[Property, Group( "Vehicle" )] public float BrakingRate { get; set; } = 2.0f;
 
-	public VehicleInputState InputState { get; set; }
+	public VehicleInputState InputState { get; } = new();
 
 	private float _currentTorque;
 
 	protected override void OnFixedUpdate()
 	{
+		//
+		// Find the driver seat, and if it's empty, reset input state
+		// otherwise we'll keep driving forever if the driver exists
+		// while holding an input key
+		//
+		foreach ( var seat in Seats )
+		{
+			if ( seat.HasInput && !seat.Player.IsValid() )
+			{
+				InputState.Reset();
+			}
+		}
+
 		if ( IsProxy )
 			return;
 
