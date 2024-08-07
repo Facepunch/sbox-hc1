@@ -1,0 +1,36 @@
+CapturePointMarker
+{
+    &.capturing
+    {
+        animation-name: flash;
+        animation-duration: 0.5s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+
+    &.contested
+    {
+        animation-name: flash;
+        animation-duration: 0.5s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+}
+
+@keyframes flash
+{
+    0%
+    {
+        opacity: 1;
+    }
+
+    50%
+    {
+        opacity: 0;
+    }
+
+    100%
+    {
+        opacity: 1;
+    }
+}

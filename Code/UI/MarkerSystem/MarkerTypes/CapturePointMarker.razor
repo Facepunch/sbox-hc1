@@ -1,5 +1,6 @@
 @inherits BaseMarkerPanel
 @namespace Facepunch.UI
+@attribute [StyleSheet]
 
 @if ( !Point.IsValid() ) return;
 
@@ -14,6 +15,7 @@
 
         .background
         {
+            position: relative;
             backdrop-filter-blur: 20px;
             border: 1px solid @MarkerColor.Hex;
             justify-content: center;
@@ -28,13 +30,24 @@
                 text-shadow: 1px 1px 1px rgba( black, 1 );
             }
 
+            .bar {
+                width: 100%;
+                height: 100%;
+               position: absolute;
+            }
+
             .bar-inner {
                 mix-blend-mode: lighten;
-                position: absolute;
+                position: relative;
                 width: 100%;
                 height: 100%;
                 background-color: rgba( @MarkerColor.Hex, 0.2 );
             }
+        }
+
+        .players 
+        {
+            flex-direction: row;
         }
 
         Icon {
@@ -50,8 +63,30 @@
     @if ( !Viewer.IsValid() )
         return;
 
+    <div class="players">
+
+        @if ( Point.GetCount( Team.CounterTerrorist ) > 0 )
+        {
+            <div class="team" style="color: @((Team.CounterTerrorist).GetColor().Hex);">
+                <i>person</i>
+                <label>@Point.GetCount(Team.CounterTerrorist)</label>
+            </div>
+        }
+
+        @if ( Point.GetCount( Team.Terrorist ) > 0 ) 
+        {
+            <div class="team" style="color: @((Team.Terrorist).GetColor().Hex);">
+                <i>person</i>
+                <label>@Point.GetCount(Team.Terrorist)</label>
+            </div>
+        }
+
+    </div>
+
     <div class="background">
-        <div class="bar-inner" style="height:@(Point.Captured * 100)%"></div>
+        <div class="bar">
+            <div class="bar-inner" style="height:@(Point.Captured * 100)%"></div>
+        </div>
         <label class="name">@Point.ShortName</label>
     </div>
 </root>
@@ -63,6 +98,14 @@
     public Color MarkerColor => Point.Color;
 
     bool LookingAt => MathF.Abs( Marker.CenterDistance.x ) < 0.1f && MathF.Abs( Marker.CenterDistance.y ) < 0.2f;
+
+    public override void Tick()
+    {
+        base.Tick();
+
+        SetClass( "contested", Point.CurrentState == CapturePoint.CaptureState.Contested );
+        SetClass( "capturing", Point.CurrentState == CapturePoint.CaptureState.Capturing );
+    }
 
     protected override int BuildHash()
     {
