@@ -15,9 +15,6 @@ public sealed class WheelMover : Component
 
 	protected override void OnFixedUpdate()
 	{
-		if ( IsProxy ) 
-			return;
-
 		var groundVel = _rigidbody.Velocity;
 
 		Transform.Position = Target.GetCenter();
