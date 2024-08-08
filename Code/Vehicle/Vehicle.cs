@@ -61,24 +61,9 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 
 		_currentTorque = _currentTorque.LerpTo( targetTorque, lerpRate * Time.Delta );
 
-		bool isGrounded = false;
-
 		foreach ( Wheel wheel in Wheels )
 		{
 			wheel.ApplyMotorTorque( _currentTorque );
-
-			if ( wheel.IsGrounded )
-				isGrounded = true;
-		}
-
-		if ( !isGrounded )
-		{
-			var desiredAngles = Transform.Rotation.Angles();
-			desiredAngles = desiredAngles.WithPitch( desiredAngles.pitch.LerpTo( 0.0f, 2f * Time.Delta ) );
-			desiredAngles = desiredAngles.WithRoll( desiredAngles.roll.LerpTo( 0.0f, 2f * Time.Delta ) );
-
-			// Yeah yeah yeah I know you're not really meant to do this but I don't care
-			Transform.Rotation = desiredAngles.ToRotation();
 		}
 
 		var groundVel = Rigidbody.Velocity.WithZ( 0f );
