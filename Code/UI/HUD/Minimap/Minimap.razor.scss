@@ -5,7 +5,7 @@ Minimap
     position: relative;
     width: 256px;
     height: 256px;
-    border-radius: $rounding;
+    border-radius: 0;
     z-index: 10;
 
     &.big
@@ -34,14 +34,8 @@ Minimap
     {
         padding: 0px;
         background-color: $background;
-        border-radius: 50%;
         backdrop-filter: $blur;
-        // sol: mask-image with backdrop-filter breaks the blur, so nest and border-radius to emulate the mask
-        .mask
-        {
-            mask: radial-gradient( white, white 45%, #E7E7E7 48%, black 52% );
-            mask-size: cover;
-        }
+        overflow: hidden;
     }
 
     .map-parent

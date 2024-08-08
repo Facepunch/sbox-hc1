@@ -1,19 +1,26 @@
 @import "/UI/Styles/Theme.scss";
 
-Balance {
-    InputHint {
+Balance
+{
+    justify-content: flex-start;
+    margin-bottom: 8px;
+
+    InputHint
+    {
         transform: scale( 1 );
         max-width: 120px;
         margin-right: 8px;
 
-        &.hidden {
+        &.hidden
+        {
             transform: scale( 0 );
             max-width: 0;
             margin-right: 0;
         }
     }
 
-    .label {
+    .label
+    {
         align-self: center;
     }
 }

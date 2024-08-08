@@ -15,7 +15,32 @@
 
 <root class="absolute inset-0">
     <canvas>
-        <div class="chat-container hud flex column with-deadzone bottom-left with-px">
+        <div class="chat-container hud flex column with-deadzone top-left with-px">
+            <div class="layout gap">
+                <div class="when-open flex align-center gap-sm shrink-0">
+                    <InputHint Action="Score" class="small" Size="@InputGlyphSize.Small" />
+                    <label>
+                        @ChatMode
+                    </label>
+                </div>
+
+                <div class="when-not-open flex align-center gap-sm shrink-0">
+                    <InputHint Action="Chat" class="small" Size="@InputGlyphSize.Small" />
+                    <label>
+                        Chat
+                    </label>
+                </div>
+
+                <div class="when-not-open flex align-center gap-sm shrink-0">
+                    <InputHint Action="Radio" class="small" Size="@InputGlyphSize.Small" />
+                    <label>
+                        Radio
+                    </label>
+                </div>
+
+                <ChatBox class="input" @ref="InputBox" OnTabPressed="@ChangeChatMode" onsubmit="@ChatFinished"></ChatBox>
+            </div>
+
             <div class="hud flex column justify-start">
                 @foreach (var entry in Entries)
                 {
@@ -63,31 +88,6 @@
                         }
                     </div>
                 }
-            </div>
-
-            <div class="layout gap">
-                <div class="when-open flex align-center gap-sm shrink-0">
-                    <InputHint Action="Score" class="small" Size="@InputGlyphSize.Small" />
-                    <label>
-                        @ChatMode
-                    </label>
-                </div>
-
-                <div class="when-not-open flex align-center gap-sm shrink-0">
-                    <InputHint Action="Chat" class="small" Size="@InputGlyphSize.Small" />
-                    <label>
-                        Chat
-                    </label>
-                </div>
-
-                <div class="when-not-open flex align-center gap-sm shrink-0">
-                    <InputHint Action="Radio" class="small" Size="@InputGlyphSize.Small" />
-                    <label>
-                        Radio
-                    </label>
-                </div>
-
-                <ChatBox class="input" @ref="InputBox" OnTabPressed="@ChangeChatMode" onsubmit="@ChatFinished"></ChatBox>
             </div>
         </div>
     </canvas>
