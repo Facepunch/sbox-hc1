@@ -1,0 +1,65 @@
+{
+  "RootObject": {
+    "__guid": "b8ecd362-c345-47ea-93ad-dc4fd7940528",
+    "Flags": 0,
+    "Name": "jeep_fire",
+    "Tags": "particles",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "DestroyBetweenRounds",
+        "__guid": "280d1089-68c9-42cf-9d05-8a4894257600"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "2122c87b-e746-4a10-a345-ffe8c396e414",
+        "Flags": 0,
+        "Name": "fireparticle (5)",
+        "Position": "0,32,30.0992",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.LegacyParticleSystem",
+            "__guid": "a2749e43-576b-43a0-aa0b-4b89e99b436f",
+            "ControlPoints": [],
+            "Looped": false,
+            "Particles": "fireparticle.vpcf",
+            "PlaybackSpeed": 1
+          }
+        ]
+      },
+      {
+        "__guid": "f762d570-ec90-4475-90b6-8d9f12850bdf",
+        "Flags": 0,
+        "Name": "Decal",
+        "Position": "0.00002362629,34.10314,40.74702",
+        "Rotation": "0,0.7071068,0,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.DecalRenderer",
+            "__guid": "b3e8833e-b3bd-4cd6-9389-9d3f7be691f2",
+            "CutoffAngle": 60,
+            "CutoffAngleSoftness": 5,
+            "Material": "materials/decals/decal_scorchmark/grenade_scorchmark.vmat",
+            "Mod2XBlending": false,
+            "Size": "64,64,32",
+            "TintColor": "1,1,1,1",
+            "TriPlanar": false
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.grenade_scorchmark",
+    "sugmagaming.fireparticle"
+  ],
+  "__version": 1
+}

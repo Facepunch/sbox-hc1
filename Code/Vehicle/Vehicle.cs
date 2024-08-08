@@ -1,6 +1,6 @@
 ﻿namespace Facepunch;
 
-public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITeam, IUse, IDescription
+public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITeam, IUse, IDescription, IDamageListener
 {
 	[Property, Group( "Components" )] public Rigidbody Rigidbody { get; set; }
 	[Property, Group( "Components" )] public ModelRenderer Model { get; set; }
@@ -18,7 +18,9 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 	/// <summary>
 	/// What to spawn when we explode?
 	/// </summary>
-	[Property] public GameObject Explosion { get; set; }
+	[Property, Group( "Effects" )] public GameObject Explosion { get; set; }
+	[Property, Group( "Effects" )] public float FireThreshold { get; set; } = 30f;
+	[Property, Group( "Effects" )] public GameObject Fire { get; set; } 
 
 	[Property, Group( "Vehicle" )] public List<Wheel> Wheels { get; set; }
 	[Property, Group( "Vehicle" )] public List<VehicleSeat> Seats { get; set; }
@@ -33,6 +35,7 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 	public VehicleInputState InputState { get; } = new();
 
 	private float _currentTorque;
+	private GameObject _fire;
 
 	protected override void OnFixedUpdate()
 	{
@@ -111,6 +114,21 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 		{
 			availableSeat.Enter( player );
 		}
+	}
+
+	public void OnDamaged( DamageInfo damageInfo )
+	{
+		Log.Info( HealthComponent.Health );
+		if ( HealthComponent.Health < FireThreshold && !_fire.IsValid() )
+		{
+			_fire = Fire.Clone( GameObject, Vector3.Zero, Rotation.Identity, Vector3.One );
+		}
+	}
+
+	protected override void OnDestroy()
+	{
+		if ( _fire.IsValid() )
+			_fire.Destroy();
 	}
 
 	string IMinimapIcon.IconPath => "ui/icons/vehicle.png";

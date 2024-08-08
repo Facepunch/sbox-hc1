@@ -30,6 +30,8 @@ public partial class HealthComponent : Component, IRespawnable
 	/// </summary>
 	protected IEnumerable<IRespawnable> Respawnables => GameObject.Components.GetAll<IRespawnable>();
 
+	protected IEnumerable<IDamageListener> DamageListeners => GameObject.Components.GetAll<IDamageListener>();
+
 	/// <summary>
 	/// What's our health?
 	/// </summary>
@@ -160,6 +162,8 @@ public partial class HealthComponent : Component, IRespawnable
 		{
 			damageInfo.Attacker.GameObject.Root.Dispatch( new DamageGivenEvent( damageInfo ) );
 		}
+
+		DamageListeners.ToList().ForEach( x => x.OnDamaged( damageInfo ) );
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
@@ -192,4 +196,9 @@ public interface IRespawnable
 {
 	public void OnRespawn() { }
 	public void OnKill( DamageInfo damageInfo ) { }
+}
+
+public interface IDamageListener
+{
+	public void OnDamaged( DamageInfo damageInfo ) { }
 }
