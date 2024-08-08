@@ -7,6 +7,7 @@ HEADER
 FEATURES
 {
     #include "common/features.hlsl"
+	Feature(F_PLANAR_REFLECTIONS, 0..1, "Water");
 }
 
 COMMON
@@ -104,6 +105,7 @@ PS
     BoolAttribute( bWantsFBCopyTexture, true );
     BoolAttribute( translucent, true );
     CreateTexture2D( g_tFrameBufferCopyTexture ) < Attribute("FrameBufferCopyTexture");   SrgbRead( false ); Filter(MIN_MAG_MIP_LINEAR);    AddressU( MIRROR );     AddressV( MIRROR ); >;
+	CreateTexture2D( g_tPlanarReflectionTexture ) < Attribute("PlanarReflectionTexture");   SrgbRead( true ); Filter(MIN_MAG_MIP_LINEAR);    AddressU( MIRROR );     AddressV( MIRROR ); >;
 
 	float GetLayeredSimplex( float2 noiseUV )
 	{
@@ -124,7 +126,7 @@ PS
 	//
 	// Mixed/blended and animated wave normal maps
 	//
-    float3 GetNormalForPixel( float2 screenPixel, float2 pixel )
+    float3 GetNormalForPixel( float3 normal, float2 pixel )
     {
         float2 pixelA = pixel.xy + ( g_flSpeedA * float2( g_flTime, g_flTime ) );
         float2 pixelB = pixel.xy + ( g_flSpeedB * float2( g_flTime, g_flTime ) );
@@ -140,7 +142,9 @@ PS
 
 		// Scale
 		float3 vDefault = float3( 0.0, 0.0, 1.0 );
-		return normalize( lerp( vDefault, vNorm, g_flNormalScale ) );
+		float flCameraAngle = dot( normal, -g_vCameraDirWs );
+		float flNormalScale = g_flNormalScale;// * saturate( flCameraAngle );
+		return normalize( lerp( vDefault, vNorm, flNormalScale ) );
     }
 
 	//
@@ -165,18 +169,20 @@ PS
 
 		float2 noiseUV = float2( vTextureCoords.xy );
 		noiseUV *= 5;
-		noiseUV += g_flTime * float2( 0.25, 0.25 );
+		noiseUV += g_flTime * float2( 0.025, 0.025 );
 		return saturate( GetLayeredSimplex( noiseUV / g_flFoamScale ) );
 	}
     
     float4 MainPs( PixelInput i ) : SV_Target0
     {
         Material m = Material::From( i );
+		i.vTextureCoords *= 512;
 		
 		//
 		// Gather everything we need
 		//
 		float depth = Depth::GetNormalized( i.vPositionSs );		
+		float2 vScreenUv = CalculateViewportUv( i.vPositionSs );
 		float invCameraToDepth = -abs( dot( i.vPositionWithOffsetWs, -g_vCameraDirWs ) ) + ( 1 / depth );
 
         float2 vTextureCoords = i.vTextureCoords.xy / float2( g_flScale, g_flScale );
@@ -206,22 +212,26 @@ PS
 		// 4. Use the framebuffer copy texture to apply fake alpha to the water
 		//
 		{
-			float2 vScreenUv = CalculateViewportUv( i.vPositionSs );
-			float3 vClear = Tex2DLevel( g_tFrameBufferCopyTexture, vScreenUv, 0 ).xyz;
+			float3 vClear = Tex2DLevel( g_tFrameBufferCopyTexture, vScreenUv, 0 ).xyz * 2.8;
 			float waterFeatheringOffset = 1.0f + GetFoamSample( vTextureCoords );
 			float waterFeathering = saturate( (invCameraToDepth / ( pow( 2, g_flShorelineFeatheringScale ) )) - waterFeatheringOffset );
 			m.Albedo = lerp( vClear, m.Albedo, waterFeathering );
 
 			m.Albedo = lerp( vClear, m.Albedo, g_flOpacity );
 		}
-
+		
 		//
 		// Finalize material
 		//
-		float3 vNormalSample = GetNormalForPixel( i.vPositionSs.xy, vTextureCoords.xy ); 
+		float3 vNormalSample = GetNormalForPixel( i.vNormalWs, vTextureCoords.xy ); 
 		m.Normal = TransformNormal( vNormalSample, i.vNormalWs, i.vTangentUWs, i.vTangentVWs );
         m.Roughness = g_flRoughness;
         m.Metalness = g_flMetallic;
+		
+#if F_PLANAR_REFLECTIONS
+		float2 vNormOffset = m.Normal.xy;
+		m.Albedo += g_tPlanarReflectionTexture.SampleLevel( g_sSampler, ( vScreenUv * float2( -1, 1 ) ) + vNormOffset, 0 );
+#endif
 
         m.AmbientOcclusion = 1;
 		m.Opacity = 0;
