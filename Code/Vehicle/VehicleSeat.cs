@@ -39,7 +39,7 @@ public sealed class VehicleSeat : Component
 			player.CurrentEquipment?.Holster();
 
 		if ( HasInput )
-			Network.AssignOwnership( Player.Network.OwnerConnection );
+			Network.AssignOwnership( player.Network.OwnerConnection );
 	}
 
 	public bool Enter( PlayerPawn player )
@@ -62,8 +62,9 @@ public sealed class VehicleSeat : Component
 
 	public bool CanLeave( PlayerPawn player )
 	{
-		if ( Player.TimeSinceSeatChanged < 0.5f ) return false;
 		if ( !Player.IsValid() ) return false;
+		if ( Player.TimeSinceSeatChanged < 0.5f ) return false;
+
 		if ( Player != player ) return false;
 
 		return true;
