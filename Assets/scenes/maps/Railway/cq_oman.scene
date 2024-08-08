@@ -1,5 +1,5 @@
 {
-  "__guid": "c4c698ac-3018-4e4e-8d4c-e9111850fe0c",
+  "__guid": "ee72f54d-b370-43d6-9124-58ffc1d81278",
   "GameObjects": [
     {
       "__guid": "557f205b-0923-455a-95e6-053aab5a409d",
@@ -12840,134 +12840,6 @@
       ]
     },
     {
-      "__guid": "c0f23aaf-5b54-4ac3-a01d-3e5f0c2d8ecf",
-      "Flags": 0,
-      "Name": "Box",
-      "Position": "35949.45,11448.82,-480",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.MeshComponent",
-          "__guid": "0685f314-8658-48de-93b0-648f3099ec1d",
-          "Collision": "Mesh",
-          "Color": "0.58605,0.81372,1,0.68",
-          "HideInGame": false,
-          "IsTrigger": false,
-          "Mesh": {
-            "Topology": "H4sIAAAAAAAACl2Qiw6CUAxDh1flgg/wAfr/X2pP0iWLJA25W9t16xHxFc4C30E4\u002Bt2FWbgKd2Ew4NTvIZxcb9ZH4b5db\u002Bb9z/oUzVh8m7lPc9FOzjRYQ8ZXyXxxXvrw4e72wvtWdoEPdzMXj8We9OHDXcvO7EqdN396eKaeLHjkLciePeYxi4z0mMFtMisablFvRXZ2Tj158KQOF78f9WSROMQBAAA=",
-            "Positions": [
-              "-69058.52,-99928.68,64",
-              "69058.52,-99928.68,64",
-              "69058.52,99928.68,64",
-              "-69058.52,99928.68,64",
-              "-69058.52,99928.68,-64",
-              "69058.52,99928.68,-64",
-              "69058.52,-99928.68,-64",
-              "-69058.52,-99928.68,-64"
-            ],
-            "TextureCoord": [
-              "942.9758,-49.42625",
-              "-331.0905,-1.28",
-              "942.9758,-788.235",
-              "49.42625,-1.28",
-              "-331.0905,-788.235",
-              "-942.9758,-1.28",
-              "-331.0905,-49.42625",
-              "-788.235,-1.28",
-              "942.9758,-788.235",
-              "331.0905,0",
-              "942.9758,-49.42625",
-              "788.235,0",
-              "-331.0905,-49.42625",
-              "942.9758,0",
-              "-331.0905,-788.235",
-              "-49.42625,0",
-              "-49.42625,-1.28",
-              "-331.0905,0",
-              "-788.235,0",
-              "331.0905,-1.28",
-              "49.42625,0",
-              "942.9758,-1.28",
-              "788.235,-1.28",
-              "-942.9758,0"
-            ],
-            "TextureUAxis": [
-              "1,0,0",
-              "1,0,-0",
-              "0,-1,0",
-              "0,1,0",
-              "-1,0,0",
-              "1,-0,0"
-            ],
-            "TextureVAxis": [
-              "0,-1,0",
-              "0,-1,0",
-              "0,0,-1",
-              "-0,0,-1",
-              "0,0,-1",
-              "-0,0,-1"
-            ],
-            "TextureScale": [
-              "27.10162,67.62824",
-              "27.10162,67.62824",
-              "67.62826,25",
-              "67.62826,25",
-              "27.10162,25",
-              "27.10162,25"
-            ],
-            "TextureOffset": [
-              "1.302002,1.967972",
-              "1.302002,1.96814",
-              "1.967773,2.240002",
-              "2.032227,2.240003",
-              "2.697754,2.240002",
-              "1.302246,2.240003"
-            ],
-            "MaterialIndex": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ],
-            "EdgeFlags": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            "Materials": [
-              "materials/dev/reflectivity_30.vmat",
-              "materials/water/water_sea.vmat"
-            ]
-          },
-          "SmoothingAngle": 40,
-          "Static": true
-        }
-      ]
-    },
-    {
       "__guid": "e6fa1dfc-fac1-453b-aa14-a8bfcd74939f",
       "Flags": 0,
       "Name": "Box (22)",
@@ -18482,6 +18354,70 @@
           },
           "SmoothingAngle": 40,
           "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "eb44c94a-fd42-4f83-b28c-1ef7833f786b",
+      "Flags": 0,
+      "Name": "Water",
+      "Position": "30594.26,41883.06,-480",
+      "Enabled": true,
+      "Children": [
+        {
+          "__guid": "f1d34f8f-2bd6-41a5-abb1-f6d543557dd7",
+          "Flags": 0,
+          "Name": "Planar Reflections",
+          "Position": "0,0,0",
+          "Tags": "maincamera",
+          "Components": [
+            {
+              "__type": "Sandbox.CameraComponent",
+              "__guid": "90518561-74f3-46fd-aa78-235129cb6508",
+              "BackgroundColor": "0.33333,0.46275,0.52157,1",
+              "ClearFlags": "All",
+              "FieldOfView": 60,
+              "IsMainCamera": false,
+              "Orthographic": false,
+              "OrthographicHeight": 1204,
+              "Priority": 1,
+              "RenderExcludeTags": "",
+              "RenderTags": "",
+              "TargetEye": "None",
+              "Viewport": "0,0,1,1",
+              "ZFar": 10000,
+              "ZNear": 10
+            },
+            {
+              "__type": "Facepunch.PlanarReflectionCamera",
+              "__guid": "180d2092-81b9-461d-806f-2c898bd8c2a4",
+              "Plane": {
+                "_type": "component",
+                "component_id": "993eb811-6bf2-4927-9a9b-3d17c9e11985",
+                "go": "c3f8703c-c2ce-40fb-92b6-e34558879a9d",
+                "component_type": "ModelRenderer"
+              }
+            }
+          ]
+        },
+        {
+          "__guid": "c3f8703c-c2ce-40fb-92b6-e34558879a9d",
+          "Flags": 0,
+          "Name": "Plane",
+          "Position": "0,0,0",
+          "Scale": "1000,1000,1",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "993eb811-6bf2-4927-9a9b-3d17c9e11985",
+              "BodyGroups": 18446744073709551615,
+              "MaterialOverride": "materials/water/water_sea.vmat",
+              "Model": "models/dev/plane.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            }
+          ]
         }
       ]
     }
