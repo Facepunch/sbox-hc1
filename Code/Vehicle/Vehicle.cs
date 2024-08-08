@@ -1,6 +1,6 @@
 ﻿namespace Facepunch;
 
-public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITeam, IUse
+public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITeam, IUse, IDescription
 {
 	[Property, Group( "Components" )] public Rigidbody Rigidbody { get; set; }
 	[Property, Group( "Components" )] public ModelRenderer Model { get; set; }
@@ -29,6 +29,8 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 	[Property, Group( "Vehicle" )] public float AccelerationRate { get; set; } = 1.0f;
 	[Property, Group( "Vehicle" )] public float DecelerationRate { get; set; } = 0.5f;
 	[Property, Group( "Vehicle" )] public float BrakingRate { get; set; } = 2.0f;
+
+	[Property, Group( "Description" )] public string DisplayName { get; set; }
 
 	public VehicleInputState InputState { get; } = new();
 
