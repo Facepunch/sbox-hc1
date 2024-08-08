@@ -38,18 +38,13 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 
 	protected override void OnFixedUpdate()
 	{
-		//
-		// Find the driver seat, and if it's empty, reset input state
-		// otherwise we'll keep driving forever if the driver exists
-		// while holding an input key
-		//
-		foreach ( var seat in Seats )
+		// Evaluate all input-driving seats, and if all of them have nobody in it, reset the input
+		// Otherwise the vehicle will just go forever
+		if ( Seats.Where( x => x.HasInput ).All( x => !x.Player.IsValid() ) )
 		{
-			if ( seat.HasInput && !seat.Player.IsValid() )
-			{
-				InputState.Reset();
-			}
+			InputState.Reset();
 		}
+	
 
 		if ( IsProxy )
 			return;
