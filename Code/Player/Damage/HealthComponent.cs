@@ -36,7 +36,8 @@ public partial class HealthComponent : Component, IRespawnable
 	[HostSync, Change( nameof( OnHealthPropertyChanged ) )]
 	public float Health { get; set; } = 100f;
 
-	public float MaxHealth => GetGlobal<PlayerGlobals>().MaxHealth;
+	[Property, Group( "Setup" )]
+	public float MaxHealth { get; set; } = 100f;
 
 	/// <summary>
 	/// What's our life state?
@@ -57,6 +58,11 @@ public partial class HealthComponent : Component, IRespawnable
 	protected void OnStatePropertyChanged( LifeState oldValue, LifeState newValue )
 	{
 		TimeSinceLifeStateChanged = 0f;
+	}
+
+	protected override void OnStart()
+	{
+		Health = MaxHealth;
 	}
 
 	public void TakeDamage( DamageInfo damageInfo )
