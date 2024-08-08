@@ -78,6 +78,12 @@ public partial class PlayerPawn
 
 		_previousVelocity = Vector3.Zero;
 
+		// Leave a seat if we are in one.
+		if ( CurrentSeat.IsValid() )
+		{
+			CurrentSeat.Leave( this );
+		}
+
 		Teleport( SpawnPosition, SpawnRotation );
 
 		if ( Body is not null )
