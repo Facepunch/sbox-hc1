@@ -1,6 +1,7 @@
 
 namespace Facepunch;
 
+[EditorHandle( "ui/Minimaps/cashgrab/extract.png" )]
 public partial class VehicleSpawner : Component
 {
 	[Property] public GameObject Prefab { get; set; }
