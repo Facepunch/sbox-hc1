@@ -28,7 +28,7 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// A list of all Respawnable things on this GameObject
 	/// </summary>
-	protected IEnumerable<IRespawnable> Respawnables => GameObject.Root.Components.GetAll<IRespawnable>(FindMode.EnabledInSelfAndDescendants);
+	protected IEnumerable<IRespawnable> Respawnables => GameObject.Components.GetAll<IRespawnable>();
 
 	/// <summary>
 	/// What's our health?
