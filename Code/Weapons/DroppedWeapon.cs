@@ -62,9 +62,10 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 		return droppedWeapon;
 	}
 
-	public bool CanUse( PlayerPawn player )
+	public UseResult CanUse( PlayerPawn player )
 	{
-		return player.Inventory.CanTake( Resource ) != PlayerInventory.PickupResult.None;
+		if ( player.Inventory.CanTake( Resource ) != PlayerInventory.PickupResult.None ) return "Can't pick this up";
+		return true;
 	}
 
 	private bool _isUsed;

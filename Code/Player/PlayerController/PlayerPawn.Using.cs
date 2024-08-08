@@ -1,4 +1,6 @@
-﻿namespace Facepunch;
+﻿using Facepunch.UI;
+
+namespace Facepunch;
 
 partial class PlayerPawn
 {
@@ -43,10 +45,24 @@ partial class PlayerPawn
 			.Select( x => x.GameObject.Components.Get<IUse>( FindMode.EnabledInSelf | FindMode.InAncestors ) )
 			.FirstOrDefault( x => x is not null );
 
-		if ( usable.IsValid() && usable.CanUse( this ) )
+		if ( usable.IsValid() && usable.CanUse( this ) is { } useResult )
 		{
-			UpdateLastUsedObject( usable as Component );
-			usable.OnUse( this );
+			if ( useResult.CanUse )
+			{
+				UpdateLastUsedObject( usable as Component );
+				usable.OnUse( this );
+			}
+			else
+			{
+				if ( !string.IsNullOrEmpty( useResult.Reason ) )
+				{
+					using ( Rpc.FilterInclude( Network.OwnerConnection ) )
+					{
+						GameMode.Instance.ShowToast( useResult.Reason, ToastType.Generic, 3 );
+					}
+				}
+			}
+
 		}
 		else if ( Team == Team.Terrorist && GetZone<BombSite>() is not null )
 		{

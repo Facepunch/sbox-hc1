@@ -10,8 +10,6 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 	/// </summary>
 	public virtual Team Team { get; set; } = Team.Unassigned;
 
-	[RequireComponent] public PawnCameraController CameraController { get; set; }
-
 	/// <summary>
 	/// An accessor for health component if we have one.
 	/// </summary>
@@ -44,7 +42,6 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 		{
 			InputState.Reset();
 		}
-	
 
 		if ( IsProxy )
 			return;
@@ -93,26 +90,26 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 		return viewer.Team == Team;
 	}
 
-	public bool CanUse( PlayerPawn player )
+	public UseResult CanUse( PlayerPawn player )
 	{
+		// You're already in a vehicle somehow
+		if ( player.CurrentSeat.IsValid() && player.CurrentSeat.Vehicle == this ) return false;
+
+		// Can't get in vehicle of enemies
+		if ( Seats.Any( x => x.Player.IsValid() && !x.Player.IsFriendly( player ) ) ) return "Occupied by an enemy";
+
+		// Seats are all filled
+		if ( Seats.All( x => !x.CanEnter( player ) ) ) return $"{DisplayName} is full";
+
 		return true;
 	}
 
 	public void OnUse( PlayerPawn player )
 	{
-		if ( player.CurrentSeat.IsValid() && player.CurrentSeat.Vehicle == this )
-		{
-			return;
-		}
-
+		// Already in the vehicle, fuck off
 		if ( Seats.FirstOrDefault( x => x.CanEnter( player ) ) is { } availableSeat )
 		{
-			if ( availableSeat.Enter( player ) )
-			{
-				Log.Info( "Entered vehicle" );
-			}
-
-			return;
+			availableSeat.Enter( player );
 		}
 	}
 

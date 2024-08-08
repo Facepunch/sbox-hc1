@@ -73,7 +73,7 @@ public sealed class Door : Component, IUse,
 		DefaultState = State;
 	}
 
-	public bool CanUse( PlayerPawn player )
+	public UseResult CanUse( PlayerPawn player )
 	{
 		// Don't use doors already opening/closing
 		return State is DoorState.Open or DoorState.Closed;

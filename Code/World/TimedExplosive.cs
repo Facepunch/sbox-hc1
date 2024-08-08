@@ -236,7 +236,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 		DefusingPlayer = null;
 	}
 
-	public bool CanUse( PlayerPawn player )
+	public UseResult CanUse( PlayerPawn player )
 	{
 		return !IsDefused && !DefusingPlayer.IsValid() && player.Team == Team.CounterTerrorist;
 	}
