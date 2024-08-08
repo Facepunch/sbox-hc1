@@ -75,6 +75,55 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 			var z = Rigidbody.Velocity.z;
 			Rigidbody.Velocity = Vector3.Zero.WithZ( z );
 		}
+
+		var currentUp = Transform.World.NormalToWorld( Vector3.Up );
+		var alignment = Vector3.Dot( Vector3.Up, currentUp );
+
+		if ( alignment < 0.6f )
+		{
+			var desiredRotation = Rotation.From( 0, Transform.Rotation.Angles().yaw, 0 );
+			var rotationDifference = desiredRotation * Transform.Rotation.Inverse;
+
+			ToAngleAxis( rotationDifference, out float angle, out Vector3 axis );
+
+			angle = MathF.Min( angle, 180f );
+
+			float alignSpeed = 1f;
+			float force = 3f;
+
+			Rigidbody.AngularVelocity = axis * angle * force * alignSpeed * Time.Delta;
+		}
+	}
+
+	/// <summary>
+	/// Converts a quaternion to an angle-axis representation.
+	/// I did not create this method.
+	/// </summary>
+	/// <param name="rotation">The quaternion to convert.</param>
+	/// <param name="angle">The output angle in degrees.</param>
+	/// <param name="axis">The output axis of rotation.</param>
+	private void ToAngleAxis( Rotation rotation, out float angle, out Vector3 axis )
+	{
+		// Normalize the quaternion to ensure it represents a valid rotation
+		var normalized = rotation.Normal;
+
+		// Calculate the angle
+		angle = 2.0f * (float)Math.Acos( normalized.w );
+
+		// Calculate the axis
+		float sinThetaOver2 = (float)Math.Sqrt( 1.0f - normalized.w * normalized.w );
+
+		if ( sinThetaOver2 > 0.0001f )
+		{
+			axis = new Vector3( normalized.x, normalized.y, normalized.z ) / sinThetaOver2;
+		}
+		else
+		{
+			axis = new Vector3( 1, 0, 0 );
+		}
+
+		axis = axis.Normal;
+		angle = angle * (180.0f / (float)Math.PI);
 	}
 
 	public void OnKill( DamageInfo damageInfo )
