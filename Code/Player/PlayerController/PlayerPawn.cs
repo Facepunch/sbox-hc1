@@ -120,9 +120,14 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 		if ( !PlayerState.IsValid() )
 			return;
 
-		if ( PlayerState.GetLastKiller() is { IsValid: true } killerPlayer )
+		if ( PlayerState.LastDamageInfo is null )
+			return;
+
+		var killer = PlayerState.GetLastKiller();
+
+		if ( killer.IsValid() )
 		{
-			EyeAngles = Rotation.LookAt( killerPlayer.Transform.Position - Transform.Position, Vector3.Up );
+			EyeAngles = Rotation.LookAt( killer.Transform.Position - Transform.Position, Vector3.Up );
 		}
 
 		if ( ( ( Input.Pressed( "attack1" ) || Input.Pressed( "attack2" ) ) && !PlayerState.IsRespawning ) || PlayerState.IsBot || PlayerState.LastDamageInfo.TimeSinceEvent > DeathcamSkipTime )

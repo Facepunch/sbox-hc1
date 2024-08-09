@@ -34,8 +34,14 @@ public abstract class Pawn : Component, IRespawnable, ITeam
 	/// </summary>
 	public virtual Team Team
 	{
-		get => PlayerState.Team;
-		set => PlayerState.Team = value;
+		get => PlayerState.IsValid() ? PlayerState.Team : Team.Unassigned;
+		set
+		{
+			if ( !PlayerState.IsValid() )
+				return;
+
+			PlayerState.Team = value;
+		}
 	}
 
 	public virtual string NameType { get; } = "Pawn";

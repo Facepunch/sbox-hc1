@@ -108,6 +108,9 @@ public partial class PlayerPawn
 	[Authority]
 	private void OnClientRespawn()
 	{
+		if ( !PlayerState.IsValid() )
+			return;
+
 		if ( PlayerState.IsBot )
 			return;
 

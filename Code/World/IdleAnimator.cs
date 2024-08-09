@@ -17,9 +17,17 @@ public sealed class IdleAnimator : Component
 	[Property] public GameObject HoldObject { get; set; }
 	[Property] public IdleType IdleType { get; set; }
 
+	/// <summary>
+	/// Remove this whole fucking function. Jesus.
+	/// </summary>
+	/// <param name="eq"></param>
 	async void AsyncOn( Equipment eq )
 	{
 		await GameTask.DelaySeconds( 0.05f );
+
+		if ( !eq.IsValid() )
+			return;
+
 		eq.UpdateRenderMode( true );
 	}
 

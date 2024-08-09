@@ -113,6 +113,18 @@ public partial class PlayerState : Component, ITeam
 
 	public static void OnPossess( Pawn pawn )
 	{
+		if ( !pawn.IsValid() )
+		{
+			Log.Warning( "Tried to possess an invalid pawn." );
+			return;
+		}
+
+		if ( !Local.IsValid() )
+		{
+			Log.Warning( "Tried to possess a pawn but we don't have a local playerstate" );
+			return;
+		}
+
 		// called from Pawn when one is newly possessed, update Local and Viewer, invoke RPCs for observers
 
 		Local.Pawn = pawn;

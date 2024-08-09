@@ -13,9 +13,13 @@ public sealed class Spotter : Component
 
 	protected override void OnUpdate()
 	{
-		base.OnUpdate();
-
 		if ( !Networking.IsHost )
+			return;
+
+		if ( !Player.IsValid() )
+			return;
+
+		if ( !Player.HealthComponent.IsValid() )
 			return;
 
 		if ( Player.HealthComponent.State != LifeState.Alive || Player.Team == Team.Unassigned )

@@ -69,6 +69,10 @@ public partial class PlayerPawn
 
 	private void UpdateOutline()
 	{
+		// Somehow this can happen?
+		if ( !PlayerState.Local.IsValid() )
+			return;
+
 		if ( !IsOutlineVisible() )
 		{
 			Outline.Enabled = false;

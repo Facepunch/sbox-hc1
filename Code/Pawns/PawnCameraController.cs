@@ -31,6 +31,12 @@ public partial class PawnCameraController : Component
 
 	private GameObject GetOrCreateCameraObject()
 	{
+		// I don't really get how this can happen.
+		if ( !Scene.IsValid() )
+		{
+			return null;
+		}
+
 		var component = Scene.GetAllComponents<PlayerCameraOverride>().FirstOrDefault();
 
 		var config = new CloneConfig()

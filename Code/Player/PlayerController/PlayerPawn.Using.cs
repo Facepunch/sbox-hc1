@@ -74,6 +74,11 @@ partial class PlayerPawn
 	[Broadcast( NetPermission.HostOnly )]
 	private void UpdateLastUsedObject( Component component )
 	{
+		if ( !component.IsValid() )
+		{
+			return;
+		}
+
 		LastUsedObject = component.GameObject;
 	}
 }

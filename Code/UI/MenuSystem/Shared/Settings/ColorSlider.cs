@@ -24,6 +24,10 @@ public partial class ColorSlider
 		var index = (x + (y * width)) * 4;
 		var range = 255f;
 
+		// Just in case
+		if ( index > ImageData.Count() )
+			return Color.White;
+
 		var col = new Color
 		{
 			r = ImageData[index] / range,

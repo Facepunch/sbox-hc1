@@ -10,7 +10,7 @@ public partial class PlayerPawn
 	/// <summary>
 	/// What are we called?
 	/// </summary>
-	public override string DisplayName => PlayerState.DisplayName;
+	public override string DisplayName => PlayerState.IsValid() ? PlayerState.DisplayName : "Invalid Player";
 	public override bool IsLocallyControlled => base.IsLocallyControlled && !PlayerState.IsBot;
 
 	/// <summary>

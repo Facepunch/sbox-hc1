@@ -1,3 +1,4 @@
+using Sandbox;
 using Sandbox.Diagnostics;
 using Sandbox.Events;
 
@@ -379,7 +380,11 @@ public partial class PlayerInventory : Component
 	[Broadcast]
 	private void PurchaseBuyMenuItem( string equipmentId )
 	{
-		Assert.True( Networking.IsHost );
+		if ( !Networking.IsHost )
+		{
+			Log.Warning( $"Tried to purchase an buy menu item ({equipmentId}) but is not the host." );
+			return;
+		}
 
 		var equipmentData = BuyMenuItem.GetById( equipmentId );
 
@@ -401,7 +406,11 @@ public partial class PlayerInventory : Component
 	[Broadcast]
 	private void PurchaseAsHost( int resourceId )
 	{
-		Assert.True( Networking.IsHost );
+		if ( !Networking.IsHost )
+		{
+			Log.Warning( $"Tried to purchase an inventory resource ({resourceId}) but is not the host." );
+			return;
+		}
 
 		var resource = ResourceLibrary.Get<EquipmentResource>( resourceId );
 

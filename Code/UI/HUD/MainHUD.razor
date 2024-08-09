@@ -70,6 +70,11 @@
 
     void IGameEventHandler<OnScoreAddedEvent>.OnGameEvent( OnScoreAddedEvent eventArgs )
     {
+        if ( !ScoringSystem.IsValid() )
+        {
+            return;
+        }
+
         ScoringSystem.OnScore( eventArgs.Score, eventArgs.Reason );
     }
 

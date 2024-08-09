@@ -131,6 +131,12 @@ public class RadioSounds : GameResource
 	[Broadcast]
 	private static void RpcPlay( Team team, string category, string sound )
 	{
+		if ( !PlayerState.Local.IsValid() )
+		{
+			Log.Warning( "Tried to play a TEAM radio sound but there's no local playerstate" );
+			return;
+		}
+
 		var localPlayerTeam = PlayerState.Local.Team;
 
 		var soundList = All.FirstOrDefault( x => x.Team == localPlayerTeam );
@@ -157,6 +163,12 @@ public class RadioSounds : GameResource
 	[Broadcast]
 	private static void RpcPlay( Team team, RadioSound snd )
 	{
+		if ( !PlayerState.Local.IsValid() )
+		{
+			Log.Warning( "Tried to play a radio sound but there's no local playerstate" );
+			return;
+		}
+
 		var localPlayerTeam = PlayerState.Local.Team;
 
 		var soundList = All.FirstOrDefault( x => x.Team == localPlayerTeam );
