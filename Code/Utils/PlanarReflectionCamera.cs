@@ -3,7 +3,7 @@
 public class PlanarReflectionCamera : Component
 {
 	private Texture _renderTexture;
-
+	private float _aspect;
 	private CameraComponent _camera;
 	private GameObject _cameraGameObject;
 
@@ -13,7 +13,7 @@ public class PlanarReflectionCamera : Component
 	protected override void OnEnabled()
 	{
 		GetOrCreateCamera();
-		CreateRenderTexture();
+		GetOrCreateRenderTexture();
 	}
 
 	protected override void OnDisabled()
@@ -22,9 +22,15 @@ public class PlanarReflectionCamera : Component
 		_renderTexture.Dispose();
 	}
 
-	private void CreateRenderTexture()
+	private void GetOrCreateRenderTexture()
 	{
-		var targetRes = new Vector2( Resolution * Screen.Aspect, Resolution );
+		if ( _aspect == Screen.Aspect )
+			return;
+
+		_aspect = Screen.Aspect;
+		_renderTexture?.Dispose();
+
+		var targetRes = new Vector2( Resolution * _aspect, Resolution );
 		_renderTexture = Texture.CreateRenderTarget().WithSize( targetRes ).WithFormat( ImageFormat.RGBA8888 ).Create();
 	}
 
@@ -76,6 +82,9 @@ public class PlanarReflectionCamera : Component
 	{
 		if ( !_cameraGameObject.IsValid() )
 			GetOrCreateCamera();
+
+		if ( _aspect != Screen.Aspect )
+			GetOrCreateRenderTexture();
 
 		UpdateCameraTransform();
 		_camera.RenderToTexture( _renderTexture );
