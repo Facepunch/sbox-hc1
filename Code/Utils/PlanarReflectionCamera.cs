@@ -2,12 +2,13 @@
 
 public class PlanarReflectionCamera : Component
 {
-	private Texture RenderTexture;
-	[Property] public ModelRenderer Plane { get; set; }
+	private Texture _renderTexture;
+
 	private CameraComponent _camera;
 	private GameObject _cameraGameObject;
 
-	private Vector2 _screenSize;
+	[Property] public ModelRenderer Plane { get; set; }
+	[Property] public int Resolution { get; set; } = 128;
 
 	protected override void OnEnabled()
 	{
@@ -18,13 +19,13 @@ public class PlanarReflectionCamera : Component
 	protected override void OnDisabled()
 	{
 		_camera.Destroy();
-		RenderTexture.Dispose();
+		_renderTexture.Dispose();
 	}
 
 	private void CreateRenderTexture()
 	{
-		_screenSize = Screen.Size;
-		RenderTexture = Texture.CreateRenderTarget().WithSize( Screen.Size / 8 ).WithFormat( ImageFormat.RGBA8888 ).Create();
+		var targetRes = new Vector2( Resolution * Screen.Aspect, Resolution );
+		_renderTexture = Texture.CreateRenderTarget().WithSize( targetRes ).WithFormat( ImageFormat.RGBA8888 ).Create();
 	}
 
 	void GetOrCreateCamera()
@@ -76,16 +77,10 @@ public class PlanarReflectionCamera : Component
 		if ( !_cameraGameObject.IsValid() )
 			GetOrCreateCamera();
 
-		if ( Screen.Size != _screenSize )
-		{
-			RenderTexture.Dispose();
-			CreateRenderTexture();
-		}
-
 		UpdateCameraTransform();
-		_camera.RenderToTexture( RenderTexture );
+		_camera.RenderToTexture( _renderTexture );
 
-		Plane.SceneObject.Attributes.Set( "PlanarReflectionTexture", RenderTexture );
+		Plane.SceneObject.Attributes.Set( "PlanarReflectionTexture", _renderTexture );
 		Plane.SceneObject.Attributes.Set( "PlanarReflections", true );
 		Plane.SceneObject.RenderLayer = SceneRenderLayer.OverlayWithDepth;
 	}
