@@ -1,5 +1,5 @@
 {
-  "__guid": "ee72f54d-b370-43d6-9124-58ffc1d81278",
+  "__guid": "e7e406fa-1224-4b0c-907b-875985e18673",
   "GameObjects": [
     {
       "__guid": "557f205b-0923-455a-95e6-053aab5a409d",
@@ -666,7 +666,7 @@
       "Flags": 0,
       "Name": "Sun",
       "Position": "33323.32,38389.89,1808.628",
-      "Rotation": "0.06327952,0.06835655,-0.7303952,0.6766433",
+      "Rotation": "0.2239474,0.2493163,-0.8407762,0.4251875",
       "Tags": "light_directional,light",
       "Enabled": true,
       "Components": [
@@ -675,9 +675,9 @@
           "__guid": "48b0b8d9-652a-4a46-956f-fc8172299a70",
           "FogMode": "Enabled",
           "FogStrength": 1,
-          "LightColor": "1,0.8645,0.57209,1",
+          "LightColor": "2,1.90574,1.70233,1",
           "Shadows": true,
-          "SkyColor": "1,1,1,0.35"
+          "SkyColor": "0.85581,0.90868,1,0.35"
         }
       ]
     },
@@ -12763,45 +12763,6 @@
       ]
     },
     {
-      "__guid": "8f580abb-2d26-4410-92e4-1290c7924c4d",
-      "Flags": 0,
-      "Name": "Gradient Fog",
-      "Position": "30501.03,28388.53,1222.616",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.GradientFog",
-          "__guid": "e2d022c0-5e12-4f47-a955-b47e48dd1259",
-          "Color": "0.92245,0.89588,0.94419,0.45",
-          "EndDistance": 40000,
-          "FalloffExponent": 3,
-          "Height": 4096,
-          "StartDistance": 30000,
-          "VerticalFalloffExponent": 2
-        }
-      ]
-    },
-    {
-      "__guid": "54062689-8928-4e64-af92-ea0af92c42ba",
-      "Flags": 0,
-      "Name": "Gradient Fog",
-      "Position": "30501.03,28388.53,1222.616",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.GradientFog",
-          "__guid": "cc106527-4111-4d13-915d-d969f8cfd4fa",
-          "__enabled": false,
-          "Color": "0.7799,0.8049,0.91628,0.24",
-          "EndDistance": 30000,
-          "FalloffExponent": 3,
-          "Height": 2048,
-          "StartDistance": 10000,
-          "VerticalFalloffExponent": 2
-        }
-      ]
-    },
-    {
       "__guid": "754c1585-662a-451b-bc57-fa09cd1fe110",
       "Flags": 0,
       "Name": "crane (1)",
@@ -18418,6 +18379,28 @@
               "Tint": "1,1,1,1"
             }
           ]
+        }
+      ]
+    },
+    {
+      "__guid": "a1c9e9ef-7d3f-4efa-9652-7900e78e4038",
+      "Flags": 0,
+      "Name": "Cubemap Fog",
+      "Position": "27237.67,12009.81,1692.775",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CubemapFog",
+          "__guid": "06abc395-bf73-4092-8b40-21667e03b12e",
+          "Blur": 0,
+          "EndDistance": 32767,
+          "FalloffExponent": 2,
+          "HeightExponent": 2,
+          "HeightStart": 2000,
+          "HeightWidth": 0,
+          "Sky": "materials/skybox/skybox_overcast_01.vmat",
+          "StartDistance": 0,
+          "Tint": "1,1,1,1"
         }
       ]
     }
