@@ -10,9 +10,6 @@
 @if ( !Viewer.IsValid() )
     return;
 
-@if ( Object.UseLOS && !IsInView )
-    return;
-
 <root>
     @if ( !string.IsNullOrEmpty( Object.MarkerIcon ) )
     {
@@ -42,29 +39,6 @@
     public IMarkerObject Object { get; set; }
     private PlayerPawn Viewer => PlayerState.Viewer.PlayerPawn;
 
-    SceneTraceResult GetTrace()
-    {
-        var distance = Viewer.AimRay.Position.DistanceSquared(Object.MarkerPosition);
-        if (distance > ( Object.MarkerMaxDistance * Object.MarkerMaxDistance ) )
-            return default;
-
-        var direction = (Object.MarkerPosition - Viewer.AimRay.Position).Normal;
-        var tr = Scene.Trace.Ray(Viewer.AimRay.Position, Viewer.AimRay.Position + direction * distance)
-            .IgnoreGameObjectHierarchy( Viewer.GameObject )
-            .Run();
-
-        return tr;
-    }
-
-    bool IsInView
-    {
-        get
-        {
-            var tr = GetTrace();
-            return !tr.Hit;
-        }
-    }
-
     BaseMarkerPanel CustomPanel { get; set; }
 
 
@@ -93,11 +67,6 @@
 
     public override void Tick()
     {
-        if ( Object.UseLOS )
-        {
-            StateHasChanged();
-        }
-
         if ( Object.MarkerPanelTypeOverride is null ) return;
         if ( CustomPanel.IsValid() ) return;
 

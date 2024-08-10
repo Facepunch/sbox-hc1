@@ -48,11 +48,6 @@ public interface IMarkerObject : IValid
 	bool ShowChevron => true;
 
 	/// <summary>
-	/// Do we use LOS here? (A trace)
-	/// </summary>
-	bool UseLOS => false;
-
-	/// <summary>
 	/// Should we even show this marker?
 	/// </summary>
 	/// <returns></returns>
