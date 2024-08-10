@@ -358,8 +358,10 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	[Broadcast]
 	private void InflictDamage( GameObject target, float damage, Vector3 pos, Vector3 dir, HitboxTags hitbox, DamageFlags flags )
 	{
-		// target?.TakeDamage( damage, tr.EndPosition, tr.Direction * tr.Distance, Weapon.PlayerPawn.HealthComponent.Id, Weapon.Id, hitbox );
-		target?.TakeDamage( new DamageInfo( Equipment.Owner, damage, Equipment, pos, dir * damage, hitbox, flags ) );
+		if ( target.IsValid() )
+		{
+			target.TakeDamage( new DamageInfo( Equipment.Owner, damage, Equipment, pos, dir * damage, hitbox, flags ) );
+		}
 	}
 
 	private float CalculateDamageFalloff( float damage, float distance )

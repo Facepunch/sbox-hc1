@@ -79,6 +79,9 @@ public sealed class SpawnProtection : Component,
 		if ( !player.PlayerState.IsValid() )
 			return;
 
+		if ( !player.Network.Active || !player.PlayerState.Network.Active )
+			return;
+
 		_spawnProtectedSince.Remove( player );
 		player.HealthComponent.IsGodMode = false;
 
