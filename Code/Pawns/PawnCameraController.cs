@@ -63,6 +63,12 @@ public partial class PawnCameraController : Component
 		{
 			PlayerCameraGameObject = GetOrCreateCameraObject();
 
+			if ( !PlayerCameraGameObject.IsValid() )
+			{
+				Log.Warning( "Couldn't make camera??" );
+				return;
+			}
+
 			Camera = PlayerCameraGameObject.Components.GetOrCreate<CameraComponent>();
 			Pixelate = PlayerCameraGameObject.Components.GetOrCreate<Pixelate>();
 			ChromaticAberration = PlayerCameraGameObject.Components.GetOrCreate<ChromaticAberration>();

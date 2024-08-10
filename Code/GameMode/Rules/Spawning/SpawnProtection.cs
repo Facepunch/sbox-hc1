@@ -73,8 +73,13 @@ public sealed class SpawnProtection : Component,
 
 	public void Disable( PlayerPawn player )
 	{
-		_spawnProtectedSince.Remove( player );
+		if ( !player.IsValid() ) 
+			return;
 
+		if ( !player.PlayerState.IsValid() )
+			return;
+
+		_spawnProtectedSince.Remove( player );
 		player.HealthComponent.IsGodMode = false;
 
 		using ( Rpc.FilterInclude( player.PlayerState.Connection ) )

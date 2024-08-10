@@ -12,7 +12,11 @@ public static partial class GameObjectExtensions
 	/// <param name="damageInfo"></param>
 	public static void TakeDamage( this GameObject go, DamageInfo damageInfo )
 	{
-		Assert.True( Networking.IsHost );
+		if ( !Networking.IsHost )
+		{
+			Log.Warning( $"Tried to run TakeDamage on {go}, but we're not the host." );
+			return;
+		}
 
 		foreach ( var damageable in go.Root.Components.GetAll<HealthComponent>() )
 		{
