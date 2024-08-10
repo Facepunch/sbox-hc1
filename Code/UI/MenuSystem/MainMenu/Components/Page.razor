@@ -6,22 +6,13 @@
 @attribute [StyleSheet]
 
 <root>
-    <div class="inset-top" />
-
     <div class="header">
-        <div class="row inset" style="margin-bottom: 4px;">
-            <label class="small slight">Version 0.1</label>
-            <div class="grow" />
-            <label class="small slight">Systems Online</label>
-        </div>
-
         <div class="line" />
 
         <div class="row with-bg">
             <div class="row inset grow">
                 <div class="logo">
                     <img src="/ui/teams/operators_logo_banner.png" />
-                    <label class="important">Nicked</label>
                 </div>
 
                 <div class="align-center" style="margin-left: 16px;">
@@ -46,7 +37,10 @@
             </div>
         </div>
 
-        <div class="line" />
+        @if ( SubHeader is null )
+        {
+            <div class="line" />
+        }
     </div>
 
     @if (SubHeader != null)
@@ -78,7 +72,10 @@
     }
 
     <div class="footer">
-        <div class="line" />
+        @if ( SubFooter is null )
+        {
+            <div class="line" />
+        }
 
         <div class="row with-bg">
             <div class="row inset grow with-gap with-padding">
@@ -90,6 +87,21 @@
                     </a>
                 }
 
+                
+                @if ( !NoSocial )
+                {
+                    @if ( Party is not null )
+                    {
+                        <div class="button standard" onclick=@(() => LeaveParty())>
+                            <i>logout</i>
+                            Leave Party
+                        </div>
+                    }
+                }
+
+                <div class="grow">
+                </div>
+
                 <div class="party-deck layout with-gap">
                     @if ( Party is null )
                     {
@@ -97,9 +109,24 @@
                             <i class="is-me">visibility</i>
                             <label class="is-me">@Steam.PersonaName</label>
                         </div>
+
+                        @if ( !NoSocial )
+                        {
+                            <div class="button standard" onclick=@(() => InviteOverlay())>
+                                <i>person_add_alt</i>
+                            </div>
+                        }
                     }
                     else
                     {
+
+                        @if (!NoSocial)
+                        {
+                            <div class="button standard" onclick=@(() => InviteOverlay())>
+                                <i>person_add_alt</i>
+                            </div>
+                        }
+
                         @foreach ( var member in Party.Members )
                         {
                             @{
@@ -119,13 +146,6 @@
                                 }
                             </div>
                         }
-
-                        @if ( !NoSocial )
-                        {
-                            <div class="button standard" onclick=@(() => InviteOverlay())>
-                                <i>person_add_alt</i>
-                            </div>
-                        }
                     }
                 </div>
 
@@ -133,35 +153,11 @@
                 {
                     @Footer
                 }
-
-                <div class="grow">
-
-                </div>
-
-                @if ( !NoSocial )
-                {
-                    @if ( Party is not null )
-                    {
-                        <div class="button standard" onclick=@(() => LeaveParty())>
-                            <i>logout</i>
-                            Leave Party
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="button standard" onclick=@(() => CreateParty())>
-                            <i>group_add</i>
-                            Create Party
-                        </div>
-                    }
-                }
             </div>
         </div>
 
         <div class="line" />
     </div>
-
-    <div class="inset-bottom" />
 </root>
 
 @code
@@ -189,6 +185,8 @@
 
     public void InviteOverlay()
     {
+        CreateParty();
+
         if ( Game.IsEditor )
         {
             Facepunch.UI.Toast.Instance.Show( "Menu Overlays not supported in the editor" );

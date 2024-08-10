@@ -50,7 +50,6 @@ public sealed class PartyPodium : Component
 			foreach ( var podium in Podiums )
 			{
 				podium.Friend = null;
-				podium.Renderer.Enabled = false;
 			}
 
 			// Re-populate the podiums
@@ -60,7 +59,6 @@ public sealed class PartyPodium : Component
 				var podium = Podiums[i];
 				i++;
 
-				podium.Renderer.Enabled = true;
 				podium.Friend = member;
 			}
 		}

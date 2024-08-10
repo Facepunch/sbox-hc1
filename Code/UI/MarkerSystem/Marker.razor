@@ -37,7 +37,7 @@
 @code
 {
     public IMarkerObject Object { get; set; }
-    private PlayerPawn Viewer => PlayerState.Viewer.PlayerPawn;
+    private PlayerPawn Viewer => PlayerState.Viewer.IsValid() ? PlayerState.Viewer.PlayerPawn : null;
 
     BaseMarkerPanel CustomPanel { get; set; }
 
