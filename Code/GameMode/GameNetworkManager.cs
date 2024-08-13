@@ -18,7 +18,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	/// </summary>
 	[Property] public bool IsMultiplayer { get; set; } = true;
 
-	protected override void OnStart()
+	protected override async Task OnLoad()
 	{
 		PlayerId.Init();
 
@@ -33,6 +33,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		//
 		if ( !GameNetworkSystem.IsActive )
 		{
+			await Task.DelayRealtimeSeconds( 0.1f );
 			GameNetworkSystem.CreateLobby();
 		}
 	}
