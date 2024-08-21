@@ -32,7 +32,8 @@ public sealed class SoundEmitter : Component
 	public float LifeTime { get; set; } = 1f;
 
 	private TimeSince TimeSincePlayed { get; set; }
-	
+
+	float initVolume = 1f;
 	public void Play()
 	{
 		handle?.Stop();
@@ -40,6 +41,8 @@ public sealed class SoundEmitter : Component
 		if ( SoundEvent == null ) return;
 		TimeSincePlayed = 0f;
 		handle = Sound.Play( SoundEvent, Transform.Position );
+
+		initVolume = handle.Volume;
 	}
 
 	protected override void OnStart()
@@ -65,7 +68,7 @@ public sealed class SoundEmitter : Component
 
 		if ( VolumeModifier )
 		{
-			handle.Volume = VolumeOverTime.Evaluate( TimeSincePlayed / LifeTime );
+			handle.Volume = initVolume * VolumeOverTime.Evaluate( TimeSincePlayed / LifeTime );
 		}
 	}
 
