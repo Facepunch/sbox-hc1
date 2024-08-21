@@ -525,8 +525,11 @@ public partial class PlayerPawn
 		WishVelocity = 0f;
 
 		var rot = EyeAngles.WithPitch( 0f ).ToRotation();
+		
+		if ( WishMove.Length > 1f )
+			WishMove = WishMove.Normal;
 
-		var wishDirection = WishMove.Normal * rot;
+		var wishDirection = WishMove * rot;
 		wishDirection = wishDirection.WithZ( 0 );
 		WishVelocity = wishDirection * GetWishSpeed();
 	}
