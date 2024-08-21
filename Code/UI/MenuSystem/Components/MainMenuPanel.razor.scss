@@ -1,1 +1,50 @@
 @import "/UI/Styles/Theme.scss";
+
+MainMenuPanel
+{
+	transition: all 0.5s 1.0s ease-out;
+	background-color: rgba( black, 0 );
+
+	Page
+	{
+		.header
+		{
+			transition: all 0.6s 1.5s ease-out;
+		}
+
+		.footer
+		{
+			transition: all 0.6s 1.5s ease-out;
+		}
+
+		.body
+		{
+			transition: all 0.3s 2s ease-out;
+		}
+	}
+
+	&:intro
+	{
+		background-color: black;
+
+		Page
+		{
+			.header
+			{
+				opacity: 0;
+				transform: translateY(-100%);
+			}
+
+			.footer
+			{
+				opacity: 0;
+				transform: translateY(100%);
+			}
+
+			.body
+			{
+				opacity: 0;
+			}
+		}
+	}
+}

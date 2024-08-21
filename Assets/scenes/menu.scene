@@ -34,6 +34,7 @@
           "__type": "Sandbox.MapInstance",
           "__guid": "e7c5f4e8-56a9-4bf9-bfa8-0afdec5fe6b1",
           "__version": 1,
+          "EnableCollision": true,
           "MapName": "maps/tdm_test/tdm_test.vmap",
           "NoOrigin": true,
           "UseMapFromLaunch": false
@@ -44,49 +45,69 @@
     {
       "__guid": "adb42f1f-2599-449a-a6fa-407e0c9029bd",
       "Flags": 0,
-      "Name": "Camera",
+      "Name": "Boom",
       "Position": "912.0714,240.1083,-10.33294",
       "Rotation": "-0.0319875,-0.01161562,0.8592822,-0.5103685",
       "Enabled": true,
-      "Components": [
+      "Children": [
         {
-          "__type": "Sandbox.CameraComponent",
-          "__guid": "671c99aa-6ff4-4a70-9f80-83ea3c55992b",
-          "BackgroundColor": "0.33333,0.46275,0.52157,1",
-          "ClearFlags": "All",
-          "FieldOfView": 60,
-          "IsMainCamera": true,
-          "Orthographic": false,
-          "OrthographicHeight": 1204,
-          "Priority": 1,
-          "RenderExcludeTags": "",
-          "RenderTags": "",
-          "TargetEye": "None",
-          "Viewport": "0,0,1,1",
-          "ZFar": 10000,
-          "ZNear": 10
-        },
-        {
-          "__type": "Sandbox.ChromaticAberration",
-          "__guid": "80606ac7-db48-4878-bdc3-819a0b37b52b",
-          "__enabled": false,
-          "Offset": "1,0,0",
-          "Scale": 1
-        },
-        {
-          "__type": "Sandbox.AmbientOcclusion",
-          "__guid": "2a2ce462-ac86-48dc-9683-b0aeed728d7b",
-          "Intensity": 16,
-          "Quality": "High",
-          "Radius": 32
-        },
-        {
-          "__type": "Sandbox.DepthOfField",
-          "__guid": "4ab165f1-ddd0-4bc2-a059-aedcb6c5ae2f",
-          "BackBlur": true,
-          "BlurSize": 100,
-          "FocalDistance": 270,
-          "FrontBlur": false
+          "__guid": "9180df9a-7408-4767-8082-9718718263cc",
+          "Flags": 0,
+          "Name": "Camera",
+          "Position": "-0,0,0",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.CameraComponent",
+              "__guid": "31dc16cf-aae3-4fb2-ada2-07b03e54a967",
+              "BackgroundColor": "0.33333,0.46275,0.52157,1",
+              "ClearFlags": "All",
+              "FieldOfView": 60,
+              "IsMainCamera": true,
+              "Orthographic": false,
+              "OrthographicHeight": 1204,
+              "Priority": 1,
+              "RenderExcludeTags": "",
+              "RenderTags": "",
+              "TargetEye": "None",
+              "Viewport": "0,0,1,1",
+              "ZFar": 10000,
+              "ZNear": 10
+            },
+            {
+              "__type": "Sandbox.ChromaticAberration",
+              "__guid": "4ff7e2c2-2770-4994-813c-c5bf0c8032e7",
+              "__enabled": false,
+              "Offset": "1,0,0",
+              "Scale": 1
+            },
+            {
+              "__type": "Sandbox.AmbientOcclusion",
+              "__guid": "fb0e2a19-06bf-4eee-9ee7-afda24a7390e",
+              "FalloffDistance": 1,
+              "Intensity": 16,
+              "Quality": "High",
+              "Radius": 32
+            },
+            {
+              "__type": "Sandbox.DepthOfField",
+              "__guid": "a268de00-d32a-42f8-be08-614499dacd84",
+              "BackBlur": true,
+              "BlurSize": 100,
+              "FocalDistance": 270,
+              "FrontBlur": false
+            },
+            {
+              "__type": "Facepunch.MainMenuCamera",
+              "__guid": "1261910c-1161-4537-ba5a-416aaaba294c",
+              "Camera": {
+                "_type": "component",
+                "component_id": "31dc16cf-aae3-4fb2-ada2-07b03e54a967",
+                "go": "9180df9a-7408-4767-8082-9718718263cc",
+                "component_type": "CameraComponent"
+              }
+            }
+          ]
         }
       ]
     },
@@ -105,25 +126,25 @@
           "Podiums": [
             {
               "_type": "component",
-              "component_id": "0f44a5ac-8bcf-42c6-a277-6d3246581d8c",
+              "component_id": "b0e18807-de95-471c-a895-4b78131345dc",
               "go": "acbfd038-265a-4df2-b91d-a2f27fc9513e",
               "component_type": "PartyMember"
             },
             {
               "_type": "component",
-              "component_id": "8d6f02c6-fc58-4bd4-add7-b8cb664604b7",
+              "component_id": "6a65c27b-17f7-43e1-b467-4df7669dcdbc",
               "go": "c52796f1-c8be-40a9-bbde-8237ed1dfd97",
               "component_type": "PartyMember"
             },
             {
               "_type": "component",
-              "component_id": "32f77608-b5ef-4349-a008-48683b1a7da7",
+              "component_id": "4ac35151-7647-4095-a58f-3ee25660c54a",
               "go": "449fbabb-53d0-4744-a02c-eb545149bc14",
               "component_type": "PartyMember"
             },
             {
               "_type": "component",
-              "component_id": "32f77608-b5ef-4349-a008-48683b1a7da7",
+              "component_id": "4ac35151-7647-4095-a58f-3ee25660c54a",
               "go": "449fbabb-53d0-4744-a02c-eb545149bc14",
               "component_type": "PartyMember"
             }
@@ -142,7 +163,10 @@
           "__PrefabVariables": {
             "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
             "Animation": "Sitting",
-            "Weapon Prefab": null
+            "Weapon Prefab": {
+              "_type": "gameobject",
+              "prefab": "weapons/usp_sd/w_usp_sd.prefab"
+            }
           }
         },
         {
@@ -156,7 +180,10 @@
           "__PrefabVariables": {
             "Model": "models/player/t_side/t_side_player_01/t_side_player_01_v2.vmdl",
             "Animation": "Sitting",
-            "Weapon Prefab": null
+            "Weapon Prefab": {
+              "_type": "gameobject",
+              "prefab": "weapons/usp_sd/w_usp_sd.prefab"
+            }
           }
         },
         {
