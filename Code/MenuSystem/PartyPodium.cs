@@ -11,8 +11,11 @@ public sealed class PartyPodium : Component
 
 		foreach ( var podium in Podiums )
 		{
-			var mdl = Gizmo.Draw.Model( EditorModel, podium.Transform.World );
-			mdl.ColorTint = Color.White.WithAlpha( 0.75f );
+			if ( !podium.Renderer.IsValid() )
+			{
+				var mdl = Gizmo.Draw.Model( EditorModel, podium.Transform.World );
+				mdl.ColorTint = Color.White.WithAlpha( 0.75f );
+			}
 
 			Gizmo.Draw.Color = Color.Green;
 			Gizmo.Draw.LineCircle( podium.Transform.Position, Vector3.Up, 16 );

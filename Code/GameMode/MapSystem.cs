@@ -7,7 +7,7 @@ public static class MapSystem
 	{
 		get
 		{
-			return ResourceLibrary.GetAll<MapDefinition>();
+			return ResourceLibrary.GetAll<MapDefinition>().Where( x => x.IsEnabled );
 		}
 	}
 }
