@@ -105,7 +105,8 @@
       {
         "__type": "Facepunch.HealthComponent",
         "__guid": "b0ad035b-94a2-4e02-8850-15baffda666b",
-        "IsGodMode": false
+        "IsGodMode": false,
+        "MaxHealth": 100
       },
       {
         "__type": "Facepunch.PlayerInventory",
@@ -354,8 +355,16 @@
               "component_type": "SkinnedModelRenderer"
             },
             "TeamBaseModels": {
-              "Terrorist": "models/player/t_side/t_side_player_01/t_side_player_01_v2.vmdl",
-              "CounterTerrorist": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl"
+              "Terrorist": {
+                "Models": [
+                  "models/player/t_side/t_side_player_01/t_side_player_01_v2.vmdl"
+                ]
+              },
+              "CounterTerrorist": {
+                "Models": [
+                  "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl"
+                ]
+              }
             }
           }
         ],

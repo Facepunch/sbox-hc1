@@ -5,9 +5,14 @@ namespace Facepunch;
 public sealed class HumanOutfitter : Component,
 	IGameEventHandler<TeamChangedEvent>
 {
+	public struct TeamModelEntry 
+	{
+		[KeyProperty] public List<Model> Models { get; set; }
+	}
+
 	[Property] public PlayerPawn PlayerPawn { get; set; }
 	[Property] public SkinnedModelRenderer Renderer { get; set; }
-	[Property] public Dictionary<Team, Model> TeamBaseModels { get; set; } = new();
+	[Property, InlineEditor] public Dictionary<Team, TeamModelEntry> TeamBaseModels { get; set; } = new();
 
 	void IGameEventHandler<TeamChangedEvent>.OnGameEvent( TeamChangedEvent eventArgs )
 	{
@@ -26,7 +31,7 @@ public sealed class HumanOutfitter : Component,
 			model = TeamBaseModels[Team.Terrorist];
 		}
 
-		Renderer.Model = model;
+		Renderer.Model = Game.Random.FromList( model.Models );
 		PlayerPawn.Body.Refresh();
 	}
 }
