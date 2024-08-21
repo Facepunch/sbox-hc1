@@ -1,0 +1,160 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "m_playermodeleyes.vmat"
+								to = "models/humans/misc/playermodeleyes_dark.vmat"
+							},
+							{
+								from = "m_playermodelhead.vmat"
+								to = "models/humans/heads/adam/playermodelhead_adam.vmat"
+							},
+							{
+								from = "riot_bags.vmat"
+								to = "models/player/ct_side/ct_side_riot_player/riot_bags.vmat"
+							},
+							{
+								from = "riot_upper.vmat"
+								to = "models/player/ct_side/ct_side_riot_player/riot_upper.vmat"
+							},
+							{
+								from = "riot_visor.vmat"
+								to = "models/player/ct_side/ct_side_riot_player/riot_visor.vmat"
+							},
+							{
+								from = "riot_legs.vmat"
+								to = "models/player/ct_side/ct_side_riot_player/riot_legs.vmat"
+							},
+							{
+								from = "riot_helmet.vmat"
+								to = "models/player/ct_side/ct_side_riot_player/riot_helmet.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = "materials/default.vmat"
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						filename = "models/player/ct_side/ct_side_riot_player/ct_side_riot_player.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						filename = "models/player/head_01.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "ModelModifierList"
+				children = 
+				[
+					{
+						_class = "ModelModifier_ScaleAndMirror"
+						scale = 0.3937
+						mirror_x = false
+						mirror_y = false
+						mirror_z = false
+						flip_bone_forward = false
+						swap_left_and_right_bones = false
+					},
+				]
+			},
+			{
+				_class = "WeightListList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/player/prefabs_v2/prefab_weight_list_list.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "PhysicsJointList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/player/prefabs_v2/prefab_physics_joints.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/player/prefabs_v2/prefab_physics_shapes.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "HitboxSetList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/player/prefabs_v2/prefab_hitbox_set_list.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "AnimationList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/player/prefabs_v2/prefab_animation_list.vmdl_prefab"
+					},
+				]
+				default_root_bone_name = ""
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = "animgraphs/rigged_human.vanmgrph"
+		base_model_name = ""
+	}
+}

@@ -1,0 +1,47 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/complex.shader"
+
+	//---- Normal ----
+	F_USE_BENT_NORMALS 1
+
+	//---- PBR ----
+	F_METALNESS_TEXTURE 1
+	F_SPECULAR 1
+
+	//---- Ambient Occlusion ----
+	g_flAmbientOcclusionDirectDiffuse "0.735"
+	g_flAmbientOcclusionDirectSpecular "0.583"
+	TextureAmbientOcclusion "models/player/ct_side/ct_side_riot_player/riot_legs_ao.png"
+
+	//---- Color ----
+	g_flModelTintAmount "1.000"
+	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
+	TextureColor "models/player/ct_side/ct_side_riot_player/riot_legs_color.png"
+
+	//---- Fade ----
+	g_flFadeExponent "1.000"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Metalness ----
+	TextureMetalness "models/player/ct_side/ct_side_riot_player/riot_legs_metal.png"
+
+	//---- Normal ----
+	TextureBentNormal "models/player/ct_side/ct_side_riot_player/riot_legs_bentnormal.png"
+	TextureNormal "models/player/ct_side/ct_side_riot_player/riot_legs_normal.png"
+
+	//---- Roughness ----
+	g_flRoughnessScaleFactor "1.556"
+	TextureRoughness "models/player/ct_side/ct_side_riot_player/riot_legs_rough.png"
+
+	//---- Texture Coordinates ----
+	g_nScaleTexCoordUByModelScaleAxis "0"
+	g_nScaleTexCoordVByModelScaleAxis "0"
+	g_vTexCoordOffset "[0.000 0.000]"
+	g_vTexCoordScale "[1.000 1.000]"
+	g_vTexCoordScrollSpeed "[0.000 0.000]"
+}
