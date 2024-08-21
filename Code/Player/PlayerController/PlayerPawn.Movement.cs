@@ -512,12 +512,6 @@ public partial class PlayerPawn
 			return;
 
 		WishMove += Input.AnalogMove;
-
-		// Sprint behavior
-		if ( WishMove.x > 0.2f && IsSprinting )
-		{
-			WishMove = WishMove.WithY( WishMove.y * SprintMovementDampening );
-		}
 	}
 
 	private void BuildWishVelocity()
