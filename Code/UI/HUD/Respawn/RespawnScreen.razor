@@ -13,7 +13,9 @@
 }
 
 @if ( PlayerState.RespawnState == RespawnState.Immediate ) 
+{
     return;
+}
 
 <root>
     @if ( Respawner is PlayerAutoRespawner auto )
