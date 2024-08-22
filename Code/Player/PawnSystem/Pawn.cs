@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Facepunch;
 
 public abstract class Pawn : Component, IRespawnable, ITeam
@@ -9,7 +7,7 @@ public abstract class Pawn : Component, IRespawnable, ITeam
 	/// <summary>
 	/// The player state ID
 	/// </summary>
-	[HostSync] public PlayerState PlayerState { get; private set; }
+	[HostSync] public PlayerState PlayerState { get; set; }
 
 	/// <summary>
 	/// The position this player last spawned at.

@@ -85,7 +85,7 @@ public partial class PlayerState : Component, ITeam
 	public void HostInit()
 	{
 		// on join, spawn right now if we can
-		RespawnState = RespawnState.Immediate;
+		RespawnState = RespawnState.Delayed;
 		
 		SteamId = Connection.SteamId;
 		SteamName = Connection.DisplayName;
