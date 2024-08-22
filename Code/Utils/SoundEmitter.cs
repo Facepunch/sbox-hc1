@@ -1,3 +1,5 @@
+using Sandbox.Audio;
+
 namespace Facepunch;
 
 /// <summary>
@@ -31,6 +33,8 @@ public sealed class SoundEmitter : Component
 	[Property, ToggleGroup( "VolumeModifier" )]
 	public float LifeTime { get; set; } = 1f;
 
+	[Property] public string MixerName { get; set; } = "Game";
+
 	private TimeSince TimeSincePlayed { get; set; }
 
 	float initVolume = 1f;
@@ -41,6 +45,7 @@ public sealed class SoundEmitter : Component
 		if ( SoundEvent == null ) return;
 		TimeSincePlayed = 0f;
 		handle = Sound.Play( SoundEvent, Transform.Position );
+		handle.TargetMixer = Mixer.FindMixerByName( MixerName );
 
 		initVolume = handle.Volume;
 	}
