@@ -32,7 +32,16 @@ public partial class PlayerPawn
 			ArmorComponent.HasHelmet = false;
 			ArmorComponent.Armor = 0f;
 
-			PlayerState.RespawnState = RespawnState.Requested;
+			var defaultRespawnState = Scene.GetAllComponents<DefaultRespawnState>().FirstOrDefault();
+			if ( defaultRespawnState.IsValid() )
+			{
+				PlayerState.RespawnState = defaultRespawnState.RespawnState;
+			}
+			else
+			{
+				// on join, spawn right now if we can
+				PlayerState.RespawnState = RespawnState.Requested;
+			}
 
 			Inventory.Clear();
 			CreateRagdoll();

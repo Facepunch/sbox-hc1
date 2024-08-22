@@ -1,16 +1,15 @@
-﻿using Sandbox.Events;
-
-namespace Facepunch;
+﻿namespace Facepunch;
 
 /// <summary>
 /// Respawn players on input, after a delay.
 /// </summary>
-public sealed class PlayerInputRespawner : Component,
-	IGameEventHandler<UpdateStateEvent>
+public sealed class PlayerInputRespawner : Respawner
 {
-	[Property, HostSync] public float RespawnDelaySeconds { get; set; } = 3f;
-	[Property] public bool AllowSpectatorsToSpawn { get; set; } = false;
-	[Property, InputAction] public string InputAction { get; set; } = "Jump";
+	/// <summary>
+	/// Which input action should we listen to?
+	/// </summary>
+	[Property, InputAction] 
+	public string InputAction { get; set; } = "Jump";
 
 	protected override void OnUpdate()
 	{
@@ -28,6 +27,9 @@ public sealed class PlayerInputRespawner : Component,
 		}
 	}
 
+	/// <summary>
+	/// A RPC sent to the host to ask them if we can respawn
+	/// </summary>
 	[Broadcast]
 	private void AskToRespawn()
 	{
@@ -41,46 +43,5 @@ public sealed class PlayerInputRespawner : Component,
 			return;
 
 		player.RespawnState = RespawnState.Immediate;
-	}
-
-	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
-	{
-		foreach ( var player in GameUtils.AllPlayers )
-		{
-			if ( player.PlayerPawn.IsValid() && player.PlayerPawn.HealthComponent.State == LifeState.Alive )
-				continue;
-
-			if ( !player.IsConnected )
-				continue;
-
-			if ( !AllowSpectatorsToSpawn && player.Team == Team.Unassigned )
-			{
-				// don't spawn these guys right now
-				return;
-			}
-
-			switch ( player.RespawnState )
-			{
-				case RespawnState.Requested:
-					player.RespawnState = RespawnState.Delayed;
-
-					using ( Rpc.FilterInclude( player.Connection ) )
-					{
-						GameMode.Instance.ShowToast( "Respawning...", duration: RespawnDelaySeconds );
-					}
-					break;
-
-				case RespawnState.Delayed:
-					if ( player.TimeSinceRespawnStateChanged > RespawnDelaySeconds )
-					{
-						player.RespawnState = RespawnState.Immediate;
-					}
-					break;
-
-				case RespawnState.Immediate:
-					player.Respawn( true );
-					break;
-			}
-		}
 	}
 }

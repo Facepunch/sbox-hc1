@@ -1,0 +1,51 @@
+@namespace Facepunch.UI
+@inherits Panel
+@attribute [StyleSheet]
+
+@if ( !Respawner.IsValid() )
+{
+    return;
+}
+
+@if ( PlayerState.PlayerPawn.IsValid() )
+{
+    return;
+}
+
+@if ( PlayerState.RespawnState == RespawnState.Immediate ) 
+    return;
+
+<root>
+    @if ( Respawner is PlayerAutoRespawner auto )
+    {
+        <div class="default-respawner">
+            <div class="label">Deploying in @auto.GetRespawnTime()</div>
+        </div>
+    }
+
+    @if ( Respawner is PlayerInputRespawner input )
+    {
+        <div class="default-respawner">
+            @if (input.GetRespawnTime() <= 0f )
+            {
+                <div class="label">Press <InputHint class="small" Action=@input.InputAction /> to deploy</div>
+            }
+            else
+            {
+                <div class="label">Deploying in @input.GetRespawnTime()</div>
+            }
+        </div>
+    }
+
+</root>
+
+@code
+{
+    public Respawner Respawner => Scene.GetAllComponents<Respawner>().FirstOrDefault();
+    public PlayerState PlayerState => PlayerState.Local;
+
+    protected override int BuildHash()
+    {
+        return System.HashCode.Combine( Time.Now );
+    }
+}

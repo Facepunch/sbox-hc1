@@ -71,6 +71,11 @@
         <DeployedPawnOverlay />
     }
 
+    @if ( !isValidPlayer )
+    {
+        <RespawnScreen />
+    }
+
     <Scoreboard />
 </root>
 
