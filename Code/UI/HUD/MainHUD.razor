@@ -58,6 +58,11 @@
             <Radio />
             <ScoringSystem @ref="ScoringSystem" />
         }
+
+        @if ( !isValidPlayer )
+        {
+            <RespawnScreen />
+        }
     </canvas>
     
     @if ( isValidPlayer )
@@ -68,11 +73,6 @@
 
         <PlayAreaOverlay />
         <DeployedPawnOverlay />
-    }
-
-    @if ( !isValidPlayer )
-    {
-        <RespawnScreen />
     }
 
     <Scoreboard />

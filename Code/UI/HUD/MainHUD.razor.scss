@@ -8,6 +8,24 @@ MainHUD
     justify-content: center;
     align-items: center;
     color: $text-color;
+    transition: all 0.5s 0.5s ease-in-out;
+    background-color: rgba( black, 0 );
+
+    Canvas
+    {
+        opacity: 1;
+        transition: all 1s 0.5s ease-in-out;
+    }
+
+    &:intro
+    {
+        background-color: black;
+
+        Canvas
+        {
+            opacity: 0;
+        }
+    }
 }
 
 .crosshair
