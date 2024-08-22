@@ -65,7 +65,7 @@ public sealed class Zone : Component
 		foreach ( var collider in Components.GetAll<BoxCollider>().Where( x => x.IsTrigger ) )
 		{
 			Gizmo.Transform = collider.Transform.World;
-			Gizmo.Draw.SolidBox( BBox.FromPositionAndSize( collider.Center, collider.Scale ) );
+			Gizmo.Draw.LineBBox( BBox.FromPositionAndSize( collider.Center, collider.Scale ) );
 		}
 	}
 }
