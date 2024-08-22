@@ -47,9 +47,9 @@
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "d3fb8aed-106d-49fb-80b1-5c69ef3ab4ed",
-            "BodyGroups": 115,
+            "BodyGroups": 171,
             "CreateBoneObjects": false,
-            "Model": "models/weapons/sbox_sniper_m700/v_m700.vmdl",
+            "Model": "models/weapons/sbox_sniper_m700/w_m700.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -121,9 +121,11 @@
             },
             "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
+            "PrimaryTracer": "particles/gameplay/guns/trail/trail_smoke.vpcf",
             "RequiresAllInputActions": false,
             "RequiresAmmoComponent": true,
             "RicochetMaxHits": 2,
+            "SecondaryTracer": "particles/gameplay/guns/trail/rico_trail_smoke.vpcf",
             "ShootSound": "sounds/weapons/m700/m700_shot.sound",
             "SupportedFireModes": [
               "Semi"
@@ -161,14 +163,14 @@
           {
             "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "5d5607cf-e7df-4fa1-9672-f63c10a6a95f",
-            "HorizontalSpread": "-5.00,5.00,1",
+            "HorizontalSpread": "-5 5",
             "RecoilPattern": {
               "Points": []
             },
             "ResetTime": 0.3,
             "Scale": "2,5",
             "UseRecoilPattern": false,
-            "VerticalSpread": "10.00,0.00,0"
+            "VerticalSpread": "10"
           },
           {
             "__type": "Facepunch.ScopeWeaponComponent",
@@ -225,7 +227,7 @@
   "MenuIcon": null,
   "ResourceVersion": 1,
   "__references": [
-    "facepunch.v_m700"
+    "facepunch.w_m700"
   ],
   "__version": 1
 }
