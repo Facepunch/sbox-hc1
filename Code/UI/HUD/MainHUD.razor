@@ -6,51 +6,72 @@
 @if (!IsHudEnabled)
     return;
 
-@if ( !PlayerState.Viewer.IsValid() || !PlayerState.Viewer.Pawn.IsValid() )
-    return;
+@{
+    var isValidPlayer = PlayerState.Viewer.IsValid() && PlayerState.Viewer.Pawn.IsValid();
+}
 
 <root>
-    <ScreenProtectionOverlay />
-    <DamageOverlay />
+    @if ( isValidPlayer )
+    {
+        <ScreenProtectionOverlay />
+        <DamageOverlay />
+    }
 
     <canvas>
-        <Crosshair />
+        @if ( isValidPlayer )
+        {
+            <Crosshair />
 
-        <div class="hud with-deadzone bottom-left flex column">
-            <Balance />
-            <Minimap />
-            <ConquestStatus />
-        </div>
+            <div class="hud with-deadzone bottom-left flex column">
+                <Balance />
+                <Minimap />
+                <ConquestStatus />
+            </div>
+        }
 
         <Toast />
-        <EquipmentOverlay />
-        <PlayerInfo />
-        <Spectating />
-        <Deathcam />
+
+        @if ( isValidPlayer )
+        {
+            <EquipmentOverlay />
+            <PlayerInfo />
+            <Spectating />
+            <Deathcam />
+            <DefuseKitDisplay />
+            <DamageIndicator />
+        }
 
         <RoundStateDisplay />
-        <DefuseKitDisplay />
-        <DamageIndicator />
         <KillFeed @ref="KillFeed" />
 
         <div class="right">
             <div class="flex-grow" />
             <Voices />
-            <WeaponInfoComponent />
+
+            @if ( isValidPlayer )
+            {
+                <WeaponInfoComponent />
+            }
         </div>
 
-        <Radio />
-
-        <ScoringSystem @ref="ScoringSystem" />
+        @if ( isValidPlayer )
+        {
+            <Radio />
+            <ScoringSystem @ref="ScoringSystem" />
+        }
     </canvas>
     
-    <!-- Full-screen overlays -->
-    <BuyMenu />
-    <MarkerSystem />
-    <Scoreboard />
+    @if ( isValidPlayer )
+    {
+        <!-- Full-screen overlays -->
+        <BuyMenu />
+        <MarkerSystem />
 
-    <PlayAreaOverlay />
-    <DeployedPawnOverlay />
+        <PlayAreaOverlay />
+        <DeployedPawnOverlay />
+    }
+
+    <Scoreboard />
 </root>
 
 @code 
@@ -80,6 +101,6 @@
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( IsHudEnabled, PlayerState.Viewer.IsValid(), PlayerState.Viewer.IsValid() && PlayerState.Viewer.Pawn.IsValid() );
+        return HashCode.Combine(IsHudEnabled, PlayerState.Viewer.IsValid(), PlayerState.Viewer.IsValid() && PlayerState.Viewer.Pawn.IsValid() );
     }
 }
