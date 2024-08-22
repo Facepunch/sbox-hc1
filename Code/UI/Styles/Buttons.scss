@@ -50,6 +50,8 @@ $button-small-padding: 8px 24px;
             }
         }
 
+
+
         &.warning
         {
             background-color: rgba( orange, 1 );
@@ -58,6 +60,14 @@ $button-small-padding: 8px 24px;
         &:active
         {
             sound-in: ui_press;
+        }
+
+        &.action
+        {
+            &:active
+            {
+                sound-in: ui_action;
+            }
         }
 
         &.extra-x-padding
