@@ -7,8 +7,6 @@
 
 <root>
     <div class="header">
-        <div class="line" />
-
         <div class="row with-bg">
             <div class="row inset grow">
                 <div class="logo">
@@ -36,11 +34,6 @@
                 </div>
             </div>
         </div>
-
-        @if ( SubHeader is null )
-        {
-            <div class="line" />
-        }
     </div>
 
     @if (SubHeader != null)
@@ -72,11 +65,6 @@
     }
 
     <div class="footer">
-        @if ( SubFooter is null )
-        {
-            <div class="line" />
-        }
-
         <div class="row with-bg">
             <div class="row inset grow with-gap with-padding">
 
@@ -155,8 +143,6 @@
                 }
             </div>
         </div>
-
-        <div class="line" />
     </div>
 </root>
 
