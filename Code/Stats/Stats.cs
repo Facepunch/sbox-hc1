@@ -15,5 +15,16 @@ internal static class Stats
 	{
 		// Log.Info( $"Trying to increment stats: {name}, amount: {amount}" );
 		Sandbox.Services.Stats.Increment( name, amount );
+		//Flush( name );
+	}
+
+	/// <summary>
+	/// Will flush the stats immediately.. don't turn this on unless you're testing something 
+	/// </summary>
+	/// <param name="name"></param>
+	async static void Flush( string name )
+	{
+		await Sandbox.Services.Stats.FlushAndWaitAsync();
+		Log.Info( $"Flushed {name}, new fetched value: {Get( name )}" );
 	}
 }
