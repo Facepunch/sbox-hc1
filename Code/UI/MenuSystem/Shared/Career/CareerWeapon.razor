@@ -1,0 +1,58 @@
+@using Sandbox;
+@using Sandbox.UI;
+
+@namespace Facepunch.UI
+
+<style>
+    .icon {
+        position: absolute;
+        align-self: flex-end;
+        width: 186px;
+        height: 96px;
+        margin-right: 64px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -1;
+    }
+</style>
+
+<root class="flex layout column with-background with-padding">
+    <div class="flex layout column">
+        <div class="icon" style="background-image: url(@Equipment.Icon);" />
+        <label class="text uppercase emphasis">
+            @Equipment.Name
+        </label>
+    </div>
+
+    <div class="flex layout row">
+        <label class="text slight emphasis">
+            Kills
+        </label>
+
+        <label class="text emphasis">
+            @WeaponStats.Get( "kills", Equipment )
+        </label>
+    </div>
+
+    <div class="flex layout row">
+        <label class="text slight emphasis">
+            Headshot Kills
+        </label>
+
+        <label class="text emphasis">
+            @WeaponStats.Get( "kills-headshots", Equipment )
+        </label>
+    </div>
+</root>
+
+@code
+{
+    public EquipmentResource Equipment { get; set; }
+    public string Value { get; set; }
+
+        protected override int BuildHash()
+    {
+        return HashCode.Combine( Equipment, WeaponStats.Get( "kills-headshots", Equipment ), WeaponStats.Get( "kills", Equipment ) );
+    }
+}

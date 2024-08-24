@@ -1,0 +1,29 @@
+@using Sandbox;
+@using Sandbox.UI;
+
+@namespace Facepunch.UI
+
+<root class="layout flex row with-background with-padding">
+    <div class="name">
+        @Name
+    </div>
+
+    <div class="divider" />
+
+    <div class="value">
+        @StatValue
+    </div>
+</root>
+
+@code
+{
+    public string Name { get; set; }
+    public string Stat { get; set; }
+
+    private double StatValue => Stats.Get( Stat );
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( StatValue );
+    }
+}

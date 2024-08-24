@@ -1,0 +1,56 @@
+@using Sandbox;
+@using Sandbox.UI;
+
+@implements INavigatorPage
+@attribute [StyleSheet]
+@namespace Facepunch.UI
+
+<root class="hc1">
+    <Page>
+        <Header>
+            Career
+        </Header>
+        <Body>
+            <div class="flex layout row gap" style="width: 100%; height: 100%; 	justify-content: center; align-items: center;">
+                <div class="inset column layout with-background line-left" style="width: 35%;">
+                    <div class="line invert" />
+                    <div class="layout padding-extra with-gap column">
+                        <label class="text emphasis">
+                            Player Stats
+                        </label>
+                        
+                        <CareerStat Name="Kills" Stat="kills" />
+                        <CareerStat Name="Headshot Kills" Stat="kills-headshots" />
+                        <CareerStat Name="Deaths" Stat="deaths" />
+                    </div>
+
+                    <div class="line invert" />
+                </div>
+
+                <div class="inset column layout with-background line-left" style="width: 35%;">
+                    <div class="line invert" />
+                    <div class="layout padding-extra with-gap column">
+                        <label class="text emphasis">
+                            Weapon Stats
+                        </label>
+
+                        @foreach ( var equip in ResourceLibrary.GetAll<EquipmentResource>().Where( x => x.Slot == EquipmentSlot.Primary || x.Slot == EquipmentSlot.Secondary ) )
+                         {
+                            <CareerWeapon Equipment=@equip />
+                        }
+                    </div>
+
+                    <div class="line invert" />
+                </div>
+            </div>
+        </Body>
+    </Page>
+</root>
+
+@code
+{
+    void Quit()
+    {
+        Game.Close();
+    }
+}
