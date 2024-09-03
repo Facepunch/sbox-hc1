@@ -23,7 +23,8 @@
           "prefab": "weapons/throwable/he_grenade/mounted/mounted_he_grenade.prefab"
         },
         "Resource": "weapons/throwable/he_grenade/he_grenade.equip",
-        "SpeedPenalty": 0
+        "SpeedPenalty": 0,
+        "UseCrosshair": true
       },
       {
         "__type": "Facepunch.TagBinder",
@@ -41,9 +42,9 @@
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "fafea558-1f26-413c-a5f7-df0b1bfb2392",
-            "BodyGroups": 18446744073709551615,
+            "BodyGroups": 11,
             "CreateBoneObjects": false,
-            "Model": "weapons/throwable/he_grenade/v_he_grenade.vmdl",
+            "Model": "models/weapons/sbox_grenade_explosive/w_he_grenade.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -79,6 +80,8 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.w_he_grenade"
+  ],
   "__version": 1
 }
