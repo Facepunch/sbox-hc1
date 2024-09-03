@@ -13,7 +13,13 @@ public partial class ScoreFormat : Component
 
 	protected override void OnStart()
 	{
+		if ( !GameMode.Instance.IsValid() )
+			return;
+
 		var teamScoring = GameMode.Instance.Get<TeamScoring>();
+		if ( !teamScoring.IsValid() )
+			return
+				;
 		teamScoring.ScoreFormat = Format;
 		teamScoring.ScorePrefix = Prefix;
 	}
