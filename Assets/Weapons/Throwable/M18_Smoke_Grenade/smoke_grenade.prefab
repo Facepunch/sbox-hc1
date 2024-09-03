@@ -13,8 +13,10 @@
         "Gravity": true,
         "LinearDamping": 0,
         "Locking": {},
+        "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": true,
+        "OverrideMassCenter": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
       },
@@ -58,8 +60,8 @@
           {
             "__type": "Sandbox.ModelRenderer",
             "__guid": "defb61e7-67c1-4591-ac39-68273e42770e",
-            "BodyGroups": 18446744073709551615,
-            "Model": "weapons/throwable/m18_smoke_grenade/v_m18_smoke_grenade.vmdl",
+            "BodyGroups": 11,
+            "Model": "models/weapons/sbox_grenade_smoke/w_smoke_grenade.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
           }
@@ -77,6 +79,7 @@
             "DestroyOnFinish": true,
             "Follow": true,
             "LifeTime": 1,
+            "MixerName": "Game",
             "SoundEvent": "sounds/weapons/grenade/smoke_grenade.fuse.sound",
             "VolumeModifier": false,
             "VolumeOverTime": [
@@ -98,6 +101,8 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.w_smoke_grenade"
+  ],
   "__version": 1
 }
