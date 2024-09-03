@@ -142,6 +142,9 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 	protected override void OnFixedUpdate()
 	{
+		if ( !PlayerState.IsValid() )
+			return;
+
 		var cc = CharacterController;
 		if ( !cc.IsValid() ) return;
 

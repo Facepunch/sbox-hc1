@@ -99,6 +99,9 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 
 	private void SpectateFreecam()
 	{
+		if ( !FreecamController.IsValid() )
+			return;
+
 		if ( PlayerState.Viewer.IsValid() && PlayerState.Viewer.Pawn.IsValid() )
 		{
 			// Entering freecam, position ourselves at the last guy's POV

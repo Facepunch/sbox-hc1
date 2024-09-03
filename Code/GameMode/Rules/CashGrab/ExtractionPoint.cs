@@ -44,6 +44,9 @@ public partial class ExtractionPoint : Component,
 
 	bool ShouldShow()
 	{
+		if ( !CashPoint.IsValid() )
+			return false;
+
 		return CashPoint.State == CashPoint.CashPointState.Open;
 	}
 
