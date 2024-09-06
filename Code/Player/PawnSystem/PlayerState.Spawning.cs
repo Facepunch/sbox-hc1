@@ -48,9 +48,6 @@ public partial class PlayerState
 
 	public void Respawn( bool forceNew )
 	{
-		if ( Team == Team.Unassigned )
-			return;
-
 		var spawnPoint = GameMode.Instance.Get<ISpawnAssigner>() is { } spawnAssigner
 			? spawnAssigner.GetSpawnPoint( this )
 			: GameUtils.GetRandomSpawnPoint( Team );

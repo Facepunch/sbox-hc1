@@ -1,0 +1,145 @@
+{
+  "__guid": "6381f1cf-d426-4f0f-847e-843c88605dc7",
+  "GameObjects": [
+    {
+      "__guid": "54218e88-3198-4c2e-aa7b-c4d7564f37af",
+      "Flags": 0,
+      "Name": "Map",
+      "Position": "-963.5741,-1006.22,1460.143",
+      "Components": [
+        {
+          "__type": "Sandbox.MapInstance",
+          "__guid": "4516ad7d-790e-49d4-a920-c2b793cb47e0",
+          "__version": 1,
+          "EnableCollision": true,
+          "MapName": "maps/tdm_test/tdm_test.vmap",
+          "NoOrigin": true,
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
+          "UseMapFromLaunch": false
+        }
+      ]
+    },
+    {
+      "__guid": "1e3c5872-b68b-4ce8-b0b4-f99de4ed4613",
+      "Flags": 0,
+      "Name": "Map",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MapInstance",
+          "__guid": "a4d4bed0-6bf6-42c0-904c-82806f55ed18",
+          "__version": 1,
+          "EnableCollision": true,
+          "MapName": "gkaf.motel",
+          "NoOrigin": true,
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
+          "UseMapFromLaunch": false
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "17e6e999-7f04-4cf7-8c90-7a4cd78285d9",
+      "Flags": 0,
+      "Name": "Minimap Renderer",
+      "Position": "-174.24,-334.0799,0",
+      "Scale": "0.5817428,0.7524928,1",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Facepunch.MinimapRenderer",
+          "__guid": "f4750fe4-1089-4e61-93d9-da1c6ba09393",
+          "CurrentMinimapPath": "ui/minimaps/minimap_motel.png",
+          "ExportResolution": "1024,1024",
+          "Size": 5000
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "cb3ba59b-280c-4b07-b6d4-98d8dada547b",
+      "Flags": 0,
+      "Name": "Game",
+      "Position": "-148.5923,185.7471,130.1267",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "__Prefab": "scenes/maps/defusemap_01/game_setup.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "97fd44cf-b710-4979-b7f9-c41fc93cf4bb",
+      "Flags": 0,
+      "Name": "Play Area",
+      "Scale": "1,1.061718,1",
+      "Tags": "zone",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Zone",
+          "__guid": "2f2e4d30-0b4c-4a6a-aea9-e32d3b56a461",
+          "Color": "1,1,1,1"
+        },
+        {
+          "__type": "Facepunch.PlayArea",
+          "__guid": "a7b95c3a-206c-4641-b0b9-b21b7f8c97c8",
+          "Zone": {
+            "_type": "component",
+            "component_id": "2f2e4d30-0b4c-4a6a-aea9-e32d3b56a461",
+            "go": "97fd44cf-b710-4979-b7f9-c41fc93cf4bb",
+            "component_type": "Zone"
+          }
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "c2f39499-5987-42f6-b5ab-eb8a330a45a4",
+          "Center": "168.8,0,0",
+          "IsTrigger": true,
+          "Scale": "3000,2500,1250",
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "9e3a4cbf-2584-404f-b1cb-255214a689ba",
+      "Flags": 0,
+      "Name": "deathmatch",
+      "Position": "-148.5923,185.7471,130.1267",
+      "Rotation": "0.5,0.5,-0.5,0.5",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "__Prefab": "prefabs/game_modes/deathmatch.prefab",
+      "__PrefabVariables": {
+        "Description": "Free for all. Highest scorer wins.",
+        "Title": "Deathmatch"
+      }
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "Edinburgh",
+  "Description": "",
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

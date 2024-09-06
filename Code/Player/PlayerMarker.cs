@@ -109,6 +109,9 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 				return true;
 		}
 
+		if ( Player.Team == Team.Unassigned )
+			return false;
+
 		return viewer.Team == Player.Team;
 	}
 }
