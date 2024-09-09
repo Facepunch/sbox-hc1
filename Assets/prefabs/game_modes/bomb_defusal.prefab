@@ -346,16 +346,16 @@
                     "__guid": "d5c89b98-a4e2-4148-9890-4c6dcb56d60a",
                     "CounterTerroristVictoryState": {
                       "_type": "component",
-                      "component_id": "f9e6010f-47d4-4ed7-8b24-ecfd9853c9e7",
-                      "go": "7b6daed5-5d86-4294-b269-65868fd14bdc",
+                      "component_id": "50a9dca5-4f8b-492d-b4d4-dbd144427728",
+                      "go": "de5f436b-72ea-4ae9-bcb9-99dbda4f990c",
                       "component_type": "StateComponent"
                     },
                     "MatchPoint": true,
                     "TargetScore": 13,
                     "TerroristVictoryState": {
                       "_type": "component",
-                      "component_id": "f9e6010f-47d4-4ed7-8b24-ecfd9853c9e7",
-                      "go": "7b6daed5-5d86-4294-b269-65868fd14bdc",
+                      "component_id": "7fb24345-0d07-464c-9e13-968831fe9f9e",
+                      "go": "8482d1fc-90f5-44f8-b33f-fca078658077",
                       "component_type": "StateComponent"
                     }
                   }
@@ -1043,6 +1043,90 @@
               {
                 "__type": "Facepunch.StartMapVotingOnEnd",
                 "__guid": "f7709a3f-19cb-4c2b-97a9-4102ac11a02e"
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "de5f436b-72ea-4ae9-bcb9-99dbda4f990c",
+                "Flags": 0,
+                "Name": "CT Victory",
+                "Enabled": true,
+                "NetworkMode": 1,
+                "Components": [
+                  {
+                    "__type": "Sandbox.Events.StateComponent",
+                    "__guid": "50a9dca5-4f8b-492d-b4d4-dbd144427728",
+                    "DefaultDuration": 5
+                  },
+                  {
+                    "__type": "Facepunch.ShowToast",
+                    "__guid": "19ab3b1a-2121-4023-8723-bf7e84a3ad0d",
+                    "Message": "Operators Win!",
+                    "Type": "CounterTerroristsWin"
+                  },
+                  {
+                    "__type": "Facepunch.ShowStatusText",
+                    "__guid": "5dfb1386-aad1-4901-b24a-293d3cfac60f",
+                    "BothTeams": false,
+                    "StatusText": "Victory",
+                    "Team": "CounterTerrorist"
+                  },
+                  {
+                    "__type": "Facepunch.ShowStatusText",
+                    "__guid": "5e9023d6-f4e5-435b-a805-1481593acfd2",
+                    "BothTeams": false,
+                    "StatusText": "Defeat",
+                    "Team": "Terrorist"
+                  },
+                  {
+                    "__type": "Facepunch.StatIncrementer",
+                    "__guid": "eac01b1a-8031-4a2d-92f6-b82c1d0e0ff5",
+                    "Amount": 0,
+                    "StatName": "wins",
+                    "TeamFilter": "CounterTerrorist"
+                  }
+                ]
+              },
+              {
+                "__guid": "8482d1fc-90f5-44f8-b33f-fca078658077",
+                "Flags": 0,
+                "Name": "T Victory",
+                "Enabled": true,
+                "NetworkMode": 1,
+                "Components": [
+                  {
+                    "__type": "Sandbox.Events.StateComponent",
+                    "__guid": "7fb24345-0d07-464c-9e13-968831fe9f9e",
+                    "DefaultDuration": 5
+                  },
+                  {
+                    "__type": "Facepunch.ShowToast",
+                    "__guid": "f95406f8-4f3c-4332-84c0-207e89a85c38",
+                    "Message": "Anarchists Win!",
+                    "Type": "TerroristsWin"
+                  },
+                  {
+                    "__type": "Facepunch.ShowStatusText",
+                    "__guid": "c3b437df-9396-434e-90be-11b99ef6f0c5",
+                    "BothTeams": false,
+                    "StatusText": "Victory",
+                    "Team": "Terrorist"
+                  },
+                  {
+                    "__type": "Facepunch.ShowStatusText",
+                    "__guid": "01e48aeb-9352-4716-ad31-3833d2f5ccef",
+                    "BothTeams": false,
+                    "StatusText": "Defeat",
+                    "Team": "CounterTerrorist"
+                  },
+                  {
+                    "__type": "Facepunch.StatIncrementer",
+                    "__guid": "a3a74cfa-fb01-442b-830c-1b445a6b5109",
+                    "Amount": 0,
+                    "StatName": "wins",
+                    "TeamFilter": "Terrorist"
+                  }
+                ]
               }
             ]
           }
