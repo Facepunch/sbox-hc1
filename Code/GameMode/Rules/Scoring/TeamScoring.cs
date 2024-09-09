@@ -39,6 +39,17 @@ public sealed class TeamScoring : Component,
 		SetInitial();
 	}
 
+	public Team GetHighest()
+	{
+		var tScore = Scores.GetValueOrDefault( Team.Terrorist );
+		var ctScore = Scores.GetValueOrDefault( Team.CounterTerrorist );
+
+		if ( tScore > ctScore ) return Team.Terrorist;
+		if ( ctScore > tScore ) return Team.CounterTerrorist;
+
+		return Team.Unassigned;
+	}
+
 	public void SetInitial()
 	{
 		if ( InitialScores != 0 )
