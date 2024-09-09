@@ -30,7 +30,7 @@ internal static class Stats
 		Log.Info( $"Trying to send {name} stat" );
 		// Log.Info( $"Trying to increment stats: {name}, amount: {amount}" );
 		Sandbox.Services.Stats.Increment( name, amount );
-		Flush( name );
+		//Flush( name );
 	}
 
 	/// <summary>
