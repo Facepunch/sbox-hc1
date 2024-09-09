@@ -36,6 +36,9 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	[Property]
 	public string Description { get; set; }
 
+	[Property]
+	public string Ident { get; set; } = "gamemode";
+
 	private StateMachineComponent _stateMachine;
 
 	public StateMachineComponent StateMachine => _stateMachine ??= Components.GetInDescendantsOrSelf<StateMachineComponent>();

@@ -26,12 +26,23 @@ public sealed class StatIncrementer : Component, IGameEventHandler<EnterStateEve
 	public int Amount { get; set; }
 
 	/// <summary>
+	/// Should we send an extra gamemdoe stat? Puts the gamemode ident after the stat name as a separate stat.
+	/// </summary>
+	[Property] 
+	public bool SendExtraGameModeStat { get; set; }
+
+	/// <summary>
 	/// Since the state machine is sent on the host only, we have to RPC it
 	/// </summary>
 	[Broadcast( NetPermission.HostOnly )]
 	public void BroadcastStat()
 	{
 		Stats.Increment( StatName, Amount );
+
+		if ( SendExtraGameModeStat )
+		{
+			Stats.Increment( StatName, Amount, true );
+		}
 	}
 
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
@@ -46,6 +57,16 @@ public sealed class StatIncrementer : Component, IGameEventHandler<EnterStateEve
 		else
 		{
 			BroadcastStat();
+		}
+	}
+
+	[ConCmd( "hc1_stat_increment_test" )]
+	public static void Dev_Increment()
+	{
+		if ( Game.IsEditor )
+		{
+			Stats.Increment( "wins", 1 );
+			Stats.Increment( "wins", 1, true );
 		}
 	}
 }

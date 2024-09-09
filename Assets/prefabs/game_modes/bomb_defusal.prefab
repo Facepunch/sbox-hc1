@@ -10,6 +10,7 @@
         "__type": "Facepunch.GameMode",
         "__guid": "3d316172-22ea-48e3-b3c5-244ef04d8ba8",
         "Description": "Security run down the timer without the Anarchists planting the bomb. No respawns.",
+        "Ident": "defuse",
         "MaxBalance": 16000,
         "Title": "Defuse",
         "UnlimitedMoney": false
@@ -1082,6 +1083,7 @@
                     "__type": "Facepunch.StatIncrementer",
                     "__guid": "eac01b1a-8031-4a2d-92f6-b82c1d0e0ff5",
                     "Amount": 0,
+                    "SendExtraGameModeStat": false,
                     "StatName": "wins",
                     "TeamFilter": "CounterTerrorist"
                   }
@@ -1123,6 +1125,7 @@
                     "__type": "Facepunch.StatIncrementer",
                     "__guid": "a3a74cfa-fb01-442b-830c-1b445a6b5109",
                     "Amount": 0,
+                    "SendExtraGameModeStat": false,
                     "StatName": "wins",
                     "TeamFilter": "Terrorist"
                   }
@@ -1334,6 +1337,16 @@
           {
             "Id": "a76e74fc-8847-4d49-a181-37eec6506e55",
             "Property": "CleanupTime"
+          }
+        ]
+      },
+      {
+        "Id": "Gamemode Ident",
+        "Title": "Gamemode Ident",
+        "Targets": [
+          {
+            "Id": "3d316172-22ea-48e3-b3c5-244ef04d8ba8",
+            "Property": "Ident"
           }
         ]
       }
