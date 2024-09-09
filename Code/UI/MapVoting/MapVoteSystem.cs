@@ -134,7 +134,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 
 	public static IEnumerable<Option> GenerateOptions( GameModeInfo currentMode = null, MapDefinition currentMap = null, int count = 5 )
 	{
-		var maps = ResourceLibrary.GetAll<MapDefinition>().ToList();
+		var maps = ResourceLibrary.GetAll<MapDefinition>().Where( x => x.IsEnabled ).ToList();
 		var options = new List<Option>();
 
 		var inList = ( GameModeInfo gameMode ) =>
