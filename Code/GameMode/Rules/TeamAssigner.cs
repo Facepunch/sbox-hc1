@@ -75,51 +75,51 @@ public sealed class TeamAssigner : Component,
 		{
 			return;
 		}
+		var teams = TeamSetup.Instance.Teams;
+		var ts = GameUtils.GetPlayers( teams[0] ).Count();
+		var cts = GameUtils.GetPlayers( teams[1] ).Count();
 
-		//var ts = GameUtils.GetPlayers( Team.Terrorist ).Count();
-		//var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).Count();
+		var curScore = GetTeamCountScore( ts, cts );
 
-		//var curScore = GetTeamCountScore( ts, cts );
+		// delta: how many ts to move to ct
 
-		//// delta: how many ts to move to ct
+		var minDelta = -cts;
+		var maxDelta = ts;
 
-		//var minDelta = -cts;
-		//var maxDelta = ts;
+		var bestScore = curScore;
+		var bestDelta = 0;
 
-		//var bestScore = curScore;
-		//var bestDelta = 0;
+		for ( var delta = minDelta; delta <= maxDelta; ++delta )
+		{
+			var newScore = GetTeamCountScore( ts - delta, cts + delta );
 
-		//for ( var delta = minDelta; delta <= maxDelta; ++delta )
-		//{
-		//	var newScore = GetTeamCountScore( ts - delta, cts + delta );
+			if ( newScore < bestScore )
+			{
+				bestScore = newScore;
+				bestDelta = delta;
+			}
+		}
 
-		//	if ( newScore < bestScore )
-		//	{
-		//		bestScore = newScore;
-		//		bestDelta = delta;
-		//	}
-		//}
+		if ( bestDelta == 0 )
+		{
+			return;
+		}
 
-		//if ( bestDelta == 0 )
-		//{
-		//	return;
-		//}
+		var fromTeam = bestDelta < 0 ? teams[1] : teams[0];
 
-		//var fromTeam = bestDelta < 0 ? Team.CounterTerrorist : Team.Terrorist;
+		var toSwap = GameUtils.GetPlayers( fromTeam )
+			.OrderBy( GetScore )
+			.Take( Math.Abs( bestDelta ) )
+			.ToArray();
 
-		//var toSwap = GameUtils.GetPlayers( fromTeam )
-		//	.OrderBy( GetScore )
-		//	.Take( Math.Abs( bestDelta ) )
-		//	.ToArray();
+		foreach ( var player in toSwap )
+		{
+			player.AssignTeam( fromTeam.GetOpponents() );
 
-		//foreach ( var player in toSwap )
-		//{
-		//	player.AssignTeam( fromTeam.GetOpponents() );
-
-		//	// Respawn the player's pawn since we might've changed their spawn
-		//	if ( player.PlayerPawn.IsValid() )
-		//		player.Respawn( true );
-		//}
+			// Respawn the player's pawn since we might've changed their spawn
+			if ( player.PlayerPawn.IsValid() )
+				player.Respawn( true );
+		}
 	}
 
 	private float GetScore( PlayerState player )
@@ -165,25 +165,24 @@ public sealed class TeamAssigner : Component,
 
 	private TeamDefinition SelectTeam()
 	{
-		//var ts = GameUtils.GetPlayers( Team.Terrorist ).Count();
-		//var cts = GameUtils.GetPlayers( Team.CounterTerrorist ).Count();
+		var teams = TeamSetup.Instance.Teams;
+		var ts = GameUtils.GetPlayers( teams[0] ).Count();
+		var cts = GameUtils.GetPlayers( teams[1] ).Count();
 
-		//var tScore = GetTeamCountScore( ts + 1, cts );
-		//var ctScore = GetTeamCountScore( ts, cts + 1 );
+		var tScore = GetTeamCountScore( ts + 1, cts );
+		var ctScore = GetTeamCountScore( ts, cts + 1 );
 
-		//if ( float.IsInfinity( tScore ) && float.IsInfinity( ctScore ) )
-		//{
-		//	return Team.Unassigned;
-		//}
+		if ( float.IsInfinity( tScore ) && float.IsInfinity( ctScore ) )
+		{
+			return null;
+		}
 
-		//return tScore.CompareTo( ctScore ) switch
-		//{
-		//	> 0 => Team.CounterTerrorist,
-		//	< 0 => Team.Terrorist,
-		//	_ => RandomTeam()
-		//};
-
-		return TeamSetup.Instance.Teams.First();
+		return tScore.CompareTo( ctScore ) switch
+		{
+			> 0 => teams[1],
+			< 0 => teams[0],
+			_ => RandomTeam()
+		};
 	}
 
 	private static TeamDefinition RandomTeam()
