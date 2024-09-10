@@ -70,8 +70,7 @@ public sealed class DefaultEquipment : Component,
 		player.ArmorComponent.Armor = Math.Max( player.ArmorComponent.Armor, Armor );
 		player.ArmorComponent.HasHelmet |= Helmet;
 
-		// TODO: this sucks fuckin poopy
-		if ( DefuseKit && player.Team is not null && player.Team.Name == "Security" )
+		if ( DefuseKit && player.Team is not null && player.Team.Tags.Has( "ct" ) )
 		{
 			player.Inventory.HasDefuseKit = true;
 		}

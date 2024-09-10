@@ -82,7 +82,7 @@ public sealed class RandomLoadoutAllocator : Component,
 		{
 			++Players;
 
-			player.Inventory.HasDefuseKit = DefuseKit && player.Team is not null && player.Team.Name == "Security";
+			player.Inventory.HasDefuseKit = DefuseKit && player.Team is not null && player.Team.Tags.Has( "ct" );
 
 			player.ArmorComponent.HasHelmet = Helmet;
 			player.ArmorComponent.Armor = Armor;

@@ -8,19 +8,16 @@ namespace Facepunch;
 /// Transition to another state if one team is eliminated.
 /// </summary>
 public sealed class TeamEliminated : Component,
-	IGameEventHandler<EnterStateEvent>,
 	IGameEventHandler<UpdateStateEvent>
 {
-	private bool _bothTeamsHadPlayers;
-
 	/// <summary>
-	/// Transition to this state when all <see cref="Team.Terrorist"/> players are eliminated.
+	/// Transition to this state when all T players are eliminated.
 	/// </summary>
 	[Property]
 	public StateComponent TerroristsEliminatedState { get; set; }
 
 	/// <summary>
-	/// Transition to this state when all <see cref="Team.CounterTerrorist"/> players are eliminated.
+	/// Transition to this state when all CT players are eliminated.
 	/// </summary>
 	[Property]
 	public StateComponent CounterTerroristsEliminatedState { get; set; }
@@ -31,12 +28,6 @@ public sealed class TeamEliminated : Component,
 	[Property]
 	public StateComponent BothTeamsEliminatedState { get; set; }
 
-	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
-	{
-		//_bothTeamsHadPlayers = GameUtils.GetPlayerPawns( Team.CounterTerrorist ).Any()
-			//&& GameUtils.GetPlayerPawns( Team.Terrorist ).Any();
-	}
-
 	private bool IsTeamEliminated( TeamDefinition team )
 	{
 		return GameUtils.GetPlayerPawns( team ).All( x => x.HealthComponent.State == LifeState.Dead );
@@ -44,20 +35,22 @@ public sealed class TeamEliminated : Component,
 
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
 	{
-		//var ctsEliminated = IsTeamEliminated( Team.CounterTerrorist );
-		//var tsEliminated = IsTeamEliminated( Team.Terrorist );
+		var teamSetupTeams = TeamSetup.Instance.Teams;
 
-		//if ( ctsEliminated && tsEliminated && BothTeamsEliminatedState is not null )
-		//{
-		//	GameMode.Instance.StateMachine.Transition( BothTeamsEliminatedState );
-		//}
-		//else if ( ctsEliminated && CounterTerroristsEliminatedState is not null )
-		//{
-		//	GameMode.Instance.StateMachine.Transition( CounterTerroristsEliminatedState );
-		//}
-		//else if ( tsEliminated && TerroristsEliminatedState is not null )
-		//{
-		//	GameMode.Instance.StateMachine.Transition( TerroristsEliminatedState );
-		//}
+		var ctsEliminated = IsTeamEliminated( teamSetupTeams[0] );
+		var tsEliminated = IsTeamEliminated( teamSetupTeams[1] );
+
+		if ( ctsEliminated && tsEliminated && BothTeamsEliminatedState is not null )
+		{
+			GameMode.Instance.StateMachine.Transition( BothTeamsEliminatedState );
+		}
+		else if ( ctsEliminated && CounterTerroristsEliminatedState is not null )
+		{
+			GameMode.Instance.StateMachine.Transition( CounterTerroristsEliminatedState );
+		}
+		else if ( tsEliminated && TerroristsEliminatedState is not null )
+		{
+			GameMode.Instance.StateMachine.Transition( TerroristsEliminatedState );
+		}
 	}
 }

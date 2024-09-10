@@ -74,13 +74,18 @@ public sealed class TeamScoring : Component,
 
 	public void Flip()
 	{
-		// TODO: Tony: This needs to be restored
+		var teamSetup = TeamSetup.Instance;
+		if ( teamSetup.Teams.Count() != 2 )
+		{
+			Log.Warning( "Can't flip team scores when there's more or less than 2 teams!!!" );
+			return;
+		}
 
-		//var ctScores = Scores.GetValueOrDefault( Team.CounterTerrorist );
-		//var tScores = Scores.GetValueOrDefault( Team.Terrorist );
+		var ctScores = Scores.GetValueOrDefault( teamSetup.Teams[0] );
+		var tScores = Scores.GetValueOrDefault( teamSetup.Teams[1] );
 
-		//Scores[Team.Terrorist] = ctScores;
-		//Scores[Team.CounterTerrorist] = tScores;
+		Scores[ teamSetup.Teams[1] ] = ctScores;
+		Scores[ teamSetup.Teams[0] ] = tScores;
 	}
 
 	void IGameEventHandler<TeamsSwappedEvent>.OnGameEvent( TeamsSwappedEvent eventArgs )

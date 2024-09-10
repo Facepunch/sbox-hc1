@@ -62,10 +62,9 @@ public sealed class DefuseObjectiveRewards : Component,
 	{
 		eventArgs.Defuser?.PlayerState.GiveCash( BombDefuseReward );
 
-		// TODO: Tony: Restore
-		//foreach ( var player in GameUtils.GetPlayers( Team.Terrorist ) )
-		//{
-		//	player.GiveCash( BombPlantTeamReward );
-		//}
+		foreach ( var player in GameUtils.AllPlayers.Where( x => x.Team is not null && x.Team.Tags.Has( "t" ) ) )
+		{
+			player.GiveCash( BombPlantTeamReward );
+		}
 	}
 }

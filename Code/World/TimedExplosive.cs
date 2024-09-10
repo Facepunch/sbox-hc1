@@ -238,8 +238,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 
 	public UseResult CanUse( PlayerPawn player )
 	{
-		// TODO: Tony: Restore
-		return !IsDefused && !DefusingPlayer.IsValid() /*&& player.Team == Team.CounterTerrorist*/;
+		return !IsDefused && !DefusingPlayer.IsValid() && player.Team is not null && player.Team.Tags.Has( "ct" );
 	}
 
 	public void OnUse( PlayerPawn player )
@@ -253,7 +252,6 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 		if ( Spottable.IsSpotted )
 			return true;
 
-		// TODO: Tony: Restore
-		return /*viewer.Team == Team.Terrorist*/ true;
+		return viewer.Team?.Tags.Has( "t" ) ?? false;
 	}
 }
