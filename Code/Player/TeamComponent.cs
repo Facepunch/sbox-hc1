@@ -1,4 +1,6 @@
 using Sandbox.Events;
+using Sandbox.Utility;
+using System.Runtime.CompilerServices;
 
 namespace Facepunch;
 
@@ -7,18 +9,10 @@ namespace Facepunch;
 /// </summary>
 public interface ITeam : IValid
 {
-	public Team Team { get; set; }
+	public TeamDefinition Team { get; set; }
 }
 
-public enum Team
-{
-	Unassigned = 0,
-
-	Terrorist,
-	CounterTerrorist
-}
-
-public record TeamChangedEvent( Team Before, Team After ) : IGameEvent;
+public record TeamChangedEvent( TeamDefinition Before, TeamDefinition After ) : IGameEvent;
 
 public static class TeamExtensions
 {
@@ -27,7 +21,7 @@ public static class TeamExtensions
 	/// </summary>
 	/// <param name="gameObject"></param>
 	/// <returns></returns>
-	public static Team GetTeam( this GameObject gameObject )
+	public static TeamDefinition GetTeam( this GameObject gameObject )
 	{
 		if ( gameObject.Root.Components.Get<Pawn>() is { IsValid: true } pawn )
 		{
@@ -39,7 +33,7 @@ public static class TeamExtensions
 			return state.Team;
 		}
 
-		return Team.Unassigned;
+		return null;
 	}
 
 	//
@@ -52,9 +46,10 @@ public static class TeamExtensions
 	/// <param name="teamOne"></param>
 	/// <param name="teamTwo"></param>
 	/// <returns></returns>
-	private static bool IsFriendly( Team teamOne, Team teamTwo )
+	private static bool IsFriendly( TeamDefinition teamOne, TeamDefinition teamTwo )
 	{
-		if ( teamOne == Team.Unassigned || teamTwo == Team.Unassigned ) return false;
+		// TODO: Friendly team list in teams
+		if ( teamOne is null || teamTwo is null ) return false;
 		return teamOne == teamTwo;
 	}
 
@@ -88,55 +83,39 @@ public static class TeamExtensions
 		return IsFriendly( self.Team, other.Team );
 	}
 
-	public static string GetName( this Team team )
+	public static string GetName( this TeamDefinition team )
 	{
-		return team switch
-		{
-			Team.Terrorist => "Anarchists",
-			Team.CounterTerrorist => "Security",
-			_ => "Unassigned",
-		};
+		return team.Name;
 	}
 
-	private static Dictionary<Team, Color> teamColors = new()
+	public static Color GetColor( this TeamDefinition team )
 	{
-		{ Team.CounterTerrorist, new Color32( 5, 146, 235 ) },
-		{ Team.Terrorist, new Color32( 233, 190, 92 ) },
-		{ Team.Unassigned, new Color32( 255, 255, 255 ) },
-	};
+		if ( team is null ) return Color.White;
 
-	public static Color GetColor( this Team team )
-	{
-		return teamColors[team];
+		return team.Color;
 	}
 
-	public static string GetIconPath( this Team team )
+	public static string GetIconPath( this TeamDefinition team )
 	{
-		return team switch
-		{
-			Team.CounterTerrorist => "/ui/teams/operators_logo.png",
-			Team.Terrorist => "/ui/teams/anarchists_logo.png",
-			_ => ""
-		};
+		return team.Icon;
 	}
 
-	public static string GetBannerPath( this Team team )
+	public static string GetBannerPath( this TeamDefinition team )
 	{
-		return team switch
-		{
-			Team.CounterTerrorist => "/ui/teams/operators_logo_banner.png",
-			Team.Terrorist => "/ui/teams/anarchists_logo_banner.png",
-			_ => ""
-		};
+		return team.Banner;
 	}
 
-	public static Team GetOpponents( this Team team )
+	public static TeamDefinition GetOpponents( this TeamDefinition team )
 	{
-		return team switch
-		{
-			Team.CounterTerrorist => Team.Terrorist,
-			Team.Terrorist => Team.CounterTerrorist,
-			_ => Team.Unassigned
-		};
+		if ( team is null ) return null;
+
+		// TODO: FIX THIS
+		var security = ResourceLibrary.GetAll<TeamDefinition>().FirstOrDefault( x => x.Name == "Security" );
+		var anarchists = ResourceLibrary.GetAll<TeamDefinition>().FirstOrDefault( x => x.Name == "Anarchists" );
+
+		if ( team.Name == "Security" ) return anarchists;
+		if ( team.Name == "Anarchists" ) return security;
+
+		return null;
 	}
 }

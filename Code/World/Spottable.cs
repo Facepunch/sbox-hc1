@@ -15,9 +15,9 @@ public sealed class Spottable : Component,
 	/// The team this belongs to.
 	/// Any players that aren't of this team will be able to spot this.
 	/// </summary>
-	public Team Team
+	public TeamDefinition Team
 	{
-		get => teamComponent?.Team ?? Team.Unassigned;
+		get => teamComponent?.Team;
 		set
 		{
 			if ( teamComponent.IsValid() ) teamComponent.Team = value;

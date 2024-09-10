@@ -37,8 +37,8 @@ public sealed class ShowStatusText : Component,
 	/// <summary>
 	/// Which team to show the status text for.
 	/// </summary>
-	[Property, HideIf( nameof(BothTeams), true )]
-	public Team Team { get; set; }
+	[Property, HideIf( nameof( BothTeams ), true )]
+	public TeamDefinition Team { get; set; }
 
 	/// <summary>
 	/// Text to show for the duration of this state.

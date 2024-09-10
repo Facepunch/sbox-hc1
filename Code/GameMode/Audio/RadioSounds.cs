@@ -62,7 +62,7 @@ public class RadioSounds : GameResource
 {
 	public static HashSet<RadioSounds> All { get; set; } = new();
 
-	[Property, Group( "Setup" )] public Team Team { get; set; }
+	[Property, Group( "Setup" )] public TeamDefinition Team { get; set; }
 
 	[Property, Group( "Data" )] public Dictionary<RadioSound, SoundEvent> Sounds { get; set; }
 
@@ -73,7 +73,7 @@ public class RadioSounds : GameResource
 	/// </summary>
 	/// <param name="team"></param>
 	/// <param name="snd"></param>
-	public static void Play( Team team, RadioSound snd )
+	public static void Play( TeamDefinition team, RadioSound snd )
 	{
 		if ( !Networking.IsHost ) return;
 
@@ -100,7 +100,7 @@ public class RadioSounds : GameResource
 	/// <param name="team"></param>
 	/// <param name="category"></param>
 	/// <param name="sound"></param>
-	public static void Play( Team team, string category, string sound )
+	public static void Play( TeamDefinition team, string category, string sound )
 	{
 		var player = PlayerState.Local.PlayerPawn;
 		if ( player is null ) return;
@@ -129,7 +129,7 @@ public class RadioSounds : GameResource
 	}
 
 	[Broadcast]
-	private static void RpcPlay( Team team, string category, string sound )
+	private static void RpcPlay( TeamDefinition team, string category, string sound )
 	{
 		if ( !PlayerState.Local.IsValid() )
 		{
@@ -161,7 +161,7 @@ public class RadioSounds : GameResource
 	}
 
 	[Broadcast]
-	private static void RpcPlay( Team team, RadioSound snd )
+	private static void RpcPlay( TeamDefinition team, RadioSound snd )
 	{
 		if ( !PlayerState.Local.IsValid() )
 		{

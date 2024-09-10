@@ -100,7 +100,8 @@ public class DefuseKitEquipment : BuyMenuItem
 		player.Inventory.HasDefuseKit = true;
 	}
 
-	public override bool IsVisible( PlayerPawn player ) => player.Team == Team.CounterTerrorist;
+	// TODO: FIX ME
+	public override bool IsVisible( PlayerPawn player ) => player.Team is { Name: "Security" };
 
 	public override bool IsOwned( PlayerPawn player ) => player.Inventory.HasDefuseKit;
 }

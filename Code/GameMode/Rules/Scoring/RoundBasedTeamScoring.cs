@@ -5,9 +5,9 @@ namespace Facepunch;
 public sealed class RoundBasedTeamScoring : Component,
 	IGameEventHandler<ResetScoresEvent>
 {
-	[HostSync] public NetList<Team> RoundWinHistory { get; private set; } = new();
+	[HostSync] public NetList<TeamDefinition> RoundWinHistory { get; private set; } = new();
 
-	public void AddRoundResult( Team team )
+	public void AddRoundResult( TeamDefinition team )
 	{
 		RoundWinHistory.Add( team );
 	}
@@ -25,14 +25,12 @@ public sealed class IncrementTeamScore : Component,
 	IGameEventHandler<EnterStateEvent>
 {
 	[Property, HostSync]
-	public Team Team { get; set; }
+	public TeamDefinition Team { get; set; }
 
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		if ( Team is Team.Unassigned )
-		{
+		if ( Team is null )
 			return;
-		}
 
 		var teamScoring = GameMode.Instance.Get<TeamScoring>();
 		var roundBasedTeamScoring = GameMode.Instance.Get<RoundBasedTeamScoring>();

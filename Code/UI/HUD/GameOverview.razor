@@ -40,7 +40,7 @@
             <div class="half"/>
         }
         <div class="box" style="background-color:rgba( @GetColor( i ), 0.5 )">
-            @if ( GetWinner( i ) != Team.Unassigned )
+            @if ( GetWinner( i ) is not null )
             {
                 <img src="@GetWinner( i ).GetIconPath()" />
             }
@@ -62,16 +62,16 @@
     
     int WinningRound => WinCondition.TargetScore + TeamScoring.OpposingTeamScore;
 
-    private Team GetWinner( int round )
+    private TeamDefinition GetWinner( int round )
     {
-        if (round > RoundScoring.RoundWinHistory.Count - 1) return Team.Unassigned;
+        if (round > RoundScoring.RoundWinHistory.Count - 1) return null;
         return RoundScoring.RoundWinHistory[round];
     }
 
     private string GetColor( int round )
     {
         var winner = GetWinner( round );
-        if (winner == Team.Unassigned) return new Color( 0, 0, 0, 0.5f ).Hex;
+        if ( winner is null ) return new Color( 0, 0, 0, 0.5f ).Hex;
         return winner.GetColor().Hex;
     }
 

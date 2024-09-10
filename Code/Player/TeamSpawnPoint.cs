@@ -11,7 +11,7 @@ public sealed class TeamSpawnPoint : Component
 	/// <summary>
 	/// What team is this for?
 	/// </summary>
-	[Property] public Team Team { get; set; }
+	[Property] public TeamDefinition Team { get; set; }
 
 	protected override void DrawGizmos()
 	{

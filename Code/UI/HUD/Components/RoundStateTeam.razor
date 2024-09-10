@@ -42,16 +42,16 @@
     }
 
     public string Score { get; set; }
-    public Team Team { get; set; }
+    public TeamDefinition Team { get; set; }
     public IEnumerable<PlayerState> Players { get; set; }
     public IconPositions IconPosition { get; set; } = IconPositions.Left;
 
-    private int PlayerCount => GameUtils.AllPlayers.Where( x => x.Team != Team.Unassigned ).Count();
+    private int PlayerCount => GameUtils.AllPlayers.Where( x => x.Team is not null ).Count();
     private int MaxPlayers => GameMode.Instance?.Get<HudOptions>()?.FullAvatarDisplayPlayerLimit ?? 10;
 
     private string TeamColor => Team.GetColor().Darken( 0.25f ).Hex;
 
-    public int PlayerHash => Players?.GetHashCode<PlayerState>(x => HashCode.Combine( x?.SteamId, x?.Team ?? Team.Unassigned ) ) ?? 0;
+    public int PlayerHash => Players?.GetHashCode<PlayerState>(x => HashCode.Combine( x?.SteamId, x?.Team ) ) ?? 0;
 
     protected override int BuildHash()
     {

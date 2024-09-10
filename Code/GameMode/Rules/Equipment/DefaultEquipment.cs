@@ -4,7 +4,7 @@ namespace Facepunch;
 
 public class Loadout
 {
-	[KeyProperty] public Team Team { get; set; }
+	[KeyProperty] public TeamDefinition Team { get; set; }
 	[KeyProperty] public List<EquipmentResource> Equipment { get; set; }
 }
 
@@ -22,7 +22,7 @@ public sealed class DefaultEquipment : Component,
 	[Property] public bool RefillAmmo { get; set; } = true;
 	[Property] public bool LoadoutsEnabled { get; set; } = true;
 
-	public Loadout GetLoadout( Team team )
+	public Loadout GetLoadout( TeamDefinition team )
 	{
 		if ( TeamLoadouts.FirstOrDefault( x => x.Team == team ) is { } loadout )
 		{
@@ -32,7 +32,7 @@ public sealed class DefaultEquipment : Component,
 		return TeamLoadouts.FirstOrDefault();
 	}
 
-	public bool Contains( Team team, EquipmentResource resource )
+	public bool Contains( TeamDefinition team, EquipmentResource resource )
 	{
 		var loadout = GetLoadout( team );
 		if ( loadout is null ) return false;
@@ -70,7 +70,8 @@ public sealed class DefaultEquipment : Component,
 		player.ArmorComponent.Armor = Math.Max( player.ArmorComponent.Armor, Armor );
 		player.ArmorComponent.HasHelmet |= Helmet;
 
-		if ( DefuseKit && player.Team == Team.CounterTerrorist )
+		// TODO: this sucks fuckin poopy
+		if ( DefuseKit && player.Team is not null && player.Team.Name == "Security" )
 		{
 			player.Inventory.HasDefuseKit = true;
 		}

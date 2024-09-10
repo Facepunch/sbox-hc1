@@ -5,7 +5,7 @@ public partial class TeamVoiceChatFilter : Component, IVoiceFilter
 	private bool DontSendFilter( PlayerState player )
 	{
 		// Send voices to spectators
-		if ( player.Team == Team.Unassigned ) return false;
+		if ( player.Team is null ) return false;
 
 		// Don't send to enemies
 		return !player.IsFriendly( PlayerState.Local );

@@ -43,7 +43,7 @@ public partial class PlayerPawn
 		if ( HealthComponent.State != LifeState.Alive )
 			return false;
 
-		if ( Team == Team.Unassigned )
+		if ( Team is null )
 			return false;
 
 		if ( SpectateSystem.Instance.IsValid() && SpectateSystem.Instance.IsSpectating )

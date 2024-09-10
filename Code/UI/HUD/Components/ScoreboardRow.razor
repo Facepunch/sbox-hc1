@@ -8,11 +8,11 @@
     <span class="col stat-small">
         @if ( Player.IsValid() ) 
         {
-            @if (Player.Inventory.HasBomb && IsFriendly && Team == Team.Terrorist)
+            @if ( Player.Inventory.HasBomb && IsFriendly )
             {
                 <Icon File="/ui/bomb.png" size="24"></Icon>
             }
-            else if (Player.Inventory.HasDefuseKit && IsFriendly && Team == Team.CounterTerrorist)
+            else if ( Player.Inventory.HasDefuseKit && IsFriendly )
             {
                 <Icon File="/ui/defusekit.png" size="24"></Icon>
             }
@@ -59,7 +59,7 @@
     private bool IsLocal => PlayerState.IsLocalPlayer;
     private bool IsDead => !Player.IsValid() || Player.HealthComponent.State != LifeState.Alive;
     private float KillDeathRatio => (float)Score.Kills / (float)Score.Deaths.Clamp(1, int.MaxValue);
-    private Team Team => PlayerState.Team;
+    private TeamDefinition Team => PlayerState.Team;
     private bool IsPartyMember => PartyRoom.Current?.Members.Any( x => x.Id == Connection.SteamId ) ?? false;
 
     public bool Disconnected => Connection is null;

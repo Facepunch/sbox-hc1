@@ -22,7 +22,7 @@ public sealed class Spotter : Component
 		if ( !Player.HealthComponent.IsValid() )
 			return;
 
-		if ( Player.HealthComponent.State != LifeState.Alive || Player.Team == Team.Unassigned )
+		if ( Player.HealthComponent.State != LifeState.Alive || Player.Team is null )
 			return;
 
 		if ( LastPoll < Interval )

@@ -3,8 +3,7 @@
 namespace Facepunch;
 
 public sealed class TicketBasedScoring : Component,
-	IGameEventHandler<KillEvent>,
-	IGameEventHandler<CapturePointCapturedEvent>
+	IGameEventHandler<KillEvent>
 {
 	[Property] public float DrainFrequency { get; set; } = 10;
 	[Property] public int DrainAmountPerPoint { get; set; } = 1;
@@ -25,10 +24,10 @@ public sealed class TicketBasedScoring : Component,
 		if ( killerPlayer.IsFriendly( victimPlayer ) )
 			return;
 
-		if ( killerPlayer.Team == Team.Unassigned )
+		if ( killerPlayer.Team is null )
 			return;
 
-		if ( victimPlayer.Team == Team.Unassigned )
+		if ( victimPlayer.Team is null )
 			return;
 
 		GameMode.Instance.Get<TeamScoring>()?.IncrementScore( killerPlayer.Team, -1 );
@@ -39,30 +38,5 @@ public sealed class TicketBasedScoring : Component,
 	protected override void OnStart()
 	{
 		TimeUntilTick = DrainFrequency;
-	}
-
-	protected override void OnFixedUpdate()
-	{
-		if ( !Networking.IsHost )
-			return;
-
-		if ( !TimeUntilTick )
-			return;
-
-		foreach ( var capturePoint in Scene.GetAllComponents<CapturePoint>() )
-		{
-			if ( capturePoint.Team != Team.Unassigned )
-			{
-				// Hurt the opponents tickets
-				GameMode.Instance.Get<TeamScoring>()?.IncrementScore( capturePoint.Team.GetOpponents(), -1 );
-			}
-		}
-
-		TimeUntilTick = DrainFrequency;
-	}
-
-	void IGameEventHandler<CapturePointCapturedEvent>.OnGameEvent( CapturePointCapturedEvent eventArgs )
-	{
-		// TODO: Scores from capturing? Maybe?
 	}
 }

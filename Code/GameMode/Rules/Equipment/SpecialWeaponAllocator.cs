@@ -18,7 +18,7 @@ public sealed class SpecialWeaponAllocator : Component,
 	/// Which team to give the special weapon to.
 	/// </summary>
 	[Property]
-	public Team Team { get; set; }
+	public TeamDefinition Team { get; set; }
 
 	/// <summary>
 	/// Only give equipment to players that spawned at a point with this tag.

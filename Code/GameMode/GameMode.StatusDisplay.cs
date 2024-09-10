@@ -23,7 +23,7 @@ partial class GameMode
 	};
 
 	[HostSync]
-	private NetDictionary<Team, string> TeamStatusText { get; set; } = new();
+	private NetDictionary<TeamDefinition, string> TeamStatusText { get; set; } = new();
 
 	[HostSync] private DisplayedTimerMode TimerMode { get; set; }
 	[HostSync] private float TimerStart { get; set; }
@@ -69,13 +69,13 @@ partial class GameMode
 	{
 		Assert.True( Networking.IsHost );
 
-		foreach ( var team in Enum.GetValues<Team>() )
+		foreach ( var team in TeamSetup.Instance.Teams )
 		{
 			ShowStatusText( team, value );
 		}
 	}
 
-	public void ShowStatusText( Team team, string value )
+	public void ShowStatusText( TeamDefinition team, string value )
 	{
 		Assert.True( Networking.IsHost );
 
@@ -89,7 +89,7 @@ partial class GameMode
 		TeamStatusText.Clear();
 	}
 
-	public void HideStatusText( Team team )
+	public void HideStatusText( TeamDefinition team )
 	{
 		Assert.True( Networking.IsHost );
 

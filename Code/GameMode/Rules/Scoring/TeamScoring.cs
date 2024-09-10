@@ -1,9 +1,10 @@
 ﻿using Facepunch.UI;
 using Sandbox.Events;
+using System.Collections.Generic;
 
 namespace Facepunch;
 
-public record TeamScoreIncrementedEvent( Team Team, int Score ) : IGameEvent;
+public record TeamScoreIncrementedEvent( TeamDefinition Team, int Score ) : IGameEvent;
 
 /// <summary>
 /// Keeps track of a score for each team.
@@ -13,7 +14,7 @@ public sealed class TeamScoring : Component,
 	IGameEventHandler<TeamsSwappedEvent>
 {
 	[HostSync]
-	public NetDictionary<Team, int> Scores { get; private set; } = new();
+	public NetDictionary<TeamDefinition, int> Scores { get; private set; } = new();
 
 	/// <summary>
 	/// What should we set the initial scores to?
@@ -39,32 +40,29 @@ public sealed class TeamScoring : Component,
 		SetInitial();
 	}
 
-	public Team GetHighest()
+	public TeamDefinition GetHighest()
 	{
-		var tScore = Scores.GetValueOrDefault( Team.Terrorist );
-		var ctScore = Scores.GetValueOrDefault( Team.CounterTerrorist );
-
-		if ( tScore > ctScore ) return Team.Terrorist;
-		if ( ctScore > tScore ) return Team.CounterTerrorist;
-
-		return Team.Unassigned;
+		var highest = Scores.OrderByDescending( kv => kv.Value ).First();
+		return highest.Key;
 	}
 
 	public void SetInitial()
 	{
 		if ( InitialScores != 0 )
 		{
-			Scores[Team.Terrorist] = InitialScores;
-			Scores[Team.CounterTerrorist] = InitialScores;
+			foreach ( var team in GameMode.Instance.Get<TeamSetup>().Teams )
+			{
+				Scores[team] = InitialScores;
+			}
 		}
 	}
 
-	public string GetFormattedScore( Team team )
+	public string GetFormattedScore( TeamDefinition team )
 	{
 		return Scores.GetValueOrDefault( team, 0 ).ToString( ScoreFormat );
 	}
 
-	public void IncrementScore( Team team, int amount = 1 )
+	public void IncrementScore( TeamDefinition team, int amount = 1 )
 	{
 		var score = Scores.GetValueOrDefault( team ) + amount;
 
@@ -75,11 +73,13 @@ public sealed class TeamScoring : Component,
 
 	public void Flip()
 	{
-		var ctScores = Scores.GetValueOrDefault( Team.CounterTerrorist );
-		var tScores = Scores.GetValueOrDefault( Team.Terrorist );
+		// TODO: Tony: This needs to be restored
 
-		Scores[Team.Terrorist] = ctScores;
-		Scores[Team.CounterTerrorist] = tScores;
+		//var ctScores = Scores.GetValueOrDefault( Team.CounterTerrorist );
+		//var tScores = Scores.GetValueOrDefault( Team.Terrorist );
+
+		//Scores[Team.Terrorist] = ctScores;
+		//Scores[Team.CounterTerrorist] = tScores;
 	}
 
 	void IGameEventHandler<TeamsSwappedEvent>.OnGameEvent( TeamsSwappedEvent eventArgs )
@@ -116,17 +116,18 @@ public sealed class CompareTeamScores : Component,
 	{
 		var teamScoring = GameMode.Instance.Get<TeamScoring>( true );
 
-		var tScore = teamScoring.Scores.GetValueOrDefault( Team.Terrorist );
-		var ctScore = teamScoring.Scores.GetValueOrDefault( Team.CounterTerrorist );
+		// TODO: Fix me
+		//var tScore = teamScoring.Scores.GetValueOrDefault( Team.Terrorist );
+		//var ctScore = teamScoring.Scores.GetValueOrDefault( Team.CounterTerrorist );
 
-		if ( tScore >= ctScore + MinMargin )
-		{
-			GameMode.Instance.StateMachine.Transition( TerroristVictoryState );
-		}
-		else if ( ctScore >= tScore + MinMargin )
-		{
-			GameMode.Instance.StateMachine.Transition( CounterTerroristVictoryState );
-		}
+		//if ( tScore >= ctScore + MinMargin )
+		//{
+		//	GameMode.Instance.StateMachine.Transition( TerroristVictoryState );
+		//}
+		//else if ( ctScore >= tScore + MinMargin )
+		//{
+		//	GameMode.Instance.StateMachine.Transition( CounterTerroristVictoryState );
+		//}
 	}
 
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )

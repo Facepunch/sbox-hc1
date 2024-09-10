@@ -46,7 +46,7 @@ public sealed class StatIncrementerHighestTeam : Component, IGameEventHandler<En
 	{
 		var winner = TeamScoring.GetHighest();
 		
-		if ( winner == Team.Unassigned ) 
+		if ( winner is null ) 
 			return;
 
 		using ( Rpc.FilterInclude( GameUtils.GetPlayers( winner ).Select( x => x.Connection ) ) )

@@ -4,7 +4,7 @@ namespace Facepunch;
 
 public class SpawnRule
 {
-	public Team Team { get; set; }
+	public TeamDefinition Team { get; set; }
 	public string Tag { get; set; }
 
 	public int MinPlayers { get; set; }
@@ -31,10 +31,10 @@ public sealed class TeamSpawnAssigner : Component,
 		var team = player.Team;
 		var spawns = GameUtils.GetSpawnPoints( team, SpawnTags.ToArray() ).Shuffle();
 
-		if ( spawns.Count == 0 && player.Team != Team.Unassigned )
+		if ( spawns.Count == 0 && player.Team is not null )
 		{
 			Log.Warning( $"No spawn points for team {team}!" );
-			return GameUtils.GetRandomSpawnPoint(Team.Unassigned);
+			return GameUtils.GetRandomSpawnPoint( null );
 		}
 
 		var playerPositions = GameUtils.PlayerPawns

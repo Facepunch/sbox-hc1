@@ -27,11 +27,14 @@ public sealed class TeamEarlyWinCondition : Component,
 	[Property]
 	public StateComponent CounterTerroristVictoryState { get; set; }
 
+	[Property]
+	public Dictionary<TeamDefinition, StateComponent> VictoryStates { get; set; }
+
 	[Property] public bool MatchPoint { get; set; } = true;
 
 	private TeamScoring TeamScoring => GameMode.Instance.Get<TeamScoring>( true );
 
-	private int GetWonRounds( Team team )
+	private int GetWonRounds( TeamDefinition team )
 	{
 		return TeamScoring.Scores.GetValueOrDefault( team );
 	}
@@ -41,7 +44,7 @@ public sealed class TeamEarlyWinCondition : Component,
 		if ( !MatchPoint )
 			return;
 
-		if ( GetWonRounds( Team.Terrorist ) == TargetScore - 1 || GetWonRounds( Team.CounterTerrorist ) == TargetScore - 1 )
+		if ( TeamScoring.Scores.Any( x => x.Value == TargetScore - 1 ) )
 		{
 			Facepunch.UI.Toast.Instance.Show( "Match Point", Facepunch.UI.ToastType.Generic );
 		}
@@ -49,13 +52,13 @@ public sealed class TeamEarlyWinCondition : Component,
 
 	void IGameEventHandler<TeamScoreIncrementedEvent>.OnGameEvent( TeamScoreIncrementedEvent eventArgs )
 	{
-		if ( GetWonRounds( Team.Terrorist ) == TargetScore && TerroristVictoryState is not null )
+		foreach ( var team in TeamSetup.Instance.Teams )
 		{
-			GameMode.Instance.StateMachine.Transition( TerroristVictoryState );
-		}
-		else if ( GetWonRounds( Team.CounterTerrorist ) == TargetScore && CounterTerroristVictoryState is not null )
-		{
-			GameMode.Instance.StateMachine.Transition( CounterTerroristVictoryState );
+			if ( GetWonRounds( team ) == TargetScore && VictoryStates.TryGetValue( team, out var state ) )
+			{
+				GameMode.Instance.StateMachine.Transition( state );
+				return;
+			}
 		}
 	}
 }

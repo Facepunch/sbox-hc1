@@ -41,7 +41,8 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 			Game.ActiveScene.Dispatch( new BombDroppedEvent() );
 
 			Spottable spottable = go.Components.Get<Spottable>();
-			spottable.Team = Team.Terrorist;
+			// TODO: Tony: Restore
+			//spottable.Team = Team.Terrorist;
 		}
 
 		Game.ActiveScene.Dispatch( new EquipmentDroppedEvent( droppedWeapon, heldWeapon?.Owner ) );

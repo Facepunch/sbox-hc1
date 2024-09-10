@@ -54,12 +54,12 @@ public partial class EquipmentResource : GameResource
 	/// If set, only this team can buy the equipment.
 	/// </summary>
 	[Category( "Base" )]
-	public Team Team { get; set; }
+	public TeamDefinition Team { get; set; }
 
 	/// <summary>
 	/// If false, only <see cref="Team"/> can pick up this equipment.
 	/// </summary>
-	[Category( "Base" ), HideIf( nameof(Team), Team.Unassigned )]
+	[Category( "Base" ), HideIf( nameof(Team), null )]
 	public bool CanOtherTeamPickUp { get; set; } = true;
 
 	/// <summary>
@@ -118,9 +118,9 @@ public partial class EquipmentResource : GameResource
 	[Category( "Damage" )]
 	public float? HelmetReduction { get; set; }
 
-	public bool IsPurchasableForTeam( Team team )
+	public bool IsPurchasableForTeam( TeamDefinition team )
 	{
-		return Team == Team.Unassigned || Team == team;
+		return Team is null || Team == team;
 	}
 
 	protected override void PostLoad()

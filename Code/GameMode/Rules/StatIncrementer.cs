@@ -17,7 +17,7 @@ public sealed class StatIncrementer : Component, IGameEventHandler<EnterStateEve
 	/// Which team are we sending this to?
 	/// </summary>
 	[Property]
-	public Team TeamFilter { get; set; }
+	public TeamDefinition TeamFilter { get; set; }
 
 	/// <summary>
 	/// The stat value we'll set
@@ -47,7 +47,7 @@ public sealed class StatIncrementer : Component, IGameEventHandler<EnterStateEve
 
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{
-		if ( TeamFilter != Team.Unassigned )
+		if ( TeamFilter is not null )
 		{
 			using ( Rpc.FilterInclude( GameUtils.GetPlayers( TeamFilter ).Select( x => x.Connection ) ) )
 			{

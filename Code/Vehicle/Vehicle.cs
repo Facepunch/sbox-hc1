@@ -1,14 +1,9 @@
 ﻿namespace Facepunch;
 
-public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITeam, IUse, IDescription, IDamageListener
+public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, IUse, IDescription, IDamageListener
 {
 	[Property, Group( "Components" )] public Rigidbody Rigidbody { get; set; }
 	[Property, Group( "Components" )] public ModelRenderer Model { get; set; }
-
-	/// <summary>
-	/// What team does this pawn belong to?
-	/// </summary>
-	public virtual Team Team { get; set; } = Team.Unassigned;
 
 	/// <summary>
 	/// An accessor for health component if we have one.
@@ -138,7 +133,7 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 
 	bool IMinimapElement.IsVisible( Pawn viewer )
 	{
-		return viewer.Team == Team;
+		return false;
 	}
 
 	public UseResult CanUse( PlayerPawn player )

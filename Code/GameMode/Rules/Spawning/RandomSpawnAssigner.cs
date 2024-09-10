@@ -83,7 +83,7 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 			.Select( x => x.Transform.World )
 			.ToArray();
 
-		var spawns = GameUtils.GetSpawnPoints( Team.Unassigned, SpawnTags.ToArray() )
+		var spawns = GameUtils.GetSpawnPoints( null, SpawnTags.ToArray() )
 			.Shuffle();
 
 		foreach ( var spawn in spawns )

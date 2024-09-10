@@ -20,7 +20,7 @@
                 var group = GroupedPlayers[i];
             }
 
-            @if ( group.Key == Team.Unassigned )
+            @if ( group.Key is null )
             {
                 <div class="flex gap-sm align-center">
                     <Icon file="/ui/teams/spectator.png" size="16" />
@@ -79,7 +79,7 @@
 
     public IEnumerable<PlayerState> PlayerStates => GameUtils.AllPlayers;
 
-    private List<IGrouping<Team, PlayerState>> GroupedPlayers
+    private List<IGrouping<TeamDefinition, PlayerState>> GroupedPlayers
     {
         get
         {

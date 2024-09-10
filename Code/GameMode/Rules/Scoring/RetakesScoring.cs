@@ -40,7 +40,7 @@ public sealed class IncreaseRetakesWins : Component,
 	/// Which team won?
 	/// </summary>
 	[Property]
-	public Team Team { get; set; }
+	public TeamDefinition Team { get; set; }
 
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
 	{

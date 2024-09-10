@@ -64,7 +64,8 @@ partial class PlayerPawn
 			}
 
 		}
-		else if ( Team == Team.Terrorist && GetZone<BombSite>() is not null )
+		// TODO: Tony: Restore
+		else if ( /*Team == Team.Terrorist &&*/ GetZone<BombSite>() is not null )
 		{
 			Inventory.SwitchToSlot( EquipmentSlot.Special );
 			return;

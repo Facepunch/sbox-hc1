@@ -39,7 +39,7 @@ public sealed class ResetBalance : Component,
 /// Event dispatched when a team is granted income.
 /// The income value can be modified by event handlers.
 /// </summary>
-public record TeamIncomeEvent( Team Team ) : IGameEvent
+public record TeamIncomeEvent( TeamDefinition Team ) : IGameEvent
 {
 	public int Value { get; set; }
 }
@@ -51,7 +51,7 @@ public sealed class GiveTeamIncome : Component,
 	IGameEventHandler<EnterStateEvent>
 {
 	[Property]
-	public Team Team { get; set; }
+	public TeamDefinition Team { get; set; }
 
 	[Property]
 	public int Value { get; set; } = 3250;
@@ -82,10 +82,10 @@ public sealed class LossBonus : Component,
 	public int ValuePerRound { get; set; } = 500;
 
 	[HostSync]
-	public NetDictionary<Team, int> CurrentLossBonus { get; private set; } = new();
+	public NetDictionary<TeamDefinition, int> CurrentLossBonus { get; private set; } = new();
 
 	[HostSync]
-	public Team LastWinningTeam { get; private set; }
+	public TeamDefinition LastWinningTeam { get; private set; }
 
 	void IGameEventHandler<TeamIncomeEvent>.OnGameEvent( TeamIncomeEvent eventArgs )
 	{
@@ -104,13 +104,13 @@ public sealed class LossBonus : Component,
 	void IGameEventHandler<ResetScoresEvent>.OnGameEvent( ResetScoresEvent eventArgs )
 	{
 		CurrentLossBonus.Clear();
-		LastWinningTeam = Team.Unassigned;
+		LastWinningTeam = null;
 	}
 
 	void IGameEventHandler<TeamsSwappedEvent>.OnGameEvent( TeamsSwappedEvent eventArgs )
 	{
 		CurrentLossBonus.Clear();
-		LastWinningTeam = Team.Unassigned;
+		LastWinningTeam = null;
 	}
 
 	void IGameEventHandler<TeamScoreIncrementedEvent>.OnGameEvent( TeamScoreIncrementedEvent eventArgs )

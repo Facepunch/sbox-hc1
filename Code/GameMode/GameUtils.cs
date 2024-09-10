@@ -20,7 +20,13 @@ public static partial class GameUtils
 	/// <summary>
 	/// Get all players on a team.
 	/// </summary>
-	public static IEnumerable<PlayerState> GetPlayers( Team team ) => AllPlayers.Where( x => x.Team == team );
+	public static IEnumerable<PlayerState> GetPlayers( TeamDefinition team ) => AllPlayers.Where( x => x.Team == team );
+
+	/// <summary>
+	/// Get unassigned players
+	/// </summary>
+	/// <returns></returns>
+	public static IEnumerable<PlayerState> GetUnasignedPlayers() => AllPlayers.Where( x => x.Team is null );
 
 	/// <summary>
 	/// Every <see cref="PlayerPawn"/> currently in the world.
@@ -30,7 +36,7 @@ public static partial class GameUtils
 	/// <summary>
 	/// Every <see cref="PlayerPawn"/> currently in the world, on the given team.
 	/// </summary>
-	public static IEnumerable<PlayerPawn> GetPlayerPawns( Team team ) => PlayerPawns.Where( x => x.Team == team );
+	public static IEnumerable<PlayerPawn> GetPlayerPawns( TeamDefinition team ) => PlayerPawns.Where( x => x.Team == team );
 
 	public static IDescription GetDescription( GameObject go ) => go?.Components.Get<IDescription>( FindMode.EverythingInSelfAndDescendants );
 	public static IDescription GetDescription( Component component ) => GetDescription( component?.GameObject );
@@ -38,7 +44,7 @@ public static partial class GameUtils
 	/// <summary>
 	/// Get all spawn point transforms for the given team.
 	/// </summary>
-	public static IEnumerable<SpawnPointInfo> GetSpawnPoints( Team team, params string[] tags ) => Game.ActiveScene
+	public static IEnumerable<SpawnPointInfo> GetSpawnPoints( TeamDefinition team, params string[] tags ) => Game.ActiveScene
 		.GetAllComponents<TeamSpawnPoint>()
 		.Where( x => x.Team == team )
 		.Where( x => tags.Length == 0 || tags.Any( x.Tags.Contains )  )
@@ -49,16 +55,11 @@ public static partial class GameUtils
 	/// <summary>
 	/// Pick a random spawn point for the given team.
 	/// </summary>
-	public static SpawnPointInfo GetRandomSpawnPoint( Team team, params string[] tags )
+	public static SpawnPointInfo GetRandomSpawnPoint( TeamDefinition team, params string[] tags )
 	{
 		return Random.Shared.FromArray( GetSpawnPoints( team, tags ).ToArray(),
 			new SpawnPointInfo( Transform.Zero, Array.Empty<string>() ) );
 	}
-
-	/// <summary>
-	/// Helper list of the two teams.
-	/// </summary>
-	public static IReadOnlyList<Team> Teams { get; } = new[] { Team.Terrorist, Team.CounterTerrorist };
 
 	/// <summary>
 	/// Get a player from a component that belongs to a player or their descendants.

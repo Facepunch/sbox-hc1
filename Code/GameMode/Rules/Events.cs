@@ -19,7 +19,7 @@ public record PlayerSpawnedEvent( PlayerPawn Player ) : IGameEvent;
 /// <summary>
 /// Called on the host when a player is assigned to a team.
 /// </summary>
-public record TeamAssignedEvent( PlayerState Player, Team Team ) : IGameEvent;
+public record TeamAssignedEvent( PlayerState Player, TeamDefinition Team ) : IGameEvent;
 
 /// <summary>
 /// Called on the host when all scores should be reset.

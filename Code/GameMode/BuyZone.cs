@@ -4,7 +4,7 @@ namespace Facepunch;
 internal class BuyZone : Component, IMinimapIcon, IMinimapVolume
 {
 	[Property]
-	public Team Team { get; set; }
+	public TeamDefinition Team { get; set; }
 
 	public Color Color => Team.GetColor().WithAlpha( 0.1f );
 	public Color LineColor => Team.GetColor().WithAlpha( 0.5f );

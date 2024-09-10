@@ -19,6 +19,8 @@ partial class DroppedEquipment : IMinimapIcon
 				return true;
 		}
 
-		return viewer.Team == Team.Terrorist;
+		// TODO: Restore
+		return false;
+		//return viewer.Team == Team.Terrorist;
 	}
 }

@@ -238,7 +238,8 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 
 	public UseResult CanUse( PlayerPawn player )
 	{
-		return !IsDefused && !DefusingPlayer.IsValid() && player.Team == Team.CounterTerrorist;
+		// TODO: Tony: Restore
+		return !IsDefused && !DefusingPlayer.IsValid() /*&& player.Team == Team.CounterTerrorist*/;
 	}
 
 	public void OnUse( PlayerPawn player )
@@ -252,6 +253,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 		if ( Spottable.IsSpotted )
 			return true;
 
-		return viewer.Team == Team.Terrorist;
+		// TODO: Tony: Restore
+		return /*viewer.Team == Team.Terrorist*/ true;
 	}
 }

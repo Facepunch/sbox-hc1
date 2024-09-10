@@ -30,9 +30,9 @@ public abstract class Pawn : Component, IRespawnable, ITeam
 	/// <summary>
 	/// What team does this pawn belong to?
 	/// </summary>
-	public virtual Team Team
+	public virtual TeamDefinition Team
 	{
-		get => PlayerState.IsValid() ? PlayerState.Team : Team.Unassigned;
+		get => PlayerState.IsValid() ? PlayerState.Team : null;
 		set
 		{
 			if ( !PlayerState.IsValid() )

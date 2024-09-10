@@ -27,7 +27,7 @@ public abstract class Respawner : Component,
 			if ( !player.IsConnected )
 				continue;
 
-			if ( !AllowSpectatorsToSpawn && player.Team == Team.Unassigned )
+			if ( !AllowSpectatorsToSpawn && player.Team is null )
 			{
 				// don't spawn these guys right now
 				return;

@@ -10,7 +10,7 @@
 
 @code
 {
-    public Team Team => ( PlayerState.Viewer.PlayerPawn )?.Team ?? Team.Unassigned;
+    public TeamDefinition Team => (PlayerState.Viewer.PlayerPawn)?.Team;
 
     protected override int BuildHash()
     {

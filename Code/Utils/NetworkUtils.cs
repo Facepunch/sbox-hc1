@@ -19,7 +19,7 @@ public partial class NetworkUtils
 	/// </summary>
 	/// <param name="team"></param>
 	/// <returns></returns>
-	public static IDisposable RpcTeam( Team team )
+	public static IDisposable RpcTeam( TeamDefinition team )
 	{
 		return Rpc.FilterInclude(
 			GameUtils.GetPlayers( team )

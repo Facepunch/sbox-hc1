@@ -40,7 +40,7 @@ public sealed class PlayRadio : Component,
 	public bool BothTeams { get; set; }
 
 	[Property, HideIf( nameof(BothTeams), true )]
-	public Team Team { get; set; } = Team.Terrorist;
+	public TeamDefinition Team { get; set; } = null;
 
 	[Property]
 	public RadioSound Sound { get; set; }
@@ -49,8 +49,10 @@ public sealed class PlayRadio : Component,
 	{
 		if ( BothTeams )
 		{
-			RadioSounds.Play( Team.Terrorist, Sound );
-			RadioSounds.Play( Team.CounterTerrorist, Sound );
+			foreach ( var team in TeamSetup.Instance.Teams )
+			{
+				RadioSounds.Play( team, Sound );
+			}
 		}
 		else
 		{

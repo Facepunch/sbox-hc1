@@ -353,7 +353,7 @@ public partial class PlayerInventory : Component
 
 	public PickupResult CanTake( EquipmentResource resource )
 	{
-		if ( resource.Team != Team.Unassigned
+		if ( resource.Team is not null
 			&& resource.Team != Player.Team
 			&& !resource.CanOtherTeamPickUp )
 		{

@@ -22,10 +22,10 @@ public sealed class TeamDeathmatchScoring : Component,
 		if ( killerPlayer.IsFriendly( victimPlayer ) )
 			return;
 
-		if ( killerPlayer.Team == Team.Unassigned )
+		if ( killerPlayer.Team is null )
 			return;
 
-		if ( victimPlayer.Team == Team.Unassigned )
+		if ( victimPlayer.Team is null )
 			return;
 
 		GameMode.Instance.Get<TeamScoring>()?.IncrementScore( killerPlayer.Team );

@@ -39,8 +39,8 @@
 
 @code
 {
-    private Team MyTeam => PlayerState.Local.Team;
-    private Team EnemyTeam => MyTeam.GetOpponents();
+    private TeamDefinition MyTeam => PlayerState.Local.Team;
+    private TeamDefinition EnemyTeam => MyTeam.GetOpponents();
 
     private string MyTeamScore { get; set; } = "0";
     private string EnemyTeamScore { get; set; } = "0";
@@ -78,7 +78,7 @@
         MyTeamPlayers.Clear();
         EnemyTeamPlayers.Clear();
 
-        if ( MyTeam == Team.Unassigned || EnemyTeam == Team.Unassigned )
+        if ( MyTeam is null || EnemyTeam is null )
             return;
 
         if ( GameMode.Instance?.Get<TeamScoring>() is { } teamScoring )

@@ -41,7 +41,7 @@ public sealed class RandomLoadoutAllocator : Component,
 	public class Loadout : IWeighted
 	{
 		[KeyProperty]
-		public Team Team { get; set; }
+		public TeamDefinition Team { get; set; }
 
 		[KeyProperty]
 		public string Title { get; set; } = "Unnamed";
@@ -82,7 +82,7 @@ public sealed class RandomLoadoutAllocator : Component,
 		{
 			++Players;
 
-			player.Inventory.HasDefuseKit = DefuseKit && player.Team == Team.CounterTerrorist;
+			player.Inventory.HasDefuseKit = DefuseKit && player.Team is not null && player.Team.Name == "Security";
 
 			player.ArmorComponent.HasHelmet = Helmet;
 			player.ArmorComponent.Armor = Armor;

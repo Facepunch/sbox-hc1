@@ -41,11 +41,6 @@ public partial class PlayerState : Component, ITeam
 	public string DisplayName => $"{name}{(!IsConnected ? " (Disconnected)" : "")}";
 
 	/// <summary>
-	/// Unique Ids of this player
-	/// </summary>
-	[RequireComponent] public PlayerId PlayerId { get; private set; }
-
-	/// <summary>
 	/// What's our loadout?
 	/// </summary>
 	[RequireComponent] public PlayerLoadout Loadout { get; private set; }
@@ -55,7 +50,7 @@ public partial class PlayerState : Component, ITeam
 	/// </summary>
 	[Property, Group( "Setup" ), HostSync, Change( nameof( OnTeamPropertyChanged ) )]
 	
-	public Team Team { get; set; }
+	public TeamDefinition Team { get; set; }
 
 	/// <summary>
 	/// Are we in the view of this player (clientside)
@@ -176,7 +171,7 @@ public partial class PlayerState : Component, ITeam
 		}
 	}
 
-	public void AssignTeam( Team team )
+	public void AssignTeam( TeamDefinition team )
 	{
 		if ( !Networking.IsHost )
 			return;
@@ -189,7 +184,7 @@ public partial class PlayerState : Component, ITeam
 	/// <summary>
 	/// Called when <see cref="Team"/> changes across the network.
 	/// </summary>
-	private void OnTeamPropertyChanged( Team before, Team after )
+	private void OnTeamPropertyChanged( TeamDefinition before, TeamDefinition after )
 	{
 		GameObject.Root.Dispatch( new TeamChangedEvent( before, after ) );
 

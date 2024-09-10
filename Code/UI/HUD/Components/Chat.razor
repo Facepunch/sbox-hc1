@@ -223,7 +223,7 @@
     {
         if ( IsProxy ) return;
 
-        if ( eventArgs.Team == Team.Unassigned )
+        if ( eventArgs.Team is null )
             AddSystemText( $"{eventArgs.Player.DisplayName} is spectating" );
         else
             AddSystemText( $"{eventArgs.Player.DisplayName} is joining the {eventArgs.Team.GetName()}" );
