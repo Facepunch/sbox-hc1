@@ -276,7 +276,27 @@
                   "component_id": "0b8d88b7-2fa4-4405-8896-36a411363e3a",
                   "go": "c8e58e7e-5e12-4067-8053-4f7bd98fb9f3",
                   "component_type": "StateComponent"
-                }
+                },
+                "VictoryStates": [
+                  {
+                    "Team": "prefabs/teams/anarchists.team",
+                    "State": {
+                      "_type": "component",
+                      "component_id": "0b8d88b7-2fa4-4405-8896-36a411363e3a",
+                      "go": "c8e58e7e-5e12-4067-8053-4f7bd98fb9f3",
+                      "component_type": "StateComponent"
+                    }
+                  },
+                  {
+                    "Team": "prefabs/teams/security.team",
+                    "State": {
+                      "_type": "component",
+                      "component_id": "fa9131b6-22be-4312-ae77-e3e7da7a7cf9",
+                      "go": "41dcf6fc-64e0-406a-badf-6b879c370c0b",
+                      "component_type": "StateComponent"
+                    }
+                  }
+                ]
               },
               {
                 "__type": "Facepunch.PlayerAutoRespawner",
@@ -316,19 +336,27 @@
                   {
                     "__type": "Facepunch.CompareTeamScores",
                     "__guid": "8e4fef47-033e-4a13-a3c8-7d2e4f18365f",
-                    "CounterTerroristVictoryState": {
-                      "_type": "component",
-                      "component_id": "fa9131b6-22be-4312-ae77-e3e7da7a7cf9",
-                      "go": "41dcf6fc-64e0-406a-badf-6b879c370c0b",
-                      "component_type": "StateComponent"
-                    },
                     "MinMargin": 1,
-                    "TerroristVictoryState": {
-                      "_type": "component",
-                      "component_id": "0b8d88b7-2fa4-4405-8896-36a411363e3a",
-                      "go": "c8e58e7e-5e12-4067-8053-4f7bd98fb9f3",
-                      "component_type": "StateComponent"
-                    }
+                    "VictoryStates": [
+                      {
+                        "Team": "prefabs/teams/security.team",
+                        "State": {
+                          "_type": "component",
+                          "component_id": "fa9131b6-22be-4312-ae77-e3e7da7a7cf9",
+                          "go": "41dcf6fc-64e0-406a-badf-6b879c370c0b",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "Team": "prefabs/teams/anarchists.team",
+                        "State": {
+                          "_type": "component",
+                          "component_id": "0b8d88b7-2fa4-4405-8896-36a411363e3a",
+                          "go": "c8e58e7e-5e12-4067-8053-4f7bd98fb9f3",
+                          "component_type": "StateComponent"
+                        }
+                      }
+                    ]
                   }
                 ]
               }

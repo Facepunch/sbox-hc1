@@ -2,6 +2,15 @@
 
 namespace Facepunch;
 
+public record TeamBasedState
+{
+	[KeyProperty]
+	public TeamDefinition Team { get; set; }
+
+	[KeyProperty]
+	public StateComponent State { get; set; }
+}
+
 /// <summary>
 /// Transition to the given state when one team's score reaches the given value.
 /// </summary>
@@ -28,7 +37,7 @@ public sealed class TeamEarlyWinCondition : Component,
 	public StateComponent CounterTerroristVictoryState { get; set; }
 
 	[Property]
-	public Dictionary<TeamDefinition, StateComponent> VictoryStates { get; set; }
+	public List<TeamBasedState> VictoryStates { get; set; }
 
 	[Property] public bool MatchPoint { get; set; } = true;
 
@@ -54,9 +63,12 @@ public sealed class TeamEarlyWinCondition : Component,
 	{
 		foreach ( var team in TeamSetup.Instance.Teams )
 		{
-			if ( GetWonRounds( team ) == TargetScore && VictoryStates.TryGetValue( team, out var state ) )
+			var victoryState = VictoryStates.FirstOrDefault( x => x.Team == team );
+			if ( victoryState is null ) continue;
+
+			if ( GetWonRounds( team ) == TargetScore )
 			{
-				GameMode.Instance.StateMachine.Transition( state );
+				GameMode.Instance.StateMachine.Transition( victoryState.State );
 				return;
 			}
 		}

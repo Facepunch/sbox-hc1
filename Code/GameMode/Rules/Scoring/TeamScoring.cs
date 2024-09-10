@@ -1,5 +1,6 @@
 ﻿using Facepunch.UI;
 using Sandbox.Events;
+using Sandbox.Utility;
 using System.Collections.Generic;
 
 namespace Facepunch;
@@ -107,27 +108,32 @@ public sealed class CompareTeamScores : Component,
 	public int MinMargin { get; set; } = 1;
 
 	[Property]
-	public StateComponent TerroristVictoryState { get; set; }
-
-	[Property]
-	public StateComponent CounterTerroristVictoryState { get; set; }
+	public List<TeamBasedState> VictoryStates { get; set; }
 
 	private void CheckScores()
 	{
 		var teamScoring = GameMode.Instance.Get<TeamScoring>( true );
+		var teamSetupTeams = TeamSetup.Instance.Teams;
 
-		// TODO: Fix me
-		//var tScore = teamScoring.Scores.GetValueOrDefault( Team.Terrorist );
-		//var ctScore = teamScoring.Scores.GetValueOrDefault( Team.CounterTerrorist );
+		if ( TeamSetup.Instance.Teams.Count() != 2 )
+		{
+			Log.Warning( "TeamScoring doesn't work for count above 2 right now" );
+			return;
+		}
 
-		//if ( tScore >= ctScore + MinMargin )
-		//{
-		//	GameMode.Instance.StateMachine.Transition( TerroristVictoryState );
-		//}
-		//else if ( ctScore >= tScore + MinMargin )
-		//{
-		//	GameMode.Instance.StateMachine.Transition( CounterTerroristVictoryState );
-		//}
+		var firstScore = teamScoring.Scores.GetValueOrDefault( teamSetupTeams[0] );
+		var secondScore = teamScoring.Scores.GetValueOrDefault( teamSetupTeams[1] );
+
+		if ( secondScore >= firstScore + MinMargin )
+		{
+			var x = VictoryStates.FirstOrDefault( x => x.Team == teamSetupTeams[0] );
+			GameMode.Instance.StateMachine.Transition( x.State );
+		}
+		else if ( firstScore >= secondScore + MinMargin )
+		{
+			var x = VictoryStates.FirstOrDefault( x => x.Team == teamSetupTeams[1] );
+			GameMode.Instance.StateMachine.Transition( x.State );
+		}
 	}
 
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
