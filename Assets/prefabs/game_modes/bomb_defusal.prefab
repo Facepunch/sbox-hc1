@@ -44,14 +44,14 @@
         "RefillAmmo": true,
         "TeamLoadouts": [
           {
-            "Team": "Terrorist",
+            "Team": "terrorist",
             "Equipment": [
               "weapons/usp/usp.equip",
               "weapons/knife/knife.equip"
             ]
           },
           {
-            "Team": "CounterTerrorist",
+            "Team": "counterterrorist",
             "Equipment": [
               "weapons/usp_sd/usp_sd.equip",
               "weapons/knife_bayonet/knife_bayonet.equip"
@@ -158,7 +158,7 @@
                 "__guid": "025a017a-a04a-48e7-80b0-20aa407a69b8",
                 "BothTeams": true,
                 "StatusText": "Waiting",
-                "Team": "Unassigned"
+                "Team": "unassigned"
               },
               {
                 "__type": "Facepunch.ShowCountDown",
@@ -210,7 +210,7 @@
                 "__guid": "a2c66f8c-58fb-476f-8a2a-b7bdc1c2c9f4",
                 "BothTeams": true,
                 "StatusText": "Starting",
-                "Team": "Unassigned"
+                "Team": "unassigned"
               },
               {
                 "__type": "Facepunch.ShowToast",
@@ -353,20 +353,28 @@
                   {
                     "__type": "Facepunch.TeamEarlyWinCondition",
                     "__guid": "d5c89b98-a4e2-4148-9890-4c6dcb56d60a",
-                    "CounterTerroristVictoryState": {
-                      "_type": "component",
-                      "component_id": "50a9dca5-4f8b-492d-b4d4-dbd144427728",
-                      "go": "de5f436b-72ea-4ae9-bcb9-99dbda4f990c",
-                      "component_type": "StateComponent"
-                    },
                     "MatchPoint": true,
                     "TargetScore": 13,
-                    "TerroristVictoryState": {
-                      "_type": "component",
-                      "component_id": "7fb24345-0d07-464c-9e13-968831fe9f9e",
-                      "go": "8482d1fc-90f5-44f8-b33f-fca078658077",
-                      "component_type": "StateComponent"
-                    }
+                    "VictoryStates": [
+                      {
+                        "Team": "prefabs/teams/anarchists.team",
+                        "State": {
+                          "_type": "component",
+                          "component_id": "7fb24345-0d07-464c-9e13-968831fe9f9e",
+                          "go": "8482d1fc-90f5-44f8-b33f-fca078658077",
+                          "component_type": "StateComponent"
+                        }
+                      },
+                      {
+                        "Team": "prefabs/teams/security.team",
+                        "State": {
+                          "_type": "component",
+                          "component_id": "50a9dca5-4f8b-492d-b4d4-dbd144427728",
+                          "go": "de5f436b-72ea-4ae9-bcb9-99dbda4f990c",
+                          "component_type": "StateComponent"
+                        }
+                      }
+                    ]
                   }
                 ],
                 "Children": [
@@ -420,7 +428,7 @@
                       {
                         "__type": "Facepunch.SpecialWeaponAllocator",
                         "__guid": "fa1b2714-75f6-4567-9c19-912127850841",
-                        "Team": "Terrorist",
+                        "Team": "prefabs/teams/anarchists.team",
                         "Weapon": "weapons/c4/c4.equip"
                       }
                     ]
@@ -452,7 +460,7 @@
                         "__guid": "cb568ad0-a5ea-471e-8a1c-186b7a6e4a17",
                         "BothTeams": true,
                         "StatusText": "Prepare",
-                        "Team": "Unassigned"
+                        "Team": "unassigned"
                       },
                       {
                         "__type": "Facepunch.FreezePlayers",
@@ -525,28 +533,27 @@
                         "__guid": "8fa8c162-65eb-40b3-918f-144e17e90978",
                         "BothTeams": false,
                         "StatusText": "Plant the Bomb",
-                        "Team": "Terrorist"
+                        "Team": "prefabs/teams/anarchists.team"
                       },
                       {
                         "__type": "Facepunch.ShowStatusText",
                         "__guid": "3bfa5bfa-222c-4b88-92b4-58c8b097c492",
                         "BothTeams": false,
                         "StatusText": "Defend",
-                        "Team": "CounterTerrorist"
+                        "Team": "prefabs/teams/security.team"
                       },
                       {
                         "__type": "Facepunch.ShowStatusText",
                         "__guid": "35583140-7654-4aba-a8e3-84e829282f6d",
                         "BothTeams": false,
-                        "StatusText": "In Progress",
-                        "Team": "Unassigned"
+                        "StatusText": "In Progress"
                       },
                       {
                         "__type": "Facepunch.PlayRadio",
                         "__guid": "369890a1-3d7f-431c-94d8-ae9367587cf1",
                         "BothTeams": true,
                         "Sound": "RoundStarted",
-                        "Team": "Terrorist"
+                        "Team": "terrorist"
                       },
                       {
                         "__type": "Facepunch.PlaySound",
@@ -625,7 +632,7 @@
                         "__guid": "77404e61-6aab-4f31-b216-2752c7c767c0",
                         "BothTeams": true,
                         "Sound": "BombPlanted",
-                        "Team": "Terrorist"
+                        "Team": "terrorist"
                       },
                       {
                         "__type": "Facepunch.PlayRadioOnKill",
@@ -650,28 +657,27 @@
                       {
                         "__type": "Facepunch.IncrementTeamScore",
                         "__guid": "438e2d35-d858-4a8b-967d-ddda466e9e92",
-                        "Team": "Terrorist"
+                        "Team": "prefabs/teams/anarchists.team"
                       },
                       {
                         "__type": "Facepunch.ShowStatusText",
                         "__guid": "1a8d535e-eb43-4044-9bb4-55666c89a752",
                         "BothTeams": false,
                         "StatusText": "Victory",
-                        "Team": "Terrorist"
+                        "Team": "prefabs/teams/anarchists.team"
                       },
                       {
                         "__type": "Facepunch.ShowStatusText",
                         "__guid": "6be94b5a-91f5-4576-b07a-ca143773d035",
                         "BothTeams": false,
                         "StatusText": "Defeat",
-                        "Team": "CounterTerrorist"
+                        "Team": "prefabs/teams/security.team"
                       },
                       {
                         "__type": "Facepunch.ShowStatusText",
                         "__guid": "1d2befa3-ad2f-4cc5-8a3d-2b6a6e9d5d74",
                         "BothTeams": false,
-                        "StatusText": "Round Over",
-                        "Team": "Unassigned"
+                        "StatusText": "Round Over"
                       }
                     ],
                     "Children": [
@@ -696,13 +702,13 @@
                           {
                             "__type": "Facepunch.GiveTeamIncome",
                             "__guid": "f4254054-0124-4bb0-a795-d7dd6187b665",
-                            "Team": "Terrorist",
+                            "Team": "prefabs/teams/anarchists.team",
                             "Value": 3250
                           },
                           {
                             "__type": "Facepunch.GiveTeamIncome",
                             "__guid": "d1721277-8f52-43e6-8706-6e58084a2d40",
-                            "Team": "CounterTerrorist",
+                            "Team": "prefabs/teams/security.team",
                             "Value": 1400
                           }
                         ]
@@ -728,13 +734,13 @@
                           {
                             "__type": "Facepunch.GiveTeamIncome",
                             "__guid": "0b470ea5-433f-4e86-954b-6eaf4e5daf35",
-                            "Team": "Terrorist",
+                            "Team": "prefabs/teams/anarchists.team",
                             "Value": 3500
                           },
                           {
                             "__type": "Facepunch.GiveTeamIncome",
                             "__guid": "17770cec-1343-4b87-bf5e-41eb641c70c3",
-                            "Team": "CounterTerrorist",
+                            "Team": "prefabs/teams/security.team",
                             "Value": 1400
                           }
                         ]
@@ -768,14 +774,14 @@
                             "__guid": "c7630538-0160-4d93-8c3a-6643524d8b39",
                             "BothTeams": false,
                             "Sound": "RoundWon",
-                            "Team": "Terrorist"
+                            "Team": "terrorist"
                           },
                           {
                             "__type": "Facepunch.PlayRadio",
                             "__guid": "fed1922f-4144-4ee2-a296-a3910253a101",
                             "BothTeams": false,
                             "Sound": "RoundLost",
-                            "Team": "CounterTerrorist"
+                            "Team": "counterterrorist"
                           }
                         ]
                       }
@@ -796,28 +802,28 @@
                       {
                         "__type": "Facepunch.IncrementTeamScore",
                         "__guid": "2b78331a-868e-4f99-b3fa-1fc8ff2034c1",
-                        "Team": "CounterTerrorist"
+                        "Team": "counterterrorist"
                       },
                       {
                         "__type": "Facepunch.ShowStatusText",
                         "__guid": "76cc6aa2-74e6-4a75-bcae-1ed029d6179e",
                         "BothTeams": false,
                         "StatusText": "Victory",
-                        "Team": "CounterTerrorist"
+                        "Team": "counterterrorist"
                       },
                       {
                         "__type": "Facepunch.ShowStatusText",
                         "__guid": "0c7baf15-3ff9-4f84-899f-9804bc7b5226",
                         "BothTeams": false,
                         "StatusText": "Defeat",
-                        "Team": "Terrorist"
+                        "Team": "terrorist"
                       },
                       {
                         "__type": "Facepunch.ShowStatusText",
                         "__guid": "8dbbbafb-a7ec-4140-88ae-29cf800f2bd7",
                         "BothTeams": false,
                         "StatusText": "Round Over",
-                        "Team": "Unassigned"
+                        "Team": "unassigned"
                       }
                     ],
                     "Children": [
@@ -842,13 +848,13 @@
                           {
                             "__type": "Facepunch.GiveTeamIncome",
                             "__guid": "e443653c-eae6-4e45-aac1-dad13ac2ad35",
-                            "Team": "CounterTerrorist",
+                            "Team": "counterterrorist",
                             "Value": 3250
                           },
                           {
                             "__type": "Facepunch.GiveTeamIncome",
                             "__guid": "75ef5955-5346-4233-a002-367e1dca71c1",
-                            "Team": "Terrorist",
+                            "Team": "terrorist",
                             "Value": 1400
                           }
                         ]
@@ -876,18 +882,18 @@
                             "__guid": "372309d2-b21e-49c5-91d5-b8087cd7a743",
                             "BothTeams": true,
                             "Sound": "BombDefused",
-                            "Team": "Terrorist"
+                            "Team": "terrorist"
                           },
                           {
                             "__type": "Facepunch.GiveTeamIncome",
                             "__guid": "af98f2ea-530a-45d7-a125-bb8e22014429",
-                            "Team": "CounterTerrorist",
+                            "Team": "counterterrorist",
                             "Value": 3500
                           },
                           {
                             "__type": "Facepunch.GiveTeamIncome",
                             "__guid": "f633c914-8fc0-4fa9-9bf3-14afc7b55c78",
-                            "Team": "Terrorist",
+                            "Team": "terrorist",
                             "Value": 2200
                           }
                         ]
@@ -921,14 +927,14 @@
                             "__guid": "63ac63f8-cd20-401f-8d73-4a13d738a793",
                             "BothTeams": false,
                             "Sound": "RoundWon",
-                            "Team": "CounterTerrorist"
+                            "Team": "counterterrorist"
                           },
                           {
                             "__type": "Facepunch.PlayRadio",
                             "__guid": "f8643bca-89bc-44f8-b645-9da4e855fde3",
                             "BothTeams": false,
                             "Sound": "RoundLost",
-                            "Team": "Terrorist"
+                            "Team": "terrorist"
                           }
                         ]
                       }
@@ -991,7 +997,7 @@
                     "__guid": "a389eb52-11f7-43a1-a605-82ff84f08afb",
                     "BothTeams": true,
                     "StatusText": "Half Time",
-                    "Team": "Unassigned"
+                    "Team": "unassigned"
                   },
                   {
                     "__type": "Facepunch.ShowToast",
@@ -1085,14 +1091,14 @@
                     "__guid": "5dfb1386-aad1-4901-b24a-293d3cfac60f",
                     "BothTeams": false,
                     "StatusText": "Victory",
-                    "Team": "CounterTerrorist"
+                    "Team": "counterterrorist"
                   },
                   {
                     "__type": "Facepunch.ShowStatusText",
                     "__guid": "5e9023d6-f4e5-435b-a805-1481593acfd2",
                     "BothTeams": false,
                     "StatusText": "Defeat",
-                    "Team": "Terrorist"
+                    "Team": "terrorist"
                   },
                   {
                     "__type": "Facepunch.StatIncrementer",
@@ -1100,7 +1106,7 @@
                     "Amount": 0,
                     "SendExtraGameModeStat": false,
                     "StatName": "wins",
-                    "TeamFilter": "CounterTerrorist"
+                    "TeamFilter": "counterterrorist"
                   }
                 ]
               },
@@ -1127,14 +1133,14 @@
                     "__guid": "c3b437df-9396-434e-90be-11b99ef6f0c5",
                     "BothTeams": false,
                     "StatusText": "Victory",
-                    "Team": "Terrorist"
+                    "Team": "terrorist"
                   },
                   {
                     "__type": "Facepunch.ShowStatusText",
                     "__guid": "01e48aeb-9352-4716-ad31-3833d2f5ccef",
                     "BothTeams": false,
                     "StatusText": "Defeat",
-                    "Team": "CounterTerrorist"
+                    "Team": "counterterrorist"
                   },
                   {
                     "__type": "Facepunch.StatIncrementer",
@@ -1142,7 +1148,7 @@
                     "Amount": 0,
                     "SendExtraGameModeStat": false,
                     "StatName": "wins",
-                    "TeamFilter": "Terrorist"
+                    "TeamFilter": "terrorist"
                   }
                 ]
               }

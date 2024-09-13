@@ -24,18 +24,6 @@ public sealed class TeamEarlyWinCondition : Component,
 	[Property, HostSync]
 	public int TargetScore { get; set; } = 16;
 
-	/// <summary>
-	/// Transition to this state when <see cref="Team.Terrorist"/> reaches the target score.
-	/// </summary>
-	[Property]
-	public StateComponent TerroristVictoryState { get; set; }
-
-	/// <summary>
-	/// Transition to this state when <see cref="Team.CounterTerrorist"/> reaches the target score.
-	/// </summary>
-	[Property]
-	public StateComponent CounterTerroristVictoryState { get; set; }
-
 	[Property]
 	public List<TeamBasedState> VictoryStates { get; set; }
 
