@@ -19,23 +19,23 @@ public sealed class WeaponStatsRule : Component,
 		{
 			using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
 			{
-				SendKillStat( wpn.Resource.ResourcePath, eventArgs.DamageInfo.Hitbox );
+				SendKillStat( wpn.Resource.ResourcePath, eventArgs.DamageInfo.Hitbox, eventArgs.DamageInfo.Flags );
 			}
 		}
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
-	private void SendKillStat( string resourcePath, HitboxTags hitbox = default )
+	private void SendKillStat( string resourcePath, HitboxTags hitbox = default, DamageFlags flags = default )
 	{
 		var resource = ResourceLibrary.Get<EquipmentResource>( resourcePath );
 		if ( resource is not null )
 		{
 			if ( hitbox == HitboxTags.Head )
 			{
-				WeaponStats.Increment( "kills-headshots", resource );
+				WeaponStats.Increment( "kills-headshots", resource, flags );
 			}
 
-			WeaponStats.Increment( "kills", resource );
+			WeaponStats.Increment( "kills", resource, flags );
 		}
 	}
 }
