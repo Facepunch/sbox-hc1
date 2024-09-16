@@ -84,7 +84,12 @@ SettingEntry
 {
     width: 448px;
     justify-content: space-between;
-    flex-direction: column;
+    flex-direction: row;
+
+    .grow 
+    {
+        flex-grow: 1;
+    }
 
     .icon
     {
@@ -196,7 +201,7 @@ SettingEntry
         > .track
         {
             background-color: rgba( white, 0.05 );
-            height: 2px;
+            height: 8px;
             margin: 8px;
             align-items: center;
 
@@ -211,8 +216,8 @@ SettingEntry
             > .thumb
             {
                 background-color: white;
-                width: 2px;
-                height: 2px;
+                width: 8px;
+                height: 8px;
                 transform: translateX( -50% );
             }
         }

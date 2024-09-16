@@ -11,21 +11,20 @@
     }
 </style>
 
-<root class="">
+<root class="border-bottom">
     @if ( Description is not null )
     {
         @if ( Description.PropertyType == typeof( float ) || Description.PropertyType == typeof( int ) )
         {
-            <div class="with-background with-padding border-bottom">
+            <div class="with-padding">
                 <label class="name">@Description.Title</label>
                 <div class="grow" />
-                <div class="value-area">@Value</div>
             </div>
 
-            <div class="control with-background">
+            <div class="control">
                 @if ( Range is not null )
                 {
-                    <CustomSlider class="devslider" Value:bind=@Value Min=@Range.Min Max=@Range.Max Step=@Range.Step ShowTextEntry="@false" />
+                    <CustomSlider style="width: 250px;" class="devslider" Value:bind=@Value Min=@Range.Min Max=@Range.Max Step=@Range.Step ShowTextEntry="@false" />
                 }
                 else
                 {
@@ -35,7 +34,7 @@
         }
         else if ( Description.PropertyType == typeof( bool ) )
         {
-            <div class="with-background with-padding border-bottom">
+            <div class="with-padding border-bottom grow">
                 <label class="name">@Description.Title</label>
                 <div class="grow" />
                 <Checkbox Value:bind=@Value />
@@ -44,11 +43,7 @@
         else if ( Description.PropertyType == typeof( Color ) ) 
         {
             <div class="with-background with-padding border-bottom">
-                <label class="name">@Description.Title</label>
-                <div class="grow" />
-                <div class="value-area">
-                    <div class="box" style="background-color: @Value; border-radius: 100px; border: 1px solid white;"/>
-                </div>
+                <label class="name" style="min-width: 64px;">@Description.Title</label>
             </div>
 
             <div class="control with-background layout column">
