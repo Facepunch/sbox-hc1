@@ -15,7 +15,7 @@
         <Body>
             <div class="layout column">
                 <div class="inset column layout with-background">
-                    <div class="line" />
+                    <VerticalDivider />
 
                     <div class="layout padding-extra with-gap column">
                         <label class="text">Map</label>
@@ -29,15 +29,15 @@
                         <GameModeList SelectedGameMode:bind=@SelectedGameMode @ref="GameModeList" />
                     </div>
 
-                    <div class="line" />
+                    <VerticalDivider />
                 </div>
             </div>
         </Body>
 
-        <SubFooter>
+        <Footer>
             <div class="button standard action" onclick=@Join>start game</div>
             <a class="button standard" href="/lobbies">Server List</a>
-        </SubFooter>
+        </Footer>
     </Page>
 
 </root>

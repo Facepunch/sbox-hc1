@@ -8,12 +8,17 @@
     <Page>
         <Body>
             <div class="inset column layout with-background" style="width: 15%;">
-                <div class="line" />
+                <VerticalDivider />
                 <div class="layout padding-extra with-gap column">
                     <button class="button standard" onclick=@(()=>GameUtils.ReturnToMainMenu())><i>play_circle_outline</i>Disconnect</button>
+
+                    <div class="button standard" onclick=@(()=>Quit())>
+                        <i>power_settings_new</i>
+                        Quit
+                    </div>
                 </div>
 
-                <div class="line" />
+                <VerticalDivider />
             </div>
         </Body>
     </Page>
@@ -21,4 +26,8 @@
 
 @code
 {
+    void Quit()
+    {
+        Game.Close();
+    }
 }

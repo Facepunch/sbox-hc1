@@ -22,7 +22,7 @@
         <Body>
             <div class="layout column">
                 <div class="layout padding-insane-x with-scroll column">
-                    <div class="line" />
+                    <VerticalDivider />
 
                     <div class="column with-bg layout padding-extra with-gap">
                         @if ( !string.IsNullOrEmpty( SelectedGroup ) )
@@ -34,17 +34,17 @@
                         }
                     </div>
 
-                    <div class="line" />
+                    <VerticalDivider />
                 </div>
             </div>
         </Body>
 
-        <SubFooter>
+        <Footer>
             <div class="button standard" onclick=@(() => Game.Overlay.ShowBinds())>
                 EDIT INPUT BINDINGS
             </div>
             <button class="button standard" onclick=@(()=>Save())>Save</button>
-        </SubFooter>
+        </Footer>
     </Page>
 </root>
 

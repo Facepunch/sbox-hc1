@@ -17,11 +17,11 @@
             </div>
         </Body>
 
-        <SubFooter>
+        <Footer>
             <div class="button standard" onclick=@(() => Refresh())>refresh</div>
             <div class="button standard @(Lobby.HasValue ? "" : "no-anim disabled")" onclick=@(() => Join())>Connect</div>
             <a class="button standard" href="/new">Create Game</a>
-        </SubFooter>
+        </Footer>
     </Page>
 </root>
 

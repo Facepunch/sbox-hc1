@@ -8,14 +8,23 @@
     <Page>
         <Body>
             <div class="inset column layout with-background line-left" style="width: 15%;">
-                <div class="line invert" />
+                <VerticalDivider />
                 <div class="layout padding-extra with-gap column">
                     <a class="button standard" href="/new"><i>play_circle_outline</i> Create Game</a>
-                    <a class="button standard" href="/career"><i>assessment</i> Career</a>
-                    <a class="button standard" href="/lobbies"><i>dns</i> Server List</a>
-                </div>
+                    <a class="button standard" href="/career"><i>assessment</i> Progression</a>
+                    <a class="button standard" href="/lobbies"><i>dns</i> Session List</a>
 
-                <div class="line invert" />
+                    <a class="button standard" href="/settings">
+                        <i>settings</i>
+                        Settings
+                    </a>
+
+                    <div class="button standard" onclick=@(()=>Quit())>
+                        <i>power_settings_new</i>
+                        Quit
+                    </div>
+                </div>
+                <VerticalDivider />
             </div>
         </Body>
     </Page>

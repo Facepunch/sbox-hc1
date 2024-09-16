@@ -6,9 +6,9 @@
 @attribute [StyleSheet]
 
 <root>
-    <div class="header">
-        <div class="row with-bg">
-            <div class="row inset grow">
+    <div class="header inset-top">
+        <div class="row">
+            <div class="row inset inset-top grow">
                 <div class="logo">
                     <img src="/ui/teams/operators_logo_banner.png" />
                 </div>
@@ -19,30 +19,16 @@
                         @Header
                     }
                 </div>
-
-                <div class="grow" />
-
-                <div class="row layout with-gap with-padding">
-                    <a class="button standard" href="/settings">
-                        <i>settings</i>
-                        Settings
-                    </a>
-
-                    <div class="button standard" onclick=@(()=>Quit())>
-                        <i>power_settings_new</i>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
     @if (SubHeader != null)
     {
-        <div class="subheader">
-            <div class="row inset grow with-padding">
+        <div class="subheader inset">
+            <div class="row with-padding">
                 @SubHeader
             </div>
-            <div class="line fade" />
         </div>
     }
 
@@ -54,93 +40,68 @@
     </div>
 
 
-    @if (SubFooter != null)
-    {
-        <div class="subfooter">
-            <div class="line fade" />
-            <div class="row inset grow with-padding">
-                @SubFooter
-            </div>
-        </div>
-    }
+    <div class="footer" style="background-color: rgba( black, 0.25 ); padding-bottom: 16px;">
+         <div class="row grow inset">
+            <VerticalDivider Gradient=@true />
+         </div>
 
-    <div class="footer">
-        <div class="row with-bg">
-            <div class="row inset grow with-gap with-padding">
+        <div class="column inset grow with-padding with-gap">
+            <div class="row">
+                <div class="row grow with-gap">
 
-                @if ( !NoHomeButton )
-                {
-                    <a class="button standard">
-                        <i>home</i>
-                    </a>
-                }
-
-                
-                @if ( !NoSocial )
-                {
-                    @if ( Party is not null )
+                    @if ( !NoHomeButton )
                     {
-                        <div class="button standard" onclick=@(() => LeaveParty())>
-                            <i>logout</i>
-                            Leave Party
-                        </div>
+                        <a class="button standard">
+                            <i>home</i>
+                        </a>
                     }
-                }
 
-                <div class="grow">
-                </div>
 
-                <div class="party-deck layout with-gap">
-                    @if ( Party is null )
+                    @if (Footer != null)
                     {
-                        <div class="button standard">
-                            <i class="is-me">visibility</i>
-                            <label class="is-me">@Steam.PersonaName</label>
-                        </div>
-
-                        @if ( !NoSocial )
-                        {
-                            <div class="button standard" onclick=@(() => InviteOverlay())>
-                                <i>person_add_alt</i>
-                            </div>
-                        }
+                        @Footer
                     }
-                    else
-                    {
 
-                        @if (!NoSocial)
+                    <div class="grow">
+                    </div>
+
+                    <div class="party-deck layout with-gap">
+                        @if ( Party is null )
                         {
-                            <div class="button standard" onclick=@(() => InviteOverlay())>
-                                <i>person_add_alt</i>
-                            </div>
+                            @if ( !NoSocial )
+                            {
+                                <div class="button standard" onclick=@(() => InviteOverlay())>
+                                    <i>person_add_alt</i>
+                                </div>
+                            }
                         }
-
-                        @foreach ( var member in Party.Members )
+                        else
                         {
-                            @{
-                                var isMe = member.IsMe;
-                                var isMeStr = isMe ? "is-me" : "";
+                            @if (!NoSocial)
+                            {
+                                <div class="button standard" onclick=@(() => InviteOverlay())>
+                                    <i>person_add_alt</i>
+                                </div>
                             }
 
-                            <div class="button standard">
-                                <i class="@isMeStr">visibility</i>
-                                <label class="@isMeStr">@member.Name</label>
-
-                                @if ( !NoSocial )
-                                {
-                                    <label class="absolute ready-status small slight">
-                                        Ready
-                                    </label>
+                            @foreach ( var member in Party.Members )
+                            {
+                                @{
+                                    var isMe = member.IsMe;
+                                    var isMeStr = isMe ? "is-me" : "";
                                 }
-                            </div>
-                        }
-                    }
-                </div>
 
-                @if (Footer != null)
-                {
-                    @Footer
-                }
+                                @if ( isMe )
+                                    continue;
+
+                                <div class="button standard">
+                                    <i class="@isMeStr">visibility</i>
+                                    <label class="@isMeStr">@member.Name</label>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -152,7 +113,6 @@
     public RenderFragment SubHeader { get; set; }
     public RenderFragment Body { get; set; }
     public RenderFragment Footer { get; set; }
-    public RenderFragment SubFooter { get; set; }
 
     public bool NoHomeButton { get; set; }
     public bool NoSocial { get; set; }

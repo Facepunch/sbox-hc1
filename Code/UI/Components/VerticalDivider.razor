@@ -1,0 +1,48 @@
+@namespace Facepunch.UI
+@inherits Panel
+
+<style>
+    VerticalDivider
+    {
+        flex-grow: 1;
+        height: 2px;
+        gap: 10px;
+        align-items: center;
+
+        .marker
+        {
+            height: 1px;
+            width: 24px;
+            flex-shrink: 0;
+
+            &.grow {
+                flex-shrink: 1;
+                flex-grow: 1;
+            }
+
+            background-image: linear-gradient( grey, grey );
+
+            &.gradient 
+            {
+                height: 2px;
+                background-image: linear-gradient( to right, white, rgba( white, 0 ), white );
+            }
+
+            &.main {
+                height: 2px;
+                background-image: linear-gradient( white, white );
+            }
+        }
+    }
+</style>
+
+<root>
+    <div class="marker" />
+    <div class="marker grow @(Gradient ? "gradient" : "main")" />
+    <div class="marker" />
+</root>
+
+@code
+{
+    public bool Gradient { get; set; } = false;
+}
