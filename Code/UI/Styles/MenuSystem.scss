@@ -39,6 +39,10 @@ MainMenuRoot, PauseMenuRoot
         width: 100%;
         height: 100%;
         background-image: radial-gradient( rgba( black, 0 ), black 65%, black );
+
+        &.blur {
+            backdrop-filter: blur( 10px );
+        }
     }
 
     > .navigator-canvas
@@ -82,7 +86,6 @@ MainMenuRoot, PauseMenuRoot
 
 SettingEntry
 {
-    width: 448px;
     justify-content: space-between;
     flex-direction: row;
 

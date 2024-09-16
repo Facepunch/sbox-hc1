@@ -42,18 +42,18 @@
         }
         else if ( Description.PropertyType == typeof( Color ) ) 
         {
-            <div class="with-background with-padding border-bottom">
+            <div class="with-padding border-bottom">
                 <label class="name" style="min-width: 64px;">@Description.Title</label>
             </div>
 
-            <div class="control with-background layout column">
+            <div class="control layout column">
                 <ColorPicker Value:bind="@Value" />
             </div>
         }
     }
     else
     {
-        <div class="with-background with-padding border-bottom">
+        <div class="with-padding border-bottom">
             <label class="name">@Description.Title</label>
             <div class="grow" />
             <div class="value-area">@Value</div>

@@ -53,4 +53,20 @@
 			Log.Info( "joined lobby!" );
 		}
     }
+
+    public void OnNavigationOpen()
+    {
+        if ( MainMenuRoot.Instance.IsValid() )
+        {
+            MainMenuRoot.Instance.SetBlur( true );
+        }
+    }
+    
+    public void OnNavigationClose() 
+    {
+        if ( MainMenuRoot.Instance.IsValid() )
+        {
+            MainMenuRoot.Instance.SetBlur( false );
+        }
+    }
 }

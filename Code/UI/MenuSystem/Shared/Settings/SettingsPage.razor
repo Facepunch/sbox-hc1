@@ -4,23 +4,24 @@
 @implements INavigatorPage
 @namespace Facepunch.UI
 
-<root class="hc1">
+<root class="hc1 blur">
     <Page>
         <Header>
             <div class="row gap align-center layout grow">
                 <label>Settings</label>
             </div>
         </Header>
-
-        <SubHeader>
-            @foreach (var grouping in TypeLibrary.GetPropertyDescriptions(GameSettingsSystem.Current).GroupBy(x => x.Group))
-            {
-                <div class="button standard smaller no-anim extra-x-padding @(SelectedGroup == grouping.Key ? "selected" : "")" onclick=@(() => SetGroup( grouping.Key ) )>@grouping.Key</div>
-            }
-        </SubHeader>
-
         <Body>
-            <div class="layout column">
+            <div style="height: 18%;"/>
+
+            <div class="layout column gap">
+                <div class="layout row inset">
+                    @foreach (var grouping in TypeLibrary.GetPropertyDescriptions(GameSettingsSystem.Current).GroupBy(x => x.Group))
+                    {
+                        <div class="button standard smaller no-anim extra-x-padding @(SelectedGroup == grouping.Key ? "selected" : "")" onclick=@(() => SetGroup( grouping.Key ) )>@grouping.Key</div>
+                    }
+                </div>
+
                 <div class="layout padding-insane-x with-scroll column">
                     <VerticalDivider />
 
@@ -37,6 +38,8 @@
                     <VerticalDivider />
                 </div>
             </div>
+
+            <div class="grow" />
         </Body>
 
         <Footer>
@@ -71,5 +74,21 @@
     void Save()
     {
         GameSettingsSystem.Save();
+    }
+
+    public void OnNavigationOpen()
+    {
+        if ( MainMenuRoot.Instance.IsValid() )
+        {
+            MainMenuRoot.Instance.SetBlur( true );
+        }
+    }
+    
+    public void OnNavigationClose() 
+    {
+        if ( MainMenuRoot.Instance.IsValid() )
+        {
+            MainMenuRoot.Instance.SetBlur( false );
+        }
     }
 }
