@@ -1,3 +1,4 @@
+using Sandbox.Audio;
 using Sandbox.Events;
 
 namespace Facepunch;
