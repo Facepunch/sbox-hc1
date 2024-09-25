@@ -13,23 +13,20 @@
         </Header>
 
         <Body>
-            <div class="layout column">
-                <div class="inset column layout with-background">
-                    <VerticalDivider />
+            <div class="layout row">
+                <div class="inset column layout">
 
-                    <div class="layout padding-extra with-gap column">
+                    <div class="layout padding with-gap column">
                         <label class="text">Map</label>
                         <MapList SelectedMap:bind=@SelectedMap GameMode:bind=@SelectedGameMode OnSelected=@OnMapSelected />
                     </div>
                 </div>
 
-                <div class="inset column layout with-background">
-                    <div class="layout padding-extra with-gap column">
+                <div class="inset column layout grow">
+                    <div class="layout padding with-gap column grow">
                         <label class="text">Game mode</label>
                         <GameModeList SelectedGameMode:bind=@SelectedGameMode @ref="GameModeList" />
                     </div>
-
-                    <VerticalDivider />
                 </div>
             </div>
         </Body>

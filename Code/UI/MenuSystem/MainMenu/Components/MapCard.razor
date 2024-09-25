@@ -1,14 +1,13 @@
 @namespace Facepunch.UI
 @attribute [StyleSheet]
 
-<root class="@(Selected ? "selected" : "")" style="padding: 8px;">
-    <div class="header">
-        <label class="emphasis">@Map.Title</label>
-    </div>
-
+<root class="@(Selected ? "selected" : "")">
     <div class="background" style="background-image: url( @Map.Background )">
         <div class="grow" />
-        <label class="emphasis" style="color: white;">@Map.Description</label>
+    </div>
+
+    <div class="header">
+        <label class="emphasis">@Map.Title</label>
     </div>
 </root>
 
