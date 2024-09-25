@@ -52,7 +52,7 @@
 
             @if ( SelectedMap is not null && SelectedGameMode is not null )
             {
-                <div class="button standard">
+                <div class="button standard action" onclick=@Join>
                     <label>Start</label>
                     <label class="emphasis slight" style="height: 30px;">@SelectedGameMode.Title</label>
                     <label>on</label>
