@@ -25,6 +25,27 @@ partial class GameMode
 		return list;
 	}
 
+	public static IReadOnlyList<GameModeInfo> AllUnique
+	{
+		get
+		{
+			var list = new HashSet<GameModeInfo>();
+			var scenes = ResourceLibrary.GetAll<MapDefinition>().Select( x => x.SceneFile );
+
+			foreach ( var scene in scenes )
+			{
+				var modes = GetAll( scene );
+				foreach ( var mode in modes )
+				{
+					list.Add( mode );
+				}
+			}
+
+			return list.ToList()
+				.AsReadOnly();
+		}
+	}
+
 	private static void GetAll( JsonObject go, string path, List<GameModeInfo> infos )
 	{
 		if ( !go.TryGetPropertyValue( "Enabled", out var enabledNode ) || enabledNode?.GetValue<bool>() is not true )
