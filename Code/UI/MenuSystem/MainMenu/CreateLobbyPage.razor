@@ -6,37 +6,61 @@
 @implements INavigatorPage
 @namespace Facepunch.UI
 
-<root class="hc1">
-    <Page>
-        <Header>
-            Create a Game
-        </Header>
-
+<root class="hc1 blur">
+        <Page>
+            <Header>
+                <div class="row gap align-center layout grow">
+                    <label>Play Game</label>
+                </div>
+            </Header>
         <Body>
-            <div class="layout row">
-                <div class="inset column layout">
+            <div style="height: 23%;"/>
 
-                    <div class="layout padding with-gap column">
-                        <label class="text">Map</label>
-                        <MapList SelectedMap:bind=@SelectedMap GameMode:bind=@SelectedGameMode OnSelected=@OnMapSelected />
-                    </div>
+            <div class="layout column gap">
+                <div class="layout row inset">
+                    @foreach (var mode in GameMode.AllUnique )
+                    {
+                        <div class="button standard smaller no-anim extra-x-padding @(SelectedGameMode == mode ? "selected" : "")" onclick=@(() => SetMode( mode ) )>@mode.Title</div>
+                    }
                 </div>
 
-                <div class="inset column layout grow">
-                    <div class="layout padding with-gap column grow">
-                        <label class="text">Game mode</label>
-                        <GameModeList SelectedGameMode:bind=@SelectedGameMode @ref="GameModeList" />
+                <div class="layout padding-insane-x with-scroll column">
+                    <VerticalDivider />
+
+                    <div class="row with-bg layout padding-extra with-gap">
+                        @if ( SelectedGameMode is not null )
+                        {
+                            @foreach ( var map in ResourceLibrary.GetAll<MapDefinition>().Where( x => x.IsEnabled ) )
+                            {
+                                @if ( GameMode.GetAll( map.SceneFile ).Contains( SelectedGameMode ) )
+                                {
+                                    <MapCard Map=@map Selected=@( SelectedMap == map ) OnSelected=@SetMap />
+                                }
+                            }
+                        }
                     </div>
+
+                    <VerticalDivider />
                 </div>
             </div>
+
+            <div class="grow" />
         </Body>
 
         <Footer>
-            <div class="button standard action" onclick=@Join>start game</div>
-            <a class="button standard" href="/lobbies">Server List</a>
+            <div class="grow" />
+
+            @if ( SelectedMap is not null && SelectedGameMode is not null )
+            {
+                <div class="button standard">
+                    <label>Start</label>
+                    <label class="emphasis slight" style="height: 30px;">@SelectedGameMode.Title</label>
+                    <label>on</label>
+                    <label class="emphasis slight" style="height: 30px;">@SelectedMap.Title</label>
+                </div>
+            }
         </Footer>
     </Page>
-
 </root>
 
 @code
@@ -46,10 +70,18 @@
 
     public GameModeList GameModeList { get; set; }
 
-    public void OnMapSelected( MapDefinition map )
+    private void SetMap( MapDefinition map )
     {
-        GameModeList.Filter( map );
-        SelectedGameMode = GameModeList.GameModes.FirstOrDefault();
+        SelectedMap = map;
+        StateHasChanged();
+    }
+
+
+    private void SetMode( GameModeInfo mode )
+    {
+        SelectedGameMode = mode;
+        SelectedMap = null;
+        StateHasChanged();
     }
 
     protected override void OnAfterTreeRender( bool firstTime )
@@ -59,7 +91,6 @@
 
         SelectedMap = MapSystem.All.FirstOrDefault();
         SelectedGameMode = GameMode.GetAll( SelectedMap.SceneFile ).FirstOrDefault();
-        GameModeList.Filter( SelectedMap );
     }
 
     private void Join()
