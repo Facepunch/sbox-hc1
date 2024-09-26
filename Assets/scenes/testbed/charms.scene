@@ -1,0 +1,259 @@
+{
+  "__guid": "2b886422-b90d-490b-b4c1-5990e1b9958f",
+  "GameObjects": [
+    {
+      "__guid": "2e52cfaa-9dfb-4e71-8a2b-2663ebad009f",
+      "Flags": 0,
+      "Name": "Main Camera",
+      "Position": "-32,0,5.780222",
+      "Rotation": "0,0,0.07789914,0.9969612",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "6cc97827-13be-4448-b091-4c0455fb41f0",
+          "BackgroundColor": "0.22791,0.22791,0.22791,1",
+          "ClearFlags": "All",
+          "FieldOfView": 40,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        }
+      ]
+    },
+    {
+      "__guid": "1324606d-8d39-4bb2-9ab6-e2d364a4ef7e",
+      "Flags": 0,
+      "Name": "Directional Light",
+      "Position": "-50.55969,33.52413,25.63592",
+      "Rotation": "0.03774221,0.1624435,-0.2231431,0.9604139",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "2851a25f-a0ba-4491-8470-71210f07ab8a",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Shadows": true,
+          "SkyColor": "0,0,0,0"
+        }
+      ]
+    },
+    {
+      "__guid": "b5223146-4608-4e47-a8cc-0d6e96caeb61",
+      "Flags": 0,
+      "Name": "2D Skybox",
+      "Tags": "skybox",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkyBox2D",
+          "__guid": "25185b75-6665-4ce7-953b-7eca77a535a8",
+          "SkyMaterial": "materials/sky/atmosphere_sky.vmat",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "35a4b0e9-9c6b-403d-b399-c7de488df3c6",
+      "Flags": 0,
+      "Name": "Gradient Fog",
+      "Position": "-253.5244,100.7594,100.1523",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.GradientFog",
+          "__guid": "d321df08-69c7-4f5b-aac8-293361a27eab",
+          "Color": "0.88837,0.71152,0.44625,1",
+          "EndDistance": 16384,
+          "FalloffExponent": 1,
+          "Height": 128,
+          "StartDistance": 8192,
+          "VerticalFalloffExponent": 2
+        }
+      ]
+    },
+    {
+      "__guid": "bd36b81e-80c4-4cf4-adf5-7da43efdd784",
+      "Flags": 0,
+      "Name": "Envmap Probe",
+      "Position": "-244.1031,126.1214,23.43188",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.EnvmapProbe",
+          "__guid": "88f1c6ad-51b0-4f22-b1aa-56b3330a2668",
+          "Bounds": {
+            "Mins": "-1000,-1000,-1000",
+            "Maxs": "1000,1000,1000"
+          },
+          "DelayBetweenUpdates": 0.1,
+          "Feathering": 0.02,
+          "FrameInterval": 5,
+          "MaxDistance": 512,
+          "MultiBounce": false,
+          "Projection": "Box",
+          "RenderDynamically": true,
+          "TintColor": "1,1,1,1",
+          "UpdateStrategy": "FrameInterval",
+          "ZFar": 4096,
+          "ZNear": 16
+        }
+      ]
+    },
+    {
+      "__guid": "3e1328dc-a87c-400f-b356-7d2b91e00159",
+      "Flags": 0,
+      "Name": "M4A1",
+      "Position": "-0.2133975,4.497255,-0.000005642903",
+      "Rotation": "0,0,0.4247295,0.9053203",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "37285c5a-98b2-4926-bab2-2641aefe74f9",
+          "BodyGroups": 42259,
+          "Model": "models/weapons/sbox_assault_m4a1/v_m4a1.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "e2ab1f2a-ed27-4f2f-8b15-d67255b2a64e",
+          "Flags": 0,
+          "Name": "Charm Attachment Point",
+          "Position": "0,0,6.05858",
+          "Enabled": true,
+          "Children": [
+            {
+              "__guid": "26bf7fa1-3272-4c0a-9379-86bb2c5de880",
+              "Flags": 0,
+              "Name": "Base",
+              "Position": "2.503659,0.6274924,0.4069963",
+              "Scale": "0.02,0.01,0.02",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "263c7e81-a211-4f30-a58f-78f3aaf1556c",
+                  "BodyGroups": 18446744073709551615,
+                  "Model": "models/dev/box.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,1"
+                }
+              ]
+            },
+            {
+              "__guid": "b4f6ca25-f0e2-4d8a-820d-830e28deff0a",
+              "Flags": 0,
+              "Name": "Charm",
+              "Position": "2.503651,1.781577,-1.483037",
+              "Rotation": "0,0,0.7071069,0.7071068",
+              "Scale": "0.05,0.05,0.05",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "8d7d8bb4-b943-4c24-93de-92af167d1f08",
+                  "BodyGroups": 341,
+                  "Model": "models/citizen/citizen.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,1"
+                },
+                {
+                  "__type": "Facepunch.CharmSwing",
+                  "__guid": "e95e13d9-8242-43df-b431-53639c3aafba",
+                  "AttachmentPoint": {
+                    "_type": "gameobject",
+                    "go": "e2ab1f2a-ed27-4f2f-8b15-d67255b2a64e"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "abe1ece7-bb94-4fce-a1d7-c32442317ae7",
+      "Flags": 0,
+      "Name": "Spot Light",
+      "Position": "5.911874,40.56926,4.729986",
+      "Rotation": "-0.01737352,-0.01512386,-0.7540516,0.6564112",
+      "Tags": "light_spot,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpotLight",
+          "__guid": "33072793-0f4f-4393-a4a4-e6c37c9a9870",
+          "Attenuation": 1,
+          "ConeInner": 15,
+          "ConeOuter": 45,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.72674,0.65116,1,1",
+          "Radius": 500,
+          "Shadows": true
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": null,
+  "Description": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "based.guerrilla",
+    "facepunch.v_m4a1"
+  ],
+  "IsValid": true,
+  "__version": 1
+}
