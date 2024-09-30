@@ -17,7 +17,7 @@ public sealed class WeaponStatsRule : Component,
 		var inflictor = eventArgs.DamageInfo.Inflictor;
 		if ( inflictor is Equipment wpn && wpn.IsValid() )
 		{
-			using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
+			using ( Rpc.FilterInclude( player.Network.Owner ) )
 			{
 				SendKillStat( wpn.Resource.ResourcePath, eventArgs.DamageInfo.Hitbox, eventArgs.DamageInfo.Flags );
 			}

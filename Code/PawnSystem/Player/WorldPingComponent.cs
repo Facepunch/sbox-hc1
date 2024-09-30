@@ -39,7 +39,7 @@ public partial class WorldPingComponent : Component, IMarkerObject, ICustomMinim
 			if ( Receiver.IsValid() && Receiver.Text != null )
 				return Receiver.Text;
 
-			return Owner?.Network.OwnerConnection?.DisplayName ?? "";
+			return Owner?.Network.Owner?.DisplayName ?? "";
 		}
 	}
 

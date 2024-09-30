@@ -48,7 +48,6 @@ public sealed class PlayerFootsteps : Component
 		if ( !handle.IsValid() ) return;
 
 		handle.Occlusion = false;
-		handle.Decibels = FootstepBaseDecibels * scale;
 		handle.ListenLocal = Player.IsViewer;
 	}
 

@@ -92,7 +92,7 @@ public sealed class PlayerScore : Component,
 	{
 		Score += score;
 
-		using ( Rpc.FilterInclude( Network.OwnerConnection ) )
+		using ( Rpc.FilterInclude( Network.Owner ) )
 		{
 			SendScoreAdded( score, reason );
 		}

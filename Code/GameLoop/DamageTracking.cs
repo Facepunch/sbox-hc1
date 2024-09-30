@@ -155,7 +155,7 @@ public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlo
 		if ( !ClearOnRespawn ) return;
 
 		// Only include the owner
-		using ( Rpc.FilterInclude( eventArgs.Player.Network.OwnerConnection ) )
+		using ( Rpc.FilterInclude( eventArgs.Player.Network.Owner ) )
 		{
 			// Send the refresh
 			RpcRefresh();

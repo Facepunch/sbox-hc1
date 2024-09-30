@@ -31,9 +31,9 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		//
 		// Create a lobby if we're not connected
 		//
-		if ( !GameNetworkSystem.IsActive )
+		if ( !Networking.IsActive )
 		{
-			GameNetworkSystem.CreateLobby();
+			Networking.CreateLobby();
 		}
 	}
 

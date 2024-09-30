@@ -34,7 +34,7 @@ public sealed class PlayerInputRespawner : Respawner
 	private void AskToRespawn()
 	{
 		var rpcCaller = Rpc.Caller;
-		var player = GameUtils.AllPlayers.FirstOrDefault( x => x.Network.OwnerConnection == rpcCaller );
+		var player = GameUtils.AllPlayers.FirstOrDefault( x => x.Network.Owner == rpcCaller );
 
 		if ( !player.IsValid() )
 			return;

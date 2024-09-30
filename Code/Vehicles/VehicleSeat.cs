@@ -39,7 +39,7 @@ public sealed class VehicleSeat : Component
 			player.CurrentEquipment?.Holster();
 
 		if ( HasInput )
-			Network.AssignOwnership( player.Network.OwnerConnection );
+			Network.AssignOwnership( player.Network.Owner );
 	}
 
 	public bool Enter( PlayerPawn player )

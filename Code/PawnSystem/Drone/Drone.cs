@@ -28,7 +28,7 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 	/// <summary>
 	/// What are we called?
 	/// </summary>
-	public override string DisplayName => Network.OwnerConnection.DisplayName + "'s drone";
+	public override string DisplayName => Network.Owner.DisplayName + "'s drone";
 
 	// should just set the bone positions 
 	private readonly Vector3[] turbinePositions = new Vector3[]

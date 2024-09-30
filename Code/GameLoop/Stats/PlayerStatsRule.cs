@@ -29,7 +29,7 @@ public sealed class PlayerStatsRule : Component,
 		var inflictor = eventArgs.DamageInfo.Inflictor;
 		if ( inflictor is Equipment wpn && wpn.IsValid() )
 		{
-			using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
+			using ( Rpc.FilterInclude( player.Network.Owner ) )
 			{
 				SendKillStat( eventArgs.DamageInfo.Hitbox );
 			}
@@ -56,7 +56,7 @@ public sealed class PlayerStatsRule : Component,
 
 		// TODO: Don't count team-kills?
 
-		using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
+		using ( Rpc.FilterInclude( player.Network.Owner ) )
 		{
 			SendDeathStat();
 		}

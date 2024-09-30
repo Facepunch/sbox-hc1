@@ -31,7 +31,11 @@ public partial class PlayerState : Component, ITeam
 	/// <summary>
 	/// The connection of this player
 	/// </summary>
-	public Connection Connection => Network.OwnerConnection;
+	public Connection Connection => Network.Owner;
+
+	/// <summary>
+	/// Is this player connected? PlayerStates can linger around in competitive matches to keep a player's slot in a team if they disconnect.
+	/// </summary>
 	public bool IsConnected => Connection is not null && (Connection.IsActive || Connection.IsHost); //smh
 
 	private string name => IsBot ? $"BOT {BotManager.Instance.GetName( BotId )}" : SteamName ?? "";
