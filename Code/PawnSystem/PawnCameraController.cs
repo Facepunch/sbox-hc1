@@ -10,7 +10,7 @@ public partial class PawnCameraController : Component
 	public ChromaticAberration ChromaticAberration { get; set; }
 	public Pixelate Pixelate { get; set; }
 
-	public Pawn Pawn => GameObject.Root.Components.Get<Pawn>( FindMode.EverythingInSelfAndDescendants );
+	public Pawn Pawn => GameObject.Root.GetComponentInChildren<Pawn>( true );
 
 	/// <summary>
 	/// The default player camera prefab.
@@ -69,14 +69,14 @@ public partial class PawnCameraController : Component
 				return;
 			}
 
-			Camera = PlayerCameraGameObject.Components.GetOrCreate<CameraComponent>();
-			Pixelate = PlayerCameraGameObject.Components.GetOrCreate<Pixelate>();
-			ChromaticAberration = PlayerCameraGameObject.Components.GetOrCreate<ChromaticAberration>();
-			AudioListener = PlayerCameraGameObject.Components.GetOrCreate<AudioListener>();
-			ScreenShaker = PlayerCameraGameObject.Components.GetOrCreate<ScreenShaker>();
+			Camera = PlayerCameraGameObject.GetOrAddComponent<CameraComponent>();
+			Pixelate = PlayerCameraGameObject.GetOrAddComponent<Pixelate>();
+			ChromaticAberration = PlayerCameraGameObject.GetOrAddComponent<ChromaticAberration>();
+			AudioListener = PlayerCameraGameObject.GetOrAddComponent<AudioListener>();
+			ScreenShaker = PlayerCameraGameObject.GetOrAddComponent<ScreenShaker>();
 
 			// Optional
-			ColorAdjustments = PlayerCameraGameObject.Components.Get<ColorAdjustments>();
+			ColorAdjustments = PlayerCameraGameObject.GetComponent<ColorAdjustments>();
 		}
 	}
 }

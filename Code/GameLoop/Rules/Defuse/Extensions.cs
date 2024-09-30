@@ -13,7 +13,7 @@ public static class DefuseExtensions
 			return false;
 		}
 
-		BombPlantComponent = player.CurrentEquipment?.Components?.Get<BombPlantComponent>( FindMode.EnabledInSelfAndDescendants );
+		BombPlantComponent = player.CurrentEquipment?.GetComponentInChildren<BombPlantComponent>();
 		return BombPlantComponent is { Active: true, IsPlanting: true };
 	}
 
@@ -22,7 +22,7 @@ public static class DefuseExtensions
 	/// </summary>
 	public static bool IsDefusing( this PlayerPawn player, out TimedExplosive bomb )
 	{
-		if ( player.LastUsedObject?.Components.Get<TimedExplosive>() is { DefusingPlayer: { } defuser } match && defuser == player )
+		if ( player.LastUsedObject?.GetComponentInChildren<TimedExplosive>() is { DefusingPlayer: { } defuser } match && defuser == player )
 		{
 			bomb = match;
 			return true;

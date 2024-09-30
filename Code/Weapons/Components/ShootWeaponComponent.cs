@@ -328,7 +328,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 				CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
 				DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
 
-				if ( tr.GameObject?.Root.Components.Get<PlayerPawn>( FindMode.EnabledInSelfAndDescendants ) is { } player )
+				if ( tr.GameObject?.Root.GetComponentInChildren<PlayerPawn>() is { } player )
 				{
 					CreateBloodEffects( tr.HitPosition, tr.Normal, tr.Direction );
 				}
@@ -352,7 +352,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		}
 
 		// If we have a recoil function, let it know.
-		Equipment.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants )?.Shoot();
+		var recoil = Equipment.GetComponentInChildren<RecoilWeaponComponent>();
+		if ( recoil.IsValid() )
+			recoil.Shoot();
 	}
 
 	[Broadcast]

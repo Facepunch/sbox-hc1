@@ -20,7 +20,7 @@ public interface IScore
 	/// <returns></returns>
 	public static IEnumerable<(object Value, ScoreAttribute Attribute)> Find( PlayerState playerState )
 	{
-		var components = playerState.Components.GetAll<IScore>( FindMode.EnabledInSelfAndDescendants );
+		var components = playerState.GetComponentsInChildren<IScore>();
 		var values = new List<(object Value, MemberDescription Member, ScoreAttribute Attribute)>();
 
 		foreach ( var comp in components )
@@ -243,7 +243,7 @@ public sealed class PlayerScore : Component,
 	{
 		var thisPlayer = PlayerState?.PlayerPawn;
 		var planterPlayer = GameUtils.PlayerPawns
-			.FirstOrDefault( x => x.PlayerState.Components.Get<PlayerScore>() is { WasBombPlanter: true } );
+			.FirstOrDefault( x => x.PlayerState.GetComponent<PlayerScore>() is { WasBombPlanter: true } );
 
 		if ( planterPlayer == thisPlayer )
 		{

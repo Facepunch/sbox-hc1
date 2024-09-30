@@ -79,7 +79,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 		TimeSinceLastBeep = 0f;
 		
 		BombSite = Zone.GetAt( Transform.Position )
-			.Select( x => x.Components.Get<BombSite>() )
+			.Select( x => x.GetComponent<BombSite>() )
 			.FirstOrDefault( x => x is not null );
 
 		if ( !BombSite.IsValid() )

@@ -30,7 +30,7 @@ public class MountPoint
 
 			if ( inst.IsValid() )
 			{
-				foreach ( var renderer in inst.Components.GetAll<ModelRenderer>() )
+				foreach ( var renderer in inst.GetComponents<ModelRenderer>() )
 				{
 					renderer.Enabled = !player.IsViewer;
 					renderer.RenderType = player.IsViewer ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;

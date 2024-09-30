@@ -180,7 +180,9 @@ public partial class PlayerPawn
 
 		PlayerBoxCollider.Enabled = true;
 
-		Components.Get<HumanOutfitter>( FindMode.EnabledInSelfAndDescendants )?
-			.UpdateFromTeam( Team );
+		var outfitter = GetComponentInChildren<HumanOutfitter>();
+
+		if ( outfitter.IsValid() )
+			outfitter.UpdateFromTeam( Team );
 	}
 }

@@ -55,14 +55,14 @@ public partial class PlayerPawn
 	{
 		var player = PlayerState.Local.PlayerPawn;
 		if ( player is null ) return;
-		player.PlayerState.Components.Get<PlayerScore>().AddScore( 25, "Killed a player" );
+		player.PlayerState.GetComponent<PlayerScore>().AddScore( 25, "Killed a player" );
 	}
 
 	[Authority]
 	private static void Host_Suicide()
 	{
 		var pawn = Game.ActiveScene.GetAllComponents<PlayerPawn>()
-			.FirstOrDefault( p => p.Network.OwnerConnection == Rpc.Caller );
+			.FirstOrDefault( p => p.Network.Owner == Rpc.Caller );
 
 		if ( !pawn.IsValid() )
 			return;

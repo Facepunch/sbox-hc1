@@ -21,7 +21,7 @@ public abstract class EquipmentComponent : Component
 	protected override void OnAwake()
 	{
 		// Cache the weapon on awake
-		Equipment = Components.Get<Equipment>( FindMode.EverythingInSelfAndAncestors );
+		Equipment = GetComponentInParent<Equipment>();
 
 		base.OnAwake();
 	}

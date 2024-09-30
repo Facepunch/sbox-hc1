@@ -11,7 +11,7 @@ public sealed class Steering : Component
 
 	protected override void OnEnabled()
 	{
-		ParentVehicle = Components.GetInAncestors<Vehicle>();
+		ParentVehicle = GetComponentInParent<Vehicle>();
 	}
 
 	protected override void OnFixedUpdate()

@@ -21,7 +21,7 @@ public partial class DeployedPawnHandler : Component
 	{
 		Assert.True( Networking.IsHost );
 
-		var handler = pawn.PlayerState.Components.GetOrCreate<DeployedPawnHandler>();
+		var handler = pawn.PlayerState.GetOrAddComponent<DeployedPawnHandler>();
 		handler.Pawn = pawn;
 
 		return handler;

@@ -9,7 +9,7 @@ internal class BuyZone : Component, IMinimapIcon, IMinimapVolume
 	public Color Color => Team.GetColor().WithAlpha( 0.1f );
 	public Color LineColor => Team.GetColor().WithAlpha( 0.5f );
 
-	public Vector3 Size => Components.Get<BoxCollider>().Scale;
+	public Vector3 Size => GetComponent<BoxCollider>().Scale;
 
 	string IMinimapIcon.IconPath => Team.GetIconPath();
 	Angles IMinimapVolume.Angles => GameObject.Transform.Rotation.Angles();

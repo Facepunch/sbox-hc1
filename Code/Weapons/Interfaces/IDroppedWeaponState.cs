@@ -18,14 +18,14 @@ public interface IDroppedWeaponState<T> : IDroppedWeaponState
 {
 	void IDroppedWeaponState.CopyToDroppedWeapon( DroppedEquipment dropped )
 	{
-		var state = dropped.Components.GetOrCreate<T>();
+		var state = dropped.GetOrAddComponent<T>();
 
 		((T)this).CopyPropertiesTo( state );
 	}
 
 	void IDroppedWeaponState.CopyFromDroppedWeapon( DroppedEquipment dropped )
 	{
-		if ( dropped.Components.Get<T>() is {} state )
+		if ( dropped.GetComponent<T>() is {} state )
 		{
 			state.CopyPropertiesTo( (T) this );
 		}

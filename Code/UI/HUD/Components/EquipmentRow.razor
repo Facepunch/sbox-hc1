@@ -43,7 +43,7 @@
     /// </summary>
     public Equipment Equipment { get; set; }
 
-    private AmmoComponent AmmoComponent => Equipment?.Components.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
+    private AmmoComponent AmmoComponent => Equipment?.GetComponent<AmmoComponent>( true );
     public PlayerPawn Player => Equipment?.Owner;
     public bool IsActive => Player?.CurrentEquipment == Equipment;
 

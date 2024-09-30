@@ -59,9 +59,9 @@
 
     string HitmarkerClasses => !TimeUntilHitmarkerRemove ? "is-visible" : string.Empty;
 
-    private ShootWeaponComponent Shoot => Equipment.IsValid() ? Equipment.Components.Get<ShootWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) : null;
-    private ScopeWeaponComponent Scope => Equipment.IsValid() ? Equipment.Components.Get<ScopeWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) : null;
-    private RecoilWeaponComponent Recoil => Equipment.IsValid() ? Equipment.Components.Get<RecoilWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) : null;
+    private ShootWeaponComponent Shoot => Equipment.IsValid() ? Equipment.GetComponentInChildren<ShootWeaponComponent>( true ) : null;
+    private ScopeWeaponComponent Scope => Equipment.IsValid() ? Equipment.GetComponentInChildren<ScopeWeaponComponent>( true ) : null;
+    private RecoilWeaponComponent Recoil => Equipment.IsValid() ? Equipment.GetComponentInChildren<RecoilWeaponComponent>( true ) : null;
 
     float BaseDistance => GameSettingsSystem.Current.CrosshairDistance;
     // 10px base size
@@ -177,7 +177,7 @@
         var currentTrace = player.CachedEyeTrace;
         if ( currentTrace.Hit && currentTrace.GameObject.IsValid() )
         {
-            var targetPlayer = currentTrace.GameObject.Root.Components.Get<PlayerPawn>();
+            var targetPlayer = currentTrace.GameObject.Root.GetComponent<PlayerPawn>();
             if ( targetPlayer.IsValid() )
             {
                 var friendly = targetPlayer.IsFriendly( Player );

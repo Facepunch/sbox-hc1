@@ -46,7 +46,7 @@ public class AreaDamage : Component, Component.ITriggerListener
 	{
 		if ( !Networking.IsHost ) return;
 		
-		var receiver = other.GameObject?.Root.Components.GetInDescendantsOrSelf<IAreaDamageReceiver>();
+		var receiver = other.GameObject?.Root.GetComponentInChildren<IAreaDamageReceiver>();
 		if ( !receiver.IsValid() ) return;
 
 		if ( IgnoreTags is not null && receiver.GameObject.Tags.HasAny( IgnoreTags ) )

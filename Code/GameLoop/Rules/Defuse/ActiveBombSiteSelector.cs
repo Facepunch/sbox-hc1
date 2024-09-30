@@ -27,7 +27,7 @@ public sealed class ActiveBombSiteSelector : Component,
 		CurrentBombSite = bombSite;
 
 		var name = bombSite.GameObject.Name.ToLower();
-		var spawns = Scene.Components.GetAll<TeamSpawnPoint>( FindMode.EverythingInSelfAndDescendants );
+		var spawns = Scene.GetComponentsInChildren<TeamSpawnPoint>();
 
 		foreach ( var spawn in spawns )
 		{

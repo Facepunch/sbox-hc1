@@ -36,7 +36,7 @@ public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMi
 	public Color Color => Team.GetColor().WithAlpha( 0.1f );
 	public Color LineColor => Team.GetColor().WithAlpha( 0.5f );
 
-	public Vector3 Size => Components.Get<BoxCollider>().Scale;
+	public Vector3 Size => GetComponent<BoxCollider>().Scale;
 
 	string IMinimapLabel.Label => ShortName;
 	Color IMinimapLabel.LabelColor => Color.White;
@@ -139,7 +139,7 @@ public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMi
 
 	void ITriggerListener.OnTriggerEnter( Sandbox.Collider other )
 	{
-		if ( Networking.IsHost && other.GameObject.Root.Components.Get<PlayerPawn>( FindMode.EnabledInSelfAndDescendants ) is { } player )
+		if ( Networking.IsHost && other.GameObject.Root.GetComponentInChildren<PlayerPawn>() is { } player )
 		{
 			AddPlayer( player );
 		}
@@ -147,7 +147,7 @@ public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMi
 
 	void ITriggerListener.OnTriggerExit( Sandbox.Collider other )
 	{
-		if ( Networking.IsHost && other.GameObject.Root.Components.Get<PlayerPawn>( FindMode.EnabledInSelfAndDescendants ) is { } player )
+		if ( Networking.IsHost && other.GameObject.Root.GetComponentInChildren<PlayerPawn>() is { } player )
 		{
 			RemovePlayer( player );
 		}

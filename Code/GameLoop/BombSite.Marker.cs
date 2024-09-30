@@ -7,7 +7,7 @@ partial class BombSite : IMinimapLabel, IMinimapVolume
 	bool IMinimapElement.IsVisible( Pawn viewer ) => true;
 
 	Color IMinimapVolume.Color => "rgba( #992d32, 0.25 )";
-	Vector3 IMinimapVolume.Size => Components.Get<BoxCollider>().Scale;
+	Vector3 IMinimapVolume.Size => GetComponent<BoxCollider>().Scale;
 	Color IMinimapVolume.LineColor => new Color32( 183, 85, 70 );
 
 	string IMinimapLabel.Label => $"{(char)('A' + Index)}";

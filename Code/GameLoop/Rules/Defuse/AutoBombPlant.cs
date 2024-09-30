@@ -14,7 +14,7 @@ public sealed class AutoBombPlant : Component,
 			.FirstOrDefault( x => x.Inventory.HasBomb );
 
 		var bomb = bombCarrier?.Inventory.Equipment
-			.Select( x => x.Components.Get<BombPlantComponent>( FindMode.EnabledInSelfAndDescendants ) )
+			.Select( x => x.GetComponentInChildren<BombPlantComponent>() )
 			.FirstOrDefault( x => x != null );
 
 		if ( bomb is null )

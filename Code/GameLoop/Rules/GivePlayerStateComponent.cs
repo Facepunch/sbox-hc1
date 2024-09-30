@@ -10,7 +10,7 @@ public abstract class GivePlayerStateComponent<T> : Component,
 {
 	private void CreateForPlayer( PlayerState player )
 	{
-		if ( player.Components.Get<T>( FindMode.EverythingInChildren ) is { } existing )
+		if ( player.GetComponentInChildren<T>( true ) is { } existing )
 		{
 			if ( !player.IsConnected )
 			{
@@ -52,7 +52,7 @@ public abstract class GivePlayerStateComponent<T> : Component,
 	{
 		foreach ( var player in GameUtils.AllPlayers )
 		{
-			player.Components.Get<T>()?.Destroy();
+			player.GetComponent<T>()?.Destroy();
 		}
 	}
 

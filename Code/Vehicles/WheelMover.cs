@@ -10,7 +10,7 @@ public sealed class WheelMover : Component
 
 	protected override void OnEnabled()
 	{
-		_rigidbody = Components.GetInAncestors<Rigidbody>();
+		_rigidbody = GetComponentInParent<Rigidbody>();
 	}
 
 	protected override void OnFixedUpdate()

@@ -9,7 +9,7 @@ public sealed class Spottable : Component,
 	IGameEventHandler<BetweenRoundCleanupEvent>,
 	IGameEventHandler<TeamChangedEvent>
 {
-	ITeam teamComponent => Components.Get<ITeam>();
+	ITeam teamComponent => GetComponent<ITeam>();
 
 	/// <summary>
 	/// The team this belongs to.

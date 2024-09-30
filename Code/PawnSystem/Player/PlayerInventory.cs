@@ -14,12 +14,12 @@ public partial class PlayerInventory : Component
 	/// <summary>
 	/// What equipment do we have right now?
 	/// </summary>
-	public IEnumerable<Equipment> Equipment => Player.Components.GetAll<Equipment>( FindMode.EverythingInSelfAndDescendants );
+	public IEnumerable<Equipment> Equipment => Player.GetComponentsInChildren<Equipment>();
 
 	/// <summary>
 	/// Does this player have a bomb on them?
 	/// </summary>
-	public bool HasBomb => Equipment.Any( x => x.Components.Get<BombPlantComponent>( FindMode.EnabledInSelfAndDescendants ) != null );
+	public bool HasBomb => Equipment.Any( x => x.GetComponentsInChildren<BombPlantComponent>() != null );
 
 	/// <summary>
 	/// A <see cref="GameObject"/> that will hold all of our equipment.
@@ -62,7 +62,7 @@ public partial class PlayerInventory : Component
 	{
 		foreach ( var wpn in Equipment )
 		{
-			if ( wpn.Components.Get<AmmoComponent>( FindMode.EnabledInSelfAndDescendants ) is { } ammo )
+			if ( wpn.GetComponentInChildren<AmmoComponent>() is { } ammo )
 			{
 				ammo.Ammo = ammo.MaxAmmo;
 			}
@@ -319,8 +319,8 @@ public partial class PlayerInventory : Component
 			Transform = new(),
 			Parent = WeaponGameObject
 		} );
-		var component = gameObject.Components.Get<Equipment>( FindMode.EverythingInSelfAndDescendants );
-		gameObject.NetworkSpawn( Player.Network.OwnerConnection );
+		var component = gameObject.GetComponentInChildren<Equipment>( true );
+		gameObject.NetworkSpawn( Player.Network.Owner );
 		component.OwnerId = Player.Id;
 
 		if ( makeActive )

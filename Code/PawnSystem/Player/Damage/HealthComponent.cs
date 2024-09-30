@@ -28,9 +28,9 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// A list of all Respawnable things on this GameObject
 	/// </summary>
-	protected IEnumerable<IRespawnable> Respawnables => GameObject.Components.GetAll<IRespawnable>();
+	protected IEnumerable<IRespawnable> Respawnables => GetComponents<IRespawnable>();
 
-	protected IEnumerable<IDamageListener> DamageListeners => GameObject.Components.GetAll<IDamageListener>();
+	protected IEnumerable<IDamageListener> DamageListeners => GetComponents<IDamageListener>();
 
 	/// <summary>
 	/// What's our health?

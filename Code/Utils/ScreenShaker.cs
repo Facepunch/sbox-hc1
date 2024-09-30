@@ -5,7 +5,7 @@ public class ScreenShaker : Component
 	/// <summary>
 	/// Get any <see cref="ScreenShaker"/> component on the main camera.
 	/// </summary>
-	public static ScreenShaker Main => Game.ActiveScene?.Camera?.Components.Get<ScreenShaker>( FindMode.EnabledInSelf );
+	public static ScreenShaker Main => Game.ActiveScene.Camera.GetComponent<ScreenShaker>();
 	
 	private readonly List<ScreenShake> List = new();
 

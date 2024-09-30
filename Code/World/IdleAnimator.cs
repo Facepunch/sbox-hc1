@@ -39,7 +39,7 @@ public sealed class IdleAnimator : Component
 			Parent = HoldObject,
 			Transform = new Transform(),
 		} );
-		var eq = inst.Components.Get<Equipment>( FindMode.EverythingInSelfAndDescendants );
+		var eq = inst.GetComponentInChildren<Equipment>();
 		AsyncOn( eq );
 	}
 

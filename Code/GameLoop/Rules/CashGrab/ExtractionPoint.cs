@@ -61,7 +61,7 @@ public partial class ExtractionPoint : Component,
 
 		if ( CashPoint.State == CashPoint.CashPointState.Open )
 		{
-			var player = other.GameObject.Root.Components.Get<PlayerPawn>( FindMode.EnabledInSelfAndDescendants );
+			var player = other.GameObject.Root.GetComponentInChildren<PlayerPawn>();
 			if ( player.IsValid() )
 			{
 				var inventory = player.Inventory;

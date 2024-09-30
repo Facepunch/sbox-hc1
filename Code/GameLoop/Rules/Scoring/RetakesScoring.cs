@@ -46,7 +46,7 @@ public sealed class IncreaseRetakesWins : Component,
 	{
 		foreach ( var player in GameUtils.GetPlayers( Team ) )
 		{
-			if ( player.Components.Get<RetakesScoring>( FindMode.EverythingInChildren ) is { } scoring )
+			if ( player.GetComponentInChildren<RetakesScoring>( true ) is { } scoring )
 			{
 				scoring.Wins += 1;
 			}

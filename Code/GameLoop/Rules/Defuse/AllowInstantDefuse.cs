@@ -10,7 +10,7 @@ public sealed class AllowInstantDefuse : Component,
 {
 	public void OnGameEvent( BombDefuseStartEvent eventArgs )
 	{
-		var explosive = eventArgs.Bomb?.Components.Get<TimedExplosive>();
+		var explosive = eventArgs.Bomb?.GetComponent<TimedExplosive>();
 
 		if ( explosive is null ) return;
 		if ( AnyTerroristsAlive ) return;

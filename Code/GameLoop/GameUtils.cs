@@ -32,7 +32,7 @@ public static partial class GameUtils
 	/// </summary>
 	public static IEnumerable<PlayerPawn> GetPlayerPawns( Team team ) => PlayerPawns.Where( x => x.Team == team );
 
-	public static IDescription GetDescription( GameObject go ) => go?.Components.Get<IDescription>( FindMode.EverythingInSelfAndDescendants );
+	public static IDescription GetDescription( GameObject go ) => go?.GetComponent<IDescription>();
 	public static IDescription GetDescription( Component component ) => GetDescription( component?.GameObject );
 
 	/// <summary>
@@ -67,7 +67,7 @@ public static partial class GameUtils
 	{
 		if ( component is PlayerPawn player ) return player;
 		if ( !component.IsValid() ) return null;
-		return !component.GameObject.IsValid() ? null : component.GameObject.Root.Components.Get<PlayerPawn>( FindMode.EnabledInSelfAndDescendants );
+		return !component.GameObject.IsValid() ? null : component.GameObject.Root.GetComponentInChildren<PlayerPawn>();
 	}
 
 	/// <summary>
@@ -77,7 +77,7 @@ public static partial class GameUtils
 	{
 		if ( component is Pawn pawn ) return pawn;
 		if ( !component.IsValid() ) return null;
-		return !component.GameObject.IsValid() ? null : component.GameObject.Root.Components.Get<Pawn>( FindMode.EnabledInSelfAndDescendants );
+		return !component.GameObject.IsValid() ? null : component.GameObject.Root.GetComponentInChildren<Pawn>();
 	}
 
 	public static Equipment FindEquipment( Component inflictor )

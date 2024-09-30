@@ -29,12 +29,12 @@ public static class TeamExtensions
 	/// <returns></returns>
 	public static Team GetTeam( this GameObject gameObject )
 	{
-		if ( gameObject.Root.Components.Get<Pawn>() is { IsValid: true } pawn )
+		if ( gameObject.Root.GetComponent<Pawn>() is { IsValid: true } pawn )
 		{
 			return pawn.Team;
 		}
 
-		if ( gameObject.Root.Components.Get<PlayerState>() is { IsValid: true } state )
+		if ( gameObject.Root.GetComponent<PlayerState>() is { IsValid: true } state )
 		{
 			return state.Team;
 		}

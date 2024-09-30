@@ -83,8 +83,8 @@
     {
         get
         {
-            var sortedPlayers = PlayerStates.OrderByDescending(x => x.Components.Get<PlayerScore>().Score);
-            var groupedPlayers = sortedPlayers.GroupBy(x => x.Team);
+            var sortedPlayers = PlayerStates.OrderByDescending( x => x.GetComponent<PlayerScore>().Score );
+            var groupedPlayers = sortedPlayers.GroupBy( x => x.Team );
             return groupedPlayers.ToList();
         }
     }

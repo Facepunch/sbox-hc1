@@ -127,8 +127,8 @@ public sealed class TeamAssigner : Component,
 		return AutoBalanceMode switch
 		{
 			AutoBalanceMode.Random => Random.Shared.NextSingle(),
-			AutoBalanceMode.LowestScorers => player.Components.Get<PlayerScore>() is { } playerScore ? playerScore.Score : 0,
-			AutoBalanceMode.LowestScorersLastRound => player.Components.Get<PlayerScore>() is { } playerScore ? playerScore.ScoreHistory.LastOrDefault() : 0,
+			AutoBalanceMode.LowestScorers => player.GetComponent<PlayerScore>() is { } playerScore ? playerScore.Score : 0,
+			AutoBalanceMode.LowestScorersLastRound => player.GetComponent<PlayerScore>() is { } playerScore ? playerScore.ScoreHistory.LastOrDefault() : 0,
 			_ => 0
 		};
 	}

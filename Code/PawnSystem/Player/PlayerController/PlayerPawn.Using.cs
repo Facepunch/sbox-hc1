@@ -42,7 +42,7 @@ partial class PlayerPawn
 			.RunAll() ?? Array.Empty<SceneTraceResult>();
 
 		var usable = hits
-			.Select( x => x.GameObject.Components.Get<IUse>( FindMode.EnabledInSelf | FindMode.InAncestors ) )
+			.Select( x => x.GameObject.GetComponentInParent<IUse>() )
 			.FirstOrDefault( x => x is not null );
 
 		if ( usable.IsValid() && usable.CanUse( this ) is { } useResult )
@@ -56,7 +56,7 @@ partial class PlayerPawn
 			{
 				if ( !string.IsNullOrEmpty( useResult.Reason ) )
 				{
-					using ( Rpc.FilterInclude( Network.OwnerConnection ) )
+					using ( Rpc.FilterInclude( Network.Owner ) )
 					{
 						GameMode.Instance.ShowToast( useResult.Reason, ToastType.Generic, 3 );
 					}

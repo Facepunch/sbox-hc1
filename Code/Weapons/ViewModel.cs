@@ -42,7 +42,7 @@ public partial class ViewModel : Component, IEquipment
 	private float YawInertia;
 	private float PitchInertia;
 
-	IEnumerable<IViewModelOffset> Offsets => Equipment.Components.GetAll<IViewModelOffset>( FindMode.EverythingInSelfAndDescendants );
+	IEnumerable<IViewModelOffset> Offsets => Equipment.GetComponentsInChildren<IViewModelOffset>();
 
 	protected override void OnAwake()
 	{
@@ -62,7 +62,7 @@ public partial class ViewModel : Component, IEquipment
 		if ( !Equipment.IsValid() )
 			return;
 
-		if ( Equipment.Components.Get<ShootWeaponComponent>( FindMode.EverythingInSelfAndDescendants ) is { } shoot )
+		if ( Equipment.GetComponentInChildren<ShootWeaponComponent>() is { } shoot )
 		{
 			OnFireMode( shoot.CurrentFireMode );
 		}
@@ -166,7 +166,7 @@ public partial class ViewModel : Component, IEquipment
 		ModelRenderer.Set( "b_twohanded", true );
 
 		// Weapon state
-		ModelRenderer.Set( "b_empty", !Equipment.Components.Get<AmmoComponent>( FindMode.EnabledInSelfAndDescendants )?.HasAmmo ?? false );
+		ModelRenderer.Set( "b_empty", !Equipment.GetComponentInChildren<AmmoComponent>()?.HasAmmo ?? false );
 	}
 	
 	public enum ThrowableTypeEnum
@@ -194,7 +194,7 @@ public partial class ViewModel : Component, IEquipment
 
 	private void ApplyThrowableAnimations()
 	{
-		var throwFn = Equipment.Components.Get<ThrowWeaponComponent>( FindMode.EnabledInSelfAndDescendants );
+		var throwFn = Equipment.GetComponentInChildren<ThrowWeaponComponent>();
 
 		ModelRenderer.Set( "b_idle", throwFn.ThrowState == ThrowWeaponComponent.State.Idle );
 		ModelRenderer.Set( "b_pull", throwFn.ThrowState == ThrowWeaponComponent.State.Cook );

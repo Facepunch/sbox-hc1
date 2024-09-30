@@ -30,13 +30,13 @@ public partial class PlayerState
 	private void Spawn( SpawnPointInfo spawnPoint )
 	{
 		var prefab = PlayerPawnPrefab.Clone( spawnPoint.Transform );
-		var pawn = prefab.Components.Get<PlayerPawn>();
+		var pawn = prefab.GetComponent<PlayerPawn>();
 
 		pawn.PlayerState = this;
 
 		pawn.SetSpawnPoint( spawnPoint );
 
-		prefab.NetworkSpawn( Network.OwnerConnection );
+		prefab.NetworkSpawn( Network.Owner );
 
 		PlayerPawn = pawn;
 		if ( IsBot )

@@ -154,7 +154,9 @@ public partial class PlayerPingComponent : Component
 			}
 
 			var tr = GetTrace();
-			var target = tr.GameObject?.Root.Components.Get<IPingReceiver>() as Component;
+			if ( !tr.Hit ) return;
+
+			var target = tr.GameObject.Root.GetComponent<IPingReceiver>() as Component;
 
 			// Send a RPC to my teammates
 			using ( NetworkUtils.RpcMyTeam() )

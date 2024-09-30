@@ -41,7 +41,7 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 	private StateMachineComponent _stateMachine;
 
-	public StateMachineComponent StateMachine => _stateMachine ??= Components.GetInDescendantsOrSelf<StateMachineComponent>();
+	public StateMachineComponent StateMachine => _stateMachine ??= GetComponentInChildren<StateMachineComponent>();
 
 	private TimeSince _sinceLastSoundHandleLog;
 
@@ -124,7 +124,7 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 
 		if ( !_componentCache.TryGetValue( typeof(T), out var component ) || component is { IsValid: false } || component is { Active: false } )
 		{
-			component = Components.GetInDescendantsOrSelf<T>() as Component;
+			component = GetComponentInChildren<T>() as Component;
 			_componentCache[typeof(T)] = component;
 		}
 

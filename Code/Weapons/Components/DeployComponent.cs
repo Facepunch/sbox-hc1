@@ -20,14 +20,14 @@ public partial class DeployComponent : InputWeaponComponent
 		var baseVelocity = player.CharacterController.Velocity;
 		var dropped = PrefabToSpawn.Clone( position, rotation );
 
-		var rb = dropped.Components.Get<Rigidbody>( FindMode.EnabledInSelfAndDescendants );
+		var rb = dropped.GetComponentInChildren<Rigidbody>();
 		rb.Velocity = baseVelocity + player.AimRay.Forward * 50f + Vector3.Up * 100f;
 
 		dropped.NetworkSpawn();
 
 		// If it's a pawn, possess it
 		// This'll probably get removed
-		if ( dropped.Components.Get<Pawn>() is Pawn pawn && pawn.IsValid() )
+		if ( dropped.GetComponent<Pawn>() is Pawn pawn && pawn.IsValid() )
 		{
 			pawn.Possess();
 			DeployedPawnHandler.Create( pawn );

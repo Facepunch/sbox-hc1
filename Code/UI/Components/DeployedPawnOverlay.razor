@@ -4,10 +4,10 @@
 @if ( !Player.IsValid() )
     return;
 
-@if ( Player.Components.Get<DeployedPawnHandler>() is null )
+@if ( !Player.GetComponent<DeployedPawnHandler>().IsValid() )
     return;
 
-@if ( Player.Components.Get<DeployedPawnHandler>().Pawn is null )
+@if ( !Player.GetComponent<DeployedPawnHandler>().Pawn.IsValid() )
     return;
 
 <root>

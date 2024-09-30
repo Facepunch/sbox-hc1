@@ -108,10 +108,10 @@ public partial class ThrowWeaponComponent : InputWeaponComponent,
 			var dropped = Prefab.Clone( position, rotation );
 			dropped.Tags.Set( "no_player", true );
 
-			var rb = dropped.Components.Get<Rigidbody>( FindMode.EnabledInSelfAndDescendants );
+			var rb = dropped.GetComponentInChildren<Rigidbody>();
 			rb.Velocity = baseVelocity + player.AimRay.Forward * ThrowPower + Vector3.Up * 100f;
 
-			var grenade = dropped.Components.Get<BaseGrenade>();
+			var grenade = dropped.GetComponent<BaseGrenade>();
 			if ( grenade.IsValid() )
 				grenade.Player = player;
 

@@ -57,7 +57,7 @@ public sealed class SpecialWeaponAllocator : Component,
 		var weapon = playerToGiveTo.Inventory.Give( Weapon, false );
 		if ( weapon.IsValid() )
 		{
-			weapon.Components.GetOrCreate<DestroyBetweenRounds>();
+			weapon.GetOrAddComponent<DestroyBetweenRounds>();
 		}
 	}
 }

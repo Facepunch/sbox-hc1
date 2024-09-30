@@ -27,7 +27,7 @@
     
     protected override void OnEnabled()
     {
-        Components.GetOrCreate<ScreenPanel>();
+        GetOrAddComponent<ScreenPanel>();
         base.OnEnabled();
     }
 

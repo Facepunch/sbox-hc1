@@ -39,7 +39,7 @@ public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener,
 	GameObject CreateFireNode( Vector3 position )
 	{
 		var node = FireNodePrefab.Clone( position, Rotation.Identity );
-		var areaDamage = node.Components.Get<AreaDamage>();
+		var areaDamage = node.GetComponent<AreaDamage>();
 		if ( areaDamage.IsValid() )
 		{
 			areaDamage.Attacker = Player;

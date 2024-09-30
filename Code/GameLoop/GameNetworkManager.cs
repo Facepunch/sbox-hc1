@@ -64,7 +64,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		player.Name = $"PlayerState ({channel.DisplayName})";
 		player.Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
 
-		var playerState = player.Components.Get<PlayerState>();
+		var playerState = player.GetComponent<PlayerState>();
 		if ( !playerState.IsValid() )
 			return null;
 

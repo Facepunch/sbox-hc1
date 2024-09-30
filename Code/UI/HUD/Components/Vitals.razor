@@ -30,7 +30,7 @@
 {
     public Pawn Pawn => PlayerState.Viewer.Pawn;
     public HealthComponent HealthComponent => Pawn.HealthComponent;
-    public ArmorComponent ArmorComponent => Pawn.GameObject?.Components.Get<ArmorComponent>();
+    public ArmorComponent ArmorComponent => Pawn.GetComponent<ArmorComponent>();
     public int Health => HealthComponent?.Health.CeilToInt() ?? 0;
     public int Armor => ArmorComponent?.Armor.CeilToInt() ?? 0;
     public bool HasHelmet => ArmorComponent?.HasHelmet ?? false;

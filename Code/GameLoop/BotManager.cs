@@ -34,7 +34,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 		var player = GameNetworkManager.Instance.PlayerStatePrefab.Clone();
 		player.Name = $"PlayerState (BOT)";
 
-		var playerState = player.Components.Get<PlayerState>();
+		var playerState = player.GetComponent<PlayerState>();
 		playerState.BotId = CurrentBotId;
 
 		GameNetworkManager.Instance.OnPlayerJoined( playerState, Connection.Host );

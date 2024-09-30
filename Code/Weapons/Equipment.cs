@@ -252,7 +252,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 				StartEnabled = true,
 			} );
 
-			var viewModelComponent = viewModelGameObject.Components.Get<ViewModel>();
+			var viewModelComponent = viewModelGameObject.GetComponent<ViewModel>();
 			viewModelComponent.PlayDeployEffects = playDeployEffects;
 
 			// equipment needs to know about the ViewModel

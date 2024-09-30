@@ -23,6 +23,6 @@ partial class PlayerPawn
 
 	public T GetZone<T>()
 	{
-		return Zones.Select( x => x.Components.Get<T>() ).FirstOrDefault( x => x is not null );
+		return Zones.Select( x => x.GetComponent<T>() ).FirstOrDefault( x => x is not null );
 	}
 }

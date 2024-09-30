@@ -23,7 +23,7 @@ public static class Explosion
 
 		foreach ( var obj in objectsInArea )
 		{
-			if ( obj.Root.Components.Get<HealthComponent>( FindMode.EnabledInSelfAndDescendants ) is not { } hc )
+			if ( obj.Root.GetComponentInChildren<HealthComponent>() is not { } hc )
 				continue;
 
 			// If the object isn't in line of sight, fuck it off

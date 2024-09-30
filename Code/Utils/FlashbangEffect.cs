@@ -23,10 +23,10 @@ public class FlashbangEffect : Component
 	
 	protected override void OnEnabled()
 	{
-		Bloom ??= Components.Create<Bloom>();
-		Overlay ??= Components.Create<FlashbangOverlay>();
-		Aberration ??= Components.Create<ChromaticAberration>();
-		Camera ??= Components.Get<CameraComponent>();
+		Bloom ??= AddComponent<Bloom>();
+		Overlay ??= AddComponent<FlashbangOverlay>();
+		Aberration ??= AddComponent<ChromaticAberration>();
+		Camera ??= AddComponent<CameraComponent>();
 		DspProcessor ??= new( "weird.4" );
 		
 		Mixer.Master.AddProcessor( DspProcessor );

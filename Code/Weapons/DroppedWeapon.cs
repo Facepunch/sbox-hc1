@@ -40,7 +40,7 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 		{
 			Game.ActiveScene.Dispatch( new BombDroppedEvent() );
 
-			Spottable spottable = go.Components.Get<Spottable>();
+			Spottable spottable = go.GetComponent<Spottable>();
 			spottable.Team = Team.Terrorist;
 		}
 
@@ -48,7 +48,7 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 
 		if ( heldWeapon is not null )
 		{
-			foreach ( var state in heldWeapon.Components.GetAll<IDroppedWeaponState>() )
+			foreach ( var state in heldWeapon.GetComponents<IDroppedWeaponState>() )
 			{
 				state.CopyToDroppedWeapon( droppedWeapon );
 			}
@@ -84,7 +84,7 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 		if ( !weapon.IsValid() )
 			return;
 
-		foreach ( var state in weapon.Components.GetAll<IDroppedWeaponState>() )
+		foreach ( var state in weapon.GetComponents<IDroppedWeaponState>() )
 		{
 			state.CopyFromDroppedWeapon( this );
 		}
@@ -99,7 +99,7 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 		if ( !Networking.IsHost ) return;
 
 		// Conna: this is longer than Daenerys Targaryen's full title.
-		if ( collision.Other.GameObject.Root.Components.Get<PlayerPawn>( FindMode.EnabledInSelfAndDescendants ) is { } player )
+		if ( collision.Other.GameObject.Root.GetComponentInChildren<PlayerPawn>() is { } player )
 		{
 			// Don't pickup weapons if we're dead.
 			if ( player.HealthComponent.State != LifeState.Alive )

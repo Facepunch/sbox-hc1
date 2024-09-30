@@ -28,12 +28,10 @@ public sealed class Zone : Component
 	{
 		_colliders.Clear();
 
-		foreach (var collider in Components.GetAll<BoxCollider>())
+		foreach ( var collider in GetComponents<BoxCollider>() )
 		{
-			if (!collider.IsTrigger)
-			{
-				return;
-			}
+			if ( !collider.IsTrigger )
+				continue;
 
 			_colliders.Add( collider );
 
@@ -53,7 +51,7 @@ public sealed class Zone : Component
 			.RunAll() ?? Array.Empty<SceneTraceResult>();
 
 		return result
-			.Select( x => x.GameObject.Components.GetInAncestorsOrSelf<Zone>() )
+			.Select( x => x.GameObject.GetComponentInParent<Zone>() )
 			.Where( x => x != null )
 			.Distinct();
 	}
@@ -62,7 +60,7 @@ public sealed class Zone : Component
 	{
 		Gizmo.Draw.Color = Color.WithAlpha( Gizmo.IsSelected ? Color.a * 0.5f : Color.a * 0.25f );
 
-		foreach ( var collider in Components.GetAll<BoxCollider>().Where( x => x.IsTrigger ) )
+		foreach ( var collider in GetComponents<BoxCollider>().Where( x => x.IsTrigger ) )
 		{
 			Gizmo.Transform = collider.Transform.World;
 			Gizmo.Draw.LineBBox( BBox.FromPositionAndSize( collider.Center, collider.Scale ) );
