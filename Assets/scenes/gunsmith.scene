@@ -1,0 +1,276 @@
+{
+  "__guid": "e60c1ea9-45a8-437e-99ba-9b30563c9e81",
+  "GameObjects": [
+    {
+      "__guid": "3cccebf2-8f7b-420a-8ae4-c7b7e4be27fa",
+      "Flags": 0,
+      "Name": "Sun",
+      "Rotation": "0.1830127,0.1830127,-0.6830126,0.6830127",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "738dd2b7-3e88-44e5-91c4-f908c94af6eb",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "1,1,1,1",
+          "Shadows": true,
+          "SkyColor": "0,0,0,0"
+        }
+      ]
+    },
+    {
+      "__guid": "0822c766-4562-4fbd-91cf-3d82386f7af9",
+      "Flags": 0,
+      "Name": "Envmap Probe",
+      "Position": "0,0,15",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.EnvmapProbe",
+          "__guid": "9fdc5ab7-ae61-4004-ad7c-94f8053552f0",
+          "Texture": "textures/cubemaps/default2.vtex",
+          "Bounds": {
+            "Mins": "-50,-50,-50",
+            "Maxs": "50,50,50"
+          },
+          "DelayBetweenUpdates": 0.1,
+          "Feathering": 0.02,
+          "FrameInterval": 5,
+          "MaxDistance": 512,
+          "MultiBounce": false,
+          "Projection": "Box",
+          "RenderDynamically": true,
+          "TintColor": "1,1,1,1",
+          "UpdateStrategy": "OnEnabled",
+          "ZFar": 4096,
+          "ZNear": 16
+        }
+      ]
+    },
+    {
+      "__guid": "396f069e-f0fe-4a40-812a-7802ec505afc",
+      "Flags": 0,
+      "Name": "2D Skybox",
+      "Rotation": "-0,0,-1,-0.00000004371139",
+      "Tags": "skybox",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkyBox2D",
+          "__guid": "89c8f9cc-d25e-4caf-b6b9-674712b7ada8",
+          "SkyMaterial": "materials/skybox/skybox_studio_01.vmat",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5d34f78d-2b31-46fe-be09-65284a927d24",
+      "Flags": 0,
+      "Name": "Lights",
+      "Enabled": true,
+      "Children": [
+        {
+          "__guid": "80c859de-302d-4504-a447-28033c6f41c7",
+          "Flags": 0,
+          "Name": "Spot Light",
+          "Position": "38,72,14",
+          "Rotation": "0.01495963,0.008988654,-0.8570368,0.5149596",
+          "Tags": "light_spot,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpotLight",
+              "__guid": "d65ca2d8-867f-4d6a-bb22-36c9f4f74a22",
+              "Attenuation": 1,
+              "ConeInner": 15,
+              "ConeOuter": 38,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "1,1,1,1",
+              "Radius": 100,
+              "Shadows": true
+            }
+          ]
+        },
+        {
+          "__guid": "53c95ae3-1d52-490d-8d7e-ef45fa3cf118",
+          "Flags": 0,
+          "Name": "Spot Light",
+          "Position": "1.32,-18.5,42",
+          "Rotation": "0.194905,0.6797146,0.194905,0.6797147",
+          "Tags": "light_spot,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SpotLight",
+              "__guid": "5b3e4ca1-393e-4525-bc22-37bc9985f21f",
+              "Attenuation": 1,
+              "ConeInner": 15,
+              "ConeOuter": 38,
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "2.72093,2.88837,3,1",
+              "Radius": 100,
+              "Shadows": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "697e431e-bf9c-46a7-949e-8d53a7b59eb0",
+      "Flags": 0,
+      "Name": "ViewModel",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "25e33745-fed0-41f3-a4e2-49a99a124fa7",
+          "BodyGroups": 46883,
+          "Model": "models/weapons/sbox_assault_m4a1/v_m4a1.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "8f3916bb-f074-4270-ac8b-cab801ed3036",
+      "Flags": 0,
+      "Name": "Camera",
+      "Position": "-31.75006,58.93496,24.12889",
+      "Rotation": "0.06526308,0.113039,-0.4957224,0.8586166",
+      "Tags": "maincamera",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "5f001903-08c9-422b-87d5-dbb3eddab323",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 24,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        },
+        {
+          "__type": "Sandbox.Tonemapping",
+          "__guid": "0ee6c27d-981c-4cc2-86b6-8165b251f37c",
+          "__version": 1,
+          "AutoExposureEnabled": true,
+          "ExposureBias": 2,
+          "ExposureCompensation": 0,
+          "ExposureMethod": "RGB",
+          "MaximumExposure": 2,
+          "MinimumExposure": 1,
+          "Mode": "ACES",
+          "Rate": 1
+        },
+        {
+          "__type": "Sandbox.AmbientOcclusion",
+          "__guid": "8db793ad-4b14-4ea3-a923-0aa2adab4077",
+          "FalloffDistance": 1,
+          "Intensity": 4,
+          "Quality": "High",
+          "Radius": 16
+        },
+        {
+          "__type": "Sandbox.Sharpen",
+          "__guid": "8343f609-f6cf-46f6-850d-f637ba2eaf93",
+          "Scale": 0.12
+        },
+        {
+          "__type": "Sandbox.Bloom",
+          "__guid": "af8bf44c-fde9-4e0c-afb9-b28e813ffe79",
+          "BloomColor": {
+            "color": [
+              {
+                "c": "1,1,1,1"
+              },
+              {
+                "t": 1,
+                "c": "1,1,1,1"
+              }
+            ],
+            "alpha": []
+          },
+          "BloomCurve": [
+            {
+              "y": 0.5
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "Mode": "Additive",
+          "Strength": 1,
+          "Threshold": 1.2,
+          "ThresholdWidth": 0
+        },
+        {
+          "__type": "Sandbox.DepthOfField",
+          "__guid": "408613a9-2e94-4463-b2c8-5d2d910e7e67",
+          "BackBlur": true,
+          "BlurSize": 100,
+          "FocalDistance": 80,
+          "FrontBlur": false
+        },
+        {
+          "__type": "Sandbox.Vignette",
+          "__guid": "2ab3517d-2226-462f-ad2b-314ad2834087",
+          "Center": "0.5,0.5",
+          "Color": "0,0,0,1",
+          "Intensity": 0.2,
+          "Roundness": 1,
+          "Smoothness": 1
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "gunsmith",
+  "Description": "",
+  "ResourceVersion": 1,
+  "__references": [
+    "based.guerrilla#62188",
+    "facepunch.v_m4a1#68031"
+  ],
+  "IsValid": true,
+  "__version": 1
+}
