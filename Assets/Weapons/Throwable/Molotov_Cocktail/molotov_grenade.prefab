@@ -13,8 +13,10 @@
         "Gravity": true,
         "LinearDamping": 0,
         "Locking": {},
+        "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": true,
+        "OverrideMassCenter": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
       },
@@ -46,7 +48,7 @@
           "_type": "gameobject",
           "prefab": "weapons/throwable/molotov_cocktail/molotov_explosion.prefab"
         },
-        "SpreadDelay": "0.05,0.10,1"
+        "SpreadDelay": "0.05 0.1"
       }
     ],
     "Children": [
@@ -59,8 +61,14 @@
           {
             "__type": "Sandbox.ModelRenderer",
             "__guid": "defb61e7-67c1-4591-ac39-68273e42770e",
-            "BodyGroups": 18446744073709551615,
-            "Model": "weapons/throwable/molotov_cocktail/v_molotov_cocktail.vmdl",
+            "BodyGroups": 11,
+            "Model": "models/weapons/sbox_grenade_incendiary/w_incendiary_grenade.vmdl",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1"
           }
@@ -72,7 +80,11 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.w_incendiary_grenade#72928"
+  ],
+  "IsValid": true,
   "__version": 1
 }
