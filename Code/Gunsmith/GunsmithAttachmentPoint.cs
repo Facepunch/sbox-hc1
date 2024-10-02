@@ -73,6 +73,9 @@ public partial class GunsmithAttachmentPoint : Component
 
 	private void ResetBodygroups( GunsmithPart part )
 	{
+		if ( !part.IsValid() )
+			return;
+
 		var renderer = GetComponentInParent<SkinnedModelRenderer>();
 
 		// Reset effected bodygroups

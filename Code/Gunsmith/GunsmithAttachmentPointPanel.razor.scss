@@ -4,16 +4,33 @@ GunsmithAttachmentPointPanel
 {
     transform: translateX(-50%);
     position: absolute;
-    height: 96px;
-    width: 128px;
-    background-image: linear-gradient( to right, rgba( black, 0.8 ), rgba( black, 0.5 ) );
-    border: 1px solid black;
-    backdrop-filter: blur(5px);
+    gap: 8px;
     pointer-events: all;
 
-    &:hover
+    .entry
     {
-        background-image: linear-gradient( to right, rgba( black, 0.9 ), rgba( black, 0.7 ) );
-        border: 1px solid white;
+        height: 64px;
+        width: 64px;
+        background-image: linear-gradient( to right, rgba( black, 0.8 ), rgba( black, 0.5 ) );
+        border: 1px solid black;
+        backdrop-filter: blur(5px);
+
+        &:hover
+        {
+            background-image: linear-gradient( to right, rgba( black, 0.9 ), rgba( black, 0.7 ) );
+            border: 1px solid white;
+        }
+
+        &.current
+        {
+            background-image: linear-gradient( to top, rgba( grey, 0.7 ), rgba( grey, 0.3 ) );
+        }
+    }
+
+    &.open
+    {
+        padding: 8px;
+        background-image: linear-gradient( to right, rgba( black, 0.8 ), rgba( black, 0.5 ) );
+        border: 1px solid black;
     }
 }
