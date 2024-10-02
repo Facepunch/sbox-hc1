@@ -28,12 +28,13 @@ public partial class GunsmithAttachmentPoint : Component
 			CurrentGameObject.Destroy();
 		}
 
+		var prevPart = CurrentPart;
 		CurrentPart = part;
 
 		if ( CurrentPart is null )
 		{
 			CurrentGameObject = null;
-			ResetBodygroups();
+			ResetBodygroups( prevPart );
 
 			return;
 		}
@@ -70,13 +71,14 @@ public partial class GunsmithAttachmentPoint : Component
 		}
 	}
 
-	private void ResetBodygroups()
+	private void ResetBodygroups( GunsmithPart part )
 	{
 		var renderer = GetComponentInParent<SkinnedModelRenderer>();
 
-		foreach ( var bodyPart in renderer.Model.BodyParts )
+		// Reset effected bodygroups
+		foreach ( var kv in part.Bodygroups )
 		{
-			renderer.SetBodyGroup( bodyPart.Name, 0 );
+			renderer.SetBodyGroup( kv.Key, 0 );
 		}
 	}
 }
