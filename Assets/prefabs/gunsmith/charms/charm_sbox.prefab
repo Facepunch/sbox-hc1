@@ -4,6 +4,12 @@
     "Flags": 0,
     "Name": "charm_sbox",
     "Enabled": true,
+    "Components": [
+      {
+        "__type": "Facepunch.Gunsmith.GunsmithAttachment",
+        "__guid": "ee0ac261-bdba-4a94-83e1-201c03bfbb65"
+      }
+    ],
     "Children": [
       {
         "__guid": "e216ebf8-9a44-4990-a729-a51655f9ce54",
@@ -34,10 +40,12 @@
             "StartPoint": "0,0,0",
             "Damping": 0.25,
             "Mass": 1.1,
+            "PitchLimits": "-360 360",
             "Radius": 40,
             "RollLimits": "5 35",
             "Speed": 1,
-            "Stiffness": 0.3
+            "Stiffness": 0.3,
+            "YawLimits": "-360 360"
           }
         ]
       },

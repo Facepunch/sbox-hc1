@@ -4,6 +4,12 @@
     "Flags": 0,
     "Name": "charm_fp",
     "Enabled": true,
+    "Components": [
+      {
+        "__type": "Facepunch.Gunsmith.GunsmithAttachment",
+        "__guid": "3667b676-4957-4d33-9627-de4ee4574d05"
+      }
+    ],
     "Children": [
       {
         "__guid": "e216ebf8-9a44-4990-a729-a51655f9ce54",
@@ -35,9 +41,12 @@
             "StartPoint": "0,0,0",
             "Damping": 0.25,
             "Mass": 0.9,
+            "PitchLimits": "-360 360",
             "Radius": 40,
+            "RollLimits": "5 35",
             "Speed": 1,
-            "Stiffness": 0.3
+            "Stiffness": 0.3,
+            "YawLimits": "-360 360"
           }
         ]
       },
