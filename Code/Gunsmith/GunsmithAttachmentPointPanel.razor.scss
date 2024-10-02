@@ -1,0 +1,19 @@
+@import "/UI/Styles/Theme.scss";
+
+GunsmithAttachmentPointPanel
+{
+    transform: translateX(-50%);
+    position: absolute;
+    height: 96px;
+    width: 128px;
+    background-image: linear-gradient( to right, rgba( black, 0.8 ), rgba( black, 0.5 ) );
+    border: 1px solid black;
+    backdrop-filter: blur(5px);
+    pointer-events: all;
+
+    &:hover
+    {
+        background-image: linear-gradient( to right, rgba( black, 0.9 ), rgba( black, 0.7 ) );
+        border: 1px solid white;
+    }
+}

@@ -1,12 +1,38 @@
 @using Sandbox;
 @using Sandbox.UI;
+@using Facepunch.Gunsmith;
+
 @inherits PanelComponent
 @namespace Facepunch
 
-<root>
+<root class="hc1">
     <div class="mouse" />
+
+    <div class="layout grow">
+        @*  *@
+    </div>
+
+    <div class="layout column gap padding">
+        <div class="layout column">
+            <label class="white emphasis vital text-center">@Weapon.Resource.Name</label>
+        </div>
+    </div>
+
+    <div style="width: 100%; height: 100%; position: absolute;">
+        @foreach ( var attachment in Weapon.GetComponentsInChildren<GunsmithAttachmentPoint>() )
+        {
+            <GunsmithAttachmentPointPanel Weapon=@Weapon AttachmentPoint=@attachment Category=@attachment.Category />
+        }
+    </div>
 </root>
 
 @code
 {
+    [Property]
+    public GunsmithWeapon Weapon { get; set; }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( Weapon );
+    }
 }

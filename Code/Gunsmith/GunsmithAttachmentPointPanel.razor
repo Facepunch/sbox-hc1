@@ -1,0 +1,44 @@
+@using Facepunch.UI
+@using Sandbox
+@using Sandbox.UI
+
+@namespace Facepunch.Gunsmith
+@inherits Panel
+
+<root class="hc1">
+    <div class="layout grow center" style="justify-content: center; align-items: center;">
+        <label class="white tiny">@Category</label>
+    </div>
+</root>
+
+@code
+{
+    public GunsmithAttachmentPoint AttachmentPoint { get; set; }
+    public GunsmithWeapon Weapon { get; set; }
+    public GunsmithPartType Category { get; set; }
+
+    public override void Tick()
+    {
+        var screenPos = Scene.Camera.PointToScreenNormal( AttachmentPoint.Transform.Position );
+
+        if ( Category == GunsmithPartType.Optic )
+        {
+            screenPos = screenPos.WithY( screenPos.y - 0.15f );
+        }
+
+        if ( Category == GunsmithPartType.Charm )
+        {
+            screenPos = screenPos.WithX( screenPos.x - 0.05f ).WithY(screenPos.y + 0.0f);
+
+        }
+
+        Style.Left = Length.Fraction( screenPos.x );
+        Style.Top = Length.Fraction( screenPos.y );
+    }
+
+    protected override void OnClick( MousePanelEvent e )
+    {
+        var part = Game.Random.FromList( GunsmithPart.Categories[Category].Where( x => x != AttachmentPoint.CurrentPart ).ToList() );
+        AttachmentPoint.SetPart( part );
+    }
+}

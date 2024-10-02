@@ -25,7 +25,10 @@ public partial class GunsmithPart
 		}
 		else
 		{
-			Categories.TryAdd( this.Category, new() );
-		}
+			Categories.TryAdd( this.Category, new()
+			{
+				this
+			} );
+		}		
 	}
 }
