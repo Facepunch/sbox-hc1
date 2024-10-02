@@ -122,22 +122,18 @@
     {
       "__guid": "697e431e-bf9c-46a7-949e-8d53a7b59eb0",
       "Flags": 0,
-      "Name": "ViewModel",
+      "Name": "Weapon",
       "Enabled": true,
       "Components": [
         {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "25e33745-fed0-41f3-a4e2-49a99a124fa7",
-          "BodyGroups": 46883,
-          "Model": "models/weapons/sbox_assault_m4a1/v_m4a1.vmdl",
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
+          "__type": "Facepunch.GunsmithWeapon",
+          "__guid": "ad66577e-dd7e-4fcd-8dc2-a1a489bbbaa6",
+          "RawViewModelPrefab": {
+            "_type": "gameobject",
+            "prefab": "weapons/m4a1/viewmodel_raw_m4a1.prefab"
           },
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
+          "Renderer": null,
+          "Resource": "weapons/m4a1/m4a1.equip"
         }
       ]
     },
@@ -145,8 +141,8 @@
       "__guid": "8f3916bb-f074-4270-ac8b-cab801ed3036",
       "Flags": 0,
       "Name": "Camera",
-      "Position": "-31.75006,58.93496,24.12889",
-      "Rotation": "0.06526308,0.113039,-0.4957224,0.8586166",
+      "Position": "3.83706,110,6",
+      "Rotation": "-0.000000002727101,0.000000002727101,-0.7071068,0.7071068",
       "Tags": "maincamera",
       "Enabled": true,
       "Components": [
@@ -227,7 +223,7 @@
           "__guid": "408613a9-2e94-4463-b2c8-5d2d910e7e67",
           "BackBlur": true,
           "BlurSize": 100,
-          "FocalDistance": 80,
+          "FocalDistance": 120,
           "FrontBlur": false
         },
         {
@@ -238,6 +234,48 @@
           "Intensity": 0.2,
           "Roundness": 1,
           "Smoothness": 1
+        }
+      ]
+    },
+    {
+      "__guid": "31d4f037-9832-4c5a-8dc1-263501974e4c",
+      "Flags": 0,
+      "Name": "Gunsmith",
+      "Position": "214.2795,-476.9522,611.7876",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Facepunch.Gunsmith.GunsmithSystem",
+          "__guid": "547236eb-3d55-43e9-8b4f-7d2f1c59dbe5",
+          "Weapon": {
+            "_type": "component",
+            "component_id": "ad66577e-dd7e-4fcd-8dc2-a1a489bbbaa6",
+            "go": "697e431e-bf9c-46a7-949e-8d53a7b59eb0",
+            "component_type": "GunsmithWeapon"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "3464f314-f335-461d-9d73-d56b690b45ba",
+          "Flags": 0,
+          "Name": "UI",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ScreenPanel",
+              "__guid": "4fe70d08-b5e5-421e-ab93-ffc47f6060c8",
+              "AutoScreenScale": true,
+              "Opacity": 1,
+              "Scale": 1,
+              "ScaleStrategy": "ConsistentHeight",
+              "ZIndex": 100
+            },
+            {
+              "__type": "Facepunch.GunsmithPanel",
+              "__guid": "89037c32-491a-4ab5-a502-44777276bb83"
+            }
+          ]
         }
       ]
     }
@@ -267,10 +305,7 @@
   "Title": "gunsmith",
   "Description": "",
   "ResourceVersion": 1,
-  "__references": [
-    "based.guerrilla#62188",
-    "facepunch.v_m4a1#68031"
-  ],
+  "__references": [],
   "IsValid": true,
   "__version": 1
 }

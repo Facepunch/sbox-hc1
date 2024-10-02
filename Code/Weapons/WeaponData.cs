@@ -106,6 +106,9 @@ public partial class EquipmentResource : GameResource
 	[Category( "Information" )]
 	public Model WorldModel { get; set; }
 
+	[Category( "Gunsmith" )]
+	public Model ViewModel { get; set; }
+
 	[Category( "Dropping" )]
 	public Vector3 DroppedSize { get; set; } = new( 8, 2, 8 );
 

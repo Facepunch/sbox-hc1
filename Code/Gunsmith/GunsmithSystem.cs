@@ -5,5 +5,6 @@ namespace Facepunch.Gunsmith;
 /// </summary>
 public partial class GunsmithSystem : Component
 {
-	// What weapon are we editing, bla bla bla...
+	[Property]
+	public GunsmithWeapon Weapon { get; set; }
 }
