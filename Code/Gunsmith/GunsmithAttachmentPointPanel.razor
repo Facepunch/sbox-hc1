@@ -7,7 +7,14 @@
 
 <root class="hc1">
     <div class="layout grow center" style="justify-content: center; align-items: center;">
-        <label class="white tiny">@Category</label>
+        @if ( AttachmentPoint.CurrentPart is not null )
+        {
+            <label class="white tiny">@AttachmentPoint.CurrentPart.Name</label>
+        }
+        else
+        {
+            <label class="white tiny">@Category</label>
+        }
     </div>
 </root>
 
@@ -21,16 +28,11 @@
     {
         var screenPos = Scene.Camera.PointToScreenNormal( AttachmentPoint.Transform.Position );
 
+        // Hacky hack hack, but temporary.
         if ( Category == GunsmithPartType.Optic )
-        {
             screenPos = screenPos.WithY( screenPos.y - 0.15f );
-        }
-
         if ( Category == GunsmithPartType.Charm )
-        {
-            screenPos = screenPos.WithX( screenPos.x - 0.05f ).WithY(screenPos.y + 0.0f);
-
-        }
+            screenPos = screenPos.WithX( screenPos.x - 0.05f );
 
         Style.Left = Length.Fraction( screenPos.x );
         Style.Top = Length.Fraction( screenPos.y );
@@ -38,7 +40,15 @@
 
     protected override void OnClick( MousePanelEvent e )
     {
-        var part = Game.Random.FromList( GunsmithPart.Categories[Category].Where( x => x != AttachmentPoint.CurrentPart ).ToList() );
-        AttachmentPoint.SetPart( part );
+        if ( e.MouseButton == MouseButtons.Left )
+        {
+            var part = Game.Random.FromList( GunsmithPart.Categories[Category].Where( x => x != AttachmentPoint.CurrentPart ).ToList() );
+            AttachmentPoint.SetPart( part );
+        }
+    }
+
+    protected override void OnRightClick( MousePanelEvent e )
+    {
+        AttachmentPoint.SetPart( null );
     }
 }

@@ -23,6 +23,15 @@ public sealed class JiggleBone : TransformProxyComponent
 	[Property, Range( 0, 100 )]
 	public float Mass { get; set; } = 1.0f;
 
+	[Property]
+	public RangedFloat RollLimits { get; set; } = new( 5f, 35f );
+
+	[Property]
+	public RangedFloat PitchLimits { get; set; } = new( -360, 360 );
+
+	[Property]
+	public RangedFloat YawLimits { get; set; } = new( -360, 360 );
+
 	Transform LocalJigglePosition;
 
 	protected override void OnEnabled()
@@ -37,8 +46,6 @@ public sealed class JiggleBone : TransformProxyComponent
 	protected override void OnUpdate()
 	{
 		var oldPos = LocalJigglePosition;
-
-
 
 		using ( Transform.DisableProxy() )
 		{
@@ -55,6 +62,9 @@ public sealed class JiggleBone : TransformProxyComponent
 			state.Damping = Damping;
 			state.Radius = Radius;
 			state.Mass = Mass;
+			state.RollLimits = RollLimits;
+			state.YawLimits = YawLimits;
+			state.PitchLimits = PitchLimits;
 
 			state.Update( startPoint, Time.Delta * Speed * 16.0f );
 
@@ -104,7 +114,9 @@ class JiggleBoneState
 	public float Radius { get; set; } = 10.0f;
 	public float Gravity { get; set; } = 1.0f;
 	public float Mass { get; set; } = 1.0f;
-
+	public RangedFloat RollLimits { get; set; } = new( 5f, 35f );
+	public RangedFloat PitchLimits { get; set; } = new( -360, 360 );
+	public RangedFloat YawLimits { get; set; } = new( -360, 360 );
 
 	Vector3 basePosition;
 	Vector3 velocity;
@@ -150,8 +162,13 @@ class JiggleBoneState
 			}
 		}
 
+		var fromTo = Rotation.FromToRotation( basePosition - position, Position - position );
+
+		var angles = fromTo.Angles();
+		angles = angles.WithRoll( angles.roll.Clamp( RollLimits.Min, RollLimits.Max ) );
+
 		// Store the rotation offset result
-		Rotation = Rotation.FromToRotation( basePosition - position, Position - position );
+		Rotation = angles.ToRotation();
 
 		//Gizmo.Draw.IgnoreDepth = true;
 		//Gizmo.Draw.Line( position, Position );
