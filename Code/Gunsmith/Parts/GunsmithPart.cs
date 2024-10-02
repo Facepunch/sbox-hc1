@@ -10,6 +10,7 @@ public enum GunsmithPartType
 	Optic
 }
 
+[GameResource( "HC1/Gunsmith Part", "gnsmth", "A gunsmith part" )]
 public partial class GunsmithPart : GameResource
 {
 	/// <summary>
