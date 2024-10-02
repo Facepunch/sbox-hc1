@@ -5,5 +5,6 @@ namespace Facepunch.Gunsmith;
 /// </summary>
 public partial class GunsmithAttachmentPoint : Component
 {
+	[Property]
 	public GunsmithPartType Category { get; set; }
 }
