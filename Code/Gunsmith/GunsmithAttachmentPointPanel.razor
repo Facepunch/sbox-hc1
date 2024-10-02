@@ -30,9 +30,9 @@
 
         // Hacky hack hack, but temporary.
         if ( Category == GunsmithPartType.Optic )
-            screenPos = screenPos.WithY( screenPos.y - 0.15f );
+            screenPos = screenPos.WithX( screenPos.x - 0.05f ).WithY( screenPos.y - 0.25f );
         if ( Category == GunsmithPartType.Charm )
-            screenPos = screenPos.WithX( screenPos.x - 0.05f );
+            screenPos = screenPos.WithX( screenPos.x ).WithY( screenPos.y + 0.05f );
 
         Style.Left = Length.Fraction( screenPos.x );
         Style.Top = Length.Fraction( screenPos.y );
