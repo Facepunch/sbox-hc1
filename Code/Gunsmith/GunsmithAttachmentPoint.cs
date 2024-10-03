@@ -31,11 +31,11 @@ public partial class GunsmithAttachmentPoint : Component
 		var prevPart = CurrentPart;
 		CurrentPart = part;
 
+		ResetBodygroups( prevPart );
+
 		if ( CurrentPart is null )
 		{
 			CurrentGameObject = null;
-			ResetBodygroups( prevPart );
-
 			return;
 		}
 
