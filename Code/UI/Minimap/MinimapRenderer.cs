@@ -11,7 +11,7 @@ public partial class MinimapRenderer : Component, Component.ExecuteInEditor
 	public Vector3 FromWorld( Vector3 worldPos )
 	{
 		// Define the center position and half size of the minimap area
-		var origin = Transform.Position;
+		var origin = WorldPosition;
 		var halfSize = Size * 0.5f;
 
 		// Calculate the bounding box min and max coordinates
@@ -97,8 +97,8 @@ public partial class MinimapRenderer : Component, Component.ExecuteInEditor
 			GetOrCreateCamera();
         }
 
-        Camera.Transform.Position = Transform.Position + Vector3.Up * Size;
-        Camera.Transform.Rotation = Rotation.From( 90, 0, 0 );
+        Camera.WorldPosition = WorldPosition + Vector3.Up * Size;
+        Camera.WorldRotation = Rotation.From( 90, 0, 0 );
         Camera.OrthographicHeight = Size;
 	}
 }

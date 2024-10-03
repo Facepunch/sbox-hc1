@@ -17,7 +17,7 @@ public partial class WorldPingComponent : Component, IMarkerObject, ICustomMinim
 			if ( Receiver.IsValid() )
 				return Receiver.Position;
 
-			return Transform.Position + Vector3.Up * 32f;
+			return WorldPosition + Vector3.Up * 32f;
 		}
 	}
 

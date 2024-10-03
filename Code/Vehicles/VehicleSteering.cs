@@ -24,7 +24,7 @@ public sealed class Steering : Component
 		foreach ( var wheel in Wheels )
 		{
 			var targetRotation = Rotation.FromYaw( MaxSteeringAngle * inputState.direction.y ) * Rotation.From( Offset );
-			wheel.Transform.LocalRotation = Rotation.Lerp( wheel.Transform.LocalRotation, targetRotation, Time.Delta * SteeringSmoothness );
+			wheel.LocalRotation = Rotation.Lerp( wheel.LocalRotation, targetRotation, Time.Delta * SteeringSmoothness );
 		}
 	}
 }

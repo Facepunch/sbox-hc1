@@ -21,7 +21,7 @@ public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMi
 	/// <summary>
 	/// Where is the marker?
 	/// </summary>
-	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 128f;
+	Vector3 IMarkerObject.MarkerPosition => WorldPosition + Vector3.Up * 128f;
 
 	/// <summary>
 	/// What icon?
@@ -40,9 +40,9 @@ public partial class CapturePoint : Component, IMarkerObject, IMinimapLabel, IMi
 
 	string IMinimapLabel.Label => ShortName;
 	Color IMinimapLabel.LabelColor => Color.White;
-	Angles IMinimapVolume.Angles => GameObject.Transform.Rotation.Angles();
+	Angles IMinimapVolume.Angles => GameObject.WorldRotation.Angles();
 
-	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => WorldPosition;
 
 	/// <summary>
 	/// Defines a custom marker panel type to instantiate. Might remove this later.

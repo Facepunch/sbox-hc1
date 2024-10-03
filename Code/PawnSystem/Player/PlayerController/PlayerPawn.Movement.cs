@@ -126,7 +126,7 @@ public partial class PlayerPawn
 			var eyeHeightOffset = GetEyeHeightOffset();
 
 			var target = eyeHeightOffset;
-			var trace = TraceBBox( Transform.Position, Transform.Position, 0, 10f );
+			var trace = TraceBBox( WorldPosition, WorldPosition, 0, 10f );
 			if ( trace.Hit && target > _smoothEyeHeight )
 			{
 				// We hit something, that means we can't increase our eye height because something's in the way.
@@ -208,7 +208,7 @@ public partial class PlayerPawn
 
 			if ( Body.IsValid() )
 			{
-				Body.Transform.Rotation = Rotation.FromYaw( EyeAngles.yaw );
+				Body.WorldRotation = Rotation.FromYaw( EyeAngles.yaw );
 			}
 
 			if ( AnimationHelper.IsValid() )
@@ -407,7 +407,7 @@ public partial class PlayerPawn
 
 		if ( wasOnGround && !isOnGround )
 		{
-			_jumpPosition = Transform.Position;
+			_jumpPosition = WorldPosition;
 		}
 
 		if ( !wasOnGround && isOnGround && Global.EnableFallDamage && !IsNoclipping )
@@ -439,14 +439,14 @@ public partial class PlayerPawn
 	[Broadcast]
 	private void PlayFallSound()
 	{
-		var handle = Sound.Play( LandSound, Transform.Position );
+		var handle = Sound.Play( LandSound, WorldPosition );
 		handle.ListenLocal = IsViewer;
 	}
 
 	[Broadcast]
 	private void TakeFallDamage( float damage )
 	{
-		GameObject.TakeDamage( new DamageInfo( this, damage, null, Transform.Position, Flags: DamageFlags.FallDamage ) );
+		GameObject.TakeDamage( new DamageInfo( this, damage, null, WorldPosition, Flags: DamageFlags.FallDamage ) );
 	}
 
 	private void CheckLadder()
@@ -473,7 +473,7 @@ public partial class PlayerPawn
 		}
 
 		const float ladderDistance = 1.0f;
-		var start = Transform.Position;
+		var start = WorldPosition;
 		Vector3 end = start + (_isTouchingLadder ? (_ladderNormal * -1.0f) : wishvel) * ladderDistance;
 
 		var pm = Scene.Trace.Ray( start, end )

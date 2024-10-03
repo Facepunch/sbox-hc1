@@ -59,9 +59,9 @@ public class PlanarReflectionCamera : Component
 		if ( !_cameraGameObject.IsValid() )
 			GetOrCreateCamera();
 
-		var cameraDir = Scene.Camera.Transform.Rotation.Forward;
-		var cameraUp = Scene.Camera.Transform.Rotation.Up;
-		var cameraPos = Scene.Camera.Transform.Position;
+		var cameraDir = Scene.Camera.WorldRotation.Forward;
+		var cameraUp = Scene.Camera.WorldRotation.Up;
+		var cameraPos = Scene.Camera.WorldPosition;
 
 		cameraDir.z *= -1f;
 		cameraUp.z *= -1f;
@@ -70,8 +70,8 @@ public class PlanarReflectionCamera : Component
 		relCameraPos.z *= -1f;
 		cameraPos = Plane.Transform.World.PointToWorld( relCameraPos );
 
-		_camera.Transform.Position = cameraPos;
-		_camera.Transform.Rotation = Rotation.LookAt( cameraDir, cameraUp );
+		_camera.WorldPosition = cameraPos;
+		_camera.WorldRotation = Rotation.LookAt( cameraDir, cameraUp );
 		_camera.Transform.ClearInterpolation();
 		_camera.Network.ClearInterpolation();
 

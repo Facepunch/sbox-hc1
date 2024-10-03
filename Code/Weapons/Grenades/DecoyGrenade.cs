@@ -14,7 +14,7 @@ public sealed class DecoyGrenade : BaseGrenade, ICustomMinimapIcon
 	TimeSince TimeSinceShot = 1;
 
 	string IMinimapIcon.IconPath => "ui/minimaps/enemy_icon.png";
-	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => WorldPosition;
 	string ICustomMinimapIcon.CustomStyle => "background-image-tint: rgba(255, 0, 0, 1 );";
 	bool IMinimapElement.IsVisible( Pawn viewer ) => TimeSinceShot < 0.5f && IsEnemy;
 
@@ -39,7 +39,7 @@ public sealed class DecoyGrenade : BaseGrenade, ICustomMinimapIcon
 		TimeSinceShot = 0;
 
 		if ( ShotSound is not null )
-			Sound.Play( ShotSound, Transform.Position );
+			Sound.Play( ShotSound, WorldPosition );
 
 		Effect?.Clone( new CloneConfig()
 		{

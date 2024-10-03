@@ -17,8 +17,8 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 		Assert.True( Networking.IsHost );
 
 		var go = new GameObject();
-		go.Transform.Position = positon;
-		go.Transform.Rotation = rotation ?? Rotation.Identity;
+		go.WorldPosition = positon;
+		go.WorldRotation = rotation ?? Rotation.Identity;
 		go.Name = resource.Name;
 		go.Tags.Add( "pickup" );
 
@@ -125,7 +125,7 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 	/// <summary>
 	/// Where is the marker?
 	/// </summary>
-	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 8f;
+	Vector3 IMarkerObject.MarkerPosition => WorldPosition + Vector3.Up * 8f;
 
 	/// <summary>
 	/// What text?

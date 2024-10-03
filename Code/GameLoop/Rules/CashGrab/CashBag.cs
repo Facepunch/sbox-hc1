@@ -6,7 +6,7 @@ namespace Facepunch;
 public partial class CashBag : Component, IDroppedWeaponState<CashBag>, ICustomMinimapIcon, IMarkerObject
 {
 	string IMinimapIcon.IconPath => "ui/minimaps/cashgrab/cashpoint.png";
-	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => WorldPosition;
 	string ICustomMinimapIcon.CustomStyle
 	{
 		get
@@ -24,7 +24,7 @@ public partial class CashBag : Component, IDroppedWeaponState<CashBag>, ICustomM
 	/// <summary>
 	/// Where is the marker?
 	/// </summary>
-	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 32f;
+	Vector3 IMarkerObject.MarkerPosition => WorldPosition + Vector3.Up * 32f;
 
 	/// <summary>
 	/// What icon?

@@ -100,7 +100,7 @@ public class CharacterController : Component
 	/// </summary>
 	public SceneTraceResult TraceDirection( Vector3 direction )
 	{
-		return BuildTrace( GameObject.Transform.Position, GameObject.Transform.Position + direction ).Run();
+		return BuildTrace( GameObject.WorldPosition, GameObject.WorldPosition + direction ).Run();
 	}
 
 	void Move( bool step )
@@ -116,7 +116,7 @@ public class CharacterController : Component
 			return;
 		}
 
-		var pos = GameObject.Transform.Position;
+		var pos = GameObject.WorldPosition;
 
 		var mover = new CharacterControllerHelper( BuildTrace( pos, pos ), pos, Velocity );
 		mover.Bounce = Bounciness;
@@ -131,13 +131,13 @@ public class CharacterController : Component
 			mover.TryMove( Time.Delta );
 		}
 
-		Transform.Position = mover.Position;
+		WorldPosition = mover.Position;
 		Velocity = mover.Velocity;
 	}
 
 	void CategorizePosition()
 	{
-		var Position = Transform.Position;
+		var Position = WorldPosition;
 		var point = Position + Vector3.Down * 2;
 		var vBumpOrigin = Position;
 		var wasOnGround = IsOnGround;
@@ -179,7 +179,7 @@ public class CharacterController : Component
 		//
 		if ( wasOnGround && !pm.StartedSolid && pm.Fraction > 0.0f && pm.Fraction < 1.0f )
 		{
-			Transform.Position = pm.EndPosition + pm.Normal * 0.01f;
+			WorldPosition = pm.EndPosition + pm.Normal * 0.01f;
 		}
 	}
 
@@ -228,7 +228,7 @@ public class CharacterController : Component
 		if ( TryUnstuck() )
 			return;
 
-		var pos = Transform.Position;
+		var pos = WorldPosition;
 		var delta = targetPosition - pos;
 
 		var mover = new CharacterControllerHelper( BuildTrace( pos, pos ), pos, delta );
@@ -243,14 +243,14 @@ public class CharacterController : Component
 			mover.TryMove( 1.0f );
 		}
 
-		Transform.Position = mover.Position;
+		WorldPosition = mover.Position;
 	}
 
 	int _stuckTries;
 
 	bool TryUnstuck()
 	{
-		var result = BuildTrace( Transform.Position, Transform.Position ).Run();
+		var result = BuildTrace( WorldPosition, WorldPosition ).Run();
 
 		// Not stuck, we cool
 		if ( !result.StartedSolid )
@@ -269,12 +269,12 @@ public class CharacterController : Component
 
 		for ( int i = 0; i < AttemptsPerTick; i++ )
 		{
-			var pos = Transform.Position + Vector3.Random.Normal * (((float)_stuckTries) / 2.0f);
+			var pos = WorldPosition + Vector3.Random.Normal * (((float)_stuckTries) / 2.0f);
 
 			// First try the up direction for moving platforms
 			if ( i == 0 )
 			{
-				pos = Transform.Position + Vector3.Up * 2;
+				pos = WorldPosition + Vector3.Up * 2;
 			}
 
 			result = BuildTrace( pos, pos ).Run();
@@ -282,7 +282,7 @@ public class CharacterController : Component
 			if ( !result.StartedSolid )
 			{
 				//Log.Info( $"unstuck after {_stuckTries} tries ({_stuckTries * AttemptsPerTick} tests)" );
-				Transform.Position = pos;
+				WorldPosition = pos;
 				return false;
 			}
 		}

@@ -40,7 +40,7 @@ public sealed class AllowInstantDefuse : Component,
 
 		var maxDistSq = 128f * 128f;
 
-		if ( MolotovFireNode.All.Any( x => (x.Transform.Position - player.Transform.Position).LengthSquared < maxDistSq ) )
+		if ( MolotovFireNode.All.Any( x => (x.WorldPosition - player.WorldPosition).LengthSquared < maxDistSq ) )
 		{
 			return true;
 		}

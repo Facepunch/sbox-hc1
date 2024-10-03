@@ -12,11 +12,11 @@ internal class BuyZone : Component, IMinimapIcon, IMinimapVolume
 	public Vector3 Size => GetComponent<BoxCollider>().Scale;
 
 	string IMinimapIcon.IconPath => Team.GetIconPath();
-	Angles IMinimapVolume.Angles => GameObject.Transform.Rotation.Angles();
+	Angles IMinimapVolume.Angles => GameObject.WorldRotation.Angles();
 
 	int IMinimapIcon.IconOrder => 15;
 
-	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => WorldPosition;
 
 	bool IMinimapElement.IsVisible( Pawn viewer ) => true;
 }

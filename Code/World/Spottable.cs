@@ -42,7 +42,7 @@ public sealed class Spottable : Component,
 	protected override void OnUpdate()
 	{
 		if ( IsSpotted )
-			LastSeenPosition = Transform.Position;
+			LastSeenPosition = WorldPosition;
 	}
 
 	public void Spotted( Spotter spotter )
@@ -60,7 +60,7 @@ public sealed class Spottable : Component,
 	protected override void DrawGizmos()
 	{
 		Gizmo.Draw.Color = Color.Green;
-		Gizmo.Draw.Line( Transform.Position, Transform.Position + Vector3.Up * Height );
+		Gizmo.Draw.Line( WorldPosition, WorldPosition + Vector3.Up * Height );
 	}
 
 	void IGameEventHandler<TeamChangedEvent>.OnGameEvent( TeamChangedEvent eventArgs )

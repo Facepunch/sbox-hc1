@@ -21,8 +21,8 @@ public partial class PlayerBody : Component
 
 		if ( !ragdoll )
 		{
-			GameObject.Transform.LocalPosition = Vector3.Zero;
-			GameObject.Transform.LocalRotation = Rotation.Identity;
+			GameObject.LocalPosition = Vector3.Zero;
+			GameObject.LocalRotation = Rotation.Identity;
 		}
 
 		SetFirstPersonView( !ragdoll );

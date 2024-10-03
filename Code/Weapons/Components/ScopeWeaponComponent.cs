@@ -35,7 +35,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			renderHook = camera.Camera.AddHookAfterTransparent( "Scope", 100, RenderEffect );
 
 		if ( ZoomSound is not null )
-			Sound.Play( ZoomSound, Equipment.GameObject.Transform.Position );
+			Sound.Play( ZoomSound, Equipment.GameObject.WorldPosition );
 
 		ZoomLevel = level;
 		Equipment.Tags.Add( "aiming" );
@@ -52,7 +52,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			renderHook.Dispose();
 
 		if ( UnzoomSound is not null && Equipment.IsValid() )
-			Sound.Play( UnzoomSound, Equipment.GameObject.Transform.Position );
+			Sound.Play( UnzoomSound, Equipment.GameObject.WorldPosition );
 
 		ZoomLevel = 0;
 

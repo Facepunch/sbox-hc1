@@ -74,7 +74,7 @@
 
     public Color ViewerColor => PlayerState.Viewer.PlayerColor;
 
-    public Vector3 ViewPos => PlayerState.Viewer.Pawn?.Transform.Position ?? Vector3.Zero;
+    public Vector3 ViewPos => PlayerState.Viewer.Pawn?.WorldPosition ?? Vector3.Zero;
     public float ViewYaw => PlayerState.Viewer.Pawn?.EyeAngles.yaw ?? 0;
 
     public float Zoom => 2;

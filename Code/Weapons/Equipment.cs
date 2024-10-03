@@ -152,7 +152,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		var player = GameUtils.PlayerPawns.FirstOrDefault( x => x.Network.Owner == connection );
 		if ( !player.IsValid() ) return;
 		
-		DroppedEquipment.Create( Resource, player.Transform.Position + Vector3.Up * 32f, Rotation.Identity, this );
+		DroppedEquipment.Create( Resource, player.WorldPosition + Vector3.Up * 32f, Rotation.Identity, this );
 	}
 
 	/// <summary>
@@ -267,7 +267,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		if ( DeploySound is null )
 			return;
 
-		var snd = Sound.Play( DeploySound, Transform.Position );
+		var snd = Sound.Play( DeploySound, WorldPosition );
 		if ( !snd.IsValid() ) return;
 		
 		snd.ListenLocal = !IsProxy;

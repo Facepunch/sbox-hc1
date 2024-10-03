@@ -128,7 +128,7 @@ public partial class PlayerPawn
 
 	public void Teleport( Transform transform )
 	{
-		Teleport( transform.Position, transform.Rotation );
+		Teleport( WorldPosition, transform.Rotation );
 	}
 
 	[Authority]

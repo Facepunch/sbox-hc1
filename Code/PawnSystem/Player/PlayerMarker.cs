@@ -26,7 +26,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 		{
 			if ( !Scene.Camera.IsValid() ) return 0f;
 
-			var dist = Scene.Camera.Transform.Position.DistanceSquared( Transform.Position );
+			var dist = Scene.Camera.WorldPosition.DistanceSquared( WorldPosition );
 			dist *= 0.00000225f;
 			return Vector3.Up * dist;
 		}
@@ -35,7 +35,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <summary>
 	/// Where is the marker?
 	/// </summary>
-	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 70 + DistOffset;
+	Vector3 IMarkerObject.MarkerPosition => WorldPosition + Vector3.Up * 70 + DistOffset;
 
 	/// <summary>
 	/// What type of icon are we using on the minimap?
@@ -76,7 +76,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <summary>
 	/// The minimap element's position in the world.
 	/// </summary>
-	Vector3 IMinimapElement.WorldPosition => IsEnemy && IsMissing ? Player.Spottable.LastSeenPosition : Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => IsEnemy && IsMissing ? Player.Spottable.LastSeenPosition : WorldPosition;
 
 	/// <summary>
 	/// Is this player an enemy of the viewer?

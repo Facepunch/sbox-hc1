@@ -94,8 +94,8 @@ public sealed class AnimationHelper : Component
 	public void WithVelocity( Vector3 Velocity )
 	{
 		var dir = Velocity;
-		var forward = Target.Transform.Rotation.Forward.Dot( dir );
-		var sideward = Target.Transform.Rotation.Right.Dot( dir );
+		var forward = Target.WorldRotation.Forward.Dot( dir );
+		var sideward = Target.WorldRotation.Right.Dot( dir );
 
 		var angle = MathF.Atan2( sideward, forward ).RadianToDegree().NormalizeDegrees();
 
@@ -110,8 +110,8 @@ public sealed class AnimationHelper : Component
 	public void WithWishVelocity( Vector3 Velocity )
 	{
 		var dir = Velocity;
-		var forward = Target.Transform.Rotation.Forward.Dot( dir );
-		var sideward = Target.Transform.Rotation.Right.Dot( dir );
+		var forward = Target.WorldRotation.Forward.Dot( dir );
+		var sideward = Target.WorldRotation.Right.Dot( dir );
 
 		var angle = MathF.Atan2( sideward, forward ).RadianToDegree().NormalizeDegrees();
 
@@ -127,7 +127,7 @@ public sealed class AnimationHelper : Component
 	{
 		set
 		{
-			value = Target.Transform.Rotation.Inverse * value;
+			value = Target.WorldRotation.Inverse * value;
 			var ang = value.Angles();
 
 			Target.Set( "aim_body_pitch", ang.pitch );

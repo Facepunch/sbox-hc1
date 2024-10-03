@@ -30,7 +30,7 @@ public partial class DamageIndicator : Panel
 		{
 			base.Tick();
 
-			var wpos = Scene.Camera.Transform.Rotation.Inverse * (Position.WithZ( 0 ) - Scene.Camera.Transform.Position.WithZ( 0 )).Normal;
+			var wpos = Scene.Camera.WorldRotation.Inverse * (Position.WithZ( 0 ) - Scene.Camera.WorldPosition.WithZ( 0 )).Normal;
 			wpos = wpos.WithZ( 0 ).Normal;
 
 			var angle = MathF.Atan2( wpos.y, -1.0f * wpos.x );

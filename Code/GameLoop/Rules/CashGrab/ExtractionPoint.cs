@@ -31,7 +31,7 @@ public partial class ExtractionPoint : Component,
 
 	string IMinimapIcon.IconPath => "ui/minimaps/cashgrab/extract.png";
 
-	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => WorldPosition;
 
 	string ICustomMinimapIcon.CustomStyle
 	{
@@ -85,7 +85,7 @@ public partial class ExtractionPoint : Component,
 	/// <summary>
 	/// Where is the marker?
 	/// </summary>
-	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 32f;
+	Vector3 IMarkerObject.MarkerPosition => WorldPosition + Vector3.Up * 32f;
 
 	/// <summary>
 	/// What icon?

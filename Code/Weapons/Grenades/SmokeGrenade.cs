@@ -33,7 +33,7 @@ public partial class SmokeGrenade : BaseGrenade
 
 		foreach ( var node in MolotovFireNode.All )
 		{
-			if ( node.Transform.Position.DistanceSquared( Transform.Position ) <= radius )
+			if ( node.WorldPosition.DistanceSquared( WorldPosition ) <= radius )
 			{
 				node.Extinguish();
 			}

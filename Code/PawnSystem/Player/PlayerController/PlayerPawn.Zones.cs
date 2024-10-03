@@ -18,7 +18,7 @@ partial class PlayerPawn
 	private void UpdateZones()
 	{
 		_zones.Clear();
-		_zones.AddRange( Zone.GetAt( Transform.Position ) );
+		_zones.AddRange( Zone.GetAt( WorldPosition ) );
 	}
 
 	public T GetZone<T>()

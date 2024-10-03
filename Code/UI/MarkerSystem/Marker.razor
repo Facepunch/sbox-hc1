@@ -132,7 +132,7 @@
 
         var toScreen = camera.PointToScreenNormal( Object.MarkerPosition, out IsBehind );
 
-        if ( Object.MarkerMaxDistance != 0f && camera.Transform.Position.Distance( Object.MarkerPosition ) > Object.MarkerMaxDistance )
+        if ( Object.MarkerMaxDistance != 0f && camera.WorldPosition.Distance( Object.MarkerPosition ) > Object.MarkerMaxDistance )
             IsBehind = true;
 
         bool wasOffScreen = IsOffScreen;

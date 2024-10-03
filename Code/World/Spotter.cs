@@ -47,14 +47,14 @@ public sealed class Spotter : Component
 		var playerEyePos = Player.AimRay.Position;
 
 		const float FOV = 85;
-		float angle = Vector3.GetAngle( Player.EyeAngles.Forward, spottable.Transform.Position - playerEyePos );
+		float angle = Vector3.GetAngle( Player.EyeAngles.Forward, spottable.WorldPosition - playerEyePos );
 		if ( MathF.Abs( angle ) > (FOV / 2) )
 		{
 			return;
 		}
 
 		// Try the top
-		var trace = Scene.Trace.Ray( playerEyePos, spottable.Transform.Position + Vector3.Up * spottable.Height ) // bit of error for funsies
+		var trace = Scene.Trace.Ray( playerEyePos, spottable.WorldPosition + Vector3.Up * spottable.Height ) // bit of error for funsies
 				.IgnoreGameObjectHierarchy( spottable.GameObject )
 				.IgnoreGameObjectHierarchy( Player.GameObject )
 				.UseHitboxes()
@@ -64,7 +64,7 @@ public sealed class Spotter : Component
 		if ( trace.Hit )
 		{
 			// Try the bottom
-			trace = Scene.Trace.Ray( playerEyePos, spottable.Transform.Position )
+			trace = Scene.Trace.Ray( playerEyePos, spottable.WorldPosition )
 				.IgnoreGameObjectHierarchy( spottable.GameObject )
 				.IgnoreGameObjectHierarchy( Player.GameObject )
 				.UseHitboxes()

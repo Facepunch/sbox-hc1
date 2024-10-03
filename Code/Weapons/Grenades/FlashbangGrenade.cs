@@ -6,7 +6,7 @@ public partial class FlashbangGrenade : BaseGrenade, IMarkerObject
 	/// <summary>
 	/// Where is the marker?
 	/// </summary>
-	Vector3 IMarkerObject.MarkerPosition => Transform.Position;
+	Vector3 IMarkerObject.MarkerPosition => WorldPosition;
 
 	/// <summary>
 	/// How far can we see this marker?
@@ -46,19 +46,19 @@ public partial class FlashbangGrenade : BaseGrenade, IMarkerObject
 		base.Explode();
 
 		if ( ExplodeSound is not null )
-			Sound.Play( ExplodeSound, Transform.Position );
+			Sound.Play( ExplodeSound, WorldPosition );
 		
 		var viewer = PlayerState.Viewer?.PlayerPawn;
 		if ( !viewer.IsValid() ) return;
 
-		var distance = viewer.Transform.Position.Distance( Transform.Position );
+		var distance = viewer.WorldPosition.Distance( WorldPosition );
 		if ( distance > 750f ) return;
 
 		var trace = Scene.Trace
 			.WithoutTags( "trigger", "ragdoll" )
 			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.UseHitboxes()
-			.Ray( Transform.Position + new Vector3( 0f, 0f, 8f ), viewer.Head.Transform.Position )
+			.Ray( WorldPosition + new Vector3( 0f, 0f, 8f ), viewer.Head.WorldPosition )
 			.Run();
 
 		if ( !trace.GameObject.IsValid() )
@@ -67,8 +67,8 @@ public partial class FlashbangGrenade : BaseGrenade, IMarkerObject
 		if ( trace.GameObject.Root != viewer.GameObject.Root )
 			return;
 
-		var direction = (Transform.Position - Scene.Camera.Transform.Position).Normal;
-		var dot = direction.Dot( Scene.Camera.Transform.Rotation.Forward );
+		var direction = (WorldPosition - Scene.Camera.WorldPosition).Normal;
+		var dot = direction.Dot( Scene.Camera.WorldRotation.Forward );
 		if ( dot < 0.35f ) return;
 		
 		var effect = Scene.Camera.Components.Create<FlashbangEffect>();

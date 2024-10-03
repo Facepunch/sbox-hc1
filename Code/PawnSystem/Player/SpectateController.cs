@@ -15,9 +15,9 @@ public sealed class SpectateController : Pawn
 	{
 		EyeAngles += Input.AnalogLook;
 		EyeAngles = EyeAngles.WithPitch( EyeAngles.pitch.Clamp( -90, 90 ) );
-		Transform.Rotation = EyeAngles.ToRotation();
+		WorldRotation = EyeAngles.ToRotation();
 
-		Transform.Position += Input.AnalogMove * Transform.Rotation * FlySpeed * Time.Delta;
+		WorldPosition += Input.AnalogMove * WorldRotation * FlySpeed * Time.Delta;
 	}
 
 	public override void OnDePossess()

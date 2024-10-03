@@ -43,10 +43,10 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 		{
 			if ( Camera.IsValid() )
 			{
-				return new( Camera.Transform.Position + Camera.Transform.Rotation.Forward, Camera.Transform.Rotation.Forward );
+				return new( Camera.WorldPosition + Camera.WorldRotation.Forward, Camera.WorldRotation.Forward );
 			}
 
-			return new( Transform.Position + Vector3.Up * 64f, Player.EyeAngles.ToRotation().Forward );
+			return new( WorldPosition + Vector3.Up * 64f, Player.EyeAngles.ToRotation().Forward );
 		}
 	}
 
@@ -71,7 +71,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 		}
 		else
 		{
-			Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
+			Boom.WorldRotation = Player.EyeAngles.ToRotation();
 		}
 	}
 
@@ -79,7 +79,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 	{
 		base.SetActive( isActive );
 		OnModeChanged();
-		Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
+		Boom.WorldRotation = Player.EyeAngles.ToRotation();
 	}
 
 	/// <summary>
@@ -92,15 +92,15 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 			return;
 
 		// All transform effects are additive to camera local position, so we need to reset it before anything is applied
-		Camera.Transform.LocalPosition = Vector3.Zero;
-		Camera.Transform.LocalRotation = Rotation.Identity;
+		Camera.LocalPosition = Vector3.Zero;
+		Camera.LocalRotation = Rotation.Identity;
 
 		if ( Mode == CameraMode.ThirdPerson && !Player.IsLocallyControlled )
 		{
 			// orbit cam: spectating only
-			var angles = Boom.Transform.Rotation.Angles();
+			var angles = Boom.WorldRotation.Angles();
 			angles += Input.AnalogLook;
-			Boom.Transform.Rotation = angles.WithPitch( angles.pitch.Clamp( -90, 90 ) ).ToRotation();
+			Boom.WorldRotation = angles.WithPitch( angles.pitch.Clamp( -90, 90 ) ).ToRotation();
 		}
 		else
 		{
@@ -109,12 +109,12 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 
 		if ( MaxBoomLength > 0 )
 		{
-			var tr = Scene.Trace.Ray( new Ray( Boom.Transform.Position, Boom.Transform.Rotation.Backward ), MaxBoomLength )
+			var tr = Scene.Trace.Ray( new Ray( Boom.WorldPosition, Boom.WorldRotation.Backward ), MaxBoomLength )
 				.IgnoreGameObjectHierarchy( GameObject.Root )
 				.WithoutTags( "trigger", "player", "ragdoll" )
 				.Run();
 
-			Camera.Transform.LocalPosition = Vector3.Backward * (tr.Hit ? tr.Distance - 5.0f : MaxBoomLength);
+			Camera.LocalPosition = Vector3.Backward * (tr.Hit ? tr.Distance - 5.0f : MaxBoomLength);
 		}
 
 		if ( ShouldViewBob )
@@ -154,8 +154,8 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 		var yaw = MathF.Sin( walkBob ) * 0.5f;
 		var pitch = MathF.Cos( -walkBob * 2f ) * 0.5f;
 
-		Boom.Transform.LocalRotation *= Rotation.FromYaw( -yaw * LerpBobSpeed );
-		Boom.Transform.LocalRotation *= Rotation.FromPitch( -pitch * LerpBobSpeed * 0.5f );
+		Boom.LocalRotation *= Rotation.FromYaw( -yaw * LerpBobSpeed );
+		Boom.LocalRotation *= Rotation.FromPitch( -pitch * LerpBobSpeed * 0.5f );
 	}
 
 	private void ApplyScope()
@@ -214,7 +214,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 		ApplyRecoil();
 		ApplyScope();
 
-		Boom.Transform.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
+		Boom.LocalPosition = Vector3.Zero.WithZ( eyeHeight );
 
 		ApplyCameraEffects();
 		ScreenShaker?.Apply( Camera );

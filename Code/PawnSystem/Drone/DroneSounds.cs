@@ -13,7 +13,7 @@ public partial class DroneSounds : Component
 		if ( !snd.IsValid() || snd.Finished )
 			snd = Sound.Play( DroneSound );
 
-		snd.Position = Transform.Position;
+		snd.Position = WorldPosition;
 		var vel = Drone.Rigidbody.Velocity.Length.LerpInverse( 0, 300, false );
 		var angVel = Drone.Rigidbody.AngularVelocity.Length.LerpInverse( 0, 1.5f, false );
 

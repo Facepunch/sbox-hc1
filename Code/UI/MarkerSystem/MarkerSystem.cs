@@ -46,7 +46,7 @@ public partial class MarkerSystem : Panel
 		if ( !camera.IsValid() )
 			return false;
 
-		if ( marker.MarkerMaxDistance != 0f && camera.Transform.Position.Distance( marker.MarkerPosition ) > marker.MarkerMaxDistance )
+		if ( marker.MarkerMaxDistance != 0f && camera.WorldPosition.Distance( marker.MarkerPosition ) > marker.MarkerMaxDistance )
 			return false;
 
 		if ( !ActiveMarkers.TryGetValue( marker, out var instance ) )

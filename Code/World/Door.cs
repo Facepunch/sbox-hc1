@@ -69,7 +69,7 @@ public sealed class Door : Component, IUse,
 	protected override void OnStart()
 	{
 		StartTransform = Transform.Local;
-		PivotPosition = Pivot is not null ? Pivot.Transform.Position : StartTransform.Position;
+		PivotPosition = Pivot is not null ? Pivot.WorldPosition : StartTransform.Position;
 		DefaultState = State;
 	}
 
@@ -96,7 +96,7 @@ public sealed class Door : Component, IUse,
 		var resource = ResourceLibrary.Get<SoundEvent>( resourceId );
 		if ( resource == null ) return;
 		
-		var handle = Sound.Play( resource, Transform.Position );
+		var handle = Sound.Play( resource, WorldPosition );
 		if ( !handle.IsValid() ) return;
 		
 		// handle.Occlusion = false;
@@ -114,7 +114,7 @@ public sealed class Door : Component, IUse,
 
 			if ( OpenAwayFromPlayer )
 			{
-				var doorToPlayer = (player.Transform.Position - PivotPosition).Normal;
+				var doorToPlayer = (player.WorldPosition - PivotPosition).Normal;
 				var doorForward = Transform.Local.Rotation.Forward;
 
 				ReverseDirection = Vector3.Dot( doorToPlayer, doorForward ) > 0;

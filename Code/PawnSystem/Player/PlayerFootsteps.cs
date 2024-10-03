@@ -27,7 +27,7 @@ public sealed class PlayerFootsteps : Component
 			return;
 
 		var tr = Scene.Trace
-			.Ray( Player.Transform.Position + Vector3.Up * 20, Player.Transform.Position + Vector3.Up * -20 )
+			.Ray( Player.WorldPosition + Vector3.Up * 20, Player.WorldPosition + Vector3.Up * -20 )
 			.Run();
 
 		if ( !tr.Hit )

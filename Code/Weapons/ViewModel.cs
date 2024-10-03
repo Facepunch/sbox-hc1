@@ -83,8 +83,8 @@ public partial class ViewModel : Component, IEquipment
 
 		var scale = GameSettingsSystem.Current.ViewBob / 100f;
 
-		camera.Transform.LocalPosition += bone.Position * scale;
-		camera.Transform.LocalRotation *= bone.Rotation * scale;
+		camera.LocalPosition += bone.Position * scale;
+		camera.LocalRotation *= bone.Rotation * scale;
 	}
 
 	void ApplyOffsets()
@@ -100,7 +100,7 @@ public partial class ViewModel : Component, IEquipment
 	void ApplyInertia()
 	{
 		var camera = Equipment.Owner.CameraGameObject;
-		var inRot = camera.Transform.Rotation;
+		var inRot = camera.WorldRotation;
 
 		// Need to fetch data from the camera for the first frame
 		if ( !activateInertia )
@@ -112,8 +112,8 @@ public partial class ViewModel : Component, IEquipment
 			activateInertia = true;
 		}
 
-		var newPitch = camera.Transform.Rotation.Pitch();
-		var newYaw = camera.Transform.Rotation.Yaw();
+		var newPitch = camera.WorldRotation.Pitch();
+		var newYaw = camera.WorldRotation.Yaw();
 
 		PitchInertia = Angles.NormalizeAngle( newPitch - lastPitch );
 		YawInertia = Angles.NormalizeAngle( lastYaw - newYaw );
@@ -232,8 +232,8 @@ public partial class ViewModel : Component, IEquipment
 		lerpedlocalRotation = Rotation.Lerp( lerpedlocalRotation, localRotation, Time.Delta * 10f );
 		lerpedLocalPosition = lerpedLocalPosition.LerpTo( localPosition, Time.Delta * 10f );
 
-		Transform.LocalRotation = lerpedlocalRotation;
-		Transform.LocalPosition = lerpedLocalPosition;
+		LocalRotation = lerpedlocalRotation;
+		LocalPosition = lerpedLocalPosition;
 	}
 
 	public void OnFireMode( FireMode currentFireMode )

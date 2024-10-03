@@ -12,7 +12,7 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject, IDescription
 	/// <summary>
 	/// Where is the marker?
 	/// </summary>
-	Vector3 IMarkerObject.MarkerPosition => Transform.Position;
+	Vector3 IMarkerObject.MarkerPosition => WorldPosition;
 
 	/// <summary>
 	/// How far can we see this marker?
@@ -33,14 +33,14 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject, IDescription
 	protected override void Explode()
 	{
 		if ( Networking.IsHost )
-			Explosion.AtPoint( Transform.Position, DamageRadius, MaxDamage, Player, this, DamageFalloff );
+			Explosion.AtPoint( WorldPosition, DamageRadius, MaxDamage, Player, this, DamageFalloff );
 
 		var screenShaker = ScreenShaker.Main;
 		var viewer = PlayerState.Viewer;
 		
 		if ( screenShaker.IsValid() && viewer.IsValid() )
 		{
-			var distance = viewer.GameObject.Transform.Position.Distance( Transform.Position );
+			var distance = viewer.GameObject.WorldPosition.Distance( WorldPosition );
 			var falloff = DamageFalloff;
 			
 			if ( falloff.Frames.Count == 0 )

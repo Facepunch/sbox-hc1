@@ -15,7 +15,7 @@ public partial class OnKillEquipmentComponent : EquipmentComponent, IGameEventHa
 		if ( GameUtils.GetPlayerFromComponent( eventArgs.DamageInfo.Victim ) is { } player 
 			&& player == Equipment.Owner )
 		{
-			PrefabToSpawn.Clone( Equipment.Transform.Position );
+			PrefabToSpawn.Clone( Equipment.WorldPosition );
 		}
 	}
 }

@@ -30,7 +30,7 @@ public partial class CashPoint : Component, ICustomMinimapIcon, IMarkerObject
 
 	string IMinimapIcon.IconPath => "ui/minimaps/cashgrab/cashpoint.png";
 
-	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => WorldPosition;
 
 	string ICustomMinimapIcon.CustomStyle
 	{
@@ -55,7 +55,7 @@ public partial class CashPoint : Component, ICustomMinimapIcon, IMarkerObject
 		State = CashPointState.Open;
 
 		// TODO: track the cash!
-		var eq = DroppedEquipment.Create( Resource, Transform.Position, networkSpawn: false );
+		var eq = DroppedEquipment.Create( Resource, WorldPosition, networkSpawn: false );
 		var cashBag = eq.GetOrAddComponent<CashBag>();
 
 		eq.GameObject.NetworkSpawn();
@@ -81,7 +81,7 @@ public partial class CashPoint : Component, ICustomMinimapIcon, IMarkerObject
 	/// <summary>
 	/// Where is the marker?
 	/// </summary>
-	Vector3 IMarkerObject.MarkerPosition => Transform.Position + Vector3.Up * 32f;
+	Vector3 IMarkerObject.MarkerPosition => WorldPosition + Vector3.Up * 32f;
 
 	/// <summary>
 	/// What icon?
@@ -110,7 +110,7 @@ public partial class CashPoint : Component, ICustomMinimapIcon, IMarkerObject
 
 		foreach ( var extract in Extracts )
 		{
-			Gizmo.Draw.Line( Transform.Position, extract.Transform.Position );
+			Gizmo.Draw.Line( WorldPosition, extract.WorldPosition );
 		}
 	}
 

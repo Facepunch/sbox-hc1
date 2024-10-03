@@ -3,7 +3,7 @@ using Facepunch;
 
 partial class BombSite : IMinimapLabel, IMinimapVolume
 {
-	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => WorldPosition;
 	bool IMinimapElement.IsVisible( Pawn viewer ) => true;
 
 	Color IMinimapVolume.Color => "rgba( #992d32, 0.25 )";

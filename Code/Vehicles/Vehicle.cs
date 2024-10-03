@@ -80,8 +80,8 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 
 		if ( alignment < 0.6f )
 		{
-			var desiredRotation = Rotation.From( 0, Transform.Rotation.Angles().yaw, 0 );
-			var rotationDifference = desiredRotation * Transform.Rotation.Inverse;
+			var desiredRotation = Rotation.From( 0, WorldRotation.Angles().yaw, 0 );
+			var rotationDifference = desiredRotation * WorldRotation.Inverse;
 
 			ToAngleAxis( rotationDifference, out float angle, out Vector3 axis );
 
@@ -132,7 +132,7 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 			seat.Eject();
 		}
 
-		Explosion?.Clone( Transform.Position );
+		Explosion?.Clone( WorldPosition );
 		GameObject.Destroy();
 	}
 
@@ -181,5 +181,5 @@ public partial class Vehicle : Component, IRespawnable, ICustomMinimapIcon, ITea
 
 	string IMinimapIcon.IconPath => "ui/icons/vehicle.png";
 	string ICustomMinimapIcon.CustomStyle => $"";
-	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => WorldPosition;
 }

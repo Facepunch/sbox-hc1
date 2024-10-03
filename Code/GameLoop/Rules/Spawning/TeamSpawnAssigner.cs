@@ -41,7 +41,7 @@ public sealed class TeamSpawnAssigner : Component,
 			.Where( x => x.PlayerState != player )
 			.Where( x => x.TimeSinceLastRespawn < 1f )
 			.Where( x => x.HealthComponent.State == LifeState.Alive )
-			.Select( x => (x.Transform.Position, Tags: x.SpawnPointTags) )
+			.Select( x => (x.WorldPosition, Tags: x.SpawnPointTags) )
 			.ToArray();
 
 		foreach ( var rule in SpawnRules )
@@ -69,7 +69,7 @@ public sealed class TeamSpawnAssigner : Component,
 
 		foreach ( var spawn in spawns )
 		{
-			if ( playerPositions.All( x => (x.Position - spawn.Position).LengthSquared > 32f * 32f ) )
+			if ( playerPositions.All( x => (x.WorldPosition - spawn.Position).LengthSquared > 32f * 32f ) )
 			{
 				return spawn;
 			}

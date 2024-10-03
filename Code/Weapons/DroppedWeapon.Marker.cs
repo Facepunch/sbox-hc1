@@ -5,7 +5,7 @@ partial class DroppedEquipment : IMinimapIcon
 	[RequireComponent] public Spottable Spottable { get; private set; }
 
 	string IMinimapIcon.IconPath => "ui/minimaps/icon-map_bomb.png";
-	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => WorldPosition;
 
 	bool IMinimapElement.IsVisible( Pawn viewer )
 	{

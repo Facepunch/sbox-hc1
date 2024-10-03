@@ -23,7 +23,7 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 	/// </summary>
 	[Property] public GameObject Explosion { get; set; }
 
-	public override Angles EyeAngles => Transform.Rotation.Angles();
+	public override Angles EyeAngles => WorldRotation.Angles();
 
 	/// <summary>
 	/// What are we called?
@@ -49,7 +49,7 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 
 	public override void OnKill( DamageInfo damageInfo )
 	{
-		Explosion?.Clone( Transform.Position );
+		Explosion?.Clone( WorldPosition );
 
 		// Cya
 		GameObject.Destroy();
@@ -81,8 +81,8 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
         {
 	        var turbine = Turbines[i];
 	        var pos = turbinePositions[i];
-	        turbine.Transform.Rotation = Rotation.From( new Angles( 0, spinAngle, 0 ) );
-	        turbine.Transform.LocalPosition = pos;
+	        turbine.WorldRotation = Rotation.From( new Angles( 0, spinAngle, 0 ) );
+	        turbine.LocalPosition = pos;
         }
 	}
 
@@ -100,7 +100,7 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 		body.LinearDamping = 4.0f;
 		body.AngularDamping = 4.0f;
 
-		var yawRot = Rotation.From( new Angles( 0, Transform.Rotation.Angles().yaw, 0 ) );
+		var yawRot = Rotation.From( new Angles( 0, WorldRotation.Angles().yaw, 0 ) );
 
 		var worldMovement = yawRot * currentInput.movement;
 		var velocityDirection = body.Velocity.WithZ( 0 );
@@ -166,7 +166,7 @@ public partial class Drone : Pawn, IRespawnable, ICustomMinimapIcon
 	string ICustomMinimapIcon.CustomStyle => $"background-image-tint: {Team.GetColor().Hex}";
 	string IMinimapIcon.IconPath => "ui/icons/drone.png";
 
-	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => WorldPosition;
 
 	private struct DroneInputState
 	{

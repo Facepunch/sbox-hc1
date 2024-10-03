@@ -95,7 +95,7 @@ public sealed class VehicleSeat : Component
 		player.GameObject.SetParent( null, true );
 
 		// Move player to best exit point
-		player.Transform.Position = FindExitLocation();
+		player.WorldPosition = FindExitLocation();
 		player.CharacterController.Velocity = Vehicle.Rigidbody.Velocity;
 
 		using ( Rpc.FilterInclude( Connection.Host ) )
@@ -107,7 +107,7 @@ public sealed class VehicleSeat : Component
 	public Vector3 FindExitLocation()
 	{
 		// TODO: Multiple volumes (e.g. fallback)
-		return ExitVolumes[0].CheckClosestFreeSpace( Transform.Position );
+		return ExitVolumes[0].CheckClosestFreeSpace( WorldPosition );
 	}
 
 	internal void Eject()

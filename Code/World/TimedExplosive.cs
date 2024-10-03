@@ -71,14 +71,14 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 
 	string IMinimapIcon.IconPath => "ui/minimaps/icon-map_bomb.png";
 
-	Vector3 IMinimapElement.WorldPosition => Transform.Position;
+	Vector3 IMinimapElement.WorldPosition => WorldPosition;
 
 	protected override void OnStart()
 	{
 		TimeSincePlanted = 0f;
 		TimeSinceLastBeep = 0f;
 		
-		BombSite = Zone.GetAt( Transform.Position )
+		BombSite = Zone.GetAt( WorldPosition )
 			.Select( x => x.GetComponent<BombSite>() )
 			.FirstOrDefault( x => x is not null );
 
@@ -124,7 +124,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 	{
 		if ( ExplosionPrefab is null ) return;
 
-		var explosion = ExplosionPrefab.Clone( Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
+		var explosion = ExplosionPrefab.Clone( WorldPosition, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ) );
 
 		explosion.NetworkSpawn();
 
@@ -136,7 +136,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 
 			foreach ( var health in Scene.GetAllComponents<HealthComponent>() )
 			{
-				var diff = health.Transform.Position - Transform.Position;
+				var diff = health.WorldPosition - WorldPosition;
 				var damage = BombSite.GetExplosionDamage( diff.Length );
 
 				if ( damage <= 0f )
@@ -145,7 +145,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 				}
 
 				health.TakeDamage( new DamageInfo( null, damage, this,
-					Transform.Position, diff.Normal * damage * 100f,
+					WorldPosition, diff.Normal * damage * 100f,
 					HitboxTags.UpperBody, DamageFlags.Explosion ) );
 			}
 		}
@@ -163,12 +163,12 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 
 			if ( BeepSound is not null )
 			{
-				Sound.Play( BeepSound, Transform.Position );
+				Sound.Play( BeepSound, WorldPosition );
 			}
 
 			if ( BeepEffectPrefab.IsValid() )
 			{
-				BeepEffectPrefab.Clone( Transform.Position + Vector3.Up * 4f );
+				BeepEffectPrefab.Clone( WorldPosition + Vector3.Up * 4f );
 			}
 		}
 	}
@@ -191,7 +191,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 
 		if ( DefuseStartSound is not null )
 		{
-			Sound.Play( DefuseStartSound, Transform.Position );
+			Sound.Play( DefuseStartSound, WorldPosition );
 		}
 
 		if ( Networking.IsHost )
@@ -220,7 +220,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 
 		if ( DefuseEndSound is not null )
 		{
-			Sound.Play( DefuseEndSound, Transform.Position );
+			Sound.Play( DefuseEndSound, WorldPosition );
 		}
 	}
 

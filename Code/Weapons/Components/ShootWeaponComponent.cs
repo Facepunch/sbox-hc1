@@ -199,7 +199,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 
 		if ( ShootSound is not null )
 		{
-			if ( Sound.Play( ShootSound, Equipment.Transform.Position ) is { } snd )
+			if ( Sound.Play( ShootSound, Equipment.WorldPosition ) is { } snd )
 			{
 				snd.ListenLocal = Equipment.Owner?.IsViewer ?? false;
 				Log.Trace( $"ShootWeaponComponent: ShootSound {ShootSound.ResourceName}" );
@@ -219,8 +219,8 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	{
 		var gameObject = Scene.CreateObject();
 		gameObject.Name = $"Particle: {Equipment.GameObject}";
-		gameObject.Transform.Position = pos;
-		gameObject.Transform.Rotation = rot;
+		gameObject.WorldPosition = pos;
+		gameObject.WorldRotation = rot;
 
 		var p = gameObject.Components.Create<LegacyParticleSystem>();
 		p.Particles = particleSystem;
@@ -257,11 +257,11 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	{
 		var gameObject = Scene.CreateObject();
 		gameObject.Name = $"Impact decal: {Equipment.GameObject}";
-		gameObject.Transform.Position = pos;
-		gameObject.Transform.Rotation = Rotation.LookAt( -normal );
+		gameObject.WorldPosition = pos;
+		gameObject.WorldRotation = Rotation.LookAt( -normal );
 
 		// Random rotation
-		gameObject.Transform.Rotation *= Rotation.FromAxis( Vector3.Forward, rotation );
+		gameObject.WorldRotation *= Rotation.FromAxis( Vector3.Forward, rotation );
 
 		var decalRenderer = gameObject.Components.Create<DecalRenderer>();
 		decalRenderer.Material = material;
@@ -382,7 +382,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	private bool IsNearby( Vector3 position )
 	{
 		if ( !Scene.Camera.IsValid() ) return false;
-		return position.DistanceSquared( Scene.Camera.Transform.Position ) < MaxEffectsPlayDistance;
+		return position.DistanceSquared( Scene.Camera.WorldPosition ) < MaxEffectsPlayDistance;
 	}
 
 	/// <summary>
@@ -393,7 +393,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	{
 		if ( !IsNearby( startPosition ) || !IsNearby( endPosition ) ) return;
 
-		var origin = count == 0 ? Effector?.Muzzle?.Transform.Position ?? Equipment.Transform.Position : startPosition;
+		var origin = count == 0 ? Effector?.Muzzle?.WorldPosition ?? Equipment.WorldPosition : startPosition;
 		var ps = CreateParticleSystem( count == 0 ? PrimaryTracer : SecondaryTracer, origin, Rotation.Identity, 1f );
 		ps.SceneObject.SetControlPoint( 0, origin );
 		ps.SceneObject.SetControlPoint( 1, endPosition );
@@ -411,7 +411,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	{
 		if ( DryFireSound is not null )
 		{
-			var snd = Sound.Play( DryFireSound, Equipment.Transform.Position );
+			var snd = Sound.Play( DryFireSound, Equipment.WorldPosition );
 			snd.ListenLocal = !IsProxy;
 			Log.Trace( $"ShootWeaponComponent: ShootSound {DryFireSound.ResourceName}" );
 		}

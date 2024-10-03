@@ -61,7 +61,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	// IAreaDamageReceiver
 	void IAreaDamageReceiver.ApplyAreaDamage( AreaDamage component )
 	{
-		var dmg = new DamageInfo( component.Attacker, component.Damage, component.Inflictor, component.Transform.Position,
+		var dmg = new DamageInfo( component.Attacker, component.Damage, component.Inflictor, component.WorldPosition,
 			Flags: component.DamageFlags );
 		
 		HealthComponent.TakeDamage( dmg );
@@ -127,7 +127,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 		if ( killer.IsValid() )
 		{
-			EyeAngles = Rotation.LookAt( killer.Transform.Position - Transform.Position, Vector3.Up );
+			EyeAngles = Rotation.LookAt( killer.WorldPosition - WorldPosition, Vector3.Up );
 		}
 
 		if ( ( ( Input.Pressed( "attack1" ) || Input.Pressed( "attack2" ) ) && !PlayerState.IsRespawning ) || PlayerState.IsBot || PlayerState.LastDamageInfo.TimeSinceEvent > DeathcamSkipTime )

@@ -81,7 +81,7 @@ public partial class PlayerPingComponent : Component
 		}
 
 		var pingObject = new GameObject();
-		pingObject.Transform.Position = position;
+		pingObject.WorldPosition = position;
 		pingObject.Transform.ClearInterpolation();
 
 		var ping = pingObject.Components.Create<WorldPingComponent>();
@@ -140,8 +140,8 @@ public partial class PlayerPingComponent : Component
 			if ( WorldPing.IsValid() )
 			{
 				var camera = Player.CameraController.Camera;
-				Vector3 dir = (WorldPing.Transform.Position - camera.Transform.Position).Normal;
-				float dot = Vector3.Dot( dir, camera.Transform.Rotation.Forward );
+				Vector3 dir = (WorldPing.WorldPosition - camera.WorldPosition).Normal;
+				float dot = Vector3.Dot( dir, camera.WorldRotation.Forward );
 
 				// Are we looking at this marker?
 				if ( dot.AlmostEqual( 1f, 0.01f ) )

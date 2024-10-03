@@ -24,7 +24,7 @@ public abstract class ScreenShake
 			random.z = 0f;
 			random = random.Normal;
 
-			camera.Transform.LocalPosition += (camera.Transform.LocalRotation.Right * random.x + camera.Transform.LocalRotation.Up * random.y) * (1f - Progress) * Size;
+			camera.LocalPosition += (camera.LocalRotation.Right * random.x + camera.LocalRotation.Up * random.y) * (1f - Progress) * Size;
 
 			return LifeTime < Length;
 		}
@@ -81,8 +81,8 @@ public abstract class ScreenShake
 
 			var c = Curve.Evaluate( Progress );
 
-			camera.Transform.LocalPosition += (camera.Transform.LocalRotation.Right * random.x + camera.Transform.LocalRotation.Up * random.y + camera.Transform.LocalRotation.Backward * random.z) * c * Size;
-			camera.Transform.LocalRotation *= (PunchAngles * c).ToRotation();
+			camera.LocalPosition += (camera.LocalRotation.Right * random.x + camera.LocalRotation.Up * random.y + camera.LocalRotation.Backward * random.z) * c * Size;
+			camera.LocalRotation *= (PunchAngles * c).ToRotation();
 
 			return LifeTime < Length;
 		}

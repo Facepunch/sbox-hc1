@@ -37,7 +37,7 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 	{
 		if ( SwingSound is not null )
 		{
-			if ( Sound.Play( SwingSound, Equipment.Transform.Position ) is SoundHandle snd )
+			if ( Sound.Play( SwingSound, Equipment.WorldPosition ) is SoundHandle snd )
 			{
 				snd.ListenLocal = !IsProxy;
 			}
@@ -58,11 +58,11 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 			var decal = Game.Random.FromList( decalResource.Decals );
 
 			var gameObject = Scene.CreateObject();
-			gameObject.Transform.Position = pos;
-			gameObject.Transform.Rotation = Rotation.LookAt( -normal );
+			gameObject.WorldPosition = pos;
+			gameObject.WorldRotation = Rotation.LookAt( -normal );
 
 			// Random rotation
-			gameObject.Transform.Rotation *= Rotation.FromAxis( Vector3.Forward, decal.Rotation.GetValue() );
+			gameObject.WorldRotation *= Rotation.FromAxis( Vector3.Forward, decal.Rotation.GetValue() );
 
 			var decalRenderer = gameObject.Components.Create<DecalRenderer>();
 			decalRenderer.Material = decal.Material;

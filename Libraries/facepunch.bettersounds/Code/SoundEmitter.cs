@@ -73,7 +73,7 @@ public sealed class SoundEmitter : Component
 
 		if ( SoundEvent == null ) return;
 		TimeSincePlayed = 0f;
-		handle = Sound.Play( SoundEvent, Transform.Position );
+		handle = Sound.Play( SoundEvent, WorldPosition );
 		handle.TargetMixer = Mixer.FindMixerByName( MixerName );
 
 		initVolume = handle.Volume;
@@ -100,7 +100,7 @@ public sealed class SoundEmitter : Component
 		// Otherwise, let's keep updating the position
 		else if ( Follow )
 		{
-			handle.Position = GameObject.Transform.Position;
+			handle.Position = GameObject.WorldPosition;
 		}
 
 		if ( VolumeModifier )

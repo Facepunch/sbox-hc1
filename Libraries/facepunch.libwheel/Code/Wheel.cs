@@ -54,9 +54,9 @@ public sealed class Wheel : Component
 		if ( !IsGrounded )
 			return;
 
-		var forwardDir = Transform.Rotation.Forward;
-		var sideDir = Transform.Rotation.Right;
-		var wheelVelocity = _rigidbody.GetVelocityAtPoint( Transform.Position );
+		var forwardDir = WorldRotation.Forward;
+		var sideDir = WorldRotation.Right;
+		var wheelVelocity = _rigidbody.GetVelocityAtPoint( WorldPosition );
 		var wheelSpeed = wheelVelocity.Length;
 
 		var sideForce = Vector3.Zero;
@@ -72,10 +72,10 @@ public sealed class Wheel : Component
 		float groundFriction = _groundTrace.Surface.Friction;
 
 		var targetAcceleration = (sideForce + forwardForce) * factor * groundFriction;
-		targetAcceleration += _motorTorque * Transform.Rotation.Forward;
+		targetAcceleration += _motorTorque * WorldRotation.Forward;
 
 		var force = targetAcceleration / Time.Delta;
-		_rigidbody.ApplyForceAt( GameObject.Transform.Position, force );
+		_rigidbody.ApplyForceAt( GameObject.WorldPosition, force );
 	}
 
 	private float CalculateSlip( Vector3 velocity, Vector3 direction, float speed )
@@ -91,7 +91,7 @@ public sealed class Wheel : Component
 
 	public Vector3 GetCenter()
 	{
-		var up = _rigidbody.Transform.Rotation.Up;
+		var up = _rigidbody.WorldRotation.Up;
 
 		return _groundTrace.EndPosition + up * WheelRadius;
 	}
@@ -101,7 +101,7 @@ public sealed class Wheel : Component
 		if ( !IsGrounded )
 			return;
 
-		var worldVelocity = _rigidbody.GetVelocityAtPoint( Transform.Position );
+		var worldVelocity = _rigidbody.GetVelocityAtPoint( WorldPosition );
 		var suspensionCompression = _groundTrace.Distance - _suspensionTotalLength;
 
 		var dampingForce = -SuspensionDamping * worldVelocity.z;
@@ -109,14 +109,14 @@ public sealed class Wheel : Component
 		var totalForce = (dampingForce + springForce) / Time.Delta;
 
 		var suspensionForce = new Vector3( 0, 0, totalForce );
-		_rigidbody.ApplyForceAt( Transform.Position, suspensionForce );
+		_rigidbody.ApplyForceAt( WorldPosition, suspensionForce );
 	}
 
 	private void DoTrace()
 	{
-		var down = _rigidbody.Transform.Rotation.Down;
+		var down = _rigidbody.WorldRotation.Down;
 
-		var startPos = Transform.Position + down * MinSuspensionLength;
+		var startPos = WorldPosition + down * MinSuspensionLength;
 		var endPos = startPos + down * (MaxSuspensionLength + WheelRadius);
 
 		_groundTrace = Scene.Trace
@@ -132,7 +132,7 @@ public sealed class Wheel : Component
 		if ( !Gizmo.IsSelected )
 			return;
 
-		var circleAxis = (Transform.Rotation * Rotation.FromYaw( 90f )).Forward;
+		var circleAxis = (WorldRotation * Rotation.FromYaw( 90f )).Forward;
 		var circlePosition = Vector3.Zero;
 
 		Gizmo.Draw.IgnoreDepth = true;

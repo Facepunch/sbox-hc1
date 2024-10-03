@@ -48,7 +48,7 @@ public sealed class TeamSpawnPoint : Component
 		{
 			{ "__guid", Guid.NewGuid() },
 			{ "Name", "Spawn" },
-			{ "Position", Json.ToNode( player.Transform.Position ) },
+			{ "Position", Json.ToNode( player.WorldPosition ) },
 			{ "Rotation", Json.ToNode( Rotation.FromYaw( player.EyeAngles.yaw ) ) },
 			{ "Enabled", true },
 			{

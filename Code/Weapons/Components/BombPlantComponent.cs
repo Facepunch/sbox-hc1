@@ -99,7 +99,7 @@ public partial class BombPlantComponent : InputWeaponComponent,
 
 	public void FinishPlant( Vector3? position = null, bool ignorePlanter = false )
 	{
-		PlantBombOnHost( position ?? Equipment.Owner.Transform.Position, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ), ignorePlanter );
+		PlantBombOnHost( position ?? Equipment.Owner.WorldPosition, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ), ignorePlanter );
 	}
 
 	[Broadcast]
@@ -200,7 +200,7 @@ public partial class BombPlantComponent : InputWeaponComponent,
 
 			if ( PlantingBeepSound is not null )
 			{
-				Sound.Play( PlantingBeepSound, Equipment.GameObject.Transform.Position );
+				Sound.Play( PlantingBeepSound, Equipment.GameObject.WorldPosition );
 			}
 		}
 	}

@@ -12,7 +12,7 @@ public partial class PartyMember : Component, IMarkerObject
 			var head = Renderer.GetBoneObject( "Head" );
 			if ( !head.IsValid() ) return Vector3.Zero;
 
-			return head.Transform.Position + Vector3.Up * 15f;
+			return head.WorldPosition + Vector3.Up * 15f;
 		}
 	}
 

@@ -18,7 +18,7 @@ public sealed class PartyPodium : Component
 			}
 
 			Gizmo.Draw.Color = Color.Green;
-			Gizmo.Draw.LineCircle( podium.Transform.Position, Vector3.Up, 16 );
+			Gizmo.Draw.LineCircle( podium.WorldPosition, Vector3.Up, 16 );
 		}
 	}
 

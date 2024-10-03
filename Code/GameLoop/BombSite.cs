@@ -78,9 +78,9 @@ public sealed partial class BombSite : Component
 		Gizmo.Transform = global::Transform.Zero;
 
 		Gizmo.Draw.Color = Gizmo.Colors.Red;
-		Gizmo.Draw.LineSphere( Transform.Position, MaxLethalDistance );
+		Gizmo.Draw.LineSphere( WorldPosition, MaxLethalDistance );
 
 		Gizmo.Draw.Color = Gizmo.Colors.Green;
-		Gizmo.Draw.LineSphere( Transform.Position, DamageFalloffDistance );
+		Gizmo.Draw.LineSphere( WorldPosition, DamageFalloffDistance );
 	}
 }
