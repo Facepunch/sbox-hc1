@@ -46,9 +46,13 @@ public sealed class GunsmithController : Component
 		{
 			CameraComponent.FieldOfView = 80;
 			Weapon.LocalRotation = Rotation.Identity;
+
+			CameraComponent.WorldRotation = Rotation.From( 0, -45, 0 );
 		}
 		else
 		{
+			CameraComponent.WorldRotation = Rotation.From( 0, -90, 0 );
+
 			var mousePos = Mouse.Position;
 			var delta = mousePos - lastFrameMousePos;
 			lastFrameMousePos = Mouse.Position;

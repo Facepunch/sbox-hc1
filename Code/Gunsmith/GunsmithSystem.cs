@@ -48,6 +48,12 @@ public partial class GunsmithSystem : Component
 	public void Toggle()
 	{
 		SetFirstPerson( !FPS );
+
+		// Reset all jiggle bones
+		foreach ( var bone in Scene.GetAllComponents<JiggleBone>() )
+		{
+			bone.ResetState();
+		}
 	}
 
 	protected override void OnStart()

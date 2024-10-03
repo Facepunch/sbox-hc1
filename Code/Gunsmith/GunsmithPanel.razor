@@ -16,14 +16,19 @@
         <div class="layout column">
             <label class="white emphasis vital text-center">@System.Equipment.Name</label>
         </div>
+
+        <div class="button standard" @onclick=@(() => System.Toggle())>Toggle FPS mode</div>
     </div>
 
-    <div style="width: 100%; height: 100%; position: absolute;">
-        @foreach ( var attachment in System.Weapon.GetComponentsInChildren<GunsmithAttachmentPoint>() )
-        {
-            <GunsmithAttachmentPointPanel Weapon=@System.Weapon AttachmentPoint=@attachment Category=@attachment.Category />
-        }
-    </div>
+    @if ( !System.FPS )
+    {
+        <div style="width: 100%; height: 100%; position: absolute;">
+            @foreach ( var attachment in System.Weapon.GetComponentsInChildren<GunsmithAttachmentPoint>() )
+            {
+                <GunsmithAttachmentPointPanel Weapon=@System.Weapon AttachmentPoint=@attachment Category=@attachment.Category />
+            }
+        </div>
+    }
 </root>
 
 @code

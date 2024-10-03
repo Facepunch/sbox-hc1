@@ -34,18 +34,32 @@ public sealed class JiggleBone : TransformProxyComponent
 
 	Transform LocalJigglePosition;
 
+	private bool queueReset = false;
+	public void ResetState()
+	{
+		queueReset = true;
+	}
+
 	protected override void OnEnabled()
 	{
 		LocalJigglePosition = Transform.Local;
 
 		base.OnEnabled();
-
 		state = new JiggleBoneState();
 	}
 
 	protected override void OnUpdate()
 	{
 		var oldPos = LocalJigglePosition;
+
+		// Pretty shitty, but works
+		if ( queueReset )
+		{
+			state = new JiggleBoneState();
+			LocalJigglePosition = Transform.Local;
+			queueReset = false;
+			return;
+		}
 
 		using ( Transform.DisableProxy() )
 		{
