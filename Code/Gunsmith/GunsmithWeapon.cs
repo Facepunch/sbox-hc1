@@ -7,4 +7,7 @@ public sealed class GunsmithWeapon : Component
 
 	[Property]
 	public SkinnedModelRenderer Renderer { get; set; }
+
+	[RequireComponent]
+	public ViewModel ViewModel { get; set; }
 }

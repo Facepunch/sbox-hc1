@@ -26,8 +26,13 @@ public partial class GunsmithSystem : Component
 			Transform = new()
 		} );
 
+		var weapon = inst.GetComponent<GunsmithWeapon>();
+		
+		// Turn off the viewmodel' arms in gunsmith, we do not need it.
+		weapon.ViewModel.DisableArms();
+
 		Renderer = inst.GetComponent<SkinnedModelRenderer>();
 		Renderer.UseAnimGraph = false;
-		Controller.Weapon = inst.GetComponent<GunsmithWeapon>();
+		Controller.Weapon = weapon;
 	}
 }
