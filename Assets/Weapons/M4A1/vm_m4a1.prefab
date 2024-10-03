@@ -41,9 +41,27 @@
         "BodyGroups": 9235,
         "CreateBoneObjects": true,
         "Model": "models/weapons/sbox_assault_m4a1/v_m4a1.vmdl",
+        "Morphs": {},
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "Off",
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
+      },
+      {
+        "__type": "Facepunch.GunsmithWeapon",
+        "__guid": "eab3e7ef-cb92-483a-acdf-cd138fe47b3f",
+        "Renderer": {
+          "_type": "component",
+          "component_id": "2d65235d-6a43-421f-9bae-49d28004f322",
+          "go": "42a3c29d-4bb2-4aa8-ba33-8b8323783b56",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "Resource": "weapons/m4a1/m4a1.equip"
       }
     ],
     "Children": [
@@ -66,6 +84,13 @@
             },
             "CreateBoneObjects": false,
             "Model": "models/first_person/first_person_arms.vmdl",
+            "Morphs": {},
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "Off",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -83,7 +108,6 @@
             "__guid": "c1960e24-35b8-40e8-ab17-9f56fd26f155",
             "Flags": 4,
             "Name": "weapon_root_children",
-            "Position": "0,0,0",
             "Enabled": true,
             "Children": [
               {
@@ -445,14 +469,12 @@
                         "__guid": "829951d6-f86f-4afc-84f3-4e507f9760d1",
                         "Flags": 4,
                         "Name": "arm_lower_R_twistctrl0",
-                        "Position": "0,0,0",
                         "Enabled": true,
                         "Children": [
                           {
                             "__guid": "1fb641eb-dd40-4a2b-8bdd-1e931fe970db",
                             "Flags": 4,
                             "Name": "arm_lower_R_twist0",
-                            "Position": "0,0,0",
                             "Enabled": true
                           },
                           {
@@ -475,7 +497,6 @@
                                     "__guid": "fa09e8fd-d7b3-438a-abdc-4c39c7c6364a",
                                     "Flags": 4,
                                     "Name": "arm_lower_R_twist2",
-                                    "Position": "0,0,0",
                                     "Enabled": true
                                   }
                                 ]
@@ -484,7 +505,6 @@
                                 "__guid": "b999bc2c-6a21-4c62-9e56-299f27f24f8f",
                                 "Flags": 4,
                                 "Name": "arm_lower_R_twist1",
-                                "Position": "0,0,0",
                                 "Enabled": true
                               }
                             ]
@@ -723,7 +743,6 @@
                         "__guid": "29644ef3-b79f-4ccd-a119-98d6445e2145",
                         "Flags": 4,
                         "Name": "arm_lower_L_twistctrl0",
-                        "Position": "0,0,0",
                         "Enabled": true,
                         "Children": [
                           {
@@ -746,7 +765,6 @@
                                     "__guid": "8269bf1f-d61a-46cd-8cc5-21c615a61a40",
                                     "Flags": 4,
                                     "Name": "arm_lower_L_twist2",
-                                    "Position": "0,0,0",
                                     "Enabled": true
                                   }
                                 ]
@@ -755,7 +773,6 @@
                                 "__guid": "5f414713-8e7c-4c95-a6a6-26a21c34eaa3",
                                 "Flags": 4,
                                 "Name": "arm_lower_L_twist1",
-                                "Position": "0,0,0",
                                 "Enabled": true
                               }
                             ]
@@ -764,7 +781,6 @@
                             "__guid": "0b4bdbba-3471-4347-9e13-3a994b076e2a",
                             "Flags": 4,
                             "Name": "arm_lower_L_twist0",
-                            "Position": "0,0,0",
                             "Enabled": true
                           }
                         ]
@@ -784,6 +800,48 @@
         "Position": "0.003238884,0.00001530641,-0.000003003693",
         "Rotation": "-0.0000002682208,-0.00000004470348,0.000002950429,1",
         "Enabled": true
+      },
+      {
+        "__guid": "097e511c-c062-40af-b8c4-8735b3afc20a",
+        "Flags": 0,
+        "Name": "Charm Attachment Point",
+        "Position": "2.097181,1.61606,4.787566",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Facepunch.Gunsmith.GunsmithAttachmentPoint",
+            "__guid": "07d36ad7-9401-48b5-ba7b-0d0cf64160b1",
+            "Category": "Charm"
+          }
+        ]
+      },
+      {
+        "__guid": "8f74ff2e-3ca6-4be3-a2a8-dea37e4171da",
+        "Flags": 0,
+        "Name": "Optic Attachment Point",
+        "Position": "-0.2825968,0.2307886,8.819557",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Facepunch.Gunsmith.GunsmithAttachmentPoint",
+            "__guid": "59311130-2d2c-438a-b3ad-455fa0c35e27",
+            "Category": "Optic"
+          }
+        ]
+      },
+      {
+        "__guid": "d33c6bf1-89e3-4638-b32e-259661067569",
+        "Flags": 0,
+        "Name": "Underbarrel Attachment Point",
+        "Position": "8.108164,0.4692149,3.573271",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Facepunch.Gunsmith.GunsmithAttachmentPoint",
+            "__guid": "a606106b-7f55-4ccd-9596-f1918057cec2",
+            "Category": "Underbarrel"
+          }
+        ]
       }
     ],
     "__variables": []
@@ -791,9 +849,11 @@
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "facepunch.v_m4a1#68031"
   ],
+  "IsValid": true,
   "__version": 1
 }

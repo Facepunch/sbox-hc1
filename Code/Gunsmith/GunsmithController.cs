@@ -51,12 +51,12 @@ public sealed class GunsmithController : Component
 		ZoomFactor = ZoomFactor.Clamp( ZoomRange.Min, ZoomRange.Max );
 
 		angleOffset = angleOffset.LerpTo( 0, Time.Delta * SlowSpeed );
-		Weapon.Transform.Rotation *= Rotation.From( 0, angleOffset.x, -angleOffset.y );
+		Weapon.WorldRotation *= Rotation.From( 0, angleOffset.x, -angleOffset.y );
 
-		var ang = Weapon.Transform.Rotation.Angles();
+		var ang = Weapon.WorldRotation.Angles();
 		var clampedAng = new Angles( 0, ang.yaw.Clamp( YawRange.Min, YawRange.Max ), ang.roll.Clamp( RollRange.Min, RollRange.Max ) );
 
-		Weapon.Transform.Rotation = Rotation.From( clampedAng );
+		Weapon.WorldRotation = Rotation.From( clampedAng );
 		CameraComponent.FieldOfView = InitialFOV + ( ZoomFactor * 10f );
 	}
 }

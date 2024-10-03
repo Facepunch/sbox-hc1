@@ -6,5 +6,28 @@ namespace Facepunch.Gunsmith;
 public partial class GunsmithSystem : Component
 {
 	[Property]
-	public GunsmithWeapon Weapon { get; set; }
+	public EquipmentResource Equipment { get; set; }
+
+	[Property]
+	public SkinnedModelRenderer Renderer { get; set; }
+
+	[Property]
+	public GunsmithController Controller { get; set; }
+
+	public GunsmithWeapon Weapon => Controller.Weapon;
+
+	protected override void OnStart()
+	{
+		var inst = Equipment.ViewModelPrefab.Clone( new CloneConfig()
+		{
+			Name = "Runtime Weapon",
+			Parent = GameObject,
+			StartEnabled = true,
+			Transform = new()
+		} );
+
+		Renderer = inst.GetComponent<SkinnedModelRenderer>();
+		Renderer.UseAnimGraph = false;
+		Controller.Weapon = inst.GetComponent<GunsmithWeapon>();
+	}
 }

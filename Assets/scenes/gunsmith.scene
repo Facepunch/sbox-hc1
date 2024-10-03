@@ -120,23 +120,6 @@
       ]
     },
     {
-      "__guid": "697e431e-bf9c-46a7-949e-8d53a7b59eb0",
-      "Flags": 0,
-      "Name": "Weapon",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Facepunch.GunsmithWeapon",
-          "__guid": "ad66577e-dd7e-4fcd-8dc2-a1a489bbbaa6",
-          "RawViewModelPrefab": {
-            "_type": "gameobject",
-            "prefab": "weapons/m4a1/viewmodel_raw_m4a1.prefab"
-          },
-          "Resource": "weapons/m4a1/m4a1.equip"
-        }
-      ]
-    },
-    {
       "__guid": "8f3916bb-f074-4270-ac8b-cab801ed3036",
       "Flags": 0,
       "Name": "Camera",
@@ -240,18 +223,18 @@
       "__guid": "31d4f037-9832-4c5a-8dc1-263501974e4c",
       "Flags": 0,
       "Name": "Gunsmith",
-      "Position": "214.2795,-476.9522,611.7876",
       "Enabled": true,
       "Components": [
         {
           "__type": "Facepunch.Gunsmith.GunsmithSystem",
           "__guid": "547236eb-3d55-43e9-8b4f-7d2f1c59dbe5",
-          "Weapon": {
+          "Controller": {
             "_type": "component",
-            "component_id": "ad66577e-dd7e-4fcd-8dc2-a1a489bbbaa6",
-            "go": "697e431e-bf9c-46a7-949e-8d53a7b59eb0",
-            "component_type": "GunsmithWeapon"
-          }
+            "component_id": "e32e0c18-ab5c-4770-8f16-c3983bce748d",
+            "go": "31d4f037-9832-4c5a-8dc1-263501974e4c",
+            "component_type": "GunsmithController"
+          },
+          "Equipment": "weapons/m4a1/m4a1.equip"
         },
         {
           "__type": "Facepunch.GunsmithController",
@@ -265,12 +248,7 @@
           "OrbitSpeed": 0.01,
           "RollRange": "-10 10",
           "SlowSpeed": 5,
-          "Weapon": {
-            "_type": "component",
-            "component_id": "ad66577e-dd7e-4fcd-8dc2-a1a489bbbaa6",
-            "go": "697e431e-bf9c-46a7-949e-8d53a7b59eb0",
-            "component_type": "GunsmithWeapon"
-          },
+          "Weapon": null,
           "YawRange": "-35 35",
           "ZoomRange": "-0.6 0.3"
         }
@@ -294,11 +272,11 @@
             {
               "__type": "Facepunch.GunsmithPanel",
               "__guid": "89037c32-491a-4ab5-a502-44777276bb83",
-              "Weapon": {
+              "System": {
                 "_type": "component",
-                "component_id": "ad66577e-dd7e-4fcd-8dc2-a1a489bbbaa6",
-                "go": "697e431e-bf9c-46a7-949e-8d53a7b59eb0",
-                "component_type": "GunsmithWeapon"
+                "component_id": "547236eb-3d55-43e9-8b4f-7d2f1c59dbe5",
+                "go": "31d4f037-9832-4c5a-8dc1-263501974e4c",
+                "component_type": "GunsmithSystem"
               }
             }
           ]
