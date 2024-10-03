@@ -1,9 +1,14 @@
+using Facepunch.Gunsmith;
+
 namespace Facepunch;
 
 public sealed class GunsmithController : Component
 {
-	[Property] 
+	[Property]
 	public GunsmithWeapon Weapon { get; set; }
+
+	[Property] 
+	public GunsmithSystem System {get; set; }
 
 	[Property] 
 	public CameraComponent CameraComponent { get; set; }
@@ -23,6 +28,8 @@ public sealed class GunsmithController : Component
 	[Property]
 	private RangedFloat ZoomRange { get; set; } = new( -0.6f, 0.3f );
 
+	public bool FPS => System.FPS;
+
 	private Vector2 angleOffset;
 	private Vector2 lastFrameMousePos = 0;
 	private float InitialFOV = 60;
@@ -35,28 +42,36 @@ public sealed class GunsmithController : Component
 
 	protected override void OnUpdate()
 	{
-		var mousePos = Mouse.Position;
-		var delta = mousePos - lastFrameMousePos;
-		lastFrameMousePos = Mouse.Position;
-
-		if ( Input.Down( "Attack1" ) )
+		if ( System.FPS )
 		{
-			// Rotate the camera around the orbitObject
-			angleOffset += new Vector2( delta.x * OrbitSpeed, delta.y * OrbitSpeed );
+			CameraComponent.FieldOfView = 80;
+			Weapon.LocalRotation = Rotation.Identity;
 		}
+		else
+		{
+			var mousePos = Mouse.Position;
+			var delta = mousePos - lastFrameMousePos;
+			lastFrameMousePos = Mouse.Position;
 
-		var scroll = -Input.MouseWheel.y;
+			if ( Input.Down( "Attack1" ) )
+			{
+				// Rotate the camera around the orbitObject
+				angleOffset += new Vector2( delta.x * OrbitSpeed, delta.y * OrbitSpeed );
+			}
 
-		ZoomFactor += scroll * Time.Delta * 5f;
-		ZoomFactor = ZoomFactor.Clamp( ZoomRange.Min, ZoomRange.Max );
+			var scroll = -Input.MouseWheel.y;
 
-		angleOffset = angleOffset.LerpTo( 0, Time.Delta * SlowSpeed );
-		Weapon.WorldRotation *= Rotation.From( 0, angleOffset.x, -angleOffset.y );
+			ZoomFactor += scroll * Time.Delta * 5f;
+			ZoomFactor = ZoomFactor.Clamp( ZoomRange.Min, ZoomRange.Max );
 
-		var ang = Weapon.WorldRotation.Angles();
-		var clampedAng = new Angles( 0, ang.yaw.Clamp( YawRange.Min, YawRange.Max ), ang.roll.Clamp( RollRange.Min, RollRange.Max ) );
+			angleOffset = angleOffset.LerpTo( 0, Time.Delta * SlowSpeed );
+			Weapon.WorldRotation *= Rotation.From( 0, angleOffset.x, -angleOffset.y );
 
-		Weapon.WorldRotation = Rotation.From( clampedAng );
-		CameraComponent.FieldOfView = InitialFOV + ( ZoomFactor * 10f );
+			var ang = Weapon.WorldRotation.Angles();
+			var clampedAng = new Angles( 0, ang.yaw.Clamp( YawRange.Min, YawRange.Max ), ang.roll.Clamp( RollRange.Min, RollRange.Max ) );
+
+			Weapon.WorldRotation = Rotation.From( clampedAng );
+			CameraComponent.FieldOfView = InitialFOV + (ZoomFactor * 10f);
+		}
 	}
 }

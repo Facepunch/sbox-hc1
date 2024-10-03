@@ -68,11 +68,6 @@ public partial class ViewModel : Component, IEquipment
 		}
 	}
 
-	public void DisableArms()
-	{
-		Arms.Enabled = false;
-	}
-
 	void OnPlayerJumped()
 	{
 		ModelRenderer?.Set( "b_jump", true );
