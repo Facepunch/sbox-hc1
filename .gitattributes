@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+*          text=auto
+*.cs       text diff=csharp
+*.vpk filter=lfs diff=lfs merge=lfs -text
