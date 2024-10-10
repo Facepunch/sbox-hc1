@@ -284,14 +284,15 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 			OnHolstered();
 	}
 
-	bool HasCreatedViewModel { get; set; } = false;
+	[Sync] bool HasCreatedViewModel { get; set; } = false;
 
 	protected virtual void OnDeployed()
 	{
 		if ( Owner.IsValid() && Owner.IsViewer && Owner.CameraController.Mode == CameraMode.FirstPerson )
 			CreateViewModel( !HasCreatedViewModel );
 
-		HasCreatedViewModel = true;
+		if (!IsProxy)
+			HasCreatedViewModel = true;
 
 		UpdateRenderMode();
 
@@ -302,7 +303,9 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	{
 		UpdateRenderMode();
 		ClearViewModel();
-		
+
+		HasCreatedViewModel = false;
+
 		GameObject.Root.Dispatch( new EquipmentHolsteredEvent( this ) );
 	}
 
