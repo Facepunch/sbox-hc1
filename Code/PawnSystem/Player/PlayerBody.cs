@@ -53,7 +53,7 @@ public partial class PlayerBody : Component
 	{
 		IsFirstPerson = firstPerson;
 
-		// Disable the player's body so it doesn't render.
-		Renderer.Enabled = !firstPerson;
+		// we don't want to see our own body in FP view, just the shadow
+		Renderer.RenderType = firstPerson ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
 	}
 }
