@@ -18,12 +18,10 @@
             {
                 @for ( int i = 0; i < 32; i++ )
                 {
-                    @{
-                        var fakeLobby = new Lobby()
-                        {
-                            FakeId = (ulong)i
-                        };
-                    }
+                    var fakeLobby = new Lobby()
+                    {
+                        FakeId = (ulong)i
+                    };
                     <ServerEntry Lobby=@fakeLobby IsSelected=@( CurrentLobby?.Equals( fakeLobby ) ?? false )  OnSelected=@OnSelected />
                 }
             }

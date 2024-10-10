@@ -43,7 +43,7 @@
     /// </summary>
     public Equipment Equipment { get; set; }
 
-    private AmmoComponent AmmoComponent => Equipment?.GetComponent<AmmoComponent>( true );
+    private AmmoComponent AmmoComponent => Equipment.IsValid() ? Equipment.GetComponent<AmmoComponent>( true ) : null;
     public PlayerPawn Player => Equipment?.Owner;
     public bool IsActive => Player?.CurrentEquipment == Equipment;
 

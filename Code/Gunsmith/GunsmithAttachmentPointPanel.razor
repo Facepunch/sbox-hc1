@@ -10,9 +10,7 @@
     {
         @foreach ( var part in GunsmithPart.Categories[Category].Where( x => x.Supports( Weapon.Resource ) ).ToList() )
         {
-            @{
-                var isCurrent = part == AttachmentPoint.CurrentPart;
-            }
+            var isCurrent = part == AttachmentPoint.CurrentPart;
 
             <div class="entry layout grow center @(isCurrent ? "current" : "")" style="justify-content: center; align-items: center;" onclick=@(() => SetPart( part ) )>
                 <label class="white micro">@part.Name</label>

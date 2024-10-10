@@ -86,12 +86,10 @@
 
                             @foreach ( var member in Party.Members )
                             {
-                                @{
-                                    var isMe = member.IsMe;
-                                    var isMeStr = isMe ? "is-me" : "";
-                                }
+                                var isMe = member.IsMe;
+                                var isMeStr = isMe ? "is-me" : "";
 
-                                @if ( isMe )
+                                if ( isMe )
                                     continue;
 
                                 <div class="button standard">
