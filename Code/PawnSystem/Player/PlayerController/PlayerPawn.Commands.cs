@@ -38,7 +38,7 @@ public partial class PlayerPawn
 	{
 		var player = PlayerState.Local.PlayerPawn;
 		if ( player is null ) return;
-		Host_Suicide();
+		Host_Suicide( player );
 	}
 
 	[DeveloperCommand( "Give $1k", "Player" )]
@@ -59,11 +59,8 @@ public partial class PlayerPawn
 	}
 
 	[Authority]
-	private static void Host_Suicide()
+	private static void Host_Suicide( PlayerPawn pawn )
 	{
-		var pawn = Game.ActiveScene.GetAllComponents<PlayerPawn>()
-			.FirstOrDefault( p => p.Network.Owner == Rpc.Caller );
-
 		if ( !pawn.IsValid() )
 			return;
 		
