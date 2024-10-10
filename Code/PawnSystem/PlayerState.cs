@@ -148,7 +148,9 @@ public partial class PlayerState : Component, ITeam
 
 		if ( !pawn.PlayerState.IsValid() )
 		{
-			Log.Warning( $"Attempted to possess pawn, but pawn '{pawn.DisplayName}' has no attached PlayerState!" );
+			Log.Warning( $"Attempted to possess pawn, but pawn '{pawn.DisplayName}' has no attached PlayerState! Using Local." );
+			Viewer = Local;
+			return;
 		}
 
 		Viewer = pawn.PlayerState;
