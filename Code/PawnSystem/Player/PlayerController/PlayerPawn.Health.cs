@@ -44,7 +44,7 @@ public partial class PlayerPawn : IGameEventHandler<DamageGivenEvent>, IGameEven
 		TimeUntilAccelerationRecovered = Global.TakeDamageAccelerationDampenTime;
 		AccelerationAddedScale = Global.TakeDamageAccelerationOffset;
 
-		if ( attacker != victim )
+		if ( attacker != victim && Body.IsValid() )
 		{
 			Body.DamageTakenPosition = position;
 			Body.DamageTakenForce = force.Normal * damageInfo.Damage * Game.Random.Float( 5f, 20f );
