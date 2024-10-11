@@ -75,6 +75,7 @@ public sealed class TeamSpawnAssigner : Component,
 			}
 		}
 
-		return spawns[0];
+		Log.Info( "Found no valid SpawnPoint matching the current rules, falling back to random." );
+		return GameUtils.GetRandomSpawnPoint( team );
 	}
 }
