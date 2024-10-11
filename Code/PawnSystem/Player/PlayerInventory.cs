@@ -321,7 +321,7 @@ public partial class PlayerInventory : Component
 		} );
 		var component = gameObject.GetComponentInChildren<Equipment>( true );
 		gameObject.NetworkSpawn( Player.Network.Owner );
-		component.OwnerId = Player.Id;
+		component.Owner = Player;
 
 		if ( makeActive )
 			Player.SetCurrentEquipment( component );

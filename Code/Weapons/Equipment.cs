@@ -73,17 +73,9 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	private PlayerPawn owner;
 
 	/// <summary>
-	/// Who owns this gun?
+	/// The <see cref="PlayerPawn"/> who owns this.
 	/// </summary>
-	public PlayerPawn Owner
-	{
-		get => owner ??= Scene.Directory.FindComponentByGuid( OwnerId ) as PlayerPawn;
-	}
-
-	/// <summary>
-	/// The Guid of the owner's <see cref="PlayerPawn"/>
-	/// </summary>
-	[HostSync] public Guid OwnerId { get; set; }
+	[HostSync] public PlayerPawn Owner { get; set; }
 
 	// IDescription
 	string IDescription.DisplayName => Resource.Name;
