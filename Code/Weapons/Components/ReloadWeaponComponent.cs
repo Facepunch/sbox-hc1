@@ -177,6 +177,9 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 		// Can we play this sound?
 		if ( playCondition != null && !playCondition.Invoke() )
 			return;
+
+		if ( !GameObject.IsValid() )
+			return;
 		
 		GameObject.PlaySound( snd );
 	}
