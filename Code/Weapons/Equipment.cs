@@ -108,7 +108,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		if ( !Owner.IsValid() && !force )
 			on = false;
 
-		ModelRenderer.Enabled = IsDeployed;
+		ModelRenderer.Enabled = force || IsDeployed;
 		ModelRenderer.RenderType = on 
 			? Sandbox.ModelRenderer.ShadowRenderType.On 
 			: Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
