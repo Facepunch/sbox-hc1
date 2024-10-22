@@ -43,7 +43,6 @@ public sealed class PlayerFootsteps : Component
 		var sound = flipFlop ? tr.Surface.Sounds.FootLeft : tr.Surface.Sounds.FootRight;
 		if ( sound is null ) return;
 
-		var scale = (Player?.IsSprinting ?? false) ? SprintFootstepScale : FootstepScale;
 		var handle = Sound.Play( sound, tr.HitPosition + tr.Normal * 5 );
 		if ( !handle.IsValid() ) return;
 
@@ -55,8 +54,6 @@ public sealed class PlayerFootsteps : Component
 	{
 		if ( !Player.IsValid() ) 
 			return;
-
-		if ( Player.IsInVehicle ) return;
 
 		if ( Player.HealthComponent.State != LifeState.Alive ) return;
 

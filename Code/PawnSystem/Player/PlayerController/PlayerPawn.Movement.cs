@@ -184,26 +184,6 @@ public partial class PlayerPawn
 			CameraController.UpdateFromEyes( _smoothEyeHeight );
 		}
 
-		if ( IsInVehicle )
-		{
-			if ( Body.IsValid() )
-			{
-				Body.Transform.Local = new Transform();
-			}
-
-			if ( AnimationHelper.IsValid() )
-			{
-				AnimationHelper.WithVelocity( 0 );
-				AnimationHelper.WithWishVelocity( 0 );
-				AnimationHelper.IsGrounded = true;
-				AnimationHelper.WithLook( EyeAngles.Forward, 1, 1, 1.0f );
-				AnimationHelper.MoveStyle = AnimationHelper.MoveStyles.Run;
-				AnimationHelper.DuckLevel = 1f;
-				AnimationHelper.HoldType = AnimationHelper.HoldTypes.HoldItem;
-				AnimationHelper.AimBodyWeight = 0.1f;
-			}
-		}
-		else
 		{
 
 			if ( Body.IsValid() )
@@ -552,10 +532,8 @@ public partial class PlayerPawn
 		return Global.BaseAcceleration;
 	}
 
-	// TODO: expose to global
 	float GetEyeHeightOffset()
 	{
-		if ( IsInVehicle ) return -24f;
 		if ( IsCrouching ) return -16f;
 		if ( HealthComponent.State == LifeState.Dead ) return -48f;
 		return 0f;

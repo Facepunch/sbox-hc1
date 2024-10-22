@@ -204,14 +204,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 		UpdateRecoilAndSpread();
 		ApplyAcceleration();
 
-		if ( IsInVehicle )
-		{
-			ApplyVehicle();
-		}
-		else
-		{
-			ApplyMovement();
-		}
+		ApplyMovement();
 	}
 
 	[HostSync] public bool InPlayArea { get; set; } = true;

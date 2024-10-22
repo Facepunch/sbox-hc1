@@ -166,8 +166,6 @@
                 visible = CrosshairOverride;
         }
 
-        if (player.IsValid() && player.IsInVehicle) visible = false;
-
         SetClass( "visible", visible );
 
         if ( !player.IsValid() || !visible ) return;
