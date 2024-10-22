@@ -8,7 +8,7 @@
 <root class="hc1">
     @if ( IsViewingOptions )
     {
-        @foreach ( var part in GunsmithPart.Categories[Category].Where( x => x.Supports( Weapon.Resource ) ).ToList() )
+        @foreach ( var part in GunsmithPart.Categories[Category].Where( x => x.Supports( Resource ) ).ToList() )
         {
             var isCurrent = part == AttachmentPoint.CurrentPart;
 
@@ -39,8 +39,9 @@
 @code
 {
     public GunsmithAttachmentPoint AttachmentPoint { get; set; }
-    public GunsmithWeapon Weapon { get; set; }
+    public GameObject Weapon { get; set; }
     public GunsmithPartType Category { get; set; }
+    public EquipmentResource Resource => Weapon.GetComponent<ViewModel>().Resource;
 
     public bool IsViewingOptions { get; set; }
 

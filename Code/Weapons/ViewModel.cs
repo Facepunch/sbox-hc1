@@ -13,6 +13,11 @@ public partial class ViewModel : Component, IEquipment
 	public Equipment Equipment { get; set; }
 
 	/// <summary>
+	/// The resource
+	/// </summary>
+	public EquipmentResource Resource { get; set; }
+
+	/// <summary>
 	/// A reference to the viewmodel's arms.
 	/// </summary>
 	[Property, Group( "Components" )] public SkinnedModelRenderer Arms { get; set; }

@@ -5,7 +5,7 @@ namespace Facepunch;
 public sealed class GunsmithController : Component
 {
 	[Property]
-	public GunsmithWeapon Weapon { get; set; }
+	public GameObject Weapon { get; set; }
 
 	[Property] 
 	public GunsmithSystem System {get; set; }

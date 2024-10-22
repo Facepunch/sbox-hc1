@@ -9,12 +9,10 @@ public partial class GunsmithSystem : Component
 	public EquipmentResource Equipment { get; set; }
 
 	[Property]
-	public SkinnedModelRenderer Renderer { get; set; }
-
-	[Property]
 	public GunsmithController Controller { get; set; }
 
-	public GunsmithWeapon Weapon => Controller.Weapon;
+	public GameObject Weapon => Controller.Weapon;
+	public SkinnedModelRenderer Renderer => Weapon.GetComponent<ViewModel>().ModelRenderer;
 
 	/// <summary>
 	/// Are we in FPS mode?
@@ -29,7 +27,7 @@ public partial class GunsmithSystem : Component
 	{
 		FPS = fps;
 		Renderer.UseAnimGraph = fps;
-		Weapon.ViewModel.Arms.Enabled = fps;
+		Weapon.GetComponent<ViewModel>().Arms.Enabled = fps;
 
 		if ( fps )
 		{
@@ -66,13 +64,13 @@ public partial class GunsmithSystem : Component
 			Transform = new()
 		} );
 
-		var weapon = inst.GetComponent<GunsmithWeapon>();
+		var weapon = inst.GetComponent<ViewModel>();
+		weapon.Resource = Equipment;
 
 		// Turn off the viewmodel' arms in gunsmith, we do not need it.
-		weapon.ViewModel.Arms.Enabled = false;
+		weapon.Arms.Enabled = false;
+		weapon.ModelRenderer.UseAnimGraph = false;
 
-		Renderer = inst.GetComponent<SkinnedModelRenderer>();
-		Renderer.UseAnimGraph = false;
-		Controller.Weapon = weapon;
+		Controller.Weapon = inst;
 	}
 }

@@ -42,6 +42,13 @@
         "CreateBoneObjects": true,
         "Model": "models/weapons/sbox_assault_m4a1/v_m4a1.vmdl",
         "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
         "RenderOptions": {
           "GameLayer": true,
           "OverlayLayer": false,
@@ -51,17 +58,6 @@
         "RenderType": "Off",
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
-      },
-      {
-        "__type": "Facepunch.GunsmithWeapon",
-        "__guid": "eab3e7ef-cb92-483a-acdf-cd138fe47b3f",
-        "Renderer": {
-          "_type": "component",
-          "component_id": "2d65235d-6a43-421f-9bae-49d28004f322",
-          "go": "42a3c29d-4bb2-4aa8-ba33-8b8323783b56",
-          "component_type": "SkinnedModelRenderer"
-        },
-        "Resource": "weapons/m4a1/m4a1.equip"
       }
     ],
     "Children": [
@@ -85,6 +81,13 @@
             "CreateBoneObjects": false,
             "Model": "models/first_person/first_person_arms.vmdl",
             "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -844,7 +847,30 @@
         "Enabled": true
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -854,6 +880,5 @@
   "__references": [
     "facepunch.v_m4a1#68031"
   ],
-  "IsValid": true,
   "__version": 1
 }
