@@ -8,6 +8,14 @@ namespace Facepunch;
 /// </summary>
 public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageGlobalEvent>
 {
+	public class HitboxConfig
+	{
+		public HitboxTags Tags { get; set; }
+		public float DamageScale { get; set; } = 1f;
+		public bool ArmorProtects { get; set; }
+		public bool HelmetProtects { get; set; }
+	}
+
 	/// <summary>
 	/// What's the player's max HP?
 	/// </summary>
@@ -77,16 +85,6 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageGlob
 	/// How much spread should we scale by when we're in the air?
 	/// </summary>
 	[Property, Group( "Spread" )] public float AirSpreadScale { get; set; } = 2.0f;
-
-
-	public class HitboxConfig
-	{
-		public HitboxTags Tags { get; set; }
-
-		public float DamageScale { get; set; } = 1f;
-		public bool ArmorProtects { get; set; }
-		public bool HelmetProtects { get; set; }
-	}
 
 	public static List<HitboxConfig> GetDefaultHitboxConfigs()
 	{
@@ -207,7 +205,6 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageGlob
 		if ( hitboxConfigs.FirstOrDefault( x => (x.Tags & hitboxTags) != 0 ) is not { } config )
 		{
 			// We don't have any special rules for this hitbox
-
 			return;
 		}
 

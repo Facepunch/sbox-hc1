@@ -2,10 +2,16 @@ using Sandbox.Diagnostics;
 
 namespace Facepunch;
 
+/// <summary>
+/// A component that is placed on any created Pawn that we want to unpossess and depossess, like a drone.
+/// </summary>
 public partial class DeployedPawnHandler : Component
 {
-	[RequireComponent] PlayerState PlayerState { get; set; }
-	[Sync] public Pawn Pawn { get; set; }
+	[RequireComponent] 
+	PlayerState PlayerState { get; set; }
+
+	[Sync] 
+	public Pawn Pawn { get; set; }
 
 	public void PossessPlayerPawn()
 	{

@@ -1,7 +1,7 @@
 @namespace Facepunch.UI
 
 <root class="layout with-gap column">
-    @foreach ( var map in MapSystem.All )
+    @foreach ( var map in MapDefinition.All )
     {
         <MapCard Map=@map Selected=@( SelectedMap == map ) OnSelected=@DoSelect />
     }
@@ -17,11 +17,6 @@
     {
         SelectedMap = map;
         OnSelected?.Invoke( map );
-    }
-
-    protected override void OnAfterTreeRender( bool firstTime )
-    {
-        // 
     }
 
     protected override int BuildHash()

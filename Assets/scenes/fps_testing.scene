@@ -2,6 +2,21 @@
   "__guid": "f02db8f4-07d6-49a0-a0b2-2de746a5771a",
   "GameObjects": [
     {
+      "__guid": "8fca6415-1f24-44d8-9871-3916147a2417",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "152620b4-a2b0-4ce0-ab8b-a68bf90b12ad",
+          "Description": "",
+          "SceneTags": "",
+          "Title": "minimal"
+        }
+      ]
+    },
+    {
       "__guid": "e237b3b6-67f2-4a25-abba-103a472e15d2",
       "Flags": 0,
       "Name": "game_setup (1)",
@@ -32,35 +47,20 @@
         {
           "__type": "Sandbox.SkyBox2D",
           "__guid": "1547c864-ff73-42cf-8029-2510da54f185",
+          "SkyIndirectLighting": true,
           "SkyMaterial": "materials/sky/atmosphere_sky.vmat",
           "Tint": "1,1,1,1"
         }
       ]
     },
     {
-      "__guid": "76cfdff3-2b8d-4af5-b87b-a0b8205d9ce9",
-      "Flags": 0,
-      "Name": "Map",
-      "Position": "-963.5741,-1006.22,1460.143",
-      "Components": [
-        {
-          "__type": "Sandbox.MapInstance",
-          "__guid": "6b1e7663-e999-4621-81de-03c5caab2786",
-          "__version": 1,
-          "EnableCollision": true,
-          "MapName": "facepunch.prison",
-          "NoOrigin": true,
-          "UseMapFromLaunch": false
-        }
-      ]
-    },
-    {
       "__guid": "19ba4d84-a6ad-494a-836a-8cad756265b6",
-      "Flags": 0,
+      "Flags": 2048,
       "Name": "Camera",
       "Position": "-1229.633,208.6536,641.1771",
       "Rotation": "0.005628323,0.3064817,-0.0174773,0.9516995",
       "Tags": "maincamera",
+      "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.CameraComponent",
@@ -78,34 +78,6 @@
           "Viewport": "0,0,1,1",
           "ZFar": 10000,
           "ZNear": 10
-        },
-        {
-          "__type": "Sandbox.Pixelate",
-          "__guid": "da2a8819-63cf-4102-b99e-163712ab3901",
-          "Scale": 0.1
-        },
-        {
-          "__type": "Sandbox.ChromaticAberration",
-          "__guid": "28bf2f93-19c6-4dbb-9afc-aa760512a8c3",
-          "Offset": "4,6,0",
-          "Scale": 0.33
-        },
-        {
-          "__type": "Sandbox.ColorAdjustments",
-          "__guid": "51129829-f3a0-45e7-9a28-2fb210635e7d",
-          "Brightness": 1,
-          "Contrast": 1,
-          "HueRotate": 0,
-          "Saturation": 0.55
-        },
-        {
-          "__type": "Sandbox.Vignette",
-          "__guid": "72af19f9-51d4-4cf2-8c7a-ac08cba4ca81",
-          "Center": "0.5,0.5",
-          "Color": "0,0,0,1",
-          "Intensity": 0.49,
-          "Roundness": 1,
-          "Smoothness": 1
         }
       ]
     },
@@ -256,7 +228,8 @@
             ]
           },
           "SmoothingAngle": 40,
-          "Static": true
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -392,7 +365,8 @@
                 ]
               },
               "SmoothingAngle": 40,
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -522,7 +496,8 @@
                 ]
               },
               "SmoothingAngle": 40,
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -652,7 +627,8 @@
                 ]
               },
               "SmoothingAngle": 40,
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -780,7 +756,8 @@
                 ]
               },
               "SmoothingAngle": 40,
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -909,7 +886,8 @@
                 ]
               },
               "SmoothingAngle": 40,
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         }
@@ -1046,7 +1024,8 @@
                 ]
               },
               "SmoothingAngle": 40,
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -1176,7 +1155,8 @@
                 ]
               },
               "SmoothingAngle": 40,
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -1306,7 +1286,8 @@
                 ]
               },
               "SmoothingAngle": 40,
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -1434,7 +1415,8 @@
                 ]
               },
               "SmoothingAngle": 40,
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -1563,7 +1545,8 @@
                 ]
               },
               "SmoothingAngle": 40,
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         }
@@ -1602,6 +1585,7 @@
           "Feathering": 0.02,
           "FrameInterval": 5,
           "MaxDistance": 512,
+          "MultiBounce": false,
           "Projection": "Box",
           "RenderDynamically": true,
           "TintColor": "1,1,1,1",
@@ -1674,6 +1658,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/dev/door/door_frame_single_dev.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1705,6 +1690,7 @@
           "Health": 0,
           "IsStatic": true,
           "Model": "models/dev/door/door_frame_single_dev.vmdl",
+          "StartAsleep": false,
           "Tint": "1,1,1,1"
         }
       ]
@@ -1834,7 +1820,8 @@
             ]
           },
           "SmoothingAngle": 40,
-          "Static": true
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -1961,7 +1948,8 @@
             ]
           },
           "SmoothingAngle": 40,
-          "Static": true
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -2088,7 +2076,8 @@
             ]
           },
           "SmoothingAngle": 40,
-          "Static": true
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -2339,7 +2328,8 @@
             ]
           },
           "SmoothingAngle": 40,
-          "Static": true
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -2590,7 +2580,8 @@
             ]
           },
           "SmoothingAngle": 40,
-          "Static": true
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -2841,7 +2832,8 @@
             ]
           },
           "SmoothingAngle": 40,
-          "Static": true
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -3092,7 +3084,8 @@
             ]
           },
           "SmoothingAngle": 40,
-          "Static": true
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -3343,7 +3336,8 @@
             ]
           },
           "SmoothingAngle": 40,
-          "Static": true
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -3594,7 +3588,8 @@
             ]
           },
           "SmoothingAngle": 40,
-          "Static": true
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -3723,7 +3718,8 @@
             ]
           },
           "SmoothingAngle": 40,
-          "Static": true
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -3850,7 +3846,8 @@
             ]
           },
           "SmoothingAngle": 40,
-          "Static": true
+          "Static": true,
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -3865,13 +3862,42 @@
         {
           "__type": "Sandbox.TextRenderer",
           "__guid": "2445f828-5da1-4c54-a444-ad7946f89298",
-          "Color": "1,1,1,1",
-          "FontFamily": "Dinish",
-          "FontSize": 15.7,
-          "FontWeight": 800,
+          "__version": 1,
+          "BlendMode": "Normal",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
           "Scale": 1,
-          "Text": "96u",
-          "TextAlignment": "Center"
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "96u",
+            "TextColor": "1,1,1,1",
+            "FontName": "Dinish",
+            "FontSize": 15.7,
+            "FontWeight": 800,
+            "LineHeight": 1,
+            "Outline": {
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
         }
       ]
     },
@@ -3886,13 +3912,42 @@
         {
           "__type": "Sandbox.TextRenderer",
           "__guid": "21d07782-2153-4973-80cb-e499248b5840",
-          "Color": "1,1,1,1",
-          "FontFamily": "Dinish",
-          "FontSize": 15.7,
-          "FontWeight": 800,
+          "__version": 1,
+          "BlendMode": "Normal",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
           "Scale": 1,
-          "Text": "2048u",
-          "TextAlignment": "Center"
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "2048u",
+            "TextColor": "1,1,1,1",
+            "FontName": "Dinish",
+            "FontSize": 15.7,
+            "FontWeight": 800,
+            "LineHeight": 1,
+            "Outline": {
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
         }
       ]
     },
@@ -3907,13 +3962,42 @@
         {
           "__type": "Sandbox.TextRenderer",
           "__guid": "f53a75d2-185f-4914-8fac-6bd18c05fd48",
-          "Color": "1,1,1,1",
-          "FontFamily": "Dinish",
-          "FontSize": 15.7,
-          "FontWeight": 800,
+          "__version": 1,
+          "BlendMode": "Normal",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
           "Scale": 1,
-          "Text": "1024u",
-          "TextAlignment": "Center"
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "1024u",
+            "TextColor": "1,1,1,1",
+            "FontName": "Dinish",
+            "FontSize": 15.7,
+            "FontWeight": 800,
+            "LineHeight": 1,
+            "Outline": {
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
         }
       ]
     },
@@ -3928,13 +4012,42 @@
         {
           "__type": "Sandbox.TextRenderer",
           "__guid": "eaea5b3c-57af-4685-bbbf-b14be56ab2dc",
-          "Color": "1,1,1,1",
-          "FontFamily": "Roboto",
-          "FontSize": 15.7,
-          "FontWeight": 800,
+          "__version": 1,
+          "BlendMode": "Normal",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
           "Scale": 1,
-          "Text": "512u",
-          "TextAlignment": "Center"
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "512u",
+            "TextColor": "1,1,1,1",
+            "FontName": "Roboto",
+            "FontSize": 15.7,
+            "FontWeight": 800,
+            "LineHeight": 1,
+            "Outline": {
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
         }
       ]
     },
@@ -3949,13 +4062,42 @@
         {
           "__type": "Sandbox.TextRenderer",
           "__guid": "4337cd19-6cc8-4369-a2c0-6ad0f4172351",
-          "Color": "1,1,1,1",
-          "FontFamily": "Dinish",
-          "FontSize": 15.7,
-          "FontWeight": 800,
+          "__version": 1,
+          "BlendMode": "Normal",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
           "Scale": 1,
-          "Text": "256u",
-          "TextAlignment": "Center"
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "256u",
+            "TextColor": "1,1,1,1",
+            "FontName": "Dinish",
+            "FontSize": 15.7,
+            "FontWeight": 800,
+            "LineHeight": 1,
+            "Outline": {
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
         }
       ]
     },
@@ -3970,13 +4112,42 @@
         {
           "__type": "Sandbox.TextRenderer",
           "__guid": "e7b78b48-7113-49dc-8d9e-968ec889a981",
-          "Color": "1,1,1,1",
-          "FontFamily": "Dinish",
-          "FontSize": 15.7,
-          "FontWeight": 800,
+          "__version": 1,
+          "BlendMode": "Normal",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
           "Scale": 1,
-          "Text": "128u",
-          "TextAlignment": "Center"
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "128u",
+            "TextColor": "1,1,1,1",
+            "FontName": "Dinish",
+            "FontSize": 15.7,
+            "FontWeight": 800,
+            "LineHeight": 1,
+            "Outline": {
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
         }
       ]
     },
@@ -3991,13 +4162,42 @@
         {
           "__type": "Sandbox.TextRenderer",
           "__guid": "10770848-8848-4ee9-9f24-f1e25b643e83",
-          "Color": "1,1,1,1",
-          "FontFamily": "Dinish",
-          "FontSize": 15.7,
-          "FontWeight": 800,
+          "__version": 1,
+          "BlendMode": "Normal",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
           "Scale": 1,
-          "Text": "64u",
-          "TextAlignment": "Center"
+          "TextAlignment": "Center",
+          "TextScope": {
+            "Text": "64u",
+            "TextColor": "1,1,1,1",
+            "FontName": "Dinish",
+            "FontSize": 15.7,
+            "FontWeight": 800,
+            "LineHeight": 1,
+            "Outline": {
+              "Size": 4,
+              "Color": "0,0,1,1"
+            },
+            "Shadow": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            },
+            "OutlineUnder": {
+              "Size": 4,
+              "Color": "0,1,0,1"
+            },
+            "ShadowUnder": {
+              "Size": 4,
+              "Color": "0,0,0,1",
+              "Offset": "4,4"
+            }
+          }
         }
       ]
     },
@@ -4066,7 +4266,8 @@
           },
           "SmoothingAngle": 40,
           "Static": true,
-          "Surface": "surfaces/wood.surface"
+          "Surface": "surfaces/wood.surface",
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -4134,7 +4335,8 @@
           },
           "SmoothingAngle": 40,
           "Static": true,
-          "Surface": "surfaces/concrete.surface"
+          "Surface": "surfaces/concrete.surface",
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -4201,7 +4403,8 @@
           },
           "SmoothingAngle": 40,
           "Static": true,
-          "Surface": "surfaces/grass.surface"
+          "Surface": "surfaces/grass.surface",
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -4269,7 +4472,8 @@
           },
           "SmoothingAngle": 40,
           "Static": true,
-          "Surface": "surfaces/sand.surface"
+          "Surface": "surfaces/sand.surface",
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     },
@@ -4337,7 +4541,8 @@
           },
           "SmoothingAngle": 40,
           "Static": true,
-          "Surface": "surfaces/metal.surface"
+          "Surface": "surfaces/metal.surface",
+          "SurfaceVelocity": "0,0,0"
         }
       ]
     }
@@ -4347,9 +4552,13 @@
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 60,
     "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {
+      "Title": "minimal"
+    },
     "NavMesh": {
       "Enabled": false,
       "IncludeStaticBodies": true,
@@ -4363,9 +4572,9 @@
       "IncludedBodies": ""
     }
   },
+  "ResourceVersion": 2,
   "Title": "minimal",
-  "Description": "",
-  "ResourceVersion": 1,
+  "Description": null,
   "__references": [
     "facepunch.concrete_simple#18632",
     "facepunch.doorframe_single_dev#57524",
@@ -4374,5 +4583,5 @@
     "facepunch.metal_brushed#18749",
     "facepunch.wooden_door_frame_double_02b#43548"
   ],
-  "__version": 1
+  "__version": 2
 }

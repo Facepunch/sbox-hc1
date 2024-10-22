@@ -8,4 +8,12 @@ public partial class MapDefinition : GameResource
 	[Property] public string Description { get; set; }
 	[Property] public SceneFile SceneFile { get; set; }
 	[Property, ImageAssetPath] public string Background { get; set; }
+
+	public static IEnumerable<MapDefinition> All
+	{
+		get
+		{
+			return ResourceLibrary.GetAll<MapDefinition>().Where( x => x.IsEnabled );
+		}
+	}
 }

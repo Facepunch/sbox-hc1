@@ -89,16 +89,17 @@
         if ( !firstTime )
             return;
 
-        SelectedMap = MapSystem.All.FirstOrDefault();
-        SelectedGameMode = GameMode.GetAll( SelectedMap.SceneFile ).FirstOrDefault();
+        SelectedMap = MapDefinition.All.FirstOrDefault();
+        SelectedGameMode = GameMode.GetAll( SelectedMap.SceneFile )
+            .FirstOrDefault();
     }
 
     private void Join()
     {
-        if (SelectedGameMode is null)
+        if ( SelectedGameMode is null )
             return;
 
-        if (SelectedMap is null)
+        if ( SelectedMap is null )
             return;
 
         GameMode.SetCurrent( SelectedGameMode );
