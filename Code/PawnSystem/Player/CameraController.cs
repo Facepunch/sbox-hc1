@@ -34,6 +34,9 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 
 	public float MaxBoomLength { get; set; }
 
+	private float FieldOfViewOffset = 0f;
+	private float TargetFieldOfView = 90f;
+
 	/// <summary>
 	/// Constructs a ray using the camera's GameObject
 	/// </summary>
@@ -49,14 +52,6 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 			return new( WorldPosition + Vector3.Up * 64f, Player.EyeAngles.ToRotation().Forward );
 		}
 	}
-
-	protected override void OnStart()
-	{
-		// Kill PawnCameraController behavior
-	}
-
-	private float FieldOfViewOffset = 0f;
-	private float TargetFieldOfView = 90f;
 
 	public void AddFieldOfViewOffset( float degrees )
 	{

@@ -11,7 +11,7 @@ public partial class PlayerPawn :
 	/// </summary>
 	[Property, ReadOnly] public Equipment CurrentEquipment { get; private set; }
 
-	public GameObject ViewModelGameObject => CameraController.PlayerCameraGameObject;
+	public GameObject ViewModelGameObject => CameraController.CameraObject;
 
 	/// <summary>
 	/// How inaccurate are things like gunshots?

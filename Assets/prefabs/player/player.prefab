@@ -70,9 +70,9 @@
           "_type": "gameobject",
           "go": "b03710d3-75bd-4111-b405-2974362db2c3"
         },
-        "DefaultPlayerCameraPrefab": {
+        "CameraObject": {
           "_type": "gameobject",
-          "prefab": "prefabs/player/cameras/default_player_camera.prefab"
+          "go": "a0a355df-2e53-45a3-9610-d04c2529fc1b"
         },
         "Player": {
           "_type": "component",
@@ -187,8 +187,17 @@
             "__guid": "b03710d3-75bd-4111-b405-2974362db2c3",
             "Flags": 0,
             "Name": "Boom",
-            "Position": "0,0,0",
-            "Enabled": true
+            "Enabled": true,
+            "Children": [
+              {
+                "__guid": "a0a355df-2e53-45a3-9610-d04c2529fc1b",
+                "Flags": 0,
+                "Name": "Camera",
+                "Enabled": true,
+                "__Prefab": "prefabs/player/cameras/default_player_camera.prefab",
+                "__PrefabVariables": {}
+              }
+            ]
           }
         ]
       },
@@ -226,6 +235,20 @@
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": true,
             "Model": "models/player/ct_side/ct_side_riot_player/ct_side_riot_player.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -423,7 +446,6 @@
                         "__guid": "fa47a0cc-8507-43d0-b5b2-c0ac28d1d8ee",
                         "Flags": 0,
                         "Name": "r_knee_twist_01",
-                        "Position": "0,0,0",
                         "Enabled": true
                       },
                       {
@@ -440,7 +462,6 @@
                     "__guid": "dd77a159-8862-4de5-9473-90601c0f0f53",
                     "Flags": 0,
                     "Name": "r_hip_twist_01",
-                    "Position": "0,0,0",
                     "Enabled": true
                   },
                   {
@@ -506,7 +527,6 @@
                         "__guid": "5f5ea508-a00b-4dc6-8be1-5145133a8ba9",
                         "Flags": 0,
                         "Name": "l_knee_twist_01",
-                        "Position": "0,0,0",
                         "Enabled": true
                       },
                       {
@@ -522,7 +542,6 @@
                     "__guid": "352ee251-3d31-449e-8d14-dfe9a638d307",
                     "Flags": 0,
                     "Name": "l_hip_twist_01",
-                    "Position": "0,0,0",
                     "Enabled": true
                   },
                   {
@@ -744,7 +763,6 @@
                                         "__guid": "c9b0784c-1299-4f3e-9711-fb725de81c77",
                                         "Flags": 0,
                                         "Name": "l_elbow",
-                                        "Position": "0,0,0",
                                         "Enabled": true
                                       },
                                       {
@@ -776,7 +794,6 @@
                                     "__guid": "764a9bc1-36dd-470c-aa09-21062e9b9028",
                                     "Flags": 0,
                                     "Name": "l_upperarmtwist_01",
-                                    "Position": "0,0,0",
                                     "Enabled": true
                                   }
                                 ]
@@ -1035,7 +1052,6 @@
                                                 "__guid": "54431291-2c92-4075-bf87-882481574799",
                                                 "Flags": 0,
                                                 "Name": "WeaponHold",
-                                                "Position": "0,0,0",
                                                 "Rotation": "0,-0,-0.7071068,0.7071068",
                                                 "Enabled": true,
                                                 "Children": [
@@ -1043,13 +1059,18 @@
                                                     "__guid": "b8e18069-16cc-4029-be75-eaaad08ec723",
                                                     "Flags": 0,
                                                     "Name": "Cube",
-                                                    "Position": "0,0,0",
                                                     "Components": [
                                                       {
                                                         "__type": "Sandbox.ModelRenderer",
                                                         "__guid": "0bf8d9cf-7225-4bba-9388-62864e2ed3c2",
                                                         "BodyGroups": 9493,
                                                         "Model": "models/dev/error.vmdl",
+                                                        "RenderOptions": {
+                                                          "GameLayer": true,
+                                                          "OverlayLayer": false,
+                                                          "BloomLayer": false,
+                                                          "AfterUILayer": false
+                                                        },
                                                         "RenderType": "On",
                                                         "Tint": "1,1,1,1"
                                                       }
@@ -1073,7 +1094,6 @@
                                         "__guid": "e2252b6a-9a15-42c4-ba76-24a2939c1816",
                                         "Flags": 0,
                                         "Name": "r_elbow",
-                                        "Position": "0,0,0",
                                         "Enabled": true
                                       },
                                       {
@@ -1090,7 +1110,6 @@
                                     "__guid": "16e38732-79e1-4947-9d01-5697ad8d7cfb",
                                     "Flags": 4,
                                     "Name": "r_upperarm_twist_01",
-                                    "Position": "0,0,0",
                                     "Enabled": true
                                   },
                                   {
@@ -1192,7 +1211,8 @@
             "Center": "0,0,32",
             "IsTrigger": false,
             "Scale": "32,32,64",
-            "Static": false
+            "Static": false,
+            "SurfaceVelocity": "0,0,0"
           }
         ]
       },
@@ -1203,11 +1223,35 @@
         "Enabled": true
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

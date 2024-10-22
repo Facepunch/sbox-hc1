@@ -17,9 +17,9 @@
           "_type": "gameobject",
           "go": "76bb9bb6-92d1-4dca-9a77-929eb5a55cb6"
         },
-        "DefaultPlayerCameraPrefab": {
+        "CameraObject": {
           "_type": "gameobject",
-          "prefab": "prefabs/player/cameras/default_player_camera.prefab"
+          "go": "91937a66-a8f6-4a25-b049-0636e5f6e1b7"
         }
       }
     ],
@@ -28,14 +28,48 @@
         "__guid": "76bb9bb6-92d1-4dca-9a77-929eb5a55cb6",
         "Flags": 0,
         "Name": "Boom",
-        "Enabled": true
+        "Enabled": true,
+        "Children": [
+          {
+            "__guid": "91937a66-a8f6-4a25-b049-0636e5f6e1b7",
+            "Flags": 0,
+            "Name": "Camera",
+            "Enabled": true,
+            "__Prefab": "prefabs/player/cameras/default_player_camera.prefab",
+            "__PrefabVariables": {}
+          }
+        ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

@@ -13,70 +13,31 @@ public partial class PawnCameraController : Component
 	public Pawn Pawn => GameObject.Root.GetComponentInChildren<Pawn>( true );
 
 	/// <summary>
-	/// The default player camera prefab.
-	/// </summary>
-	[Property] public GameObject DefaultPlayerCameraPrefab { get; set; }
-
-	/// <summary>
 	/// The boom for this camera.
 	/// </summary>
-	[Property] public GameObject Boom { get; set; }
+	[Property] 
+	public GameObject Boom { get; set; }
 
-	/// <summary>
-	/// See <see cref="DefaultPlayerCameraPrefab"/>, this is the instance of this.
-	/// </summary>
-	public GameObject PlayerCameraGameObject { get; set; }
+	[Property]
+	public GameObject CameraObject { get; set; }
 
 	public bool IsActive { get; private set; }
-
-	private GameObject GetOrCreateCameraObject()
-	{
-		// I don't really get how this can happen.
-		if ( !Scene.IsValid() )
-		{
-			return null;
-		}
-
-		var component = Scene.GetAllComponents<PlayerCameraOverride>().FirstOrDefault();
-
-		var config = new CloneConfig()
-		{
-			StartEnabled = true,
-			Parent = Boom,
-			Transform = new Transform()
-		};
-
-		if ( component.IsValid() )
-			return component.Prefab.Clone( config );
-
-		return DefaultPlayerCameraPrefab?.Clone( config );
-	}
 
 	public virtual void SetActive( bool isActive )
 	{
 		IsActive = isActive;
 
-		if ( PlayerCameraGameObject.IsValid() )
-			PlayerCameraGameObject.Destroy();
-
 		if ( isActive )
 		{
-			PlayerCameraGameObject = GetOrCreateCameraObject();
 
-			if ( !PlayerCameraGameObject.IsValid() )
-			{
-				Log.Warning( "Couldn't make camera??" );
-				return;
-			}
-
-			Camera = PlayerCameraGameObject.GetOrAddComponent<CameraComponent>();
-			Pixelate = PlayerCameraGameObject.GetOrAddComponent<Pixelate>();
-			ChromaticAberration = PlayerCameraGameObject.GetOrAddComponent<ChromaticAberration>();
-			AudioListener = PlayerCameraGameObject.GetOrAddComponent<AudioListener>();
-			ScreenShaker = PlayerCameraGameObject.GetOrAddComponent<ScreenShaker>();
+			Camera = CameraObject.GetOrAddComponent<CameraComponent>();
+			Pixelate = Camera.GetOrAddComponent<Pixelate>();
+			ChromaticAberration = Camera.GetOrAddComponent<ChromaticAberration>();
+			AudioListener = Camera.GetOrAddComponent<AudioListener>();
+			ScreenShaker = Camera.GetOrAddComponent<ScreenShaker>();
 
 			// Optional
-			ColorAdjustments = PlayerCameraGameObject.GetComponent<ColorAdjustments>();
+			ColorAdjustments = Camera.GetComponent<ColorAdjustments>();
 		}
 	}
 }

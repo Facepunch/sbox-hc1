@@ -60,7 +60,8 @@
       {
         "__type": "Facepunch.HealthComponent",
         "__guid": "4078a8a3-0850-481a-98a2-b8781bd82417",
-        "IsGodMode": false
+        "IsGodMode": false,
+        "MaxHealth": 100
       },
       {
         "__type": "Facepunch.DroneSounds",
@@ -80,8 +81,10 @@
         "Gravity": true,
         "LinearDamping": 0,
         "Locking": {},
+        "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": true,
+        "OverrideMassCenter": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
       },
@@ -91,7 +94,8 @@
         "Center": "0,0,0",
         "IsTrigger": false,
         "Scale": "40,40,10",
-        "Static": false
+        "Static": false,
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "Facepunch.PawnCameraController",
@@ -100,9 +104,9 @@
           "_type": "gameobject",
           "go": "4599308c-acab-4e57-8a3e-8fc83088350d"
         },
-        "DefaultPlayerCameraPrefab": {
+        "CameraObject": {
           "_type": "gameobject",
-          "prefab": "prefabs/player/cameras/default_player_camera.prefab"
+          "go": "012209ae-dc97-482a-9c4b-dbc1f738fc27"
         }
       }
     ],
@@ -121,6 +125,20 @@
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": true,
             "Model": "entities/drone/drone.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -158,14 +176,48 @@
         "Flags": 0,
         "Name": "Boom",
         "Position": "12.49848,0,0",
-        "Enabled": true
+        "Enabled": true,
+        "Children": [
+          {
+            "__guid": "012209ae-dc97-482a-9c4b-dbc1f738fc27",
+            "Flags": 0,
+            "Name": "Camera",
+            "Enabled": true,
+            "__Prefab": "prefabs/player/cameras/default_player_camera.prefab",
+            "__PrefabVariables": {}
+          }
+        ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "rust.drone#26713"
