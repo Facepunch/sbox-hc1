@@ -13,8 +13,10 @@
         "Gravity": true,
         "LinearDamping": 1,
         "Locking": {},
+        "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": true,
+        "OverrideMassCenter": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
       },
@@ -25,7 +27,8 @@
         "IsTrigger": false,
         "Radius": 2,
         "Static": false,
-        "Surface": "weapons/throwable/he_grenade/grenade.surface"
+        "Surface": "weapons/throwable/he_grenade/grenade.surface",
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "DestroyBetweenRounds",
@@ -45,7 +48,7 @@
           "_type": "gameobject",
           "prefab": "prefabs/equipment/decoy_grenade_explode.prefab"
         },
-        "ShotDelay": "0.50,1.00,1",
+        "ShotDelay": "0.5 1",
         "ShotSound": "sounds/weapons/m4a1/m4_shot.sound"
       }
     ],
@@ -59,8 +62,14 @@
           {
             "__type": "Sandbox.ModelRenderer",
             "__guid": "8956b60f-c00e-458c-a279-e489e0d9ba64",
-            "BodyGroups": 18446744073709551615,
-            "Model": "weapons/throwable/m84_stun_grenade/v_m84_stun_grenade.vmdl",
+            "BodyGroups": 11,
+            "Model": "models/weapons/sbox_grenade_decoy/w_decoy_grenade.vmdl",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1"
           }
@@ -75,12 +84,38 @@
         "__PrefabVariables": {}
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.w_decoy_grenade#75377"
+  ],
   "__version": 1
 }
