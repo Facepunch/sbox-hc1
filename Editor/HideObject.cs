@@ -3,7 +3,7 @@ using Sandbox;
 
 public class HideObject
 {
-	[Menu("Editor", "Settings/HC1/Toggle Selection" )]
+	[Menu("Editor", "Nicked/Toggle Selected" )]
 	[Shortcut( "hc1.editor.toggleselect", "H", ShortcutType.Window )]
 	static void ToggleSelection()
 	{
