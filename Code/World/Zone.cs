@@ -58,6 +58,9 @@ public sealed class Zone : Component
 
 	protected override void DrawGizmos()
 	{
+		if ( !Facepunch.Preferences.ShowVolumes )
+			return;
+
 		Gizmo.Draw.Color = Color.WithAlpha( Gizmo.IsSelected ? Color.a * 0.5f : Color.a * 0.25f );
 
 		foreach ( var collider in GetComponents<BoxCollider>().Where( x => x.IsTrigger ) )

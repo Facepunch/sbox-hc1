@@ -105,6 +105,9 @@ public partial class ExtractionPoint : Component,
 
 	protected override void DrawGizmos()
 	{
+		if ( !Facepunch.Preferences.ShowVolumes )
+			return;
+
 		Gizmo.Draw.Color = Color.Green;
 		var box = BBox.FromPositionAndSize( Vector3.Zero, 64 );
 		Gizmo.Hitbox.BBox( box );
