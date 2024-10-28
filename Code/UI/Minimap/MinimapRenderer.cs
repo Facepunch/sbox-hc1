@@ -54,6 +54,9 @@ public partial class MinimapRenderer : Component, Component.ExecuteInEditor
 
 	protected override void DrawGizmos()
 	{
+		if ( !Facepunch.Preferences.ShowVolumes )
+			return;
+
 		Gizmo.Draw.Color = Color.Blue.WithAlpha( 0.8f );
 		Gizmo.Draw.LineBBox( BBox.FromPositionAndSize( Vector3.Zero, Size ) );
 

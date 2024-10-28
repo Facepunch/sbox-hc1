@@ -75,6 +75,9 @@ public sealed partial class BombSite : Component
 			return;
 		}
 
+		if ( !Facepunch.Preferences.ShowVolumes )
+			return;
+
 		Gizmo.Transform = global::Transform.Zero;
 
 		Gizmo.Draw.Color = Gizmo.Colors.Red;
