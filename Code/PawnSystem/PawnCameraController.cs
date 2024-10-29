@@ -29,6 +29,7 @@ public partial class PawnCameraController : Component
 
 		if ( isActive )
 		{
+			CameraObject.Enabled = true;
 
 			Camera = CameraObject.GetOrAddComponent<CameraComponent>();
 			Pixelate = Camera.GetOrAddComponent<Pixelate>();
@@ -38,6 +39,10 @@ public partial class PawnCameraController : Component
 
 			// Optional
 			ColorAdjustments = Camera.GetComponent<ColorAdjustments>();
+		}
+		else
+		{
+			CameraObject.Enabled = false;
 		}
 	}
 }
