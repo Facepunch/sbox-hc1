@@ -41,7 +41,17 @@ public static partial class GameUtils
 	public static IEnumerable<SpawnPointInfo> GetSpawnPoints( Team team, params string[] tags ) => Game.ActiveScene
 		.GetAllComponents<TeamSpawnPoint>()
 		.Where( x => x.Team == team )
-		.Where( x => tags.Length == 0 || tags.Any( x.Tags.Contains )  )
+		.Where( x => tags.Length == 0 || tags.Any( x.Tags.Contains ) )
+		.Select( x => new SpawnPointInfo( x.Transform.World, x.GameObject.Tags.ToArray() ) )
+		.Concat( Game.ActiveScene.GetAllComponents<SpawnPoint>()
+			.Select( x => new SpawnPointInfo( x.Transform.World, x.GameObject.Tags.ToArray() ) ) );
+
+	/// <summary>
+	/// Get all spawn point transforms
+	/// </summary>
+	public static IEnumerable<SpawnPointInfo> GetSpawnPoints( params string[] tags ) => Game.ActiveScene
+		.GetAllComponents<TeamSpawnPoint>()
+		.Where( x => tags.Length == 0 || tags.Any( x.Tags.Contains ) )
 		.Select( x => new SpawnPointInfo( x.Transform.World, x.GameObject.Tags.ToArray() ) )
 		.Concat( Game.ActiveScene.GetAllComponents<SpawnPoint>()
 			.Select( x => new SpawnPointInfo( x.Transform.World, x.GameObject.Tags.ToArray() ) ) );
