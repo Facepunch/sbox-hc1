@@ -1,5 +1,5 @@
 {
-  "__guid": "6ca6bd35-7d8c-472a-93bc-2a4c092cdeb6",
+  "__guid": "f336d75b-83c4-4335-9493-3e977ce64201",
   "GameObjects": [
     {
       "__guid": "85fa136b-6147-4e07-aa7f-57dcd6474567",
@@ -159,14 +159,14 @@
             {
               "__type": "Sandbox.CubemapFog",
               "__guid": "38d473c8-9f5d-41ca-a170-4f668607a0ad",
-              "Blur": 0.33,
+              "Blur": 0.14,
               "EndDistance": 8192,
               "FalloffExponent": 1,
               "HeightExponent": 2,
               "HeightStart": 2000,
               "HeightWidth": 0,
-              "Sky": "materials/skybox/skybox_sunrise_01.vmat",
-              "StartDistance": 1600,
+              "Sky": "materials/skybox/skybox_overcast_02.vmat",
+              "StartDistance": 2000,
               "Tint": "1,1,1,1"
             }
           ]
@@ -200,7 +200,8 @@
             {
               "__type": "Sandbox.EnvmapProbe",
               "__guid": "00130408-83bd-4831-ac91-dcdbebfe445e",
-              "Texture": "materials/skybox/skybox_sunrise_01_exr_61ffe767.generated.vtex",
+              "__enabled": false,
+              "Texture": "materials/skybox/colorscript/skybox_default.vtex",
               "Bounds": {
                 "Mins": "-2761.594,-1523.665,-1000",
                 "Maxs": "3004.938,3088.534,1000"
@@ -954,8 +955,9 @@
           "__guid": "bbcef1a8-93dd-4a5e-b328-0846f06e73ed",
           "Flags": 0,
           "Name": "decal_cross",
-          "Position": "1733.052,-437.9639,-1031.416",
-          "Rotation": "-0.5,0.5,0.5,0.5",
+          "Position": "1739.167,-382.8586,-978.7067",
+          "Rotation": "-0.05743464,-0.05743451,0.7047704,0.7047704",
+          "Scale": "1,0.4798417,0.5412024",
           "Enabled": true,
           "Components": [
             {
@@ -971,7 +973,7 @@
                 "BloomLayer": false,
                 "AfterUILayer": false
               },
-              "Size": "96,96,64",
+              "Size": "96,96,24",
               "TintColor": "1,1,1,1",
               "TriPlanar": false
             }
@@ -4112,7 +4114,7 @@
           "__guid": "dc3e8fcb-679b-4196-89f6-a7a5943226ee",
           "__version": 1,
           "EnableCollision": true,
-          "MapName": "maps/de_garry/de_garry.vmap",
+          "MapName": "maps/refinery/refinery.vmap",
           "NoOrigin": false,
           "OnMapLoaded": null,
           "OnMapUnloaded": null,
@@ -7059,78 +7061,6 @@
           "Center": "0,0,0",
           "IsTrigger": true,
           "Scale": "6000,5000,1250",
-          "Static": true,
-          "SurfaceVelocity": "0,0,0"
-        }
-      ]
-    },
-    {
-      "__guid": "824d6e2c-f5b5-4fdb-ab9e-822a71a9157b",
-      "Flags": 0,
-      "Name": "Box",
-      "Position": "1286.794,-415.405,-203.3152",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.MeshComponent",
-          "__guid": "08c5d9b0-3428-4f64-a677-c19b29ab4e55",
-          "Collision": "Mesh",
-          "Color": "1,1,1,1",
-          "HideInGame": true,
-          "IsTrigger": false,
-          "Mesh": {
-            "Topology": "H4sIAAAAAAAACk2OiwoAMAgC29Ye///F8yAh4Qi0pIyIJ6ZAzBRHjMKZdZu/ah/Z8x3Zrq7ejU/uLgufXW7I/cMH9Bd8FaQAAAA=",
-            "Positions": [
-              "-48.61267,-160.085,0",
-              "48.61267,-160.085,0",
-              "48.61267,160.085,0",
-              "-48.61267,160.085,0"
-            ],
-            "TextureCoord": [
-              "0.3797865,0.752656",
-              "-0.3797865,0.752656",
-              "0.3797865,-0.752656",
-              "0.3797865,0.752656",
-              "-0.3797865,-0.752656",
-              "0.3797865,-0.752656",
-              "-0.3797865,0.752656",
-              "-0.3797865,-0.752656"
-            ],
-            "TextureUAxis": [
-              "1,0,0",
-              "1,-0,0"
-            ],
-            "TextureVAxis": [
-              "0,-1,0",
-              "0,-1,0"
-            ],
-            "TextureScale": [
-              "0.25,0.4154168",
-              "0.25,0.4154168"
-            ],
-            "TextureOffset": [
-              "484.8242,24.02844",
-              "484.8242,24.02844"
-            ],
-            "MaterialIndex": [
-              0,
-              0
-            ],
-            "EdgeFlags": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            "Materials": [
-              "materials/dev/reflectivity_30.vmat"
-            ]
-          },
-          "SmoothingAngle": 40,
           "Static": true,
           "SurfaceVelocity": "0,0,0"
         }
