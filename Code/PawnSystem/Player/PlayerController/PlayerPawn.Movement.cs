@@ -54,8 +54,6 @@ public partial class PlayerPawn
 	/// </summary>
 	[Sync] public bool IsCrouching { get; set; }
 
-	public float CrouchAmount { get; set; }
-
 	/// <summary>
 	/// Is the player slow walking?
 	/// </summary>
@@ -271,14 +269,6 @@ public partial class PlayerPawn
 
 	TimeSince TimeSinceCrouchPressed = 10f;
 	TimeSince TimeSinceCrouchReleased = 10f;
-
-	private float CrouchLerpSpeed()
-	{
-		if ( TimeSinceCrouchPressed < 1f && TimeSinceCrouchReleased < 1f )
-			return Global.SlowCrouchLerpSpeed;
-
-		return Global.CrouchLerpSpeed;
-	}
 
     private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking && !HasEquipmentTag( "no_sprint" ) && WishMove.x > 0.2f;
 	TimeSince TimeSinceSprintChanged { get; set; } = 100;
