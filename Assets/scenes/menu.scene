@@ -2,6 +2,21 @@
   "__guid": "1d8ef449-9ae1-421d-b754-49f414e52d74",
   "GameObjects": [
     {
+      "__guid": "a0f82916-8bfc-4864-b8cc-c0daec1dd2b4",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "386cb853-e0dd-483f-9711-67f7fae02556",
+          "Description": "",
+          "SceneTags": "",
+          "Title": "minimal"
+        }
+      ]
+    },
+    {
       "__guid": "ff590321-7fa0-4089-8421-33cc01854ce0",
       "Flags": 0,
       "Name": "Main Menu",
@@ -15,6 +30,7 @@
           "AutoScreenScale": true,
           "Opacity": 1,
           "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
           "ZIndex": 100
         },
         {
@@ -22,18 +38,17 @@
           "__guid": "520f73ed-1abc-403f-bfa3-be4160caa365"
         },
         {
-          "__type": "Facepunch.SoundEmitter",
-          "__guid": "dd0fc629-fd2d-42ca-9e09-4948b59fb2d7",
-          "DestroyOnFinish": true,
+          "__type": "Sandbox.Audio.SoundEmitter",
+          "__guid": "3ad5a571-d7fc-4af6-8b37-61805368f2fc",
+          "AutoStart": true,
+          "DestroyOnFinish": false,
           "Follow": true,
           "LifeTime": 1,
-          "MixerName": "Music",
+          "MixerName": "UI",
           "SoundEvent": "sounds/music/main_menu_loop.sound",
-          "VolumeModifier": true,
+          "VolumeModifier": false,
           "VolumeOverTime": [
-            {},
             {
-              "x": 1,
               "y": 1
             },
             {
@@ -56,8 +71,10 @@
           "__guid": "e7c5f4e8-56a9-4bf9-bfa8-0afdec5fe6b1",
           "__version": 1,
           "EnableCollision": true,
-          "MapName": "maps/tdm_test/tdm_test.vmap",
+          "MapName": "maps/edinburgh/edinburgh.vmap",
           "NoOrigin": true,
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
           "UseMapFromLaunch": false
         }
       ],
@@ -75,7 +92,6 @@
           "__guid": "9180df9a-7408-4767-8082-9718718263cc",
           "Flags": 0,
           "Name": "Camera",
-          "Position": "0,0,0",
           "Enabled": true,
           "Components": [
             {
@@ -116,7 +132,9 @@
               "BackBlur": true,
               "BlurSize": 100,
               "FocalDistance": 270,
-              "FrontBlur": false
+              "FocusRange": 500,
+              "FrontBlur": false,
+              "QualityLevel": "High"
             },
             {
               "__type": "Facepunch.MainMenuCamera",
@@ -151,25 +169,25 @@
           "Podiums": [
             {
               "_type": "component",
-              "component_id": "a2ffa09d-27f0-4f7b-8fc9-9eac6381d016",
+              "component_id": "a66208e1-0905-4777-931d-41b8e9e73fcd",
               "go": "acbfd038-265a-4df2-b91d-a2f27fc9513e",
               "component_type": "PartyMember"
             },
             {
               "_type": "component",
-              "component_id": "08eab906-0dfc-4533-a574-2fb496e06f95",
+              "component_id": "884c0850-efa3-480d-a88f-e99527a877e8",
               "go": "c52796f1-c8be-40a9-bbde-8237ed1dfd97",
               "component_type": "PartyMember"
             },
             {
               "_type": "component",
-              "component_id": "7e9f7641-9364-4139-929f-049065e13bf5",
+              "component_id": "d45f6208-27a8-4ef4-8c16-4766db45c8e2",
               "go": "449fbabb-53d0-4744-a02c-eb545149bc14",
               "component_type": "PartyMember"
             },
             {
               "_type": "component",
-              "component_id": "7e9f7641-9364-4139-929f-049065e13bf5",
+              "component_id": "d45f6208-27a8-4ef4-8c16-4766db45c8e2",
               "go": "449fbabb-53d0-4744-a02c-eb545149bc14",
               "component_type": "PartyMember"
             }
@@ -398,6 +416,20 @@
           "BodyGroups": 18446744073709551615,
           "CreateBoneObjects": false,
           "Model": "models/dev/duffelbag/dufflebag_money.vmdl",
+          "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
           "RenderType": "On",
           "Tint": "1,1,1,1",
           "UseAnimGraph": true
@@ -417,6 +449,12 @@
           "__guid": "59c2f0e6-6302-4755-8b7e-6b3335ffe5fd",
           "BodyGroups": 18446744073709551615,
           "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
           "RenderType": "On",
           "Tint": "1,1,1,1"
         }
@@ -433,6 +471,7 @@
         {
           "__type": "Sandbox.ParticleEffect",
           "__guid": "1228cfbb-940d-40db-b3cc-a455c7100145",
+          "__version": 1,
           "Alpha": {
             "Type": "Curve",
             "CurveA": [
@@ -450,6 +489,7 @@
             ],
             "Constants": "1,0,0,0"
           },
+          "ApplyAlpha": true,
           "ApplyColor": true,
           "ApplyRotation": true,
           "ApplyShape": true,
@@ -559,6 +599,13 @@
           "Lighting": false,
           "MotionBlur": false,
           "Opaque": false,
+          "Pivot": "0.5,0.5",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
           "RotationOffset": 0,
           "Scale": 1,
           "Shadows": true,
@@ -606,9 +653,13 @@
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 60,
     "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {
+      "Title": "minimal"
+    },
     "NavMesh": {
       "Enabled": false,
       "IncludeStaticBodies": true,
@@ -622,11 +673,11 @@
       "IncludedBodies": ""
     }
   },
+  "ResourceVersion": 2,
   "Title": "minimal",
-  "Description": "",
-  "ResourceVersion": 1,
+  "Description": null,
   "__references": [
     "facepunch.dufflebag_money#58382"
   ],
-  "__version": 1
+  "__version": 2
 }
