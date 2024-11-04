@@ -45,11 +45,6 @@ public partial class PlayerState : Component, ITeam
 	public string DisplayName => $"{name}{(!IsConnected ? " (Disconnected)" : "")}";
 
 	/// <summary>
-	/// Unique Ids of this player
-	/// </summary>
-	[RequireComponent] public PlayerId PlayerId { get; private set; }
-
-	/// <summary>
 	/// What's our loadout?
 	/// </summary>
 	[RequireComponent] public PlayerLoadout Loadout { get; private set; }
@@ -74,7 +69,7 @@ public partial class PlayerState : Component, ITeam
 	/// <summary>
 	/// Unique colour or team color of this player
 	/// </summary>
-	public Color PlayerColor => PlayerColors.Instance?.GetColor( this ) ?? Team.GetColor();
+	public Color PlayerColor => Team.GetColor();
 
 	/// <summary>
 	/// The main PlayerPawn of this player if one exists, will not change when the player possesses gadgets etc. (synced)
