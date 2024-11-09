@@ -103,7 +103,7 @@ public partial class PlayerInventory : Component
 			var position = tr.Hit ? tr.HitPosition + tr.Normal * weapon.Resource.WorldModel.Bounds.Size.Length : Player.AimRay.Position + Player.AimRay.Forward * 32f;
 			var rotation = Rotation.From( 0, Player.EyeAngles.yaw + 90, 90 );
 
-			var baseVelocity = Player.CharacterController.Velocity;
+			var baseVelocity = Player.PlayerController.Velocity;
 			var droppedWeapon = DroppedEquipment.Create( weapon.Resource, position, rotation, weapon );
 
 			if ( !tr.Hit )

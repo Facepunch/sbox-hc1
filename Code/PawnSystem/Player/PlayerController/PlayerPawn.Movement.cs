@@ -12,7 +12,7 @@ public partial class PlayerPawn
 	/// <summary>
 	/// The player's box collider, so people can jump on other people.
 	/// </summary>
-	[Property] public BoxCollider PlayerBoxCollider { get; set; }
+	//[Property] public BoxCollider PlayerBoxCollider { get; set; }
 
 	[RequireComponent] public TagBinder TagBinder { get; set; }
 
@@ -85,11 +85,6 @@ public partial class PlayerPawn
 	[Sync] AnimationHelper.HoldTypes CurrentHoldType { get; set; } = AnimationHelper.HoldTypes.None;
 
 	/// <summary>
-	/// How quick do we wish to go?
-	/// </summary>
-	private Vector3 WishVelocity { get; set; }
-
-	/// <summary>
 	/// Are we on the ground?
 	/// </summary>
 	public bool IsGrounded { get; set; }
@@ -112,8 +107,6 @@ public partial class PlayerPawn
 	private float _smoothEyeHeight;
 	private Vector3 _previousVelocity;
 	private Vector3 _jumpPosition;
-	private bool _isTouchingLadder;
-	private Vector3 _ladderNormal;
 	
 	[Sync] private float _eyeHeightOffset { get; set; }
 
@@ -138,31 +131,11 @@ public partial class PlayerPawn
 
 			_eyeHeightOffset = eyeHeightOffset;
 		}
-
-		if ( PlayerBoxCollider.IsValid() )
-		{
-			// Bit shit, but it works
-			PlayerBoxCollider.Center = new( 0, 0, 32 + _smoothEyeHeight );
-			PlayerBoxCollider.Scale = new( 32, 32, 64 + _smoothEyeHeight );
-		}
-	}
-
-	TimeUntil TimeUntilAccelerationRecovered = 0;
-	float AccelerationAddedScale = 0;
-
-	private void ApplyAcceleration()
-	{
-		var relative = TimeUntilAccelerationRecovered.Fraction.Clamp( 0, 1 );
-		var acceleration = GetAcceleration();
-
-		acceleration *= ( relative + AccelerationAddedScale ).Clamp( 0, 1 );
-
-		CharacterController.Acceleration = acceleration;
 	}
 
 	private void OnUpdateMovement()
 	{
-		var cc = CharacterController;
+		var cc = PlayerController;
 		CurrentHoldType = CurrentEquipment.IsValid() ? CurrentEquipment.GetHoldType() : AnimationHelper.HoldTypes.None;
 
 		if ( !IsLocallyControlled ) 
@@ -192,7 +165,7 @@ public partial class PlayerPawn
 			if ( AnimationHelper.IsValid() )
 			{
 				AnimationHelper.WithVelocity( cc.Velocity );
-				AnimationHelper.WithWishVelocity( WishVelocity );
+				AnimationHelper.WithWishVelocity( cc.WishVelocity );
 				AnimationHelper.IsGrounded = IsGrounded;
 				AnimationHelper.WithLook( EyeAngles.Forward, 1, 1, 1.0f );
 				AnimationHelper.MoveStyle = AnimationHelper.MoveStyles.Run;
@@ -200,75 +173,17 @@ public partial class PlayerPawn
 				AnimationHelper.HoldType = CurrentHoldType;
 				AnimationHelper.Handedness = CurrentEquipment.IsValid() ? CurrentEquipment.Handedness : AnimationHelper.Hand.Both;
 				AnimationHelper.AimBodyWeight = 0.1f;
+
+				var skidding = 0.0f;
+
+				if ( cc.WishVelocity.IsNearlyZero( 0.1f ) ) skidding = cc.Velocity.Length.Remap( 0, 1000, 0, 1 );
+
+				AnimationHelper.SkidAmount = skidding;
 			}
 		}
 
 		AimDampening = 1.0f;
 	}
-
-	private float GetMaxAcceleration()
-	{
-		if ( !CharacterController.IsOnGround ) return Global.AirMaxAcceleration;
-		return Global.MaxAcceleration;
-	}
-
-	private void ApplyMovement()
-	{
-		var cc = CharacterController;
-
-		CheckLadder();
-
-		var gravity = Global.Gravity;
-
-		if ( _isTouchingLadder )
-		{
-			LadderMove();
-			return;
-		}
-
-		if ( cc.IsOnGround )
-		{
-			cc.Velocity = cc.Velocity.WithZ( 0 );
-			cc.Accelerate( WishVelocity );
-		}
-		else
-		{
-			if ( !IsNoclipping )
-			{
-				cc.Velocity -= gravity * Time.Delta * 0.5f;
-			}
-			cc.Accelerate( WishVelocity.ClampLength( GetMaxAcceleration() ) );
-		}
-
-		if ( !cc.IsOnGround )
-		{
-			if ( !IsNoclipping )
-			{
-				cc.Velocity -= gravity * Time.Delta * 0.5f;
-			}
-		}
-		else
-		{
-			cc.Velocity = cc.Velocity.WithZ( 0 );
-		}
-
-		if ( IsNoclipping )
-		{
-			var vertical = 0f;
-			if ( Input.Down( "Jump" ) ) vertical = 1f;
-			if ( Input.Down( "Duck" ) ) vertical = -1f;
-
-			cc.IsOnGround = false;
-			cc.Velocity = WishMove.Normal * EyeAngles.ToRotation() * NoclipSpeed;
-			cc.Velocity += Vector3.Up * vertical * NoclipSpeed;
-		}
-
-		cc.ApplyFriction( GetFriction() );
-		cc.Move();
-	}
-
-	TimeSince TimeSinceCrouchPressed = 10f;
-	TimeSince TimeSinceCrouchReleased = 10f;
 
     private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking && !HasEquipmentTag( "no_sprint" ) && WishMove.x > 0.2f;
 	TimeSince TimeSinceSprintChanged { get; set; } = 100;
@@ -296,14 +211,7 @@ public partial class PlayerPawn
 		}
 
 		IsCrouching = Input.Down( "Duck" ) && !IsNoclipping;
-		
 		IsUsing = Input.Down( "Use" );
-
-		if ( Input.Pressed( "Duck" ) )
-			TimeSinceCrouchPressed = 0;
-
-		if ( Input.Released( "Duck" ) )
-			TimeSinceCrouchReleased = 0;
 
 		// Check if our current weapon has the planting tag and if so force us to crouch.
 		var currentWeapon = CurrentEquipment;
@@ -320,12 +228,12 @@ public partial class PlayerPawn
 			TimeSinceLastInput = 0f;
 		}
 
-		if ( CharacterController.IsOnGround && !IsFrozen )
+		if ( PlayerController.IsOnGround && !IsFrozen )
 		{
 			var bhop = Global.BunnyHopping;
 			if ( bhop ? Input.Down( "Jump" ) : Input.Pressed( "Jump" ) )
 			{
-				CharacterController.Punch( Vector3.Up * Global.JumpPower * 1f );
+				PlayerController.Jump( Vector3.Up * Global.JumpPower );
 				BroadcastPlayerJumped();
 			}
 		}
@@ -333,27 +241,7 @@ public partial class PlayerPawn
 
 	public SceneTraceResult TraceBBox( Vector3 start, Vector3 end, float liftFeet = 0.0f, float liftHead = 0.0f )
 	{
-		var bbox = CharacterController.BoundingBox;
-		var mins = bbox.Mins;
-		var maxs = bbox.Maxs;
-
-		if ( liftFeet > 0 )
-		{
-			start += Vector3.Up * liftFeet;
-			maxs = maxs.WithZ( maxs.z - liftFeet );
-		}
-
-		if ( liftHead > 0 )
-		{
-			end += Vector3.Up * liftHead;
-		}
-
-		var tr = Scene.Trace.Ray( start, end )
-					.Size( mins, maxs )
-					.WithoutTags( CharacterController.IgnoreLayers )
-					.IgnoreGameObjectHierarchy( GameObject.Root )
-					.Run();
-		return tr;
+		return PlayerController.TraceBody( start, end );
 	}
 
 	/// <summary>
@@ -393,9 +281,6 @@ public partial class PlayerPawn
 			{
 				var velPastAmount = vel - minimumVelocity;
 
-				TimeUntilAccelerationRecovered = 1f;
-				AccelerationAddedScale = 0f;
-
 				using ( Rpc.FilterInclude( Connection.Host ) )
 				{
 					TakeFallDamage( velPastAmount * FallDamageScale );
@@ -419,61 +304,6 @@ public partial class PlayerPawn
 		GameObject.TakeDamage( new DamageInfo( this, damage, null, WorldPosition, Flags: DamageFlags.FallDamage ) );
 	}
 
-	private void CheckLadder()
-	{
-		var cc = CharacterController;
-		var wishvel = new Vector3( WishMove.x.Clamp( -1f, 1f ), WishMove.y.Clamp( -1f, 1f ), 0 );
-		wishvel *= EyeAngles.WithPitch( 0 ).ToRotation();
-		wishvel = wishvel.Normal;
-
-		if ( _isTouchingLadder )
-		{
-			if ( Input.Pressed( "jump" ) )
-			{
-				cc.Velocity = _ladderNormal * 100.0f;
-				_isTouchingLadder = false;
-				return;
-
-			}
-			else if ( cc.GroundObject != null && _ladderNormal.Dot( wishvel ) > 0 )
-			{
-				_isTouchingLadder = false;
-				return;
-			}
-		}
-
-		const float ladderDistance = 1.0f;
-		var start = WorldPosition;
-		Vector3 end = start + (_isTouchingLadder ? (_ladderNormal * -1.0f) : wishvel) * ladderDistance;
-
-		var pm = Scene.Trace.Ray( start, end )
-					.Size( cc.BoundingBox.Mins, cc.BoundingBox.Maxs )
-					.WithTag( "ladder" )
-					.HitTriggers()
-					.IgnoreGameObjectHierarchy( GameObject )
-					.Run();
-
-		_isTouchingLadder = false;
-
-		if ( pm.Hit )
-		{
-			_isTouchingLadder = true;
-			_ladderNormal = pm.Normal;
-		}
-	}
-
-	private void LadderMove()
-	{
-		var cc = CharacterController;
-		cc.IsOnGround = false;
-
-		var velocity = WishVelocity;
-		float normalDot = velocity.Dot( _ladderNormal );
-		var cross = _ladderNormal * normalDot;
-		cc.Velocity = (velocity - cross) + (-normalDot * _ladderNormal.Cross( Vector3.Up.Cross( _ladderNormal ).Normal ));
-		cc.Move();
-	}
-
 	private void BuildWishInput()
 	{
 		WishMove = 0f;
@@ -486,40 +316,15 @@ public partial class PlayerPawn
 
 	private void BuildWishVelocity()
 	{
-		WishVelocity = 0f;
+		var cc = PlayerController;
+		cc.WishVelocity = 0f;
 
 		var rot = EyeAngles.WithPitch( 0f ).ToRotation();
 		
 		if ( WishMove.Length > 1f )
 			WishMove = WishMove.Normal;
 
-		var wishDirection = WishMove * rot;
-		wishDirection = wishDirection.WithZ( 0 );
-		WishVelocity = wishDirection * GetWishSpeed();
-	}
-
-	/// <summary>
-	/// Get the current friction.
-	/// </summary>
-	/// <returns></returns>
-	// TODO: expose to global
-	private float GetFriction()
-	{
-		if ( !CharacterController.IsOnGround ) return 0.1f;
-		if ( IsSlowWalking ) return Global.SlowWalkFriction;
-		if ( IsCrouching ) return Global.CrouchingFriction;
-		if ( IsSprinting ) return Global.SprintingFriction;
-		return Global.WalkFriction;
-	}
-
-	private float GetAcceleration()
-	{
-		if ( !CharacterController.IsOnGround ) return Global.AirAcceleration;
-		else if ( IsSlowWalking ) return Global.SlowWalkAcceleration;
-		else if ( IsCrouching ) return Global.CrouchingAcceleration;
-		else if ( IsSprinting ) return Global.SprintingAcceleration;
-
-		return Global.BaseAcceleration;
+		cc.WishVelocity = cc.Mode.UpdateMove( rot, WishMove );
 	}
 
 	float GetEyeHeightOffset()
@@ -540,7 +345,7 @@ public partial class PlayerPawn
 	{
 		if ( IsSlowWalking ) return Global.SlowWalkSpeed;
 		if ( IsCrouching ) return Global.CrouchingSpeed;
-		if ( IsSprinting ) return Global.SprintingSpeed - ( GetSpeedPenalty() * 0.5f );
+		if ( IsSprinting ) return Global.SprintingSpeed - ( GetSpeedPenalty() );
 		return Global.WalkSpeed - GetSpeedPenalty();
 	}
 
@@ -548,8 +353,9 @@ public partial class PlayerPawn
 	{
 		DebugText.Update();
 		DebugText.Write( $"Player", Color.White, 20 );
-		DebugText.Write( $"Velocity: {CharacterController.Velocity}" );
-		DebugText.Write( $"Speed: {CharacterController.Velocity.Length}" );
+		DebugText.Write( $"Velocity: {PlayerController.Velocity}" );
+		DebugText.Write( $"Speed: {PlayerController.Velocity.Length}" );
+		DebugText.Write( $"Speed Penalty: {GetSpeedPenalty()}" );
 		DebugText.Spacer();
 		DebugText.Write( $"Weapon Info", Color.White, 20 );
 		DebugText.Write( $"Spread: {Spread}" );

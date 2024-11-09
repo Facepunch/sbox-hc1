@@ -17,7 +17,7 @@ public partial class DeployComponent : InputWeaponComponent
 
 		var position = tr.Hit ? tr.HitPosition + tr.Normal * Equipment.Resource.WorldModel.Bounds.Size.Length : player.AimRay.Position + player.AimRay.Forward * 32f;
 		var rotation = Rotation.From( 0, player.EyeAngles.yaw, 0f );
-		var baseVelocity = player.CharacterController.Velocity;
+		var baseVelocity = player.PlayerController.Velocity;
 		var dropped = PrefabToSpawn.Clone( position, rotation );
 
 		var rb = dropped.GetComponentInChildren<Rigidbody>();

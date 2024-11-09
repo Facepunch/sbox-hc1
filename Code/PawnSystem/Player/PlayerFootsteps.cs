@@ -60,7 +60,7 @@ public sealed class PlayerFootsteps : Component
 		if ( timeSinceStep < GetStepFrequency() )
 			return;
 
-		if ( Player.CharacterController.Velocity.Length > 50f )
+		if ( Player.PlayerController.Velocity.Length > 50f )
 		{
 			Footstep();
 		}
