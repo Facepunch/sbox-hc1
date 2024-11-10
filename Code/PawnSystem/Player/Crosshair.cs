@@ -123,7 +123,7 @@ public partial class Crosshair : Component
 			var bottomLeft = center + new Vector2( -diagonalOffset, diagonalOffset );
 			var bottomRight = center + new Vector2( diagonalOffset, diagonalOffset );
 
-			var hitColor = isHeadshotHitmarker ? Color.Red : Color.White.WithAlpha( 0.5f );
+			var hitColor = isHeadshotHitmarker || isKillHitmarker ? Color.Red : Color.White.WithAlpha( 0.5f );
 
 			// Draw the four diagonal lines with adjusted length and position
 			hud.DrawLine( topLeft, topLeft + new Vector2( -hitmarkerLength, -hitmarkerLength ), w, hitColor );
