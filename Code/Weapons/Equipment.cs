@@ -68,11 +68,6 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	[Property, Group( "UI" )] public bool UseCrosshair { get; set; } = true;
 
 	/// <summary>
-	/// Cached version of the owner once we fetch it.
-	/// </summary>
-	private PlayerPawn owner;
-
-	/// <summary>
 	/// The <see cref="PlayerPawn"/> who owns this.
 	/// </summary>
 	[HostSync] public PlayerPawn Owner { get; set; }
