@@ -52,7 +52,12 @@
             "AutoScreenScale": true,
             "Opacity": 1,
             "Scale": 1,
+            "ScaleStrategy": "ConsistentHeight",
             "ZIndex": 100
+          },
+          {
+            "__type": "Facepunch.Crosshair",
+            "__guid": "a90ee9f3-b357-4eb5-9dd4-415402592b57"
           }
         ]
       },
@@ -67,7 +72,7 @@
             "__guid": "843ab22f-5541-4fb8-bc8c-759f41e35140",
             "FreecamController": {
               "_type": "component",
-              "component_id": "af1fc5be-5dbd-45f6-8aa5-4c03631905d5",
+              "component_id": "127fe3b3-5f68-4306-b4fb-a7ce4a9dc1cb",
               "go": "89e9bfbf-5479-448a-be07-24914e1c82c3",
               "component_type": "SpectateController"
             }
@@ -100,6 +105,7 @@
             "AutoScreenScale": true,
             "Opacity": 1,
             "Scale": 1,
+            "ScaleStrategy": "ConsistentHeight",
             "ZIndex": 999
           }
         ]
@@ -117,11 +123,35 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

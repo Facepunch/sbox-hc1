@@ -278,7 +278,7 @@ public partial class PlayerPawn
 		TimeSinceSprintChanged = 0;
 	}
 
-	private bool HasEquipmentTag( string tag )
+	public bool HasEquipmentTag( string tag )
 	{
 		return CurrentEquipment.IsValid() && CurrentEquipment.Tags.Has( tag );
 	}
