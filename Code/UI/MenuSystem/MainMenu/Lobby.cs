@@ -26,7 +26,7 @@ public partial struct Lobby
 	{
 		get
 		{
-			if ( _lobby?.Data.TryGetValue( "hc1-map", out string map ) ?? false )
+			if ( _lobby?.Data?.TryGetValue( "hc1-map", out string map ) ?? false )
 			{
 				return map;
 			}
@@ -39,7 +39,7 @@ public partial struct Lobby
 	{
 		get
 		{
-			if ( _lobby?.Data.TryGetValue( "hc1-gm", out string gm ) ?? false )
+			if ( _lobby?.Data?.TryGetValue( "hc1-gm", out string gm ) ?? false )
 			{
 				return gm;
 			}
@@ -61,7 +61,7 @@ public static class LobbyInformationExtensions
 {
 	public static bool IsEditorLobby( this LobbyInformation lobby )
 	{
-		if ( lobby.Data.TryGetValue( "dev", out string dev ) )
+		if ( lobby.Data?.TryGetValue( "dev", out string dev ) ?? false )
 		{
 			return Convert.ToInt16( dev ) == 1;
 		}
