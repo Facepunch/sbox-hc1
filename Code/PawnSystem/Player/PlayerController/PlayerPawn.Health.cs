@@ -13,7 +13,7 @@ public partial class PlayerPawn : IGameEventHandler<DamageGivenEvent>, IGameEven
 		// Did we cause this damage?
 		if ( IsViewer )
 		{
-			Crosshair.Instance?.Trigger( eventArgs.DamageInfo );
+			// Crosshair.Instance?.Trigger( eventArgs.DamageInfo );
 		}
 	}
 
