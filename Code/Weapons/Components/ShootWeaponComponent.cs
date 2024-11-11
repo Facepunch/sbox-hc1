@@ -62,12 +62,12 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	/// <summary>
 	/// The current weapon's ammo container.
 	/// </summary>
-	[Property, Category( "Ammo" )] public AmmoComponent AmmoComponent { get; set; }
+	[Property, Category( "Ammo" ), Feature( "Ammo" )] public AmmoComponent AmmoComponent { get; set; }
 
 	/// <summary>
 	/// Does this weapon require an ammo container to fire its bullets?
 	/// </summary>
-	[Property, Category( "Ammo" )] public bool RequiresAmmoComponent { get; set; } = false;
+	[Property, Category( "Ammo" ), FeatureEnabled( "Ammo" )] public bool RequiresAmmoComponent { get; set; } = false;
 
 	/// <summary>
 	/// How many ricochet hits until we stop traversing
