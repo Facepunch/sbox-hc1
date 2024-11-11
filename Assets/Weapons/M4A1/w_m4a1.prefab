@@ -52,8 +52,23 @@
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "d3031980-2ee6-4417-98f9-49a8a8d3d088",
             "BodyGroups": 427,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -141,9 +156,11 @@
             },
             "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
+            "PrimaryTracer": "particles/gameplay/guns/trail/trail_smoke.vpcf",
             "RequiresAllInputActions": false,
             "RequiresAmmoComponent": true,
             "RicochetMaxHits": 2,
+            "SecondaryTracer": "particles/gameplay/guns/trail/rico_trail_smoke.vpcf",
             "ShootSound": "sounds/weapons/m4a1/m4_shot.sound",
             "SupportedFireModes": [
               "Automatic",
@@ -182,52 +199,41 @@
           {
             "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "c9826e24-a703-4396-b88c-0b2e88265dee",
-            "HorizontalSpread": "-5.00,5.00,1",
+            "HorizontalSpread": "-5 5",
             "RecoilPattern": {
               "Points": [
-                "0.02358484,4.872881",
-                "-0.02358484,4.639831",
-                "-0.02358484,4.34322",
-                "-0.09433937,4.004237",
-                "-0.5188675,3.855932",
-                "-1.674528,3.834746",
-                "-2.311321,3.68644",
-                "-2.830189,3.580508",
-                "-3.183962,2.881356",
-                "-3.018868,2.690678",
-                "-2.051887,2.669492",
-                "-0.8254714,2.860169",
-                "0.589623,2.944915",
-                "1.650943,2.944915",
-                "2.476415,2.79661",
-                "2.783019,2.584746",
-                "2.665093,2.330508",
-                "1.674528,2.13983",
-                "0.7547164,2.055085",
-                "-0.3537731,1.991525",
-                "-1.226415,1.949152",
-                "-2.382076,1.864407",
-                "-2.830189,1.652542",
-                "-2.806604,1.504237",
-                "-1.674528,1.207627",
-                "-0.5424528,1.186441",
-                "2.16981,1.165254",
-                "2.759433,1.080508",
-                "3.042452,1.016949",
-                "2.971697,0.8898305",
-                "2.004716,0.6991526",
-                "0.8962269,0.6355932",
-                "-0.09433937,0.6355932",
-                "-1.014151,0.6144068",
-                "-2.216981,0.5084746"
+                "0,4.93644",
+                "-0.0190115,4.661017",
+                "-0.09505701,4.322034",
+                "-0.2471485,4.067797",
+                "-0.3992395,3.855932",
+                "-0.513308,3.665254",
+                "-0.6273766,3.495763",
+                "-0.7794676,3.347458",
+                "-0.9505706,3.072034",
+                "-1.045627,2.838983",
+                "-1.140685,2.605932",
+                "-1.254753,2.330508",
+                "-1.292776,2.076271",
+                "-1.292776,1.779661",
+                "-1.311787,1.525424",
+                "-1.311787,1.313559",
+                "-1.273764,1.080508",
+                "-1.235741,0.8898305",
+                "-1.21673,0.7203389",
+                "-1.08365,0.5296611",
+                "-0.8745246,0.2966102",
+                "-0.7604561,0.2118644",
+                "-0.456274,0.06355932",
+                "-0.1711025,0.02118644"
               ],
-              "LoopStart": 4,
-              "LoopEnd": 30
+              "LoopStart": 1,
+              "LoopEnd": 23
             },
             "ResetTime": 0.3,
             "Scale": "2,5",
             "UseRecoilPattern": true,
-            "VerticalSpread": "1.00,3.00,1"
+            "VerticalSpread": "1 3"
           },
           {
             "__type": "Facepunch.ManualOffset",
@@ -277,7 +283,30 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
@@ -287,6 +316,5 @@
   "__references": [
     "facepunch.w_m4a1#60166"
   ],
-  "IsValid": true,
   "__version": 1
 }
