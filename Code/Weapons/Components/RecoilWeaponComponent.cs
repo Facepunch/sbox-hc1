@@ -3,14 +3,14 @@ namespace Facepunch;
 [Title( "Recoil" ), Group( "Weapon Components" )]
 public partial class RecoilWeaponComponent : EquipmentComponent
 {
-	[Property, Category( "Recoil" )] public float ResetTime { get; set; } = 0.3f;
+	[Property] public float ResetTime { get; set; } = 0.3f;
 
 	// Recoil Patterns
-	[Property, ToggleGroup( "UseRecoilPattern" )] public bool UseRecoilPattern { get; set; } = false;
-	[Property, Category( "UseRecoilPattern" ), HideIf( "UseRecoilPattern", false )] public Vector2 Scale { get; set; } = new Vector2( 2f, 5f );
-	[Property, Category( "UseRecoilPattern" ), HideIf( "UseRecoilPattern", false )] public RecoilPattern RecoilPattern { get; set; } = new();
-	[Property, Group( "Standard Recoil" ), HideIf( "UseRecoilPattern", true )] public RangedFloat HorizontalSpread { get; set; } 
-	[Property, Group( "Standard Recoil" ), HideIf( "UseRecoilPattern", true )] public RangedFloat VerticalSpread { get; set; }
+	[Property, FeatureEnabled( "Recoil Pattern" )] public bool UseRecoilPattern { get; set; } = false;
+	[Property, Category( "UseRecoilPattern" ), Feature( "Recoil Pattern" )] public Vector2 Scale { get; set; } = new Vector2( 2f, 5f );
+	[Property, Category( "UseRecoilPattern" ), Feature( "Recoil Pattern" ) ] public RecoilPattern RecoilPattern { get; set; } = new();
+	[Property, Group( "Standard Recoil" ), Feature( "Standard Recoil" )] public RangedFloat HorizontalSpread { get; set; } 
+	[Property, Group( "Standard Recoil" ), Feature( "Standard Recoil" )] public RangedFloat VerticalSpread { get; set; }
 
 	internal Angles Current { get; private set; }
 
