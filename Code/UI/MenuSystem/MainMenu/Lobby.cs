@@ -22,6 +22,8 @@ public partial struct Lobby
 	public bool IsFull => _lobby?.IsFull ?? (Members >= MaxMembers);
 	public bool IsEditorLobby => _lobby?.IsEditorLobby() ?? false;
 
+	public bool HasData => _lobby?.Data is not null;
+
 	public Lobby( LobbyInformation lobby )
 	{
 		_lobby = lobby;

@@ -34,6 +34,6 @@
 {
     void Quit()
     {
-        Game.Close();
+        DialogModal.Show("Are you sure you want to quit?", "Quit", "Cancel", () => Game.Close() );
     }
 }
