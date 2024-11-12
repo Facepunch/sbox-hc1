@@ -1,0 +1,45 @@
+@namespace Facepunch
+@inherits Panel
+
+<root class="hc1">
+    <div class="text">
+        <label>@Text</label>
+    </div>
+
+    <div class="options">
+        <a class="button standard" onclick="@(() => OnSubmitButton())">
+            <label>@SubmitText</label>
+        </a>
+
+        <a class="button standard" onclick="@(() => OnCancelButton())">
+            <label>@CancelText</label>
+        </a>
+    </div>
+</root>
+
+@code
+{
+    public string Text { get; set; }
+    public string SubmitText { get; set; } = "OK";
+    public string CancelText { get; set; } = "Cancel";
+
+    public Action OnCancel { get; set; }
+    public Action OnSubmit { get; set; }
+
+    private void OnCancelButton()
+    {
+        OnCancel?.Invoke();
+        Delete();
+    }
+
+    private void OnSubmitButton()
+    {
+        OnSubmit?.Invoke();
+        Delete();
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Text, SubmitText, CancelText);
+    }
+}

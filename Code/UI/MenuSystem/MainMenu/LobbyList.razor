@@ -20,7 +20,7 @@
         <Footer>
             <div class="button standard" onclick=@(() => Refresh())>refresh</div>
             <a class="button standard" href="/new">Create Game</a>
-            <div class="button standard @(Lobby.HasValue ? "" : "no-anim disabled")" onclick=@(() => Join())>
+            <div class="button standard @(Lobby.HasValue ? "" : "no-anim disabled")" onclick=@(() => TryJoin())>
                 <label>
                     Join
                 </label>
@@ -47,6 +47,21 @@
     private void Create()
     {
         this.Navigate( "/new" );
+    }
+
+    private void TryJoin()
+    {
+        if ( !Lobby?.HasData ?? false )
+        {
+            DialogModal.Show("This server is outdated and you may experience issues - we'd advise making your own lobby instead!", "OK", "Join anyway", null, () =>
+            {
+                Join();
+            });
+        }
+        else
+        {
+            Join();
+        }
     }
 
     private async void Join()
