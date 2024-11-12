@@ -35,7 +35,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <summary>
 	/// Where is the marker?
 	/// </summary>
-	Vector3 IMarkerObject.MarkerPosition => WorldPosition + Vector3.Up * 70 + DistOffset;
+	Vector3 IMarkerObject.MarkerPosition => WorldPosition + Vector3.Up * 70f + DistOffset;
 
 	/// <summary>
 	/// What type of icon are we using on the minimap?
