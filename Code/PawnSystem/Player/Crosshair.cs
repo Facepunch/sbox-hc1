@@ -96,10 +96,17 @@ public partial class Crosshair : Component
 		}
 
 		hud.SetBlendMode( BlendMode.Lighten );
-		hud.DrawLine( center + Vector2.Left * (len + gap), center + Vector2.Left * gap, w, color );
-		hud.DrawLine( center - Vector2.Left * (len + gap), center - Vector2.Left * gap, w, color );
-		hud.DrawLine( center + Vector2.Up * (len + gap), center + Vector2.Up * gap, w, color );
-		hud.DrawLine( center - Vector2.Up * (len + gap), center - Vector2.Up * gap, w, color );
+
+		var linesCol = color;
+		if ( player.IsValid() && player.IsSprinting )
+		{
+			linesCol = Color.Transparent;
+		}
+
+		hud.DrawLine( center + Vector2.Left * (len + gap), center + Vector2.Left * gap, w, linesCol );
+		hud.DrawLine( center - Vector2.Left * (len + gap), center - Vector2.Left * gap, w, linesCol );
+		hud.DrawLine( center + Vector2.Up * (len + gap), center + Vector2.Up * gap, w, linesCol );
+		hud.DrawLine( center - Vector2.Up * (len + gap), center - Vector2.Up * gap, w, linesCol );
 
 		if ( UseCrosshairDot )
 		{
