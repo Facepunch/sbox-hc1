@@ -46,6 +46,14 @@ public partial class Crosshair : Component
 		}
 	}
 
+	public float CrosshairWidth
+	{
+		get
+		{
+			return GameSettingsSystem.Current.CrosshairWidth;
+		}
+	}
+
 	protected override void OnStart()
 	{
 		Instance = this;
@@ -68,7 +76,7 @@ public partial class Crosshair : Component
 
 		var gap = CrosshairGap * scale;
 		var len = CrosshairLength * scale;
-		var w = 2f * scale;
+		var w = CrosshairWidth * scale;
 
 		Color color = CrosshairColor;
 
@@ -110,7 +118,7 @@ public partial class Crosshair : Component
 
 		if ( UseCrosshairDot )
 		{
-			hud.DrawCircle( center, 2f * scale, color );
+			hud.DrawCircle( center, w, color );
 		}
 
 		if ( TimeSinceAttacked < HitmarkerTime )
