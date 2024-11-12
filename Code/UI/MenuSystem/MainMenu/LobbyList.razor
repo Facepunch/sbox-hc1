@@ -19,8 +19,16 @@
 
         <Footer>
             <div class="button standard" onclick=@(() => Refresh())>refresh</div>
-            <div class="button standard @(Lobby.HasValue ? "" : "no-anim disabled")" onclick=@(() => Join())>Connect</div>
             <a class="button standard" href="/new">Create Game</a>
+            <div class="button standard @(Lobby.HasValue ? "" : "no-anim disabled")" onclick=@(() => Join())>
+                <label>
+                    Join
+                </label>
+                @if ( Lobby.HasValue )
+                {
+                    <label class="slight">Session</label>
+                }
+            </div>
         </Footer>
     </Page>
 </root>
