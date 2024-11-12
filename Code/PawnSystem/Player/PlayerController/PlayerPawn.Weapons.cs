@@ -64,7 +64,7 @@ public partial class PlayerPawn :
 	[Authority]
 	private void ClearCurrentWeapon()
 	{
-		CurrentEquipment?.Holster();
+		if ( CurrentEquipment.IsValid() ) CurrentEquipment.Holster();
 	}
 
 	public void Holster()
@@ -84,6 +84,8 @@ public partial class PlayerPawn :
 
 	public void SetCurrentEquipment( Equipment weapon )
 	{
+		ClearCurrentWeapon();
+
 		if ( IsProxy )
 		{
 			if ( Networking.IsHost )
