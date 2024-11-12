@@ -166,8 +166,11 @@ public partial class PlayerState : Component, ITeam
 	{
 		if ( Pawn is null || IsLocalPlayer )
 		{
-			// Local player - always assume the controller
-			PlayerPawn.Possess();
+			if ( PlayerPawn.IsValid() )
+			{
+				// Local player - always assume the controller
+				PlayerPawn.Possess();
+			}
 		}
 		else
 		{

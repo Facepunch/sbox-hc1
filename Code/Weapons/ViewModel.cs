@@ -84,6 +84,7 @@ public partial class ViewModel : Component, IEquipment
 		if ( !ModelRenderer.Enabled ) return;
 		if ( !Equipment.IsValid() ) return;
 		if ( !Equipment.Owner.IsValid() ) return;
+		if ( !ModelRenderer.SceneModel.IsValid() ) return;
 
 		var bone = ModelRenderer.SceneModel.GetBoneLocalTransform( "camera" );
 		var camera = Equipment.Owner.CameraGameObject;
