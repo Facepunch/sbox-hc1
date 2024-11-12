@@ -18,7 +18,7 @@
 
             <div class="layout column gap">
                 <div class="layout row inset">
-                    @foreach (var mode in GameMode.AllUnique )
+                    @foreach (var mode in GameMode.AllUnique.OrderBy( x => x.Title ) )
                     {
                         <div class="button standard smaller no-anim extra-x-padding @(SelectedGameMode == mode ? "selected" : "")" onclick=@(() => SetMode( mode ) )>@mode.Title</div>
                     }

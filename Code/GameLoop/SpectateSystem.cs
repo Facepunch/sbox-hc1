@@ -20,7 +20,7 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 	protected override void OnUpdate()
 	{
 		// TODO: Fix this, this sucks
-		if ( PlayerState.Viewer.PlayerPawn.IsValid() )
+		if ( PlayerState.Viewer.IsValid() && PlayerState.Viewer.PlayerPawn.IsValid() )
 		{
 			PlayerState.Local.Possess();
 		}
