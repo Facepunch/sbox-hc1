@@ -9,7 +9,6 @@
         <div class="header">
             <label class="small slight">Name</label>
             <div class="grow" />
-            <label class="small slight">Map</label>
             <label class="small slight">Players</label>
         </div>
 
@@ -27,13 +26,13 @@
             }
             else
             {
-                @if (IsSearching)
+                @if ( IsSearching )
                 {
                     <div class="flex align-center justify-center">
                         <label class="small slight" style="margin-top: 32px;">Looking for servers...</label>
                     </div>
                 }
-                else if (FetchedLobbies.Count() < 1)
+                else if ( FetchedLobbies.Count() < 1 )
                 {
                     <div class="flex align-center justify-center">
                         <label class="small slight" style="margin-top: 32px;">No servers found...</label>
@@ -65,19 +64,6 @@
                     <div class="grow" />
 
                     <label>@(CurrentLobby?.Members) / @(CurrentLobby?.MaxMembers)</label>
-                </div>
-
-                <div class="layout row gap-insane">
-                    <label>Map</label>
-                    <div class="grow"/>
-                    <label>@(CurrentLobby?.Map)</label>
-                </div>
-
-                <div class="layout row gap-insane">
-                    <label>Gamemode</label>
-                    <div class="grow" />
-
-                    <label>@(CurrentLobby?.GameMode)</label>
                 </div>
             }
         </div>

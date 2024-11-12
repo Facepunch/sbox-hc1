@@ -22,32 +22,6 @@ public partial struct Lobby
 	public bool IsFull => _lobby?.IsFull ?? (Members >= MaxMembers);
 	public bool IsEditorLobby => _lobby?.IsEditorLobby() ?? false;
 
-	public string Map
-	{
-		get
-		{
-			if ( _lobby?.Data?.TryGetValue( "hc1-map", out string map ) ?? false )
-			{
-				return map;
-			}
-
-			return _lobby?.Map ?? "Unknown";
-		}
-	}
-
-	public string GameMode
-	{
-		get
-		{
-			if ( _lobby?.Data?.TryGetValue( "hc1-gm", out string gm ) ?? false )
-			{
-				return gm;
-			}
-
-			return "Unknown";
-		}
-	}
-
 	public Lobby( LobbyInformation lobby )
 	{
 		_lobby = lobby;
