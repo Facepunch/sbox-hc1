@@ -53,6 +53,7 @@
                     {
                         <a class="button standard">
                             <i>home</i>
+                            <label>Home</label>
                         </a>
                     }
 
@@ -61,44 +62,6 @@
                     {
                         @Footer
                     }
-
-                    <div class="grow">
-                    </div>
-
-                    <div class="party-deck layout with-gap">
-                        @if ( Party is null )
-                        {
-                            @if ( !NoSocial )
-                            {
-                                <div class="button standard" onclick=@(() => InviteOverlay())>
-                                    <i>person_add_alt</i>
-                                </div>
-                            }
-                        }
-                        else
-                        {
-                            @if (!NoSocial)
-                            {
-                                <div class="button standard" onclick=@(() => InviteOverlay())>
-                                    <i>person_add_alt</i>
-                                </div>
-                            }
-
-                            @foreach ( var member in Party.Members )
-                            {
-                                var isMe = member.IsMe;
-                                var isMeStr = isMe ? "is-me" : "";
-
-                                if ( isMe )
-                                    continue;
-
-                                <div class="button standard">
-                                    <i class="@isMeStr">visibility</i>
-                                    <label class="@isMeStr">@member.Name</label>
-                                </div>
-                            }
-                        }
-                    </div>
                 </div>
             </div>
         </div>
@@ -113,39 +76,6 @@
     public RenderFragment Footer { get; set; }
 
     public bool NoHomeButton { get; set; }
-    public bool NoSocial { get; set; }
-
-    public PartyRoom Party => PartyRoom.Current;
-
-    public void LeaveParty()
-    {
-        Party?.Leave();
-    }
-
-    public void CreateParty()
-    {
-        PartyRoom.Create( 4, "My Party", true );
-    }
-
-    public void InviteOverlay()
-    {
-        CreateParty();
-
-        if ( Game.IsEditor )
-        {
-            Facepunch.UI.Toast.Instance.Show( "Menu Overlays not supported in the editor" );
-        }
-
-        Game.Overlay.ShowFriendsList( new Sandbox.Modals.FriendsListModalOptions()
-		{
-			 ShowOfflineMembers = false,
-		} );
-    }
-
-    protected override int BuildHash()
-    {
-        return HashCode.Combine( Party, Party?.Members.Count() );
-    }
 
     public void Quit()
     {
