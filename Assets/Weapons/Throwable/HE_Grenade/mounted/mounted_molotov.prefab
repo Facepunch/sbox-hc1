@@ -14,9 +14,24 @@
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "09a6a693-83d2-4469-93e6-48c920ae25c5",
-            "BodyGroups": 18446744073709551615,
+            "BodyGroups": 11,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
-            "Model": "weapons/throwable/molotov_cocktail/v_molotov_cocktail.vmdl",
+            "Model": "models/weapons/sbox_grenade_incendiary/w_incendiary_grenade.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -28,19 +43,48 @@
             "StartPoint": "0,0,-5",
             "Damping": 0.4,
             "Mass": 88.1,
+            "PitchLimits": "-360 360",
             "Radius": 1,
+            "RollLimits": "5 35",
             "Speed": 0.38,
-            "Stiffness": 2
+            "Stiffness": 2,
+            "YawLimits": "-360 360"
           }
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.w_incendiary_grenade#72928"
+  ],
   "__version": 1
 }

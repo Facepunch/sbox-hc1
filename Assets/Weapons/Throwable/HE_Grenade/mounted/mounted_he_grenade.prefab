@@ -3,22 +3,35 @@
     "__guid": "d6ebb55c-9f2b-445f-985d-ffd2161e51eb",
     "Flags": 0,
     "Name": "mounted_he_grenade",
-    "Position": "137.6718,132.1718,-180.6263",
     "Enabled": true,
     "Children": [
       {
         "__guid": "01477a0b-64d3-474d-a3a9-de1f4cf29ee1",
         "Flags": 0,
         "Name": "Model",
-        "Position": "0,0,0",
         "Enabled": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "09a6a693-83d2-4469-93e6-48c920ae25c5",
-            "BodyGroups": 18446744073709551615,
+            "BodyGroups": 11,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
-            "Model": "weapons/throwable/he_grenade/v_he_grenade.vmdl",
+            "Model": "models/weapons/sbox_grenade_explosive/w_he_grenade.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -30,18 +43,48 @@
             "StartPoint": "0,0,-5",
             "Damping": 0.4,
             "Mass": 88.1,
+            "PitchLimits": "-360 360",
             "Radius": 1,
+            "RollLimits": "5 35",
             "Speed": 0.38,
-            "Stiffness": 2
+            "Stiffness": 2,
+            "YawLimits": "-360 360"
           }
         ]
       }
-    ]
+    ],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "facepunch.w_he_grenade#58001"
+  ],
   "__version": 1
 }
