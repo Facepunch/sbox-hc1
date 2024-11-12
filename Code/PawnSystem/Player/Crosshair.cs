@@ -55,6 +55,13 @@ public partial class Crosshair : Component
 	{
 		var hud = Scene.Camera.Hud;
 		var center = Screen.Size * 0.5f;
+
+		if ( !PlayerState.Viewer.IsValid() )
+			return;
+
+		if ( !PlayerState.Viewer.Pawn.IsValid() )
+			return;
+
 		var pawn = PlayerState.Viewer.Pawn;
 		var scale = Screen.Height / 1080.0f;
 
