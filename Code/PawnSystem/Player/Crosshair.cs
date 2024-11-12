@@ -53,7 +53,6 @@ public partial class Crosshair : Component
 
 	protected override void OnUpdate()
 	{
-		var hud = Scene.Camera.Hud;
 		var center = Screen.Size * 0.5f;
 
 		if ( !PlayerState.Viewer.IsValid() )
@@ -63,6 +62,8 @@ public partial class Crosshair : Component
 			return;
 
 		var pawn = PlayerState.Viewer.Pawn;
+		var hud = PlayerState.Viewer.Pawn.Camera.Hud;
+
 		var scale = Screen.Height / 1080.0f;
 
 		var gap = CrosshairGap * scale;
