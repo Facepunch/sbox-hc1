@@ -18,7 +18,7 @@
     // Filter with this map in mind.
     public void Filter( MapDefinition map )
     {
-        GameModes = GameMode.GetAll( map.SceneFile );
+        GameModes = GameMode.GetAll( map.SceneFile ).OrderBy( x => x.Title ).ToList();
         StateHasChanged();
     }
 
