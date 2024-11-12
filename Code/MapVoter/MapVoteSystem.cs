@@ -147,6 +147,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 		{
 			// Grab a random map
 			var map = Game.Random.FromList( maps );
+			if ( map == null ) break;
 
 			// Grab a random mode that is supported by this map, and is not one we picked before
 			var modes = GameMode.GetAll( map.SceneFile );
