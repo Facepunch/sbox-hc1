@@ -1,6 +1,7 @@
 using Sandbox;
 using Sandbox.Diagnostics;
 using Sandbox.Events;
+using System.Diagnostics.Metrics;
 
 namespace Facepunch;
 
@@ -263,7 +264,9 @@ public partial class PlayerInventory : Component
 			var targetWeapon = orderedBySlot.FirstOrDefault();
 
 			if ( targetWeapon.IsValid() )
+			{
 				Switch( targetWeapon );
+			}
 		}
 
 		equipment.GameObject.Destroy();
@@ -287,7 +290,6 @@ public partial class PlayerInventory : Component
 		// If we're in charge, let's make some equipment.
 		if ( resource == null )
 		{
-			Log.Warning( "A player loadout without a equipment? Nonsense." );
 			return null;
 		}
 
@@ -320,8 +322,8 @@ public partial class PlayerInventory : Component
 			Parent = WeaponGameObject
 		} );
 		var component = gameObject.GetComponentInChildren<Equipment>( true );
-		gameObject.NetworkSpawn( Player.Network.Owner );
 		component.Owner = Player;
+		gameObject.NetworkSpawn( Player.Network.Owner );
 
 		if ( makeActive )
 			Player.SetCurrentEquipment( component );
