@@ -10,8 +10,6 @@ public partial class PawnCameraController : Component
 	public ChromaticAberration ChromaticAberration { get; set; }
 	public Pixelate Pixelate { get; set; }
 
-	public Pawn Pawn => GameObject.Root.GetComponentInChildren<Pawn>( true );
-
 	/// <summary>
 	/// The boom for this camera.
 	/// </summary>
@@ -31,8 +29,6 @@ public partial class PawnCameraController : Component
 		{
 			CameraObject.Enabled = true;
 
-			Log.Info( $"Turned on pawn camera controller for {Pawn}" );
-
 			Camera = CameraObject.GetOrAddComponent<CameraComponent>();
 			Pixelate = Camera.GetOrAddComponent<Pixelate>();
 			ChromaticAberration = Camera.GetOrAddComponent<ChromaticAberration>();
@@ -44,8 +40,6 @@ public partial class PawnCameraController : Component
 		}
 		else
 		{
-			Log.Info( $"Turned OFF pawn camera controller for {Pawn}" );
-
 			CameraObject.Enabled = false;
 		}
 	}
