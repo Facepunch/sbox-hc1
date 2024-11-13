@@ -83,11 +83,6 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 		Camera.LocalPosition = Vector3.Zero;
 		Camera.LocalRotation = Rotation.Identity;
 
-		if ( Player.IsValid() && Player.Body.IsValid() )
-		{
-			Player.Body.Tags.Set( "viewer", Mode == CameraMode.FirstPerson && Scene.Camera == Camera );
-		}
-
 		if ( Mode == CameraMode.ThirdPerson && !Player.IsLocallyControlled )
 		{
 			// orbit cam: spectating only

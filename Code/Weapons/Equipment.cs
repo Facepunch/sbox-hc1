@@ -99,11 +99,6 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	public void UpdateRenderMode( bool force = false )
 	{
 		ModelRenderer.Enabled = IsDeployed;
-
-		if ( Owner.IsValid() && Owner.CameraController.IsValid() )
-		{
-			Tags.Set( "viewer", Owner.CameraController.Mode == CameraMode.FirstPerson );
-		}
 	}
 
 	private ViewModel viewModel;
