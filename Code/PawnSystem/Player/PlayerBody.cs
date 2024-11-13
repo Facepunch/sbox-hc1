@@ -53,9 +53,6 @@ public partial class PlayerBody : Component
 	{
 		IsFirstPerson = firstPerson;
 
-		// we don't want to see our own body in FP view, just the shadow
-		Renderer.RenderType = firstPerson ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
-
 		if ( Player.CurrentEquipment.IsValid() )
 		{
 			Player.CurrentEquipment.UpdateRenderMode();
