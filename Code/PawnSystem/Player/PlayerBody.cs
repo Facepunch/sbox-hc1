@@ -12,13 +12,6 @@ public partial class PlayerBody : Component
 	private bool IsFirstPerson;
 	public bool IsRagdoll => Physics.Enabled;
 
-	protected override void OnStart()
-	{
-		base.OnStart();
-
-		Tags.Set( "viewer", false );
-	}
-
 	internal void SetRagdoll( bool ragdoll )
 	{
 		Physics.Enabled = ragdoll;
@@ -64,5 +57,17 @@ public partial class PlayerBody : Component
 		{
 			Player.CurrentEquipment.UpdateRenderMode();
 		}
+	}
+
+	protected override void OnUpdate()
+	{
+		if ( !Player.IsValid() )
+			return;
+
+		if ( !Player.CameraController.IsValid() )
+			return;
+		
+		var isWatchingThisPlayer = PlayerState.Viewer.IsValid() && PlayerState.Viewer.Pawn == Player;
+		Tags.Set( "viewer", isWatchingThisPlayer && Player.CameraController.Mode == CameraMode.FirstPerson );
 	}
 }
