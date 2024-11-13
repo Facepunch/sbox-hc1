@@ -30,13 +30,7 @@ public class MountPoint
 
 			if ( inst.IsValid() )
 			{
-				foreach ( var renderer in inst.GetComponentsInChildren<ModelRenderer>() )
-				{
-					renderer.RenderType = player.IsViewer ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
-				}
-
 				inst.BreakFromPrefab();
-
 				Mounted.Add( equipment, inst );
 			}
 		}

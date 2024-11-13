@@ -98,21 +98,12 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// </summary>
 	public void UpdateRenderMode( bool force = false )
 	{
-		var on = force || (Owner.IsValid() && !Owner.IsViewer && IsDeployed );
+		ModelRenderer.Enabled = IsDeployed;
 
-		if ( !Owner.IsValid() && !force )
-			on = false;
-
-		if ( IsDeployed && Owner.IsValid() && Owner.CameraController.IsValid() && Owner.CameraController.Mode == CameraMode.ThirdPerson )
+		if ( Owner.IsValid() && Owner.CameraController.IsValid() )
 		{
-			force = true;
-			on = true;
+			Tags.Set( "viewer", Owner.CameraController.Mode == CameraMode.FirstPerson );
 		}
-
-		ModelRenderer.Enabled = force || IsDeployed;
-		ModelRenderer.RenderType = on 
-			? Sandbox.ModelRenderer.ShadowRenderType.On 
-			: Sandbox.ModelRenderer.ShadowRenderType.ShadowsOnly;
 	}
 
 	private ViewModel viewModel;
