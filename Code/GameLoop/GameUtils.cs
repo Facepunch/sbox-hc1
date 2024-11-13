@@ -35,6 +35,11 @@ public static partial class GameUtils
 	public static IDescription GetDescription( GameObject go ) => go?.GetComponent<IDescription>();
 	public static IDescription GetDescription( Component component ) => GetDescription( component?.GameObject );
 
+	public static IEnumerable<SceneFile> GetAvailableMaps()
+	{
+		return ResourceLibrary.GetAll<SceneFile>().Where( x => x.GetMetadata( "IsVisibleInMenu", null ).ToBool() is true );
+	}
+
 	/// <summary>
 	/// Get all spawn point transforms for the given team.
 	/// </summary>

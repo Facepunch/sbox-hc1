@@ -1,7 +1,7 @@
 @namespace Facepunch.UI
 
 <root class="layout with-gap column">
-    @foreach ( var map in MapDefinition.All )
+    @foreach ( var map in GameUtils.GetAvailableMaps() )
     {
         <MapCard Map=@map Selected=@( SelectedMap == map ) OnSelected=@DoSelect />
     }
@@ -9,11 +9,11 @@
 
 @code
 {
-    public MapDefinition SelectedMap { get; set; }
+    public SceneFile SelectedMap { get; set; }
     public GameModeInfo GameMode { get; set; }
-    public Action<MapDefinition> OnSelected { get; set; }
+    public Action<SceneFile> OnSelected { get; set; }
 
-    public void DoSelect( MapDefinition map )
+    public void DoSelect(SceneFile map)
     {
         SelectedMap = map;
         OnSelected?.Invoke( map );

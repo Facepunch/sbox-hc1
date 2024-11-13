@@ -2,7 +2,7 @@
 @attribute [StyleSheet]
 
 <root class="@(Selected ? "selected" : "")">
-    <div class="background" style="background-image: url( @Map.Background )">
+    <div class="background" style="background-image: url( @Map.GetMetadata( "Image", null ) )">
         <div class="grow" />
     </div>
 
@@ -13,8 +13,8 @@
 
 @code
 {
-    public MapDefinition Map { get; set; }
-    public Action<MapDefinition> OnSelected { get; set; }
+    public SceneFile Map { get; set; }
+    public Action<SceneFile> OnSelected { get; set; }
     public bool Selected { get; set; }
 
     protected override void OnClick( MousePanelEvent e )

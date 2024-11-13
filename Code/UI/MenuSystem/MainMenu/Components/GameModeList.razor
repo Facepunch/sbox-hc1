@@ -16,9 +16,9 @@
     public GameModeInfo SelectedGameMode { get; set; }
 
     // Filter with this map in mind.
-    public void Filter( MapDefinition map )
+    public void Filter( SceneFile map )
     {
-        GameModes = GameMode.GetAll( map.SceneFile ).OrderBy( x => x.Title ).ToList();
+        GameModes = GameMode.GetAll( map ).OrderBy( x => x.Title ).ToList();
         StateHasChanged();
     }
 

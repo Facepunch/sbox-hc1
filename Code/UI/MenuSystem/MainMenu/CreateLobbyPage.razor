@@ -7,12 +7,12 @@
 @namespace Facepunch.UI
 
 <root class="hc1 blur">
-        <Page>
-            <Header>
-                <div class="row gap align-center layout grow">
-                    <label>Play Game</label>
-                </div>
-            </Header>
+    <Page>
+        <Header>
+            <div class="row gap align-center layout grow">
+                <label>Play Game</label>
+            </div>
+        </Header>
         <Body>
             <div style="height: 23%;"/>
 
@@ -30,9 +30,9 @@
                     <div class="row with-bg layout padding-extra with-gap">
                         @if ( SelectedGameMode is not null )
                         {
-                            @foreach ( var map in ResourceLibrary.GetAll<MapDefinition>().Where( x => x.IsEnabled ) )
+                            @foreach ( var map in GameUtils.GetAvailableMaps() )
                             {
-                                @if ( GameMode.GetAll( map.SceneFile ).Contains( SelectedGameMode ) )
+                                @if ( GameMode.GetAll( map ).Contains( SelectedGameMode ) )
                                 {
                                     <MapCard Map=@map Selected=@( SelectedMap == map ) OnSelected=@SetMap />
                                 }
@@ -65,12 +65,12 @@
 
 @code
 {
-    public MapDefinition SelectedMap { get; set; }
+    public SceneFile SelectedMap { get; set; }
     public GameModeInfo SelectedGameMode { get; set; }
 
     public GameModeList GameModeList { get; set; }
 
-    private void SetMap( MapDefinition map )
+    private void SetMap( SceneFile map )
     {
         SelectedMap = map;
         StateHasChanged();
@@ -89,8 +89,8 @@
         if ( !firstTime )
             return;
 
-        SelectedMap = MapDefinition.All.FirstOrDefault();
-        SelectedGameMode = GameMode.GetAll( SelectedMap.SceneFile )
+        SelectedMap = GameUtils.GetAvailableMaps().FirstOrDefault();
+        SelectedGameMode = GameMode.GetAll( SelectedMap )
             .FirstOrDefault();
     }
 
@@ -103,7 +103,7 @@
             return;
 
         GameMode.SetCurrent( SelectedGameMode );
-        Game.ActiveScene.Load( SelectedMap.SceneFile );
+        Game.ActiveScene.Load( SelectedMap );
     }
 
     public void OnNavigationOpen()

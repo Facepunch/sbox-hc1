@@ -72,7 +72,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 		{
 			var option = WinningOption.Value;
 			GameMode.SetCurrent( option.Mode );
-			Game.ActiveScene.Load( option.Map.SceneFile );
+			Game.ActiveScene.Load( option.Map );
 		}
 	}
 
@@ -132,9 +132,9 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 		return highestKeyValuePair.Key;
 	}
 
-	public static IEnumerable<Option> GenerateOptions( GameModeInfo currentMode = null, MapDefinition currentMap = null, int count = 5 )
+	public static IEnumerable<Option> GenerateOptions( GameModeInfo currentMode = null, SceneFile currentMap = null, int count = 5 )
 	{
-		var maps = ResourceLibrary.GetAll<MapDefinition>().Where( x => x.IsEnabled ).ToList();
+		var maps = ResourceLibrary.GetAll<SceneFile>().Where( x => x.GetMetadata( "IsVisibleInMenu", null ).ToBool() is true ).ToList();
 		var options = new List<Option>();
 
 		var inList = ( GameModeInfo gameMode ) =>
@@ -150,7 +150,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 			if ( map == null ) break;
 
 			// Grab a random mode that is supported by this map, and is not one we picked before
-			var modes = GameMode.GetAll( map.SceneFile );
+			var modes = GameMode.GetAll( map );
 			var mode = Game.Random.FromList( modes.Where( x => !inList( x ) ).ToList() );
 
 			// We ran out of options :S
@@ -182,7 +182,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 	/// <param name="currentMap"></param>
 	/// <param name="count"></param>
 	/// <returns></returns>
-	public static MapVoteSystem Create( GameModeInfo currentMode = null, MapDefinition currentMap = null, int count = 5 )
+	public static MapVoteSystem Create( GameModeInfo currentMode = null, SceneFile currentMap = null, int count = 5 )
 	{
 		// Host-only
 		Assert.True( Networking.IsHost );
@@ -294,7 +294,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 		/// <summary>
 		/// What map?
 		/// </summary>
-		public MapDefinition Map { get; set; }
+		public SceneFile Map { get; set; }
 
 		/// <summary>
 		/// Converts this to a networkable <see cref="NetworkedOption"/>
@@ -336,9 +336,9 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 		/// <returns></returns>
 		public Option AsNormal()
 		{
-			var mapDef = ResourceLibrary.Get<MapDefinition>( MapResource );
+			var mapDef = ResourceLibrary.Get<SceneFile>( MapResource );
 			var modePath = ModeResource;
-			var mode = GameMode.GetAll( mapDef.SceneFile )
+			var mode = GameMode.GetAll( mapDef )
 				.FirstOrDefault( x => x.Path == modePath );
 
 			return new Option
