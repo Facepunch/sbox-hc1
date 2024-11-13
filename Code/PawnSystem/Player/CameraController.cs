@@ -15,7 +15,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = true;
 	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
 	
-	[Property] public float ThirdPersonDistance { get; set; } = 128f;
+	[Property] public float ThirdPersonDistance { get; set; } = 64f;
 	[Property] public float AimFovOffset { get; set; } = -5f;
 
 	private CameraMode _mode;
@@ -97,12 +97,18 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 
 		if ( MaxBoomLength > 0 )
 		{
-			var tr = Scene.Trace.Ray( new Ray( Boom.WorldPosition, Boom.WorldRotation.Backward ), MaxBoomLength )
+			var traceStart = Boom.WorldPosition;
+			var traceEnd = Boom.WorldRotation.Backward * MaxBoomLength;
+
+			// Right amount for third person
+			traceEnd += Boom.WorldRotation.Right * 25f;
+
+			var tr = Scene.Trace.Ray( traceStart, traceStart + traceEnd )
 				.IgnoreGameObjectHierarchy( GameObject.Root )
 				.WithoutTags( "trigger", "player", "ragdoll" )
 				.Run();
 
-			Camera.LocalPosition = Vector3.Backward * (tr.Hit ? tr.Distance - 5.0f : MaxBoomLength);
+			Camera.WorldPosition = tr.EndPosition;
 		}
 
 		if ( ShouldViewBob )

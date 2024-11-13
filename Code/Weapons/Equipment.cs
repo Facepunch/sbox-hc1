@@ -103,6 +103,12 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		if ( !Owner.IsValid() && !force )
 			on = false;
 
+		if ( IsDeployed && Owner.IsValid() && Owner.CameraController.IsValid() && Owner.CameraController.Mode == CameraMode.ThirdPerson )
+		{
+			force = true;
+			on = true;
+		}
+
 		ModelRenderer.Enabled = force || IsDeployed;
 		ModelRenderer.RenderType = on 
 			? Sandbox.ModelRenderer.ShadowRenderType.On 
