@@ -1,3 +1,4 @@
+using Facepunch.UI;
 using Sandbox.Events;
 
 namespace Facepunch;
@@ -67,6 +68,9 @@ public partial class Crosshair : Component
 			return;
 
 		if ( !PlayerState.Viewer.Pawn.IsValid() )
+			return;
+
+		if ( !MainHUD.IsHudEnabled )
 			return;
 
 		var pawn = PlayerState.Viewer.Pawn;
