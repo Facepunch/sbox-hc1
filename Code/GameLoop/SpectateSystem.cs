@@ -22,7 +22,10 @@ public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 		// TODO: Fix this, this sucks
 		if ( PlayerState.Viewer.IsValid() && PlayerState.Viewer.PlayerPawn.IsValid() )
 		{
-			PlayerState.Local.Possess();
+			if ( PlayerState.Local.IsValid() )
+			{
+				PlayerState.Local.Possess();
+			}
 		}
 
 		// Do we have no pawn? Spectate!
