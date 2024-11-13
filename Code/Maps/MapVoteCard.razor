@@ -2,7 +2,7 @@
 
 <root class="layout flex column card with-background @(IsWinning ? "winning" : "")">
     <div class="bg flex column">
-        <img src="@Option.Map.Background" />
+        <img src="@Option.Map.GetMetadata( "Image", null )" />
 
         @if (IsWinning)
         {

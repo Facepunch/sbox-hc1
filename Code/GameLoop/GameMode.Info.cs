@@ -30,7 +30,7 @@ partial class GameMode
 		get
 		{
 			var list = new HashSet<GameModeInfo>();
-			var scenes = ResourceLibrary.GetAll<MapDefinition>().Where( x => x.IsEnabled ).Select( x => x.SceneFile );
+			var scenes = GameUtils.GetAvailableMaps();
 
 			foreach ( var scene in scenes )
 			{
