@@ -157,7 +157,7 @@
               "DelayBetweenUpdates": 0.1,
               "Feathering": 0.02,
               "FrameInterval": 16,
-              "MaxDistance": 4096,
+              "MaxDistance": 500000,
               "MultiBounce": false,
               "Projection": "Box",
               "RenderDynamically": true,
@@ -174,6 +174,19 @@
           "Name": "Camera Settings",
           "Position": "-4210.519,-874.5353,268.8596",
           "Enabled": true
+        },
+        {
+          "__guid": "71983c35-4728-4c39-b144-da21ee31a6c7",
+          "Flags": 0,
+          "Name": "Ambient Light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.AmbientLight",
+              "__guid": "4f0ccd1c-438e-4ead-b5cc-389a71411e1a",
+              "Color": "0.27442,0.27442,0.27442,1"
+            }
+          ]
         }
       ]
     },
@@ -7115,29 +7128,157 @@
       ]
     },
     {
-      "__guid": "d812db7f-075e-4bac-a04f-4be6585b2930",
+      "__guid": "f37558d7-2a73-4681-aea0-106c9eb7de59",
       "Flags": 2048,
-      "Name": "Camera",
-      "Position": "1127.933,-449.6843,18.06888",
-      "Rotation": "-0.1160435,0.06835621,0.8537746,0.5029216",
+      "Name": "Editor",
+      "Position": "1696.05,-838.8821,-153.678",
       "Enabled": true,
-      "Components": [
+      "Children": [
         {
-          "__type": "Sandbox.CameraComponent",
-          "__guid": "235d8b0c-001a-4b59-be16-ba9cbba67f4b",
-          "BackgroundColor": "0.33333,0.46275,0.52157,1",
-          "ClearFlags": "All",
-          "FieldOfView": 60,
-          "IsMainCamera": true,
-          "Orthographic": false,
-          "OrthographicHeight": 1204,
-          "Priority": 1,
-          "RenderExcludeTags": "",
-          "RenderTags": "",
-          "TargetEye": "None",
-          "Viewport": "0,0,1,1",
-          "ZFar": 10000,
-          "ZNear": 10
+          "__guid": "9c9945fd-a42f-4104-8d16-50c13a12d854",
+          "Flags": 2048,
+          "Name": "ct_side_player_01_v2 (1)",
+          "Position": "-234.9639,1135.392,-82.56239",
+          "Rotation": "-0.005828236,-0.006011296,0.718848,-0.6951168",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "3e2fc5b5-e499-491d-82ad-b7e8472f31ea",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": false,
+              "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "bb841798-62c9-4a00-bbb4-5448f9ed93d7",
+          "Flags": 2048,
+          "Name": "ct_side_player_01_v2",
+          "Position": "-2990.033,2602.902,-76.34444",
+          "Rotation": "-0.000000001684666,0.000000000825039,0.4876041,-0.8730648",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "ddf86702-168f-4407-80d3-b4943e81df1e",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": false,
+              "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "20781b72-2de8-4700-8b2b-eda5e0bd6c6d",
+          "Flags": 2048,
+          "Name": "ct_side_player_01_v2",
+          "Position": "1.359863,-180.1942,-48.69835",
+          "Rotation": "0,0,-0.9557963,0.2940296",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "eb492338-4e18-447f-8689-990955bd2205",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": false,
+              "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "59f14382-d97d-40c0-8b86-9a0a475dcbed",
+          "Flags": 2048,
+          "Name": "ct_side_riot_player",
+          "Position": "-2953.275,1114.477,-81.28424",
+          "Rotation": "-0.00000002980232,0.00000005960464,0.1891122,0.9819555",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "e518a38d-730d-43dc-a17d-8a76c56217e8",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": false,
+              "Model": "models/player/ct_side/ct_side_riot_player/ct_side_riot_player.vmdl",
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "0a46b66e-edb8-4bd8-a9c2-7186dcd2bc50",
+          "Flags": 2048,
+          "Name": "ct_side_player_01_v2",
+          "Position": "-2592.147,-155.379,46.30376",
+          "Rotation": "0,0,-0.5,0.8660254",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "87399b02-ae0e-4240-9d89-6198a4b0af9c",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": false,
+              "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "4ca89ad1-7ca5-4969-be31-2ed7f2d2906f",
+          "Flags": 2048,
+          "Name": "ct_side_riot_player",
+          "Position": "-2210.861,-603.6719,46.7178",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "0a876554-3b2f-4790-a7cb-1a3a52b6b50a",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": false,
+              "Model": "models/player/ct_side/ct_side_riot_player/ct_side_riot_player.vmdl",
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "d812db7f-075e-4bac-a04f-4be6585b2930",
+          "Flags": 2048,
+          "Name": "Camera",
+          "Position": "-568.1172,389.1978,171.7469",
+          "Rotation": "-0.1160435,0.06835621,0.8537746,0.5029216",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.CameraComponent",
+              "__guid": "235d8b0c-001a-4b59-be16-ba9cbba67f4b",
+              "BackgroundColor": "0.33333,0.46275,0.52157,1",
+              "ClearFlags": "All",
+              "FieldOfView": 60,
+              "IsMainCamera": true,
+              "Orthographic": false,
+              "OrthographicHeight": 1204,
+              "Priority": 1,
+              "RenderExcludeTags": "",
+              "RenderTags": "",
+              "TargetEye": "None",
+              "Viewport": "0,0,1,1",
+              "ZFar": 10000,
+              "ZNear": 10
+            }
+          ]
         }
       ]
     }
