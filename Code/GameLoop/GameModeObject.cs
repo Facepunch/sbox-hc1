@@ -16,6 +16,18 @@ public partial class GameModeObject : Component, IGameEventHandler<GamemodeIniti
 
 	void IGameEventHandler<GamemodeInitializedEvent>.OnGameEvent( GamemodeInitializedEvent eventArgs )
 	{
+		if ( string.IsNullOrEmpty( eventArgs.Title ) )
+		{
+			// Dunno how this can happen, but it is what it is 
+			return;
+		}
+
+		if ( !GameObject.IsValid() )
+		{
+			// Dunno how this can happen, but it is what it is 
+			return;
+		}
+
 		bool foundGamemode = GameModes.Select( x => x.ToLowerInvariant() ).Contains( eventArgs.Title.ToLowerInvariant() );
 		GameObject.Enabled = Inverse ? !foundGamemode : foundGamemode;
 	}
