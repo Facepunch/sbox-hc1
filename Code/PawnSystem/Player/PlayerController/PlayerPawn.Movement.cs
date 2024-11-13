@@ -294,8 +294,8 @@ public partial class PlayerPawn
 	[Broadcast]
 	private void PlayFallSound()
 	{
-		var handle = Sound.Play( LandSound, WorldPosition );
-		handle.ListenLocal = IsViewer;
+		var snd = Sound.Play( LandSound, WorldPosition );
+		snd.SpacialBlend = IsViewer ? 0 : snd.SpacialBlend;
 	}
 
 	[Broadcast]

@@ -47,7 +47,7 @@ public sealed class PlayerFootsteps : Component
 		if ( !handle.IsValid() ) return;
 
 		handle.Occlusion = false;
-		handle.ListenLocal = Player.IsViewer;
+		handle.SpacialBlend = Player.IsViewer ? 0 : handle.SpacialBlend;
 	}
 
 	protected override void OnFixedUpdate()

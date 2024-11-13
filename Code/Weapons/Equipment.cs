@@ -248,8 +248,8 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 
 		var snd = Sound.Play( DeploySound, WorldPosition );
 		if ( !snd.IsValid() ) return;
-		
-		snd.ListenLocal = !IsProxy;
+
+		snd.SpacialBlend = Owner.IsViewer ? 0 : snd.SpacialBlend;
 	}
 
 	protected override void OnStart()

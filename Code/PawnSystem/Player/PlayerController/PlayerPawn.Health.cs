@@ -60,7 +60,7 @@ public partial class PlayerPawn : IGameEventHandler<DamageGivenEvent>, IGameEven
 			if ( headshotSound is not null )
 			{
 				var handle = Sound.Play( headshotSound, position );
-				handle.ListenLocal = attacker.IsViewer || victim.IsViewer;
+				handle.SpacialBlend = (attacker.IsViewer || victim.IsViewer) ? 0 : handle.SpacialBlend;
 			}
 		}
 		else
@@ -78,7 +78,7 @@ public partial class PlayerPawn : IGameEventHandler<DamageGivenEvent>, IGameEven
 			if ( BloodImpactSound is not null )
 			{
 				var snd = Sound.Play( BloodImpactSound, position );
-				snd.ListenLocal = IsViewer;
+				snd.SpacialBlend = IsViewer ? 0 : snd.SpacialBlend;
 			}
 		}
 	}

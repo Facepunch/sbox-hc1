@@ -201,7 +201,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		{
 			if ( Sound.Play( ShootSound, Equipment.WorldPosition ) is { } snd )
 			{
-				snd.ListenLocal = Equipment.Owner?.IsViewer ?? false;
+				snd.SpacialBlend = ( Equipment.Owner?.IsViewer ?? false ) ? 0 : snd.SpacialBlend;
 				Log.Trace( $"ShootWeaponComponent: ShootSound {ShootSound.ResourceName}" );
 			}
 		}
@@ -412,7 +412,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		if ( DryFireSound is not null )
 		{
 			var snd = Sound.Play( DryFireSound, Equipment.WorldPosition );
-			snd.ListenLocal = !IsProxy;
+			snd.SpacialBlend = (Equipment.Owner?.IsViewer ?? false) ? 0 : snd.SpacialBlend;
 			Log.Trace( $"ShootWeaponComponent: ShootSound {DryFireSound.ResourceName}" );
 		}
 

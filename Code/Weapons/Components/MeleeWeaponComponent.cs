@@ -39,7 +39,7 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 		{
 			if ( Sound.Play( SwingSound, Equipment.WorldPosition ) is SoundHandle snd )
 			{
-				snd.ListenLocal = !IsProxy;
+				snd.SpacialBlend = (Equipment.Owner?.IsViewer ?? false) ? 0 : snd.SpacialBlend;
 			}
 		}
 
