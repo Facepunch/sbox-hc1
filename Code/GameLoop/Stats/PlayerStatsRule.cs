@@ -46,6 +46,10 @@ public sealed class PlayerStatsRule : Component,
 		if ( !player.IsValid() )
 			return;
 
+		// Player left?
+		if ( !player.PlayerState.IsValid() )
+			return;
+
 		// Bots don't care about stats
 		if ( player.PlayerState.IsBot )
 			return;
