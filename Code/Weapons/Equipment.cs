@@ -98,7 +98,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// </summary>
 	public void UpdateRenderMode( bool force = false )
 	{
-		ModelRenderer.Enabled = IsDeployed;
+		ModelRenderer.Enabled = IsDeployed || force;
 	}
 
 	private ViewModel viewModel;
