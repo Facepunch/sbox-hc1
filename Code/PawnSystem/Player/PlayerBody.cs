@@ -12,6 +12,13 @@ public partial class PlayerBody : Component
 	private bool IsFirstPerson;
 	public bool IsRagdoll => Physics.Enabled;
 
+	protected override void OnStart()
+	{
+		base.OnStart();
+
+		Tags.Set( "viewer", false );
+	}
+
 	internal void SetRagdoll( bool ragdoll )
 	{
 		Physics.Enabled = ragdoll;
