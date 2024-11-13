@@ -1,17 +1,39 @@
 {
   "UI": false,
-  "Volume": "0.50,1.00,0",
-  "Pitch": "0.97,1.03,1",
+  "Volume": "1",
+  "Pitch": "0.97 1.03",
   "Decibels": 85,
   "SelectionMode": "Random",
   "Sounds": [
     "sounds/guns/knife/knife.deploy.vsnd"
   ],
-  "Occlusion": true,
+  "Occlusion": false,
   "AirAbsorption": true,
   "Transmission": true,
   "OcclusionRadius": 64,
   "DistanceAttenuation": true,
+  "Distance": 5000,
+  "Falloff": [
+    {
+      "y": 1,
+      "out": -1.8
+    },
+    {
+      "x": 0.05,
+      "y": 0.22,
+      "in": 3.5,
+      "out": -3.5
+    },
+    {
+      "x": 0.2,
+      "y": 0.04,
+      "in": 0.16,
+      "out": -0.16
+    },
+    {
+      "x": 1
+    }
+  ],
   "__references": [],
-  "__version": 0
+  "__version": 1
 }
