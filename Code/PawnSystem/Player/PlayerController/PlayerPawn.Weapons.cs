@@ -84,6 +84,9 @@ public partial class PlayerPawn :
 
 	public void SetCurrentEquipment( Equipment weapon )
 	{
+		if ( weapon == CurrentEquipment ) 
+			return;
+
 		ClearCurrentWeapon();
 
 		if ( IsProxy )
