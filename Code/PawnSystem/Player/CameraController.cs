@@ -85,7 +85,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 
 		if ( Player.IsValid() && Player.Body.IsValid() )
 		{
-			Player.Body.Tags.Set( "viewer", Mode == CameraMode.FirstPerson );
+			Player.Body.Tags.Set( "viewer", Mode == CameraMode.FirstPerson && Scene.Camera == Camera );
 		}
 
 		if ( Mode == CameraMode.ThirdPerson && !Player.IsLocallyControlled )
@@ -252,11 +252,18 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 	{
 		SetBoomLength( Mode == CameraMode.FirstPerson ? 0.0f : ThirdPersonDistance );
 
-		// Update render exclude tags
-		Camera.RenderExcludeTags.Set( "viewer", Mode == CameraMode.FirstPerson );
+		if ( Camera.IsValid() )
+		{
+			// Update render exclude tags
+			Camera.RenderExcludeTags.Set( "viewer", Mode == CameraMode.FirstPerson );
+		}
 
 		var firstPersonPOV = Mode == CameraMode.FirstPerson && IsActive;
-		Player.Body?.SetFirstPersonView( firstPersonPOV );
+
+		if ( Player.IsValid() && Player.Body.IsValid() )
+		{
+			Player.Body.SetFirstPersonView( firstPersonPOV );
+		}
 
 		if ( firstPersonPOV )
 			Player.CreateViewModel( false );
