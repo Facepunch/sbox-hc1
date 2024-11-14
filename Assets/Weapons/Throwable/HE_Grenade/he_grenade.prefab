@@ -24,7 +24,7 @@
           }
         ],
         "DamageRadius": 450,
-        "Lifetime": 1.5,
+        "Lifetime": 1.8,
         "MaxDamage": 90,
         "PrefabOnExplode": {
           "_type": "gameobject",
@@ -38,7 +38,7 @@
         "__guid": "75e67e75-b87e-4d70-87c3-f95a8f0b17df",
         "AngularDamping": 0.5,
         "Gravity": true,
-        "LinearDamping": 0.5,
+        "LinearDamping": 0.2,
         "Locking": {},
         "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
@@ -54,7 +54,8 @@
         "IsTrigger": false,
         "Radius": 2,
         "Static": false,
-        "Surface": "weapons/throwable/he_grenade/grenade.surface"
+        "Surface": "weapons/throwable/he_grenade/grenade.surface",
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "DestroyBetweenRounds",
@@ -72,18 +73,49 @@
             "__type": "Sandbox.ModelRenderer",
             "__guid": "7190a58d-34ba-4b06-abb5-1cdfc768f4fc",
             "BodyGroups": 11,
+            "CreateAttachments": false,
             "Model": "models/weapons/sbox_grenade_explosive/w_he_grenade.vmdl",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1"
           }
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "facepunch.w_he_grenade#58001"
