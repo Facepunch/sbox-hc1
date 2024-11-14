@@ -85,8 +85,16 @@ public partial class Crosshair : Component
 		Color color = CrosshairColor;
 
 		var player = pawn as PlayerPawn;
-		if ( player.IsValid() )
+		if ( player.IsValid() && player.CameraController.IsValid() )
 		{
+			bool isThirdPerson = player.CameraController.Mode == CameraMode.ThirdPerson;
+
+			if ( isThirdPerson )
+			{
+				if ( !player.IsLocallyControlled )
+					color = Color.Transparent;
+			}
+
 			var equipment = player.CurrentEquipment;
 
 			if ( equipment.IsValid() )
@@ -101,7 +109,7 @@ public partial class Crosshair : Component
 			if ( UseDynamicCrosshair )
 				gap += player.Spread * 150f * scale;
 
-			if ( player.HasEquipmentTag( "aiming" ) )
+			if ( player.HasEquipmentTag( "aiming" ) && !isThirdPerson )
 			{
 				color = Color.Transparent;
 			}
