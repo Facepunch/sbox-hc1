@@ -1,7 +1,13 @@
 using Facepunch.UI;
-using Sandbox.Events;
 
 namespace Facepunch;
+
+public enum CrosshairType
+{
+	Default,
+	ThreeLines,
+	Shotgun
+}
 
 public partial class Crosshair : Component
 {
@@ -60,6 +66,9 @@ public partial class Crosshair : Component
 		Instance = this;
 	}
 
+	float mainAlpha = 1f;
+	float linesAlpha = 1f;
+
 	protected override void OnUpdate()
 	{
 		var center = Screen.Size * 0.5f;
@@ -73,9 +82,11 @@ public partial class Crosshair : Component
 		if ( !MainHUD.IsHudEnabled )
 			return;
 
+		float alphaTarget = 1f;
+		float linesTarget = 1f;
+
 		var pawn = PlayerState.Viewer.Pawn;
 		var hud = PlayerState.Viewer.Pawn.Camera.Hud;
-
 		var scale = Screen.Height / 1080.0f;
 
 		var gap = CrosshairGap * scale;
@@ -83,6 +94,7 @@ public partial class Crosshair : Component
 		var w = CrosshairWidth * scale;
 
 		Color color = CrosshairColor;
+		CrosshairType type = CrosshairType.Default;
 
 		var player = pawn as PlayerPawn;
 		if ( player.IsValid() && player.CameraController.IsValid() )
@@ -111,26 +123,54 @@ public partial class Crosshair : Component
 
 			if ( player.HasEquipmentTag( "aiming" ) && !isThirdPerson )
 			{
-				color = Color.Transparent;
+				mainAlpha = 0;
+				linesAlpha = 0;
 			}
 		}
 
 		hud.SetBlendMode( BlendMode.Lighten );
 
+		if ( player.IsValid() && player.HasEquipmentTag( "reloading" ) )
+		{
+			linesTarget = 0.25f;
+		}
+
+		color = color.WithAlpha( mainAlpha );
+
 		var linesCol = color;
 		if ( player.IsValid() && player.IsSprinting )
 		{
-			linesCol = Color.Transparent;
+			linesTarget = 0;
 		}
 
-		hud.DrawLine( center + Vector2.Left * (len + gap), center + Vector2.Left * gap, w, linesCol );
-		hud.DrawLine( center - Vector2.Left * (len + gap), center - Vector2.Left * gap, w, linesCol );
-		hud.DrawLine( center + Vector2.Up * (len + gap), center + Vector2.Up * gap, w, linesCol );
-		hud.DrawLine( center - Vector2.Up * (len + gap), center - Vector2.Up * gap, w, linesCol );
+		linesCol = linesCol.WithAlpha( linesAlpha );
 
-		if ( UseCrosshairDot )
+		if ( type == CrosshairType.Default || type == CrosshairType.ThreeLines )
 		{
+			hud.DrawLine( center + Vector2.Left * (len + gap), center + Vector2.Left * gap, w, linesCol );
+			hud.DrawLine( center - Vector2.Left * (len + gap), center - Vector2.Left * gap, w, linesCol );
+			hud.DrawLine( center + Vector2.Up * (len + gap), center + Vector2.Up * gap, w, linesCol );
+
+			if ( type != CrosshairType.ThreeLines )
+			{
+				hud.DrawLine( center - Vector2.Up * (len + gap), center - Vector2.Up * gap, w, linesCol );
+			}
+
+			if ( UseCrosshairDot )
+			{
+				hud.DrawCircle( center, w, color );
+			}
+		}
+		
+		if ( type == CrosshairType.Shotgun )
+		{
+			float scaleFactor = (1.0f - (TimeSinceAttacked / HitmarkerTime)).Clamp( 0.0f, 1.0f );
+
+			var size = 0f;
+			size += gap;
+
 			hud.DrawCircle( center, w, color );
+			hud.DrawRect( new Rect( center - (( size / 2f ) * scale), size * scale ), Color.Transparent, new( float.MaxValue, float.MaxValue, float.MaxValue, float.MaxValue ), new( w, w, w, w ), color );
 		}
 
 		if ( TimeSinceAttacked < HitmarkerTime )
@@ -166,6 +206,9 @@ public partial class Crosshair : Component
 			hud.DrawLine( bottomLeft, bottomLeft + new Vector2( -hitmarkerLength, hitmarkerLength ), w, hitColor );
 			hud.DrawLine( bottomRight, bottomRight + new Vector2( hitmarkerLength, hitmarkerLength ), w, hitColor );
 		}
+
+		mainAlpha = mainAlpha.LerpTo( alphaTarget, Time.Delta * 30f );
+		linesAlpha = linesAlpha.LerpTo( linesTarget, Time.Delta * 30f );
 	}
 
 	private float HitmarkerTime => Hitmarker.HasFlag( HitmarkerType.Kill ) ? 0.5f : 0.2f;
