@@ -22,15 +22,30 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 		go.Name = resource.Name;
 		go.Tags.Add( "pickup" );
 
+		var wmPrefabFile = resource.MainPrefab.Scene.Source as PrefabFile;
+
+		var worldModelPath = wmPrefabFile.GetMetadata( "WorldModel", null );
+		var worldModel = Model.Load( worldModelPath );
+
+		var bodyGroups = ulong.Parse( wmPrefabFile.GetMetadata( "BodyGroups", "0" ) );
+		var bounds = BBox.FromPositionAndSize(
+			Vector3.Parse( wmPrefabFile.GetMetadata( "Mins", "-16, -16, -16" ) ),
+			Vector3.Parse( wmPrefabFile.GetMetadata( "Maxs", "16, 16, 16" ) )
+		);
+
 		var droppedWeapon = go.Components.Create<DroppedEquipment>();
 		droppedWeapon.Resource = resource;
 
 		var renderer = go.Components.Create<SkinnedModelRenderer>();
-		renderer.Model = resource.WorldModel;
+		renderer.Model = worldModel;
+		renderer.BodyGroups = bodyGroups;
+
+		var min = bounds.Mins;
+		var max = bounds.Maxs;
 
 		var collider = go.Components.Create<BoxCollider>();
-		collider.Scale = resource.DroppedSize;
-		collider.Center = resource.DroppedCenter;
+		collider.Scale = new Vector3( max.x - min.x, max.y - min.y, max.z - min.z );
+		collider.Center = new Vector3( 0, 0, ( max.z - min.z ) / 2 );
 
 		droppedWeapon.Rigidbody = go.Components.Create<Rigidbody>();
 
