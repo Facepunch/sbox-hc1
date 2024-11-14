@@ -158,6 +158,11 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		BloodImpactSound = ResourceLibrary.Get<SoundEvent>( "sounds/impacts/bullets/impact-bullet-flesh.sound" );
 	}
 
+	protected override void OnEnabled()
+	{
+		BindTag( "no_ammo", () => AmmoComponent.IsValid() && !AmmoComponent.HasAmmo );
+	}
+
 	/// <summary>
 	/// Play any particle effects such as muzzle flashes.
 	/// </summary>
@@ -582,7 +587,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 			return false;
 
 		// Ammo checks
-		if ( RequiresAmmoComponent && ( AmmoComponent == null || !AmmoComponent.HasAmmo ) )
+		if ( RequiresAmmoComponent && ( !AmmoComponent.IsValid() || !AmmoComponent.HasAmmo ) )
 			return false;
 
 		return true;

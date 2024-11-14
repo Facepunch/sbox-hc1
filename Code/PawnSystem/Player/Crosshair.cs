@@ -9,9 +9,20 @@ public enum CrosshairType
 	Shotgun
 }
 
+[Flags]
+public enum HitmarkerType
+{
+	Default = 1,
+	Kill = 2,
+	Headshot = 4
+}
+
 public partial class Crosshair : Component
 {
 	public static Crosshair Instance { get; set; }
+
+	float mainAlpha = 1f;
+	float linesAlpha = 1f;
 
 	public float CrosshairGap
 	{
@@ -61,13 +72,15 @@ public partial class Crosshair : Component
 		}
 	}
 
+	public HitmarkerType Hitmarker { get; set; }
+	public TimeSince TimeSinceAttacked { get; set; } = 1000;
+
+	private float HitmarkerTime => Hitmarker.HasFlag( HitmarkerType.Kill ) ? 0.5f : 0.2f;
+
 	protected override void OnStart()
 	{
 		Instance = this;
 	}
-
-	float mainAlpha = 1f;
-	float linesAlpha = 1f;
 
 	protected override void OnUpdate()
 	{
@@ -95,6 +108,7 @@ public partial class Crosshair : Component
 
 		Color color = CrosshairColor;
 		CrosshairType type = CrosshairType.Default;
+		bool hasAmmo = true;
 
 		var player = pawn as PlayerPawn;
 		if ( player.IsValid() && player.CameraController.IsValid() )
@@ -120,6 +134,8 @@ public partial class Crosshair : Component
 				}
 			}
 
+			hasAmmo = !player.HasEquipmentTag( "no_ammo" );
+
 			if ( UseDynamicCrosshair )
 				gap += player.Spread * 150f * scale;
 
@@ -140,6 +156,12 @@ public partial class Crosshair : Component
 		color = color.WithAlpha( mainAlpha );
 
 		var linesCol = color;
+		if ( !hasAmmo )
+		{
+			linesCol = Color.Red;
+			linesTarget *= 0.25f;
+		}
+
 		if ( player.IsValid() && player.IsSprinting )
 		{
 			linesTarget = 0;
@@ -212,20 +234,6 @@ public partial class Crosshair : Component
 		mainAlpha = mainAlpha.LerpTo( alphaTarget, Time.Delta * 30f );
 		linesAlpha = linesAlpha.LerpTo( linesTarget, Time.Delta * 30f );
 	}
-
-	private float HitmarkerTime => Hitmarker.HasFlag( HitmarkerType.Kill ) ? 0.5f : 0.2f;
-
-	[Flags]
-	public enum HitmarkerType
-	{
-		Default = 1,
-		Kill = 2,
-		Headshot = 4
-	}
-
-
-	public HitmarkerType Hitmarker { get; set; }
-	public TimeSince TimeSinceAttacked { get; set; } = 1000;
 
 	public void Trigger( DamageInfo damageInfo )
 	{
