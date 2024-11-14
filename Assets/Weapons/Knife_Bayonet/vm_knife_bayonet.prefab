@@ -24,14 +24,30 @@
           "go": "9d76cbf2-25dc-4acc-9b9a-3ea285910a8e",
           "component_type": "SkinnedModelRenderer"
         },
-        "ThrowableType": "HEGrenade"
+        "ThrowableType": "HEGrenade",
+        "UseMovementInertia": true
       },
       {
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "402e69b5-d2dd-411a-95b7-04cc7d2ab602",
         "BodyGroups": 18446744073709551614,
+        "CreateAttachments": false,
         "CreateBoneObjects": true,
         "Model": "models/weapons/sbox_melee_trenchknife/v_trenchknife.vmdl",
+        "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
+        "RenderOptions": {
+          "GameLayer": false,
+          "OverlayLayer": true,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "Off",
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
@@ -55,8 +71,23 @@
               "go": "9d76cbf2-25dc-4acc-9b9a-3ea285910a8e",
               "component_type": "SkinnedModelRenderer"
             },
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/first_person/first_person_arms.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": false,
+              "OverlayLayer": true,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "Off",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -296,14 +327,12 @@
                         "__guid": "552bed01-a070-4439-b985-8365bc59d84a",
                         "Flags": 4,
                         "Name": "arm_lower_R_twistctrl0",
-                        "Position": "0,0,0",
                         "Enabled": true,
                         "Children": [
                           {
                             "__guid": "470e13ce-c418-4563-b009-6e5650ebf525",
                             "Flags": 4,
                             "Name": "arm_lower_R_twist0",
-                            "Position": "0,0,0",
                             "Enabled": true
                           },
                           {
@@ -326,7 +355,6 @@
                                     "__guid": "6ff86453-6688-4113-87cc-e6153f9e29a2",
                                     "Flags": 4,
                                     "Name": "arm_lower_R_twist2",
-                                    "Position": "0,0,0",
                                     "Enabled": true
                                   }
                                 ]
@@ -335,7 +363,6 @@
                                 "__guid": "48c15e64-49a1-4eb0-81ff-7b2c45fe66b6",
                                 "Flags": 4,
                                 "Name": "arm_lower_R_twist1",
-                                "Position": "0,0,0",
                                 "Enabled": true
                               }
                             ]
@@ -574,7 +601,6 @@
                         "__guid": "67265b51-bdf3-4f46-9b3c-317d3de832e5",
                         "Flags": 4,
                         "Name": "arm_lower_L_twistctrl0",
-                        "Position": "0,0,0",
                         "Enabled": true,
                         "Children": [
                           {
@@ -597,7 +623,6 @@
                                     "__guid": "4d5c1881-bd6c-4d8e-ba1f-8144b2c99226",
                                     "Flags": 4,
                                     "Name": "arm_lower_L_twist2",
-                                    "Position": "0,0,0",
                                     "Enabled": true
                                   }
                                 ]
@@ -606,7 +631,6 @@
                                 "__guid": "e7b59640-9353-4286-a551-832b4c666e37",
                                 "Flags": 4,
                                 "Name": "arm_lower_L_twist1",
-                                "Position": "0,0,0",
                                 "Enabled": true
                               }
                             ]
@@ -615,7 +639,6 @@
                             "__guid": "e4a740bf-d6cf-4af4-b818-3a7045200168",
                             "Flags": 4,
                             "Name": "arm_lower_L_twist0",
-                            "Position": "0,0,0",
                             "Enabled": true
                           }
                         ]
@@ -645,7 +668,6 @@
             "__guid": "2fa3bf20-8f3d-4f4a-88d2-c72cd1e7c55b",
             "Flags": 4,
             "Name": "weapon_root_children",
-            "Position": "0,0,0",
             "Enabled": true,
             "Children": [
               {
@@ -704,8 +726,23 @@
               "go": "9d76cbf2-25dc-4acc-9b9a-3ea285910a8e",
               "component_type": "SkinnedModelRenderer"
             },
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_melee_m9bayonet/v_m9bayonet.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": false,
+              "OverlayLayer": true,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "Off",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -713,11 +750,35 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "facepunch.v_m9bayonet#59684",

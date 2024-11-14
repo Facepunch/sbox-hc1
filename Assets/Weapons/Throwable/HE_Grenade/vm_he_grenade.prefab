@@ -32,8 +32,23 @@
         "__guid": "280fa4de-cfba-4edc-ae2c-424ba32e2fee",
         "AnimationGraph": "weapons/throwable/first_person_arms_hc1_throwables.vanmgrph",
         "BodyGroups": 21,
+        "CreateAttachments": false,
         "CreateBoneObjects": true,
         "Model": "models/first_person/first_person_arms.vmdl",
+        "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
+        "RenderOptions": {
+          "GameLayer": false,
+          "OverlayLayer": true,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "Off",
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
@@ -58,8 +73,23 @@
               "go": "6cf14b84-8489-4229-b80d-01bc04203149",
               "component_type": "SkinnedModelRenderer"
             },
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_grenade_explosive/v_he_grenade.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": false,
+              "OverlayLayer": true,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "Off",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -307,7 +337,6 @@
                         "__guid": "38b5ee9d-1c0a-415f-9de3-b616cb10345e",
                         "Flags": 4,
                         "Name": "arm_lower_R_twistctrl0",
-                        "Position": "0,0,0",
                         "Enabled": true,
                         "Children": [
                           {
@@ -330,7 +359,6 @@
                                     "__guid": "33e2a964-1339-4a82-ad08-db6bfe8083f7",
                                     "Flags": 4,
                                     "Name": "arm_lower_R_twist2",
-                                    "Position": "0,0,0",
                                     "Enabled": true
                                   }
                                 ]
@@ -339,7 +367,6 @@
                                 "__guid": "34b4f720-6a61-4453-8b60-3c595d3e0333",
                                 "Flags": 4,
                                 "Name": "arm_lower_R_twist1",
-                                "Position": "0,0,0",
                                 "Enabled": true
                               }
                             ]
@@ -348,7 +375,6 @@
                             "__guid": "b857b6ea-33cd-4d39-b65f-09f67485923f",
                             "Flags": 4,
                             "Name": "arm_lower_R_twist0",
-                            "Position": "0,0,0",
                             "Enabled": true
                           }
                         ]
@@ -593,7 +619,6 @@
                         "__guid": "76cc735e-c309-4f9e-bd69-ff6916dd7664",
                         "Flags": 4,
                         "Name": "arm_lower_L_twistctrl0",
-                        "Position": "0,0,0",
                         "Enabled": true,
                         "Children": [
                           {
@@ -616,7 +641,6 @@
                                     "__guid": "7e91ae83-c658-45b4-8518-fe6f74923ba1",
                                     "Flags": 4,
                                     "Name": "arm_lower_L_twist2",
-                                    "Position": "0,0,0",
                                     "Enabled": true
                                   }
                                 ]
@@ -625,7 +649,6 @@
                                 "__guid": "a5e7e19a-5459-4707-86c9-c2d50ebf9dc1",
                                 "Flags": 4,
                                 "Name": "arm_lower_L_twist1",
-                                "Position": "0,0,0",
                                 "Enabled": true
                               }
                             ]
@@ -634,7 +657,6 @@
                             "__guid": "0bf9df8d-ad96-4bac-95d4-e21d6160cc7a",
                             "Flags": 4,
                             "Name": "arm_lower_L_twist0",
-                            "Position": "0,0,0",
                             "Enabled": true
                           }
                         ]
@@ -666,7 +688,6 @@
             "__guid": "026baefc-c39c-458d-98d5-9a6782d83828",
             "Flags": 4,
             "Name": "weapon_root_children",
-            "Position": "0,0,0",
             "Enabled": true,
             "Children": [
               {
@@ -710,11 +731,35 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "facepunch.v_he_grenade#71895"

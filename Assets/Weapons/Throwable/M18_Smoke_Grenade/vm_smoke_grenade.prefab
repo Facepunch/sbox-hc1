@@ -32,8 +32,23 @@
         "__guid": "c3cc6b81-13c3-42e1-8587-61e162b90fc3",
         "AnimationGraph": "weapons/throwable/first_person_arms_hc1_throwables.vanmgrph",
         "BodyGroups": 21,
+        "CreateAttachments": false,
         "CreateBoneObjects": true,
         "Model": "models/first_person/first_person_arms.vmdl",
+        "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
+        "RenderOptions": {
+          "GameLayer": false,
+          "OverlayLayer": true,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "Off",
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
@@ -58,8 +73,23 @@
               "go": "7b6c58ae-e12c-49ce-846d-0e67f866bf27",
               "component_type": "SkinnedModelRenderer"
             },
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_grenade_smoke/v_smoke_grenade.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": false,
+              "OverlayLayer": true,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "Off",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -307,7 +337,6 @@
                         "__guid": "e516e282-d6d2-4856-bd3a-1d57bcb2eb21",
                         "Flags": 4,
                         "Name": "arm_lower_R_twistctrl0",
-                        "Position": "0,0,0",
                         "Enabled": true,
                         "Children": [
                           {
@@ -330,7 +359,6 @@
                                     "__guid": "7ce32399-0c9b-4315-badb-dda4d48f3a02",
                                     "Flags": 4,
                                     "Name": "arm_lower_R_twist2",
-                                    "Position": "0,0,0",
                                     "Enabled": true
                                   }
                                 ]
@@ -339,7 +367,6 @@
                                 "__guid": "5fa2aa6c-d36d-4304-9c41-fa8e56bbe092",
                                 "Flags": 4,
                                 "Name": "arm_lower_R_twist1",
-                                "Position": "0,0,0",
                                 "Enabled": true
                               }
                             ]
@@ -348,7 +375,6 @@
                             "__guid": "de7c63d3-6334-408c-9e77-6a8c6b4a00ba",
                             "Flags": 4,
                             "Name": "arm_lower_R_twist0",
-                            "Position": "0,0,0",
                             "Enabled": true
                           }
                         ]
@@ -593,7 +619,6 @@
                         "__guid": "9524f97c-47b9-4941-b18b-03ed6cff08e1",
                         "Flags": 4,
                         "Name": "arm_lower_L_twistctrl0",
-                        "Position": "0,0,0",
                         "Enabled": true,
                         "Children": [
                           {
@@ -616,7 +641,6 @@
                                     "__guid": "99257318-ad53-43e1-8e1d-dfe5c6c2639a",
                                     "Flags": 4,
                                     "Name": "arm_lower_L_twist2",
-                                    "Position": "0,0,0",
                                     "Enabled": true
                                   }
                                 ]
@@ -625,7 +649,6 @@
                                 "__guid": "68efe5dd-06f0-475e-8d83-33d5709407c9",
                                 "Flags": 4,
                                 "Name": "arm_lower_L_twist1",
-                                "Position": "0,0,0",
                                 "Enabled": true
                               }
                             ]
@@ -634,7 +657,6 @@
                             "__guid": "006c6f48-b8a1-491f-855c-27b51c6a227e",
                             "Flags": 4,
                             "Name": "arm_lower_L_twist0",
-                            "Position": "0,0,0",
                             "Enabled": true
                           }
                         ]
@@ -666,7 +688,6 @@
             "__guid": "f82d93b8-c83c-4e69-8b2b-e5559c6cecb2",
             "Flags": 4,
             "Name": "weapon_root_children",
-            "Position": "0,0,0",
             "Enabled": true,
             "Children": [
               {
@@ -710,11 +731,35 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "facepunch.v_smoke_grenade#71896"
