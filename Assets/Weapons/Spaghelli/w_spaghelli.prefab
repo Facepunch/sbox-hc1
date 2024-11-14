@@ -9,6 +9,7 @@
       {
         "__type": "Facepunch.Equipment",
         "__guid": "e024c49f-02af-42c7-973e-4ca51b2e508e",
+        "CrosshairType": "Shotgun",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "EjectionPort": {
           "_type": "gameobject",
@@ -52,8 +53,23 @@
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "0da0ed03-c109-424d-b320-a0a41f8a9896",
             "BodyGroups": 3,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_shotgun_spaghellim4/w_spaghellim4.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -64,7 +80,6 @@
             "__guid": "ab00b98d-27b0-48f1-ae49-99ee0adc65c2",
             "Flags": 0,
             "Name": "Muzzle",
-            "Position": "0,0,0",
             "Enabled": true
           },
           {
@@ -182,14 +197,14 @@
           {
             "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "396ad2c5-482e-413a-a595-107f634880bf",
-            "HorizontalSpread": "3.00,-3.00,1",
+            "HorizontalSpread": "3 -3",
             "RecoilPattern": {
               "Points": []
             },
             "ResetTime": 0.3,
             "Scale": "2,5",
             "UseRecoilPattern": false,
-            "VerticalSpread": "20.00,0.00,0"
+            "VerticalSpread": "20"
           },
           {
             "__type": "Facepunch.ManualOffset",
@@ -245,11 +260,35 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "facepunch.w_spaghellim4#58057"

@@ -111,6 +111,8 @@ public partial class Crosshair : Component
 
 			if ( equipment.IsValid() )
 			{
+				type = equipment.CrosshairType;
+
 				var recoil = equipment.GetComponentInChildren<RecoilWeaponComponent>( true );
 				if ( recoil.IsValid() )
 				{
