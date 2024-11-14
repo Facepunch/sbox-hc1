@@ -106,15 +106,6 @@ public partial class EquipmentResource : GameResource
 	[Category( "Information" )]
 	public Model WorldModel { get; set; }
 
-	[Category( "Gunsmith" )]
-	public Model ViewModel { get; set; }
-
-	[Category( "Dropping" )]
-	public Vector3 DroppedSize { get; set; } = new( 8, 2, 8 );
-
-	[Category( "Dropping" )]
-	public Vector3 DroppedCenter { get; set; } = new( 0, 0, 0 );
-
 	[Category( "Damage" )]
 	public float? ArmorReduction { get; set; }
 
