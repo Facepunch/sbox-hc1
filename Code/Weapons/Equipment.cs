@@ -10,7 +10,7 @@ public record EquipmentDestroyedEvent( Equipment Equipment ) : IGameEvent;
 /// <summary>
 /// An equipment component.
 /// </summary>
-public partial class Equipment : Component, Component.INetworkListener, IEquipment, IDescription
+public partial class Equipment : Component, Component.INetworkListener, IEquipment, IDescription, ISceneMetadata
 {
 	/// <summary>
 	/// A reference to the equipment's <see cref="EquipmentResource"/>.
@@ -298,5 +298,16 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		ClearViewModel();
 
 		GameObject.Root.Dispatch( new EquipmentDestroyedEvent( this ) );
+	}
+
+	Dictionary<string, string> ISceneMetadata.GetMetadata()
+	{
+		return new()
+		{
+			{ "WorldModel", ModelRenderer.Model.ResourcePath },
+			{ "BodyGroups", ModelRenderer.BodyGroups.ToString() },
+			{ "Maxs", ModelRenderer.Model.RenderBounds.Maxs.ToString() },
+			{ "Mins", ModelRenderer.Model.RenderBounds.Mins.ToString() }
+		};
 	}
 }
