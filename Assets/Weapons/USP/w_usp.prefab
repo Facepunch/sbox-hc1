@@ -9,6 +9,7 @@
       {
         "__type": "Facepunch.Equipment",
         "__guid": "fe1fe626-a1a6-40ab-b2f5-1ce554531845",
+        "CrosshairType": "ThreeLines",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "EjectionPort": {
           "_type": "gameobject",
@@ -52,8 +53,23 @@
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "5abbb3cb-4005-418f-970c-50342f9b3759",
             "BodyGroups": 9493,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -142,9 +158,11 @@
             },
             "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
+            "PrimaryTracer": "particles/gameplay/guns/trail/trail_smoke.vpcf",
             "RequiresAllInputActions": false,
             "RequiresAmmoComponent": true,
             "RicochetMaxHits": 2,
+            "SecondaryTracer": "particles/gameplay/guns/trail/rico_trail_smoke.vpcf",
             "ShootSound": "sounds/guns/m1911/pistol_shoot.sound",
             "SupportedFireModes": [
               "Semi"
@@ -180,14 +198,14 @@
           {
             "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "4b68ac05-70af-4150-9d3c-2901ddc3dc55",
-            "HorizontalSpread": "1.40,-1.40,1",
+            "HorizontalSpread": "1.4 -1.4",
             "RecoilPattern": {
               "Points": []
             },
             "ResetTime": 0.3,
             "Scale": "2,5",
             "UseRecoilPattern": false,
-            "VerticalSpread": "2.00,0.00,0"
+            "VerticalSpread": "2"
           },
           {
             "__type": "Facepunch.ViewPunch",
@@ -221,11 +239,35 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "facepunch.w_usp#17493"

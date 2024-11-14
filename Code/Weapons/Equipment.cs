@@ -68,6 +68,11 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	[Property, Group( "UI" )] public bool UseCrosshair { get; set; } = true;
 
 	/// <summary>
+	/// What type of crosshair do we wanna use
+	/// </summary>
+	[Property, Group( "UI" )] public CrosshairType CrosshairType { get; set; } = CrosshairType.Default;
+
+	/// <summary>
 	/// The <see cref="PlayerPawn"/> who owns this.
 	/// </summary>
 	[HostSync] public PlayerPawn Owner { get; set; }
