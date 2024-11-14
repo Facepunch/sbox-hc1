@@ -39,8 +39,23 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "ae031acf-d7f4-43ba-ae63-ba29c92215dd",
         "BodyGroups": 11,
+        "CreateAttachments": false,
         "CreateBoneObjects": true,
         "Model": "models/weapons/sbox_shotgun_spaghellim4/v_spaghellim4.vmdl",
+        "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
+        "RenderOptions": {
+          "GameLayer": false,
+          "OverlayLayer": true,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "On",
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
@@ -64,8 +79,23 @@
               "go": "6687f038-5109-41b3-8fd2-88b33b64feae",
               "component_type": "SkinnedModelRenderer"
             },
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/first_person/first_person_arms.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": false,
+              "OverlayLayer": true,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "Off",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -83,7 +113,6 @@
             "__guid": "50fbfaa8-d353-4957-8d76-ec8f4adcdc85",
             "Flags": 4,
             "Name": "weapon_root_children",
-            "Position": "0,0.0000000000004547474,0",
             "Enabled": true,
             "Children": [
               {
@@ -434,14 +463,12 @@
                         "__guid": "20c05edb-2a56-424b-a4c1-829e5bba7aff",
                         "Flags": 4,
                         "Name": "arm_lower_R_twistctrl0",
-                        "Position": "0,0,0",
                         "Enabled": true,
                         "Children": [
                           {
                             "__guid": "3c8e6ad3-4177-4081-9605-5f0eb6f68f09",
                             "Flags": 4,
                             "Name": "arm_lower_R_twist0",
-                            "Position": "0,0,0",
                             "Enabled": true
                           },
                           {
@@ -464,7 +491,6 @@
                                     "__guid": "f1633df0-8fed-4e3d-ab67-eefeef4b544e",
                                     "Flags": 4,
                                     "Name": "arm_lower_R_twist2",
-                                    "Position": "0,0,0",
                                     "Enabled": true
                                   }
                                 ]
@@ -473,7 +499,6 @@
                                 "__guid": "b9fdc401-4553-4bd4-b371-6c44727a376d",
                                 "Flags": 4,
                                 "Name": "arm_lower_R_twist1",
-                                "Position": "0,0,0",
                                 "Enabled": true
                               }
                             ]
@@ -712,7 +737,6 @@
                         "__guid": "3f9dfc92-5026-4382-8dbe-15ce4d3351e6",
                         "Flags": 4,
                         "Name": "arm_lower_L_twistctrl0",
-                        "Position": "0,0,0",
                         "Enabled": true,
                         "Children": [
                           {
@@ -735,7 +759,6 @@
                                     "__guid": "d5a4210c-534a-4506-9493-8b02574c5808",
                                     "Flags": 4,
                                     "Name": "arm_lower_L_twist2",
-                                    "Position": "0,0,0",
                                     "Enabled": true
                                   }
                                 ]
@@ -744,7 +767,6 @@
                                 "__guid": "6aecb7ca-0821-497e-909c-8ebd1f87d9a8",
                                 "Flags": 4,
                                 "Name": "arm_lower_L_twist1",
-                                "Position": "0,0,0",
                                 "Enabled": true
                               }
                             ]
@@ -753,7 +775,6 @@
                             "__guid": "b62ac303-dce6-4926-b597-10126ea25f54",
                             "Flags": 4,
                             "Name": "arm_lower_L_twist0",
-                            "Position": "0,0,0",
                             "Enabled": true
                           }
                         ]
@@ -775,11 +796,35 @@
         "Enabled": true
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "facepunch.v_spaghellim4#64353"

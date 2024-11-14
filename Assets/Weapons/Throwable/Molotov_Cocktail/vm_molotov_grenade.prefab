@@ -32,6 +32,7 @@
         "__guid": "c3cc6b81-13c3-42e1-8587-61e162b90fc3",
         "AnimationGraph": "weapons/throwable/first_person_arms_hc1_throwables.vanmgrph",
         "BodyGroups": 21,
+        "CreateAttachments": false,
         "CreateBoneObjects": true,
         "Model": "models/first_person/first_person_arms.vmdl",
         "Morphs": {},
@@ -43,8 +44,8 @@
           "rotations": {}
         },
         "RenderOptions": {
-          "GameLayer": true,
-          "OverlayLayer": false,
+          "GameLayer": false,
+          "OverlayLayer": true,
           "BloomLayer": false,
           "AfterUILayer": false
         },
@@ -72,6 +73,7 @@
               "go": "7b6c58ae-e12c-49ce-846d-0e67f866bf27",
               "component_type": "SkinnedModelRenderer"
             },
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/weapons/sbox_grenade_incendiary/v_incendiary_grenade.vmdl",
             "Morphs": {},
@@ -83,8 +85,8 @@
               "rotations": {}
             },
             "RenderOptions": {
-              "GameLayer": true,
-              "OverlayLayer": false,
+              "GameLayer": false,
+              "OverlayLayer": true,
               "BloomLayer": false,
               "AfterUILayer": false
             },
@@ -729,7 +731,30 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,

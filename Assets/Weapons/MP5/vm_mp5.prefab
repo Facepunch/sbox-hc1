@@ -39,6 +39,7 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "d990540f-d10b-4091-aceb-2bac219d4237",
         "BodyGroups": 18446744073709551119,
+        "CreateAttachments": false,
         "CreateBoneObjects": true,
         "Model": "models/weapons/sbox_smg_mp5/v_mp5.vmdl",
         "Morphs": {},
@@ -50,8 +51,8 @@
           "rotations": {}
         },
         "RenderOptions": {
-          "GameLayer": true,
-          "OverlayLayer": false,
+          "GameLayer": false,
+          "OverlayLayer": true,
           "BloomLayer": false,
           "AfterUILayer": false
         },
@@ -78,6 +79,7 @@
               "go": "f085c63b-0ea2-4dae-bd8e-f561b97d196e",
               "component_type": "SkinnedModelRenderer"
             },
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "models/first_person/first_person_arms.vmdl",
             "Morphs": {},
@@ -89,8 +91,8 @@
               "rotations": {}
             },
             "RenderOptions": {
-              "GameLayer": true,
-              "OverlayLayer": false,
+              "GameLayer": false,
+              "OverlayLayer": true,
               "BloomLayer": false,
               "AfterUILayer": false
             },
@@ -807,7 +809,30 @@
         "Enabled": true
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
