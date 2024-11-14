@@ -16,9 +16,9 @@ partial class GameMode
 
 	public TimeSpan? DisplayedTime => TimerMode switch
 	{
-		DisplayedTimerMode.CountUp => TimeSpan.FromSeconds( Math.Clamp( Time.Now - TimerStart, 0f, TimerDuration ) ),
-		DisplayedTimerMode.CountDown => TimeSpan.FromSeconds( Math.Clamp( TimerStart + TimerDuration - Time.Now + 1f, 0f, TimerDuration ) ),
-		DisplayedTimerMode.StateCountDown => TimeSpan.FromSeconds( Math.Max( StateMachine.NextStateTime - Time.Now + 1f, 0f ) ),
+		DisplayedTimerMode.CountUp => TimeSpan.FromSeconds( Math.Clamp( Time.Now.CeilToInt() - TimerStart, 0f, TimerDuration ) ),
+		DisplayedTimerMode.CountDown => TimeSpan.FromSeconds( Math.Clamp( TimerStart + TimerDuration - Time.Now.CeilToInt() + 1f, 0f, TimerDuration ) ),
+		DisplayedTimerMode.StateCountDown => TimeSpan.FromSeconds( Math.Max( StateMachine.NextStateTime - Time.Now.CeilToInt() + 1f, 0f ) ),
 		_ => null
 	};
 
