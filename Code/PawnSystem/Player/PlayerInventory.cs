@@ -20,7 +20,7 @@ public partial class PlayerInventory : Component
 	/// <summary>
 	/// Does this player have a bomb on them?
 	/// </summary>
-	public bool HasBomb => Equipment.Any( x => x.GetComponentsInChildren<BombPlantComponent>() != null );
+	public bool HasBomb => Equipment.Any( x => x.GetComponentInChildren<BombPlantComponent>().IsValid() );
 
 	/// <summary>
 	/// A <see cref="GameObject"/> that will hold all of our equipment.
