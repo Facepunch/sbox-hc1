@@ -70,6 +70,9 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 
 	bool CanReload()
 	{
+		// We can't take ammo
+		if ( !Player.Inventory.CanTakeAmmo( AmmoComponent.AmmoType, AmmoComponent.MaxAmmo ) ) return false;
+
 		return !IsReloading && AmmoComponent.IsValid() && !AmmoComponent.IsFull;
 	}
 

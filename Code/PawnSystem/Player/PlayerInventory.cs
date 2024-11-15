@@ -33,6 +33,112 @@ public partial class PlayerInventory : Component
 	[Property] public bool CanUnequipCurrentWeapon { get; set; } = false;
 
 	/// <summary>
+	/// Ammo reserves for each ammo type
+	/// </summary>
+	[Sync]
+	public NetDictionary<AmmoType, int> AmmoReserves { get; set; } = new NetDictionary<AmmoType, int>();
+
+	/// <summary>
+	/// Ammo limits.
+	/// </summary>
+	public Dictionary<AmmoType, int> AmmoLimits { get; set; } = new Dictionary<AmmoType, int>()
+	{
+		{ AmmoType.Pistol, 36 },
+		{ AmmoType.SMG, 90 },
+		{ AmmoType.AssaultRifle, 120 },
+		{ AmmoType.Special, 12 },
+		{ AmmoType.Shotgun, 48 },
+		{ AmmoType.Handcannon, 24 }
+	};
+
+	/// <summary>
+	/// Checks if there is any ammo available for the specified ammo type.
+	/// </summary>
+	/// <param name="ammoType"></param>
+	/// <returns>True if there is ammo available, false otherwise.</returns>
+	public bool HasAmmo( AmmoType ammoType )
+	{
+		return AmmoReserves.ContainsKey( ammoType ) && AmmoReserves[ammoType] > 0;
+	}
+
+	/// <summary>
+	/// What ammo do we have?
+	/// </summary>
+	/// <param name="ammoType"></param>
+	/// <returns></returns>
+	public int GetAmmo( AmmoType ammoType )
+	{
+		return AmmoReserves.ContainsKey( ammoType ) ? AmmoReserves[ammoType] : 0;
+	}
+
+	/// <summary>
+	/// Checks if the specified amount of ammo can be taken without going under 0.
+	/// </summary>
+	/// <param name="ammoType"></param>
+	/// <param name="amt"></param>
+	/// <returns>True if the ammo can be taken, false otherwise.</returns>
+	public bool CanTakeAmmo( AmmoType ammoType, int amt )
+	{
+		if ( !AmmoReserves.ContainsKey( ammoType ) )
+		{
+			return false;
+		}
+
+		return AmmoReserves[ammoType] >= amt;
+	}
+
+	/// <summary>
+	/// Gives ammo to the player, returns the amount that couldn't be given if we hit capacity.
+	/// </summary>
+	/// <param name="ammoType"></param>
+	/// <param name="amt"></param>
+	/// <returns></returns>
+	public int GiveAmmo( AmmoType ammoType, int amt )
+	{
+		// Ensure AmmoReserves contains the ammo type
+		if ( !AmmoReserves.ContainsKey( ammoType ) )
+		{
+			AmmoReserves[ammoType] = 0;
+		}
+
+		// Calculate the maximum amount that can be added
+		int currentReserve = AmmoReserves[ammoType];
+		int maxLimit = AmmoLimits.ContainsKey( ammoType ) ? AmmoLimits[ammoType] : int.MaxValue;
+		int spaceAvailable = maxLimit - currentReserve;
+
+		// Determine the actual amount added and update the reserve
+		int amountToAdd = Math.Min( spaceAvailable, amt );
+		AmmoReserves[ammoType] += amountToAdd;
+
+		// Return the leftover amount
+		return amt - amountToAdd;
+	}
+
+	/// <summary>
+	/// Takes ammo from the player, returns the amount that couldn't be taken, because it went under 0.
+	/// </summary>
+	/// <param name="ammoType"></param>
+	/// <param name="amt"></param>
+	/// <returns></returns>
+	public int TakeAmmo( AmmoType ammoType, int amt = 1 )
+	{
+		// Ensure AmmoReserves contains the ammo type
+		if ( !AmmoReserves.ContainsKey( ammoType ) )
+		{
+			AmmoReserves[ammoType] = 0;
+		}
+
+		// Calculate the amount to actually remove
+		int currentReserve = AmmoReserves[ammoType];
+		int amountToTake = Math.Min( currentReserve, amt );
+		AmmoReserves[ammoType] -= amountToTake;
+
+		// Return the unfulfilled amount
+		return amt - amountToTake;
+	}
+
+
+	/// <summary>
 	/// Does this player have a defuse kit?
 	/// </summary>
 	public bool HasDefuseKit

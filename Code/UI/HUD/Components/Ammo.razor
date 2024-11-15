@@ -22,7 +22,7 @@
 
     <label class="vital">@(AmmoComponent?.Ammo.ToString() ?? "∞")</label>
     <separator />
-    <label class="important">@(AmmoComponent?.MaxAmmo.ToString() ?? "∞")</label>
+    <label class="important">@(Inventory.GetAmmo( AmmoComponent.AmmoType ).ToString() ?? "∞")</label>
 </root>
 
 @code
