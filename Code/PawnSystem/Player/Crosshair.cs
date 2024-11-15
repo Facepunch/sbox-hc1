@@ -4,9 +4,25 @@ namespace Facepunch;
 
 public enum CrosshairType
 {
+	/// <summary>
+	/// Traditional crosshair, 4 lines, 1 dot. Configurable.
+	/// </summary>
 	Default,
+	
+	/// <summary>
+	/// Three lines - the default without the top line.
+	/// </summary>
 	ThreeLines,
-	Shotgun
+
+	/// <summary>
+	/// An arc and a dot
+	/// </summary>
+	Shotgun,
+
+	/// <summary>
+	/// Just the dot, even if it's disabled
+	/// </summary>
+	Dot
 }
 
 [Flags]
@@ -195,6 +211,11 @@ public partial class Crosshair : Component
 
 			hud.DrawCircle( center, w, color );
 			hud.DrawRect( new Rect( center - (( size / 2f ) * scale), size * scale ), Color.Transparent, new( float.MaxValue, float.MaxValue, float.MaxValue, float.MaxValue ), new( w, w, w, w ), color );
+		}
+
+		if ( type == CrosshairType.Dot )
+		{
+			hud.DrawCircle( center, w, color );
 		}
 
 		if ( TimeSinceAttacked < HitmarkerTime )
