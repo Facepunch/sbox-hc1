@@ -11,7 +11,7 @@
                 <div class="attacker @(IsMe( entry.Attacker ) ? "is-me" : "")">
                     @if ( entry.DamageFlags.HasFlag( DamageFlags.AirShot ) )
                     {
-                        <Icon style="background-tint: black;" File="/ui/wings.png" size="24" />
+                        <Icon style="background-tint: @( IsMe ( entry.Attacker ) ? "black" : entry.AttackerColor.Hex); File="/ui/wings.png" size="24" />
                     }
 
                     @if ( IsMe( entry.Attacker ) )
