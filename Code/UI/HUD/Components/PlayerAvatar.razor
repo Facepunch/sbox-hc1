@@ -57,7 +57,7 @@
 
     protected override int BuildHash()
     {
-        var hash = HashCode.Combine( Player, IsFriendly );
+        var hash = HashCode.Combine( Player.SteamId, IsFriendly );
 
         if ( Pawn.IsValid() )
             hash = HashCode.Combine( hash, Pawn.HealthComponent.Health, Pawn.HealthComponent.State, Player.PlayerColor );
