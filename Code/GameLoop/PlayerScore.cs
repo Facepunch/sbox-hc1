@@ -32,6 +32,9 @@ public interface IScore
 				if ( member.GetCustomAttribute<ScoreAttribute>() is not { } scoreAttribute )
 					continue;
 
+				if ( scoreAttribute.ShowTeamOnly && !playerState.IsFriendly( PlayerState.Local ) )
+					continue;
+
 				// Support ShowIf, which looks for a method with a boolean return to see if we can display a value
 				var show = type.GetMethod( scoreAttribute.ShowIf )?.InvokeWithReturn<bool>( comp, null ) ?? true;
 				if ( !show )
@@ -57,6 +60,7 @@ public class ScoreAttribute : System.Attribute
 	public string Name { get; set; }
 	public string Format { get; set; } = "{0}";
 	public string ShowIf { get; set; } = null;
+	public bool ShowTeamOnly { get; set; } = false;
 
 	public ScoreAttribute( string name )
 	{
