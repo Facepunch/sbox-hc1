@@ -155,7 +155,7 @@ public partial class Crosshair : Component
 			if ( UseDynamicCrosshair )
 				gap += player.Spread * 150f * scale;
 
-			if ( player.HasEquipmentTag( "aiming" ) && !isThirdPerson )
+			if ( player.CurrentEquipment.IsValid() && player.CurrentEquipment.EquipmentFlags.HasFlag( EquipmentFlags.Aiming ) && !isThirdPerson )
 			{
 				mainAlpha = 0;
 				linesAlpha = 0;
