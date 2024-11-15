@@ -51,7 +51,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		if ( renderHook is not null )
 			renderHook.Dispose();
 
-		if ( UnzoomSound is not null && Equipment.IsValid() )
+		if ( ZoomLevel != 0 && UnzoomSound is not null && Equipment.IsValid() )
 			Sound.Play( UnzoomSound, Equipment.GameObject.WorldPosition );
 
 		ZoomLevel = 0;
