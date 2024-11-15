@@ -58,8 +58,6 @@ public class ScopeWeaponComponent : InputWeaponComponent
 
 		if ( Equipment.IsValid() )
 		{
-			Equipment.Tags.Remove( "aiming" );
-
 			if ( Equipment.ViewModel.IsValid() )
 			{
 				Equipment.ViewModel.GameObject.Enabled = true;

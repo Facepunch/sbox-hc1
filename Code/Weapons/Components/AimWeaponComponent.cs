@@ -3,7 +3,19 @@ namespace Facepunch;
 [Title( "ADS (Aim Down Sight)" ), Group( "Weapon Components" )]
 public partial class AimWeaponComponent : InputWeaponComponent
 {
-	[Sync] public bool IsAiming { get; set; }
+	[Sync, Change( nameof( OnIsAimingChanged ))] public bool IsAiming { get; set; }
+
+	protected void OnIsAimingChanged( bool before, bool after )
+	{
+		if ( after )
+		{
+			Equipment.EquipmentFlags |= EquipmentFlags.Aiming;
+		}
+		else
+		{
+			Equipment.EquipmentFlags &= ~EquipmentFlags.Aiming;
+		}
+	}
 
 	protected override void OnEnabled()
 	{

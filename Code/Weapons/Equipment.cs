@@ -7,6 +7,14 @@ public record EquipmentDeployedEvent( Equipment Equipment ) : IGameEvent;
 public record EquipmentHolsteredEvent( Equipment Equipment ) : IGameEvent;
 public record EquipmentDestroyedEvent( Equipment Equipment ) : IGameEvent;
 
+[Flags]
+public enum EquipmentFlags
+{
+	None = 0,
+	Aiming = 1 << 2,
+	Reloading = 1 << 3
+}
+
 /// <summary>
 /// An equipment component.
 /// </summary>
@@ -76,6 +84,11 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// The <see cref="PlayerPawn"/> who owns this.
 	/// </summary>
 	[HostSync] public PlayerPawn Owner { get; set; }
+
+	/// <summary>
+	/// What flags do we have?
+	/// </summary>
+	[Sync] public EquipmentFlags EquipmentFlags { get; set; }
 
 	// IDescription
 	string IDescription.DisplayName => Resource.Name;

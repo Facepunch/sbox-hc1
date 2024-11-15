@@ -145,7 +145,7 @@ public partial class ViewModel : Component, IEquipment
 		var moveLen = moveVel.Length;
 
 		var wishMove = Owner.WishMove.Normal * 1f;
-		if ( Equipment?.Tags.Has( "aiming" ) ?? false ) wishMove = 0;
+		if ( Equipment.EquipmentFlags.HasFlag( EquipmentFlags.Aiming ) ) wishMove = 0;
 
 		if ( Owner.IsSlowWalking || Owner.IsCrouching ) moveLen *= 0.5f;
 
@@ -167,9 +167,10 @@ public partial class ViewModel : Component, IEquipment
 		ModelRenderer.Set( "b_sprint", Owner.IsSprinting );
 		ModelRenderer.Set( "b_grounded", Owner.IsGrounded );
 
+		var aiming = Equipment.EquipmentFlags.HasFlag( EquipmentFlags.Aiming );
 		// Ironsights
-		ModelRenderer.Set( "ironsights", Equipment.Tags.Has( "aiming" ) ? 1 : 0 );
-		ModelRenderer.Set( "ironsights_fire_scale", Equipment.Tags.Has( "aiming" ) ? IronsightsFireScale : 0f );
+		ModelRenderer.Set( "ironsights", aiming ? 1 : 0 );
+		ModelRenderer.Set( "ironsights_fire_scale", aiming ? IronsightsFireScale : 0f );
 
 		// Handedness
 		ModelRenderer.Set( "b_twohanded", true );
