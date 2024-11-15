@@ -398,6 +398,9 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	{
 		if ( !IsNearby( startPosition ) || !IsNearby( endPosition ) ) return;
 
+		// Bit of a hack, but the tracers look shitty if the line is very short
+		if ( distance < 128f ) return;
+
 		var origin = count == 0 ? Effector?.Muzzle?.WorldPosition ?? Equipment.WorldPosition : startPosition;
 		var ps = CreateParticleSystem( count == 0 ? PrimaryTracer : SecondaryTracer, origin, Rotation.Identity, 1f );
 		ps.SceneObject.SetControlPoint( 0, origin );
