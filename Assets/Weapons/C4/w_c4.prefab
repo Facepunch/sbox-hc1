@@ -5,12 +5,11 @@
     "Name": "w_c4",
     "Tags": "player",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Facepunch.Equipment",
         "__guid": "6dfca0dd-b80c-4072-98b9-cc7f170870fd",
+        "CrosshairType": "Default",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "Handedness": "Right",
         "HoldType": "HoldItem",
@@ -25,7 +24,8 @@
           "prefab": "weapons/c4/mount_c4.prefab"
         },
         "Resource": "weapons/c4/c4.equip",
-        "SpeedPenalty": 20
+        "SpeedPenalty": 20,
+        "UseCrosshair": true
       },
       {
         "__type": "Facepunch.TagBinder",
@@ -39,15 +39,28 @@
         "Name": "Model",
         "Position": "3.535849,0,-5.571055",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "ceb74dca-a92d-419d-b08f-71bd818191f8",
             "BodyGroups": 18446744073709551615,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
             "Model": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
@@ -59,8 +72,6 @@
         "Flags": 0,
         "Name": "Functions",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "BombPlantComponent",
@@ -69,7 +80,6 @@
               "Attack1",
               "Use"
             ],
-            "InputType": "Down",
             "PlantedObjectPrefab": {
               "_type": "gameobject",
               "prefab": "weapons/c4/planted_c4.prefab"
@@ -102,11 +112,40 @@
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {
+        "WorldModel": "weapons/throwable/c4_bomb/c4_bomb.vmdl",
+        "BodyGroups": "18446744073709551615",
+        "Maxs": "6.378,4.5079,3.5696",
+        "Mins": "-7.4661,-4.5079,-0"
+      },
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
