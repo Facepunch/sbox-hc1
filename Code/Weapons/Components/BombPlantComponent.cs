@@ -45,17 +45,20 @@ public partial class BombPlantComponent : InputWeaponComponent,
 		BindTag( "planting", () => IsPlanting );
 	}
 
-	private BombSite CurrentBombSite => Equipment.Owner.GetZone<BombSite>();
+	private BombSite CurrentBombSite => Equipment.IsValid() && Equipment.Owner.IsValid() ? Equipment.Owner.GetZone<BombSite>() : null;
 
 	/// <summary>
 	/// Can we plant right now?
 	/// </summary>
 	public bool CanPlant()
 	{
+		if ( !Equipment.IsValid() ) return false;
+		if ( !Equipment.Owner.IsValid() ) return false;
+
 		if ( !Equipment.Owner.IsGrounded )
 			return false;
 
-		if ( CurrentBombSite is null )
+		if ( !CurrentBombSite.IsValid() )
 			return false;
 
 		return true;
@@ -105,18 +108,23 @@ public partial class BombPlantComponent : InputWeaponComponent,
 	[Broadcast]
 	private void PlantBombOnHost( Vector3 position, Rotation rotation, bool ignorePlanter )
 	{
-		if ( Equipment.Owner?.BodyRenderer is { IsValid: true } bodyRenderer )
-			bodyRenderer.Set( "b_planting_bomb", false );
+		if ( Equipment.IsValid() && Equipment.Owner.IsValid() && Equipment.Owner.BodyRenderer.IsValid() )
+			Equipment.Owner.BodyRenderer.Set( "b_planting_bomb", false );
 
 		if ( !Networking.IsHost )
 			return;
 
 		var player = Equipment.Owner;
 
+		// Shouldn't happen, but if the owner is gone - disregard plant anyway
+		if ( !player.IsValid() )
+			return;
+
 		player.Inventory.RemoveWeapon( Equipment );
 		player.IsFrozen = false;
 		
-		if ( PlantedObjectPrefab is null ) return;
+		if ( !PlantedObjectPrefab.IsValid() ) 
+			return;
 		
 		var planted = PlantedObjectPrefab.Clone( position, rotation );
 		
@@ -130,13 +138,18 @@ public partial class BombPlantComponent : InputWeaponComponent,
 	[Broadcast]
 	private void CancelPlant()
 	{
+		if ( !Equipment.IsValid() )
+			return;
+
 		if ( Networking.IsHost )
 		{
 			IsPlanting = false;
 			TimeSincePlantCancel = 0f;
 
-			var player = Equipment.Owner;
-			player.IsFrozen = false;
+			if ( Equipment.Owner.IsValid() )
+			{
+				Equipment.Owner.IsFrozen = false;
+			}
 		}
 
 		if ( Equipment.Owner.IsValid() && Equipment.Owner.BodyRenderer.IsValid() )
