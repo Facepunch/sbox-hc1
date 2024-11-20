@@ -21,8 +21,8 @@ partial class PlayerPawn
 		_zones.AddRange( Zone.GetAt( WorldPosition ) );
 	}
 
-	public T GetZone<T>()
+	public T GetZone<T>() where T : Component
 	{
-		return Zones.Select( x => x.GetComponent<T>() ).FirstOrDefault( x => x is not null );
+		return Zones.Select( x => x.GetComponent<T>() ).FirstOrDefault( x => x.IsValid() );
 	}
 }
