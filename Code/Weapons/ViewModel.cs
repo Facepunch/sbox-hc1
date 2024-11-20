@@ -207,7 +207,13 @@ public partial class ViewModel : Component, IEquipment
 
 	private void ApplyThrowableAnimations()
 	{
+		if ( !Equipment.IsValid() )
+			return;
+		
 		var throwFn = Equipment.GetComponentInChildren<ThrowWeaponComponent>();
+		
+		if ( !throwFn.IsValid() )
+			return;
 
 		ModelRenderer.Set( "b_idle", throwFn.ThrowState == ThrowWeaponComponent.State.Idle );
 		ModelRenderer.Set( "b_pull", throwFn.ThrowState == ThrowWeaponComponent.State.Cook );
