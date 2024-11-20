@@ -108,6 +108,9 @@ public partial class Crosshair : Component
 		if ( !PlayerState.Viewer.Pawn.IsValid() )
 			return;
 
+		if ( !PlayerState.Viewer.Pawn.Camera.IsValid() )
+			return;
+
 		if ( !MainHUD.IsHudEnabled )
 			return;
 
