@@ -23,7 +23,7 @@ public partial class PlayerPawn
 		// if we're spectating a remote player, use the camera mode preference
 		// otherwise: first person for now
 		var spectateSystem = SpectateSystem.Instance;
-		if ( spectateSystem is not null && spectateSystem.IsValid() && ( IsProxy || ( PlayerState.IsValid() && PlayerState.IsBot ) ) )
+		if ( spectateSystem.IsValid() && ( IsProxy || ( PlayerState.IsValid() && PlayerState.IsBot ) ) )
 		{
 			CameraController.Mode = spectateSystem.CameraMode;
 		}
