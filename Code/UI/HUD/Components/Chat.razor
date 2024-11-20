@@ -52,33 +52,33 @@
 
                         @if (entry.type == MessageType.Chat)
                         {
-                        <span class="flex row w-full align-center shrink-0 gap-sm">
-                            <span class="flex row gap-sm align-center shrink-0">
+                            <span class="flex row w-full align-center shrink-0 gap-sm">
+                                <span class="flex row gap-sm align-center shrink-0">
 
-                                @if ( entry.chatMode != ChatModes.All )
-                                {
-                                    <label class="small no-shadow green">TEAM</label>
-                                }
-
-                                <label class="playername bold no-shadow" style="color: @entry.color.Hex">@entry.author</label>
-
-                                @if (entry.chatMode != ChatModes.All)
-                                {
-                                    @if ( entry.location is { } zoneName )
+                                    @if ( entry.chatMode != ChatModes.All )
                                     {
-                                        <label class="small no-shadow grey">(@zoneName)</label>
+                                        <label class="small no-shadow green">TEAM</label>
                                     }
-                                }
-                                
-                                @if ( entry.tags?.Contains( "radio" ) ?? false )
-                                {
-                                    <Icon class="square rounded shrink-0" File="/ui/chat/radio.png" size="24" />
-                                }
 
+                                    <label class="playername bold no-shadow" style="color: @entry.color.Hex">@entry.author</label>
+
+                                    @if (entry.chatMode != ChatModes.All)
+                                    {
+                                        @if ( entry.location is { } zoneName )
+                                        {
+                                            <label class="small no-shadow grey">(@zoneName)</label>
+                                        }
+                                    }
+
+                                    @if ( entry.tags?.Contains( "radio" ) ?? false )
+                                    {
+                                        <Icon class="square rounded shrink-0" File="/ui/chat/radio.png" size="24" />
+                                    }
+
+                                </span>
+
+                                <label class="message no-shadow">@entry.message</label>
                             </span>
-
-                            <label class="message no-shadow">@entry.message</label>
-                        </span>
                         }
                         else
                         {
@@ -192,14 +192,22 @@
         var author = Rpc.Caller.DisplayName;
         var steamid = Rpc.Caller.SteamId;
 
-        var player = GameUtils.AllPlayers.FirstOrDefault(x => x.Connection == Rpc.Caller);
-        var color = player.Team.GetColor();
+        var playerState = GameUtils.AllPlayers.FirstOrDefault(x => x.Connection == Rpc.Caller);
 
-        var playerPawn = player.PlayerPawn;
+        if ( !playerState.IsValid() )
+            return;
+
+        var color = playerState.Team.GetColor();
+
+        var playerPawn = playerState.PlayerPawn;
         string location = null;
         if ( playerPawn.IsValid() )
         {
-            location = playerPawn.GetZone<MapLocation>()?.Zone?.DisplayName;
+            var mapLocation = playerPawn.GetZone<MapLocation>();
+            if ( mapLocation.IsValid() && mapLocation.Zone.IsValid() )
+            {
+                location = mapLocation.Zone.DisplayName;
+            }
         }
 
         Entries.Add( new( steamid, author, message, 0.0f, chatMode, MessageType.Chat, color, tags, location ) );
