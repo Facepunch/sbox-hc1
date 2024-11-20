@@ -55,7 +55,11 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 			return possiblePlayerState;
 		}
 
-		Assert.True( PlayerStatePrefab.IsValid(), "Could not spawn player as no PlayerStatePrefab assigned." );
+		if ( !PlayerStatePrefab.IsValid() )
+		{
+			Log.Warning( "Could not spawn player as no PlayerStatePrefab assigned." );
+			return null;
+		}
 
 		var player = PlayerStatePrefab.Clone();
 		player.BreakFromPrefab();
