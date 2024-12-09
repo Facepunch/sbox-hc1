@@ -132,7 +132,7 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageGlob
 	[Property, Group( "Movement" )] public float SprintingSpeed { get; set; } = 300f;
 
 	// Friction
-	[Property, Group( "Movement" )] public float WalkFriction { get; set; } = 1f;
+	[Property, Group( "Movement" )] public float WalkFriction { get; set; } = 1.6f;
 	[Property, Group( "Movement" )] public float SlowWalkFriction { get; set; } = 1f;
 	[Property, Group( "Movement" )] public float CrouchingFriction { get; set; } = 1f;
 	[Property, Group( "Movement" )] public float SprintingFriction { get; set; } = 0.5f;
