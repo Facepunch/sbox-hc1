@@ -41,9 +41,6 @@ public partial class PlayerPawn : IGameEventHandler<DamageGivenEvent>, IGameEven
 			DamageIndicator.Current?.OnHit( position );
 		}
 
-		TimeUntilAccelerationRecovered = Global.TakeDamageAccelerationDampenTime;
-		AccelerationAddedScale = Global.TakeDamageAccelerationOffset;
-
 		if ( attacker != victim && Body.IsValid() )
 		{
 			Body.DamageTakenPosition = position;

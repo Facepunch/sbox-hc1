@@ -138,7 +138,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 		if ( Mode != CameraMode.FirstPerson )
 			return;
 
-		var bobSpeed = Player.CharacterController.Velocity.Length.LerpInverse( 0, 300 );
+		var bobSpeed = Player.PlayerController.Velocity.Length.LerpInverse( 0, 300 );
 		if ( !Player.IsGrounded ) bobSpeed *= 0.1f;
 		if ( !Player.IsSprinting ) bobSpeed *= 0.3f;
 

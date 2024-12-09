@@ -22,7 +22,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	/// <summary>
 	/// The current character controller for this player.
 	/// </summary>
-	[RequireComponent] public CharacterController CharacterController { get; set; }
+	[Property] public PlayerController PlayerController { get; set; }
 
 	/// <summary>
 	/// The current camera controller for this player.
@@ -111,7 +111,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 		OnUpdateMovement();
 
 		_smoothEyeHeight = _smoothEyeHeight.LerpTo( _eyeHeightOffset * (IsCrouching ? 1 : 0), Time.Delta * 10f );
-		CharacterController.Height = Height + _smoothEyeHeight;
+		PlayerController.BodyHeight = Height + _smoothEyeHeight;
 
 		if ( IsLocallyControlled )
 		{
@@ -156,7 +156,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 		if ( !PlayerState.IsValid() )
 			return;
 
-		var cc = CharacterController;
+		var cc = PlayerController;
 		if ( !cc.IsValid() ) return;
 
 		var wasGrounded = IsGrounded;
@@ -192,10 +192,6 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 				BuildWishInput();
 				BuildWishVelocity();
 			}
-
-			// If we're a bot call these so they don't float in the air.
-			ApplyAcceleration();
-			ApplyMovement();
 			return;
 		}
 
@@ -213,9 +209,6 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 		BuildInput();
 
 		UpdateRecoilAndSpread();
-		ApplyAcceleration();
-
-		ApplyMovement();
 	}
 
 	[HostSync] public bool InPlayArea { get; set; } = true;

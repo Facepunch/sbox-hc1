@@ -125,30 +125,17 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageGlob
 	/// </summary>
 	[Property, Group( "Movement" )] public bool EnableFallDamage { get; set; } = true;
 
-	/// <summary>
-	/// Can we control our movement in the air?
-	/// </summary>
-	[Property, Group( "Movement" )] public float AirAcceleration { get; set; } = 16f;
-	[Property, Group( "Movement" )] public float BaseAcceleration { get; set; } = 9f;
-	[Property, Group( "Movement" )] public float SlowWalkAcceleration { get; set; } = 10;
-	[Property, Group( "Movement" )] public float CrouchingAcceleration { get; set; } = 10;
-	[Property, Group( "Movement" )] public float SprintingAcceleration { get; set; } = 8f;
-
-	// Acceleration
-	[Property, Group( "Movement" )] public float MaxAcceleration { get; set; } = 10f;
-	[Property, Group( "Movement" )] public float AirMaxAcceleration { get; set; } = 80f;
-
 	// Speed
-	[Property, Group( "Movement" )] public float WalkSpeed { get; set; } = 260f;
+	[Property, Group( "Movement" )] public float WalkSpeed { get; set; } = 230f;
 	[Property, Group( "Movement" )] public float SlowWalkSpeed { get; set; } = 100f;
 	[Property, Group( "Movement" )] public float CrouchingSpeed { get; set; } = 100f;
 	[Property, Group( "Movement" )] public float SprintingSpeed { get; set; } = 300f;
 
 	// Friction
-	[Property, Group( "Movement" )] public float WalkFriction { get; set; } = 7f;
-	[Property, Group( "Movement" )] public float SlowWalkFriction { get; set; } = 4f;
-	[Property, Group( "Movement" )] public float CrouchingFriction { get; set; } = 4f;
-	[Property, Group( "Movement" )] public float SprintingFriction { get; set; } = 4f;
+	[Property, Group( "Movement" )] public float WalkFriction { get; set; } = 1f;
+	[Property, Group( "Movement" )] public float SlowWalkFriction { get; set; } = 1f;
+	[Property, Group( "Movement" )] public float CrouchingFriction { get; set; } = 1f;
+	[Property, Group( "Movement" )] public float SprintingFriction { get; set; } = 0.5f;
 
 	// Crouch
 	[Property, Group( "Movement" )] public float CrouchLerpSpeed { get; set; } = 10f;
