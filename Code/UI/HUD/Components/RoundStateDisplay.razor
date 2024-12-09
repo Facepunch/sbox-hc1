@@ -48,9 +48,9 @@
     private List<PlayerState> MyTeamPlayers { get; } = new();
     private List<PlayerState> EnemyTeamPlayers { get; } = new();
 
-    public string Status => GameMode.Instance?.DisplayedStatus;
-    public string IconPath => GameMode.Instance?.Get<ShowStatusIcon>()?.IconPath;
-    public TimeSpan? Time => GameMode.Instance?.DisplayedTime;
+    public string Status => GameMode.Instance.IsValid() ? GameMode.Instance.DisplayedStatus : "";
+    public string IconPath => GameMode.Instance.IsValid() ? GameMode.Instance.Get<ShowStatusIcon>()?.IconPath : "";
+    public TimeSpan? Time => GameMode.Instance.IsValid() ? GameMode.Instance.DisplayedTime : null;
 
     private void OnSecondElapsed()
     {
@@ -81,7 +81,7 @@
         if ( MyTeam == Team.Unassigned || EnemyTeam == Team.Unassigned )
             return;
 
-        if ( GameMode.Instance?.Get<TeamScoring>() is { } teamScoring )
+        if ( GameMode.Instance.IsValid() && GameMode.Instance.Get<TeamScoring>() is { } teamScoring )
         {
             MyTeamScore = teamScoring.MyTeamScoreFormatted;
             EnemyTeamScore = teamScoring.OpposingTeamScoreFormatted;
