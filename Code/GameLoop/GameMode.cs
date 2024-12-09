@@ -116,6 +116,9 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	public T Get<T>( bool required = false )
 		where T : class
 	{
+		if ( !StateMachine.IsValid() )
+			return null;
+
 		if ( _prevState != StateMachine.CurrentState )
 		{
 			_prevState = StateMachine.CurrentState;
