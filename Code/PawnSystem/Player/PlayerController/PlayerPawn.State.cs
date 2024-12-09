@@ -47,7 +47,7 @@ public partial class PlayerPawn
 			CreateRagdoll();
 		}
 
-		//PlayerBoxCollider.Enabled = false;
+		PlayerController.ColliderObject.Enabled = false;
 
 		if ( IsProxy )
 			return;
