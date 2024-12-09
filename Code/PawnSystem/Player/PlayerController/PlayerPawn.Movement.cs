@@ -334,19 +334,32 @@ public partial class PlayerPawn
 		return 0f;
 	}
 
-	private float GetSpeedPenalty()
+	float GetSpeedPenalty()
 	{
 		var wpn = CurrentEquipment;
 		if ( !wpn.IsValid() ) return 0;
 		return wpn.SpeedPenalty;
 	}
 
-	private float GetWishSpeed()
+	public float GetWishSpeed()
 	{
 		if ( IsSlowWalking ) return Global.SlowWalkSpeed;
 		if ( IsCrouching ) return Global.CrouchingSpeed;
 		if ( IsSprinting ) return Global.SprintingSpeed - ( GetSpeedPenalty() );
 		return Global.WalkSpeed - GetSpeedPenalty();
+	}
+
+	/// <summary>
+	/// Get the current friction.
+	/// </summary>
+	/// <returns></returns>
+	public float GetFriction()
+	{
+		if ( !PlayerController.IsOnGround ) return 0.1f;
+		if ( IsSlowWalking ) return Global.SlowWalkFriction;
+		if ( IsCrouching ) return Global.CrouchingFriction;
+		if ( IsSprinting ) return Global.SprintingFriction;
+		return Global.WalkFriction;
 	}
 
 	private void DebugUpdate()

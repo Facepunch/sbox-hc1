@@ -3,7 +3,7 @@
     "__guid": "a4f94dfd-8684-4032-89b1-b08190beab32",
     "Flags": 0,
     "Name": "player",
-    "Tags": "player,noblockaudio",
+    "Tags": "player",
     "Enabled": true,
     "Components": [
       {
@@ -87,6 +87,9 @@
       {
         "__type": "Sandbox.PlayerController",
         "__guid": "83ddc7e5-e248-4aec-be76-643f03c1a1ea",
+        "AimStrengthBody": 1,
+        "AimStrengthEyes": 1,
+        "AimStrengthHead": 1,
         "Body": {
           "_type": "component",
           "component_id": "bd8a0563-f793-44dc-9303-8f2072f17e02",
@@ -97,6 +100,10 @@
         "BodyMass": 500,
         "BodyRadius": 16,
         "CameraOffset": "256,0,12",
+        "ColliderObject": {
+          "_type": "gameobject",
+          "go": "34fc04de-c99e-4750-aa99-76b17d64a994"
+        },
         "DuckedHeight": 36,
         "DuckedSpeed": 70,
         "EnableFootstepSounds": true,
@@ -213,8 +220,11 @@
         "__guid": "bd8a0563-f793-44dc-9303-8f2072f17e02",
         "AngularDamping": 1,
         "Gravity": true,
-        "LinearDamping": 3,
+        "LinearDamping": 0.1,
         "Locking": {
+          "X": false,
+          "Y": false,
+          "Z": false,
           "Pitch": true,
           "Yaw": true,
           "Roll": true
@@ -225,27 +235,6 @@
         "OverrideMassCenter": true,
         "RigidbodyFlags": "DisableCollisionSounds",
         "StartAsleep": false
-      },
-      {
-        "__type": "Sandbox.CapsuleCollider",
-        "__guid": "dffebec6-d9e1-4f1d-aee8-052165f4cbcb",
-        "End": "0,0,60.68629",
-        "Friction": 0,
-        "IsTrigger": false,
-        "Radius": 11.313708,
-        "Start": "0,0,45.73035",
-        "Static": false,
-        "SurfaceVelocity": "0,0,0"
-      },
-      {
-        "__type": "Sandbox.BoxCollider",
-        "__guid": "618679aa-e939-49e4-81a9-3ff4341ebbb3",
-        "Center": "0,0,18",
-        "Friction": 0,
-        "IsTrigger": false,
-        "Scale": "16,16,36",
-        "Static": false,
-        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "Sandbox.Movement.MoveModeLadder",
@@ -260,8 +249,24 @@
         "SwimLevel": 0.7
       },
       {
+        "__type": "Sandbox.Movement.MoveModeWalk",
+        "__guid": "e6e0488f-7fc3-4c34-b7cc-7b8f4edd2b85",
+        "GroundAngle": 45,
+        "Priority": -99,
+        "StepDownHeight": 18,
+        "StepUpHeight": 18
+      },
+      {
+        "__type": "Facepunch.MoveModeDefault",
+        "__guid": "7f261b13-7362-41af-a8b4-7373cf006cc6",
+        "GroundAngle": 45,
+        "Priority": 0,
+        "StepDownHeight": 18,
+        "StepUpHeight": 18
+      },
+      {
         "__type": "Sandbox.Movement.MoveModeNoclip",
-        "__guid": "bc2ca3c3-8c0c-41fa-8cf9-e4f9f2ec5072"
+        "__guid": "982b5afc-e4d9-4346-a9ac-915a85a5904a"
       }
     ],
     "Children": [
@@ -339,6 +344,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           },
@@ -371,7 +379,14 @@
             "__type": "Sandbox.ModelPhysics",
             "__guid": "c132631d-1bbf-46b4-949e-acd121c89190",
             "__enabled": false,
-            "Locking": {},
+            "Locking": {
+              "X": false,
+              "Y": false,
+              "Z": false,
+              "Pitch": false,
+              "Yaw": false,
+              "Roll": false
+            },
             "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
             "MotionEnabled": true,
             "Renderer": {
@@ -1289,18 +1304,29 @@
         ]
       },
       {
-        "__guid": "3e4e2095-635e-4b89-a9c9-fc3b4d321b84",
+        "__guid": "34fc04de-c99e-4750-aa99-76b17d64a994",
         "Flags": 0,
-        "Name": "Collider",
-        "Tags": "movement",
+        "Name": "Colliders",
+        "Enabled": true,
         "Components": [
           {
-            "__type": "Sandbox.BoxCollider",
-            "__guid": "0d4973b2-fdb1-4f1d-ab98-c1c49bfd4a2b",
-            "__enabled": false,
-            "Center": "0,0,32",
+            "__type": "Sandbox.CapsuleCollider",
+            "__guid": "e943ddf8-7973-469d-8a26-1e2ce1d99679",
+            "End": "0,0,45.05097",
+            "Friction": 0,
             "IsTrigger": false,
-            "Scale": "32,32,64",
+            "Radius": 11.313708,
+            "Start": "0,0,60.68629",
+            "Static": false,
+            "SurfaceVelocity": "0,0,0"
+          },
+          {
+            "__type": "Sandbox.BoxCollider",
+            "__guid": "2285d351-9f71-4b64-94cf-0d3fa95535c8",
+            "Center": "0,0,18",
+            "Friction": 0,
+            "IsTrigger": false,
+            "Scale": "16,16,36",
             "Static": false,
             "SurfaceVelocity": "0,0,0"
           }
