@@ -80,11 +80,11 @@ public partial class PlayerPawn
 		}
 
 		Outline.Enabled = true;
-		Outline.Width = 0.2f;
+		Outline.Width = 0.03f;
 		Outline.Color = Color.Transparent;
 		Outline.InsideColor = HealthComponent.IsGodMode ? Color.White.WithAlpha( 0.1f ) : Color.Transparent;
 
-		if ( PlayerState.Local.GetLastKiller() == this )
+		if ( PlayerState.Local.GetLastKiller() == this && SpectateSystem.Instance.IsValid() && SpectateSystem.Instance.IsSpectating )
 			Outline.ObscuredColor = Color.Red;
 		else if ( SpectateSystem.Instance.IsSpectating )
 			Outline.ObscuredColor = Team.GetColor();
