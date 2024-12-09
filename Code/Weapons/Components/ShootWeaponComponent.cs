@@ -166,7 +166,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	/// <summary>
 	/// Play any particle effects such as muzzle flashes.
 	/// </summary>
-	[Broadcast]
+	[Rpc.Broadcast]
 	protected void DoShootEffects()
 	{
 		if ( !Effector.ModelRenderer.IsValid() )
@@ -240,7 +240,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		return p;
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void CreateBloodEffects( Vector3 pos, Vector3 normal, Vector3 direction )
 	{
 		if ( !IsNearby( pos ) )
@@ -362,7 +362,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 			recoil.Shoot();
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void InflictDamage( GameObject target, float damage, Vector3 pos, Vector3 dir, HitboxTags hitbox, DamageFlags flags )
 	{
 		if ( target.IsValid() )
@@ -393,7 +393,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	/// <summary>
 	/// Makes some tracers using legacy particle effects.
 	/// </summary>
-	[Broadcast]
+	[Rpc.Broadcast]
 	protected void DoTracer( Vector3 startPosition, Vector3 endPosition, float distance, int count )
 	{
 		if ( !IsNearby( startPosition ) || !IsNearby( endPosition ) ) return;
@@ -414,7 +414,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		DryShootEffects();
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	protected void DryShootEffects()
 	{
 		if ( DryFireSound is not null )

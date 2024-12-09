@@ -58,7 +58,7 @@ public partial class PlayerInventory : Component
 		}
 	}
 
-	[Authority( NetPermission.HostOnly )]
+	[Rpc.Owner( NetFlags.HostOnly )]
 	public void RefillAmmo()
 	{
 		foreach ( var wpn in Equipment )
@@ -83,7 +83,7 @@ public partial class PlayerInventory : Component
 		}
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void DropHost( Equipment weapon, bool forceRemove )
 	{
 		if ( !Networking.IsHost )
@@ -379,7 +379,7 @@ public partial class PlayerInventory : Component
 		PurchaseBuyMenuItem( equipmentId );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void PurchaseBuyMenuItem( string equipmentId )
 	{
 		if ( !Networking.IsHost )
@@ -405,7 +405,7 @@ public partial class PlayerInventory : Component
 		PurchaseAsHost( resourceId );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void PurchaseAsHost( int resourceId )
 	{
 		if ( !Networking.IsHost )

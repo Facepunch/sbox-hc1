@@ -32,7 +32,7 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 	/// <summary>
 	/// Do shoot effects
 	/// </summary>
-	[Broadcast]
+	[Rpc.Broadcast]
 	protected void DoEffects()
 	{
 		if ( SwingSound is not null )
@@ -102,7 +102,7 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 		}
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void InflictKnifeDamage( GameObject target, Vector3 pos, Vector3 dir )
 	{
 		// TODO: backstab detection

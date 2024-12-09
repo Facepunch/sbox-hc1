@@ -24,7 +24,7 @@ public sealed class WeaponStatsRule : Component,
 		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	private void SendKillStat( string resourcePath, HitboxTags hitbox = default, DamageFlags flags = default )
 	{
 		var resource = ResourceLibrary.Get<EquipmentResource>( resourcePath );

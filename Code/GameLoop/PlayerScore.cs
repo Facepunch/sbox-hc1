@@ -102,7 +102,7 @@ public sealed class PlayerScore : Component,
 		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	private void SendScoreAdded( int score, string reason = null )
 	{
 		Scene.Dispatch<OnScoreAddedEvent>( new OnScoreAddedEvent()

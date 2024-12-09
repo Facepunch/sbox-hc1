@@ -96,13 +96,13 @@ partial class GameMode
 		TeamStatusText.Remove( team );
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	public void ShowToast( string value, ToastType type = ToastType.Generic, float duration = 5f )
 	{
 		Toast.Instance?.Show( value, type, duration );
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	public void HideToast()
 	{
 		Toast.Instance?.Show( "", default, 0f );

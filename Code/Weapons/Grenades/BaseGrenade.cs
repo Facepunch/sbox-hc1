@@ -34,7 +34,7 @@ public abstract class BaseGrenade : Component
 		return true;
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	protected virtual void Explode()
 	{
 		if ( PrefabOnExplode.IsValid() )

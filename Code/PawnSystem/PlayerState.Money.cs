@@ -38,7 +38,7 @@ public partial class PlayerState : IScore
 		SetCashHost( amount );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void SetCashHost( int amount )
 	{
 		Assert.True( Networking.IsHost );
@@ -51,7 +51,7 @@ public partial class PlayerState : IScore
 		GiveCashHost( amount );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void GiveCashHost( int amount )
 	{
 		Assert.True( Networking.IsHost );

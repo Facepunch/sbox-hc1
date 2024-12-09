@@ -18,7 +18,7 @@ public sealed class KillSound : Component,
 		ResetCount();
 	}
 
-	[Authority]
+	[Rpc.Owner]
 	private void ResetCount()
 	{
 		count = 0;

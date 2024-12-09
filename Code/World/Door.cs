@@ -90,7 +90,7 @@ public sealed class Door : Component, IUse,
 		PlaySoundRpc( resource.ResourceId );
 	}
 	
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void PlaySoundRpc( int resourceId )
 	{
 		var resource = ResourceLibrary.Get<SoundEvent>( resourceId );

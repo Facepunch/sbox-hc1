@@ -98,7 +98,7 @@ public partial class PlayerState : Component, ITeam
 		SteamName = Connection.DisplayName;
 	}
 
-	[Authority]
+	[Rpc.Owner]
 	public void ClientInit()
 	{
 		if ( IsBot )
@@ -153,7 +153,7 @@ public partial class PlayerState : Component, ITeam
 
 	// sync to other clients what this player is currently possessing
 	// Sol: when we track observers we could drop this with an Rpc.FilterInclude?
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void OnNetPossessed()
 	{
 		if ( IsViewer && IsProxy )

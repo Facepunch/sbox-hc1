@@ -87,7 +87,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 
 	bool _queueCancel = false;
 
-	[Broadcast( NetPermission.OwnerOnly )]
+	[Rpc.Owner]
 	void StartReload()
 	{
 		_queueCancel = false;
@@ -124,7 +124,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 		Equipment.Owner?.BodyRenderer?.Set( "b_reload", true );
 	}
 	
-	[Broadcast( NetPermission.OwnerOnly )]
+	[Rpc.Owner]
 	void CancelReload()
 	{
 		if ( !IsProxy )
@@ -136,7 +136,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 		Equipment.ViewModel?.ModelRenderer?.Set( "b_reloading", false );
 	}
 
-	[Broadcast( NetPermission.OwnerOnly )]
+	[Rpc.Owner]
 	void EndReload()
 	{
 		if ( !IsProxy )

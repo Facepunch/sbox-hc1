@@ -58,7 +58,7 @@ public partial class PlayerPawn
 		player.PlayerState.GetComponent<PlayerScore>().AddScore( 25, "Killed a player" );
 	}
 
-	[Authority]
+	[Rpc.Owner]
 	private static void Host_Suicide( PlayerPawn pawn )
 	{
 		if ( !pawn.IsValid() )

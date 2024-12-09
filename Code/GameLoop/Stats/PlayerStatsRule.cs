@@ -66,7 +66,7 @@ public sealed class PlayerStatsRule : Component,
 		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	private void SendKillStat( HitboxTags hitbox = default )
 	{
 		if ( hitbox == HitboxTags.Head )
@@ -77,7 +77,7 @@ public sealed class PlayerStatsRule : Component,
 		Stats.Increment( "kills" );
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	private void SendDeathStat()
 	{
 		Stats.Increment( "deaths" );

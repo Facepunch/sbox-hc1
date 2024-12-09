@@ -181,7 +181,7 @@
         }
     }
 
-    [Broadcast]
+    [Rpc.Broadcast]
     public void AddText( string message, ChatModes chatMode, string tags = null )
     {
         message = message.Truncate( 300 );
@@ -215,7 +215,7 @@
         StateHasChanged();
     }
 
-    [Broadcast( NetPermission.HostOnly )]
+    [Rpc.Broadcast( NetFlags.HostOnly )]
     public void AddSystemText( string message )
     {
         message = message.Truncate( 300 );

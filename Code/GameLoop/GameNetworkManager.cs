@@ -31,7 +31,10 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		//
 		if ( !Networking.IsActive )
 		{
-			Networking.CreateLobby();
+			Networking.CreateLobby( new LobbyConfig()
+			{
+				// ?
+			} );
 		}
 	}
 

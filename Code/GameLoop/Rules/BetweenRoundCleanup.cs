@@ -19,7 +19,7 @@ public sealed class BetweenRoundCleanup : Component,
 		Dispatch();
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	public void Dispatch()
 	{
 		Scene.Dispatch( new BetweenRoundCleanupEvent() );

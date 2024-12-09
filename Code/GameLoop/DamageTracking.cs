@@ -12,7 +12,7 @@ public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlo
 	public Dictionary<PlayerState, List<Facepunch.DamageInfo>> Registry { get; set; } = new();
 	public Dictionary<PlayerState, List<Facepunch.DamageInfo>> MyInflictedDamage { get; set; } = new();
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	protected void RpcRefresh()
 	{
 		Refresh();

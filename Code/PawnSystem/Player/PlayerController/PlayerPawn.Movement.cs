@@ -247,7 +247,7 @@ public partial class PlayerPawn
 	/// <summary>
 	/// A network message that lets other users that we've triggered a jump.
 	/// </summary>
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void BroadcastPlayerJumped()
 	{
 		AnimationHelper?.TriggerJump();
@@ -291,14 +291,14 @@ public partial class PlayerPawn
 
 	[Property, Group( "Effects" )] public SoundEvent LandSound { get; set; }
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void PlayFallSound()
 	{
 		var snd = Sound.Play( LandSound, WorldPosition );
 		snd.SpacialBlend = IsViewer ? 0 : snd.SpacialBlend;
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void TakeFallDamage( float damage )
 	{
 		GameObject.TakeDamage( new DamageInfo( this, damage, null, WorldPosition, Flags: DamageFlags.FallDamage ) );

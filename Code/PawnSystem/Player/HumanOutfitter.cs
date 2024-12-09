@@ -23,7 +23,7 @@ public sealed class HumanOutfitter : Component,
 	/// Called to wear an outfit based off a team.
 	/// </summary>
 	/// <param name="team"></param>
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	public void UpdateFromTeam( Team team )
 	{
 		if ( !TeamBaseModels.TryGetValue( team, out var model ) )

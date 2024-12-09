@@ -155,7 +155,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// <summary>
 	/// Deploy this equipment.
 	/// </summary>
-	[Authority]
+	[Rpc.Owner]
 	public void Deploy()
 	{
 		if ( IsDeployed )
@@ -176,7 +176,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// <summary>
 	/// Holster this equipment.
 	/// </summary>
-	[Authority]
+	[Rpc.Owner]
 	public void Holster()
 	{
 		if ( !IsDeployed )

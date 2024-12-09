@@ -173,7 +173,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	public void StartDefusing( PlayerPawn player )
 	{
 		if ( player is null )
@@ -204,7 +204,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	public void FinishDefusing()
 	{
 		if ( Networking.IsHost )
@@ -224,7 +224,7 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	public void CancelDefusing()
 	{
 		if ( Networking.IsHost )

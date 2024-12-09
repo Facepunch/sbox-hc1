@@ -12,7 +12,7 @@ public sealed class PlaySound : Component,
 	[Property]
 	public SoundEvent SoundEvent { get; set; }
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void Play()
 	{
 		if ( SoundEvent is null )

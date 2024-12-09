@@ -108,7 +108,7 @@ public partial class PlayerPawn
 		Scene.Dispatch( new PlayerSpawnedEvent( this ) );
 	}
 
-	[Authority]
+	[Rpc.Owner]
 	private void OnClientRespawn()
 	{
 		if ( !PlayerState.IsValid() )
@@ -125,7 +125,7 @@ public partial class PlayerPawn
 		Teleport( WorldPosition, transform.Rotation );
 	}
 
-	[Authority]
+	[Rpc.Owner]
 	public void Teleport( Vector3 position, Rotation rotation )
 	{
 		Transform.World = new( position, rotation );
@@ -133,7 +133,7 @@ public partial class PlayerPawn
 		EyeAngles = rotation.Angles();
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	private void CreateRagdoll()
 	{
 		if ( !Body.IsValid() )

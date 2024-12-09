@@ -146,7 +146,7 @@ public partial class HealthComponent : Component, IRespawnable
 		KillFeed.RecordEvent( damageInfo );
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	private void BroadcastDamage( float damage, Vector3 position, Vector3 force, Component attacker, Component inflictor = default, HitboxTags hitbox = default, DamageFlags flags = default )
 	{
 		var damageInfo = new DamageInfo( attacker, damage, inflictor, position, force, hitbox, flags )
@@ -166,7 +166,7 @@ public partial class HealthComponent : Component, IRespawnable
 		DamageListeners.ToList().ForEach( x => x.OnDamaged( damageInfo ) );
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	private void BroadcastKill( float damage, Vector3 position, Vector3 force, Component attacker, Component inflictor = default, HitboxTags hitbox = default, DamageFlags flags = default )
 	{
 		var damageInfo = new DamageInfo( attacker, damage, inflictor, position, force, hitbox, flags )

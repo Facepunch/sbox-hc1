@@ -30,7 +30,7 @@ public sealed class PlayerInputRespawner : Respawner
 	/// <summary>
 	/// A RPC sent to the host to ask them if we can respawn
 	/// </summary>
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void AskToRespawn()
 	{
 		var rpcCaller = Rpc.Caller;

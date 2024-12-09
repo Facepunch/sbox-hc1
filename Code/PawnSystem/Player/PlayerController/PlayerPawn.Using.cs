@@ -32,7 +32,7 @@ partial class PlayerPawn
 		}
 	}
 
-	[Broadcast( NetPermission.OwnerOnly )]
+	[Rpc.Owner]
 	private void TryUse( Ray ray )
 	{
 		var hits = Scene.Trace.Ray( ray, UseDistance )
@@ -71,7 +71,7 @@ partial class PlayerPawn
 		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	private void UpdateLastUsedObject( Component component )
 	{
 		if ( !component.IsValid() )

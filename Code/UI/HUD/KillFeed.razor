@@ -110,7 +110,7 @@
 
     private float Lifetime => 10f;
 
-    [Broadcast] 
+    [Rpc.Broadcast] 
     public static void BroadcastKillFeedEvent( string attacker, Color attackerColor, string inflictor, string victim, Color victimColor, HitboxTags tags, DamageFlags flags )
     {
         if ( !Instance.IsValid() )

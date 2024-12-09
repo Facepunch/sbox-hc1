@@ -41,7 +41,7 @@ public partial class MolotovGrenade : BaseGrenade, Component.ICollisionListener,
 		return node;
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	async void SpreadFireNetworked( Vector3 position, int seed )
 	{
 		if ( PrefabOnExplode.IsValid() )

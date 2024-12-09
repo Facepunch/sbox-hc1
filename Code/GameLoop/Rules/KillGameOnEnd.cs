@@ -13,7 +13,7 @@ public sealed class KillGameOnEnd : Component,
 	[Property, HostSync]
 	public string Message { get; set; } = "The game is over - returning to menu";
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	private void Disconnect()
 	{
 		GameUtils.ReturnToMainMenu();

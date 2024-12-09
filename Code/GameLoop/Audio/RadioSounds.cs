@@ -128,7 +128,7 @@ public class RadioSounds : GameResource
 		Play( team, category, sound );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private static void RpcPlay( Team team, string category, string sound )
 	{
 		if ( !PlayerState.Local.IsValid() )
@@ -160,7 +160,7 @@ public class RadioSounds : GameResource
 		snd.TargetMixer = Mixer.FindMixerByName( "Radio" );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private static void RpcPlay( Team team, RadioSound snd )
 	{
 		if ( !PlayerState.Local.IsValid() )

@@ -226,7 +226,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 	/// RPCs a vote, targeted to the host, so it's not exposed to any public API.
 	/// </summary>
 	/// <param name="index"></param>
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void RpcVote( int index )
 	{
 		var callerSteamId = Rpc.Caller.SteamId;

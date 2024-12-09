@@ -64,7 +64,7 @@ public partial class BombPlantComponent : InputWeaponComponent,
 		return true;
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void BroadcastPlant()
 	{
 		if ( Networking.IsHost )
@@ -105,7 +105,7 @@ public partial class BombPlantComponent : InputWeaponComponent,
 		PlantBombOnHost( position ?? Equipment.Owner.WorldPosition, Rotation.FromYaw( Random.Shared.NextSingle() * 360f ), ignorePlanter );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void PlantBombOnHost( Vector3 position, Rotation rotation, bool ignorePlanter )
 	{
 		if ( Equipment.IsValid() && Equipment.Owner.IsValid() && Equipment.Owner.BodyRenderer.IsValid() )
@@ -135,7 +135,7 @@ public partial class BombPlantComponent : InputWeaponComponent,
 		Scene.Dispatch( new BombPlantedEvent( ignorePlanter ? null : player, planted, CurrentBombSite ) );
 	}
 	
-	[Broadcast]
+	[Rpc.Broadcast]
 	private void CancelPlant()
 	{
 		if ( !Equipment.IsValid() )

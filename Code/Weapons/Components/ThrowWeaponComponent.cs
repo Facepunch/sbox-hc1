@@ -90,7 +90,7 @@ public partial class ThrowWeaponComponent : InputWeaponComponent,
 		}
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	protected void Throw()
 	{
 		var player = Equipment.Owner;

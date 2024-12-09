@@ -31,7 +31,7 @@ public sealed class StatIncrementerHighestTeam : Component, IGameEventHandler<En
 	/// <summary>
 	/// Since the state machine is sent on the host only, we have to RPC it
 	/// </summary>
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast( NetFlags.HostOnly )]
 	public void BroadcastStat()
 	{
 		Stats.Increment( StatName, Amount );

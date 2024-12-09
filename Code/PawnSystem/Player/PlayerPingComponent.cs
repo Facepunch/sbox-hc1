@@ -70,7 +70,7 @@ public partial class PlayerPingComponent : Component
 	/// </summary>
 	/// <param name="position"></param>
 	/// <param name="target"></param>
-	[Broadcast( NetPermission.OwnerOnly )]
+	[Rpc.Owner]
 	public void Ping( Vector3 position, Component target = null )
 	{
 		// Destroy any active pings
@@ -96,7 +96,7 @@ public partial class PlayerPingComponent : Component
 		ping.Trigger( Lifetime );
 	}
 
-	[Broadcast( NetPermission.OwnerOnly )]
+	[Rpc.Owner]
 	public void RemovePing()
 	{
 		WorldPing?.Receiver?.OnPingCancel();

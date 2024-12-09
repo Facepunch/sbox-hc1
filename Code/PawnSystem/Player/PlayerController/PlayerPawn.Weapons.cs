@@ -55,13 +55,13 @@ public partial class PlayerPawn :
 			CurrentEquipment = null;
 	}
 
-	[Authority]
+	[Rpc.Owner]
 	private void SetCurrentWeapon( Equipment equipment )
 	{
 		SetCurrentEquipment( equipment );
 	}
 
-	[Authority]
+	[Rpc.Owner]
 	private void ClearCurrentWeapon()
 	{
 		if ( CurrentEquipment.IsValid() ) CurrentEquipment.Holster();
