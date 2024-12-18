@@ -73,8 +73,9 @@ file class MyWindow : WidgetWindow
 		Layout.AddSpacingCell( 20f );
 		Layout.Add( new Label( "Click a location in the world to set the sound's origin." ) );
 
-		var sheet = Layout.Add( new PropertySheet( this ) );
-		sheet.AddProperty( SoundTool.Instance, nameof( SoundTool.SoundAsset ) );
+		var sheet = new ControlSheet();
+		var so = SoundTool.Instance.GetSerialized();
+		sheet.AddRow( so.GetProperty( nameof( SoundTool.SoundAsset ) ) );
 
 		Layout.Add( new Button( "Play Sound", "mic", this ) { MouseClick = SoundTool.Instance.Play } );
 		Layout.Margin = 4;
