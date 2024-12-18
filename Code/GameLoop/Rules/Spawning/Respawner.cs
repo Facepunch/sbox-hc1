@@ -5,7 +5,7 @@ namespace Facepunch;
 public abstract class Respawner : Component,
 	IGameEventHandler<UpdateStateEvent>
 {
-	[Property, HostSync] public float RespawnDelaySeconds { get; set; } = 3f;
+	[Property, Sync( SyncFlags.FromHost )] public float RespawnDelaySeconds { get; set; } = 3f;
 	[Property] public bool AllowSpectatorsToSpawn { get; set; } = false;
 
 	/// <summary>

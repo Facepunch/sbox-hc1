@@ -13,7 +13,7 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// Are we in god mode?
 	/// </summary>
-	[Property, HostSync] public bool IsGodMode { get; set; } = false;
+	[Property, Sync( SyncFlags.FromHost )] public bool IsGodMode { get; set; } = false;
 
 	/// <summary>
 	/// An action (mainly for ActionGraphs) to respond to when a GameObject's health changes.
@@ -35,7 +35,7 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// What's our health?
 	/// </summary>
-	[HostSync, Change( nameof( OnHealthPropertyChanged ) )]
+	[Sync( SyncFlags.FromHost ), Change( nameof( OnHealthPropertyChanged ) )]
 	public float Health { get; set; } = 100f;
 
 	[Property, Group( "Setup" )]
@@ -44,7 +44,7 @@ public partial class HealthComponent : Component, IRespawnable
 	/// <summary>
 	/// What's our life state?
 	/// </summary>
-	[Group( "Life State" ), HostSync, Change( nameof( OnStatePropertyChanged ) )]
+	[Group( "Life State" ), Sync( SyncFlags.FromHost ), Change( nameof( OnStatePropertyChanged ) )]
 	public LifeState State { get; private set; }
 
 	/// <summary>

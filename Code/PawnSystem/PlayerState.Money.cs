@@ -17,14 +17,14 @@ public partial class PlayerState : IScore
 	/// <summary>
 	/// Players current cash balance
 	/// </summary>
-	[HostSync, Order( -100 ), Score( "Balance", Format = "${0:N0}", ShowIf = nameof( ShouldShowBalance ), ShowTeamOnly = true )]
+	[Sync( SyncFlags.FromHost ), Order( -100 ), Score( "Balance", Format = "${0:N0}", ShowIf = nameof( ShouldShowBalance ), ShowTeamOnly = true )]
 	public int Balance
 	{
 		get => GameMode.Instance?.UnlimitedMoney is true ? GameMode.Instance.MaxBalance : _balance;
 		set => _balance = GameMode.Instance?.UnlimitedMoney is true ? GameMode.Instance.MaxBalance : value;
 	}
 
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public BuyMenuMode BuyMenuMode { get; set; }
 
 	private bool ShouldShowBalance()

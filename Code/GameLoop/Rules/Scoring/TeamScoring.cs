@@ -12,7 +12,7 @@ public sealed class TeamScoring : Component,
 	IGameEventHandler<ResetScoresEvent>,
 	IGameEventHandler<TeamsSwappedEvent>
 {
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public NetDictionary<Team, int> Scores { get; private set; } = new();
 
 	/// <summary>
@@ -23,8 +23,8 @@ public sealed class TeamScoring : Component,
 	/// <summary>
 	/// You can define a scoring format for the scores, say you want to format in currency.
 	/// </summary>
-	[HostSync] public string ScoreFormat { get; set; } = "";
-	[HostSync] public string ScorePrefix { get; set; } = "";
+	[Sync( SyncFlags.FromHost )] public string ScoreFormat { get; set; } = "";
+	[Sync( SyncFlags.FromHost )] public string ScorePrefix { get; set; } = "";
 
 	public int MyTeamScore => Scores.GetValueOrDefault( PlayerState.Local.Team );
 	public int OpposingTeamScore => Scores.GetValueOrDefault( PlayerState.Local.Team.GetOpponents() );

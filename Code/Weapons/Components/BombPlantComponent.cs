@@ -24,19 +24,19 @@ public partial class BombPlantComponent : InputWeaponComponent,
 	[Property, Category( "Effects" )]
 	public Curve PlantingBeepFrequency { get; set; } = new Curve( new Curve.Frame( 0f, 1f ), new Curve.Frame( 1f, 0.25f ) );
 
-	[HostSync] public bool IsPlanting { get; private set; }
+	[Sync( SyncFlags.FromHost )] public bool IsPlanting { get; private set; }
 
 	/// <summary>
 	/// Hold long since we started planting.
 	/// </summary>
-	[HostSync] public TimeSince TimeSincePlantStart { get; private set; }
+	[Sync( SyncFlags.FromHost )] public TimeSince TimeSincePlantStart { get; private set; }
 
 	public float Progress => Math.Clamp( TimeSincePlantStart / PlantTime, 0f, 1f );
 
 	/// <summary>
 	/// Hold long since we aborted planting.
 	/// </summary>
-	[HostSync] public TimeSince TimeSincePlantCancel { get; private set; }
+	[Sync( SyncFlags.FromHost )] public TimeSince TimeSincePlantCancel { get; private set; }
 
 	private TimeSince TimeSinceBeep { get; set; }
 

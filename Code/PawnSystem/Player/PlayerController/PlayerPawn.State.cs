@@ -23,7 +23,7 @@ public partial class PlayerPawn
 	/// <summary>
 	/// How long since the player last respawned?
 	/// </summary>
-	[HostSync] public TimeSince TimeSinceLastRespawn { get; private set; }
+	[Sync( SyncFlags.FromHost )] public TimeSince TimeSinceLastRespawn { get; private set; }
 
 	public override void OnKill( DamageInfo damageInfo )
 	{

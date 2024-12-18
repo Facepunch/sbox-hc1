@@ -21,12 +21,12 @@ public partial class PlayerState : Component, ITeam
 	/// <summary>
 	/// Who owns this player state?
 	/// </summary>
-	[HostSync, Property] public ulong SteamId { get; set; }
+	[Sync( SyncFlags.FromHost ), Property] public ulong SteamId { get; set; }
 
 	/// <summary>
 	/// The player's name, which might have to persist if they leave
 	/// </summary>
-	[HostSync] private string SteamName { get; set; }
+	[Sync( SyncFlags.FromHost )] private string SteamName { get; set; }
 
 	/// <summary>
 	/// The connection of this player
@@ -52,7 +52,7 @@ public partial class PlayerState : Component, ITeam
 	/// <summary>
 	/// The team this player is on.
 	/// </summary>
-	[Property, Group( "Setup" ), HostSync, Change( nameof( OnTeamPropertyChanged ) )]
+	[Property, Group( "Setup" ), Sync( SyncFlags.FromHost ), Change( nameof( OnTeamPropertyChanged ) )]
 	
 	public Team Team { get; set; }
 
@@ -74,7 +74,7 @@ public partial class PlayerState : Component, ITeam
 	/// <summary>
 	/// The main PlayerPawn of this player if one exists, will not change when the player possesses gadgets etc. (synced)
 	/// </summary>
-	[HostSync, ValidOrNull] public PlayerPawn PlayerPawn { get; set; }
+	[Sync( SyncFlags.FromHost ), ValidOrNull] public PlayerPawn PlayerPawn { get; set; }
 
 	/// <summary>
 	/// The pawn this player is currently in possession of (synced - unless the pawn is not networked)

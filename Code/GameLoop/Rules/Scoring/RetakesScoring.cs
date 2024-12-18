@@ -22,7 +22,7 @@ public sealed class RetakesScoring : Component, IScore,
 	/// <summary>
 	/// How many rounds has this player been on the winning team.
 	/// </summary>
-	[Score( "Wins" ), Order( -2 ), HostSync] public int Wins { get; set; }
+	[Score( "Wins" ), Order( -2 ), Sync( SyncFlags.FromHost )] public int Wins { get; set; }
 
 	void IGameEventHandler<ResetScoresEvent>.OnGameEvent( ResetScoresEvent eventArgs )
 	{

@@ -20,7 +20,7 @@ public sealed class SpawnProtection : Component,
 {
 	private readonly Dictionary<PlayerPawn, TimeSince> _spawnProtectedSince = new();
 
-	[Property, HostSync]
+	[Property, Sync( SyncFlags.FromHost )]
 	public float MaxDurationSeconds { get; set; } = 10f;
 
 	void IGameEventHandler<PlayerSpawnedEvent>.OnGameEvent(PlayerSpawnedEvent eventArgs )

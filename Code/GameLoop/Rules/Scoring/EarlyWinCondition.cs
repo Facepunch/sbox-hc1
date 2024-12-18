@@ -12,7 +12,7 @@ public sealed class TeamEarlyWinCondition : Component,
 	/// <summary>
 	/// Transition when either team reaches this score.
 	/// </summary>
-	[Property, HostSync]
+	[Property, Sync( SyncFlags.FromHost )]
 	public int TargetScore { get; set; } = 16;
 
 	/// <summary>

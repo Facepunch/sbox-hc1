@@ -22,12 +22,12 @@ partial class GameMode
 		_ => null
 	};
 
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	private NetDictionary<Team, string> TeamStatusText { get; set; } = new();
 
-	[HostSync] private DisplayedTimerMode TimerMode { get; set; }
-	[HostSync] private float TimerStart { get; set; }
-	[HostSync] private float TimerDuration { get; set; }
+	[Sync( SyncFlags.FromHost )] private DisplayedTimerMode TimerMode { get; set; }
+	[Sync( SyncFlags.FromHost )] private float TimerStart { get; set; }
+	[Sync( SyncFlags.FromHost )] private float TimerDuration { get; set; }
 
 	public void ShowCountUpTimer( float startTime )
 	{

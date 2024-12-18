@@ -10,7 +10,7 @@ public sealed class KillGameOnEnd : Component,
 	IGameEventHandler<EnterStateEvent>,
 	IGameEventHandler<LeaveStateEvent>
 {
-	[Property, HostSync]
+	[Property, Sync( SyncFlags.FromHost )]
 	public string Message { get; set; } = "The game is over - returning to menu";
 
 	[Rpc.Broadcast( NetFlags.HostOnly )]

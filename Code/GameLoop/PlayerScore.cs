@@ -83,13 +83,13 @@ public sealed class PlayerScore : Component,
 {
 	[Property] public PlayerState PlayerState { get; set; }
 
-	[HostSync, Property, ReadOnly, Score( "Kills" )] 
+	[Sync( SyncFlags.FromHost ), Property, ReadOnly, Score( "Kills" )] 
 	public int Kills { get; set; } = 0;
 
-	[HostSync, Property, ReadOnly, Score( "Deaths" )] 
+	[Sync( SyncFlags.FromHost ), Property, ReadOnly, Score( "Deaths" )] 
 	public int Deaths { get; set; } = 0;
 
-	[HostSync, Property, ReadOnly, Score( "Points" ), Order( -1 )] 
+	[Sync( SyncFlags.FromHost ), Property, ReadOnly, Score( "Points" ), Order( -1 )] 
 	public int Score { get; private set; } = 0;
 
 	public void AddScore( int score, string reason = null )
@@ -115,10 +115,10 @@ public sealed class PlayerScore : Component,
 	[Score( "Ratio", Format = "{0:0.00}" ), Order( 50 )]
 	public float Ratio => (float)Kills / (float)Deaths.Clamp( 1, int.MaxValue );
 
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public NetList<int> ScoreHistory { get; private set; } = new();
 
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public bool WasBombPlanter { get; private set; }
 
 	private const int KillScore = 25;

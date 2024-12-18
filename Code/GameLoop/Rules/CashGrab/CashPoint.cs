@@ -16,7 +16,7 @@ public partial class CashPoint : Component, ICustomMinimapIcon, IMarkerObject
 	/// <summary>
 	/// Is this cash point active?
 	/// </summary>
-	[Property, HostSync, Change( nameof( StateChanged ) )] public CashPointState State { get; set; } = CashPointState.Inactive;
+	[Property, Sync( SyncFlags.FromHost ), Change( nameof( StateChanged ) )] public CashPointState State { get; set; } = CashPointState.Inactive;
 
 	/// <summary>
 	/// The resource to spawn.

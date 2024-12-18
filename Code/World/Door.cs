@@ -61,8 +61,8 @@ public sealed class Door : Component, IUse,
 	Transform StartTransform { get; set; }
 	Vector3 PivotPosition { get; set; }
 	bool ReverseDirection { get; set; }
-	[HostSync] public TimeSince LastUse { get; set; }
-	[HostSync] public DoorState State { get; set; } = DoorState.Closed;
+	[Sync( SyncFlags.FromHost )] public TimeSince LastUse { get; set; }
+	[Sync( SyncFlags.FromHost )] public DoorState State { get; set; } = DoorState.Closed;
 
 	private DoorState DefaultState { get; set; } = DoorState.Closed;
 

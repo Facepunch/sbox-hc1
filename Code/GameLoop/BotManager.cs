@@ -20,7 +20,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 	};
 	public string[] Names;
 
-	[HostSync] private int CurrentBotId { get; set; } = 0;
+	[Sync( SyncFlags.FromHost )] private int CurrentBotId { get; set; } = 0;
 
 	protected override void OnAwake()
 	{

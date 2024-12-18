@@ -3,6 +3,6 @@ namespace Facepunch;
 
 partial class GameMode
 {
-	[Property, HostSync] public bool UnlimitedMoney { get; set; }
-	[Property, HostSync] public int MaxBalance { get; set; } = 16000;
+	[Property, Sync( SyncFlags.FromHost )] public bool UnlimitedMoney { get; set; }
+	[Property, Sync( SyncFlags.FromHost )] public int MaxBalance { get; set; } = 16000;
 }

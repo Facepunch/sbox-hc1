@@ -31,7 +31,7 @@ public sealed class StateMachineComponent : Component
 	/// <summary>
 	/// Which state is currently active?
 	/// </summary>
-	[Property, HostSync]
+	[Property, Sync( SyncFlags.FromHost )]
 	public StateComponent? CurrentState
 	{
 		get => _currentState;
@@ -50,13 +50,13 @@ public sealed class StateMachineComponent : Component
 	/// <summary>
 	/// Which state will we transition to next, at <see cref="NextStateTime"/>?
 	/// </summary>
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public StateComponent? NextState { get; set; }
 
 	/// <summary>
 	/// What time will we transition to <see cref="NextState"/>?
 	/// </summary>
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public float NextStateTime { get; set; }
 
 	/// <summary>

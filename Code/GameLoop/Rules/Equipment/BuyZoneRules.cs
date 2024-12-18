@@ -13,10 +13,10 @@ public sealed class EnableBuyMenu : Component,
 	/// <summary>
 	/// Disable the buy menu after this time limit, if greater than zero.
 	/// </summary>
-	[Property, HostSync]
+	[Property, Sync( SyncFlags.FromHost )]
 	public float TimeLimit { get; set; }
 
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public float StartTime { get; private set; }
 
 	public float DisableTime => TimeLimit <= 0f ? float.PositiveInfinity : StartTime + TimeLimit;

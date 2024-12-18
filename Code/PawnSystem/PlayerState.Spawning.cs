@@ -23,7 +23,7 @@ public partial class PlayerState
 	/// <summary>
 	/// Are we ready to respawn?
 	/// </summary>
-	[HostSync, Change( nameof( OnRespawnStateChanged ))] public RespawnState RespawnState { get; set; }
+	[Sync( SyncFlags.FromHost ), Change( nameof( OnRespawnStateChanged ))] public RespawnState RespawnState { get; set; }
 
 	public bool IsRespawning => RespawnState is RespawnState.Delayed;
 

@@ -29,8 +29,8 @@ public sealed class Spottable : Component,
 	/// </summary>
 	[Property] public bool Static { get; set; }
 
-	[HostSync] public bool HasBeenSpotted { get; private set; }
-	[HostSync] public TimeSince LastSpotted { get; private set; }
+	[Sync( SyncFlags.FromHost )] public bool HasBeenSpotted { get; private set; }
+	[Sync( SyncFlags.FromHost )] public TimeSince LastSpotted { get; private set; }
 
 	public Vector3 LastSeenPosition;
 

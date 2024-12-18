@@ -9,7 +9,7 @@ namespace Facepunch;
 public sealed class ActiveBombSiteSelector : Component,
 	IGameEventHandler<EnterStateEvent>
 {
-	[HostSync] public BombSite CurrentBombSite { get; set; }
+	[Sync( SyncFlags.FromHost )] public BombSite CurrentBombSite { get; set; }
 
 	public void OnGameEvent( EnterStateEvent eventArgs )
 	{

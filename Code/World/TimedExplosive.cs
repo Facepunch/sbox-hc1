@@ -29,9 +29,9 @@ public sealed class TimedExplosive : Component, IUse, IMinimapIcon, IDescription
 
 	public float Progress => Math.Clamp( TimeSinceDefuseStart / DefuseTime, 0f, 1f );
 
-	[HostSync] public TimeSince TimeSinceDefuseStart { get; private set; }
-	[HostSync] public TimeSince TimeSincePlanted { get; private set; }
-	[HostSync]public bool IsDefused { get; private set; }
+	[Sync( SyncFlags.FromHost )] public TimeSince TimeSinceDefuseStart { get; private set; }
+	[Sync( SyncFlags.FromHost )] public TimeSince TimeSincePlanted { get; private set; }
+	[Sync( SyncFlags.FromHost )] public bool IsDefused { get; private set; }
 
 	// IDescription
 	string IDescription.DisplayName => "C4";

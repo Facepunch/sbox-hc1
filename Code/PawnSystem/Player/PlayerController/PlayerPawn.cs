@@ -211,8 +211,8 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 		UpdateRecoilAndSpread();
 	}
 
-	[HostSync] public bool InPlayArea { get; set; } = true;
-	[HostSync] public RealTimeUntil TimeUntilPlayAreaKill { get; set; } = 10f;
+	[Sync( SyncFlags.FromHost )] public bool InPlayArea { get; set; } = true;
+	[Sync( SyncFlags.FromHost )] public RealTimeUntil TimeUntilPlayAreaKill { get; set; } = 10f;
 	[Property] public float OutOfPlayAreaKillTime { get; set; } = 5f;
 
 	void UpdatePlayArea()

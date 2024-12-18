@@ -81,10 +81,10 @@ public sealed class LossBonus : Component,
 	[Property]
 	public int ValuePerRound { get; set; } = 500;
 
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public NetDictionary<Team, int> CurrentLossBonus { get; private set; } = new();
 
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public Team LastWinningTeam { get; private set; }
 
 	void IGameEventHandler<TeamIncomeEvent>.OnGameEvent( TeamIncomeEvent eventArgs )

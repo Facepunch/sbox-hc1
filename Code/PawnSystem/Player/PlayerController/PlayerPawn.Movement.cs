@@ -72,7 +72,7 @@ public partial class PlayerPawn
 	/// <summary>
 	/// If true, we're not allowed to move.
 	/// </summary>
-	[HostSync] public bool IsFrozen { get; set; }
+	[Sync( SyncFlags.FromHost )] public bool IsFrozen { get; set; }
 
 	/// <summary>
 	/// Last time this player moved or attacked.

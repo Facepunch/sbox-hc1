@@ -7,10 +7,10 @@ namespace Facepunch;
 /// </summary>
 public sealed class KillRewards : Component, IGameEventHandler<KillEvent>
 {
-	[Property, HostSync]
+	[Property, Sync( SyncFlags.FromHost )]
 	public bool AllowFriendlyFire { get; set; }
 
-	[Property, HostSync, ShowIf( nameof(AllowFriendlyFire), false )]
+	[Property, Sync( SyncFlags.FromHost ), ShowIf( nameof(AllowFriendlyFire), false )]
 	public int FriendlyFirePenalty { get; set; } = 300;
 
 	void IGameEventHandler<KillEvent>.OnGameEvent( KillEvent eventArgs )
@@ -41,16 +41,16 @@ public sealed class DefuseObjectiveRewards : Component,
 	IGameEventHandler<BombPlantedEvent>,
 	IGameEventHandler<BombDefusedEvent>
 {
-	[Property, HostSync]
+	[Property, Sync( SyncFlags.FromHost )]
 	public int BombPlantReward { get; set; } = 300;
 
-	[Property, HostSync]
+	[Property, Sync( SyncFlags.FromHost )]
 	public int BombDefuseReward { get; set; } = 300;
 
 	/// <summary>
 	/// Team reward for <see cref="Team.Terrorist"/>s if the bomb was planted but the round was lost.
 	/// </summary>
-	[Property, HostSync]
+	[Property, Sync( SyncFlags.FromHost )]
 	public int BombPlantTeamReward { get; set; } = 800;
 
 	void IGameEventHandler<BombPlantedEvent>.OnGameEvent( BombPlantedEvent eventArgs )

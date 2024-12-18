@@ -7,12 +7,12 @@ namespace Facepunch;
 /// </summary>
 public partial class ArmorComponent : Component, IGameEventHandler<ModifyDamageTakenEvent>
 {
-	[Property, ReadOnly, HostSync]
+	[Property, ReadOnly, Sync( SyncFlags.FromHost )]
 	public float Armor { get; set; }
 
 	public float MaxArmor => GetGlobal<PlayerGlobals>().MaxArmor;
 
-	[Property, ReadOnly, HostSync, Change( nameof( OnHasHelmetChanged ) )]
+	[Property, ReadOnly, Sync( SyncFlags.FromHost ), Change( nameof( OnHasHelmetChanged ) )]
 	public bool HasHelmet { get; set; }
 
 	protected void OnHasHelmetChanged( bool _, bool newValue )

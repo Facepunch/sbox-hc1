@@ -24,10 +24,10 @@ public sealed class RoundCounter : Component,
 	/// <summary>
 	/// Current round number, starting at 1.
 	/// </summary>
-	[HostSync, Change( nameof(OnRoundChanged) )]
+	[Sync( SyncFlags.FromHost ), Change( nameof(OnRoundChanged) )]
 	public int Round { get; set; } = 1;
 
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public int LastTeamSwapRound { get; set; } = 0;
 
 	public int RoundsSinceTeamSwap => Round - LastTeamSwapRound;

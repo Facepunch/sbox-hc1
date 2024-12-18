@@ -7,24 +7,24 @@ public abstract class Pawn : Component, IRespawnable, ITeam
 	/// <summary>
 	/// The player state ID
 	/// </summary>
-	[HostSync] public PlayerState PlayerState { get; set; }
+	[Sync( SyncFlags.FromHost )] public PlayerState PlayerState { get; set; }
 
 	/// <summary>
 	/// The position this player last spawned at.
 	/// </summary>
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public Vector3 SpawnPosition { get; set; }
 
 	/// <summary>
 	/// The rotation this player last spawned at.
 	/// </summary>
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public Rotation SpawnRotation { get; set; }
 
 	/// <summary>
 	/// The tags of the last spawn point of this pawn.
 	/// </summary>
-	[HostSync]
+	[Sync( SyncFlags.FromHost )]
 	public NetList<string> SpawnPointTags { get; private set; } = new();
 
 	/// <summary>

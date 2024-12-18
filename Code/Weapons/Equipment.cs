@@ -83,7 +83,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// <summary>
 	/// The <see cref="PlayerPawn"/> who owns this.
 	/// </summary>
-	[HostSync] public PlayerPawn Owner { get; set; }
+	[Sync( SyncFlags.FromHost )] public PlayerPawn Owner { get; set; }
 
 	/// <summary>
 	/// What flags do we have?

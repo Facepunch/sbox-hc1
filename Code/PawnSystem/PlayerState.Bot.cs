@@ -8,7 +8,7 @@ public partial class PlayerState
 	/// <summary>
 	/// Unique ID of this Bot
 	/// </summary>
-	[HostSync] public int BotId { get; set; } = -1;
+	[Sync( SyncFlags.FromHost )] public int BotId { get; set; } = -1;
 
 	/// <summary>
 	/// Is this a bot?

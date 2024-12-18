@@ -9,7 +9,7 @@ namespace Facepunch;
 public sealed class RoundLimit : Component,
 	IGameEventHandler<RoundCounterIncrementedEvent>
 {
-	[Property, HostSync] public int MaxRounds { get; set; } = 30;
+	[Property, Sync( SyncFlags.FromHost )] public int MaxRounds { get; set; } = 30;
 
 	[Property] public StateComponent HalfTimeState { get; set; }
 	[Property] public StateComponent NextState { get; set; }
