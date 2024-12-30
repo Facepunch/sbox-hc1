@@ -39,6 +39,9 @@ public static class GameEvent
 	public static void Dispatch<T>( this GameObject root, T eventArgs )
 		where T : IGameEvent
 	{
+		if ( !root.IsValid() )
+			return;
+
 		var handlers = (root is Scene scene
 			? scene.GetAllComponents<IGameEventHandler<T>>() // I think this is more efficient?
 			: root.Components.GetAll<IGameEventHandler<T>>())

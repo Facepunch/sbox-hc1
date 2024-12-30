@@ -78,6 +78,8 @@ public partial class PlayerPawn : IGameEventHandler<DamageGivenEvent>, IGameEven
 			if ( BloodImpactSound is not null )
 			{
 				var snd = Sound.Play( BloodImpactSound, position );
+				if ( !snd.IsValid() ) return;
+
 				snd.SpacialBlend = IsViewer ? 0 : snd.SpacialBlend;
 			}
 		}
