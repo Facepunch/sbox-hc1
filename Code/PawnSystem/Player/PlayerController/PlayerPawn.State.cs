@@ -48,6 +48,7 @@ public partial class PlayerPawn
 		}
 
 		PlayerController.ColliderObject.Enabled = false;
+		PlayerController.Body.MotionEnabled = false;
 
 		if ( IsProxy )
 			return;
