@@ -18,7 +18,7 @@ partial class GameMode
 	{
 		DisplayedTimerMode.CountUp => TimeSpan.FromSeconds( Math.Clamp( Time.Now.CeilToInt() - TimerStart, 0f, TimerDuration ) ),
 		DisplayedTimerMode.CountDown => TimeSpan.FromSeconds( Math.Clamp( TimerStart + TimerDuration - Time.Now.CeilToInt() + 1f, 0f, TimerDuration ) ),
-		DisplayedTimerMode.StateCountDown => TimeSpan.FromSeconds( Math.Max( StateMachine.NextStateTime - Time.Now.CeilToInt() + 1f, 0f ) ),
+		DisplayedTimerMode.StateCountDown => TimeSpan.FromSeconds( Math.Max( ( StateMachine.IsValid() ? StateMachine.NextStateTime : 0 ) - Time.Now.CeilToInt() + 1f, 0f ) ),
 		_ => null
 	};
 
