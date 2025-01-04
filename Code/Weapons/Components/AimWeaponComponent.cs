@@ -7,6 +7,9 @@ public partial class AimWeaponComponent : InputWeaponComponent
 
 	protected void OnIsAimingChanged( bool before, bool after )
 	{
+		if ( !Equipment.IsValid() ) 
+			return;
+
 		if ( after )
 		{
 			Equipment.EquipmentFlags |= EquipmentFlags.Aiming;
