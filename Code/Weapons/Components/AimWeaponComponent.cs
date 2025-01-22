@@ -22,7 +22,6 @@ public partial class AimWeaponComponent : InputWeaponComponent
 
 	protected override void OnEnabled()
 	{
-		BindTag( "aiming", () => IsAiming );
 		BindTag( "no_sprint", IsDown );
 	}
 

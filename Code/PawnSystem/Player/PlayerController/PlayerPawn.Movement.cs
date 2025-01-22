@@ -198,11 +198,16 @@ public partial class PlayerPawn
 		return CurrentEquipment.IsValid() && CurrentEquipment.Tags.Has( tag );
 	}
 
+	public bool HasEquipmentFlag( EquipmentFlags flag )
+	{
+		return CurrentEquipment.IsValid() && CurrentEquipment.EquipmentFlags.HasFlag( flag );
+	}
+
 	private void BuildInput()
 	{
 		bool wasSprinting = IsSprinting;
 
-		IsSlowWalking = Input.Down( "Walk" ) || HasEquipmentTag( "aiming" );
+		IsSlowWalking = Input.Down( "Walk" ) || HasEquipmentFlag( EquipmentFlags.Aiming );
 		IsSprinting = WantsToSprint;
 
 		if ( wasSprinting != IsSprinting )

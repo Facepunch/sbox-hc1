@@ -28,7 +28,7 @@ public partial class PlayerPawn :
 
 	private void UpdateRecoilAndSpread()
 	{
-		bool isAiming = CurrentEquipment.IsValid() && CurrentEquipment.Tags.Has( "aiming" );
+		bool isAiming = CurrentEquipment.IsValid() && HasEquipmentFlag( EquipmentFlags.Aiming );
 
 		var spread = Global.BaseSpreadAmount;
 		var scale = Global.VelocitySpreadScale;

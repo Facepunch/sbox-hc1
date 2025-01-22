@@ -1,3 +1,5 @@
+using System.Diagnostics.Metrics;
+
 namespace Facepunch;
 
 [Title( "2D Scope" ), Group( "Weapon Components" )]
@@ -38,7 +40,8 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			Sound.Play( ZoomSound, Equipment.GameObject.WorldPosition );
 
 		ZoomLevel = level;
-		Equipment.Tags.Add( "aiming" );
+
+		Equipment.EquipmentFlags |= EquipmentFlags.Aiming;
 
 		if ( Equipment.ViewModel.IsValid() )
 		{
@@ -64,7 +67,7 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			}
 		}
 
-		Equipment.Tags.Remove( "aiming" );
+		Equipment.EquipmentFlags &= ~EquipmentFlags.Aiming;
 
 		AnglesLerp = new Angles();
 		BlurLerp = 1.0f;

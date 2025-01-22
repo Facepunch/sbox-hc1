@@ -181,7 +181,7 @@
         if ( !Object.LookOpacity ) return opacity;
 
         var equipment = Player.IsValid() && Player.CurrentEquipment.IsValid() ? Player.CurrentEquipment : null;
-        bool isAiming = equipment?.Tags.Has("aiming") ?? false;
+        bool isAiming = Player.HasEquipmentFlag( EquipmentFlags.Aiming );
 
         if ( !isAiming ) return 1f;
 
