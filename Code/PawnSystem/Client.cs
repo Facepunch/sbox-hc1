@@ -107,7 +107,7 @@ public partial class Client : Component, ITeam
 		Local = this;
 	}
 
-	public void Kick()
+	public void Kick( string reason = "No reason" )
 	{
 		if ( PlayerPawn.IsValid() )
 		{
@@ -115,7 +115,9 @@ public partial class Client : Component, ITeam
 		}
 
 		GameObject.Destroy();
-		// todo: actually kick em
+
+		// Kick the client
+		Network.Owner.Kick( reason );
 	}
 
 	public static void OnPossess( Pawn pawn )
