@@ -64,6 +64,8 @@ public class ScopeWeaponComponent : InputWeaponComponent
 			}
 		}
 
+		Equipment.Tags.Remove( "aiming" );
+
 		AnglesLerp = new Angles();
 		BlurLerp = 1.0f;
 	}
