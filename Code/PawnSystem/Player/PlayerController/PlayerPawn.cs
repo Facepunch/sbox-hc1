@@ -217,6 +217,8 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 	void UpdatePlayArea()
 	{
+		if ( !Networking.IsHost ) return;
+
 		// Don't have any play areas, dont bother.
 		if ( Scene.GetSystem<PlayAreaSystem>().Count < 1 )
 			return;
@@ -239,7 +241,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 		if ( !InPlayArea && TimeUntilPlayAreaKill )
 		{
-			HealthComponent.TakeDamage( new DamageInfo( this as Component, 999, Hitbox: HitboxTags.Chest ) );
+			HealthComponent.TakeDamage( new DamageInfo( this, 999, Hitbox: HitboxTags.Chest ) );
 		}
 	}
 }
