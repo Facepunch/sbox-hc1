@@ -349,19 +349,6 @@ public partial class PlayerPawn
 		return Global.WalkSpeed - GetSpeedPenalty();
 	}
 
-	/// <summary>
-	/// Get the current friction.
-	/// </summary>
-	/// <returns></returns>
-	public float GetFriction()
-	{
-		if ( !PlayerController.IsOnGround ) return 0.1f;
-		if ( IsSlowWalking ) return Global.SlowWalkFriction;
-		if ( IsCrouching ) return Global.CrouchingFriction;
-		if ( IsSprinting ) return Global.SprintingFriction;
-		return Global.WalkFriction;
-	}
-
 	private void DebugUpdate()
 	{
 		DebugText.Update();

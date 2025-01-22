@@ -24,7 +24,7 @@ public partial class MoveModeDefault : MoveMode
 		var wish = Controller.WishVelocity;
 		if ( wish.IsNearZeroLength ) return;
 
-		var groundFriction = (Controller.GroundFriction / 4f) * Player.GetFriction();
+		var groundFriction = (Controller.GroundFriction / 4f);
 		var groundVelocity = Controller.GroundVelocity;
 
 		var z = body.Velocity.z;
