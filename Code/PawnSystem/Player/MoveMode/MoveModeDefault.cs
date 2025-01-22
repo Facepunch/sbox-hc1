@@ -7,17 +7,11 @@ public partial class MoveModeDefault : MoveMode
 {
 	public PlayerPawn Player => GetComponentInParent<PlayerPawn>();
 
-	[Property]
-	public int Priority { get; set; } = 0;
+	[Property] public int Priority { get; set; } = 0;
 
-	[Property]
-	public float GroundAngle { get; set; } = 45.0f;
-
-	[Property]
-	public float StepUpHeight { get; set; } = 18.0f;
-
-	[Property]
-	public float StepDownHeight { get; set; } = 18.0f;
+	[Property] public float GroundAngle { get; set; } = 45.0f;
+	[Property] public float StepUpHeight { get; set; } = 18.0f;
+	[Property] public float StepDownHeight { get; set; } = 18.0f;
 
 	public override bool AllowGrounding => true;
 	public override bool AllowFalling => true;
@@ -26,16 +20,11 @@ public partial class MoveModeDefault : MoveMode
 
 	public override void AddVelocity()
 	{
-		if ( IsProxy )
-			return;
-
-		Controller.FeetCollider.Friction = Player.GetFriction();
-
 		var body = Controller.Body;
 		var wish = Controller.WishVelocity;
 		if ( wish.IsNearZeroLength ) return;
 
-		var groundFriction = (Controller.GroundFriction / 2f) * Player.GetFriction();
+		var groundFriction = (Controller.GroundFriction / 4f) * Player.GetFriction();
 		var groundVelocity = Controller.GroundVelocity;
 
 		var z = body.Velocity.z;
@@ -70,27 +59,21 @@ public partial class MoveModeDefault : MoveMode
 
 	public override void PrePhysicsStep()
 	{
-		base.PrePhysicsStep();
-
 		if ( StepUpHeight > 0 )
 		{
 			TrySteppingUp( StepUpHeight );
 		}
-
 	}
 
 	public override void PostPhysicsStep()
 	{
-		base.PostPhysicsStep();
-
 		if ( StepDownHeight > 0 )
 		{
 			StickToGround( StepDownHeight );
 		}
-
 	}
 
-	public override bool IsStandableSurace( in SceneTraceResult result )
+	public override bool IsStandableSurface( in SceneTraceResult result )
 	{
 		if ( Vector3.GetAngle( Vector3.Up, result.Normal ) > GroundAngle )
 			return false;
@@ -103,12 +86,7 @@ public partial class MoveModeDefault : MoveMode
 		// ignore pitch when walking
 		eyes = eyes.Angles() with { pitch = 0 };
 
-		// don't normalize, because analog input might want to go slow
-		input = input.ClampLength( 1 );
-
 		var wish = eyes * input;
-		if ( wish.IsNearZeroLength ) return default;
-
 		var velocity = Player.GetWishSpeed();
 
 		return wish * velocity;
