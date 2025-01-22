@@ -41,7 +41,7 @@ public sealed class TeamSpawnPoint : Component
 	[DeveloperCommand( "Add Spawn Point", "Player" )]
 	private static void Dev_CopySpawnPoint()
 	{
-		var player = PlayerState.Local.PlayerPawn;
+		var player = Client.Local.PlayerPawn;
 		if ( player is null ) return;
 
 		var obj = new JsonObject

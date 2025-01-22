@@ -12,7 +12,7 @@ public partial class PlayerPawn
 	[DeveloperCommand( "-10 HP (head)", "Player" )]
 	private static void Command_HurtTenHead()
 	{
-		var player = PlayerState.Local.PlayerPawn;
+		var player = Client.Local.PlayerPawn;
 		if ( player is null ) return;
 		player.HealthComponent.TakeDamage( new DamageInfo( player as Component, 10, Hitbox: HitboxTags.Head ) );
 	}
@@ -20,7 +20,7 @@ public partial class PlayerPawn
 	[DeveloperCommand( "-10 HP (chest)", "Player" )]
 	private static void Command_HurtTenChest()
 	{
-		var player = PlayerState.Local.PlayerPawn;
+		var player = Client.Local.PlayerPawn;
 		if ( player is null ) return;
 		player.HealthComponent.TakeDamage( new DamageInfo( player as Component, 10, Hitbox: HitboxTags.Chest ) );
 	}
@@ -28,7 +28,7 @@ public partial class PlayerPawn
 	[DeveloperCommand( "Heal", "Player" )]
 	private static void Command_Heal()
 	{
-		var player = PlayerState.Local.PlayerPawn;
+		var player = Client.Local.PlayerPawn;
 		if ( player is null ) return;
 		player.HealthComponent.Health = player.HealthComponent.MaxHealth;
 	}
@@ -36,7 +36,7 @@ public partial class PlayerPawn
 	[DeveloperCommand( "Suicide", "Player" ), ConCmd( "kill" )]
 	private static void Command_Suicide()
 	{
-		var player = PlayerState.Local.PlayerPawn;
+		var player = Client.Local.PlayerPawn;
 		if ( player is null ) return;
 		Host_Suicide( player );
 	}
@@ -44,18 +44,18 @@ public partial class PlayerPawn
 	[DeveloperCommand( "Give $1k", "Player" )]
 	private static void Command_GiveGrand()
 	{
-		var player = PlayerState.Local.PlayerPawn;
+		var player = Client.Local.PlayerPawn;
 		if ( player is null ) return;
-		player.PlayerState.GiveCash( 1000 );
+		player.Client.GiveCash( 1000 );
 	}
 
 
 	[DeveloperCommand( "Give Scores", "Player" )]
 	private static void Command_Scores()
 	{
-		var player = PlayerState.Local.PlayerPawn;
+		var player = Client.Local.PlayerPawn;
 		if ( player is null ) return;
-		player.PlayerState.GetComponent<PlayerScore>().AddScore( 25, "Killed a player" );
+		player.Client.GetComponent<PlayerScore>().AddScore( 25, "Killed a player" );
 	}
 
 	[Rpc.Owner]

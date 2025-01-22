@@ -68,17 +68,17 @@ public sealed class RandomSpawnAssigner : Component, ISpawnAssigner
 		return true;
 	}
 
-	SpawnPointInfo ISpawnAssigner.GetSpawnPoint( PlayerState player )
+	SpawnPointInfo ISpawnAssigner.GetSpawnPoint( Client player )
 	{
 		var allPlayers = GameUtils.PlayerPawns
-			.Where( x => x.PlayerState != player )
+			.Where( x => x.Client != player )
 			.Where( x => x.HealthComponent.State == LifeState.Alive )
 			.Select( x => x.Transform.World )
 			.ToArray();
 
 		var enemyPlayers = GameUtils.PlayerPawns
-			.Where( x => x.PlayerState != player )
-			.Where( x => !x.PlayerState.IsFriendly( player ) )
+			.Where( x => x.Client != player )
+			.Where( x => !x.Client.IsFriendly( player ) )
 			.Where( x => x.HealthComponent.State == LifeState.Alive )
 			.Select( x => x.Transform.World )
 			.ToArray();

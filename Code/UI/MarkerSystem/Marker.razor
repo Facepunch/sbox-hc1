@@ -37,7 +37,7 @@
 @code
 {
     public IMarkerObject Object { get; set; }
-    private PlayerPawn Viewer => PlayerState.Viewer.IsValid() ? PlayerState.Viewer.PlayerPawn : null;
+    private PlayerPawn Viewer => Client.Viewer.IsValid() ? Client.Viewer.PlayerPawn : null;
 
     BaseMarkerPanel CustomPanel { get; set; }
 
@@ -121,9 +121,9 @@
             return;
 
         PlayerPawn pawn = null;
-        if ( PlayerState.Viewer.IsValid() && PlayerState.Viewer.PlayerPawn.IsValid() )
+        if ( Client.Viewer.IsValid() && Client.Viewer.PlayerPawn.IsValid() )
         {
-            pawn = PlayerState.Viewer.PlayerPawn;
+            pawn = Client.Viewer.PlayerPawn;
         }
 
         var camera = pawn.IsValid() ? pawn.CameraController.Camera : Scene.Camera;
@@ -166,9 +166,9 @@
     {
         get 
         {
-            if ( PlayerState.Viewer.IsValid() && PlayerState.Viewer.PlayerPawn.IsValid() ) 
+            if ( Client.Viewer.IsValid() && Client.Viewer.PlayerPawn.IsValid() ) 
             {
-                return PlayerState.Viewer.PlayerPawn;
+                return Client.Viewer.PlayerPawn;
             }
             return null;
         }

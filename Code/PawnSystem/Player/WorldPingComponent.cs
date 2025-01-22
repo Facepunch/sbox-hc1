@@ -8,7 +8,7 @@ public partial class WorldPingComponent : Component, IMarkerObject, ICustomMinim
 	/// <summary>
 	/// Who's the owner?
 	/// </summary>
-	public PlayerState Owner { get; set; }
+	public Client Owner { get; set; }
 
 	private Vector3 MarkerPosition
 	{

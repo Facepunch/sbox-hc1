@@ -7,12 +7,12 @@
     return;
 }
 
-@if ( PlayerState.PlayerPawn.IsValid() )
+@if ( Client.PlayerPawn.IsValid() )
 {
     return;
 }
 
-@if ( PlayerState.RespawnState == RespawnState.Immediate ) 
+@if ( Client.RespawnState == RespawnState.Immediate ) 
 {
     return;
 }
@@ -44,7 +44,7 @@
 @code
 {
     public Respawner Respawner => Scene.GetAllComponents<Respawner>().FirstOrDefault();
-    public PlayerState PlayerState => PlayerState.Local;
+    public Client Client => Client.Local;
 
     protected override int BuildHash()
     {

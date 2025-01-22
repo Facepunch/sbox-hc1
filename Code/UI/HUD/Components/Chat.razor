@@ -167,7 +167,7 @@
         if ( ChatMode == ChatModes.Team )
         {
             var players = GameUtils.AllPlayers;
-            var friendlyGameObjects = players.Where((PlayerState x) => !x.IsBot && PlayerState.Local.IsFriendly(x));
+            var friendlyGameObjects = players.Where((Client x) => !x.IsBot && Client.Local.IsFriendly(x));
             var friendlyConnections = friendlyGameObjects.Select( x => x.Connection );
 
             using ( Rpc.FilterInclude( friendlyConnections ) )
@@ -192,14 +192,14 @@
         var author = Rpc.Caller.DisplayName;
         var steamid = Rpc.Caller.SteamId;
 
-        var playerState = GameUtils.AllPlayers.FirstOrDefault(x => x.Connection == Rpc.Caller);
+        var Client = GameUtils.AllPlayers.FirstOrDefault(x => x.Connection == Rpc.Caller);
 
-        if ( !playerState.IsValid() )
+        if ( !Client.IsValid() )
             return;
 
-        var color = playerState.Team.GetColor();
+        var color = Client.Team.GetColor();
 
-        var playerPawn = playerState.PlayerPawn;
+        var playerPawn = Client.PlayerPawn;
         string location = null;
         if ( playerPawn.IsValid() )
         {

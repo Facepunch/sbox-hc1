@@ -11,16 +11,16 @@
 
     float GetOpacity()
     {
-        if ( !PlayerState.Viewer.IsValid() )
+        if ( !Client.Viewer.IsValid() )
             return 0f;
 
-        if ( !PlayerState.Viewer.Pawn.IsValid() )
+        if ( !Client.Viewer.Pawn.IsValid() )
             return 0f;
 
-        if ( !PlayerState.Viewer.Pawn.HealthComponent.IsValid() )
+        if ( !Client.Viewer.Pawn.HealthComponent.IsValid() )
             return 0f;
 
-        if ( PlayerState.Viewer.Pawn.HealthComponent.IsGodMode ) 
+        if ( Client.Viewer.Pawn.HealthComponent.IsGodMode ) 
             return 1f;
 
         return 0f;

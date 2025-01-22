@@ -125,7 +125,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 	[DeveloperCommand( "Toggle Third Person", "Player" )]
 	public static void ToggleThirdPerson()
 	{
-		var pl = PlayerState.Local.PlayerPawn;
+		var pl = Client.Local.PlayerPawn;
 		pl.CameraController.Mode = pl.CameraController.Mode == CameraMode.FirstPerson ? CameraMode.ThirdPerson : CameraMode.FirstPerson;
 	}
 

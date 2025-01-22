@@ -12,6 +12,15 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 
 	public Rigidbody Rigidbody { get; private set; }
 
+	/// <summary>
+	/// Creates a world instance of a dropped piece of equipment. Takes in a <see cref="EquipmentResource"/>, position, rotation, and optionally a held weapon to inherit data from.
+	/// </summary>
+	/// <param name="resource"></param>
+	/// <param name="positon"></param>
+	/// <param name="rotation"></param>
+	/// <param name="heldWeapon"></param>
+	/// <param name="networkSpawn"></param>
+	/// <returns></returns>
 	public static DroppedEquipment Create( EquipmentResource resource, Vector3 positon, Rotation? rotation = null, Equipment heldWeapon = null, bool networkSpawn = true )
 	{
 		Assert.True( Networking.IsHost );

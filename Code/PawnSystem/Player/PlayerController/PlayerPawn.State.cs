@@ -35,12 +35,12 @@ public partial class PlayerPawn
 			var defaultRespawnState = Scene.GetAllComponents<DefaultRespawnState>().FirstOrDefault();
 			if ( defaultRespawnState.IsValid() )
 			{
-				PlayerState.RespawnState = defaultRespawnState.RespawnState;
+				Client.RespawnState = defaultRespawnState.RespawnState;
 			}
 			else
 			{
 				// on join, spawn right now if we can
-				PlayerState.RespawnState = RespawnState.Requested;
+				Client.RespawnState = RespawnState.Requested;
 			}
 
 			Inventory.Clear();
@@ -53,7 +53,7 @@ public partial class PlayerPawn
 		if ( IsProxy )
 			return;
 
-		PlayerState.OnKill( damageInfo );
+		Client.OnKill( damageInfo );
 
 		Holster();
 
@@ -112,10 +112,10 @@ public partial class PlayerPawn
 	[Rpc.Owner]
 	private void OnClientRespawn()
 	{
-		if ( !PlayerState.IsValid() )
+		if ( !Client.IsValid() )
 			return;
 
-		if ( PlayerState.IsBot )
+		if ( Client.IsBot )
 			return;
 
 		Possess();

@@ -8,14 +8,14 @@ namespace Facepunch;
 public partial class DeployedPawnHandler : Component
 {
 	[RequireComponent] 
-	PlayerState PlayerState { get; set; }
+	Client Client { get; set; }
 
 	[Sync] 
 	public Pawn Pawn { get; set; }
 
 	public void PossessPlayerPawn()
 	{
-		PlayerState?.PlayerPawn?.Possess();
+		Client?.PlayerPawn?.Possess();
 	}
 
 	public void PossessDeployedPawn()
@@ -27,7 +27,7 @@ public partial class DeployedPawnHandler : Component
 	{
 		Assert.True( Networking.IsHost );
 
-		var handler = pawn.PlayerState.GetOrAddComponent<DeployedPawnHandler>();
+		var handler = pawn.Client.GetOrAddComponent<DeployedPawnHandler>();
 		handler.Pawn = pawn;
 
 		return handler;
@@ -35,14 +35,14 @@ public partial class DeployedPawnHandler : Component
 
 	protected override void OnFixedUpdate()
 	{
-		if ( PlayerState.IsLocalPlayer )
+		if ( Client.IsLocalPlayer )
 		{
 			if ( !Pawn.IsValid() )
 				return;
 
 			if ( Input.Pressed( "Use" ) )
 			{
-				if ( PlayerState.Pawn == Pawn )
+				if ( Client.Pawn == Pawn )
 				{
 					PossessPlayerPawn();
 				}

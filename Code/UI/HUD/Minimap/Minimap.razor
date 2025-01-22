@@ -2,7 +2,7 @@
 @attribute [StyleSheet]
 @inherits Panel
 
-@if ( !PlayerState.Viewer.Pawn.IsValid() ) return;
+@if ( !Client.Viewer.Pawn.IsValid() ) return;
 
 <root class="with-rounding @(FullMode ? "big" : "radar")" style="border: 1px solid @(TeamColor.WithAlpha( 0.5f ).Hex)">
     @if (Renderer.IsValid())
@@ -15,7 +15,7 @@
 
                     @foreach ( var volume in Game.ActiveScene.GetAllComponents<IMinimapVolume>() )
                     {
-                        if (!volume.IsValid() || (PlayerState.Viewer.Pawn is PlayerPawn player && !volume.IsVisible( player )))
+                        if (!volume.IsValid() || (Client.Viewer.Pawn is PlayerPawn player && !volume.IsVisible( player )))
                             continue;
                             
                         <div class="volume" style="@GetBox( volume ) @GetBoxStyles( volume )" >
@@ -29,7 +29,7 @@
         <div class="markers">
             @foreach ( var element in Game.ActiveScene.GetAllComponents<IMinimapElement>() )
             {
-                @if ( !element.IsValid() || ( PlayerState.Viewer.Pawn is PlayerPawn player && !element.IsVisible( player ) ) )
+                @if ( !element.IsValid() || ( Client.Viewer.Pawn is PlayerPawn player && !element.IsVisible( player ) ) )
                     continue;
 
                 @if ( element is IMinimapIcon icon && !string.IsNullOrEmpty( icon.IconPath ) )
@@ -39,7 +39,7 @@
                     if ( icon is IDirectionalMinimapIcon { EnableDirectional: true } dir )
                         style += RotationToMap( dir.Direction );
                     else
-                        style += RotationToMap( FixedMode ? 0 : PlayerState.Viewer.Pawn?.EyeAngles.yaw ?? 0 );
+                        style += RotationToMap( FixedMode ? 0 : Client.Viewer.Pawn?.EyeAngles.yaw ?? 0 );
 
                     if (icon is ICustomMinimapIcon custom)
                         style += custom.CustomStyle;
@@ -56,7 +56,7 @@
             }
 
             <!-- POV Marker -->
-            @if ( PlayerState.Viewer.Pawn is not PlayerPawn || PlayerState.Viewer.Pawn?.HealthComponent?.State == LifeState.Alive )
+            @if ( Client.Viewer.Pawn is not PlayerPawn || Client.Viewer.Pawn?.HealthComponent?.State == LifeState.Alive )
             {
                 <div class="marker @(SpectateSystem.Instance?.IsFreecam ?? false ? "" : "viewer")" style="@WorldToMap( ViewPos ) @RotationToMap( ViewYaw ) background-tint: @ViewerColor.Hex" />
             }
@@ -69,13 +69,13 @@
 {
     public MinimapRenderer Renderer => Game.ActiveScene.GetAllComponents<MinimapRenderer>().FirstOrDefault();
 
-    public Color TeamColor => PlayerState.Viewer.Team.GetColor();
-    private PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
+    public Color TeamColor => Client.Viewer.Team.GetColor();
+    private PlayerPawn Player => Client.Viewer.PlayerPawn;
 
-    public Color ViewerColor => PlayerState.Viewer.PlayerColor;
+    public Color ViewerColor => Client.Viewer.PlayerColor;
 
-    public Vector3 ViewPos => PlayerState.Viewer.Pawn?.WorldPosition ?? Vector3.Zero;
-    public float ViewYaw => PlayerState.Viewer.Pawn?.EyeAngles.yaw ?? 0;
+    public Vector3 ViewPos => Client.Viewer.Pawn?.WorldPosition ?? Vector3.Zero;
+    public float ViewYaw => Client.Viewer.Pawn?.EyeAngles.yaw ?? 0;
 
     public float Zoom => 2;
 

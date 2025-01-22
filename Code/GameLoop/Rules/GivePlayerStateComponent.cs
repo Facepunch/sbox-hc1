@@ -2,13 +2,13 @@
 
 namespace Facepunch;
 
-public abstract class GivePlayerStateComponent<T> : Component,
+public abstract class GiveClientComponent<T> : Component,
 	IGameEventHandler<EnterStateEvent>,
 	IGameEventHandler<LeaveStateEvent>,
 	IGameEventHandler<PlayerJoinedEvent>
 	where T : Component, new()
 {
-	private void CreateForPlayer( PlayerState player )
+	private void CreateForPlayer( Client player )
 	{
 		if ( player.GetComponentInChildren<T>( true ) is { } existing )
 		{

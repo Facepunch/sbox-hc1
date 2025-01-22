@@ -16,7 +16,7 @@ public abstract class BuyMenuItem
 		if ( IsOwned( player ) ) return;
 
 		var price = GetPrice( player );
-		player.PlayerState.GiveCash( -price );
+		player.Client.GiveCash( -price );
 		OnPurchase( player );
 	}
 

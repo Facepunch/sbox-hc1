@@ -33,7 +33,7 @@
     public PlayerInventory Inventory => Player.Inventory;
 
     /// The player
-    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
+    public PlayerPawn Player => Client.Viewer.PlayerPawn;
 
     private AmmoComponent AmmoComponent => Player?.CurrentEquipment?.Components?.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
 

@@ -63,7 +63,7 @@ public sealed class SpawnProtection : Component,
 
 		player.HealthComponent.IsGodMode = true;
 
-		using ( Rpc.FilterInclude( player.PlayerState.Connection ) )
+		using ( Rpc.FilterInclude( player.Client.Connection ) )
 		{
 			GameMode.Instance.ShowToast( "Spawn Protected", duration: MaxDurationSeconds );
 		}
@@ -76,16 +76,16 @@ public sealed class SpawnProtection : Component,
 		if ( !player.IsValid() ) 
 			return;
 
-		if ( !player.PlayerState.IsValid() )
+		if ( !player.Client.IsValid() )
 			return;
 
-		if ( !player.Network.Active || !player.PlayerState.Network.Active )
+		if ( !player.Network.Active || !player.Client.Network.Active )
 			return;
 
 		_spawnProtectedSince.Remove( player );
 		player.HealthComponent.IsGodMode = false;
 
-		using ( Rpc.FilterInclude( player.PlayerState.Connection ) )
+		using ( Rpc.FilterInclude( player.Client.Connection ) )
 		{
 			GameMode.Instance.HideToast();
 		}

@@ -36,7 +36,7 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject, IDescription
 			Explosion.AtPoint( WorldPosition, DamageRadius, MaxDamage, Player, this, DamageFalloff );
 
 		var screenShaker = ScreenShaker.Main;
-		var viewer = PlayerState.Viewer;
+		var viewer = Client.Viewer;
 		
 		if ( screenShaker.IsValid() && viewer.IsValid() )
 		{

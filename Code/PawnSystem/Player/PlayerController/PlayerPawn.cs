@@ -128,23 +128,23 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 		if ( !IsLocallyControlled )
 			return;
 
-		if ( !PlayerState.IsValid() )
+		if ( !Client.IsValid() )
 			return;
 
-		if ( PlayerState.LastDamageInfo is null )
+		if ( Client.LastDamageInfo is null )
 			return;
 
-		var killer = PlayerState.GetLastKiller();
+		var killer = Client.GetLastKiller();
 
 		if ( killer.IsValid() )
 		{
 			EyeAngles = Rotation.LookAt( killer.WorldPosition - WorldPosition, Vector3.Up );
 		}
 
-		if ( ( ( Input.Pressed( "attack1" ) || Input.Pressed( "attack2" ) ) && !PlayerState.IsRespawning ) || PlayerState.IsBot || PlayerState.LastDamageInfo.TimeSinceEvent > DeathcamSkipTime )
+		if ( ( ( Input.Pressed( "attack1" ) || Input.Pressed( "attack2" ) ) && !Client.IsRespawning ) || Client.IsBot || Client.LastDamageInfo.TimeSinceEvent > DeathcamSkipTime )
 		{
 			// Don't let players immediately switch
-			if ( PlayerState.LastDamageInfo.TimeSinceEvent < DeathcamIgnoreInputTime ) return;
+			if ( Client.LastDamageInfo.TimeSinceEvent < DeathcamIgnoreInputTime ) return;
 
 			GameObject.Destroy();
 			return;
@@ -153,7 +153,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 	protected override void OnFixedUpdate()
 	{
-		if ( !PlayerState.IsValid() )
+		if ( !Client.IsValid() )
 			return;
 
 		var cc = PlayerController;
@@ -185,7 +185,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 			return;
 		}
 
-		if ( Networking.IsHost && PlayerState.IsBot )
+		if ( Networking.IsHost && Client.IsBot )
 		{
 			if ( BotFollowHostInput )
 			{

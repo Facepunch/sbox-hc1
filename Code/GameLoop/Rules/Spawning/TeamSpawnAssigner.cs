@@ -26,7 +26,7 @@ public sealed class TeamSpawnAssigner : Component,
 	[Property, InlineEditor]
 	public List<SpawnRule> SpawnRules { get; private set; } = new();
 
-	public SpawnPointInfo GetSpawnPoint( PlayerState player )
+	public SpawnPointInfo GetSpawnPoint( Client player )
 	{
 		var team = player.Team;
 		var spawns = GameUtils.GetSpawnPoints( team, SpawnTags.ToArray() ).Shuffle();
@@ -38,7 +38,7 @@ public sealed class TeamSpawnAssigner : Component,
 		}
 
 		var playerPositions = GameUtils.PlayerPawns
-			.Where( x => x.PlayerState != player )
+			.Where( x => x.Client != player )
 			.Where( x => x.TimeSinceLastRespawn < 1f )
 			.Where( x => x.HealthComponent.State == LifeState.Alive )
 			.Select( x => (x.WorldPosition, Tags: x.SpawnPointTags) )

@@ -69,7 +69,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 		get
 		{
 			if ( IsEnemy ) return "background-image-tint: rgba(255, 0, 0, 1 );";
-			return $"background-image-tint: {Player.PlayerState.PlayerColor.Hex}";
+			return $"background-image-tint: {Player.Client.PlayerColor.Hex}";
 		}
 	}
 
@@ -81,7 +81,7 @@ public partial class PlayerMarker : Component, IMarkerObject, IDirectionalMinima
 	/// <summary>
 	/// Is this player an enemy of the viewer?
 	/// </summary>
-	bool IsEnemy => PlayerState.Viewer.Team != Player.Team;
+	bool IsEnemy => Client.Viewer.Team != Player.Team;
 
 	/// <summary>
 	/// Did we spot this player recently?

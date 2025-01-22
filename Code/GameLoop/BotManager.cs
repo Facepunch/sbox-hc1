@@ -31,13 +31,13 @@ public sealed class BotManager : SingletonComponent<BotManager>
 
 	public void AddBot()
 	{
-		var player = GameNetworkManager.Instance.PlayerStatePrefab.Clone();
-		player.Name = $"PlayerState (BOT)";
+		var player = GameNetworkManager.Instance.ClientPrefab.Clone();
+		player.Name = $"Client (BOT)";
 
-		var playerState = player.GetComponent<PlayerState>();
-		playerState.BotId = CurrentBotId;
+		var Client = player.GetComponent<Client>();
+		Client.BotId = CurrentBotId;
 
-		GameNetworkManager.Instance.OnPlayerJoined( playerState, Connection.Host );
+		GameNetworkManager.Instance.OnPlayerJoined( Client, Connection.Host );
 
 		CurrentBotId++;
 	}

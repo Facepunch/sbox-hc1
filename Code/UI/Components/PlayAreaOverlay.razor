@@ -20,7 +20,7 @@
 @code
 {
     public Panel Overlay { get; set; }
-    public PlayerPawn Player => PlayerState.Viewer.Pawn as PlayerPawn;
+    public PlayerPawn Player => Client.Viewer.Pawn as PlayerPawn;
 
     public string Elapsed => TimeSpan.FromSeconds( Player.TimeUntilPlayAreaKill ).ToString( @"ss\:fff" );
 

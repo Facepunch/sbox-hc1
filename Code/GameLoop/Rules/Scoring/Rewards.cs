@@ -28,11 +28,11 @@ public sealed class KillRewards : Component, IGameEventHandler<KillEvent>
 
 		if ( !AllowFriendlyFire && killerPlayer.IsFriendly( victimPlayer ) )
 		{
-			killerPlayer.PlayerState.GiveCash( -FriendlyFirePenalty );
+			killerPlayer.Client.GiveCash( -FriendlyFirePenalty );
 		}
 		else if ( damageInfo.Inflictor is Equipment weapon )
 		{
-			killerPlayer.PlayerState.GiveCash( weapon.Resource.KillReward );
+			killerPlayer.Client.GiveCash( weapon.Resource.KillReward );
 		}
 	}
 }
@@ -55,12 +55,12 @@ public sealed class DefuseObjectiveRewards : Component,
 
 	void IGameEventHandler<BombPlantedEvent>.OnGameEvent( BombPlantedEvent eventArgs )
 	{
-		eventArgs.Planter?.PlayerState.GiveCash( BombPlantReward );
+		eventArgs.Planter?.Client.GiveCash( BombPlantReward );
 	}
 
 	void IGameEventHandler<BombDefusedEvent>.OnGameEvent( BombDefusedEvent eventArgs )
 	{
-		eventArgs.Defuser?.PlayerState.GiveCash( BombDefuseReward );
+		eventArgs.Defuser?.Client.GiveCash( BombDefuseReward );
 
 		foreach ( var player in GameUtils.GetPlayers( Team.Terrorist ) )
 		{

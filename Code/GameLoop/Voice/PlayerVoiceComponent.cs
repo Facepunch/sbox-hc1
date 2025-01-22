@@ -4,7 +4,7 @@ namespace Facepunch;
 
 public partial class PlayerVoiceComponent : Voice
 {
-	[Property] public PlayerState PlayerState { get; set; }
+	[Property] public Client Client { get; set; }
 
 	IVoiceFilter Filter { get; set; }
 

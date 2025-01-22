@@ -15,12 +15,12 @@ public static partial class GameUtils
 	/// <summary>
 	/// All players in the game (includes disconnected players before expiration).
 	/// </summary>
-	public static IEnumerable<PlayerState> AllPlayers => Game.ActiveScene.GetAllComponents<PlayerState>();
+	public static IEnumerable<Client> AllPlayers => Game.ActiveScene.GetAllComponents<Client>();
 
 	/// <summary>
 	/// Get all players on a team.
 	/// </summary>
-	public static IEnumerable<PlayerState> GetPlayers( Team team ) => AllPlayers.Where( x => x.Team == team );
+	public static IEnumerable<Client> GetPlayers( Team team ) => AllPlayers.Where( x => x.Team == team );
 
 	/// <summary>
 	/// Every <see cref="PlayerPawn"/> currently in the world.
@@ -146,7 +146,7 @@ public static partial class GameUtils
 			writer.WriteLine( $"  {pawn.GameObject.Name}:" );
 			writer.WriteLine( $"    Id: {pawn.Id}" );
 			writer.WriteLine( $"    DisplayName: {pawn.DisplayName}" );
-			writer.WriteLine( $"    PlayerState: {pawn.PlayerState?.Id.ToString() ?? "null"}" );
+			writer.WriteLine( $"    Client: {pawn.Client?.Id.ToString() ?? "null"}" );
 		}
 
 		writer.WriteLine();

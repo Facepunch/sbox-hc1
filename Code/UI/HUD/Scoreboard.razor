@@ -46,7 +46,7 @@
                     <label class="col stat-small small"></label>
                     <label class="col playername small"></label>
                    
-                    @foreach ( var x in IScore.Find( PlayerState.Local ) )
+                    @foreach ( var x in IScore.Find( Client.Local ) )
                     {
                         <label class="col stat">@(x.Attribute.Name)</label>
                     }
@@ -54,7 +54,7 @@
 
                 @foreach ( var player in group )
                 {
-                    <ScoreboardRow PlayerState="@player" />
+                    <ScoreboardRow Client="@player" />
                 }
 
                 @if ( i == 0 )
@@ -75,13 +75,13 @@
     public int? RoundNumber => GameMode.Instance.Get<RoundCounter>()?.Round;
     public int? RoundLimit => GameMode.Instance.Get<RoundLimit>()?.MaxRounds;
 
-    public IEnumerable<PlayerState> PlayerStates => GameUtils.AllPlayers;
+    public IEnumerable<Client> Clients => GameUtils.AllPlayers;
 
-    private List<IGrouping<Team, PlayerState>> GroupedPlayers
+    private List<IGrouping<Team, Client>> GroupedPlayers
     {
         get
         {
-            var sortedPlayers = PlayerStates.OrderByDescending( x => x.GetComponent<PlayerScore>().Score );
+            var sortedPlayers = Clients.OrderByDescending( x => x.GetComponent<PlayerScore>().Score );
             var groupedPlayers = sortedPlayers.GroupBy( x => x.Team );
             return groupedPlayers.ToList();
         }

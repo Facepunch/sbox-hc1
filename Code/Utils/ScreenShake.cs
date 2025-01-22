@@ -48,18 +48,18 @@ public abstract class ScreenShake
 
 		public override bool Update( CameraComponent camera )
 		{
-			if ( !PlayerState.Viewer.IsValid() )
+			if ( !Client.Viewer.IsValid() )
 				return false;
 
-			if ( !PlayerState.Viewer.PlayerPawn.IsValid() )
+			if ( !Client.Viewer.PlayerPawn.IsValid() )
 				return false;
 
-			if ( !PlayerState.Viewer.PlayerPawn.CameraController.IsValid() )
+			if ( !Client.Viewer.PlayerPawn.CameraController.IsValid() )
 				return false;
 
 			var c = Curve.Evaluate( Progress );
 
-			var cc = PlayerState.Viewer.PlayerPawn?.CameraController;
+			var cc = Client.Viewer.PlayerPawn?.CameraController;
 			cc.AddFieldOfViewOffset( Amount * c );
 
 			return LifeTime < Length;

@@ -8,7 +8,7 @@ namespace Facepunch;
 /// Give each player a <see cref="RetakesScoring"/> component.
 /// </summary>
 public sealed class EnableRetakesScoring
-	: GivePlayerStateComponent<RetakesScoring>
+	: GiveClientComponent<RetakesScoring>
 {
 
 }

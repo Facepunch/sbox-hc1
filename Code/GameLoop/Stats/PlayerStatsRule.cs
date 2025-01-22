@@ -21,7 +21,7 @@ public sealed class PlayerStatsRule : Component,
 			return;
 
 		// Bots don't care about stats
-		if ( player.PlayerState.IsBot )
+		if ( player.Client.IsBot )
 			return;
 
 		// TODO: Don't count team-kills?
@@ -47,11 +47,11 @@ public sealed class PlayerStatsRule : Component,
 			return;
 
 		// Player left?
-		if ( !player.PlayerState.IsValid() )
+		if ( !player.Client.IsValid() )
 			return;
 
 		// Bots don't care about stats
-		if ( player.PlayerState.IsBot )
+		if ( player.Client.IsBot )
 			return;
 
 		var attacker = GameUtils.GetPlayerFromComponent( eventArgs.DamageInfo.Attacker );

@@ -67,7 +67,7 @@ public partial class PlayerBody : Component
 		if ( !Player.CameraController.IsValid() )
 			return;
 		
-		var isWatchingThisPlayer = PlayerState.Viewer.IsValid() && PlayerState.Viewer.Pawn == Player;
+		var isWatchingThisPlayer = Client.Viewer.IsValid() && Client.Viewer.Pawn == Player;
 		Tags.Set( "viewer", isWatchingThisPlayer && Player.CameraController.Mode == CameraMode.FirstPerson );
 	}
 }

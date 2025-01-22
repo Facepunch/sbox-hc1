@@ -12,7 +12,7 @@
 
 @code
 {
-    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
+    public PlayerPawn Player => Client.Viewer.PlayerPawn;
     public PlayerInventory Inventory => Player.Inventory;
 
     public bool HasKit => Inventory.HasDefuseKit;

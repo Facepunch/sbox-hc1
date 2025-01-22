@@ -10,7 +10,7 @@ public enum BuyMenuMode
 	EnabledEverywhere
 }
 
-public partial class PlayerState : IScore
+public partial class Client : IScore
 {
 	private int _balance = 16_000;
 

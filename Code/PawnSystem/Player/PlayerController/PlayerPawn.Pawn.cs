@@ -10,8 +10,12 @@ public partial class PlayerPawn
 	/// <summary>
 	/// What are we called?
 	/// </summary>
-	public override string DisplayName => PlayerState.IsValid() ? PlayerState.DisplayName : "Invalid Player";
-	public override bool IsLocallyControlled => base.IsLocallyControlled && !PlayerState.IsBot;
+	public override string DisplayName => Client.IsValid() ? Client.DisplayName : "Invalid Player";
+
+	/// <summary>
+	/// Is the player controlled by us?
+	/// </summary>
+	public override bool IsLocallyControlled => base.IsLocallyControlled && !Client.IsBot;
 
 	/// <summary>
 	/// Called when possessed.
@@ -23,7 +27,7 @@ public partial class PlayerPawn
 		// if we're spectating a remote player, use the camera mode preference
 		// otherwise: first person for now
 		var spectateSystem = SpectateSystem.Instance;
-		if ( spectateSystem.IsValid() && ( IsProxy || ( PlayerState.IsValid() && PlayerState.IsBot ) ) )
+		if ( spectateSystem.IsValid() && ( IsProxy || ( Client.IsValid() && Client.IsBot ) ) )
 		{
 			CameraController.Mode = spectateSystem.CameraMode;
 		}

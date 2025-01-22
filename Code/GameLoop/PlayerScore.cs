@@ -14,13 +14,13 @@ public record OnScoreAddedEvent : IGameEvent
 public interface IScore
 {
 	/// <summary>
-	/// Looks for a bunch of score attributes from components on a <see cref="PlayerState"/>, and returns a formatted, sorted list of values.
+	/// Looks for a bunch of score attributes from components on a <see cref="Client"/>, and returns a formatted, sorted list of values.
 	/// </summary>
-	/// <param name="playerState"></param>
+	/// <param name="Client"></param>
 	/// <returns></returns>
-	public static IEnumerable<(object Value, ScoreAttribute Attribute)> Find( PlayerState playerState )
+	public static IEnumerable<(object Value, ScoreAttribute Attribute)> Find( Client Client )
 	{
-		var components = playerState.GetComponentsInChildren<IScore>();
+		var components = Client.GetComponentsInChildren<IScore>();
 		var values = new List<(object Value, MemberDescription Member, ScoreAttribute Attribute)>();
 
 		foreach ( var comp in components )
@@ -32,7 +32,7 @@ public interface IScore
 				if ( member.GetCustomAttribute<ScoreAttribute>() is not { } scoreAttribute )
 					continue;
 
-				if ( scoreAttribute.ShowTeamOnly && !playerState.IsFriendly( PlayerState.Local ) )
+				if ( scoreAttribute.ShowTeamOnly && !Client.IsFriendly( Client.Local ) )
 					continue;
 
 				// Support ShowIf, which looks for a method with a boolean return to see if we can display a value
@@ -81,7 +81,7 @@ public sealed class PlayerScore : Component,
 	IGameEventHandler<ResetScoresEvent>,
 	IScore
 {
-	[Property] public PlayerState PlayerState { get; set; }
+	[Property] public Client Client { get; set; }
 
 	[Sync( SyncFlags.FromHost ), Property, ReadOnly, Score( "Kills" )] 
 	public int Kills { get; set; } = 0;
@@ -154,7 +154,7 @@ public sealed class PlayerScore : Component,
 		if ( !damageInfo.Attacker.IsValid() ) return;
 		if ( !damageInfo.Victim.IsValid() ) return;
 
-		var thisPlayer = PlayerState?.PlayerPawn;
+		var thisPlayer = Client?.PlayerPawn;
 		if ( !thisPlayer.IsValid() ) return;
 
 		var killerPlayer = GameUtils.GetPlayerFromComponent( damageInfo.Attacker );
@@ -206,7 +206,7 @@ public sealed class PlayerScore : Component,
 
 	void IGameEventHandler<BombPlantedEvent>.OnGameEvent( BombPlantedEvent eventArgs )
 	{
-		var thisPlayer = PlayerState?.PlayerPawn;
+		var thisPlayer = Client?.PlayerPawn;
 		var planterPlayer = eventArgs.Planter;
 
 		if ( planterPlayer == thisPlayer )
@@ -224,7 +224,7 @@ public sealed class PlayerScore : Component,
 
 	void IGameEventHandler<BombDefusedEvent>.OnGameEvent( BombDefusedEvent eventArgs )
 	{
-		var thisPlayer = PlayerState?.PlayerPawn;
+		var thisPlayer = Client?.PlayerPawn;
 		var defuserPlayer = eventArgs.Defuser;
 
 		if ( defuserPlayer == thisPlayer )
@@ -245,9 +245,9 @@ public sealed class PlayerScore : Component,
 
 	void IGameEventHandler<BombDetonatedEvent>.OnGameEvent( BombDetonatedEvent eventArgs )
 	{
-		var thisPlayer = PlayerState?.PlayerPawn;
+		var thisPlayer = Client?.PlayerPawn;
 		var planterPlayer = GameUtils.PlayerPawns
-			.FirstOrDefault( x => x.PlayerState.GetComponent<PlayerScore>() is { WasBombPlanter: true } );
+			.FirstOrDefault( x => x.Client.GetComponent<PlayerScore>() is { WasBombPlanter: true } );
 
 		if ( planterPlayer == thisPlayer )
 		{

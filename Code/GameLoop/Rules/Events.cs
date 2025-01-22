@@ -4,12 +4,12 @@ using Sandbox.Events;
 /// <summary>
 /// Called on the host when a new player joins, before NetworkSpawn is called.
 /// </summary>
-public record PlayerConnectedEvent( PlayerState PlayerState ) : IGameEvent;
+public record PlayerConnectedEvent( Client Client ) : IGameEvent;
 
 /// <summary>
 /// Called on the host when a new player joins, after NetworkSpawn is called.
 /// </summary>
-public record PlayerJoinedEvent( PlayerState Player ) : IGameEvent;
+public record PlayerJoinedEvent( Client Player ) : IGameEvent;
 
 /// <summary>
 /// Called on the host when a player (re)spawns.
@@ -19,7 +19,7 @@ public record PlayerSpawnedEvent( PlayerPawn Player ) : IGameEvent;
 /// <summary>
 /// Called on the host when a player is assigned to a team.
 /// </summary>
-public record TeamAssignedEvent( PlayerState Player, Team Team ) : IGameEvent;
+public record TeamAssignedEvent( Client Player, Team Team ) : IGameEvent;
 
 /// <summary>
 /// Called on the host when all scores should be reset.

@@ -122,7 +122,7 @@ public sealed class TeamAssigner : Component,
 		}
 	}
 
-	private float GetScore( PlayerState player )
+	private float GetScore( Client player )
 	{
 		return AutoBalanceMode switch
 		{
@@ -133,7 +133,7 @@ public sealed class TeamAssigner : Component,
 		};
 	}
 
-	private void AssignTeam( PlayerState player, bool dispatch )
+	private void AssignTeam( Client player, bool dispatch )
 	{
 		var assignTeam = SelectTeam();
 
@@ -193,7 +193,7 @@ public sealed class TeamAssigner : Component,
 	{
 		if ( AllowLateJoiners )
 		{
-			AssignTeam( eventArgs.PlayerState, false );
+			AssignTeam( eventArgs.Client, false );
 		}
 	}
 

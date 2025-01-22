@@ -3,18 +3,18 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
-public partial class PlayerState : Component, ITeam
+public partial class Client : Component, ITeam
 {
 	/// <summary>
 	/// The player we're currently in the view of (clientside).
 	/// Usually the local player, apart from when spectating etc.
 	/// </summary>
-	public static PlayerState Viewer { get; private set; }
+	public static Client Viewer { get; private set; }
 
 	/// <summary>
 	/// Our local player on this client.
 	/// </summary>
-	public static PlayerState Local { get; private set; }
+	public static Client Local { get; private set; }
 
 	// --
 
@@ -34,7 +34,7 @@ public partial class PlayerState : Component, ITeam
 	public Connection Connection => Network.Owner;
 
 	/// <summary>
-	/// Is this player connected? PlayerStates can linger around in competitive matches to keep a player's slot in a team if they disconnect.
+	/// Is this player connected? Clients can linger around in competitive matches to keep a player's slot in a team if they disconnect.
 	/// </summary>
 	public bool IsConnected => Connection is not null && (Connection.IsActive || Connection.IsHost); //smh
 
@@ -128,7 +128,7 @@ public partial class PlayerState : Component, ITeam
 
 		if ( !Local.IsValid() )
 		{
-			Log.Warning( "Tried to possess a pawn but we don't have a local playerstate" );
+			Log.Warning( "Tried to possess a pawn but we don't have a local Client" );
 			return;
 		}
 
@@ -141,14 +141,14 @@ public partial class PlayerState : Component, ITeam
 			Local.OnNetPossessed();
 		}
 
-		if ( !pawn.PlayerState.IsValid() )
+		if ( !pawn.Client.IsValid() )
 		{
-			Log.Warning( $"Attempted to possess pawn, but pawn '{pawn.DisplayName}' has no attached PlayerState! Using Local." );
+			Log.Warning( $"Attempted to possess pawn, but pawn '{pawn.DisplayName}' has no attached Client! Using Local." );
 			Viewer = Local;
 			return;
 		}
 
-		Viewer = pawn.PlayerState;
+		Viewer = pawn.Client;
 	}
 
 	// sync to other clients what this player is currently possessing

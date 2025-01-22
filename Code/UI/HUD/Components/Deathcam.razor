@@ -57,12 +57,12 @@
 
 @code
 {
-    public PlayerPawn Player => PlayerState.Viewer.PlayerPawn;
+    public PlayerPawn Player => Client.Viewer.PlayerPawn;
 
-    public List<DamageTracker.GroupedDamage> DamageEntries => GameMode.Instance?.Get<DamageTracker>()?.GetGroupedDamage( PlayerState.Local );
-    public List<DamageTracker.GroupedDamage> InflictedDamageEntries => GameMode.Instance?.Get<DamageTracker>()?.GetGroupedInflictedDamage( PlayerState.Local );
+    public List<DamageTracker.GroupedDamage> DamageEntries => GameMode.Instance?.Get<DamageTracker>()?.GetGroupedDamage( Client.Local );
+    public List<DamageTracker.GroupedDamage> InflictedDamageEntries => GameMode.Instance?.Get<DamageTracker>()?.GetGroupedInflictedDamage( Client.Local );
 
-    public DamageInfo LastDamageInfo => PlayerState.Local.LastDamageInfo;
+    public DamageInfo LastDamageInfo => Client.Local.LastDamageInfo;
     public SpectateSystem SpectateSystem => SpectateSystem.Instance;
 
     public string GetName( Component attacker )

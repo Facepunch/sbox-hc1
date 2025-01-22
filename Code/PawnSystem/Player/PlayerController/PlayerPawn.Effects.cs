@@ -52,15 +52,15 @@ public partial class PlayerPawn
 		if ( HealthComponent.IsGodMode )
 			return true;
 
-		var playerState = PlayerState.Local;
-		if ( playerState.IsValid() && playerState.PlayerPawn.IsValid() &&
-		     playerState.PlayerPawn.HealthComponent.State == LifeState.Dead )
+		var cl = Client.Local;
+		if ( cl.IsValid() && cl.PlayerPawn.IsValid() &&
+		     cl.PlayerPawn.HealthComponent.State == LifeState.Dead )
 		{ 
-			if ( playerState.GetLastKiller() == this )
+			if ( Client.GetLastKiller() == this )
 				return true;
 		}
 
-		var viewer = PlayerState.Viewer;
+		var viewer = Client.Viewer;
 		if ( viewer.IsValid() )
 			return Team == viewer.Team;
 
@@ -70,7 +70,7 @@ public partial class PlayerPawn
 	private void UpdateOutline()
 	{
 		// Somehow this can happen?
-		if ( !PlayerState.Local.IsValid() )
+		if ( !Client.Local.IsValid() )
 			return;
 
 		if ( !IsOutlineVisible() )
@@ -84,12 +84,12 @@ public partial class PlayerPawn
 		Outline.Color = Color.Transparent;
 		Outline.InsideColor = HealthComponent.IsGodMode ? Color.White.WithAlpha( 0.1f ) : Color.Transparent;
 
-		if ( PlayerState.Local.GetLastKiller() == this && SpectateSystem.Instance.IsValid() && SpectateSystem.Instance.IsSpectating )
+		if ( Client.Local.GetLastKiller() == this && SpectateSystem.Instance.IsValid() && SpectateSystem.Instance.IsSpectating )
 			Outline.ObscuredColor = Color.Red;
 		else if ( SpectateSystem.Instance.IsSpectating )
 			Outline.ObscuredColor = Team.GetColor();
 		else
-			Outline.ObscuredColor = PlayerState.Viewer.Team == Team
-				? PlayerState.PlayerColor : Color.Transparent;
+			Outline.ObscuredColor = Client.Viewer.Team == Team
+				? Client.PlayerColor : Color.Transparent;
 	}
 }

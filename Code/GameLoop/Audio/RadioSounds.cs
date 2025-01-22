@@ -102,7 +102,7 @@ public class RadioSounds : GameResource
 	/// <param name="sound"></param>
 	public static void Play( Team team, string category, string sound )
 	{
-		var player = PlayerState.Local.PlayerPawn;
+		var player = Client.Local.PlayerPawn;
 		if ( player is null ) return;
 
 		if ( player.HealthComponent.State != LifeState.Alive )
@@ -124,20 +124,20 @@ public class RadioSounds : GameResource
 		
 		TimeSinceRadio = 0f;
 
-		var team = PlayerState.Local.Team;
+		var team = Client.Local.Team;
 		Play( team, category, sound );
 	}
 
 	[Rpc.Broadcast]
 	private static void RpcPlay( Team team, string category, string sound )
 	{
-		if ( !PlayerState.Local.IsValid() )
+		if ( !Client.Local.IsValid() )
 		{
-			Log.Warning( "Tried to play a TEAM radio sound but there's no local playerstate" );
+			Log.Warning( "Tried to play a TEAM radio sound but there's no local Client" );
 			return;
 		}
 
-		var localPlayerTeam = PlayerState.Local.Team;
+		var localPlayerTeam = Client.Local.Team;
 
 		var soundList = All.FirstOrDefault( x => x.Team == localPlayerTeam );
 		if ( soundList is null )
@@ -163,13 +163,13 @@ public class RadioSounds : GameResource
 	[Rpc.Broadcast]
 	private static void RpcPlay( Team team, RadioSound snd )
 	{
-		if ( !PlayerState.Local.IsValid() )
+		if ( !Client.Local.IsValid() )
 		{
-			Log.Warning( "Tried to play a radio sound but there's no local playerstate" );
+			Log.Warning( "Tried to play a radio sound but there's no local Client" );
 			return;
 		}
 
-		var localPlayerTeam = PlayerState.Local.Team;
+		var localPlayerTeam = Client.Local.Team;
 
 		var soundList = All.FirstOrDefault( x => x.Team == localPlayerTeam );
 		if ( soundList is null )

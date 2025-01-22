@@ -14,7 +14,7 @@ public abstract class Respawner : Component,
 	/// <returns></returns>
 	public int GetRespawnTime()
 	{
-		return ( RespawnDelaySeconds - PlayerState.Local.TimeSinceRespawnStateChanged ).Clamp( 0f, RespawnDelaySeconds ).CeilToInt();
+		return ( RespawnDelaySeconds - Client.Local.TimeSinceRespawnStateChanged ).Clamp( 0f, RespawnDelaySeconds ).CeilToInt();
 	}
 
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )

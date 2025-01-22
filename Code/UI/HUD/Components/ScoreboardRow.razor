@@ -32,9 +32,9 @@
 
     <span class="col playername gap-sm">
         
-        <PlayerAvatar ShowHealth=@false ShowBomb=@false class="avatar" Player=@PlayerState />
+        <PlayerAvatar ShowHealth=@false ShowBomb=@false class="avatar" Player=@Client />
         <label>
-            @PlayerState.DisplayName
+            @Client.DisplayName
         </label>
 
         @if ( IsPartyMember )
@@ -43,23 +43,23 @@
         }
     </span>
 
-    @foreach ( var x in IScore.Find( PlayerState ) )
+    @foreach ( var x in IScore.Find( Client ) )
     {
         <label class="col stat">@(x.Value)</label>
     }
 </root>
 
 @code {
-    public PlayerState PlayerState { get; set; }
-    public PlayerPawn Player => PlayerState.PlayerPawn;
-    private Connection Connection => PlayerState.Connection;
-    private PlayerScore Score => PlayerState.GetComponent<PlayerScore>();
+    public Client Client { get; set; }
+    public PlayerPawn Player => Client.PlayerPawn;
+    private Connection Connection => Client.Connection;
+    private PlayerScore Score => Client.GetComponent<PlayerScore>();
 
-    private bool IsFriendly => PlayerState.IsFriendly( PlayerState.Local );
-    private bool IsLocal => PlayerState.IsLocalPlayer;
+    private bool IsFriendly => Client.IsFriendly( Client.Local );
+    private bool IsLocal => Client.IsLocalPlayer;
     private bool IsDead => !Player.IsValid() || Player.HealthComponent.State != LifeState.Alive;
     private float KillDeathRatio => (float)Score.Kills / (float)Score.Deaths.Clamp(1, int.MaxValue);
-    private Team Team => PlayerState.Team;
+    private Team Team => Client.Team;
     private bool IsPartyMember => PartyRoom.Current?.Members.Any( x => x.Id == Connection.SteamId ) ?? false;
 
     public bool Disconnected => Connection is null;
@@ -70,10 +70,10 @@
 
         if ( Player.IsValid() )
         {
-            hash = HashCode.Combine( hash, Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb, IsPartyMember, Player.PlayerState.PlayerColor );
+            hash = HashCode.Combine( hash, Player.Inventory.HasDefuseKit, Player.Inventory.HasBomb, IsPartyMember, Player.Client.PlayerColor );
         }
 
-        foreach ( var x in IScore.Find( PlayerState ) )
+        foreach ( var x in IScore.Find( Client ) )
         {
             hash = HashCode.Combine( hash, x.Value );
         }

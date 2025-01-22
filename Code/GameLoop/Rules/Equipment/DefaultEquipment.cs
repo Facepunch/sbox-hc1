@@ -50,7 +50,7 @@ public sealed class DefaultEquipment : Component,
 
 		if ( LoadoutsEnabled )
 		{
-			foreach ( var resource in player.PlayerState.Loadout.Equipment )
+			foreach ( var resource in player.Client.Loadout.Equipment )
 			{
 				if ( !player.Inventory.HasInSlot( resource.Slot ) )
 				{

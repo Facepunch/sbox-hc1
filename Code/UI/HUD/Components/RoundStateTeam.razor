@@ -43,7 +43,7 @@
 
     public string Score { get; set; }
     public Team Team { get; set; }
-    public IEnumerable<PlayerState> Players { get; set; }
+    public IEnumerable<Client> Players { get; set; }
     public IconPositions IconPosition { get; set; } = IconPositions.Left;
 
     private int PlayerCount => GameUtils.AllPlayers.Where( x => x.Team != Team.Unassigned ).Count();
@@ -51,7 +51,7 @@
 
     private string TeamColor => Team.GetColor().Darken( 0.25f ).Hex;
 
-    public int PlayerHash => Players?.GetHashCode<PlayerState>(x => HashCode.Combine( x?.SteamId, x?.Team ?? Team.Unassigned ) ) ?? 0;
+    public int PlayerHash => Players?.GetHashCode<Client>(x => HashCode.Combine( x?.SteamId, x?.Team ?? Team.Unassigned ) ) ?? 0;
 
     protected override int BuildHash()
     {

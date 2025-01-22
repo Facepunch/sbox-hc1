@@ -45,7 +45,7 @@
 
 @code
 {
-    public RadioSounds MySounds => RadioSounds.All.FirstOrDefault( x => x.Team == PlayerState.Local.Team );
+    public RadioSounds MySounds => RadioSounds.All.FirstOrDefault( x => x.Team == Client.Local.Team );
     public TeamRadioCategory CurrentCategory => MySounds.TeamSounds.FirstOrDefault( x => x.Category == SelectedCategory );
 
     protected string SelectedCategory { get; set; }
@@ -93,7 +93,7 @@
 
     public override void Tick()
     {
-        if ( PlayerState.Local.PlayerPawn.IsValid() && PlayerState.Local.PlayerPawn.HealthComponent?.State != LifeState.Alive && IsOpen )
+        if ( Client.Local.PlayerPawn.IsValid() && Client.Local.PlayerPawn.HealthComponent?.State != LifeState.Alive && IsOpen )
         {
             IsOpen = false;
             StateHasChanged();

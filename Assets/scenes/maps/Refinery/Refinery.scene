@@ -10,15 +10,31 @@
         {
           "__type": "Sandbox.SceneInformation",
           "__guid": "904f221b-ff41-43c0-bddb-42cb4d84ea5b",
+          "Author": null,
+          "Changes": null,
           "Description": "",
+          "Group": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "SceneTags": "",
-          "Title": "Refinery"
+          "Title": "Refinery",
+          "Version": null
         },
         {
           "__type": "Facepunch.MapInformation",
           "__guid": "7d9a6ba5-0c54-4a72-af65-1e803852214a",
           "Image": "ui/maps/de_refinery.jpg",
-          "IsVisibleInMenu": true
+          "IsVisibleInMenu": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
         }
       ]
     },
@@ -44,7 +60,6 @@
       "Name": "Retakes",
       "Position": "885.8217,-165.1629,-212.8118",
       "Rotation": "-0.06991732,0.06275678,0.740896,0.665016",
-      "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/game_modes/retakes.prefab",
       "__PrefabVariables": {}
@@ -83,7 +98,6 @@
       "Flags": 0,
       "Name": "Team Deathmatch",
       "Position": "1782.033,0,-235.4621",
-      "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/game_modes/team_deathmatch.prefab",
       "__PrefabVariables": {
@@ -112,6 +126,12 @@
               "EndDistance": 4096,
               "FalloffExponent": 2,
               "Height": 1024,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "StartDistance": 1600,
               "VerticalFalloffExponent": 2
             },
@@ -125,6 +145,12 @@
               "HeightExponent": 2,
               "HeightStart": 128,
               "HeightWidth": 0,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Sky": "materials/skybox/skybox_day_01.vmat",
               "StartDistance": 2000,
               "Tint": "1,1,1,1"
@@ -142,10 +168,21 @@
               "__type": "Sandbox.SoundscapeTrigger",
               "__guid": "7b07d6ea-f4d2-4dca-a0e6-f546a74f5507",
               "BoxSize": "50,50,50",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Radius": 10000,
               "Soundscape": "sounds/soundscapes/birdchirp_soundscape.sndscape",
               "StayActiveOnExit": true,
-              "Type": "Sphere"
+              "TargetMixer": {
+                "Name": "unknown",
+                "Id": "00000000-0000-0000-0000-000000000000"
+              },
+              "Type": "Sphere",
+              "Volume": 1
             }
           ]
         },
@@ -160,7 +197,6 @@
             {
               "__type": "Sandbox.EnvmapProbe",
               "__guid": "00130408-83bd-4831-ac91-dcdbebfe445e",
-              "Texture": "materials/skybox/colorscript/skybox_default.vtex",
               "Bounds": {
                 "Mins": "-2761.594,-1523.665,-1000",
                 "Maxs": "3004.938,3088.534,1000"
@@ -170,8 +206,15 @@
               "FrameInterval": 16,
               "MaxDistance": 500000,
               "MultiBounce": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Projection": "Box",
               "RenderDynamically": true,
+              "Texture": "materials/skybox/colorscript/skybox_default.vtex",
               "TintColor": "1,1,1,1",
               "UpdateStrategy": "OnEnabled",
               "ZFar": 4096,
@@ -195,7 +238,13 @@
             {
               "__type": "Sandbox.AmbientLight",
               "__guid": "4f0ccd1c-438e-4ead-b5cc-389a71411e1a",
-              "Color": "0.27442,0.27442,0.27442,1"
+              "Color": "0.27442,0.27442,0.27442,1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             }
           ]
         }
@@ -219,21 +268,45 @@
             {
               "__type": "Facepunch.BuyZone",
               "__guid": "84b649cc-7f6f-4039-8be1-4f63b23f9fa4",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "CounterTerrorist"
             },
             {
               "__type": "Zone",
               "__guid": "c6a1699a-2713-4789-9dc0-7672b0f8d7c7",
               "Color": "0,0.41569,1,1",
-              "DisplayName": "Counter Terrorist Buyzone"
+              "DisplayName": "Counter Terrorist Buyzone",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "e7fc01c9-9630-45e8-9766-885a1e0b535a",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "452.8001,375.4001,266.3997",
               "Static": false,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -249,21 +322,45 @@
             {
               "__type": "Facepunch.BuyZone",
               "__guid": "1c8249e0-8a95-4cd9-b7de-96bc94a9f8d1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Terrorist"
             },
             {
               "__type": "Zone",
               "__guid": "05a79646-18ff-4369-b764-7c024510c044",
               "Color": "0,0.41667,1,1",
-              "DisplayName": "Terrorist Buyzone"
+              "DisplayName": "Terrorist Buyzone",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "d348352e-d4d7-4b9f-a7a8-5ea2bcadce45",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "490.0671,403.6673,266.3997",
               "Static": false,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -282,6 +379,12 @@
           "__guid": "43ed4411-d5b9-4342-bf18-5b5bc56d1233",
           "CurrentMinimapPath": "ui/minimaps/minimap_de_garry_hammer.png",
           "ExportResolution": "1024,1024",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "Size": 4500
         }
       ],
@@ -316,6 +419,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -343,6 +452,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_bombsite_b.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -370,6 +485,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_cross.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -397,6 +518,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -424,6 +551,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_bombsite_a.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -451,6 +584,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_bombsite_b.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -478,6 +617,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_bombsite_b.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -505,6 +650,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_bombsite_b.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -532,6 +683,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_bombsite_b.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -559,6 +716,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -586,6 +749,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -613,6 +782,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -640,6 +815,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -667,6 +848,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -694,6 +881,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -721,6 +914,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -748,6 +947,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -775,6 +980,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_bombsite_a.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -802,6 +1013,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_bombsite_a.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -829,6 +1046,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_bombsite_a.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -856,6 +1079,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_bombsite_a.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -884,6 +1113,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -911,6 +1146,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_arrow.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -939,6 +1180,12 @@
               "CutoffAngleSoftness": 5,
               "Material": "materials/decals/decal_cross.vmat",
               "Mod2XBlending": false,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -991,6 +1238,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "d48483e7-79f5-4eb0-a4d5-29e9008d08a2",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "CounterTerrorist"
             }
           ]
@@ -1006,6 +1259,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "eb8a6a5a-bec8-4288-8d1c-02a41be49c14",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Terrorist"
             }
           ]
@@ -1021,6 +1280,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "7f6db694-3afb-4095-96ea-de7718643831",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "CounterTerrorist"
             }
           ]
@@ -1036,6 +1301,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "883d8706-86e5-4e1c-9418-4ed123096359",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "CounterTerrorist"
             }
           ]
@@ -1051,6 +1322,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "a3a97757-11d0-45db-8077-56e99234a2ec",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "CounterTerrorist"
             }
           ]
@@ -1066,6 +1343,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "08b54066-99d2-48da-81dc-993273ba2bd1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "CounterTerrorist"
             }
           ]
@@ -1081,6 +1364,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "d28c5588-c441-4cb1-af1f-1fbd8bab4810",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "CounterTerrorist"
             }
           ]
@@ -1096,6 +1385,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "2a384297-07fa-4c26-9ba0-9623e03f94fc",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "CounterTerrorist"
             }
           ]
@@ -1111,6 +1406,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "4529819f-d492-4f85-978d-a51672e76c17",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "CounterTerrorist"
             }
           ]
@@ -1126,6 +1427,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "38dd61b5-c410-480b-a720-0776ef7808f7",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Terrorist"
             }
           ]
@@ -1141,6 +1448,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "911ee0b1-95b5-45c8-a8de-1463501bd7d2",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Terrorist"
             }
           ]
@@ -1156,6 +1469,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "6c0cda6b-5f2b-4d4b-a60c-753da5a02226",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Terrorist"
             }
           ]
@@ -1171,6 +1490,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "ea3c9c0c-213b-4340-8636-dd63aa3a2bf8",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Terrorist"
             }
           ]
@@ -1186,6 +1511,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "d54e3dd0-7838-4c9e-9310-5ee3343c7fce",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Terrorist"
             }
           ]
@@ -1201,6 +1532,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "9f446851-7a2a-42ec-acb0-b6101a654c41",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Terrorist"
             }
           ]
@@ -1216,6 +1553,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "17b975c4-ddb8-4ae5-9c00-fc29686531d7",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Terrorist"
             }
           ]
@@ -1235,7 +1578,13 @@
           "GameModes": [
             "Cash Grab"
           ],
-          "Inverse": false
+          "Inverse": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
         }
       ],
       "Children": [
@@ -1258,6 +1607,12 @@
                   "component_type": "ExtractionPoint"
                 }
               ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Resource": "weapons/special/cash_bag/cash_bag.equip",
               "State": "Inactive"
             }
@@ -1280,6 +1635,12 @@
                     "go": "12ae48c4-c586-42df-b2c5-bac584b0410b",
                     "component_type": "CashPoint"
                   },
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "Trigger": {
                     "_type": "component",
                     "component_id": "5a6f3318-0d8d-4968-83da-4510b13f6a2e",
@@ -1297,9 +1658,21 @@
                   "__type": "Sandbox.BoxCollider",
                   "__guid": "5a6f3318-0d8d-4968-83da-4510b13f6a2e",
                   "Center": "0,0,0",
+                  "Friction": null,
                   "IsTrigger": true,
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "OnObjectTriggerEnter": null,
+                  "OnObjectTriggerExit": null,
+                  "OnTriggerEnter": null,
+                  "OnTriggerExit": null,
                   "Scale": "50,50,50",
                   "Static": false,
+                  "Surface": null,
                   "SurfaceVelocity": "0,0,0"
                 }
               ],
@@ -1319,6 +1692,12 @@
                       "HorizontalAlign": "Center",
                       "InteractionRange": 1000,
                       "LookAtCamera": false,
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "PanelSize": "1500,1500",
                       "RenderOptions": {
                         "GameLayer": true,
@@ -1331,7 +1710,13 @@
                     },
                     {
                       "__type": "ExtractPointWorldPanel",
-                      "__guid": "590d5411-eec9-4a5b-9640-a0df7bdbbf48"
+                      "__guid": "590d5411-eec9-4a5b-9640-a0df7bdbbf48",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null
                     }
                   ]
                 }
@@ -1358,6 +1743,12 @@
                   "component_type": "ExtractionPoint"
                 }
               ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Resource": "weapons/special/cash_bag/cash_bag.equip",
               "State": "Inactive"
             }
@@ -1380,6 +1771,12 @@
                     "go": "65dae805-5241-40a3-8b6c-a4e27e7b6629",
                     "component_type": "CashPoint"
                   },
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "Trigger": {
                     "_type": "component",
                     "component_id": "b08b08eb-0bd2-49b2-b6bd-4fa47af71e46",
@@ -1397,9 +1794,21 @@
                   "__type": "Sandbox.BoxCollider",
                   "__guid": "b08b08eb-0bd2-49b2-b6bd-4fa47af71e46",
                   "Center": "0,0,0",
+                  "Friction": null,
                   "IsTrigger": true,
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "OnObjectTriggerEnter": null,
+                  "OnObjectTriggerExit": null,
+                  "OnTriggerEnter": null,
+                  "OnTriggerExit": null,
                   "Scale": "50,50,50",
                   "Static": false,
+                  "Surface": null,
                   "SurfaceVelocity": "0,0,0"
                 }
               ],
@@ -1419,6 +1828,12 @@
                       "HorizontalAlign": "Center",
                       "InteractionRange": 1000,
                       "LookAtCamera": false,
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "PanelSize": "1500,1500",
                       "RenderOptions": {
                         "GameLayer": true,
@@ -1431,7 +1846,13 @@
                     },
                     {
                       "__type": "ExtractPointWorldPanel",
-                      "__guid": "7308c97c-7cf9-4e2d-a6a3-18646257dc91"
+                      "__guid": "7308c97c-7cf9-4e2d-a6a3-18646257dc91",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null
                     }
                   ]
                 }
@@ -1458,6 +1879,12 @@
                   "component_type": "ExtractionPoint"
                 }
               ],
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Resource": "weapons/special/cash_bag/cash_bag.equip",
               "State": "Inactive"
             }
@@ -1480,6 +1907,12 @@
                     "go": "1cf139fc-fba6-4557-835b-95dcf04a8253",
                     "component_type": "CashPoint"
                   },
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "Trigger": {
                     "_type": "component",
                     "component_id": "bc498a59-5d9a-404c-8610-81c1caaf986a",
@@ -1497,9 +1930,21 @@
                   "__type": "Sandbox.BoxCollider",
                   "__guid": "bc498a59-5d9a-404c-8610-81c1caaf986a",
                   "Center": "0,0,0",
+                  "Friction": null,
                   "IsTrigger": true,
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "OnObjectTriggerEnter": null,
+                  "OnObjectTriggerExit": null,
+                  "OnTriggerEnter": null,
+                  "OnTriggerExit": null,
                   "Scale": "50,50,50",
                   "Static": false,
+                  "Surface": null,
                   "SurfaceVelocity": "0,0,0"
                 }
               ],
@@ -1519,6 +1964,12 @@
                       "HorizontalAlign": "Center",
                       "InteractionRange": 1000,
                       "LookAtCamera": false,
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "PanelSize": "1500,1500",
                       "RenderOptions": {
                         "GameLayer": true,
@@ -1531,7 +1982,13 @@
                     },
                     {
                       "__type": "ExtractPointWorldPanel",
-                      "__guid": "a98571b1-309c-4994-a57c-72de1c79c07e"
+                      "__guid": "a98571b1-309c-4994-a57c-72de1c79c07e",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null
                     }
                   ]
                 }
@@ -1555,7 +2012,13 @@
             "Team Deathmatch",
             "Free for All"
           ],
-          "Inverse": false
+          "Inverse": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
         }
       ],
       "Children": [
@@ -1571,6 +2034,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "9c89d95f-f3a2-49c7-a659-53600c4d0cdf",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1587,6 +2056,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "3eb78d60-1aac-4d43-b4a3-d496ea239854",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1603,6 +2078,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "5f60cb17-d1f9-41d1-8d97-7fae1d1fdf34",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1619,6 +2100,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "6192c638-5b85-4ab3-abce-97cd74b6dbde",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1635,6 +2122,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "dcb5f863-6bb1-4206-afc8-2062ba25e1a6",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1651,6 +2144,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "859237d1-051f-45d4-81f0-97083dd8f12e",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1667,6 +2166,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "b751bb37-c2f2-4fea-a724-274d0b9ee055",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1683,6 +2188,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "d6bf069f-4457-4c3e-82ac-2204ff3b1580",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1699,6 +2210,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "539aa8ab-6a05-4cbb-88eb-2ac7154a3198",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1715,6 +2232,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "ab48f594-b6d2-41b2-8313-632c4e4369c9",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1731,6 +2254,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "6eb09af5-61f9-4870-87d5-aaa222304256",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1747,6 +2276,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "f366950c-bcd5-46fd-9cf7-47dbbe3c800c",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1763,6 +2298,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "fd2e98b0-7676-4480-85c2-4beef67dd9f0",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1779,6 +2320,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "06921340-4f96-461c-ba80-c72c1de5a347",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1795,6 +2342,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "daad9e0b-6cb7-4bb6-b580-c388111224fe",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1811,6 +2364,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "1863e757-a868-4492-b50f-9465cbf4d171",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1827,6 +2386,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "641c8b99-b629-4d41-a138-c1744a6cd365",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1843,6 +2408,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "158d0bb4-2f85-45e8-822b-a426a15d7cd9",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1859,6 +2430,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "7f68be6a-bdb5-4d07-9fba-504b954e505c",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1875,6 +2452,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "59629332-af38-458c-b53e-d45fa9541584",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1891,6 +2474,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "2f095cff-3d59-4288-8efb-2ae28fd7157f",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1907,6 +2496,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "78246aba-8d40-498c-b6ab-be81835fd664",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1923,6 +2518,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "074b9820-059e-4cc1-844f-748a67414441",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1939,6 +2540,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "19b32e01-c4ee-4002-955c-2d1c0af34cdc",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1955,6 +2562,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "70eb0545-9607-4ce2-9b20-a53d00c27589",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1971,6 +2584,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "68f1386e-2d70-4b8c-a4c3-1f1a5cb782ff",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -1987,6 +2606,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "e33e9816-12a4-48cd-8829-1ca2a2431ae0",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2003,6 +2628,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "16b4de81-0feb-4aae-adac-1df66a21087a",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2019,6 +2650,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "1c3ed58c-16db-4349-8bdd-92e477481d37",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2035,6 +2672,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "444f7ee3-e93f-4f4f-8e92-1f4677d271f1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2051,6 +2694,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "731aca34-0515-4769-bd4f-a3ced372c134",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2066,6 +2715,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "4038e1d1-9f54-4af6-b69e-dc9524146ef9",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2081,6 +2736,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "f8aaa5f7-18ea-4532-af8c-e8240b349a61",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2097,6 +2758,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "41b2b2d5-fffe-48d0-9965-75d773161842",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2113,6 +2780,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "c22b1def-c264-47bb-936c-e19dda0a8db1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2129,6 +2802,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "e5bf708a-7152-4f52-aadf-19a59dc4ecee",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2145,6 +2824,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "8697e8d6-bc6a-4a84-a201-a8dcac8ee29c",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2161,6 +2846,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "67676137-1595-42e5-997c-deb49d666f65",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2177,6 +2868,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "292aafb9-4eda-458e-b676-96fee02e5a6d",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2193,6 +2890,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "5b1ec75f-1832-4915-831a-ce17dd5e0e5a",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2209,6 +2912,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "58e5e18f-aedb-4ec8-9218-dfe54fc191da",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2225,6 +2934,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "320afc18-1863-4f29-8fb0-77dce7da6b53",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2241,6 +2956,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "80a627ca-915f-4a6d-81d3-75fdc3d7a5b0",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2257,6 +2978,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "4bbdc221-ece0-4049-a224-6c831a867f00",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2273,6 +3000,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "5c368b09-a413-458e-ae25-d37e1d66109a",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2289,6 +3022,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "283c8d63-4d64-4a2f-a8e2-b2d15d2d50a1",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2305,6 +3044,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "2f75af45-2952-46c8-b836-aa5da7830921",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2321,6 +3066,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "cd4eedda-8e79-47fa-ad7b-0cbba17dec29",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2337,6 +3088,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "102f94fc-a927-4612-8cec-669b32c1ddf5",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2353,6 +3110,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "c4e728fb-2497-4d15-89b7-c119b45ad45e",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2369,6 +3132,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "fe2f9821-be39-4bce-903c-46a2250c07bf",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2385,6 +3154,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "14f4d5fd-4c44-4f1b-8498-be855928c576",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2401,6 +3176,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "17abdc82-9da0-4d1b-ba16-3bd05493332a",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2417,6 +3198,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "1d78d0b2-7fcc-443b-8fb1-55f96d1a8121",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2433,6 +3220,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "288381d4-c5ac-4bda-866c-f1ceb75ddbdd",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2449,6 +3242,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "fb87e82d-1b12-4733-aa38-f9a03635c2b8",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2465,6 +3264,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "1684b5cd-3efb-4a45-813e-6a6dd95ac9ce",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2481,6 +3286,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "bdcd63e9-ed7d-42ce-93a2-3f60b4410dc7",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2497,6 +3308,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "e29a8c2c-5bd6-4979-85f1-fa0c27e531e5",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2513,6 +3330,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "fcfafe7f-1727-4554-899b-ababa1820db8",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2529,6 +3352,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "5c71785c-3e28-496d-9ba6-4228a816d6c2",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2545,6 +3374,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "7cbdd020-c0be-4a44-9e89-678f6c41b56a",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2561,6 +3396,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "e8dece21-1d34-45e1-aef4-49185a425249",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2577,6 +3418,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "aad3b847-c1fe-40be-9472-2caab63dac36",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2593,6 +3440,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "1f24208c-e424-49a9-8776-51938c3aa0cb",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2609,6 +3462,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "ed2587b0-3f66-4fd3-91e0-e2816624f7df",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2625,6 +3484,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "67ed32b0-eb90-433c-9710-081bcecfca00",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2641,6 +3506,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "f94eab8b-6564-479e-ab13-259309eb8551",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2657,6 +3528,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "42b57513-e317-4983-873a-e3b338671c63",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2673,6 +3550,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "4757f96c-60f3-4d2f-880e-51e3153ca9df",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2689,6 +3572,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "f1e299bd-7c65-4dee-b1e1-4cc7b5d5d0d4",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2705,6 +3594,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "0d26c8da-3d86-4aac-824e-1669b55cae40",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2721,6 +3616,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "bb845383-8cbb-4528-862e-9e9ef9a46fab",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2737,6 +3638,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "27a0486e-d1e2-4f57-8613-9169fe7fe9ec",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2753,6 +3660,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "481685f3-30f8-4f32-8840-9df148cefdb8",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2769,6 +3682,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "080260b6-0ab3-4776-a4e6-b4d6dd8fed6c",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2785,6 +3704,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "c6673cde-d0c5-459d-a0c1-86bfa17a2b66",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2801,6 +3726,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "7dea7059-c91e-41c5-9869-6f5d330a6a12",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2817,6 +3748,12 @@
             {
               "__type": "TeamSpawnPoint",
               "__guid": "8b711bc3-0dbc-4c35-93f1-06cdb0709872",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Team": "Unassigned"
             }
           ]
@@ -2836,7 +3773,13 @@
           "GameModes": [
             "Retakes"
           ],
-          "Inverse": false
+          "Inverse": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
         }
       ],
       "Children": [
@@ -2864,6 +3807,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "5aec340a-880b-4330-96ca-678e55c8964f",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -2880,6 +3829,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "f67d1d97-5b1f-46d6-95d6-48cf414396b7",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -2896,6 +3851,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "41b1aab3-d2f3-4c72-8a79-371a6c9b2fb3",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -2912,6 +3873,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "3ff3b682-fc2b-45cb-8c1c-f8d66730954f",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -2928,6 +3895,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "969ef2c0-7219-4ca3-9da6-b8cb9d3c0e7c",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -2944,6 +3917,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "e9981f7a-5a66-4240-aebd-906962f23c1d",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -2960,6 +3939,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "b53ea6a4-bad3-411f-b410-1efbe06263ff",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -2976,6 +3961,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "82e69d86-ef57-478a-8c2f-269fd7a08f2e",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -2992,6 +3983,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "392ffd29-871b-4173-afae-4b7679f36b2a",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3016,6 +4013,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "18d49360-20bb-414c-8a27-67b41a154b0a",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3032,6 +4035,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "2efd27eb-1c88-4810-8279-696e96227243",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3048,6 +4057,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "ecd9d811-70fc-4165-bcee-67522fea6759",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3064,6 +4079,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "ff40fb78-aad8-4b0f-b8f5-b8a8b2bc824a",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3080,6 +4101,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "a132def4-68f0-4585-9557-4bf4000deef2",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3096,6 +4123,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "04b74312-30f4-4f80-8336-cbce463de84c",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3112,6 +4145,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "69d294d3-4728-4850-922d-b33054a9b27c",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3128,6 +4167,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "0cc69884-e07c-45fe-a806-7480b4a23e95",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3144,6 +4189,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "50f6de09-9805-41bd-9b84-bb00f26f310d",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3160,6 +4211,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "b84bacaf-1f17-4cae-8919-fd3db5464e6c",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3176,6 +4233,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "bf40aaec-514b-4d0c-96c4-d83b75702e70",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3192,6 +4255,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "1e4d29d0-e0a2-46a5-8bec-a5318525f790",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3208,6 +4277,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "2e2cad0a-96a7-4fcc-ae0e-443625fddc1f",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3232,6 +4307,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "33175fbb-b8a4-4a7b-9c2c-c5146cd4aa1d",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3248,6 +4329,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "82f7b024-b64a-4939-be51-76db85dad02b",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3264,6 +4351,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "9df03bea-a63b-4f8f-a914-af2ce37d738a",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3280,6 +4373,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "ae17b6cf-1974-4b0d-b0a3-b4f8bfafdc89",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3296,6 +4395,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "da1a11ae-a88b-483a-ad45-f78951128b0a",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3312,6 +4417,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "02383212-8b6a-43a2-8d81-33f4bb10d243",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3328,6 +4439,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "63da55a3-4451-42a5-8cf5-808e0fc89c53",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3344,6 +4461,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "3a293302-5f0a-4d7d-a6b8-63983ed08da0",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3360,6 +4483,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "3cc863f7-e8c8-4c16-97bb-7d848038193e",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3376,6 +4505,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "4d64634f-2069-4d46-b581-cad8cc81dd66",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3392,6 +4527,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "23fe21bc-3c00-467f-ae19-b8c74ac32019",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3408,6 +4549,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "a7e9b0a0-1d61-4c19-968f-52ac7f544ff4",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3440,6 +4587,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "3e29f726-a24f-4806-a9d4-f07e43806384",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3456,6 +4609,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "1348029d-a5bf-4b10-b766-561864131103",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3472,6 +4631,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "61e8e051-a1c9-4682-bd96-c2b64ad4d6a6",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3488,6 +4653,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "ec9db8c0-490c-4a5a-a291-a250235db212",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3504,6 +4675,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "6873893b-232f-4306-9808-f6146f2c2e43",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3520,6 +4697,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "10f30d89-1a5a-417e-9161-1ac343400b5e",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3536,6 +4719,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "9e7f75f6-1496-46f7-a625-e3f59c03adf0",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3560,6 +4749,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "4d441a22-d641-4a69-a787-ef35a8ac980e",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3576,6 +4771,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "29dfabdd-f01e-40fe-acdd-ad905ed9dd19",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3592,6 +4793,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "0f9dcd6b-be03-49b8-91ff-f1f1b7f11054",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3608,6 +4815,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "cceb0524-d852-42bc-ae69-62f944fc3d99",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3624,6 +4837,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "384b81b9-c7e2-47eb-af98-487a6a69cd23",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3640,6 +4859,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "4aac8473-f6a1-45e6-9d68-2e812713a155",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3656,6 +4881,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "30ed2904-1c34-4f28-b9e2-f0008be6d215",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3672,6 +4903,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "22ddbb6b-9964-4fb7-a688-392a687d50a0",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3688,6 +4925,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "5c88da42-3b2a-4c3a-84b0-396534caa8e7",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "Terrorist"
                     }
                   ]
@@ -3712,6 +4955,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "1c55f0eb-1562-4acc-b36b-e97daeb7c00c",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3728,6 +4977,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "277c59f5-c2b9-4b99-8d34-b5ea77f09dac",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3744,6 +4999,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "bab51a55-03ef-4cf2-93c4-49f2ea2fa431",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3760,6 +5021,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "4abe1e3a-43d2-4f09-b8a1-4ab797c8bffb",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3776,6 +5043,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "d60777ea-68db-4829-bea5-77fda5952ccb",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3792,6 +5065,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "04e3ecb9-5e93-452e-8319-2355498d0732",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3808,6 +5087,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "71f54196-bc31-4dd4-b975-5f64b8f05e56",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3824,6 +5109,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "86b04601-36b6-4d26-bf61-2b6d4da887ca",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3840,6 +5131,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "9f68bb84-0cd2-4cd0-8697-7f98602c00f6",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3856,6 +5153,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "a382fb66-644b-453e-b0b7-4edd1ff9b0fe",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3872,6 +5175,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "cae9a7f3-5ade-48a2-bbca-f1fd0a85a87c",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3888,6 +5197,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "cc240071-3dd2-49d9-99fd-04b939ba8499",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3904,6 +5219,12 @@
                     {
                       "__type": "TeamSpawnPoint",
                       "__guid": "f35a9cae-741b-4525-8276-9faa4113a0e3",
+                      "OnComponentDestroy": null,
+                      "OnComponentDisabled": null,
+                      "OnComponentEnabled": null,
+                      "OnComponentFixedUpdate": null,
+                      "OnComponentStart": null,
+                      "OnComponentUpdate": null,
                       "Team": "CounterTerrorist"
                     }
                   ]
@@ -3935,6 +5256,7 @@
           "__guid": "d80180ba-d96d-4ba8-86ea-2984b939f6c5",
           "Collision": "Mesh",
           "Color": "1,1,1,1",
+          "Friction": null,
           "HideInGame": true,
           "IsTrigger": true,
           "Mesh": {
@@ -4046,8 +5368,19 @@
               "materials/tools/toolsinvisibleladder.vmat"
             ]
           },
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
           "SmoothingAngle": 40,
           "Static": true,
+          "Surface": null,
           "SurfaceVelocity": "0,0,0"
         }
       ]
@@ -4138,6 +5471,12 @@
           "EnableCollision": true,
           "MapName": "maps/refinery/refinery.vmap",
           "NoOrigin": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "OnMapLoaded": null,
           "OnMapUnloaded": null,
           "UseMapFromLaunch": false
@@ -4163,21 +5502,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "a4fab347-c637-4501-a0a4-ddb9f77b2576"
+              "__guid": "a4fab347-c637-4501-a0a4-ddb9f77b2576",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "04b41c3e-1cd3-4104-80a9-da49aeaefd2b",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "CT SPAWN"
+              "DisplayName": "CT SPAWN",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "5c250e20-5e06-493f-bce4-1c51163be3ec",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "487.0667,1013.2,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4193,21 +5556,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "a9659765-d7cc-495b-9d46-823e704cc8a0"
+              "__guid": "a9659765-d7cc-495b-9d46-823e704cc8a0",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "47685796-8834-41f9-bed7-55b2d5dfcb9f",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "MID"
+              "DisplayName": "MID",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "a73342f8-58a2-43f9-bb57-18b48d3e2abe",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4224,21 +5611,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "4c4da951-6f29-4e18-9338-6f832b127dab"
+              "__guid": "4c4da951-6f29-4e18-9338-6f832b127dab",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "ef2ee039-9167-41c5-881f-89afa6dbe6e5",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A CONNECTOR"
+              "DisplayName": "A CONNECTOR",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "c2f39499-5987-42f6-b5ab-eb8a330a45a4",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4255,21 +5666,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "d3bb2719-79f4-4b19-8e99-d65bf8ce21d9"
+              "__guid": "d3bb2719-79f4-4b19-8e99-d65bf8ce21d9",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "c02402e4-8d53-4e9e-b602-b691d11e8e1e",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "APARTMENTS"
+              "DisplayName": "APARTMENTS",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "7bd5f8a4-6e32-4d73-bd1b-204949981d05",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4286,21 +5721,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "afe0e26f-3d00-499c-976c-ac0471cd839d"
+              "__guid": "afe0e26f-3d00-499c-976c-ac0471cd839d",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "83b0dcfa-fe54-486e-becc-6589ccd1bc1d",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "APARTMENTS"
+              "DisplayName": "APARTMENTS",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "0bad7f5c-d244-4366-86ed-8f802c4d9ad9",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4316,21 +5775,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "5435e27d-db6d-4ba4-9642-7c6eea7c64cc"
+              "__guid": "5435e27d-db6d-4ba4-9642-7c6eea7c64cc",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "f7c12a70-2c44-4e17-ad01-bcc90fc00702",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "HEAVEN"
+              "DisplayName": "HEAVEN",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "a1f3d4dd-321d-4d9a-b8a3-0acf5ad78e70",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "678.533,473.4684,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4346,21 +5829,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "20d50a24-7d7b-4098-904d-cda906f41d0c"
+              "__guid": "20d50a24-7d7b-4098-904d-cda906f41d0c",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "b01f827f-c2ce-4fb3-9ed9-f6f598ce4841",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "GUTTER"
+              "DisplayName": "GUTTER",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "5e8a9285-5f70-4a42-aba2-dd8e5ff0e81d",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "678.533,473.4684,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4377,21 +5884,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "8ef88c70-6a2e-4584-9ee5-0b36fed218b0"
+              "__guid": "8ef88c70-6a2e-4584-9ee5-0b36fed218b0",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "d10a4eaa-dc23-4380-8072-8b2147f69c4f",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "GUTTER"
+              "DisplayName": "GUTTER",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "7bb89c3b-9b3b-4740-81ca-7fc462603556",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "678.533,473.4684,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4408,21 +5939,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "0d215d9a-52f2-43cf-b5de-820c6a961d89"
+              "__guid": "0d215d9a-52f2-43cf-b5de-820c6a961d89",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "cde969d9-1a36-4cd4-8bd4-f779a9a758dc",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "GUTTER"
+              "DisplayName": "GUTTER",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "fc6cf733-46c4-4002-99fb-ce3efda8389b",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "678.533,473.4684,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4438,21 +5993,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "bb501b54-bc9f-46cb-adb6-0e240bce8535"
+              "__guid": "bb501b54-bc9f-46cb-adb6-0e240bce8535",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "45ef6f95-713a-4ec0-beda-f3b65f1ff07a",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A SITE"
+              "DisplayName": "A SITE",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "b85651c4-1249-45b2-b760-5648e76d5821",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4468,21 +6047,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "f75d8f7c-3fa2-420f-89e1-5263da9b604b"
+              "__guid": "f75d8f7c-3fa2-420f-89e1-5263da9b604b",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "9abec523-4821-4215-a21e-664ba19eafa8",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "WAREHOUSE"
+              "DisplayName": "WAREHOUSE",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "2793fece-b572-4d0c-9b1d-e13637b20015",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4498,21 +6101,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "a0e86a9b-6e95-40aa-b238-3faf3cb1eb97"
+              "__guid": "a0e86a9b-6e95-40aa-b238-3faf3cb1eb97",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "a3b87cc5-18d1-4ae0-80b6-8e66a2b97c77",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "PIPES"
+              "DisplayName": "PIPES",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "a3b529b0-1545-4a75-a3f5-083df9616303",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4528,21 +6155,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "8785f53b-0bff-44e3-a816-694db519893c"
+              "__guid": "8785f53b-0bff-44e3-a816-694db519893c",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "26f0e895-de50-4675-9fae-84a507412d80",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A CUBBY"
+              "DisplayName": "A CUBBY",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "4039747a-2036-4166-8ab3-d1a0a54aae50",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4558,21 +6209,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "0749051d-bdea-4c64-811a-0841ec7ca952"
+              "__guid": "0749051d-bdea-4c64-811a-0841ec7ca952",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "abde9a76-9ed7-42fb-b865-cde62c8eadf4",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "LEDGE"
+              "DisplayName": "LEDGE",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "fbddebef-7efd-49b2-86c7-ff5a49f580c4",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4588,21 +6263,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "346bf5cd-6611-48d1-9cef-00a47d41dc81"
+              "__guid": "346bf5cd-6611-48d1-9cef-00a47d41dc81",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "b9ca2bf5-da9a-477a-9d45-a99cc7bcf095",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A ARCH"
+              "DisplayName": "A ARCH",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "4054bc9d-4de2-47e6-8bcc-d0afaf45cb52",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4618,21 +6317,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "fc9973c9-c4d2-4c1b-8d71-ff9007f5cd19"
+              "__guid": "fc9973c9-c4d2-4c1b-8d71-ff9007f5cd19",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "175a12b4-74bf-4338-9ee0-f051f36709f1",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "VAN"
+              "DisplayName": "VAN",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "6e5f62ed-2d54-4555-82b0-81beb422188c",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4648,21 +6371,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "ce62a704-f275-4c84-b8ca-297e4170659e"
+              "__guid": "ce62a704-f275-4c84-b8ca-297e4170659e",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "6772663e-eb10-4b39-a04a-a22da3916bdf",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A ELBOW"
+              "DisplayName": "A ELBOW",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "788a3374-5115-4c72-9ce5-cae5222013cb",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4678,21 +6425,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "8cf79729-c048-4940-aeb1-65009b078544"
+              "__guid": "8cf79729-c048-4940-aeb1-65009b078544",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "0528f8c4-1520-4d93-91c5-e757f6bf9f85",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A ELBOW"
+              "DisplayName": "A ELBOW",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "fd34bbc4-127f-413f-96e7-309dadef26e3",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4708,21 +6479,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "963dcaed-8673-4316-b6af-4803223f8c3e"
+              "__guid": "963dcaed-8673-4316-b6af-4803223f8c3e",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "4775aacf-df7d-4a28-9087-30e7acd88421",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "B SITE"
+              "DisplayName": "B SITE",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "49dd7df3-98c2-4c49-b23f-86290a0e25d6",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4738,21 +6533,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "00e5503f-0b1b-4fa0-bb80-c21cd63cdc93"
+              "__guid": "00e5503f-0b1b-4fa0-bb80-c21cd63cdc93",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "fc514863-2bb4-46e8-a1ad-62dd366bf52c",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "B SITE"
+              "DisplayName": "B SITE",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "095f4ab2-28de-4290-9333-fa554f1a2415",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4768,21 +6587,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "0d5e7b4b-4e62-49be-867a-6f4c256e8cd0"
+              "__guid": "0d5e7b4b-4e62-49be-867a-6f4c256e8cd0",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "db20a8e8-9129-4843-bbb4-55ba9f9e3bb1",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "B BOOST"
+              "DisplayName": "B BOOST",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "bafe992c-2f8c-4388-b8b2-bbb3780dd8b7",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4798,21 +6641,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "52f78ad6-51b9-4dbf-bbc8-ec2be2baf363"
+              "__guid": "52f78ad6-51b9-4dbf-bbc8-ec2be2baf363",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "1565e9d7-5d54-4c8c-b562-74b9f1682102",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "BOOTH"
+              "DisplayName": "BOOTH",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "d6928398-9a57-4d25-b5a8-5a85e291deea",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "1079,1102.402,550.9339",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4828,21 +6695,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "2fe3d0db-8d53-464c-b741-d700c0c65bbd"
+              "__guid": "2fe3d0db-8d53-464c-b741-d700c0c65bbd",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "e3ef0df5-01cb-4170-b0c2-9d0a388d9080",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "T SPAWN"
+              "DisplayName": "T SPAWN",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "df9b8e49-d515-4a0d-a5d1-0d23e01d1211",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "524.7341,535.2,360.6002",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4859,21 +6750,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "d1da78b4-dad1-4cff-83b0-c6b8b3523b01"
+              "__guid": "d1da78b4-dad1-4cff-83b0-c6b8b3523b01",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "fc9cf716-7d11-4e8d-a6da-9528d5eacbcd",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "TUNNEL"
+              "DisplayName": "TUNNEL",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "5c13124b-268a-48a2-a4d6-dd8e80b24c36",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "524.7341,535.2,360.6002",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4889,21 +6804,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "d49131b7-9c7c-4de7-be11-23eb5de0544d"
+              "__guid": "d49131b7-9c7c-4de7-be11-23eb5de0544d",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "48c81a84-f7d4-478a-b5fd-5520d9dc73d7",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "BACKDOORS"
+              "DisplayName": "BACKDOORS",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "359172b3-cc92-4540-a1d7-36da9b458743",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "524.7341,535.2,360.6002",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4919,21 +6858,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "6bba5ca3-2455-4e28-8a59-7c843b8e019a"
+              "__guid": "6bba5ca3-2455-4e28-8a59-7c843b8e019a",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "952faa81-bd2b-4e41-a34c-743a5cb36fbd",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "BACKDOORS"
+              "DisplayName": "BACKDOORS",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "40760d5c-80fb-424a-82e7-318b24f7b689",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "524.7341,535.2,360.6002",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4950,21 +6913,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "378898c2-cf08-4911-9a76-53e6559cb92e"
+              "__guid": "378898c2-cf08-4911-9a76-53e6559cb92e",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "0660b1dc-f913-4566-944b-996b28839460",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A CATWALK"
+              "DisplayName": "A CATWALK",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "921e00c8-0b3d-4919-a438-82aff1da7b5a",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "524.7341,535.2,360.6002",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -4981,21 +6968,45 @@
           "Components": [
             {
               "__type": "Facepunch.MapLocation",
-              "__guid": "95736d07-7a6b-450c-85f9-e00ad1d68425"
+              "__guid": "95736d07-7a6b-450c-85f9-e00ad1d68425",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Zone",
               "__guid": "86bdf118-f179-4b32-a391-a268a891d7e9",
               "Color": "0.51056,0.70698,0.49653,1",
-              "DisplayName": "A CATWALK"
+              "DisplayName": "A CATWALK",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "93f2f2a2-9e59-4cbf-8d5e-2e4b8acbb466",
               "Center": "0,0,0",
+              "Friction": null,
               "IsTrigger": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
               "Scale": "524,535.2,360.6002",
               "Static": true,
+              "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
           ]
@@ -5013,6 +7024,12 @@
               "__guid": "9a20d94c-b601-4a84-afae-d1251172d162",
               "__version": 1,
               "BlendMode": "Normal",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RenderOptions": {
                 "GameLayer": true,
                 "OverlayLayer": false,
@@ -5070,6 +7087,12 @@
                   "__guid": "61d10036-679c-4b3b-a52f-baf5c50941f7",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5127,6 +7150,12 @@
                   "__guid": "aa08a93a-50c3-4bd7-bff9-494d6cd62be9",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5184,6 +7213,12 @@
                   "__guid": "501617c1-9440-4944-977a-31edb3becf18",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5241,6 +7276,12 @@
                   "__guid": "9d77894a-5a2c-4465-a8ce-c1c1eb6418b4",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5298,6 +7339,12 @@
                   "__guid": "e69d9225-b8fb-4828-a837-eb98fff936bb",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5355,6 +7402,12 @@
                   "__guid": "7288c8d0-59bd-4fa1-bac6-b349df7de55a",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5412,6 +7465,12 @@
                   "__guid": "fafbb8a5-c46c-48b3-ba1e-aa90d01e2984",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5469,6 +7528,12 @@
                   "__guid": "2bed518d-b76a-434c-b06e-58bfdda4c723",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5526,6 +7591,12 @@
                   "__guid": "d1be2708-3fd9-4f3a-ac56-0d99b85c6f20",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5583,6 +7654,12 @@
                   "__guid": "3b13a9b1-774d-4b81-9772-1bfbbe736331",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5640,6 +7717,12 @@
                   "__guid": "c539eba5-674a-4e4a-8eb0-82889d520f78",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5697,6 +7780,12 @@
                   "__guid": "df3fc1e0-3b6d-4e06-abe6-d17108c84f41",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5754,6 +7843,12 @@
                   "__guid": "6084acbc-f1aa-4ec4-9638-929162eae41f",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5811,6 +7906,12 @@
                   "__guid": "29336e89-66e6-4363-8823-e950e3c86f69",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5868,6 +7969,12 @@
                   "__guid": "7a968c5a-6561-4848-b989-c7761d65188c",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5925,6 +8032,12 @@
                   "__guid": "d326ad85-23fe-4d31-8eff-943d9029f964",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -5982,6 +8095,12 @@
                   "__guid": "7b3559c8-7ccc-4e20-a3d2-a91f27cf1612",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6039,6 +8158,12 @@
                   "__guid": "69c7d24f-2282-4e98-b891-559d5f34db08",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6096,6 +8221,12 @@
                   "__guid": "6bd3856b-8a65-4959-a9b2-4fc6f664a2f1",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6153,6 +8284,12 @@
                   "__guid": "89cb0a68-53d4-43dc-b1a2-e8db89665e20",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6210,6 +8347,12 @@
                   "__guid": "be2c56cc-facf-4960-9336-b0e65acfed2f",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6267,6 +8410,12 @@
                   "__guid": "71f6de2e-d862-4a8d-9eb2-0a6633e4f9aa",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6324,6 +8473,12 @@
                   "__guid": "a24e34d6-5039-4bfe-a1f8-058036a56eb7",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6381,6 +8536,12 @@
                   "__guid": "21b7e923-4ec3-4c3c-95f7-5dfe79f05966",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6438,6 +8599,12 @@
                   "__guid": "c7d66441-58fb-420b-a7b3-a7e5e84efd78",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6495,6 +8662,12 @@
                   "__guid": "51c67ab7-398c-4a38-a57b-21e0a399eb69",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6552,6 +8725,12 @@
                   "__guid": "0bcd0aa2-b92c-4514-8669-f3a8564ed0fd",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6609,6 +8788,12 @@
                   "__guid": "4f1afe39-dc69-47d1-b5c5-564a6547e0a9",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6666,6 +8851,12 @@
                   "__guid": "a949df47-c42c-4bf7-96fe-b1d324b6d83d",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6723,6 +8914,12 @@
                   "__guid": "af5d2ec5-f385-44cb-b9ed-4241e6740741",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6780,6 +8977,12 @@
                   "__guid": "62ed4a14-5dfb-4c9c-83d9-8675ca753031",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6837,6 +9040,12 @@
                   "__guid": "af15f55e-d582-4d01-81f3-3e46f9c5da77",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6894,6 +9103,12 @@
                   "__guid": "9f3fd726-b1f6-46b8-a959-20eef2cb06f1",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -6951,6 +9166,12 @@
                   "__guid": "08effea2-39db-420d-b226-381df8b51fe2",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -7008,6 +9229,12 @@
                   "__guid": "b2c414a7-2ac8-43fc-b359-a510fd41387e",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -7065,6 +9292,12 @@
                   "__guid": "0449fd9c-c075-43a5-926a-366bf735b3ab",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -7122,6 +9355,12 @@
                   "__guid": "83fd98c5-555b-47c6-b324-c8cebee9593e",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -7179,6 +9418,12 @@
                   "__guid": "4055a780-7ab4-43e7-ae91-5f93692b7a37",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -7236,6 +9481,12 @@
                   "__guid": "79b298ef-9889-458c-ad12-e9f7ce72b4cb",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -7293,6 +9544,12 @@
                   "__guid": "c93e73c8-251c-4ffb-84c2-d64bf154cb35",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -7350,6 +9607,12 @@
                   "__guid": "22130e0e-7fc4-45c1-8021-e7fd7dfa6754",
                   "__version": 1,
                   "BlendMode": "Normal",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
                   "RenderOptions": {
                     "GameLayer": true,
                     "OverlayLayer": false,
@@ -7409,11 +9672,24 @@
         {
           "__type": "Zone",
           "__guid": "6f8c6047-777f-476b-a724-5afa2ca1bbb6",
-          "Color": "1,1,1,1"
+          "Color": "1,1,1,1",
+          "DisplayName": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
         },
         {
           "__type": "Facepunch.PlayArea",
           "__guid": "c5473d2e-df7a-4a7b-95bc-c80c6043a822",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
           "Zone": {
             "_type": "component",
             "component_id": "6f8c6047-777f-476b-a724-5afa2ca1bbb6",
@@ -7425,9 +9701,21 @@
           "__type": "Sandbox.BoxCollider",
           "__guid": "451c0c01-7bf2-4857-9ce5-be6e35addf54",
           "Center": "0,0,0",
+          "Friction": null,
           "IsTrigger": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
           "Scale": "6000,5000,1250",
           "Static": true,
+          "Surface": null,
           "SurfaceVelocity": "0,0,0"
         }
       ]
@@ -7453,7 +9741,16 @@
               "BodyGroups": 18446744073709551615,
               "Health": 0,
               "IsStatic": false,
+              "MaterialGroup": null,
               "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
             }
@@ -7473,7 +9770,16 @@
               "BodyGroups": 18446744073709551615,
               "Health": 0,
               "IsStatic": false,
+              "MaterialGroup": null,
               "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
             }
@@ -7493,7 +9799,16 @@
               "BodyGroups": 18446744073709551615,
               "Health": 0,
               "IsStatic": false,
+              "MaterialGroup": null,
               "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
             }
@@ -7513,7 +9828,16 @@
               "BodyGroups": 18446744073709551615,
               "Health": 0,
               "IsStatic": false,
+              "MaterialGroup": null,
               "Model": "models/player/ct_side/ct_side_riot_player/ct_side_riot_player.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
             }
@@ -7533,7 +9857,16 @@
               "BodyGroups": 18446744073709551615,
               "Health": 0,
               "IsStatic": false,
+              "MaterialGroup": null,
               "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
             }
@@ -7552,7 +9885,16 @@
               "BodyGroups": 18446744073709551615,
               "Health": 0,
               "IsStatic": false,
+              "MaterialGroup": null,
               "Model": "models/player/ct_side/ct_side_riot_player/ct_side_riot_player.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
             }
@@ -7573,6 +9915,12 @@
               "ClearFlags": "All",
               "FieldOfView": 60,
               "IsMainCamera": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Orthographic": false,
               "OrthographicHeight": 1204,
               "Priority": 1,
@@ -7640,6 +9988,12 @@
                 }
               ],
               "LookupTexture": null,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "RedCurve": [
                 {
                   "x": 0,
@@ -7696,6 +10050,12 @@
               "Brightness": 1.1,
               "Contrast": 1.02,
               "HueRotate": 0,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
               "Saturation": 1.05
             }
           ]

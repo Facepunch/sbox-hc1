@@ -30,7 +30,7 @@ public sealed class ResetBalance : Component,
 	{
 		foreach ( var player in GameUtils.PlayerPawns )
 		{
-			player.PlayerState.SetCash( Value );
+			player.Client.SetCash( Value );
 		}
 	}
 }

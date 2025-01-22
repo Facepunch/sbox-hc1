@@ -13,7 +13,7 @@ public sealed class PlayerInputRespawner : Respawner
 
 	protected override void OnUpdate()
 	{
-		var player = PlayerState.Local;
+		var player = Client.Local;
 
 		if ( player.PlayerPawn.IsValid() && player.PlayerPawn.HealthComponent.State == LifeState.Alive )
 			return;

@@ -85,7 +85,7 @@ public partial class PlayerPingComponent : Component
 		pingObject.Transform.ClearInterpolation();
 
 		var ping = pingObject.Components.Create<WorldPingComponent>();
-		ping.Owner = Player.PlayerState;
+		ping.Owner = Player.Client;
 		pingObject.Name = $"Ping from {ping.Owner.DisplayName}";
 
 		if ( target.IsValid() )

@@ -102,13 +102,13 @@ public partial class Crosshair : Component
 	{
 		var center = Screen.Size * 0.5f;
 
-		if ( !PlayerState.Viewer.IsValid() )
+		if ( !Client.Viewer.IsValid() )
 			return;
 
-		if ( !PlayerState.Viewer.Pawn.IsValid() )
+		if ( !Client.Viewer.Pawn.IsValid() )
 			return;
 
-		if ( !PlayerState.Viewer.Pawn.Camera.IsValid() )
+		if ( !Client.Viewer.Pawn.Camera.IsValid() )
 			return;
 
 		if ( !MainHUD.IsHudEnabled )
@@ -117,8 +117,8 @@ public partial class Crosshair : Component
 		float alphaTarget = 1f;
 		float linesTarget = 1f;
 
-		var pawn = PlayerState.Viewer.Pawn;
-		var hud = PlayerState.Viewer.Pawn.Camera.Hud;
+		var pawn = Client.Viewer.Pawn;
+		var hud = Client.Viewer.Pawn.Camera.Hud;
 		var scale = Screen.Height / 1080.0f;
 
 		var gap = CrosshairGap * scale;

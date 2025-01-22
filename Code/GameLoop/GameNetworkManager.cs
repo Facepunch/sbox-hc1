@@ -11,7 +11,7 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	/// <summary>
 	/// Which player prefab should we spawn?
 	/// </summary>
-	[Property] public GameObject PlayerStatePrefab { get; set; }
+	[Property] public GameObject ClientPrefab { get; set; }
 
 	/// <summary>
 	/// Is this game multiplayer? If not, we won't create a lobby.
@@ -43,37 +43,37 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	/// </summary>
 	/// <param name="channel"></param>
 	/// <returns></returns>
-	private PlayerState GetOrCreatePlayerState( Connection channel = null )
+	private Client GetOrCreateClient( Connection channel = null )
 	{
-		var playerStates = Scene.GetAllComponents<PlayerState>();
+		var Clients = Scene.GetAllComponents<Client>();
 
-		var possiblePlayerState = playerStates.FirstOrDefault( x => {
+		var possibleClient = Clients.FirstOrDefault( x => {
 			// A candidate player state has no owner.
 			return x.Connection is null && x.SteamId == channel.SteamId;
 		} );
 
-		if ( possiblePlayerState.IsValid() )
+		if ( possibleClient.IsValid() )
 		{
-			Log.Warning( $"Found existing player state for {channel.SteamId} that we can re-use. {possiblePlayerState}" );
-			return possiblePlayerState;
+			Log.Warning( $"Found existing player state for {channel.SteamId} that we can re-use. {possibleClient}" );
+			return possibleClient;
 		}
 
-		if ( !PlayerStatePrefab.IsValid() )
+		if ( !ClientPrefab.IsValid() )
 		{
-			Log.Warning( "Could not spawn player as no PlayerStatePrefab assigned." );
+			Log.Warning( "Could not spawn player as no ClientPrefab assigned." );
 			return null;
 		}
 
-		var player = PlayerStatePrefab.Clone();
+		var player = ClientPrefab.Clone();
 		player.BreakFromPrefab();
-		player.Name = $"PlayerState ({channel.DisplayName})";
+		player.Name = $"Client ({channel.DisplayName})";
 		player.Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
 
-		var playerState = player.GetComponent<PlayerState>();
-		if ( !playerState.IsValid() )
+		var Client = player.GetComponent<Client>();
+		if ( !Client.IsValid() )
 			return null;
 
-		return playerState;
+		return Client;
 	}
 
 	/// <summary>
@@ -84,29 +84,29 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	{
 		Log.Info( $"Player '{channel.DisplayName}' is becoming active" );
 
-		var playerState = GetOrCreatePlayerState( channel );
-		if ( !playerState.IsValid() )
+		var Client = GetOrCreateClient( channel );
+		if ( !Client.IsValid() )
 		{
-			throw new Exception( $"Something went wrong when trying to create PlayerState for {channel.DisplayName}" );
+			throw new Exception( $"Something went wrong when trying to create Client for {channel.DisplayName}" );
 		}
 
-		OnPlayerJoined( playerState, channel );
+		OnPlayerJoined( Client, channel );
 	}
 
-	public void OnPlayerJoined( PlayerState playerState, Connection channel )
+	public void OnPlayerJoined( Client Client, Connection channel )
 	{
 		// Dunno if we need both of these events anymore? But I'll keep them for now.
-		Scene.Dispatch( new PlayerConnectedEvent( playerState ) );
+		Scene.Dispatch( new PlayerConnectedEvent( Client ) );
 
 		// Either spawn over network, or claim ownership
-		if ( !playerState.Network.Active )
-			playerState.GameObject.NetworkSpawn( channel );
+		if ( !Client.Network.Active )
+			Client.GameObject.NetworkSpawn( channel );
 		else
-			playerState.Network.AssignOwnership( channel );
+			Client.Network.AssignOwnership( channel );
 
-		playerState.HostInit();
-		playerState.ClientInit();
+		Client.HostInit();
+		Client.ClientInit();
 
-		Scene.Dispatch( new PlayerJoinedEvent( playerState ) );
+		Scene.Dispatch( new PlayerJoinedEvent( Client ) );
 	}
 }

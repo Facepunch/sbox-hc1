@@ -4,7 +4,7 @@ namespace Facepunch;
 
 public partial class PlayerLoadout : Component
 {
-	[Property] public PlayerState PlayerState { get; set; }
+	[Property] public Client Client { get; set; }
 
 	[Property] public List<EquipmentResource> Equipment { get; set; }
 	[Property, Sync( SyncFlags.FromHost )] public bool HasDefuseKit { get; set; }

@@ -23,8 +23,8 @@ public partial class PlayerPawn :
 	/// </summary>
 	public bool CanBuy => HealthComponent.State == LifeState.Alive && IsInBuyZone;
 
-	private bool IsInBuyZone => PlayerState?.BuyMenuMode is BuyMenuMode.EnabledEverywhere
-		|| PlayerState?.BuyMenuMode is BuyMenuMode.EnabledInBuyZone && GetZone<BuyZone>() is not null;
+	private bool IsInBuyZone => Client?.BuyMenuMode is BuyMenuMode.EnabledEverywhere
+		|| Client?.BuyMenuMode is BuyMenuMode.EnabledInBuyZone && GetZone<BuyZone>() is not null;
 
 	private void UpdateRecoilAndSpread()
 	{

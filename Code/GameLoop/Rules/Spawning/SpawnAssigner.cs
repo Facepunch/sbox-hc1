@@ -8,5 +8,5 @@ public record struct SpawnPointInfo( Transform Transform, IReadOnlyList<string> 
 
 public interface ISpawnAssigner
 {
-	SpawnPointInfo GetSpawnPoint( PlayerState player );
+	SpawnPointInfo GetSpawnPoint( Client player );
 }

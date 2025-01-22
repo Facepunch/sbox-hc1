@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public partial class PlayerState : Component.INetworkListener
+public partial class Client : Component.INetworkListener
 {
 	/// <summary>
 	/// How long has it been since this player has d/c'd

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Facepunch;
 
-public partial class PlayerState 
+public partial class Client 
 {
 	/// <summary>
 	/// Unique ID of this Bot

@@ -38,8 +38,8 @@
 @code
 {
     public PlayerPawn Pawn => Player.IsValid() ? Player.PlayerPawn : null;
-    public PlayerState Player { get; set; }
-    public bool IsFriendly => PlayerState.Local.IsFriendly( Player );
+    public Client Player { get; set; }
+    public bool IsFriendly => Client.Local.IsFriendly( Player );
     public Color PlayerColor => Player.IsValid() ? Player.PlayerColor : Color.White;
     private bool IsDead => !Pawn.IsValid() || Pawn?.HealthComponent.State != LifeState.Alive;
 

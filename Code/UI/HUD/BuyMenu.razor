@@ -10,7 +10,7 @@
         @if ( GameMode.Instance?.UnlimitedMoney is false )
         {
             <div class="with-background with-padding">
-                <label class="emphasis">$@PlayerState.Balance.ToString("N0")</label>
+                <label class="emphasis">$@Client.Balance.ToString("N0")</label>
             </div>
         }
 
@@ -78,8 +78,8 @@
 @code
 {
     public PlayerInventory Inventory => Player?.Inventory;
-    public PlayerPawn Player => PlayerState.Viewer?.PlayerPawn;
-    public PlayerState PlayerState => PlayerState.Viewer;
+    public PlayerPawn Player => Client.Viewer?.PlayerPawn;
+    public Client Client => Client.Viewer;
 
     private void BuyWeapon( EquipmentResource resource )
     {
@@ -103,12 +103,12 @@
 
     private bool CanAfford( EquipmentResource resource )
     {
-        return PlayerState.Balance >= resource.Price;
+        return Client.Balance >= resource.Price;
     }
 
     private bool CanAfford( BuyMenuItem buyMenuItem )
     {
-        return PlayerState.Balance >= buyMenuItem.GetPrice( Player );
+        return Client.Balance >= buyMenuItem.GetPrice( Player );
     }
 
     private bool IsOpen = false;

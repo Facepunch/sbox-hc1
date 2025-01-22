@@ -34,7 +34,7 @@ public static class TeamExtensions
 			return pawn.Team;
 		}
 
-		if ( gameObject.Root.GetComponent<PlayerState>() is { IsValid: true } state )
+		if ( gameObject.Root.GetComponent<Client>() is { IsValid: true } state )
 		{
 			return state.Team;
 		}
@@ -80,9 +80,9 @@ public static class TeamExtensions
 	}
 
 	/// <summary>
-	/// Are these two <see cref="PlayerState"/>s friends with each other?
+	/// Are these two <see cref="Client"/>s friends with each other?
 	/// </summary>
-	public static bool IsFriendly( this PlayerState self, PlayerState other )
+	public static bool IsFriendly( this Client self, Client other )
 	{
 		if ( !self.IsValid() || !other.IsValid() ) return false;
 		return IsFriendly( self.Team, other.Team );

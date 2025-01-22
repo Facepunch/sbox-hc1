@@ -10,7 +10,7 @@ public enum RespawnState
 	Immediate
 }
 
-public partial class PlayerState
+public partial class Client
 {
 	/// <summary>
 	/// The prefab to spawn when we want to make a player pawn for the player.
@@ -32,7 +32,7 @@ public partial class PlayerState
 		var prefab = PlayerPawnPrefab.Clone( spawnPoint.Transform );
 		var pawn = prefab.GetComponent<PlayerPawn>();
 
-		pawn.PlayerState = this;
+		pawn.Client = this;
 
 		pawn.SetSpawnPoint( spawnPoint );
 

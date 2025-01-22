@@ -10,7 +10,7 @@ public abstract class BaseGrenade : Component
 	/// <summary>
 	/// Is this player an enemy of the viewer?
 	/// </summary>
-	public bool IsEnemy => PlayerState.Viewer.Team != Player.Team;
+	public bool IsEnemy => Client.Viewer.Team != Player.Team;
 
 	private TimeSince TimeSinceCreated { get; set; }
 

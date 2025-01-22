@@ -39,14 +39,14 @@
 
 @code
 {
-    private Team MyTeam => PlayerState.Local.Team;
+    private Team MyTeam => Client.Local.Team;
     private Team EnemyTeam => MyTeam.GetOpponents();
 
     private string MyTeamScore { get; set; } = "0";
     private string EnemyTeamScore { get; set; } = "0";
 
-    private List<PlayerState> MyTeamPlayers { get; } = new();
-    private List<PlayerState> EnemyTeamPlayers { get; } = new();
+    private List<Client> MyTeamPlayers { get; } = new();
+    private List<Client> EnemyTeamPlayers { get; } = new();
 
     public string Status => GameMode.Instance.IsValid() ? GameMode.Instance.DisplayedStatus : "";
     public string IconPath => GameMode.Instance.IsValid() ? GameMode.Instance.Get<ShowStatusIcon>()?.IconPath : "";

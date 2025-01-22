@@ -7,7 +7,7 @@ public abstract class Pawn : Component, IRespawnable, ITeam
 	/// <summary>
 	/// The player state ID
 	/// </summary>
-	[Sync( SyncFlags.FromHost )] public PlayerState PlayerState { get; set; }
+	[Sync( SyncFlags.FromHost )] public Client Client { get; set; }
 
 	/// <summary>
 	/// The position this player last spawned at.
@@ -32,13 +32,13 @@ public abstract class Pawn : Component, IRespawnable, ITeam
 	/// </summary>
 	public virtual Team Team
 	{
-		get => PlayerState.IsValid() ? PlayerState.Team : Team.Unassigned;
+		get => Client.IsValid() ? Client.Team : Team.Unassigned;
 		set
 		{
-			if ( !PlayerState.IsValid() )
+			if ( !Client.IsValid() )
 				return;
 
-			PlayerState.Team = value;
+			Client.Team = value;
 		}
 	}
 
@@ -98,7 +98,7 @@ public abstract class Pawn : Component, IRespawnable, ITeam
 			pawn.SteamId = Connection.Local.SteamId;
 		}
 
-		PlayerState.OnPossess( pawn );
+		Client.OnPossess( pawn );
 	}
 
 	/// <summary>

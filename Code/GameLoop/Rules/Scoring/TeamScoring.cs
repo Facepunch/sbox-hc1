@@ -26,8 +26,8 @@ public sealed class TeamScoring : Component,
 	[Sync( SyncFlags.FromHost )] public string ScoreFormat { get; set; } = "";
 	[Sync( SyncFlags.FromHost )] public string ScorePrefix { get; set; } = "";
 
-	public int MyTeamScore => Scores.GetValueOrDefault( PlayerState.Local.Team );
-	public int OpposingTeamScore => Scores.GetValueOrDefault( PlayerState.Local.Team.GetOpponents() );
+	public int MyTeamScore => Scores.GetValueOrDefault( Client.Local.Team );
+	public int OpposingTeamScore => Scores.GetValueOrDefault( Client.Local.Team.GetOpponents() );
 
 	public string MyTeamScoreFormatted => $"{ScorePrefix}{MyTeamScore.ToString( ScoreFormat )}";
 	public string OpposingTeamScoreFormatted => $"{ScorePrefix}{OpposingTeamScore.ToString( ScoreFormat )}";
