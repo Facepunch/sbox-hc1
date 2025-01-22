@@ -10,10 +10,13 @@
       {
         "__type": "Facepunch.ViewModel",
         "__guid": "84386830-61fd-47ae-8e55-8472c32bcb2b",
-        "EjectionPort": {
-          "_type": "gameobject",
-          "go": "e7e7d57b-8e57-47f6-b41b-f256b6c45882"
+        "Arms": {
+          "_type": "component",
+          "component_id": "e6d29cfc-f465-41c7-8a57-deff5d047816",
+          "go": "32eb0452-bee5-4fff-80ed-501476e10195",
+          "component_type": "SkinnedModelRenderer"
         },
+        "EjectionPort": null,
         "IronsightsFireScale": 0.2,
         "IsThrowable": false,
         "ModelRenderer": {
@@ -22,22 +25,34 @@
           "go": "95837f57-4440-43ce-a6ea-5e911cd95fb2",
           "component_type": "SkinnedModelRenderer"
         },
-        "Muzzle": {
-          "_type": "gameobject",
-          "go": "19f361be-9dcf-493c-8c70-46db578766c3"
-        },
+        "Muzzle": null,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "ThrowableType": "HEGrenade",
         "UseMovementInertia": true
       },
       {
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "17371f20-3241-4da2-b97c-7fc604619a81",
-        "__enabled": false,
-        "BodyGroups": 11,
+        "AnimationGraph": null,
+        "BodyGroups": 1299,
+        "BoneMergeTarget": null,
         "CreateAttachments": false,
         "CreateBoneObjects": false,
-        "Model": "models/dev/error.vmdl",
+        "MaterialGroup": null,
+        "MaterialOverride": null,
+        "Model": "models/weapons/sbox_sniper_m700/v_m700.vmdl",
         "Morphs": {},
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Parameters": {
           "bools": {},
           "ints": {},
@@ -52,26 +67,51 @@
           "AfterUILayer": false
         },
         "RenderType": "On",
+        "Sequence": {
+          "Name": null
+        },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
       }
     ],
     "Children": [
       {
-        "__guid": "7986730a-3a71-4e1c-83a3-72c7940271d2",
+        "__guid": "32eb0452-bee5-4fff-80ed-501476e10195",
         "Flags": 0,
-        "Name": "Cube",
-        "Position": "13.00792,-5.694498,-9.688847",
-        "Rotation": "-0.03644482,-0.01904868,-0.02373951,0.9988722",
-        "Scale": "0.75,1,1",
+        "Name": "Object",
         "Enabled": true,
+        "NetworkMode": 0,
         "Components": [
           {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "8ab39076-4c68-484d-bf6b-8d2b827d6fae",
-            "BodyGroups": 2323,
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "e6d29cfc-f465-41c7-8a57-deff5d047816",
+            "AnimationGraph": null,
+            "BodyGroups": 18446744073709551383,
+            "BoneMergeTarget": {
+              "_type": "component",
+              "component_id": "17371f20-3241-4da2-b97c-7fc604619a81",
+              "go": "95837f57-4440-43ce-a6ea-5e911cd95fb2",
+              "component_type": "SkinnedModelRenderer"
+            },
             "CreateAttachments": false,
-            "Model": "models/weapons/sbox_sniper_m700/v_m700.vmdl",
+            "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
+            "Model": "models/first_person/first_person_arms.vmdl",
+            "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
             "RenderOptions": {
               "GameLayer": false,
               "OverlayLayer": true,
@@ -79,23 +119,11 @@
               "AfterUILayer": false
             },
             "RenderType": "Off",
-            "Tint": "1,1,1,1"
-          }
-        ],
-        "Children": [
-          {
-            "__guid": "e7e7d57b-8e57-47f6-b41b-f256b6c45882",
-            "Flags": 0,
-            "Name": "Eject",
-            "Position": "0,0.0000002980232,5.964143",
-            "Enabled": true
-          },
-          {
-            "__guid": "19f361be-9dcf-493c-8c70-46db578766c3",
-            "Flags": 0,
-            "Name": "Muzzle",
-            "Position": "21.15613,0.0000007748604,5.964143",
-            "Enabled": true
+            "Sequence": {
+              "Name": null
+            },
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
           }
         ]
       }
@@ -131,7 +159,7 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
-    "facepunch.v_m700#68039"
+    "facepunch.v_m700#81552"
   ],
   "__version": 1
 }
