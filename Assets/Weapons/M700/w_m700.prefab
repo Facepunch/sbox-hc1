@@ -11,6 +11,7 @@
         "__guid": "391a8037-b9fe-4298-9f58-2715c3f5e461",
         "CrosshairType": "Default",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
+        "EjectionPort": null,
         "Handedness": "Right",
         "HoldType": "Rifle",
         "ModelRenderer": {
@@ -27,13 +28,25 @@
           "_type": "gameobject",
           "go": "2782fa48-4464-4aad-a9f9-9adb91a1afe4"
         },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Resource": "weapons/m700/m700.equip",
         "SpeedPenalty": 40,
         "UseCrosshair": false
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "8bf4edca-88ae-40de-9444-5a7c6170c500"
+        "__guid": "8bf4edca-88ae-40de-9444-5a7c6170c500",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
@@ -48,11 +61,21 @@
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "d3fb8aed-106d-49fb-80b1-5c69ef3ab4ed",
+            "AnimationGraph": null,
             "BodyGroups": 171,
+            "BoneMergeTarget": null,
             "CreateAttachments": false,
             "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
             "Model": "models/weapons/sbox_sniper_m700/w_m700.vmdl",
             "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Parameters": {
               "bools": {},
               "ints": {},
@@ -67,6 +90,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           }
@@ -93,7 +119,13 @@
             "__guid": "d7763ff7-5e7b-4a5e-9ee1-380b8fae74ba",
             "Ammo": 5,
             "HasAmmo": true,
-            "MaxAmmo": 5
+            "MaxAmmo": 5,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
           },
           {
             "__type": "Facepunch.ShootWeaponComponent",
@@ -107,10 +139,18 @@
             "BaseDamage": 80,
             "BaseDamageFalloff": [
               {
-                "y": 1
+                "x": 0,
+                "y": 1,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               },
               {
-                "x": 1
+                "x": 1,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               }
             ],
             "BloodEjectDistance": 512,
@@ -122,6 +162,7 @@
             "CurrentFireMode": "Semi",
             "DryFireSound": "sounds/guns/gun_dryfire.sound",
             "DryShootDelay": 0.15,
+            "EjectionPrefab": null,
             "FireModeSwitchDelay": 0.3,
             "FireRate": 60,
             "InAirSpreadMultiplier": 2,
@@ -135,6 +176,13 @@
               "_type": "gameobject",
               "prefab": "prefabs/weapon_effects/rifle_muzzleflash.prefab"
             },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
             "PrimaryTracer": "particles/gameplay/guns/trail/trail_smoke.vpcf",
@@ -167,6 +215,13 @@
             "InputActions": [
               "Reload"
             ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "ReloadTime": 1.5,
             "RequiresAllInputActions": false,
             "SingleReload": false,
@@ -180,8 +235,17 @@
             "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "5d5607cf-e7df-4fa1-9672-f63c10a6a95f",
             "HorizontalSpread": "-5 5",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "RecoilPattern": {
-              "Points": []
+              "Points": [],
+              "LoopStart": 0,
+              "LoopEnd": 0,
+              "IsLooping": false
             },
             "ResetTime": 0.3,
             "Scale": "2,5",
@@ -195,6 +259,13 @@
             "InputActions": [
               "Attack2"
             ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "RequiresAllInputActions": false,
             "ScopeOverlay": "weapons/m700/scope.vmat",
             "UnzoomSound": "sounds/weapons/m700/m700_zoom.sound",
@@ -210,27 +281,48 @@
             "AnglesOffset": "-15,7,-2",
             "Curve": [
               {
+                "x": 0,
+                "y": 0,
+                "in": 0,
+                "out": 0,
                 "mode": "Split"
               },
               {
                 "x": 0.15,
                 "y": 1,
                 "in": 1.7971016,
-                "out": -1.7971016
+                "out": -1.7971016,
+                "mode": "Mirrored"
               },
               {
-                "x": 1
+                "x": 1,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               }
             ],
             "Lifetime": 1,
             "MaxAnglesOffset": "-0.5,0.1,0.5",
             "MaxPositionOffset": "0.5,0.2,0.75",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "PositionOffset": "1,0.4,1.5"
           },
           {
             "__type": "Facepunch.ScreenShakeOnShot",
             "__guid": "6f389bf6-cb11-49d5-90cc-79434694b106",
             "Length": 0.8,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Size": 5
           }
         ]
