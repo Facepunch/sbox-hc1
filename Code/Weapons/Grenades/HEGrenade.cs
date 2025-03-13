@@ -43,7 +43,7 @@ public partial class HEGrenade : BaseGrenade, IMarkerObject, IDescription
 			var distance = viewer.GameObject.WorldPosition.Distance( WorldPosition );
 			var falloff = DamageFalloff;
 			
-			if ( falloff.Frames.Count == 0 )
+			if ( falloff.Frames.IsEmpty )
 			{
 				falloff = new( new Curve.Frame( 1f, 1f ), new Curve.Frame( 0f, 0f ) );
 			}

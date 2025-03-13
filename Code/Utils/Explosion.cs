@@ -4,7 +4,7 @@ public static class Explosion
 {
 	public static void AtPoint( Vector3 point, float radius, float baseDamage, Component attacker = null, Component inflictor = null, Curve falloff = default )
 	{
-		if ( falloff.Frames.Count == 0 )
+		if ( falloff.Frames.IsEmpty )
 		{
 			falloff = new Curve( new Curve.Frame( 1.0f, 1.0f ), new Curve.Frame( 0.0f, 0.0f ) );
 		}
