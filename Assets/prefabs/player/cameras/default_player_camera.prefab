@@ -11,7 +11,14 @@
         "BackgroundColor": "0.75478,0.83828,0.87624,1",
         "ClearFlags": "All",
         "FieldOfView": 90,
+        "FovAxis": "Horizontal",
         "IsMainCamera": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Orthographic": false,
         "OrthographicHeight": 1204,
         "Priority": 8,
@@ -25,46 +32,44 @@
       {
         "__type": "Sandbox.AudioListener",
         "__guid": "c283a749-a1b4-4d71-97cd-6cfe6e0269f0",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "UseCameraDirection": true
       },
       {
         "__type": "Sandbox.Highlight",
-        "__guid": "9a1e8dd1-ce52-4988-a0a6-2192d8401241"
+        "__guid": "9a1e8dd1-ce52-4988-a0a6-2192d8401241",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       },
       {
         "__type": "Sandbox.Bloom",
         "__guid": "aa00f6d6-044f-4303-b133-b1db76e26a95",
-        "BloomColor": {
-          "color": [
-            {
-              "c": "1,1,1,1"
-            },
-            {
-              "t": 1,
-              "c": "1,1,1,1"
-            }
-          ],
-          "alpha": []
-        },
-        "BloomCurve": [
-          {
-            "y": 0.5
-          },
-          {
-            "x": 1,
-            "y": 1
-          }
-        ],
+        "__version": 1,
+        "Gamma": 2.2,
         "Mode": "Additive",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Strength": 0.15,
-        "Threshold": 0.66,
-        "ThresholdWidth": 1.65
+        "Threshold": 1.33,
+        "Tint": "1,1,1,1"
       },
       {
         "__type": "Sandbox.Tonemapping",
         "__guid": "84567d97-73e3-488c-9ec1-ecfea74f2603",
-        "__version": 1,
-        "__enabled": false,
+        "__version": 2,
         "AutoExposureEnabled": true,
         "ExposureBias": 2,
         "ExposureCompensation": 0,
@@ -72,36 +77,74 @@
         "MaximumExposure": 2,
         "MinimumExposure": 1,
         "Mode": "ReinhardJodie",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Rate": 1
       },
       {
         "__type": "Sandbox.Sharpen",
         "__guid": "09775e98-d3bd-4fe7-b742-4888e27b545c",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Scale": 0.1
       },
       {
         "__type": "Sandbox.ChromaticAberration",
         "__guid": "a1574d00-56c9-4791-9885-9c2ce4d6d170",
         "Offset": "2,3,0",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Scale": 0
       },
       {
         "__type": "Sandbox.Pixelate",
         "__guid": "fea821b4-2c14-4aa3-ab38-da30ee64a3a3",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Scale": 0
       },
       {
         "__type": "Facepunch.ScreenShaker",
-        "__guid": "e405a983-581c-4843-b72d-bd6afa755f8f"
+        "__guid": "e405a983-581c-4843-b72d-bd6afa755f8f",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       },
       {
         "__type": "Sandbox.AmbientOcclusion",
         "__guid": "9d21f25e-4845-4991-8273-82f901d917f4",
-        "__enabled": false,
-        "FalloffDistance": 1,
-        "Intensity": 8,
+        "__version": 1,
+        "DenoiseMode": "Spatial",
+        "FalloffRange": 0.75,
+        "Intensity": 0.15,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Quality": "High",
-        "Radius": 32
+        "Radius": 128,
+        "ThinCompensation": 0
       },
       {
         "__type": "Sandbox.ColorAdjustments",
@@ -109,6 +152,12 @@
         "Brightness": 1.1,
         "Contrast": 1.02,
         "HueRotate": 0,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Saturation": 1.05
       }
     ],
@@ -144,6 +193,5 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "HasUnsavedChanges": false,
   "__version": 1
 }

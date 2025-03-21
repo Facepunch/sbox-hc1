@@ -60,7 +60,6 @@
       "Name": "Retakes",
       "Position": "885.8217,-165.1629,-212.8118",
       "Rotation": "-0.06991732,0.06275678,0.740896,0.665016",
-      "NetworkMode": 1,
       "__Prefab": "prefabs/game_modes/retakes.prefab",
       "__PrefabVariables": {}
     },
@@ -70,7 +69,6 @@
       "Name": "Defusal",
       "Position": "1782.033,0,-235.4621",
       "Enabled": true,
-      "NetworkMode": 1,
       "__Prefab": "prefabs/game_modes/bomb_defusal.prefab",
       "__PrefabVariables": {
         "FreezeTime": 5,
@@ -98,7 +96,6 @@
       "Flags": 0,
       "Name": "Team Deathmatch",
       "Position": "1782.033,0,-235.4621",
-      "NetworkMode": 1,
       "__Prefab": "prefabs/game_modes/team_deathmatch.prefab",
       "__PrefabVariables": {
         "Description": "Team vs. Team mode where respawns are immediate. Highest scoring team wins.",
@@ -118,6 +115,7 @@
           "Flags": 0,
           "Name": "Gradient Fog",
           "Position": "0,0,4",
+          "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.GradientFog",
@@ -138,7 +136,6 @@
             {
               "__type": "Sandbox.CubemapFog",
               "__guid": "38d473c8-9f5d-41ca-a170-4f668607a0ad",
-              "__enabled": false,
               "Blur": 0.28,
               "EndDistance": 8192,
               "FalloffExponent": 1.5,
@@ -221,13 +218,6 @@
               "ZNear": 16
             }
           ]
-        },
-        {
-          "__guid": "6a033b1b-8ed1-4aaf-bc62-29f5edaf0eb9",
-          "Flags": 0,
-          "Name": "Camera Settings",
-          "Position": "-4210.519,-874.5353,268.8596",
-          "Enabled": true
         },
         {
           "__guid": "71983c35-4728-4c39-b144-da21ee31a6c7",
@@ -5260,7 +5250,9 @@
           "HideInGame": true,
           "IsTrigger": true,
           "Mesh": {
-            "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f\u002BlaMRGsohUVbFn1\u002Bt04ANs\u002BZ0VsM69AwfgBFyAKZ9MPXdgk3qLnsI\u002BUm/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt\u002BivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "-182.207,495.9999,-169.1063",
+            "Rotation": "0,0,0.7071067,0.7071068",
             "Positions": [
               "-16,-4.494537,66.3558",
               "16,-4.494534,66.3558",
@@ -5378,6 +5370,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -5393,7 +5386,6 @@
       "Rotation": "0,0,0.7071067,0.7071068",
       "Tags": "noblockaudio",
       "Enabled": true,
-      "NetworkMode": 1,
       "__Prefab": "prefabs/door.prefab",
       "__PrefabVariables": {}
     },
@@ -5405,7 +5397,6 @@
       "Rotation": "0,0,0.7071067,0.7071068",
       "Tags": "noblockaudio",
       "Enabled": true,
-      "NetworkMode": 1,
       "__Prefab": "prefabs/door.prefab",
       "__PrefabVariables": {}
     },
@@ -5417,7 +5408,6 @@
       "Rotation": "0,0,-0.9999999,-0.0000005384259",
       "Tags": "noblockaudio",
       "Enabled": true,
-      "NetworkMode": 1,
       "__Prefab": "prefabs/door.prefab",
       "__PrefabVariables": {}
     },
@@ -5429,7 +5419,6 @@
       "Rotation": "0,0,0.9999999,0.0000001490116",
       "Tags": "noblockaudio",
       "Enabled": true,
-      "NetworkMode": 1,
       "__Prefab": "prefabs/door.prefab",
       "__PrefabVariables": {}
     },
@@ -5441,7 +5430,6 @@
       "Rotation": "0,0,0.0000003437187,-0.9999999",
       "Tags": "noblockaudio",
       "Enabled": true,
-      "NetworkMode": 1,
       "__Prefab": "prefabs/door.prefab",
       "__PrefabVariables": {}
     },
@@ -5453,7 +5441,6 @@
       "Rotation": "0,0,1,0.0000001947072",
       "Tags": "noblockaudio",
       "Enabled": true,
-      "NetworkMode": 1,
       "__Prefab": "prefabs/door.prefab",
       "__PrefabVariables": {}
     },
@@ -9897,166 +9884,6 @@
               "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
-            }
-          ]
-        },
-        {
-          "__guid": "d812db7f-075e-4bac-a04f-4be6585b2930",
-          "Flags": 0,
-          "Name": "Camera",
-          "Position": "-568.1172,389.1978,171.7469",
-          "Rotation": "-0.1160435,0.06835621,0.8537746,0.5029216",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.CameraComponent",
-              "__guid": "235d8b0c-001a-4b59-be16-ba9cbba67f4b",
-              "BackgroundColor": "0.33333,0.46275,0.52157,1",
-              "ClearFlags": "All",
-              "FieldOfView": 60,
-              "IsMainCamera": true,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Orthographic": false,
-              "OrthographicHeight": 1204,
-              "Priority": 1,
-              "RenderExcludeTags": "",
-              "RenderTags": "",
-              "TargetEye": "None",
-              "Viewport": "0,0,1,1",
-              "ZFar": 10000,
-              "ZNear": 10
-            },
-            {
-              "__type": "Sandbox.ColorGrading",
-              "__guid": "9c19ba3f-a46c-4c1c-b30a-b765b68ca204",
-              "__enabled": false,
-              "BlendFactor": 0.49,
-              "BlueCurve": [
-                {
-                  "x": 0,
-                  "y": 0.5,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                },
-                {
-                  "x": 1,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "ColorSpace": "None",
-              "ColorTempK": 40000,
-              "GradingMethod": "TemperatureControl",
-              "GreenCurve": [
-                {
-                  "x": 0,
-                  "y": 0.5,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                },
-                {
-                  "x": 1,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "HueCurve": [
-                {
-                  "x": 0,
-                  "y": 0.5,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                },
-                {
-                  "x": 1,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "LookupTexture": null,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "RedCurve": [
-                {
-                  "x": 0,
-                  "y": 0.5,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                },
-                {
-                  "x": 1,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "SaturationCurve": [
-                {
-                  "x": 0,
-                  "y": 0.5,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                },
-                {
-                  "x": 1,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ],
-              "ValueCurve": [
-                {
-                  "x": 0,
-                  "y": 0.5,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                },
-                {
-                  "x": 1,
-                  "y": 1,
-                  "in": 0,
-                  "out": 0,
-                  "mode": "Mirrored"
-                }
-              ]
-            },
-            {
-              "__type": "Sandbox.ColorAdjustments",
-              "__guid": "f454dfa0-11ae-4273-98bb-4cab30eecc08",
-              "__enabled": false,
-              "Brightness": 1.1,
-              "Contrast": 1.02,
-              "HueRotate": 0,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Saturation": 1.05
             }
           ]
         }
