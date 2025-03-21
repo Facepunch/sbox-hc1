@@ -178,6 +178,8 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 		ModelRenderer.Set( "ironsights", aiming ? 1 : 0 );
 		ModelRenderer.Set( "ironsights_fire_scale", aiming ? IronsightsFireScale : 0f );
 
+		ModelRenderer.Set( "speed_ironsights", 2 );
+
 		// Handedness
 		ModelRenderer.Set( "b_twohanded", true );
 
