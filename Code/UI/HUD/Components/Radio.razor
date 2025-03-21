@@ -62,7 +62,7 @@
             var inputAction = $"Slot{++i}";
             if ( Input.Pressed( inputAction ) )
             {
-                Input.Clear( inputAction );
+                Input.ReleaseAction( inputAction );
 
                 RadioSounds.CmdPlay( SelectedCategory, snd.Name );
 

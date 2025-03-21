@@ -8,6 +8,18 @@ public enum CameraMode
 	ThirdPerson
 }
 
+public interface ICameraSetup : ISceneEvent<ICameraSetup>
+{
+	// Effects before viewmodel
+	public void PreSetup( CameraComponent cc ) { }
+
+	// Place viewmodel
+	public void Setup( CameraComponent cc ) { }
+
+	// Effects including viewmodel
+	public void PostSetup( CameraComponent cc ) { }
+}
+
 public sealed class CameraController : PawnCameraController, IGameEventHandler<DamageTakenEvent>
 {
 	[Property] public PlayerPawn Player { get; set; }
@@ -68,6 +80,15 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 		base.SetActive( isActive );
 		OnModeChanged();
 		Boom.WorldRotation = Player.EyeAngles.ToRotation();
+	}
+
+	protected override void OnPreRender()
+	{
+		var cc = Camera;
+
+		ICameraSetup.Post( x => x.PreSetup( cc ) );
+		ICameraSetup.Post( x => x.Setup( cc ) );
+		ICameraSetup.Post( x => x.PostSetup( cc ) );
 	}
 
 	/// <summary>

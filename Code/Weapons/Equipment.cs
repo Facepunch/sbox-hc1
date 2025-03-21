@@ -245,9 +245,11 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 			var viewModelGameObject = resource.ViewModelPrefab.Clone( new CloneConfig()
 			{
 				Transform = new(),
-				Parent = player.ViewModelGameObject,
+				Parent = GameObject,
 				StartEnabled = true,
 			} );
+
+			viewModelGameObject.Flags |= GameObjectFlags.Absolute;
 
 			var viewModelComponent = viewModelGameObject.GetComponent<ViewModel>();
 			viewModelComponent.PlayDeployEffects = playDeployEffects;

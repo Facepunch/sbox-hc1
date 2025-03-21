@@ -5,7 +5,7 @@ namespace Facepunch;
 /// A weapon's viewmodel. It's responsibility is to listen to events from a weapon.
 /// It should only exist on the client for the currently possessed pawn.
 /// </summary>
-public partial class ViewModel : Component, IEquipment
+public partial class ViewModel : Component, IEquipment, ICameraSetup
 {
 	/// <summary>
 	/// A reference to the <see cref="Equipment"/> we want to listen to.
@@ -48,6 +48,13 @@ public partial class ViewModel : Component, IEquipment
 	private float PitchInertia;
 
 	IEnumerable<IViewModelOffset> Offsets => Equipment.GetComponentsInChildren<IViewModelOffset>();
+
+	void ICameraSetup.Setup( CameraComponent cc )
+	{
+		WorldPosition = cc.WorldPosition;
+		WorldRotation = cc.WorldRotation;
+		ApplyInertia();
+	}
 
 	protected override void OnAwake()
 	{
@@ -240,7 +247,6 @@ public partial class ViewModel : Component, IEquipment
 		
 		ApplyVelocity();
 		ApplyAnimationTransform();
-		ApplyInertia();
 		ApplyOffsets();
 
 		var baseFov = GameSettingsSystem.Current.FieldOfView;

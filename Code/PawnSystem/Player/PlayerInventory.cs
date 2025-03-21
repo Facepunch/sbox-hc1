@@ -319,7 +319,7 @@ public partial class PlayerInventory : Component
 		var gameObject = resource.MainPrefab.Clone( new CloneConfig()
 		{
 			Transform = new(),
-			Parent = WeaponGameObject
+			Parent = Player.GameObject
 		} );
 		var component = gameObject.GetComponentInChildren<Equipment>( true );
 		component.Owner = Player;
