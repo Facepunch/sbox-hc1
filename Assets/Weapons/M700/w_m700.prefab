@@ -11,22 +11,11 @@
         "__guid": "391a8037-b9fe-4298-9f58-2715c3f5e461",
         "CrosshairType": "Default",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
-        "EjectionPort": null,
         "Handedness": "Right",
         "HoldType": "Rifle",
-        "ModelRenderer": {
-          "_type": "component",
-          "component_id": "d3fb8aed-106d-49fb-80b1-5c69ef3ab4ed",
-          "go": "874a1023-562a-4869-9bf3-896166dd8250",
-          "component_type": "SkinnedModelRenderer"
-        },
         "MountedPrefab": {
           "_type": "gameobject",
           "prefab": "weapons/m700/mount_m700.prefab"
-        },
-        "Muzzle": {
-          "_type": "gameobject",
-          "go": "2782fa48-4464-4aad-a9f9-9adb91a1afe4"
         },
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
@@ -50,65 +39,6 @@
       }
     ],
     "Children": [
-      {
-        "__guid": "874a1023-562a-4869-9bf3-896166dd8250",
-        "Flags": 0,
-        "Name": "Model",
-        "Position": "3.51264,-4.135427,-2.9835",
-        "Rotation": "0.05646783,-0.1116807,-0.3311328,0.9352486",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "d3fb8aed-106d-49fb-80b1-5c69ef3ab4ed",
-            "AnimationGraph": null,
-            "BodyGroups": 171,
-            "BoneMergeTarget": null,
-            "CreateAttachments": false,
-            "CreateBoneObjects": false,
-            "MaterialGroup": null,
-            "MaterialOverride": null,
-            "Model": "models/weapons/sbox_sniper_m700/w_m700.vmdl",
-            "Morphs": {},
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null,
-            "Parameters": {
-              "bools": {},
-              "ints": {},
-              "floats": {},
-              "vectors": {},
-              "rotations": {}
-            },
-            "PlaybackRate": 1,
-            "RenderOptions": {
-              "GameLayer": true,
-              "OverlayLayer": false,
-              "BloomLayer": false,
-              "AfterUILayer": false
-            },
-            "RenderType": "On",
-            "Sequence": {
-              "Name": null
-            },
-            "Tint": "1,1,1,1",
-            "UseAnimGraph": true
-          }
-        ],
-        "Children": [
-          {
-            "__guid": "2782fa48-4464-4aad-a9f9-9adb91a1afe4",
-            "Flags": 0,
-            "Name": "Muzzle",
-            "Position": "21.48365,0,6.378874",
-            "Scale": "0.8333333,0.8333333,0.8333333",
-            "Enabled": true
-          }
-        ]
-      },
       {
         "__guid": "4874e959-080d-44f7-8e88-be241e832716",
         "Flags": 0,
@@ -339,12 +269,7 @@
       "ThreadedAnimation": true,
       "TimeScale": 1,
       "UseFixedUpdate": true,
-      "Metadata": {
-        "WorldModel": "models/weapons/sbox_sniper_m700/w_m700.vmdl",
-        "BodyGroups": "171",
-        "Maxs": "20.1278,1.9012,10.884",
-        "Mins": "-19.1998,-1.9832,0.3015"
-      },
+      "Metadata": {},
       "NavMesh": {
         "Enabled": false,
         "IncludeStaticBodies": true,
@@ -364,8 +289,6 @@
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [
-    "facepunch.w_m700#71263"
-  ],
+  "__references": [],
   "__version": 1
 }
