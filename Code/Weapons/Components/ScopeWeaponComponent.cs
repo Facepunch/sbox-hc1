@@ -142,9 +142,9 @@ public class ScopeWeaponComponent : InputWeaponComponent
 		Equipment.Owner.AimDampening /= (ZoomLevel * ZoomLevel) + 1;
 
 		{
-			var cc = Equipment.Owner.PlayerController;
+			var cc = Equipment.Owner.CharacterController;
 
-			float velocity = Equipment.Owner.PlayerController.Velocity.Length / 25.0f;
+			float velocity = Equipment.Owner.CharacterController.Velocity.Length / 25.0f;
 			float blur = 1.0f / (velocity + 1.0f);
 			blur = MathX.Clamp( blur, 0.1f, 1.0f );
 

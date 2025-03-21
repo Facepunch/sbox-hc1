@@ -35,7 +35,7 @@ public partial class PlayerPawn :
 		if ( isAiming ) spread *= Global.AimSpread;
 		if ( isAiming ) scale *= Global.AimVelocitySpreadScale;
 
-		var velLen = PlayerController.Velocity.Length;
+		var velLen = CharacterController.Velocity.Length;
 		spread += velLen.Remap( 0, Global.SpreadVelocityLimit, 0, 1, true ) * scale;
 
 		if ( IsCrouching && IsGrounded ) spread *= Global.CrouchSpreadScale;

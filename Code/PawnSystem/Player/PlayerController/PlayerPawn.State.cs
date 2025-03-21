@@ -47,8 +47,7 @@ public partial class PlayerPawn
 			CreateRagdoll();
 		}
 
-		PlayerController.ColliderObject.Enabled = false;
-		PlayerController.Body.MotionEnabled = false;
+		PlayerBoxCollider.Enabled = false;
 
 		if ( IsProxy )
 			return;
@@ -132,6 +131,12 @@ public partial class PlayerPawn
 		Transform.World = new( position, rotation );
 		Transform.ClearInterpolation();
 		EyeAngles = rotation.Angles();
+
+		if ( CharacterController.IsValid() )
+		{
+			CharacterController.Velocity = Vector3.Zero;
+			CharacterController.IsOnGround = true;
+		}
 	}
 
 	[Rpc.Broadcast( NetFlags.HostOnly )]
@@ -166,6 +171,8 @@ public partial class PlayerPawn
 		{
 			Body.DamageTakenForce = Vector3.Zero;
 		}
+
+		PlayerBoxCollider.Enabled = true;
 
 		var outfitter = GetComponentInChildren<HumanOutfitter>();
 
