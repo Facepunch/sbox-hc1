@@ -13,61 +13,32 @@
         "DeploySound": "sounds/guns/knife/knife.deploy.sound",
         "Handedness": "Right",
         "HoldType": "None",
-        "ModelRenderer": {
-          "_type": "component",
-          "component_id": "021866f7-aefb-48e4-a6ad-024110b74821",
-          "go": "f3a00090-d124-4fe9-b1e3-b5846a2ad3dd",
-          "component_type": "SkinnedModelRenderer"
-        },
         "MountedPrefab": {
           "_type": "gameobject",
           "prefab": "weapons/knife/mount_knife_trench.prefab"
         },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Resource": "weapons/knife/knife.equip",
         "SpeedPenalty": 0,
         "UseCrosshair": true
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "b2de65d3-2a49-4d42-a7af-0b4faf9f7a41"
+        "__guid": "b2de65d3-2a49-4d42-a7af-0b4faf9f7a41",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
-      {
-        "__guid": "f3a00090-d124-4fe9-b1e3-b5846a2ad3dd",
-        "Flags": 0,
-        "Name": "Model",
-        "Position": "1.063663,-1.827041,1.91736",
-        "Rotation": "-0.09423724,-0.685995,-0.09031288,0.715803",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "021866f7-aefb-48e4-a6ad-024110b74821",
-            "BodyGroups": 18446744073709551615,
-            "CreateAttachments": false,
-            "CreateBoneObjects": false,
-            "Model": "models/weapons/sbox_melee_trenchknife/w_trenchknife.vmdl",
-            "Morphs": {},
-            "Parameters": {
-              "bools": {},
-              "ints": {},
-              "floats": {},
-              "vectors": {},
-              "rotations": {}
-            },
-            "RenderOptions": {
-              "GameLayer": true,
-              "OverlayLayer": false,
-              "BloomLayer": false,
-              "AfterUILayer": false
-            },
-            "RenderType": "On",
-            "Tint": "1,1,1,1",
-            "UseAnimGraph": true
-          }
-        ]
-      },
       {
         "__guid": "e0b6f84a-933e-4d12-9c33-4e41df80b06a",
         "Flags": 0,
@@ -84,6 +55,13 @@
               "Attack2"
             ],
             "MaxRange": 80,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "RequiresAllInputActions": false,
             "Size": 16,
             "SwingSound": "sounds/guns/knife/knife.swing.sound"
@@ -101,12 +79,7 @@
       "ThreadedAnimation": true,
       "TimeScale": 1,
       "UseFixedUpdate": true,
-      "Metadata": {
-        "WorldModel": "models/weapons/sbox_melee_trenchknife/w_trenchknife.vmdl",
-        "BodyGroups": "18446744073709551615",
-        "Maxs": "7.0844,0.7954,3.9896",
-        "Mins": "-4.6571,-0.7954,0.228"
-      },
+      "Metadata": {},
       "NavMesh": {
         "Enabled": false,
         "IncludeStaticBodies": true,
@@ -126,8 +99,6 @@
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [
-    "facepunch.w_trenchknife#38336"
-  ],
+  "__references": [],
   "__version": 1
 }

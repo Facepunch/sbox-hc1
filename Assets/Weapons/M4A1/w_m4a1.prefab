@@ -11,87 +11,36 @@
         "__guid": "aa2c3636-b926-4bfd-b13d-7bcb63fd1f1e",
         "CrosshairType": "Default",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
-        "EjectionPort": {
-          "_type": "gameobject",
-          "go": "a1749d19-0334-479c-a43d-57577da6d589"
-        },
         "Handedness": "Right",
         "HoldType": "Rifle",
-        "ModelRenderer": {
-          "_type": "component",
-          "component_id": "d3031980-2ee6-4417-98f9-49a8a8d3d088",
-          "go": "e6199e40-738f-44b2-a1a5-5916daa5725e",
-          "component_type": "SkinnedModelRenderer"
-        },
+        "ModelRenderer": null,
         "MountedPrefab": {
           "_type": "gameobject",
           "prefab": "weapons/m4a1/mount_m4a1.prefab"
         },
-        "Muzzle": {
-          "_type": "gameobject",
-          "go": "ca4abf38-a77c-44ab-9b32-4b08ff9f1979"
-        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "ParentBone": "hold_r",
         "Resource": "weapons/m4a1/m4a1.equip",
         "SpeedPenalty": 40,
         "UseCrosshair": true
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "1a7ef131-e4a7-4b09-81fa-0af88edfd7b2"
+        "__guid": "1a7ef131-e4a7-4b09-81fa-0af88edfd7b2",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
-      {
-        "__guid": "e6199e40-738f-44b2-a1a5-5916daa5725e",
-        "Flags": 0,
-        "Name": "Model",
-        "Position": "-0.1607628,-1.758964,-3.878195",
-        "Rotation": "0.08670059,-0.02514087,-0.3245313,0.9415574",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "d3031980-2ee6-4417-98f9-49a8a8d3d088",
-            "BodyGroups": 427,
-            "CreateAttachments": false,
-            "CreateBoneObjects": false,
-            "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
-            "Morphs": {},
-            "Parameters": {
-              "bools": {},
-              "ints": {},
-              "floats": {},
-              "vectors": {},
-              "rotations": {}
-            },
-            "RenderOptions": {
-              "GameLayer": true,
-              "OverlayLayer": false,
-              "BloomLayer": false,
-              "AfterUILayer": false
-            },
-            "RenderType": "On",
-            "Tint": "1,1,1,1",
-            "UseAnimGraph": true
-          }
-        ],
-        "Children": [
-          {
-            "__guid": "ca4abf38-a77c-44ab-9b32-4b08ff9f1979",
-            "Flags": 0,
-            "Name": "Muzzle",
-            "Position": "20.07571,0,7.212921",
-            "Enabled": true
-          },
-          {
-            "__guid": "a1749d19-0334-479c-a43d-57577da6d589",
-            "Flags": 0,
-            "Name": "EjectionPort",
-            "Position": "1.774985,-0.4210945,7.672482",
-            "Enabled": true
-          }
-        ]
-      },
       {
         "__guid": "8f9b0f89-d493-4656-be19-e23bb64f2cea",
         "Flags": 0,
@@ -103,7 +52,13 @@
             "__guid": "809891ef-b6af-4974-bab3-3e2f8ec5423b",
             "Ammo": 30,
             "HasAmmo": true,
-            "MaxAmmo": 30
+            "MaxAmmo": 30,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
           },
           {
             "__type": "Facepunch.ShootWeaponComponent",
@@ -117,16 +72,25 @@
             "BaseDamage": 20,
             "BaseDamageFalloff": [
               {
-                "y": 1
+                "x": 0,
+                "y": 1,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               },
               {
                 "x": 0.37202382,
                 "y": 0.91245157,
                 "in": 0.5832836,
-                "out": -0.5832836
+                "out": -0.5832836,
+                "mode": "Mirrored"
               },
               {
-                "x": 1
+                "x": 1,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               }
             ],
             "BloodEjectDistance": 512,
@@ -155,6 +119,13 @@
               "_type": "gameobject",
               "prefab": "prefabs/weapon_effects/rifle_muzzleflash.prefab"
             },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
             "PrimaryTracer": "particles/gameplay/guns/trail/trail_smoke.vpcf",
@@ -188,6 +159,13 @@
             "InputActions": [
               "Reload"
             ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "ReloadTime": 1.5,
             "RequiresAllInputActions": false,
             "SingleReload": false,
@@ -201,6 +179,12 @@
             "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "c9826e24-a703-4396-b88c-0b2e88265dee",
             "HorizontalSpread": "-5 5",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "RecoilPattern": {
               "Points": [
                 "0,4.93644",
@@ -229,7 +213,8 @@
                 "-0.1711025,0.02118644"
               ],
               "LoopStart": 1,
-              "LoopEnd": 23
+              "LoopEnd": 23,
+              "IsLooping": false
             },
             "ResetTime": 0.3,
             "Scale": "2,5",
@@ -244,6 +229,13 @@
             "InputActions": [
               "Attack2"
             ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "RequiresAllInputActions": false
           },
           {
@@ -251,34 +243,72 @@
             "__guid": "3773dffd-5820-4f59-b91b-7a0714a51e63",
             "AnglesOffset": "-0.4,-0.1,-0.5",
             "Curve": [
-              {},
               {
-                "x": 0.21428572,
-                "y": 1
+                "x": 0,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               },
               {
-                "x": 1
+                "x": 0.21428572,
+                "y": 1,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
+              },
+              {
+                "x": 1,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               }
             ],
             "Lifetime": 0.45,
             "MaxAnglesOffset": "-0.7,0.1,0.5",
             "MaxPositionOffset": "-0.5,-0.2,-0.75",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "PositionOffset": "0.5,0.2,0.75"
           },
           {
             "__type": "Facepunch.FovOffset",
             "__guid": "86bf81c6-dddf-4f7e-b589-1a798e1dd02a",
             "Curve": [
-              {},
               {
-                "x": 0.15,
-                "y": 1
+                "x": 0,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               },
               {
-                "x": 1
+                "x": 0.15,
+                "y": 1,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
+              },
+              {
+                "x": 1,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               }
             ],
             "Length": 0.1,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Size": 2
           }
         ]

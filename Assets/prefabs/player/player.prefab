@@ -26,6 +26,7 @@
           "go": "d5948881-7e0d-4ca0-8054-85c77a3cc5af",
           "component_type": "PlayerBody"
         },
+        "CurrentEquipment": null,
         "FallDamageScale": 0.2,
         "Head": {
           "_type": "gameobject",
@@ -48,10 +49,21 @@
           "component_type": "HealthComponent"
         },
         "Height": 64,
+        "HoldGameObject": {
+          "_type": "gameobject",
+          "go": "54431291-2c92-4075-bf87-882481574799"
+        },
         "LandSound": "sounds/footsteps/footstep-concrete-land.sound",
         "MinimumFallSoundVelocity": 250,
         "MinimumFallVelocity": 500,
         "NoclipSpeed": 1000,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnJump": null,
         "OutOfPlayAreaKillTime": 5,
         "PlayerBoxCollider": {
           "_type": "component",
@@ -74,6 +86,12 @@
           "_type": "gameobject",
           "go": "a0a355df-2e53-45a3-9610-d04c2529fc1b"
         },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Player": {
           "_type": "component",
           "component_id": "3370799f-99ac-4881-9678-016414bdb61f",
@@ -92,6 +110,12 @@
         "GroundAngle": 45,
         "Height": 64,
         "IgnoreLayers": "ragdoll,invis,pickup,no_player,fire",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Radius": 12,
         "StepHeight": 15.46,
         "UseCollisionRules": false
@@ -100,18 +124,37 @@
         "__type": "Facepunch.ArmorComponent",
         "__guid": "d13fd687-bd5f-46f6-adac-4cf1921899a0",
         "Armor": 0,
-        "HasHelmet": false
+        "HasHelmet": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       },
       {
         "__type": "Facepunch.HealthComponent",
         "__guid": "b0ad035b-94a2-4e02-8850-15baffda666b",
         "IsGodMode": false,
-        "MaxHealth": 100
+        "MaxHealth": 100,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnHealthChanged": null
       },
       {
         "__type": "Facepunch.PlayerInventory",
         "__guid": "7514a6eb-1688-4ac1-818e-5fd8ade159b6",
         "CanUnequipCurrentWeapon": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "WeaponGameObject": {
           "_type": "gameobject",
           "go": "54431291-2c92-4075-bf87-882481574799"
@@ -122,6 +165,12 @@
         "__guid": "f717d818-dab0-4b35-b7bf-1a9a307c486b",
         "FootstepBaseDecibels": 70,
         "FootstepScale": 1,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Player": {
           "_type": "component",
           "component_id": "3370799f-99ac-4881-9678-016414bdb61f",
@@ -132,7 +181,13 @@
       },
       {
         "__type": "Facepunch.PlayerMarker",
-        "__guid": "236bf370-9058-4dca-b2e6-c774d97f7674"
+        "__guid": "236bf370-9058-4dca-b2e6-c774d97f7674",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       },
       {
         "__type": "Sandbox.HighlightOutline",
@@ -141,18 +196,37 @@
         "Color": "1,1,1,1",
         "InsideColor": "0,0,0,0",
         "InsideObscuredColor": "0,0,0,0",
+        "Material": null,
         "ObscuredColor": "0,0,0,0.4",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Width": 0.25
       },
       {
         "__type": "Facepunch.Spottable",
         "__guid": "4d63646b-f3aa-45cf-8028-e847fecee39a",
         "Height": 72,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Static": false
       },
       {
         "__type": "Facepunch.Spotter",
         "__guid": "a52a4b39-8be9-49d3-8efb-ef0b1f30d114",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Player": {
           "_type": "component",
           "component_id": "3370799f-99ac-4881-9678-016414bdb61f",
@@ -162,17 +236,35 @@
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "bda86caa-ccce-46b8-b31b-e5e333de8618"
+        "__guid": "bda86caa-ccce-46b8-b31b-e5e333de8618",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       },
       {
         "__type": "Facepunch.PlayerPingComponent",
         "__guid": "3f555bef-840f-4133-a7ee-6c46d02ccaca",
         "Lifetime": 15,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "PingDistance": 10000
       },
       {
         "__type": "Facepunch.PlayerPingReceiver",
-        "__guid": "c275220f-c13c-4473-b037-3a3414ed151b"
+        "__guid": "c275220f-c13c-4473-b037-3a3414ed151b",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
@@ -209,6 +301,12 @@
           {
             "__type": "Facepunch.PlayerBody",
             "__guid": "68310fd2-d9db-4f87-a98a-81a7c7dca155",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Physics": {
               "_type": "component",
               "component_id": "c132631d-1bbf-46b4-949e-acd121c89190",
@@ -231,11 +329,21 @@
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "2192125d-a0f3-4033-8a96-7b77485d8539",
+            "AnimationGraph": null,
             "BodyGroups": 18446744073709551615,
+            "BoneMergeTarget": null,
             "CreateAttachments": false,
             "CreateBoneObjects": true,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
             "Model": "models/player/ct_side/ct_side_riot_player/ct_side_riot_player.vmdl",
             "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Parameters": {
               "bools": {},
               "ints": {},
@@ -243,6 +351,7 @@
               "vectors": {},
               "rotations": {}
             },
+            "PlaybackRate": 1,
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -250,12 +359,21 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           },
           {
             "__type": "Sandbox.ModelHitboxes",
             "__guid": "f7462f1b-935c-4645-9abd-a168f6a2e7d7",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Renderer": {
               "_type": "component",
               "component_id": "2192125d-a0f3-4033-8a96-7b77485d8539",
@@ -270,7 +388,18 @@
           {
             "__type": "Facepunch.AnimationHelper",
             "__guid": "21b6a16f-ce05-4982-8ae4-c85592c7b220",
+            "EyeSource": null,
             "Height": 1,
+            "IkLeftFoot": null,
+            "IkLeftHand": null,
+            "IkRightFoot": null,
+            "IkRightHand": null,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Target": {
               "_type": "component",
               "component_id": "2192125d-a0f3-4033-8a96-7b77485d8539",
@@ -282,9 +411,22 @@
             "__type": "Sandbox.ModelPhysics",
             "__guid": "c132631d-1bbf-46b4-949e-acd121c89190",
             "__enabled": false,
-            "Locking": {},
+            "Locking": {
+              "X": false,
+              "Y": false,
+              "Z": false,
+              "Pitch": false,
+              "Yaw": false,
+              "Roll": false
+            },
             "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
             "MotionEnabled": true,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Renderer": {
               "_type": "component",
               "component_id": "2192125d-a0f3-4033-8a96-7b77485d8539",
@@ -355,6 +497,12 @@
                 ]
               }
             ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Player": {
               "_type": "component",
               "component_id": "3370799f-99ac-4881-9678-016414bdb61f",
@@ -365,6 +513,12 @@
           {
             "__type": "Facepunch.HumanOutfitter",
             "__guid": "a3c096fb-d984-497f-9616-14892738cf20",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "PlayerPawn": {
               "_type": "component",
               "component_id": "3370799f-99ac-4881-9678-016414bdb61f",
@@ -1065,7 +1219,15 @@
                                                         "__guid": "0bf8d9cf-7225-4bba-9388-62864e2ed3c2",
                                                         "BodyGroups": 9493,
                                                         "CreateAttachments": false,
+                                                        "MaterialGroup": null,
+                                                        "MaterialOverride": null,
                                                         "Model": "models/dev/error.vmdl",
+                                                        "OnComponentDestroy": null,
+                                                        "OnComponentDisabled": null,
+                                                        "OnComponentEnabled": null,
+                                                        "OnComponentFixedUpdate": null,
+                                                        "OnComponentStart": null,
+                                                        "OnComponentUpdate": null,
                                                         "RenderOptions": {
                                                           "GameLayer": true,
                                                           "OverlayLayer": false,
@@ -1210,9 +1372,21 @@
             "__type": "Sandbox.BoxCollider",
             "__guid": "0d4973b2-fdb1-4f1d-ab98-c1c49bfd4a2b",
             "Center": "0,0,32",
+            "Friction": null,
             "IsTrigger": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnObjectTriggerEnter": null,
+            "OnObjectTriggerExit": null,
+            "OnTriggerEnter": null,
+            "OnTriggerExit": null,
             "Scale": "32,32,64",
             "Static": false,
+            "Surface": null,
             "SurfaceVelocity": "0,0,0"
           }
         ]

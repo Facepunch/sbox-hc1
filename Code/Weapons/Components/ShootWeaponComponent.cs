@@ -136,12 +136,12 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	/// <summary>
 	/// Fetches the desired model renderer that we'll focus effects on like trail effects, muzzle flashes, etc.
 	/// </summary>
-	protected IEquipment Effector
+	protected WeaponModel Effector
 	{
 		get
 		{
 			if ( IsProxy || !Equipment.ViewModel.IsValid() )
-				return Equipment;
+				return Equipment.WorldModel;
 
 			return Equipment.ViewModel;
 		}

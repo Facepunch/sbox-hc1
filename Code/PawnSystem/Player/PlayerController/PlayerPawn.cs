@@ -45,6 +45,12 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	[RequireComponent] public Spottable Spottable { get; set; }
 
 	/// <summary>
+	/// Where are weapons on the player?
+	/// </summary>
+	[Property]
+	public GameObject HoldGameObject { get; set; }
+
+	/// <summary>
 	/// Get a quick reference to the real Camera GameObject.
 	/// </summary>
 	public GameObject CameraGameObject

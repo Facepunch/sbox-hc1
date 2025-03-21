@@ -5,7 +5,7 @@ namespace Facepunch;
 /// A weapon's viewmodel. It's responsibility is to listen to events from a weapon.
 /// It should only exist on the client for the currently possessed pawn.
 /// </summary>
-public partial class ViewModel : Component, IEquipment, ICameraSetup
+public partial class ViewModel : WeaponModel, ICameraSetup
 {
 	/// <summary>
 	/// A reference to the <see cref="Equipment"/> we want to listen to.
@@ -32,10 +32,6 @@ public partial class ViewModel : Component, IEquipment, ICameraSetup
 	/// </summary>
 	PlayerPawn Owner => Equipment.IsValid() ? Equipment.Owner : null;
 
-	[Property, Group( "GameObjects" )] public GameObject Muzzle { get; set; }
-	[Property, Group( "GameObjects" )] public GameObject EjectionPort { get; set; }
-
-	[Property, Group( "Components" )] public SkinnedModelRenderer ModelRenderer { get; set; }
 	[Property, Range( 0, 1 ), Group( "Configuration" )] public float IronsightsFireScale { get; set; } = 0.2f;
 	[Property, Group( "Configuration" )] public bool UseMovementInertia { get; set; } = true;
 

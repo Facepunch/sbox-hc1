@@ -1,0 +1,123 @@
+{
+  "RootObject": {
+    "__guid": "fccf584a-67cf-4b26-ae4b-c0fafa897f5e",
+    "Flags": 0,
+    "Name": "wm_usp",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "5abbb3cb-4005-418f-970c-50342f9b3759",
+        "AnimationGraph": null,
+        "BodyGroups": 9493,
+        "BoneMergeTarget": null,
+        "CreateAttachments": false,
+        "CreateBoneObjects": false,
+        "MaterialGroup": null,
+        "MaterialOverride": null,
+        "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
+        "Morphs": {},
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
+        "PlaybackRate": 1,
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
+        "RenderType": "On",
+        "Sequence": {
+          "Name": null
+        },
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
+      },
+      {
+        "__type": "Facepunch.WorldModel",
+        "__guid": "a227c7ab-1a63-405d-b589-88e9fa81979a",
+        "EjectionPort": {
+          "_type": "gameobject",
+          "go": "0e090fee-9fb1-4b07-bba6-047370e3c2e4"
+        },
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "5abbb3cb-4005-418f-970c-50342f9b3759",
+          "go": "fccf584a-67cf-4b26-ae4b-c0fafa897f5e",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "Muzzle": {
+          "_type": "gameobject",
+          "go": "93b70621-3326-4689-b0dd-82371b9b8594"
+        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "93b70621-3326-4689-b0dd-82371b9b8594",
+        "Flags": 0,
+        "Name": "Muzzle",
+        "Position": "4.320035,0,4.755252",
+        "Enabled": true
+      },
+      {
+        "__guid": "0e090fee-9fb1-4b07-bba6-047370e3c2e4",
+        "Flags": 0,
+        "Name": "EjectionPort",
+        "Position": "0.2360865,0,4.951741",
+        "Tags": "particles",
+        "Enabled": true
+      }
+    ],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "ResourceVersion": 1,
+  "__references": [
+    "facepunch.w_usp#17493"
+  ],
+  "__version": 1
+}

@@ -106,7 +106,7 @@ public partial class PlayerPawn :
 	{
 		foreach ( var weapon in Inventory.Equipment )
 		{
-			weapon.ClearViewModel();
+			weapon.DestroyViewModel();
 		}
 	}
 

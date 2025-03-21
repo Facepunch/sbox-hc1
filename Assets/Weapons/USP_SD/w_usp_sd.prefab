@@ -11,87 +11,35 @@
         "__guid": "806f0060-495c-44b8-b31a-277735480ce1",
         "CrosshairType": "ThreeLines",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
-        "EjectionPort": {
-          "_type": "gameobject",
-          "go": "9e84113f-9ee7-400b-843f-b7d0ddb669aa"
-        },
         "Handedness": "Right",
         "HoldType": "Pistol",
-        "ModelRenderer": {
-          "_type": "component",
-          "component_id": "34acc078-c753-43dc-aab5-9f3488660a7c",
-          "go": "908caeec-63cc-46ab-b29c-6f51ac4ca145",
-          "component_type": "SkinnedModelRenderer"
-        },
         "MountedPrefab": {
           "_type": "gameobject",
           "prefab": "weapons/usp_sd/mount_usp_sd.prefab"
         },
-        "Muzzle": {
-          "_type": "gameobject",
-          "go": "107c901e-6a1e-4953-bdb3-b43263e36a53"
-        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "ParentBone": "hold_r",
         "Resource": "weapons/usp_sd/usp_sd.equip",
         "SpeedPenalty": 20,
         "UseCrosshair": true
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "af26acc1-d4db-4244-baa6-85b2780ac83f"
+        "__guid": "af26acc1-d4db-4244-baa6-85b2780ac83f",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
-      {
-        "__guid": "908caeec-63cc-46ab-b29c-6f51ac4ca145",
-        "Flags": 0,
-        "Name": "Model",
-        "Position": "1.384324,-1.23468,-1.075049",
-        "Rotation": "-0.02182811,-0.1285429,-0.2158509,0.9676817",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "34acc078-c753-43dc-aab5-9f3488660a7c",
-            "BodyGroups": 9541,
-            "CreateAttachments": false,
-            "CreateBoneObjects": false,
-            "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
-            "Morphs": {},
-            "Parameters": {
-              "bools": {},
-              "ints": {},
-              "floats": {},
-              "vectors": {},
-              "rotations": {}
-            },
-            "RenderOptions": {
-              "GameLayer": true,
-              "OverlayLayer": false,
-              "BloomLayer": false,
-              "AfterUILayer": false
-            },
-            "RenderType": "On",
-            "Tint": "1,1,1,1",
-            "UseAnimGraph": true
-          }
-        ],
-        "Children": [
-          {
-            "__guid": "107c901e-6a1e-4953-bdb3-b43263e36a53",
-            "Flags": 0,
-            "Name": "Muzzle",
-            "Position": "7.864211,0,4.958122",
-            "Enabled": true
-          },
-          {
-            "__guid": "9e84113f-9ee7-400b-843f-b7d0ddb669aa",
-            "Flags": 0,
-            "Name": "EjectionPort",
-            "Position": "0.2749491,0,4.958122",
-            "Enabled": true
-          }
-        ]
-      },
       {
         "__guid": "15f7fb9d-7f2c-4b64-9c2a-b179524dc1cd",
         "Flags": 0,
@@ -103,7 +51,13 @@
             "__guid": "72985b07-5d29-42bd-bf46-4f45bff4f605",
             "Ammo": 13,
             "HasAmmo": true,
-            "MaxAmmo": 13
+            "MaxAmmo": 13,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
           },
           {
             "__type": "Facepunch.ShootWeaponComponent",
@@ -117,16 +71,25 @@
             "BaseDamage": 18,
             "BaseDamageFalloff": [
               {
-                "y": 1
+                "x": 0,
+                "y": 1,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               },
               {
                 "x": 0.45386904,
                 "y": 0.44311067,
                 "in": 1.6585169,
-                "out": -1.6585169
+                "out": -1.6585169,
+                "mode": "Mirrored"
               },
               {
-                "x": 1
+                "x": 1,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               }
             ],
             "BloodEjectDistance": 512,
@@ -155,6 +118,13 @@
               "_type": "gameobject",
               "prefab": "prefabs/weapon_effects/suppressed_muzzleflash.prefab"
             },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
             "PrimaryTracer": "particles/gameplay/guns/trail/trail_smoke.vpcf",
@@ -186,6 +156,13 @@
             "InputActions": [
               "Reload"
             ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "ReloadTime": 1.5,
             "RequiresAllInputActions": false,
             "SingleReload": false,
@@ -198,8 +175,17 @@
             "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "47ac5945-4100-4add-83a6-0d38c0641d66",
             "HorizontalSpread": "1.4 -1.4",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "RecoilPattern": {
-              "Points": []
+              "Points": [],
+              "LoopStart": 0,
+              "LoopEnd": 0,
+              "IsLooping": false
             },
             "ResetTime": 0.3,
             "Scale": "2,5",
@@ -211,18 +197,37 @@
             "__guid": "7825e1e5-532d-4709-8785-8d823e6a7c94",
             "AnglesOffset": "-0.5,0.1,0.5",
             "Curve": [
-              {},
               {
-                "x": 0.20089285,
-                "y": 1
+                "x": 0,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               },
               {
-                "x": 1
+                "x": 0.20089285,
+                "y": 1,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
+              },
+              {
+                "x": 1,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               }
             ],
             "Lifetime": 0.1,
             "MaxAnglesOffset": "-0.5,0.1,0.5",
             "MaxPositionOffset": "0.5,0.2,1.5",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "PositionOffset": "0.5,0.2,1.5"
           },
           {
@@ -233,6 +238,13 @@
             "InputActions": [
               "Attack2"
             ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "RequiresAllInputActions": false
           }
         ]
@@ -248,12 +260,7 @@
       "ThreadedAnimation": true,
       "TimeScale": 1,
       "UseFixedUpdate": true,
-      "Metadata": {
-        "WorldModel": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
-        "BodyGroups": "9541",
-        "Maxs": "10.5454,0.7699,5.6813",
-        "Mins": "-3.8766,-0.6861,0.0368"
-      },
+      "Metadata": {},
       "NavMesh": {
         "Enabled": false,
         "IncludeStaticBodies": true,
@@ -273,8 +280,6 @@
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [
-    "facepunch.w_usp#17493"
-  ],
+  "__references": [],
   "__version": 1
 }

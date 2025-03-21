@@ -18,7 +18,7 @@ public enum EquipmentFlags
 /// <summary>
 /// An equipment component.
 /// </summary>
-public partial class Equipment : Component, Component.INetworkListener, IEquipment, IDescription, ISceneMetadata
+public partial class Equipment : Component, Component.INetworkListener, IDescription
 {
 	/// <summary>
 	/// A reference to the equipment's <see cref="EquipmentResource"/>.
@@ -36,11 +36,6 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// <param name="tag"></param>
 	/// <param name="predicate"></param>
 	internal void BindTag( string tag, Func<bool> predicate ) => TagBinder.BindTag( tag, predicate );
-
-	/// <summary>
-	/// A reference to the equipment's model renderer.
-	/// </summary>
-	[Property, Group( "Components" )] public SkinnedModelRenderer ModelRenderer { get; set; }
 
 	/// <summary>
 	/// The default holdtype for this equipment.
@@ -61,9 +56,6 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// How slower do we walk with this equipment out?
 	/// </summary>
 	[Property, Group( "Movement" )] public float SpeedPenalty { get; set; } = 0f;
-
-	[Property, Group( "GameObjects" )] public GameObject Muzzle { get; set; }
-	[Property, Group( "GameObjects" )] public GameObject EjectionPort { get; set; }
 
 	/// <summary>
 	/// What prefab should we spawn as the mounted version of this piece of equipment?
@@ -116,7 +108,10 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	/// </summary>
 	public void UpdateRenderMode( bool force = false )
 	{
-		ModelRenderer.Enabled = IsDeployed || force;
+		if ( WorldModel.IsValid() )
+		{
+			WorldModel.Enabled = IsDeployed || force;
+		}
 	}
 
 	private ViewModel viewModel;
@@ -220,12 +215,38 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		_wasDeployed = IsDeployed;
 	}
 
-	public void ClearViewModel()
+	public void DestroyViewModel()
 	{
 		if ( ViewModel.IsValid() )
 			ViewModel.GameObject.Destroy();
 	}
-	
+
+	public WorldModel WorldModel { get; set; }
+
+	protected void CreateWorldModel()
+	{
+		DestroyWorldModel();
+
+		if ( Resource.WorldModelPrefab is null )
+		{
+			return;
+		}
+
+		var parentBone = Owner.HoldGameObject;
+		var wm = Resource.WorldModelPrefab.Clone( new CloneConfig { Parent = parentBone, StartEnabled = false, Transform = global::Transform.Zero } );
+		
+		wm.Flags |= GameObjectFlags.NotSaved | GameObjectFlags.NotNetworked;
+		wm.Enabled = true;
+
+		WorldModel = wm.GetComponent<WorldModel>();
+	}
+
+	protected void DestroyWorldModel()
+	{
+		WorldModel?.DestroyGameObject();
+		WorldModel = null;
+	}
+
 	/// <summary>
 	/// Creates a viewmodel for the player to use.
 	/// </summary>
@@ -236,7 +257,7 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		
 		var resource = Resource;
 
-		ClearViewModel();
+		DestroyViewModel();
 		UpdateRenderMode();
 
 		if ( resource.ViewModelPrefab.IsValid() )
@@ -290,10 +311,12 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 		if ( Owner.IsValid() && Owner.IsViewer && Owner.CameraController.Mode == CameraMode.FirstPerson )
 			CreateViewModel( !HasCreatedViewModel );
 
-		if (!IsProxy)
+		if ( !IsProxy )
 			HasCreatedViewModel = true;
 
 		UpdateRenderMode();
+
+		CreateWorldModel();
 
 		GameObject.Root.Dispatch( new EquipmentDeployedEvent( this ) );
 	}
@@ -301,7 +324,8 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 	protected virtual void OnHolstered()
 	{
 		UpdateRenderMode();
-		ClearViewModel();
+		DestroyWorldModel();
+		DestroyViewModel();
 
 		HasCreatedViewModel = false;
 
@@ -310,19 +334,8 @@ public partial class Equipment : Component, Component.INetworkListener, IEquipme
 
 	protected override void OnDestroy()
 	{
-		ClearViewModel();
+		DestroyViewModel();
 
 		GameObject.Root.Dispatch( new EquipmentDestroyedEvent( this ) );
-	}
-
-	Dictionary<string, string> ISceneMetadata.GetMetadata()
-	{
-		return new()
-		{
-			{ "WorldModel", ModelRenderer.Model.ResourcePath },
-			{ "BodyGroups", ModelRenderer.BodyGroups.ToString() },
-			{ "Maxs", ModelRenderer.Model.RenderBounds.Maxs.ToString() },
-			{ "Mins", ModelRenderer.Model.RenderBounds.Mins.ToString() }
-		};
 	}
 }

@@ -22,7 +22,7 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 		{
 			if ( IsProxy || !Equipment.ViewModel.IsValid() )
 			{
-				return Equipment.ModelRenderer;
+				return Equipment.WorldModel.ModelRenderer;
 			}
 
 			return Equipment.ViewModel.ModelRenderer;
