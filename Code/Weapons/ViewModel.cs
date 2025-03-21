@@ -35,6 +35,9 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 	[Property, Range( 0, 1 ), Group( "Configuration" )] public float IronsightsFireScale { get; set; } = 0.2f;
 	[Property, Group( "Configuration" )] public bool UseMovementInertia { get; set; } = true;
 
+	[Property]
+	public float ReloadSpeed { get; set; } = 1f;
+
 	private float YawInertiaScale => 2f;
 	private float PitchInertiaScale => 2f;
 	private bool activateInertia = false;
@@ -179,6 +182,8 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 		ModelRenderer.Set( "ironsights_fire_scale", aiming ? IronsightsFireScale : 0f );
 
 		ModelRenderer.Set( "speed_ironsights", 2 );
+
+		ModelRenderer.Set( "reload_speed", ReloadSpeed );
 
 		// Handedness
 		ModelRenderer.Set( "b_twohanded", true );

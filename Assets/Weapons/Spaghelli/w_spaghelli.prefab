@@ -11,33 +11,31 @@
         "__guid": "e024c49f-02af-42c7-973e-4ca51b2e508e",
         "CrosshairType": "Shotgun",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
-        "EjectionPort": {
-          "_type": "gameobject",
-          "go": "8010d538-161c-486a-9781-1e812c0cc52d"
-        },
         "Handedness": "Right",
         "HoldType": "Shotgun",
-        "ModelRenderer": {
-          "_type": "component",
-          "component_id": "0da0ed03-c109-424d-b320-a0a41f8a9896",
-          "go": "092bf9bf-6f26-4ec8-844b-c1e3d184478a",
-          "component_type": "SkinnedModelRenderer"
-        },
         "MountedPrefab": {
           "_type": "gameobject",
           "prefab": "weapons/spaghelli/mount_spaghelli.prefab"
         },
-        "Muzzle": {
-          "_type": "gameobject",
-          "go": "ab00b98d-27b0-48f1-ae49-99ee0adc65c2"
-        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Resource": "weapons/spaghelli/spaghelli.equip",
         "SpeedPenalty": 40,
         "UseCrosshair": true
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "1773e7cf-e188-47a2-b2cb-cebb44a5fd92"
+        "__guid": "1773e7cf-e188-47a2-b2cb-cebb44a5fd92",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
@@ -52,11 +50,21 @@
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "0da0ed03-c109-424d-b320-a0a41f8a9896",
+            "AnimationGraph": null,
             "BodyGroups": 3,
+            "BoneMergeTarget": null,
             "CreateAttachments": false,
             "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
             "Model": "models/weapons/sbox_shotgun_spaghellim4/w_spaghellim4.vmdl",
             "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Parameters": {
               "bools": {},
               "ints": {},
@@ -64,6 +72,7 @@
               "vectors": {},
               "rotations": {}
             },
+            "PlaybackRate": 1,
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -71,6 +80,9 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           }
@@ -102,7 +114,13 @@
             "__guid": "38177da0-6a14-4000-8ff5-8a092818c7b8",
             "Ammo": 6,
             "HasAmmo": true,
-            "MaxAmmo": 6
+            "MaxAmmo": 6,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
           },
           {
             "__type": "Facepunch.ShootWeaponComponent",
@@ -116,22 +134,32 @@
             "BaseDamage": 8,
             "BaseDamageFalloff": [
               {
-                "y": 1
+                "x": 0,
+                "y": 1,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               },
               {
                 "x": 0.26785713,
                 "y": 0.72573024,
                 "in": 1.4561507,
-                "out": -1.4561507
+                "out": -1.4561507,
+                "mode": "Mirrored"
               },
               {
                 "x": 0.5639881,
                 "y": 0.19166394,
                 "in": 0.78439224,
-                "out": -0.78439224
+                "out": -0.78439224,
+                "mode": "Mirrored"
               },
               {
-                "x": 1
+                "x": 1,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               }
             ],
             "BloodEjectDistance": 512,
@@ -160,6 +188,13 @@
               "_type": "gameobject",
               "prefab": "prefabs/weapon_effects/shotgun_muzzleflash.prefab"
             },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
             "PrimaryTracer": "particles/gameplay/guns/trail/trail_smoke.vpcf",
@@ -183,11 +218,18 @@
               "component_type": "AmmoComponent"
             },
             "EmptyReloadSounds": {},
-            "EmptyReloadTime": 2,
+            "EmptyReloadTime": 1,
             "InputActions": [
               "Reload"
             ],
-            "ReloadTime": 1,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
+            "ReloadTime": 0.5,
             "RequiresAllInputActions": false,
             "SingleReload": true,
             "TimedReloadSounds": {
@@ -198,8 +240,17 @@
             "__type": "Facepunch.RecoilWeaponComponent",
             "__guid": "396ad2c5-482e-413a-a595-107f634880bf",
             "HorizontalSpread": "3 -3",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "RecoilPattern": {
-              "Points": []
+              "Points": [],
+              "LoopStart": 0,
+              "LoopEnd": 0,
+              "IsLooping": false
             },
             "ResetTime": 0.3,
             "Scale": "2,5",
@@ -214,6 +265,13 @@
             "InputActions": [
               "Attack2"
             ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "RequiresAllInputActions": false
           },
           {
@@ -221,40 +279,84 @@
             "__guid": "82c14c44-b65a-49dc-bf0a-5c5e04d913ea",
             "AnglesOffset": "-0.5,0.1,0.5",
             "Curve": [
-              {},
               {
-                "x": 0.5,
-                "y": 1
+                "x": 0,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               },
               {
-                "x": 1
+                "x": 0.5,
+                "y": 1,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
+              },
+              {
+                "x": 1,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               }
             ],
             "Lifetime": 0.3,
             "MaxAnglesOffset": "-0.5,0.1,0.5",
             "MaxPositionOffset": "0.5,0.2,0.75",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "PositionOffset": "0.5,0.2,0.75"
           },
           {
             "__type": "Facepunch.ScreenShakeOnShot",
             "__guid": "9f63c89b-30fd-4abb-8960-f952f59c9687",
             "Length": 0.2,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Size": 4
           },
           {
             "__type": "Facepunch.FovOffset",
             "__guid": "a3a677ad-2963-4d3e-b8af-6131205c26b9",
             "Curve": [
-              {},
               {
-                "x": 0.15,
-                "y": 1
+                "x": 0,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               },
               {
-                "x": 1
+                "x": 0.15,
+                "y": 1,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
+              },
+              {
+                "x": 1,
+                "y": 0,
+                "in": 0,
+                "out": 0,
+                "mode": "Mirrored"
               }
             ],
             "Length": 0.2,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Size": 5
           }
         ]
@@ -270,12 +372,7 @@
       "ThreadedAnimation": true,
       "TimeScale": 1,
       "UseFixedUpdate": true,
-      "Metadata": {
-        "WorldModel": "models/weapons/sbox_shotgun_spaghellim4/w_spaghellim4.vmdl",
-        "BodyGroups": "3",
-        "Maxs": "20.2019,2.1736,7.906",
-        "Mins": "-20.2544,-1.7632,0.1257"
-      },
+      "Metadata": {},
       "NavMesh": {
         "Enabled": false,
         "IncludeStaticBodies": true,
