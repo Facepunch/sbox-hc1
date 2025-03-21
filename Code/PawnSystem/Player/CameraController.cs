@@ -84,11 +84,12 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 
 	protected override void OnPreRender()
 	{
-		var cc = Camera;
+		if ( !Camera.IsValid() )
+			return;
 
-		ICameraSetup.Post( x => x.PreSetup( cc ) );
-		ICameraSetup.Post( x => x.Setup( cc ) );
-		ICameraSetup.Post( x => x.PostSetup( cc ) );
+		ICameraSetup.Post( x => x.PreSetup( Camera ) );
+		ICameraSetup.Post( x => x.Setup( Camera ) );
+		ICameraSetup.Post( x => x.PostSetup( Camera ) );
 	}
 
 	/// <summary>
