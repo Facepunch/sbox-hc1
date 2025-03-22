@@ -1,4 +1,3 @@
-using Sandbox;
 using Sandbox.Events;
 
 namespace Facepunch;

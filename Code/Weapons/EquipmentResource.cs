@@ -118,6 +118,10 @@ public partial class EquipmentResource : GameResource
 	[Category( "Damage" )]
 	public float? HelmetReduction { get; set; }
 
+	[Category( "Information" )]
+	[Model.BodyGroupMask( ModelParameter = "WorldModel" )]
+	public ulong WorldModelBodyGroups { get; set; }
+
 	public bool IsPurchasableForTeam( Team team )
 	{
 		return Team == Team.Unassigned || Team == team;

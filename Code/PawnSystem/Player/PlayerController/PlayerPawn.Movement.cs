@@ -1,5 +1,3 @@
-using Sandbox.Events;
-
 namespace Facepunch;
 
 public partial class PlayerPawn
@@ -111,7 +109,6 @@ public partial class PlayerPawn
 
 	private float _smoothEyeHeight;
 	private Vector3 _previousVelocity;
-	private Vector3 _jumpPosition;
 	private bool _isTouchingLadder;
 	private Vector3 _ladderNormal;
 	
@@ -267,9 +264,6 @@ public partial class PlayerPawn
 		cc.Move();
 	}
 
-	TimeSince TimeSinceCrouchPressed = 10f;
-	TimeSince TimeSinceCrouchReleased = 10f;
-
     private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking && !HasEquipmentTag( "no_sprint" ) && WishMove.x > 0.2f;
 	TimeSince TimeSinceSprintChanged { get; set; } = 100;
 
@@ -301,14 +295,7 @@ public partial class PlayerPawn
 		}
 
 		IsCrouching = Input.Down( "Duck" ) && !IsNoclipping;
-		
 		IsUsing = Input.Down( "Use" );
-
-		if ( Input.Pressed( "Duck" ) )
-			TimeSinceCrouchPressed = 0;
-
-		if ( Input.Released( "Duck" ) )
-			TimeSinceCrouchReleased = 0;
 
 		// Check if our current weapon has the planting tag and if so force us to crouch.
 		var currentWeapon = CurrentEquipment;
@@ -379,11 +366,6 @@ public partial class PlayerPawn
 			return;
 
 		TimeSinceGroundedChanged = 0;
-
-		if ( wasOnGround && !isOnGround )
-		{
-			_jumpPosition = WorldPosition;
-		}
 
 		if ( !wasOnGround && isOnGround && Global.EnableFallDamage && !IsNoclipping )
 		{

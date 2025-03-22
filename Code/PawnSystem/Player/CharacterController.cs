@@ -38,11 +38,8 @@ public class CharacterController : Component
 
 	public BBox BoundingBox => new BBox( new Vector3( -Radius, -Radius, 0 ), new Vector3( Radius, Radius, Height ) );
 
-	[Sync]
-	public Vector3 Velocity { get; set; }
-
-	[Sync]
-	public bool IsOnGround { get; set; }
+	[Sync] public Vector3 Velocity { get; set; }
+	[Sync] public bool IsOnGround { get; set; }
 
 	public GameObject GroundObject { get; set; }
 	public Collider GroundCollider { get; set; }

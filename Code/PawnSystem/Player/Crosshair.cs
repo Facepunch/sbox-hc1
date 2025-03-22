@@ -37,61 +37,20 @@ public partial class Crosshair : Component
 {
 	public static Crosshair Instance { get; set; }
 
-	float mainAlpha = 1f;
-	float linesAlpha = 1f;
-
-	public float CrosshairGap
-	{
-		get
-		{
-			return GameSettingsSystem.Current.CrosshairDistance;
-		}
-	}
-
-	public bool UseCrosshairDot
-	{
-		get
-		{
-			return GameSettingsSystem.Current.ShowCrosshairDot;
-		}
-	}
-
-	public Color CrosshairColor
-	{
-		get
-		{
-			return GameSettingsSystem.Current.CrosshairColor;
-		}
-	}
-
-	public bool UseDynamicCrosshair
-	{
-		get
-		{
-			return GameSettingsSystem.Current.DynamicCrosshair;
-		}
-	}
-
-	public float CrosshairLength
-	{
-		get
-		{
-			return GameSettingsSystem.Current.CrosshairLength;
-		}
-	}
-
-	public float CrosshairWidth
-	{
-		get
-		{
-			return GameSettingsSystem.Current.CrosshairWidth;
-		}
-	}
+	public float CrosshairGap => GameSettingsSystem.Current.CrosshairDistance;
+	public bool UseCrosshairDot => GameSettingsSystem.Current.ShowCrosshairDot;
+	public Color CrosshairColor => GameSettingsSystem.Current.CrosshairColor;
+	public bool UseDynamicCrosshair => GameSettingsSystem.Current.DynamicCrosshair;
+	public float CrosshairLength => GameSettingsSystem.Current.CrosshairLength;
+	public float CrosshairWidth => GameSettingsSystem.Current.CrosshairWidth;
 
 	public HitmarkerType Hitmarker { get; set; }
 	public TimeSince TimeSinceAttacked { get; set; } = 1000;
 
 	private float HitmarkerTime => Hitmarker.HasFlag( HitmarkerType.Kill ) ? 0.5f : 0.2f;
+
+	float mainAlpha = 1f;
+	float linesAlpha = 1f;
 
 	protected override void OnStart()
 	{
@@ -224,24 +183,19 @@ public partial class Crosshair : Component
 
 		if ( TimeSinceAttacked < HitmarkerTime )
 		{
-			// Check if the hitmarker type includes a Kill, which keeps the lines from scaling down
-			bool isKillHitmarker = Hitmarker.HasFlag( HitmarkerType.Kill );
-			bool isHeadshotHitmarker = Hitmarker.HasFlag( HitmarkerType.Headshot ); // Check for Headshot flag
+			var isKillHitmarker = Hitmarker.HasFlag( HitmarkerType.Kill );
+			var isHeadshotHitmarker = Hitmarker.HasFlag( HitmarkerType.Headshot );
 
-			float initialHitmarkerLength = 20f * scale; // Starting length of the hitmarker lines
-			float initialDiagonalOffset = CrosshairGap * scale; // Initial offset distance from the center
-			float translationFactor = isKillHitmarker ? 1.0f : 1.0f - (TimeSinceAttacked / HitmarkerTime);
+			var initialHitmarkerLength = 20f * scale;
+			var initialDiagonalOffset = CrosshairGap * scale;
+			var translationFactor = isKillHitmarker ? 1.0f : 1.0f - (TimeSinceAttacked / HitmarkerTime);
 			translationFactor = translationFactor.Clamp( 0.0f, 1.0f );
 
-			float scaleFactor = isKillHitmarker ? 1.0f : (1.0f - (TimeSinceAttacked / HitmarkerTime)).Clamp( 0.0f, 1.0f );
+			var scaleFactor = isKillHitmarker ? 1.0f : (1.0f - (TimeSinceAttacked / HitmarkerTime)).Clamp( 0.0f, 1.0f );
 
-			// Apply scaling factor to line length
-			float hitmarkerLength = initialHitmarkerLength * scaleFactor;
+			var hitmarkerLength = initialHitmarkerLength * scaleFactor;
+			var diagonalOffset = initialDiagonalOffset * translationFactor;
 
-			// Apply translation factor to offset distance from center
-			float diagonalOffset = initialDiagonalOffset * translationFactor;
-
-			// Calculate the start points for the four diagonal lines with translation applied
 			var topLeft = center + new Vector2( -diagonalOffset, -diagonalOffset );
 			var topRight = center + new Vector2( diagonalOffset, -diagonalOffset );
 			var bottomLeft = center + new Vector2( -diagonalOffset, diagonalOffset );
@@ -249,7 +203,6 @@ public partial class Crosshair : Component
 
 			var hitColor = isHeadshotHitmarker || isKillHitmarker ? Color.Red : Color.White.WithAlpha( 0.5f );
 
-			// Draw the four diagonal lines with adjusted length and position
 			hud.DrawLine( topLeft, topLeft + new Vector2( -hitmarkerLength, -hitmarkerLength ), w, hitColor );
 			hud.DrawLine( topRight, topRight + new Vector2( hitmarkerLength, -hitmarkerLength ), w, hitColor );
 			hud.DrawLine( bottomLeft, bottomLeft + new Vector2( -hitmarkerLength, hitmarkerLength ), w, hitColor );
