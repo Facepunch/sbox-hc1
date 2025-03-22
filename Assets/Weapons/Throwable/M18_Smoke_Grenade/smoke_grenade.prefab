@@ -12,10 +12,23 @@
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
-        "Locking": {},
+        "Locking": {
+          "X": false,
+          "Y": false,
+          "Z": false,
+          "Pitch": false,
+          "Yaw": false,
+          "Roll": false
+        },
         "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "OverrideMassCenter": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
@@ -25,12 +38,15 @@
         "__guid": "bd0a943d-9e14-456d-a557-d7a1c2fb545e",
         "CanDealDamage": false,
         "ExtinguishRadius": 128,
-        "FuseEffect": {
-          "_type": "gameobject",
-          "go": "400d8007-0539-41ac-b55b-56123064b8d4"
-        },
+        "FuseEffect": null,
         "FuseEffectDelay": 1.5,
         "Lifetime": 3,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "PrefabOnExplode": {
           "_type": "gameobject",
           "prefab": "weapons/throwable/m18_smoke_grenade/smoke_particles.prefab"
@@ -40,14 +56,32 @@
         "__type": "Sandbox.BoxCollider",
         "__guid": "570b0b54-b04f-4598-a214-1722dfcd1290",
         "Center": "0,0,2.9",
+        "Friction": null,
         "IsTrigger": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnObjectTriggerEnter": null,
+        "OnObjectTriggerExit": null,
+        "OnTriggerEnter": null,
+        "OnTriggerExit": null,
         "Scale": "2.5,2.5,5.5",
         "Static": false,
-        "Surface": "weapons/throwable/m18_smoke_grenade/smoke_grenade.surface"
+        "Surface": "weapons/throwable/m18_smoke_grenade/smoke_grenade.surface",
+        "SurfaceVelocity": "0,0,0"
       },
       {
         "__type": "DestroyBetweenRounds",
-        "__guid": "1437420e-c288-4150-a4a7-837a64cf9409"
+        "__guid": "1437420e-c288-4150-a4a7-837a64cf9409",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
@@ -61,45 +95,57 @@
             "__type": "Sandbox.ModelRenderer",
             "__guid": "defb61e7-67c1-4591-ac39-68273e42770e",
             "BodyGroups": 11,
+            "CreateAttachments": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
             "Model": "models/weapons/sbox_grenade_smoke/w_smoke_grenade.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
             "Tint": "1,1,1,1"
           }
         ]
-      },
-      {
-        "__guid": "400d8007-0539-41ac-b55b-56123064b8d4",
-        "Flags": 0,
-        "Name": "Fuse",
-        "Position": "0,0,4.436076",
-        "Components": [
-          {
-            "__type": "Facepunch.SoundEmitter",
-            "__guid": "b746d516-89a5-470c-b828-cb3ad2d957fc",
-            "DestroyOnFinish": true,
-            "Follow": true,
-            "LifeTime": 1,
-            "MixerName": "Game",
-            "SoundEvent": "sounds/weapons/grenade/smoke_grenade.fuse.sound",
-            "VolumeModifier": false,
-            "VolumeOverTime": [
-              {
-                "y": 1
-              },
-              {
-                "x": 1,
-                "y": 1
-              }
-            ]
-          }
-        ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "facepunch.w_smoke_grenade#71890"

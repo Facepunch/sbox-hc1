@@ -12,20 +12,36 @@
         "CanDealDamage": true,
         "DamageFalloff": [
           {
-            "y": 1
+            "x": 0,
+            "y": 1,
+            "in": 0,
+            "out": 0,
+            "mode": "Mirrored"
           },
           {
             "x": 0.25,
             "y": 1,
+            "in": 0,
+            "out": 0,
             "mode": "Linear"
           },
           {
-            "x": 1
+            "x": 1,
+            "y": 0,
+            "in": 0,
+            "out": 0,
+            "mode": "Mirrored"
           }
         ],
         "DamageRadius": 450,
         "Lifetime": 1.8,
         "MaxDamage": 90,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "PrefabOnExplode": {
           "_type": "gameobject",
           "prefab": "weapons/throwable/he_grenade/he_explosion.prefab"
@@ -39,10 +55,23 @@
         "AngularDamping": 0.5,
         "Gravity": true,
         "LinearDamping": 0.2,
-        "Locking": {},
+        "Locking": {
+          "X": false,
+          "Y": false,
+          "Z": false,
+          "Pitch": false,
+          "Yaw": false,
+          "Roll": false
+        },
         "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "OverrideMassCenter": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
@@ -51,7 +80,18 @@
         "__type": "Sandbox.SphereCollider",
         "__guid": "3a712977-f806-4524-af04-ac20036f0b60",
         "Center": "0,0,1.5",
+        "Friction": null,
         "IsTrigger": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnObjectTriggerEnter": null,
+        "OnObjectTriggerExit": null,
+        "OnTriggerEnter": null,
+        "OnTriggerExit": null,
         "Radius": 2,
         "Static": false,
         "Surface": "weapons/throwable/he_grenade/grenade.surface",
@@ -59,7 +99,13 @@
       },
       {
         "__type": "DestroyBetweenRounds",
-        "__guid": "a5ea0348-38f4-40e8-aa0e-fbaeb323bc43"
+        "__guid": "a5ea0348-38f4-40e8-aa0e-fbaeb323bc43",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
@@ -74,7 +120,15 @@
             "__guid": "7190a58d-34ba-4b06-abb5-1cdfc768f4fc",
             "BodyGroups": 11,
             "CreateAttachments": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
             "Model": "models/weapons/sbox_grenade_explosive/w_he_grenade.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
