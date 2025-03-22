@@ -2,6 +2,9 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
+/// <summary>
+/// Plays a sound when we kill someone.
+/// </summary>
 public sealed class KillSound : Component,
 	IGameEventHandler<KillEvent>,
 	IGameEventHandler<RoundCounterIncrementedEvent>
@@ -18,6 +21,9 @@ public sealed class KillSound : Component,
 		ResetCount();
 	}
 
+	/// <summary>
+	/// Resets the count. We do this when we proceed to the next round.
+	/// </summary>
 	[Rpc.Owner]
 	private void ResetCount()
 	{

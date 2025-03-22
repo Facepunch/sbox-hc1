@@ -1,5 +1,8 @@
 namespace Facepunch;
 
+/// <summary>
+/// Filters voice chat to teams, so players on a team can only hear each other.
+/// </summary>
 public partial class TeamVoiceChatFilter : Component, IVoiceFilter
 {
 	private bool DontSendFilter( Client player )

@@ -2,6 +2,10 @@
 
 namespace Facepunch;
 
+/// <summary>
+/// Gives the player a component for the lifetime of a specific state.
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public abstract class GiveClientComponent<T> : Component,
 	IGameEventHandler<EnterStateEvent>,
 	IGameEventHandler<LeaveStateEvent>,

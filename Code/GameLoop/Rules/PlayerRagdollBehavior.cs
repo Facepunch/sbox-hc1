@@ -2,6 +2,9 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
+/// <summary>
+/// Lets us dictate the behavior of a ragdoll.
+/// </summary>
 public partial class PlayerRagdollBehavior : Component, IGameEventHandler<OnPlayerRagdolledEvent>
 {
 	/// <summary>
