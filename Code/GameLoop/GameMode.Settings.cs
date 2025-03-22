@@ -1,4 +1,3 @@
-
 namespace Facepunch;
 
 partial class GameMode

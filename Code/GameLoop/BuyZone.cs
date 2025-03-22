@@ -1,6 +1,9 @@
 ﻿
 namespace Facepunch;
 
+/// <summary>
+/// A buy zone where we can buy weapons in certain gamemodes.
+/// </summary>
 internal class BuyZone : Component, IMinimapIcon, IMinimapVolume
 {
 	[Property]

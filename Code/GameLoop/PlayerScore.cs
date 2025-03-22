@@ -122,7 +122,6 @@ public sealed class PlayerScore : Component,
 	public bool WasBombPlanter { get; private set; }
 
 	private const int KillScore = 25;
-	private const int AssistScore = 10;
 	private const int TeamKillScore = -25;
 	private const int SuicideScore = -10;
 

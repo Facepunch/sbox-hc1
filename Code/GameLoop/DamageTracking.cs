@@ -2,6 +2,9 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
+/// <summary>
+/// Track damage for every single player so we can call it back.
+/// </summary>
 public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlobalEvent>,
 	IGameEventHandler<BetweenRoundCleanupEvent>,
 	IGameEventHandler<PlayerSpawnedEvent>
@@ -9,8 +12,8 @@ public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlo
 	[Property] public bool ClearBetweenRounds { get; set; } = true;
 	[Property] public bool ClearOnRespawn { get; set; } = false;
 
-	public Dictionary<Client, List<Facepunch.DamageInfo>> Registry { get; set; } = new();
-	public Dictionary<Client, List<Facepunch.DamageInfo>> MyInflictedDamage { get; set; } = new();
+	public Dictionary<Client, List<DamageInfo>> Registry { get; set; } = new();
+	public Dictionary<Client, List<DamageInfo>> MyInflictedDamage { get; set; } = new();
 
 	[Rpc.Broadcast( NetFlags.HostOnly )]
 	protected void RpcRefresh()
@@ -18,26 +21,26 @@ public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlo
 		Refresh();
 	}
 
-	public List<Facepunch.DamageInfo> GetDamageOnMe()
+	public List<DamageInfo> GetDamageOnMe()
 	{
 		return GetDamageInflictedTo( Client.Local );
 	}
 
-	public List<Facepunch.DamageInfo> GetDamageInflictedTo( Client player )
+	public List<DamageInfo> GetDamageInflictedTo( Client player )
 	{
 		if ( !Registry.TryGetValue( player, out var list ) )
 		{
-			return new List<Facepunch.DamageInfo>();
+			return new List<DamageInfo>();
 		}
 
 		return list;
 	}
 
-	public List<Facepunch.DamageInfo> GetMyInflictedDamage( Client player )
+	public List<DamageInfo> GetMyInflictedDamage( Client player )
 	{
 		if ( !MyInflictedDamage.TryGetValue( player, out var list ) )
 		{
-			return new List<Facepunch.DamageInfo>();
+			return new List<DamageInfo>();
 		}
 
 		return list;

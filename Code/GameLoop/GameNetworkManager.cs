@@ -1,11 +1,11 @@
 using Sandbox.Network;
-using System.Threading.Tasks;
 using Sandbox.Events;
-using System.Threading.Channels;
-using Sandbox.Diagnostics;
 
 namespace Facepunch;
 
+/// <summary>
+/// Handles basic game networking. Creates Client prefabs when people join.
+/// </summary>
 public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>, Component.INetworkListener
 {
 	/// <summary>

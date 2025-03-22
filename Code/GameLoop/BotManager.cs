@@ -1,8 +1,8 @@
-using Sandbox;
-using System.Threading.Channels;
-
 namespace Facepunch;
 
+/// <summary>
+/// A singleton component which handles the bots in a game. Gives them funny names.
+/// </summary>
 public sealed class BotManager : SingletonComponent<BotManager>
 {
 	private static readonly string[] BotNames =

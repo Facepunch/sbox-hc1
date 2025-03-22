@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-/// <summary>
+﻿/// <summary>
 /// C4 can be planted anywhere within colliders inside this object.
 /// </summary>
 public sealed partial class BombSite : Component
@@ -76,7 +74,9 @@ public sealed partial class BombSite : Component
 		}
 
 		if ( !Facepunch.Preferences.ShowVolumes )
+		{
 			return;
+		}
 
 		Gizmo.Transform = global::Transform.Zero;
 

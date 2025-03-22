@@ -2,6 +2,9 @@ using Sandbox.Events;
 
 namespace Facepunch;
 
+/// <summary>
+/// Keep this GameObject alive if we match the specific gamemode criteria - so it only spawns when playing specific modes.
+/// </summary>
 public partial class GameModeObject : Component, IGameEventHandler<GamemodeInitializedEvent>
 {
 	/// <summary>

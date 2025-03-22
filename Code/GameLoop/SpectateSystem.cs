@@ -1,5 +1,8 @@
 namespace Facepunch;
 
+/// <summary>
+/// System that handles and controls player spectating.
+/// </summary>
 public sealed class SpectateSystem : SingletonComponent<SpectateSystem>
 {
 	public CameraMode CameraMode { get; private set; } = CameraMode.FirstPerson;
