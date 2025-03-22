@@ -13,60 +13,32 @@
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "Handedness": "Right",
         "HoldType": "HoldItem",
-        "ModelRenderer": {
-          "_type": "component",
-          "component_id": "fafea558-1f26-413c-a5f7-df0b1bfb2392",
-          "go": "88f3a30d-79ea-4263-bf7f-5a27f6f2cf4f",
-          "component_type": "SkinnedModelRenderer"
-        },
         "MountedPrefab": {
           "_type": "gameobject",
           "prefab": "weapons/throwable/he_grenade/mounted/mounted_he_grenade.prefab"
         },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Resource": "weapons/throwable/he_grenade/he_grenade.equip",
         "SpeedPenalty": 0,
         "UseCrosshair": true
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "a4ee277d-c2ac-48b2-b682-e2bc2453c875"
+        "__guid": "a4ee277d-c2ac-48b2-b682-e2bc2453c875",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
-      {
-        "__guid": "88f3a30d-79ea-4263-bf7f-5a27f6f2cf4f",
-        "Flags": 0,
-        "Name": "Model",
-        "Position": "3.535849,0,-5.571055",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "fafea558-1f26-413c-a5f7-df0b1bfb2392",
-            "BodyGroups": 11,
-            "CreateAttachments": false,
-            "CreateBoneObjects": false,
-            "Model": "models/weapons/sbox_grenade_explosive/w_he_grenade.vmdl",
-            "Morphs": {},
-            "Parameters": {
-              "bools": {},
-              "ints": {},
-              "floats": {},
-              "vectors": {},
-              "rotations": {}
-            },
-            "RenderOptions": {
-              "GameLayer": true,
-              "OverlayLayer": false,
-              "BloomLayer": false,
-              "AfterUILayer": false
-            },
-            "RenderType": "On",
-            "Tint": "1,1,1,1",
-            "UseAnimGraph": true
-          }
-        ]
-      },
       {
         "__guid": "d6338e30-099f-46f1-8b77-38adf9d71dac",
         "Flags": 0,
@@ -80,6 +52,13 @@
             "InputActions": [
               "Attack1"
             ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "Prefab": {
               "_type": "gameobject",
               "prefab": "weapons/throwable/he_grenade/he_grenade.prefab"
@@ -100,12 +79,7 @@
       "ThreadedAnimation": true,
       "TimeScale": 1,
       "UseFixedUpdate": true,
-      "Metadata": {
-        "WorldModel": "models/weapons/sbox_grenade_explosive/w_he_grenade.vmdl",
-        "BodyGroups": "11",
-        "Maxs": "1.1363,1.1493,3.5045",
-        "Mins": "-1.2666,-1.1497,0.2695"
-      },
+      "Metadata": {},
       "NavMesh": {
         "Enabled": false,
         "IncludeStaticBodies": true,
@@ -125,8 +99,6 @@
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [
-    "facepunch.w_he_grenade#58001"
-  ],
+  "__references": [],
   "__version": 1
 }

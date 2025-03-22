@@ -13,60 +13,32 @@
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "Handedness": "Right",
         "HoldType": "HoldItem",
-        "ModelRenderer": {
-          "_type": "component",
-          "component_id": "629961e9-5b4d-4573-8f25-2ba814183458",
-          "go": "c20c139f-b5b8-4eda-a44d-16bf46e3badf",
-          "component_type": "SkinnedModelRenderer"
-        },
         "MountedPrefab": {
           "_type": "gameobject",
           "prefab": "weapons/throwable/he_grenade/mounted/mounted_smoke_grenade.prefab"
         },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Resource": "weapons/throwable/m18_smoke_grenade/smoke_grenade.equip",
         "SpeedPenalty": 0,
         "UseCrosshair": true
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "1246d2a1-e57b-4937-add1-7f14f8030ef9"
+        "__guid": "1246d2a1-e57b-4937-add1-7f14f8030ef9",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
-      {
-        "__guid": "c20c139f-b5b8-4eda-a44d-16bf46e3badf",
-        "Flags": 0,
-        "Name": "Model",
-        "Position": "3.535849,0,-5.571055",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "629961e9-5b4d-4573-8f25-2ba814183458",
-            "BodyGroups": 11,
-            "CreateAttachments": false,
-            "CreateBoneObjects": false,
-            "Model": "models/weapons/sbox_grenade_smoke/w_smoke_grenade.vmdl",
-            "Morphs": {},
-            "Parameters": {
-              "bools": {},
-              "ints": {},
-              "floats": {},
-              "vectors": {},
-              "rotations": {}
-            },
-            "RenderOptions": {
-              "GameLayer": true,
-              "OverlayLayer": false,
-              "BloomLayer": false,
-              "AfterUILayer": false
-            },
-            "RenderType": "On",
-            "Tint": "1,1,1,1",
-            "UseAnimGraph": true
-          }
-        ]
-      },
       {
         "__guid": "3f15a193-f04a-4fce-b36d-8d71ae9e7e04",
         "Flags": 0,
@@ -80,6 +52,13 @@
             "InputActions": [
               "Attack1"
             ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "Prefab": {
               "_type": "gameobject",
               "prefab": "weapons/throwable/m18_smoke_grenade/smoke_grenade.prefab"
@@ -100,12 +79,7 @@
       "ThreadedAnimation": true,
       "TimeScale": 1,
       "UseFixedUpdate": true,
-      "Metadata": {
-        "WorldModel": "models/weapons/sbox_grenade_smoke/w_smoke_grenade.vmdl",
-        "BodyGroups": "11",
-        "Maxs": "1.3236,1.5226,6.0987",
-        "Mins": "-1.535,-1.3228,-0"
-      },
+      "Metadata": {},
       "NavMesh": {
         "Enabled": false,
         "IncludeStaticBodies": true,
@@ -125,8 +99,6 @@
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [
-    "facepunch.w_smoke_grenade#71890"
-  ],
+  "__references": [],
   "__version": 1
 }

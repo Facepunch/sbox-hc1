@@ -13,60 +13,32 @@
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "Handedness": "Right",
         "HoldType": "HoldItem",
-        "ModelRenderer": {
-          "_type": "component",
-          "component_id": "629961e9-5b4d-4573-8f25-2ba814183458",
-          "go": "c20c139f-b5b8-4eda-a44d-16bf46e3badf",
-          "component_type": "SkinnedModelRenderer"
-        },
         "MountedPrefab": {
           "_type": "gameobject",
           "prefab": "weapons/throwable/he_grenade/mounted/mounted_molotov.prefab"
         },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Resource": "weapons/throwable/molotov_cocktail/molotov_grenade.equip",
         "SpeedPenalty": 0,
         "UseCrosshair": true
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "1246d2a1-e57b-4937-add1-7f14f8030ef9"
+        "__guid": "1246d2a1-e57b-4937-add1-7f14f8030ef9",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
-      {
-        "__guid": "c20c139f-b5b8-4eda-a44d-16bf46e3badf",
-        "Flags": 0,
-        "Name": "Model",
-        "Position": "3.535849,0,-5.571055",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "629961e9-5b4d-4573-8f25-2ba814183458",
-            "BodyGroups": 18446744073709551615,
-            "CreateAttachments": false,
-            "CreateBoneObjects": false,
-            "Model": "weapons/throwable/molotov_cocktail/v_molotov_cocktail.vmdl",
-            "Morphs": {},
-            "Parameters": {
-              "bools": {},
-              "ints": {},
-              "floats": {},
-              "vectors": {},
-              "rotations": {}
-            },
-            "RenderOptions": {
-              "GameLayer": true,
-              "OverlayLayer": false,
-              "BloomLayer": false,
-              "AfterUILayer": false
-            },
-            "RenderType": "On",
-            "Tint": "1,1,1,1",
-            "UseAnimGraph": true
-          }
-        ]
-      },
       {
         "__guid": "3f15a193-f04a-4fce-b36d-8d71ae9e7e04",
         "Flags": 0,
@@ -80,6 +52,13 @@
             "InputActions": [
               "Attack1"
             ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "Prefab": {
               "_type": "gameobject",
               "prefab": "weapons/throwable/molotov_cocktail/molotov_grenade.prefab"
@@ -100,12 +79,7 @@
       "ThreadedAnimation": true,
       "TimeScale": 1,
       "UseFixedUpdate": true,
-      "Metadata": {
-        "WorldModel": "weapons/throwable/molotov_cocktail/v_molotov_cocktail.vmdl",
-        "BodyGroups": "18446744073709551615",
-        "Maxs": "1.1864,1.1864,10.5277",
-        "Mins": "-1.1864,-1.1864,0"
-      },
+      "Metadata": {},
       "NavMesh": {
         "Enabled": false,
         "IncludeStaticBodies": true,
@@ -126,6 +100,5 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "HasUnsavedChanges": false,
   "__version": 1
 }

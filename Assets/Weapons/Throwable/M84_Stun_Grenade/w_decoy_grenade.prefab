@@ -13,60 +13,32 @@
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "Handedness": "Right",
         "HoldType": "HoldItem",
-        "ModelRenderer": {
-          "_type": "component",
-          "component_id": "c540655e-bc89-4c1b-8e82-3d2b56f27c29",
-          "go": "fd3dcee0-7a75-446a-b2ef-4cf1b1b19105",
-          "component_type": "SkinnedModelRenderer"
-        },
         "MountedPrefab": {
           "_type": "gameobject",
           "prefab": "weapons/throwable/he_grenade/mounted/mounted_decoy_grenade.prefab"
         },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Resource": "weapons/throwable/m84_stun_grenade/decoy_grenade.equip",
         "SpeedPenalty": 0,
         "UseCrosshair": true
       },
       {
         "__type": "Facepunch.TagBinder",
-        "__guid": "ea1ad26a-9167-4bd9-9b0a-8c7fdc911125"
+        "__guid": "ea1ad26a-9167-4bd9-9b0a-8c7fdc911125",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
-      {
-        "__guid": "fd3dcee0-7a75-446a-b2ef-4cf1b1b19105",
-        "Flags": 0,
-        "Name": "Model",
-        "Position": "3.535849,0,-5.571055",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "c540655e-bc89-4c1b-8e82-3d2b56f27c29",
-            "BodyGroups": 11,
-            "CreateAttachments": false,
-            "CreateBoneObjects": false,
-            "Model": "models/weapons/sbox_grenade_decoy/w_decoy_grenade.vmdl",
-            "Morphs": {},
-            "Parameters": {
-              "bools": {},
-              "ints": {},
-              "floats": {},
-              "vectors": {},
-              "rotations": {}
-            },
-            "RenderOptions": {
-              "GameLayer": true,
-              "OverlayLayer": false,
-              "BloomLayer": false,
-              "AfterUILayer": false
-            },
-            "RenderType": "On",
-            "Tint": "1,1,1,1",
-            "UseAnimGraph": true
-          }
-        ]
-      },
       {
         "__guid": "1c1436ec-02df-4483-842d-b976c13170d0",
         "Flags": 0,
@@ -80,6 +52,13 @@
             "InputActions": [
               "Attack1"
             ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
             "Prefab": {
               "_type": "gameobject",
               "prefab": "weapons/throwable/m84_stun_grenade/decoy_grenade_thrown.prefab"
@@ -100,12 +79,7 @@
       "ThreadedAnimation": true,
       "TimeScale": 1,
       "UseFixedUpdate": true,
-      "Metadata": {
-        "WorldModel": "models/weapons/sbox_grenade_decoy/w_decoy_grenade.vmdl",
-        "BodyGroups": "11",
-        "Maxs": "0.7522,1.0827,5.4371",
-        "Mins": "-1.2992,-0.8535,0.0015"
-      },
+      "Metadata": {},
       "NavMesh": {
         "Enabled": false,
         "IncludeStaticBodies": true,
@@ -125,8 +99,6 @@
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
-  "__references": [
-    "facepunch.w_decoy_grenade#75377"
-  ],
+  "__references": [],
   "__version": 1
 }
