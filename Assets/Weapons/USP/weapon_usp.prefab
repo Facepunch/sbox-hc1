@@ -2,7 +2,7 @@
   "RootObject": {
     "__guid": "537a3752-47c2-491f-b7a8-84d06247b15b",
     "Flags": 0,
-    "Name": "w_usp",
+    "Name": "weapon_usp",
     "Tags": "player",
     "Enabled": true,
     "Components": [
@@ -23,7 +23,6 @@
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
         "OnComponentUpdate": null,
-        "ParentBone": "hold_r",
         "Resource": "weapons/usp/usp.equip",
         "SpeedPenalty": 20,
         "UseCrosshair": true
@@ -231,10 +230,8 @@
             "PositionOffset": "0.5,0.2,1.5"
           },
           {
-            "__type": "Facepunch.ManualOffset",
+            "__type": "Facepunch.AimWeaponComponent",
             "__guid": "a4ab8706-e8d7-4e87-87a1-bb39ede630c6",
-            "AimAngleOffset": "0,0,0",
-            "AimOffset": "5,0,0",
             "InputActions": [
               "Attack2"
             ],
