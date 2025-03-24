@@ -50,9 +50,31 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 
 	void ICameraSetup.Setup( CameraComponent cc )
 	{
+		if ( !Owner.IsValid() || !Owner.CharacterController.IsValid() )
+			return;
+
 		WorldPosition = cc.WorldPosition;
 		WorldRotation = cc.WorldRotation;
+
 		ApplyInertia();
+		ApplyOffsets();
+
+		if ( IsThrowable )
+		{
+			ApplyThrowableAnimations();
+		}
+		else
+		{
+			ApplyAnimationParameters();
+		}
+
+		ApplyVelocity();
+		ApplyAnimationTransform();
+
+		var baseFov = GameSettingsSystem.Current.FieldOfView;
+
+		TargetFieldOfView = TargetFieldOfView.LerpTo( baseFov + FieldOfViewOffset, Time.Delta * 10f );
+		FieldOfViewOffset = 0;
 	}
 
 	protected override void OnAwake()
@@ -107,8 +129,8 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 		foreach ( var offset in Offsets )
 		{
 			// Log.Info( $"Offsetting by {offset.PositionOffset}" );
-			localPosition += offset.PositionOffset;
-			localRotation *= offset.AngleOffset.ToRotation();
+			WorldPosition += offset.PositionOffset;
+			WorldRotation *= offset.AngleOffset.ToRotation();
 		}
 	}
 
@@ -228,40 +250,6 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 		ModelRenderer.Set( "b_idle", throwFn.ThrowState == ThrowWeaponComponent.State.Idle );
 		ModelRenderer.Set( "b_pull", throwFn.ThrowState == ThrowWeaponComponent.State.Cook );
 		ModelRenderer.Set( "b_throw", throwFn.ThrowState == ThrowWeaponComponent.State.Throwing );
-	}
-
-	protected override void OnUpdate()
-	{
-		// Reset every frame
-		localRotation = Rotation.Identity;
-		localPosition = Vector3.Zero;
-
-		if ( !Owner.IsValid() || !Owner.CharacterController.IsValid() )
-			return;
-
-		if ( IsThrowable )
-		{
-			ApplyThrowableAnimations();
-		}
-		else
-		{
-			ApplyAnimationParameters();
-		}
-		
-		ApplyVelocity();
-		ApplyAnimationTransform();
-		ApplyOffsets();
-
-		var baseFov = GameSettingsSystem.Current.FieldOfView;
-
-		TargetFieldOfView = TargetFieldOfView.LerpTo( baseFov + FieldOfViewOffset, Time.Delta * 10f );
-		FieldOfViewOffset = 0;
-
-		lerpedlocalRotation = Rotation.Lerp( lerpedlocalRotation, localRotation, Time.Delta * 10f );
-		lerpedLocalPosition = lerpedLocalPosition.LerpTo( localPosition, Time.Delta * 10f );
-
-		LocalRotation = lerpedlocalRotation;
-		LocalPosition = lerpedLocalPosition;
 	}
 
 	public void OnFireMode( FireMode currentFireMode )

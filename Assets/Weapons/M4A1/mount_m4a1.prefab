@@ -14,10 +14,39 @@
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "f34d73ab-f5bb-4ab0-9d5e-bdcccfd245c7",
-            "BodyGroups": 171,
+            "AnimationGraph": null,
+            "BodyGroups": 139,
+            "BoneMergeTarget": null,
+            "CreateAttachments": false,
             "CreateBoneObjects": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
             "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
+            "Morphs": {},
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "PlaybackRate": 1,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
+            "Sequence": {
+              "Name": null
+            },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
           },
@@ -25,22 +54,55 @@
             "__type": "JiggleBone",
             "__guid": "067cabf0-094a-4cdb-8fac-871011199923",
             "__enabled": false,
-            "EndPoint": "0,0,0",
-            "StartPoint": "0,0,-5",
             "Damping": 0.4,
+            "EndPoint": "0,0,0",
             "Mass": 88.1,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "PitchLimits": "-360 360",
             "Radius": 1,
+            "RollLimits": "5 35",
             "Speed": 0.38,
-            "Stiffness": 2
+            "StartPoint": "0,0,-5",
+            "Stiffness": 2,
+            "YawLimits": "-360 360"
           }
         ]
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
     "facepunch.w_m4a1#60166"
