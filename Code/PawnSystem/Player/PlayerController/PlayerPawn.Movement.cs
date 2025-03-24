@@ -264,7 +264,7 @@ public partial class PlayerPawn
 		cc.Move();
 	}
 
-    private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking && !HasEquipmentTag( "no_sprint" ) && WishMove.x > 0.2f;
+    private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking && !HasEquipmentTag( "no_sprint" ) && ( WishMove.x > 0.2f || ( MathF.Abs( WishMove.y ) > 0.2f && WishMove.x >= 0f ) );
 	TimeSince TimeSinceSprintChanged { get; set; } = 100;
 
 	private void OnSprintChanged( bool before, bool after )
