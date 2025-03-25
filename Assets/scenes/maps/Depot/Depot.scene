@@ -1,0 +1,362 @@
+{
+  "__guid": "6381f1cf-d426-4f0f-847e-843c88605dc7",
+  "GameObjects": [
+    {
+      "__guid": "ba68ad64-0a8e-4c36-a39c-2f7486c71026",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "7f2f42e8-82d1-444f-90a3-f83fd18fc8d2",
+          "Author": null,
+          "Changes": "",
+          "Description": "",
+          "Group": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SceneTags": "",
+          "Title": "Depot",
+          "Version": null
+        },
+        {
+          "__type": "Facepunch.MapInformation",
+          "__guid": "7d9a6ba5-0c54-4a72-af65-1e803852214a",
+          "Image": "ui/maps/depot.jpg",
+          "IsVisibleInMenu": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        }
+      ]
+    },
+    {
+      "__guid": "1e3c5872-b68b-4ce8-b0b4-f99de4ed4613",
+      "Flags": 0,
+      "Name": "Map",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MapInstance",
+          "__guid": "a4d4bed0-6bf6-42c0-904c-82806f55ed18",
+          "__version": 1,
+          "EnableCollision": true,
+          "MapName": "facepunch.depot",
+          "NoOrigin": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
+          "UseMapFromLaunch": false
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "17e6e999-7f04-4cf7-8c90-7a4cd78285d9",
+      "Flags": 0,
+      "Name": "Minimap Renderer",
+      "Position": "313.1532,90.72009,-64",
+      "Scale": "0.5817428,0.7524928,1",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Facepunch.MinimapRenderer",
+          "__guid": "f4750fe4-1089-4e61-93d9-da1c6ba09393",
+          "CurrentMinimapPath": "ui/minimaps/minimap_depot.png",
+          "ExportResolution": "1024,1024",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Size": 4000
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "cb3ba59b-280c-4b07-b6d4-98d8dada547b",
+      "Flags": 0,
+      "Name": "Game",
+      "Position": "952.4822,168.8382,956.9782",
+      "Rotation": "-0.02716814,-0.02662364,-0.713711,0.6994067",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "__Prefab": "scenes/maps/defusemap_01/game_setup.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "473d8e74-836e-446a-8109-5d33589f4fc8",
+      "Flags": 0,
+      "Name": "Team Deathmatch",
+      "Enabled": true,
+      "__Prefab": "prefabs/game_modes/team_deathmatch.prefab",
+      "__PrefabVariables": {
+        "Description": "Team vs. Team mode where respawns are immediate. Highest scoring team wins.",
+        "Title": "TDM"
+      }
+    },
+    {
+      "__guid": "97fd44cf-b710-4979-b7f9-c41fc93cf4bb",
+      "Flags": 0,
+      "Name": "Play Area",
+      "Position": "0,0,928",
+      "Scale": "1,1.061718,1",
+      "Tags": "zone",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Zone",
+          "__guid": "2f2e4d30-0b4c-4a6a-aea9-e32d3b56a461",
+          "Color": "1,1,1,1",
+          "DisplayName": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        },
+        {
+          "__type": "Facepunch.PlayArea",
+          "__guid": "a7b95c3a-206c-4641-b0b9-b21b7f8c97c8",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Zone": {
+            "_type": "component",
+            "component_id": "2f2e4d30-0b4c-4a6a-aea9-e32d3b56a461",
+            "go": "97fd44cf-b710-4979-b7f9-c41fc93cf4bb",
+            "component_type": "Zone"
+          }
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "c2f39499-5987-42f6-b5ab-eb8a330a45a4",
+          "Center": "-95.22388,0,0",
+          "Friction": null,
+          "IsTrigger": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "Scale": "4155.979,2500,1250",
+          "Static": true,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        }
+      ]
+    },
+    {
+      "__guid": "de149fda-a17e-47a8-ae42-7c68850b29ea",
+      "Flags": 0,
+      "Name": "Point Light",
+      "Position": "162.3102,1082.45,501.7066",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "084efb42-5657-45d0-8978-b2421797f646",
+          "Attenuation": 1,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.9907,0.93847,0.67736,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 400,
+          "Shadows": false
+        }
+      ]
+    },
+    {
+      "__guid": "e410c2f1-3aa7-4179-8e51-9a24a5e4511a",
+      "Flags": 0,
+      "Name": "Point Light (1)",
+      "Position": "148.3205,1082.45,363.9602",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "565d1378-3f71-4f48-8e65-2856704135af",
+          "Attenuation": 1,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.9907,0.93847,0.67736,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 400,
+          "Shadows": false
+        }
+      ]
+    },
+    {
+      "__guid": "ec0c4a3e-4bba-4c0d-b9dd-fb43e0ff9c3a",
+      "Flags": 0,
+      "Name": "Point Light (2)",
+      "Position": "931.1174,186.1901,166.9482",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "5821bd1a-01ad-4422-b7a7-3f5899ad53c8",
+          "Attenuation": 0.92,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "1,0.70698,0.49767,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 400,
+          "Shadows": false
+        }
+      ]
+    },
+    {
+      "__guid": "7b354134-97a7-47d4-b2ad-311151271b48",
+      "Flags": 0,
+      "Name": "Point Light (7)",
+      "Position": "822.377,700.5948,169.6298",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "3afa40c2-bc4a-4307-a449-7cd4e7201bc6",
+          "Attenuation": 0.21,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.9907,0.82359,0.67736,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 400,
+          "Shadows": false
+        }
+      ]
+    },
+    {
+      "__guid": "e75c6d0e-72f3-46f5-aeb5-2c92fb21ffad",
+      "Flags": 0,
+      "Name": "Point Light (3)",
+      "Position": "715.6138,-279.0625,127.8311",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "6c07d2a5-25a8-40e1-be7b-93b0289d2747",
+          "Attenuation": 1.06,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "1,0.20465,0.98674,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 400,
+          "Shadows": false
+        }
+      ]
+    },
+    {
+      "__guid": "f426c710-9f95-4827-9e33-a41571f0fed6",
+      "Flags": 0,
+      "Name": "Point Light (4)",
+      "Position": "639.7382,-393.4624,123.5148",
+      "Tags": "light_point,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PointLight",
+          "__guid": "d9427097-d6b1-49a6-ba6c-60193ec78ac4",
+          "Attenuation": 0.97,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "1,0.20465,0.98674,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Radius": 400,
+          "Shadows": false
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "Metadata": {
+      "Image": "ui/maps/depot.jpg",
+      "IsVisibleInMenu": "True",
+      "Title": "Depot"
+    },
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "ResourceVersion": 2,
+  "Title": "Depot",
+  "Description": null,
+  "__references": [],
+  "__version": 2
+}
