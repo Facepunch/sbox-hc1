@@ -3,7 +3,7 @@ using System.Diagnostics.Metrics;
 namespace Facepunch;
 
 [Title( "2D Scope" ), Group( "Weapon Components" )]
-public class ScopeWeaponComponent : InputWeaponComponent
+public class FlatScope : WeaponInputAction
 {
 	[Property] public Material ScopeOverlay { get; set; }
 	[Property] public SoundEvent ZoomSound { get; set; }

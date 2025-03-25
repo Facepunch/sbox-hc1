@@ -154,7 +154,7 @@ public partial class PlayerPawn
 
 		if ( ev.DestroyTime > 0f )
 		{
-			var comp = Body.Components.Create<TimedDestroyComponent>();
+			var comp = Body.Components.Create<DestroyAfter>();
 			comp.Time = ev.DestroyTime;
 		}
 		else

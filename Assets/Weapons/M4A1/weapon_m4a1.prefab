@@ -46,7 +46,7 @@
         "Enabled": true,
         "Components": [
           {
-            "__type": "Facepunch.AmmoComponent",
+            "__type": "Facepunch.WeaponAmmo",
             "__guid": "809891ef-b6af-4974-bab3-3e2f8ec5423b",
             "Ammo": 30,
             "HasAmmo": true,
@@ -59,13 +59,13 @@
             "OnComponentUpdate": null
           },
           {
-            "__type": "Facepunch.ShootWeaponComponent",
+            "__type": "Facepunch.Shootable",
             "__guid": "37f1b424-2709-4f9d-94e7-a318227498a9",
             "AmmoComponent": {
               "_type": "component",
               "component_id": "809891ef-b6af-4974-bab3-3e2f8ec5423b",
               "go": "8f9b0f89-d493-4656-be19-e23bb64f2cea",
-              "component_type": "AmmoComponent"
+              "component_type": "HasAmmo"
             },
             "BaseDamage": 20,
             "BaseDamageFalloff": [
@@ -128,7 +128,7 @@
             "PlayerVelocityLimit": 300,
             "PrimaryTracer": "particles/gameplay/guns/trail/trail_smoke.vpcf",
             "RequiresAllInputActions": false,
-            "RequiresAmmoComponent": true,
+            "RequiresHasAmmo": true,
             "RicochetMaxHits": 2,
             "SecondaryTracer": "particles/gameplay/guns/trail/rico_trail_smoke.vpcf",
             "ShootSound": "sounds/weapons/m4a1/m4_shot.sound",
@@ -139,13 +139,13 @@
             "VelocitySpreadScale": 0.25
           },
           {
-            "__type": "Facepunch.ReloadWeaponComponent",
+            "__type": "Facepunch.Reloadable",
             "__guid": "01933652-6cd6-48ce-90d1-09986c59921a",
             "AmmoComponent": {
               "_type": "component",
               "component_id": "809891ef-b6af-4974-bab3-3e2f8ec5423b",
               "go": "8f9b0f89-d493-4656-be19-e23bb64f2cea",
-              "component_type": "AmmoComponent"
+              "component_type": "HasAmmo"
             },
             "EmptyReloadSounds": {
               "0": "sounds/guns/mp5/reload/mp5.move.sound",
@@ -174,7 +174,7 @@
             }
           },
           {
-            "__type": "Facepunch.RecoilWeaponComponent",
+            "__type": "Facepunch.ShootRecoil",
             "__guid": "c9826e24-a703-4396-b88c-0b2e88265dee",
             "HorizontalSpread": "-5 5",
             "OnComponentDestroy": null,

@@ -4,7 +4,7 @@ using Sandbox.Events;
 namespace Facepunch;
 
 [Title( "Reload" ), Group( "Weapon Components" )]
-public partial class ReloadWeaponComponent : InputWeaponComponent,
+public partial class Reloadable : WeaponInputAction,
 	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	/// <summary>
@@ -22,7 +22,7 @@ public partial class ReloadWeaponComponent : InputWeaponComponent,
 	/// <summary>
 	/// This is really just the magazine for the weapon. 
 	/// </summary>
-	[Property] public AmmoComponent AmmoComponent { get; set; }
+	[Property] public WeaponAmmo AmmoComponent { get; set; }
 
 	private TimeUntil TimeUntilReload { get; set; }
 	[Sync] private bool IsReloading { get; set; }

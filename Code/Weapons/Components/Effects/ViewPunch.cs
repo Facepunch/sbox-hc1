@@ -1,5 +1,5 @@
 using Sandbox.Events;
-using static Facepunch.ShootWeaponComponent;
+using static Facepunch.Shootable;
 
 namespace Facepunch;
 

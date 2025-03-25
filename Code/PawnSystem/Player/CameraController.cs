@@ -182,7 +182,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 		if ( !Player.CurrentEquipment.IsValid() )
 			return;
 
-		if ( Player.CurrentEquipment.GetComponentInChildren<ScopeWeaponComponent>() is { } scope )
+		if ( Player.CurrentEquipment.GetComponentInChildren<FlatScope>() is { } scope )
 		{
 			var fov = scope.GetFOV();
 			FieldOfViewOffset -= fov;
@@ -261,7 +261,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 		if ( !Player.CurrentEquipment.IsValid() )
 			return;
 
-		if ( Player.CurrentEquipment.GetComponentInChildren<RecoilWeaponComponent>() is { } fn )
+		if ( Player.CurrentEquipment.GetComponentInChildren<ShootRecoil>() is { } fn )
 			Player.EyeAngles += fn.Current;
 	}
 

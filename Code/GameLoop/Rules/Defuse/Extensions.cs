@@ -5,16 +5,16 @@ public static class DefuseExtensions
 	/// <summary>
 	/// Helper to check if a player is planting, useful for UI.
 	/// </summary>
-	public static bool IsPlanting( this PlayerPawn player, out BombPlantComponent BombPlantComponent )
+	public static bool IsPlanting( this PlayerPawn player, out DefuseC4 DefuseC4 )
 	{
 		if ( !player.CurrentEquipment.IsValid() )
 		{
-			BombPlantComponent = null;
+			DefuseC4 = null;
 			return false;
 		}
 
-		BombPlantComponent = player.CurrentEquipment?.GetComponentInChildren<BombPlantComponent>();
-		return BombPlantComponent is { Active: true, IsPlanting: true };
+		DefuseC4 = player.CurrentEquipment?.GetComponentInChildren<DefuseC4>();
+		return DefuseC4 is { Active: true, IsPlanting: true };
 	}
 
 	/// <summary>

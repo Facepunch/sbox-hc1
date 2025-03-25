@@ -95,7 +95,7 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 		if ( !Equipment.IsValid() )
 			return;
 
-		if ( Equipment.GetComponentInChildren<ShootWeaponComponent>() is { } shoot )
+		if ( Equipment.GetComponentInChildren<Shootable>() is { } shoot )
 		{
 			OnFireMode( shoot.CurrentFireMode );
 		}
@@ -211,7 +211,7 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 		ModelRenderer.Set( "b_twohanded", true );
 
 		// Weapon state
-		ModelRenderer.Set( "b_empty", !Equipment.GetComponentInChildren<AmmoComponent>()?.HasAmmo ?? false );
+		ModelRenderer.Set( "b_empty", !Equipment.GetComponentInChildren<WeaponAmmo>()?.HasAmmo ?? false );
 	}
 	
 	public enum ThrowableTypeEnum
@@ -242,14 +242,14 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 		if ( !Equipment.IsValid() )
 			return;
 		
-		var throwFn = Equipment.GetComponentInChildren<ThrowWeaponComponent>();
+		var throwFn = Equipment.GetComponentInChildren<Throwable>();
 		
 		if ( !throwFn.IsValid() )
 			return;
 
-		ModelRenderer.Set( "b_idle", throwFn.ThrowState == ThrowWeaponComponent.State.Idle );
-		ModelRenderer.Set( "b_pull", throwFn.ThrowState == ThrowWeaponComponent.State.Cook );
-		ModelRenderer.Set( "b_throw", throwFn.ThrowState == ThrowWeaponComponent.State.Throwing );
+		ModelRenderer.Set( "b_idle", throwFn.ThrowState == Throwable.State.Idle );
+		ModelRenderer.Set( "b_pull", throwFn.ThrowState == Throwable.State.Cook );
+		ModelRenderer.Set( "b_throw", throwFn.ThrowState == Throwable.State.Throwing );
 	}
 
 	public void OnFireMode( FireMode currentFireMode )

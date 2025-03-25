@@ -83,7 +83,7 @@ public sealed class EquipmentResourceEditor : BaseResourceEditor<EquipmentResour
 
 		Layout.Add( sheet );
 
-		if ( comp is ShootWeaponComponent shootWeapon )
+		if ( comp is Shootable shootWeapon )
 		{
 			var debugWidget = new ShootWeaponDebugWidget( Resource, shootWeapon );
 
@@ -131,9 +131,9 @@ public sealed class EquipmentResourceEditor : BaseResourceEditor<EquipmentResour
 file sealed class ShootWeaponDebugWidget : Widget
 {
 	public EquipmentResource Resource { get; }
-	public ShootWeaponComponent ShootWeapon { get; }
+	public Shootable ShootWeapon { get; }
 
-	public ShootWeaponDebugWidget( EquipmentResource resource, ShootWeaponComponent shootWeapon )
+	public ShootWeaponDebugWidget( EquipmentResource resource, Shootable shootWeapon )
 	{
 		Resource = resource;
 		ShootWeapon = shootWeapon;

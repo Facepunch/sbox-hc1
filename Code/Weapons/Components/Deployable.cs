@@ -1,6 +1,6 @@
 namespace Facepunch;
 
-public partial class DeployComponent : InputWeaponComponent
+public partial class Deployable : WeaponInputAction
 {
 	[Property] public GameObject PrefabToSpawn { get; set; }
 

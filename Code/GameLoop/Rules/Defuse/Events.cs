@@ -13,7 +13,7 @@ public record BombPickedUpEvent : IGameEvent;
 public class BombPlantedEventComponent : GameEventComponent<BombPlantedEvent> { }
 
 [Title( "Bomb Defused Event" )]
-public class BombDefusedEventComponent : GameEventComponent<BombDefusedEvent> { }
+public class BombDefusedEventHandler : GameEventComponent<BombDefusedEvent> { }
 
 [Title( "Bomb Detonated Event" )]
 public class BombDetonatedEventComponent : GameEventComponent<BombDetonatedEvent> { }

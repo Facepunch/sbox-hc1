@@ -3,7 +3,7 @@ using Sandbox.Events;
 namespace Facepunch;
 
 [Title( "Throw Weapon" ), Group( "Weapon Components" )]
-public partial class ThrowWeaponComponent : InputWeaponComponent,
+public partial class Throwable : WeaponInputAction,
 	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	[Property, EquipmentResourceProperty] public float CookTime { get; set; } = 0.25f;

@@ -43,12 +43,12 @@
     /// </summary>
     public Equipment Equipment { get; set; }
 
-    private AmmoComponent AmmoComponent => Equipment.IsValid() ? Equipment.GetComponent<AmmoComponent>( true ) : null;
+    private WeaponAmmo HasAmmo => Equipment.IsValid() ? Equipment.GetComponent<WeaponAmmo>(true) : null;
     public PlayerPawn Player => Equipment?.Owner;
     public bool IsActive => Player?.CurrentEquipment == Equipment;
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( IsActive, Equipment, AmmoComponent?.Ammo );
+        return HashCode.Combine( IsActive, Equipment, HasAmmo?.Ammo );
     }   
 }

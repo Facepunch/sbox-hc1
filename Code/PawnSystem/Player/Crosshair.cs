@@ -106,7 +106,7 @@ public partial class Crosshair : Component
 				type = equipment.CrosshairType;
 				if ( !equipment.UseCrosshair ) return;
 
-				var recoil = equipment.GetComponentInChildren<RecoilWeaponComponent>( true );
+				var recoil = equipment.GetComponentInChildren<ShootRecoil>( true );
 				if ( recoil.IsValid() )
 				{
 					gap += recoil.Current.AsVector3().Length * 175f * scale;

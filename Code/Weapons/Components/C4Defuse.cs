@@ -3,7 +3,7 @@ using Sandbox.Events;
 
 [Icon( "yard" )]
 [Title( "Bomb Planting" ), Group( "Weapon Components" )]
-public partial class BombPlantComponent : InputWeaponComponent, 
+public partial class DefuseC4 : WeaponInputAction, 
 	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	/// <summary>

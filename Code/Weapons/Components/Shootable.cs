@@ -1,6 +1,4 @@
-using Facepunch.UI;
 using Sandbox.Events;
-using System.Text;
 
 namespace Facepunch;
 
@@ -15,7 +13,7 @@ public enum FireMode
 
 [Icon( "track_changes" )]
 [Title( "Bullet" ), Group( "Weapon Components" )]
-public partial class ShootWeaponComponent : InputWeaponComponent,
+public partial class Shootable : WeaponInputAction,
 	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	[Property, Group( "Bullet" ), EquipmentResourceProperty] public float BaseDamage { get; set; } = 25.0f;
@@ -50,12 +48,12 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	/// <summary>
 	/// The current weapon's ammo container.
 	/// </summary>
-	[Property, Category( "Ammo" ), Feature( "Ammo" )] public AmmoComponent AmmoComponent { get; set; }
+	[Property, Category( "Ammo" ), Feature( "Ammo" )] public WeaponAmmo AmmoComponent { get; set; }
 
 	/// <summary>
 	/// Does this weapon require an ammo container to fire its bullets?
 	/// </summary>
-	[Property, Category( "Ammo" ), FeatureEnabled( "Ammo" )] public bool RequiresAmmoComponent { get; set; } = false;
+	[Property, Category( "Ammo" ), FeatureEnabled( "Ammo" )] public bool RequiresHasAmmo { get; set; } = false;
 
 	/// <summary>
 	/// How many ricochet hits until we stop traversing
@@ -184,7 +182,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 			if ( Sound.Play( ShootSound, Equipment.WorldPosition ) is { } snd )
 			{
 				snd.SpacialBlend = ( Equipment.Owner?.IsViewer ?? false ) ? 0 : snd.SpacialBlend;
-				Log.Trace( $"ShootWeaponComponent: ShootSound {ShootSound.ResourceName}" );
+				Log.Trace( $"Shootable: ShootSound {ShootSound.ResourceName}" );
 			}
 		}
 
@@ -335,7 +333,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		}
 
 		// If we have a recoil function, let it know.
-		var recoil = Equipment.GetComponentInChildren<RecoilWeaponComponent>();
+		var recoil = Equipment.GetComponentInChildren<ShootRecoil>();
 		if ( recoil.IsValid() )
 			recoil.Shoot();
 	}
@@ -411,7 +409,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		{
 			var snd = Sound.Play( DryFireSound, Equipment.WorldPosition );
 			snd.SpacialBlend = (Equipment.Owner?.IsViewer ?? false) ? 0 : snd.SpacialBlend;
-			Log.Trace( $"ShootWeaponComponent: ShootSound {DryFireSound.ResourceName}" );
+			Log.Trace( $"Shootable: ShootSound {DryFireSound.ResourceName}" );
 		}
 
 		// First person
@@ -563,7 +561,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 			return false;
 
 		// Ammo checks
-		if ( RequiresAmmoComponent && ( !AmmoComponent.IsValid() || !AmmoComponent.HasAmmo ) )
+		if ( RequiresHasAmmo && ( !AmmoComponent.IsValid() || !AmmoComponent.HasAmmo ) )
 			return false;
 
 		return true;

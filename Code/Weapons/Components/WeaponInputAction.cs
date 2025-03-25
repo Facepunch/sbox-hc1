@@ -5,7 +5,7 @@ namespace Facepunch;
 /// <summary>
 /// A weapon component that reacts to input actions.
 /// </summary>
-public abstract class InputWeaponComponent : EquipmentComponent,
+public abstract class WeaponInputAction : EquipmentComponent,
 	IGameEventHandler<EquipmentDeployedEvent>
 {
 	/// <summary>
@@ -21,7 +21,7 @@ public abstract class InputWeaponComponent : EquipmentComponent,
 	/// <summary>
 	/// ActionGraphs action so you can do stuff with visual scripting.
 	/// </summary>
-	[Property, Category( "Base" )] public Action<InputWeaponComponent> OnInputAction { get; set; }
+	[Property, Category( "Base" )] public Action<WeaponInputAction> OnInputAction { get; set; }
 
 	bool RunningWhileDeployed { get; set; }
 

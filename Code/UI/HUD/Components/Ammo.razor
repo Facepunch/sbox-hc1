@@ -20,9 +20,9 @@
         </div>
     }
 
-    <label class="vital">@(AmmoComponent?.Ammo.ToString() ?? "∞")</label>
+    <label class="vital">@(HasAmmo?.Ammo.ToString() ?? "∞")</label>
     <separator />
-    <label class="important">@(AmmoComponent?.MaxAmmo.ToString() ?? "∞")</label>
+    <label class="important">@(HasAmmo?.MaxAmmo.ToString() ?? "∞")</label>
 </root>
 
 @code
@@ -35,9 +35,9 @@
     /// The player
     public PlayerPawn Player => Client.Viewer.PlayerPawn;
 
-    private AmmoComponent AmmoComponent => Player?.CurrentEquipment?.Components?.Get<AmmoComponent>( FindMode.EverythingInSelfAndDescendants );
+    private WeaponAmmo HasAmmo => Player?.CurrentEquipment?.Components?.Get<WeaponAmmo>(FindMode.EverythingInSelfAndDescendants);
 
-    public ShootWeaponComponent Shoot => Player.CurrentEquipment.IsValid() ? Player.CurrentEquipment.Components.Get<ShootWeaponComponent>( FindMode.EnabledInSelfAndDescendants ) : null;
+    public Shootable Shoot => Player.CurrentEquipment.IsValid() ? Player.CurrentEquipment.Components.Get<Shootable>( FindMode.EnabledInSelfAndDescendants ) : null;
 
     private string FireModeFile
     {
@@ -53,6 +53,6 @@
     {
         if ( !Player.IsValid() || !Player.CurrentEquipment.IsValid() )
             return 0;
-        return HashCode.Combine( Player, AmmoComponent?.Ammo, Player?.CurrentEquipment, FireModeFile );
+        return HashCode.Combine( Player, HasAmmo?.Ammo, Player?.CurrentEquipment, FireModeFile );
     }
 }

@@ -1,7 +1,7 @@
 namespace Facepunch;
 
 [Title( "ADS (Aim Down Sight)" ), Group( "Weapon Components" )]
-public partial class AimWeaponComponent : InputWeaponComponent
+public partial class Aimable : WeaponInputAction
 {
 	[Sync, Change( nameof( OnIsAimingChanged ))] public bool IsAiming { get; set; }
 

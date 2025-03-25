@@ -5,7 +5,7 @@ namespace Facepunch;
 
 [Icon( "track_changes" )]
 [Title( "Melee" ), Group( "Weapon Components" )]
-public partial class MeleeWeaponComponent : InputWeaponComponent
+public partial class Melee : WeaponInputAction
 {
 	[Property, Category( "Config" ), EquipmentResourceProperty] public float BaseDamage { get; set; } = 25.0f;
 	[Property, Category( "Config" ), EquipmentResourceProperty] public float FireRate { get; set; } = 0.2f;

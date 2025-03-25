@@ -102,7 +102,7 @@ public partial class WorldPingComponent : Component, IMarkerObject, ICustomMinim
 	/// <param name="lifetime"></param>
 	public void Trigger( float lifetime = 15f )
 	{
-		var destroy = Components.Create<TimedDestroyComponent>();
+		var destroy = Components.Create<DestroyAfter>();
 		destroy.Time = lifetime;
 
 		Receiver?.OnPing();

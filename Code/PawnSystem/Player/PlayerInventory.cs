@@ -20,7 +20,7 @@ public partial class PlayerInventory : Component
 	/// <summary>
 	/// Does this player have a bomb on them?
 	/// </summary>
-	public bool HasBomb => Equipment.Any( x => x.GetComponentInChildren<BombPlantComponent>().IsValid() );
+	public bool HasBomb => Equipment.Any( x => x.GetComponentInChildren<DefuseC4>().IsValid() );
 
 	/// <summary>
 	/// A <see cref="GameObject"/> that will hold all of our equipment.
@@ -63,7 +63,7 @@ public partial class PlayerInventory : Component
 	{
 		foreach ( var wpn in Equipment )
 		{
-			if ( wpn.GetComponentInChildren<AmmoComponent>() is { } ammo )
+			if ( wpn.GetComponentInChildren<WeaponAmmo>() is { } ammo )
 			{
 				ammo.Ammo = ammo.MaxAmmo;
 			}
