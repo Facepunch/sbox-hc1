@@ -1,3 +1,6 @@
+using Sandbox;
+using static DamageIndicator;
+
 namespace Facepunch;
 
 [Icon( "track_changes" )]
@@ -52,24 +55,30 @@ public partial class MeleeWeaponComponent : InputWeaponComponent
 
 	private void CreateImpactEffects( GameObject hitObject, Surface surface, Vector3 pos, Vector3 normal )
 	{
-		var decalPath = Game.Random.FromList( surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
-		if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalResource ) )
+		var impactObjects = SurfaceImpacts.FindForResourceOrDefault( surface );
+
+		if ( impactObjects.BulletImpact is not null )
 		{
-			var decal = Game.Random.FromList( decalResource.Decals );
-
-			var gameObject = Scene.CreateObject();
-			gameObject.WorldPosition = pos;
-			gameObject.WorldRotation = Rotation.LookAt( -normal );
-
-			// Random rotation
-			gameObject.WorldRotation *= Rotation.FromAxis( Vector3.Forward, decal.Rotation.GetValue() );
-
-			var decalRenderer = gameObject.Components.Create<DecalRenderer>();
-			decalRenderer.Material = decal.Material;
-			decalRenderer.Size = new( decal.Width.GetValue(), decal.Height.GetValue(), decal.Depth.GetValue() );
+			var impact = impactObjects.BulletImpact.Clone();
+			impact.WorldPosition = pos + normal;
+			impact.WorldRotation = Rotation.LookAt( normal );
+			impact.SetParent( hitObject, true );
 
 			// Creates a destruction component to destroy the gameobject after a while
-			gameObject.DestroyAsync( 3f );
+			impact.DestroyAsync( 3f );
+		}
+
+		if ( impactObjects.BulletDecal is not null )
+		{
+			var decal = impactObjects.BulletDecal.Clone();
+			decal.WorldPosition = pos + normal;
+			decal.WorldRotation = Rotation.LookAt( -normal );
+			decal.WorldScale = 1;
+			decal.Parent = Scene;
+			decal.SetParent( hitObject, true );
+
+			// Creates a destruction component to destroy the gameobject after a while
+			decal.DestroyAsync( 3f );
 		}
 
 		if ( !string.IsNullOrEmpty( surface.Sounds.Bullet ) )

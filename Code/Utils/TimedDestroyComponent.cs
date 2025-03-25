@@ -15,13 +15,32 @@ public sealed class TimedDestroyComponent : Component
 	/// </summary>
 	[Property, ReadOnly] TimeUntil TimeUntilDestroy { get; set; } = 0;
 
+	[Property]
+	public bool WaitForChildEffects = false;
+
 	protected override void OnStart()
 	{
 		TimeUntilDestroy = Time;
 	}
 
+	bool HasActiveEffects()
+	{
+		foreach ( var pe in GetComponentsInChildren<ITemporaryEffect>() )
+		{
+			if ( pe.IsActive )
+				return true;
+		}
+
+		return false;
+	}
+
 	protected override void OnUpdate()
 	{
+		if ( WaitForChildEffects && HasActiveEffects() )
+		{
+			return;
+		}
+
 		if ( TimeUntilDestroy )
 		{
 			GameObject.Destroy();

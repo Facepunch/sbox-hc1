@@ -48,18 +48,6 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 	[Property, Group( "Effects" )] public SoundEvent DryFireSound { get; set; }
 
 	/// <summary>
-	/// Tracer for the first bullet in a shot.
-	/// </summary>
-	[Property, Group( "Effects" )]
-	public ParticleSystem PrimaryTracer { get; set; } = ParticleSystem.Load( "particles/gameplay/guns/trail/trail_smoke.vpcf" );
-
-	/// <summary>
-	/// Tracer for other bullets in a shot (shotguns).
-	/// </summary>
-	[Property, Group( "Effects" )]
-	public ParticleSystem SecondaryTracer { get; set; } = ParticleSystem.Load( "particles/gameplay/guns/trail/rico_trail_smoke.vpcf" );
-
-	/// <summary>
 	/// The current weapon's ammo container.
 	/// </summary>
 	[Property, Category( "Ammo" ), Feature( "Ammo" )] public AmmoComponent AmmoComponent { get; set; }
@@ -147,17 +135,6 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		}
 	}
 
-	/// <summary>
-	/// Store a reference to the blood impact sound so we don't have to grab it every time.
-	/// </summary>
-	private static SoundEvent BloodImpactSound;
-
-	protected override void OnStart()
-	{
-		if ( BloodImpactSound is not null ) return;
-		BloodImpactSound = ResourceLibrary.Get<SoundEvent>( "sounds/impacts/bullets/impact-bullet-flesh.sound" );
-	}
-
 	protected override void OnEnabled()
 	{
 		BindTag( "no_ammo", () => AmmoComponent.IsValid() && !AmmoComponent.HasAmmo );
@@ -220,6 +197,7 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 			Equipment.ViewModel.ModelRenderer.Set( "b_attack", true );
 	}
 
+	[Obsolete( "Use GameObjects" )]
 	private LegacyParticleSystem CreateParticleSystem( ParticleSystem particleSystem, Vector3 pos, Rotation rot, float decay = 5f )
 	{
 		var gameObject = Scene.CreateObject();
@@ -390,22 +368,34 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 		return position.DistanceSquared( Scene.Camera.WorldPosition ) < MaxEffectsPlayDistance;
 	}
 
+	[Property]
+	public GameObject TracerEffect { get; set; }
+
+	private GameObject Tracer
+	{
+		get
+		{
+			if ( TracerEffect.IsValid() ) return TracerEffect;
+
+			return GameObject.GetPrefab( $"/weapons/common/effects/tracer_9mm.prefab" );
+		}
+	}
+
 	/// <summary>
 	/// Makes some tracers using legacy particle effects.
 	/// </summary>
 	[Rpc.Broadcast]
 	protected void DoTracer( Vector3 startPosition, Vector3 endPosition, float distance, int count )
 	{
-		if ( !IsNearby( startPosition ) || !IsNearby( endPosition ) ) return;
-
-		// Bit of a hack, but the tracers look shitty if the line is very short
-		if ( distance < 128f ) return;
+		if ( !IsNearby( startPosition ) && !IsNearby( endPosition ) ) return;
 
 		var origin = count == 0 ? Effector?.Muzzle?.WorldPosition ?? Equipment.WorldPosition : startPosition;
-		var ps = CreateParticleSystem( count == 0 ? PrimaryTracer : SecondaryTracer, origin, Rotation.Identity, 1f );
-		ps.SceneObject.SetControlPoint( 0, origin );
-		ps.SceneObject.SetControlPoint( 1, endPosition );
-		ps.SceneObject.SetControlPoint( 2, distance );
+
+		var effect = Tracer?.Clone( new CloneConfig { Transform = new Transform().WithPosition( origin ), StartEnabled = true } );
+		if ( effect.IsValid() && effect.GetComponentInChildren<Tracer>() is Tracer tracer )
+		{
+			tracer.EndPoint = endPosition;
+		}
 	}
 
 	protected void DryShoot()
@@ -525,23 +515,6 @@ public partial class ShootWeaponComponent : InputWeaponComponent,
 			// DrawLineSegment( el.Trace.StartPosition, el.Trace.EndPosition, depth, fixedPath.Count() );
 			depth++;
 		}
-
-		// TODO: reimplement this 
-		/* while ( curHits < RicochetMaxHits )
-		{
-			curHits++;
-
-			var tr = DoTraceBullet( start, end, BulletSize );
-			if ( tr.Hit ) hits.Add( tr );
-
-			var reflectDir = CalculateRicochetDirection( tr, ref curHits );
-			var angle = reflectDir.Angle( tr.Direction );
-			start = tr.EndPosition;
-			end = tr.EndPosition + ( reflectDir * MaxRange );
-
-			if ( !ShouldBulletContinue( tr, angle ) )
-				break;
-		} */
 
 		return hits;
 	}
