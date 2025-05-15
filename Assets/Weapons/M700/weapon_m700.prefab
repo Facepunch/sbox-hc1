@@ -1,10 +1,18 @@
 {
   "RootObject": {
     "__guid": "e7f68d84-49e3-4fde-9944-ffce0d5cb416",
+    "__version": 1,
     "Flags": 0,
-    "Name": "w_m700",
+    "Name": "weapon_m700",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
     "Tags": "player",
     "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "Facepunch.Equipment",
@@ -41,9 +49,18 @@
     "Children": [
       {
         "__guid": "4874e959-080d-44f7-8e88-be241e832716",
+        "__version": 1,
         "Flags": 0,
         "Name": "Functions",
+        "Position": "0,0,0",
+        "Rotation": "0,0,0,1",
+        "Scale": "1,1,1",
+        "Tags": "",
         "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "NetworkOrphaned": 0,
+        "OwnerTransfer": 1,
         "Components": [
           {
             "__type": "Facepunch.WeaponAmmo",
@@ -65,7 +82,7 @@
               "_type": "component",
               "component_id": "d7763ff7-5e7b-4a5e-9ee1-380b8fae74ba",
               "go": "4874e959-080d-44f7-8e88-be241e832716",
-              "component_type": "HasAmmo"
+              "component_type": "WeaponAmmo"
             },
             "BaseDamage": 80,
             "BaseDamageFalloff": [
@@ -116,15 +133,14 @@
             "OnInputAction": null,
             "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
-            "PrimaryTracer": "particles/gameplay/guns/trail/trail_smoke.vpcf",
             "RequiresAllInputActions": false,
             "RequiresHasAmmo": true,
             "RicochetMaxHits": 2,
-            "SecondaryTracer": "particles/gameplay/guns/trail/rico_trail_smoke.vpcf",
             "ShootSound": "sounds/weapons/m700/m700_shot.sound",
             "SupportedFireModes": [
               "Semi"
             ],
+            "TracerEffect": null,
             "VelocitySpreadScale": 0.25
           },
           {
@@ -134,7 +150,7 @@
               "_type": "component",
               "component_id": "d7763ff7-5e7b-4a5e-9ee1-380b8fae74ba",
               "go": "4874e959-080d-44f7-8e88-be241e832716",
-              "component_type": "HasAmmo"
+              "component_type": "WeaponAmmo"
             },
             "EmptyReloadSounds": {
               "0": "sounds/guns/mp5/reload/mp5.move.sound",
@@ -255,20 +271,34 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null,
             "Size": 5
+          },
+          {
+            "__type": "Facepunch.Boltable",
+            "__guid": "1985f3ad-15b1-44c0-aa60-b747aa6a2c5a",
+            "EjectionPrefab": {
+              "_type": "gameobject",
+              "prefab": "prefabs/weapon_effects/556_casing.prefab"
+            },
+            "InputActions": [
+              "Attack1"
+            ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
+            "RequiresAllInputActions": false
           }
-        ]
+        ],
+        "Children": []
       }
     ],
-    "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,
@@ -282,13 +312,14 @@
         "ExcludedBodies": "",
         "IncludedBodies": ""
       }
-    }
+    },
+    "__variables": []
   },
+  "ResourceVersion": 2,
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
-  "ResourceVersion": 1,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }
