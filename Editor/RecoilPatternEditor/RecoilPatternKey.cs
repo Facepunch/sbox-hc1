@@ -50,7 +50,7 @@ public partial class RecoilPatternKey : GraphicsItem
 	protected override void OnPaint()
 	{
 		var rect = LocalRect;
-		var mainColor = Hovered ? Theme.Selection : Color.Gray;
+		var mainColor = Hovered ? Theme.SelectedBackground : Color.Gray;
 
 		var loopColor = Theme.Blue;
 		if ( IsLoopEnd ) loopColor = Theme.Red;
