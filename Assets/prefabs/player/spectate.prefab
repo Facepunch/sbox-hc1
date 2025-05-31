@@ -1,18 +1,36 @@
 {
   "RootObject": {
     "__guid": "89e9bfbf-5479-448a-be07-24914e1c82c3",
+    "__version": 1,
     "Flags": 0,
     "Name": "spectate",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "",
     "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "Facepunch.SpectateController",
         "__guid": "c15c1afb-5c6e-44d9-a62f-d7765b010457",
-        "FlySpeed": 1000
+        "__enabled": true,
+        "FlySpeed": 1000,
+        "HealthComponent": null,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       },
       {
         "__type": "Facepunch.PawnCameraController",
         "__guid": "2ff09b5e-8618-40ba-a8db-7f91e06e24e6",
+        "__enabled": true,
         "Boom": {
           "_type": "gameobject",
           "go": "76bb9bb6-92d1-4dca-9a77-929eb5a55cb6"
@@ -20,36 +38,89 @@
         "CameraObject": {
           "_type": "gameobject",
           "go": "91937a66-a8f6-4a25-b049-0636e5f6e1b7"
-        }
+        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
       {
         "__guid": "76bb9bb6-92d1-4dca-9a77-929eb5a55cb6",
+        "__version": 1,
         "Flags": 0,
         "Name": "Boom",
+        "Position": "0,0,0",
+        "Rotation": "0,0,0,1",
+        "Scale": "1,1,1",
+        "Tags": "",
         "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "NetworkOrphaned": 0,
+        "OwnerTransfer": 1,
+        "Components": [],
         "Children": [
           {
             "__guid": "91937a66-a8f6-4a25-b049-0636e5f6e1b7",
-            "Flags": 0,
-            "Name": "Camera",
+            "__version": 1,
             "__Prefab": "prefabs/player/cameras/default_player_camera.prefab",
-            "__PrefabVariables": {}
+            "__PrefabInstancePatch": {
+              "AddedObjects": [],
+              "RemovedObjects": [],
+              "PropertyOverrides": [
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "91c92300-c9e5-4a0d-b4ae-d26a91936fc8"
+                  },
+                  "Property": "Name",
+                  "Value": "Camera"
+                },
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "91c92300-c9e5-4a0d-b4ae-d26a91936fc8"
+                  },
+                  "Property": "Enabled",
+                  "Value": false
+                },
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "91c92300-c9e5-4a0d-b4ae-d26a91936fc8"
+                  },
+                  "Property": "NetworkInterpolation",
+                  "Value": false
+                }
+              ],
+              "MovedObjects": []
+            },
+            "__PrefabIdToInstanceId": {
+              "91c92300-c9e5-4a0d-b4ae-d26a91936fc8": "91937a66-a8f6-4a25-b049-0636e5f6e1b7",
+              "da762119-5dde-4e71-b670-7d89847453bb": "44da6089-8bf6-4c5c-8ea5-43c200a3fb3b",
+              "c283a749-a1b4-4d71-97cd-6cfe6e0269f0": "04b81c7c-96e9-45aa-b553-60bc567bf526",
+              "9a1e8dd1-ce52-4988-a0a6-2192d8401241": "31c3fa35-b9ed-41be-be5b-74767de37fef",
+              "aa00f6d6-044f-4303-b133-b1db76e26a95": "9d828e01-8a64-42e8-997d-a7fc6bde657b",
+              "84567d97-73e3-488c-9ec1-ecfea74f2603": "e87e3bc9-0d71-47b8-9a91-b530a14c3924",
+              "09775e98-d3bd-4fe7-b742-4888e27b545c": "a5a5ecc0-8f77-41cf-b1bb-f67e421de7eb",
+              "a1574d00-56c9-4791-9885-9c2ce4d6d170": "bd35f890-70f9-45be-8f24-d0eae520928f",
+              "fea821b4-2c14-4aa3-ab38-da30ee64a3a3": "fe5b1fd3-beb7-45b1-9cc3-1e375757fdf6",
+              "e405a983-581c-4843-b72d-bd6afa755f8f": "4335aff3-ccc0-4fae-9c93-28690f975067",
+              "9d21f25e-4845-4991-8273-82f901d917f4": "4e265058-0970-4bdb-a54f-d8f6bafc7fde",
+              "f454dfa0-11ae-4273-98bb-4cab30eecc08": "7485ad19-b631-406d-b618-de60155e875a"
+            }
           }
         ]
       }
     ],
-    "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,
@@ -63,13 +134,14 @@
         "ExcludedBodies": "",
         "IncludedBodies": ""
       }
-    }
+    },
+    "__variables": []
   },
+  "ResourceVersion": 2,
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
-  "ResourceVersion": 1,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }
