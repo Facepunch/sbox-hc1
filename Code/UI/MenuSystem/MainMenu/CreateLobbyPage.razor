@@ -66,7 +66,7 @@
 @code
 {
     public SceneFile SelectedMap { get; set; }
-    public GameModeInfo SelectedGameMode { get; set; }
+    public GameMode SelectedGameMode { get; set; }
 
     public GameModeList GameModeList { get; set; }
 
@@ -77,7 +77,7 @@
     }
 
 
-    private void SetMode( GameModeInfo mode )
+    private void SetMode( GameMode mode )
     {
         SelectedGameMode = mode;
         SelectedMap = null;

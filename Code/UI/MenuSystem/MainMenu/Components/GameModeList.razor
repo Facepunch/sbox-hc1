@@ -11,9 +11,9 @@
 
 @code
 {
-    public IReadOnlyList<GameModeInfo> GameModes { get; set; }
-    public Action<GameModeInfo> OnSelected { get; set; }
-    public GameModeInfo SelectedGameMode { get; set; }
+    public IReadOnlyList<GameMode> GameModes { get; set; }
+    public Action<GameMode> OnSelected { get; set; }
+    public GameMode SelectedGameMode { get; set; }
 
     // Filter with this map in mind.
     public void Filter( SceneFile map )
@@ -22,7 +22,7 @@
         StateHasChanged();
     }
 
-    public void DoSelect( GameModeInfo gm )
+    public void DoSelect( GameMode gm )
     {
         SelectedGameMode = gm;
         OnSelected?.Invoke( gm );

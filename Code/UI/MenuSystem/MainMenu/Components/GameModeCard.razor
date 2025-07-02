@@ -8,8 +8,8 @@
 
 @code
 {
-    public GameModeInfo GameMode { get; set; }
-    public Action<GameModeInfo> OnSelected { get; set; }
+    public GameMode GameMode { get; set; }
+    public Action<GameMode> OnSelected { get; set; }
     public bool Selected { get; set; }
 
     protected override void OnClick( MousePanelEvent e )

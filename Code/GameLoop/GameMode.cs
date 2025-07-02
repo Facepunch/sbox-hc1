@@ -19,7 +19,7 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 	/// Sets the current gamemode for the next scene load.
 	/// </summary>
 	/// <param name="gameMode"></param>
-	public static void SetCurrent( GameModeInfo gameMode )
+	public static void SetCurrent( GameMode gameMode )
 	{
 		if ( gameMode is null )
 		{
@@ -27,7 +27,7 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 			return;
 		}
 
-		ActivePath = gameMode.Path;
+		ActivePath = gameMode.GameObject.PrefabInstanceSource;
 	}
 
 	[Property]
@@ -125,15 +125,15 @@ public sealed partial class GameMode : SingletonComponent<GameMode>, Component.I
 			_componentCache.Clear();
 		}
 
-		if ( !_componentCache.TryGetValue( typeof(T), out var component ) || component is { IsValid: false } || component is { Active: false } )
+		if ( !_componentCache.TryGetValue( typeof( T ), out var component ) || component is { IsValid: false } || component is { Active: false } )
 		{
 			component = GetComponentInChildren<T>() as Component;
-			_componentCache[typeof(T)] = component;
+			_componentCache[typeof( T )] = component;
 		}
 
 		if ( required && component is not T )
 		{
-			throw new Exception( $"Expected a {typeof(T).Name} to be active in the {nameof(GameMode)}!" );
+			throw new Exception( $"Expected a {typeof( T ).Name} to be active in the {nameof( GameMode )}!" );
 		}
 
 		return component as T;

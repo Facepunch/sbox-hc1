@@ -98,7 +98,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 
 	private Option GetOption( int index )
 	{
-		return Options[ index ].AsNormal();
+		return Options[index].AsNormal();
 	}
 
 	/// <summary>
@@ -126,18 +126,18 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 			.ToDictionary( pair => pair.Key, pair => pair.Value )
 			.FirstOrDefault();
 
-		if ( highestKeyValuePair.Value < 1 ) 
+		if ( highestKeyValuePair.Value < 1 )
 			return null;
 
 		return highestKeyValuePair.Key;
 	}
 
-	public static IEnumerable<Option> GenerateOptions( GameModeInfo currentMode = null, SceneFile currentMap = null, int count = 5 )
+	public static IEnumerable<Option> GenerateOptions( GameMode currentMode = null, SceneFile currentMap = null, int count = 5 )
 	{
 		var maps = ResourceLibrary.GetAll<SceneFile>().Where( x => x.GetMetadata( "IsVisibleInMenu", null ).ToBool() is true ).ToList();
 		var options = new List<Option>();
 
-		var inList = ( GameModeInfo gameMode ) =>
+		var inList = ( GameMode gameMode ) =>
 		{
 			return options.FirstOrDefault( x => x.Mode == gameMode ).Mode is not null;
 		};
@@ -182,7 +182,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 	/// <param name="currentMap"></param>
 	/// <param name="count"></param>
 	/// <returns></returns>
-	public static MapVoteSystem Create( GameModeInfo currentMode = null, SceneFile currentMap = null, int count = 5 )
+	public static MapVoteSystem Create( GameMode currentMode = null, SceneFile currentMap = null, int count = 5 )
 	{
 		// Host-only
 		Assert.True( Networking.IsHost );
@@ -248,8 +248,8 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 
 		Votes.Add( new NetworkedVote()
 		{
-			 Option = index,
-			 VoterId = callerSteamId,
+			Option = index,
+			VoterId = callerSteamId,
 		} );
 	}
 
@@ -289,7 +289,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 		/// <summary>
 		/// What mode are we playing?
 		/// </summary>
-		public GameModeInfo Mode { get; set; }
+		public GameMode Mode { get; set; }
 
 		/// <summary>
 		/// What map?
@@ -304,7 +304,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 		{
 			return new NetworkedOption
 			{
-				ModeResource = Mode.Path,
+				ModeResource = Mode.GameObject.PrefabInstanceSource,
 				MapResource = Map.ResourcePath
 			};
 		}
@@ -339,7 +339,7 @@ public partial class MapVoteSystem : SingletonComponent<MapVoteSystem>
 			var mapDef = ResourceLibrary.Get<SceneFile>( MapResource );
 			var modePath = ModeResource;
 			var mode = GameMode.GetAll( mapDef )
-				.FirstOrDefault( x => x.Path == modePath );
+				.FirstOrDefault( x => x.GameObject.PrefabInstanceSource == modePath );
 
 			return new Option
 			{

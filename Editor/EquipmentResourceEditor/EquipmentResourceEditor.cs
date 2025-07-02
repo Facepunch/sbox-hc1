@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Editor;
+using Sandbox;
+using System;
 using System.Linq;
-using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-using Editor;
-using Sandbox;
-using Sandbox.UI;
 using Label = Editor.Label;
 
 namespace Facepunch.Editor;
@@ -144,7 +142,7 @@ file sealed class ShootWeaponDebugWidget : Widget
 		grid.HorizontalSpacing = 8;
 
 		Layout = grid;
-		Layout.Margin = new Margin( 16f, 16f, 16f, 16f );
+		Layout.Margin = new Sandbox.UI.Margin( 16f, 16f, 16f, 16f );
 
 		UpdateGrid();
 	}
@@ -157,7 +155,7 @@ file sealed class ShootWeaponDebugWidget : Widget
 
 	public void UpdateGrid()
 	{
-		var grid = (GridLayout) Layout;
+		var grid = (GridLayout)Layout;
 
 		grid.Clear( true );
 

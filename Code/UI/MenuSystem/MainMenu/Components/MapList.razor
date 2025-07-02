@@ -10,10 +10,10 @@
 @code
 {
     public SceneFile SelectedMap { get; set; }
-    public GameModeInfo GameMode { get; set; }
+    public GameMode GameMode { get; set; }
     public Action<SceneFile> OnSelected { get; set; }
 
-    public void DoSelect(SceneFile map)
+    public void DoSelect( SceneFile map )
     {
         SelectedMap = map;
         OnSelected?.Invoke( map );
