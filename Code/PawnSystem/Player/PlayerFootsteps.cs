@@ -10,14 +10,14 @@ public sealed class PlayerFootsteps : Component
 	[Property] public float FootstepScale { get; set; } = 1f;
 	[Property] public float SprintFootstepScale { get; set; } = 2f;
 
-	TimeSince timeSinceStep;
+	public TimeSince TimeSinceStep { get; private set; }
 
 	bool flipFlop = false;
 
-	private float GetStepFrequency()
+	public float GetStepFrequency()
 	{
 		if ( Player.IsSprinting ) return 0.25f;
-		return 0.34f;
+		return 0.35f;
 	}
 
 	private void Footstep()
@@ -28,6 +28,7 @@ public sealed class PlayerFootsteps : Component
 
 		var tr = Scene.Trace
 			.Ray( Player.WorldPosition + Vector3.Up * 20, Player.WorldPosition + Vector3.Up * -20 )
+			.IgnoreGameObjectHierarchy( Player.GameObject )
 			.Run();
 
 		if ( !tr.Hit )
@@ -36,7 +37,7 @@ public sealed class PlayerFootsteps : Component
 		if ( tr.Surface is null )
 			return;
 
-		timeSinceStep = 0;
+		TimeSinceStep = 0;
 
 		flipFlop = !flipFlop;
 
@@ -57,7 +58,7 @@ public sealed class PlayerFootsteps : Component
 
 		if ( Player.HealthComponent.State != LifeState.Alive ) return;
 
-		if ( timeSinceStep < GetStepFrequency() )
+		if ( TimeSinceStep < GetStepFrequency() )
 			return;
 
 		if ( Player.CharacterController.Velocity.Length > 50f )

@@ -1,4 +1,3 @@
-
 using Sandbox.Events;
 
 namespace Facepunch;
@@ -163,6 +162,10 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 
 	private Vector3 lerpedWishMove;
 
+	bool IsLeftFoot = false;
+	private float LastStepProgress;
+	float lenMult = 0;
+
 	protected void ApplyVelocity()
 	{
 		if ( !Equipment.IsValid() )
@@ -170,6 +173,7 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 
 		var moveVel = Owner.CharacterController.Velocity;
 		var moveLen = moveVel.Length;
+		var isMoving = moveLen > 10f; // Small threshold to determine if actually moving
 
 		var wishMove = Owner.WishMove.Normal * 1f;
 		if ( Equipment.EquipmentFlags.HasFlag( EquipmentFlags.Aiming ) ) wishMove = 0;
@@ -177,7 +181,43 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 		if ( Owner.IsSlowWalking || Owner.IsCrouching ) moveLen *= 0.5f;
 
 		lerpedWishMove = lerpedWishMove.LerpTo( wishMove, Time.Delta * 7.0f );
-		ModelRenderer?.Set( "move_bob", moveLen.Remap( 0, 300, 0, 1, true ) );
+
+		var footsteps = Owner.GetComponent<PlayerFootsteps>();
+		var timeSince = footsteps.TimeSinceStep;
+		var freq = footsteps.GetStepFrequency();
+
+		// Set move_bob based on movement
+		lenMult = lenMult.LerpTo( isMoving ? 1 : 0, Time.Delta * 10f );
+		ModelRenderer?.Set( "move_bob", lenMult );
+
+		// Handle cycle when moving vs stopped
+		float cycleProgress;
+
+		if ( isMoving )
+		{
+			// Track step alternation when moving
+			if ( timeSince < Time.Delta )
+			{
+				IsLeftFoot = !IsLeftFoot;
+				LastStepProgress = 0f;
+			}
+
+			// Calculate progress based on current step (0-0.5 for first step, 0.5-1 for second)
+			var stepProgress = (timeSince / freq);
+			LastStepProgress = IsLeftFoot
+				? stepProgress * 0.5f              // First step: 0 to 0.5
+				: 0.5f + (stepProgress * 0.5f);    // Second step: 0.5 to 1
+
+			cycleProgress = LastStepProgress;
+		}
+		else
+		{
+			// When stopped, smoothly return to 0
+			LastStepProgress = LastStepProgress.LerpTo( 0, Time.Delta * 4.0f );
+			cycleProgress = LastStepProgress;
+		}
+
+		ModelRenderer?.Set( "move_bob_cycle_control", cycleProgress );
 
 		if ( UseMovementInertia )
 			YawInertia += lerpedWishMove.y * 10f;
