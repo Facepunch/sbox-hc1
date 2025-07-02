@@ -3,19 +3,24 @@ using Sandbox;
 
 public class HideObject
 {
-	[Menu("Editor", "Nicked/Toggle Selected" )]
-	[Shortcut( "hc1.editor.toggleselect", "H", ShortcutType.Window )]
-	static void ToggleSelection()
+	private static void Toggle()
 	{
-		using var scope = SceneEditorSession.Scope();
-
 		foreach ( var item in EditorScene.Selection )
 		{
 			var thing = item as GameObject;
 
 			thing.Enabled = !thing.Enabled;
 		}
+	}
 
-		SceneEditorSession.Active.FullUndoSnapshot( "Toggle Selection" );
+	[Menu( "Editor", "Nicked/Toggle Selected" )]
+	[Shortcut( "hc1.editor.toggleselect", "H", ShortcutType.Window )]
+	static void ToggleSelection()
+	{
+		using var scope = SceneEditorSession.Scope();
+
+		Toggle();
+
+		SceneEditorSession.Active.AddUndo( "Toggle Selection", Toggle, Toggle );
 	}
 }
