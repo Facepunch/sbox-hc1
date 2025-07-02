@@ -25,18 +25,6 @@ public class PlayerGlobals : GlobalComponent, IGameEventHandler<ModifyDamageGlob
 	/// </summary>
 	[Property, Group( "Health" )] public float MaxArmor { get; private set; } = 100f;
 
-	/// <summary>
-	/// What decals should we use for blood impacts?
-	/// </summary>
-	[Property, Group( "Effects" )] public List<Material> BloodDecalMaterials { get; set; } = new()
-	{
-		Cloud.Material( "jase.bloodsplatter08" ),
-		Cloud.Material( "jase.bloodsplatter07" ),
-		Cloud.Material( "jase.bloodsplatter06" ),
-		Cloud.Material( "jase.bloodsplatter05" ),
-		Cloud.Material( "jase.bloodsplatter04" )
-	};
-
 	public const float DefaultArmorReduction = 0.775f;
 	public const float DefaultHelmetReduction = 0.775f;
 

@@ -161,12 +161,6 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 
 	private Vector3 lerpedWishMove;
 
-	private Vector3 localPosition;
-	private Rotation localRotation;
-
-	private Vector3 lerpedLocalPosition;
-	private Rotation lerpedlocalRotation;
-
 	protected void ApplyVelocity()
 	{
 		if ( !Equipment.IsValid() )
@@ -213,7 +207,7 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 		// Weapon state
 		ModelRenderer.Set( "b_empty", !Equipment.GetComponentInChildren<WeaponAmmo>()?.HasAmmo ?? false );
 	}
-	
+
 	public enum ThrowableTypeEnum
 	{
 		HEGrenade,
@@ -241,9 +235,9 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 	{
 		if ( !Equipment.IsValid() )
 			return;
-		
+
 		var throwFn = Equipment.GetComponentInChildren<Throwable>();
-		
+
 		if ( !throwFn.IsValid() )
 			return;
 
