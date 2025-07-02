@@ -40,7 +40,7 @@ public sealed class PlayerFootsteps : Component
 
 		flipFlop = !flipFlop;
 
-		var sound = flipFlop ? tr.Surface.Sounds.FootLeft : tr.Surface.Sounds.FootRight;
+		var sound = flipFlop ? tr.Surface.SoundCollection.FootLeft : tr.Surface.SoundCollection.FootRight;
 		if ( sound is null ) return;
 
 		var handle = Sound.Play( sound, tr.HitPosition + tr.Normal * 5 );
@@ -52,7 +52,7 @@ public sealed class PlayerFootsteps : Component
 
 	protected override void OnFixedUpdate()
 	{
-		if ( !Player.IsValid() ) 
+		if ( !Player.IsValid() )
 			return;
 
 		if ( Player.HealthComponent.State != LifeState.Alive ) return;
