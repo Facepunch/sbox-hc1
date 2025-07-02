@@ -181,7 +181,7 @@ public partial class Shootable : WeaponInputAction,
 		{
 			if ( Sound.Play( ShootSound, Equipment.WorldPosition ) is { } snd )
 			{
-				snd.SpacialBlend = ( Equipment.Owner?.IsViewer ?? false ) ? 0 : snd.SpacialBlend;
+				snd.SpacialBlend = (Equipment.Owner?.IsViewer ?? false) ? 0 : snd.SpacialBlend;
 				Log.Trace( $"Shootable: ShootSound {ShootSound.ResourceName}" );
 			}
 		}
@@ -195,46 +195,7 @@ public partial class Shootable : WeaponInputAction,
 			Equipment.ViewModel.ModelRenderer.Set( "b_attack", true );
 	}
 
-	[Obsolete( "Use GameObjects" )]
-	private LegacyParticleSystem CreateParticleSystem( ParticleSystem particleSystem, Vector3 pos, Rotation rot, float decay = 5f )
-	{
-		var gameObject = Scene.CreateObject();
-		gameObject.Name = $"Particle: {Equipment.GameObject}";
-		gameObject.WorldPosition = pos;
-		gameObject.WorldRotation = rot;
-
-		var p = gameObject.Components.Create<LegacyParticleSystem>();
-		p.Particles = particleSystem;
-		gameObject.Transform.ClearInterpolation();
-
-		// Clean these up between rounds
-		gameObject.Components.Create<DestroyBetweenRounds>();
-
-		// Clear off in a suitable amount of time.
-		gameObject.DestroyAsync( decay );
-
-		return p;
-	}
-
-	[Rpc.Broadcast]
-	private void CreateBloodEffects( Vector3 pos, Vector3 normal, Vector3 direction )
-	{
-		if ( !IsNearby( pos ) )
-			return;
-
-		// TODO: move this to the player
-		var tr = Scene.Trace.Ray( pos, pos + direction * BloodEjectDistance )
-			.WithoutTags( "player" )
-			.Run();
-
-		if ( tr.Hit )
-		{
-			var material = Game.Random.FromList( GetGlobal<PlayerGlobals>().BloodDecalMaterials );
-			CreateDecal( material, tr.HitPosition - (tr.Direction * 2 ), tr.Normal, Game.Random.Float( 0, 360 ), Game.Random.Int( 32, 96 ), 10f, 30f );
-		}
-	}
-
-	private DecalRenderer CreateDecal( Material material, Vector3 pos, Vector3 normal, float rotation, float size, float depth, float destroyTime = 3f )
+	private Decal CreateDecal( Texture material, Vector3 pos, Vector3 normal, float rotation, float size, float depth, float destroyTime = 3f )
 	{
 		var gameObject = Scene.CreateObject();
 		gameObject.Name = $"Impact decal: {Equipment.GameObject}";
@@ -244,9 +205,13 @@ public partial class Shootable : WeaponInputAction,
 		// Random rotation
 		gameObject.WorldRotation *= Rotation.FromAxis( Vector3.Forward, rotation );
 
-		var decalRenderer = gameObject.Components.Create<DecalRenderer>();
-		decalRenderer.Material = material;
-		decalRenderer.Size = new( size, size, depth );
+		var decal = gameObject.Components.Create<Decal>();
+		decal.Decals.Add( new DecalDefinition()
+		{
+			ColorTexture = material,
+			Height = size,
+			Width = size
+		} );
 
 		// Clean these up between rounds
 		gameObject.Components.Create<DestroyBetweenRounds>();
@@ -254,22 +219,24 @@ public partial class Shootable : WeaponInputAction,
 		// Creates a destruction component to destroy the gameobject after a while
 		gameObject.DestroyAsync( destroyTime );
 
-		return decalRenderer;
+		return decal;
 	}
 
-	private void CreateImpactEffects( Surface surface, Vector3 pos, Vector3 normal )
+	private void CreateImpactEffects( GameObject hitObject, Surface surface, Vector3 pos, Vector3 normal )
 	{
-		var decalPath = Game.Random.FromList( surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
-		if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalResource ) )
-		{
-			var decal = Game.Random.FromList( decalResource.Decals );
+		var impactPrefab = surface.GetBulletImpact();
 
-			CreateDecal( decal.Material, pos, normal, decal.Rotation.GetValue(), decal.Width.GetValue() / 1.5f, decal.Depth.GetValue(), 30f );
+		if ( impactPrefab is not null )
+		{
+			var impact = impactPrefab.Clone();
+			impact.WorldPosition = pos + normal;
+			impact.WorldRotation = Rotation.LookAt( normal );
+			impact.SetParent( hitObject, true );
 		}
 
-		if ( !string.IsNullOrEmpty( surface.Sounds.Bullet ) )
+		if ( surface.SoundCollection.Bullet.IsValid() )
 		{
-			Sound.Play( surface.Sounds.Bullet, pos );
+			Sound.Play( surface.SoundCollection.Bullet, pos );
 		}
 	}
 
@@ -305,14 +272,9 @@ public partial class Shootable : WeaponInputAction,
 
 				if ( tr.Distance == 0 )
 					continue;
-				
-				CreateImpactEffects( tr.Surface, tr.EndPosition, tr.Normal );
-				DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
 
-				if ( tr.GameObject?.Root.GetComponentInChildren<PlayerPawn>() is { } player )
-				{
-					CreateBloodEffects( tr.HitPosition, tr.Normal, tr.Direction );
-				}
+				CreateImpactEffects( tr.GameObject, tr.Surface, tr.EndPosition, tr.Normal );
+				DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
 
 				var damage = CalculateDamageFalloff( BaseDamage, tr.Distance );
 				damage = damage.CeilToInt();
@@ -461,7 +423,7 @@ public partial class Shootable : WeaponInputAction,
 		var rot = Rotation.LookAt( WeaponRay.Forward );
 
 		var forward = rot.Forward;
-		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * ( BulletSpread + Equipment.Owner.Spread ) * 0.25f;
+		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * (BulletSpread + Equipment.Owner.Spread) * 0.25f;
 		forward = forward.Normal;
 
 		var original = DoTraceBullet( start, WeaponRay.Position + forward * MaxRange, BulletSize );
@@ -547,7 +509,7 @@ public partial class Shootable : WeaponInputAction,
 		// Do we still have a weapon?
 		if ( !Equipment.IsValid() ) return false;
 		if ( !Equipment.Owner.IsValid() ) return false;
-		
+
 		// Player
 		if ( Equipment.Owner.IsFrozen )
 			return false;
@@ -561,7 +523,7 @@ public partial class Shootable : WeaponInputAction,
 			return false;
 
 		// Ammo checks
-		if ( RequiresHasAmmo && ( !AmmoComponent.IsValid() || !AmmoComponent.HasAmmo ) )
+		if ( RequiresHasAmmo && (!AmmoComponent.IsValid() || !AmmoComponent.HasAmmo) )
 			return false;
 
 		return true;
@@ -584,7 +546,7 @@ public partial class Shootable : WeaponInputAction,
 			return;
 		}
 
-		if ( IsBurstFiring && BurstCount >= BurstAmount - 1 || ( Tags.Has( "reloading" ) && IsBurstFiring ) )
+		if ( IsBurstFiring && BurstCount >= BurstAmount - 1 || (Tags.Has( "reloading" ) && IsBurstFiring) )
 		{
 			ClearBurst();
 		}

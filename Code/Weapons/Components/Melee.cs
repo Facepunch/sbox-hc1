@@ -1,6 +1,3 @@
-using Sandbox;
-using static DamageIndicator;
-
 namespace Facepunch;
 
 [Icon( "track_changes" )]
@@ -19,7 +16,7 @@ public partial class Melee : WeaponInputAction
 	/// <summary>
 	/// Fetches the desired model renderer that we'll focus effects on like trail effects, muzzle flashes, etc.
 	/// </summary>
-	protected SkinnedModelRenderer EffectsRenderer 
+	protected SkinnedModelRenderer EffectsRenderer
 	{
 		get
 		{
@@ -55,42 +52,26 @@ public partial class Melee : WeaponInputAction
 
 	private void CreateImpactEffects( GameObject hitObject, Surface surface, Vector3 pos, Vector3 normal )
 	{
-		var impactObjects = SurfaceImpacts.FindForResourceOrDefault( surface );
+		var impactPrefab = surface.GetBluntImpact();
 
-		if ( impactObjects.BulletImpact is not null )
+		if ( impactPrefab is not null )
 		{
-			var impact = impactObjects.BulletImpact.Clone();
+			var impact = impactPrefab.Clone();
 			impact.WorldPosition = pos + normal;
 			impact.WorldRotation = Rotation.LookAt( normal );
 			impact.SetParent( hitObject, true );
-
-			// Creates a destruction component to destroy the gameobject after a while
-			impact.DestroyAsync( 3f );
 		}
 
-		if ( impactObjects.BulletDecal is not null )
+		if ( surface.SoundCollection.Bullet.IsValid() )
 		{
-			var decal = impactObjects.BulletDecal.Clone();
-			decal.WorldPosition = pos + normal;
-			decal.WorldRotation = Rotation.LookAt( -normal );
-			decal.WorldScale = 1;
-			decal.Parent = Scene;
-			decal.SetParent( hitObject, true );
-
-			// Creates a destruction component to destroy the gameobject after a while
-			decal.DestroyAsync( 3f );
-		}
-
-		if ( !string.IsNullOrEmpty( surface.Sounds.Bullet ) )
-		{
-			Sound.Play( surface.Sounds.Bullet, pos );
+			Sound.Play( surface.SoundCollection.Bullet, pos );
 		}
 	}
 
 	public void Swing()
 	{
 		TimeSinceSwing = 0f;
-		
+
 		foreach ( var tr in GetTrace() )
 		{
 			if ( !tr.Hit )
@@ -129,7 +110,7 @@ public partial class Melee : WeaponInputAction
 		var start = WeaponRay.Position;
 		var end = WeaponRay.Position + WeaponRay.Forward * MaxRange;
 
-        yield return Scene.Trace.Ray( start, end )
+		yield return Scene.Trace.Ray( start, end )
 			.UseHitboxes()
 			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.WithoutTags( "trigger", "ragdoll", "movement" )
@@ -150,7 +131,7 @@ public partial class Melee : WeaponInputAction
 		return TimeSinceSwing >= FireRate;
 	}
 
-    protected override void OnInput()
+	protected override void OnInput()
 	{
 		if ( CanSwing() )
 		{
