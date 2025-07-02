@@ -72,6 +72,11 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 		ApplyVelocity();
 		ApplyAnimationTransform();
 
+		if ( Owner.HasEquipmentTag( "scoped" ) )
+		{
+			LocalPosition += Vector3.Down * 50f;
+		}
+
 		var baseFov = GameSettingsSystem.Current.FieldOfView;
 
 		TargetFieldOfView = TargetFieldOfView.LerpTo( baseFov + FieldOfViewOffset, Time.Delta * 10f );
@@ -187,7 +192,7 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 		var freq = footsteps.GetStepFrequency();
 
 		// Set move_bob based on movement
-		lenMult = lenMult.LerpTo( isMoving ? 1 : 0, Time.Delta * 10f );
+		lenMult = lenMult.LerpTo( isMoving ? moveLen.Remap( 0, 300, 0, 1, true ) : 0, Time.Delta * 10f );
 		ModelRenderer?.Set( "move_bob", lenMult );
 
 		// Handle cycle when moving vs stopped

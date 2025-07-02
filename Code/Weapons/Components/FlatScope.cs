@@ -1,5 +1,3 @@
-using System.Diagnostics.Metrics;
-
 namespace Facepunch;
 
 [Title( "2D Scope" ), Group( "Weapon Components" )]
@@ -42,11 +40,6 @@ public class FlatScope : WeaponInputAction
 		ZoomLevel = level;
 
 		Equipment.EquipmentFlags |= EquipmentFlags.Aiming;
-
-		if ( Equipment.ViewModel.IsValid() )
-		{
-			Equipment.ViewModel.GameObject.Enabled = false;
-		}
 	}
 
 	protected void EndZoom()
@@ -58,14 +51,6 @@ public class FlatScope : WeaponInputAction
 			Sound.Play( UnzoomSound, Equipment.GameObject.WorldPosition );
 
 		ZoomLevel = 0;
-
-		if ( Equipment.IsValid() )
-		{
-			if ( Equipment.ViewModel.IsValid() )
-			{
-				Equipment.ViewModel.GameObject.Enabled = true;
-			}
-		}
 
 		Equipment.EquipmentFlags &= ~EquipmentFlags.Aiming;
 
@@ -106,6 +91,11 @@ public class FlatScope : WeaponInputAction
 	{
 		base.OnDisabled();
 		EndZoom();
+	}
+
+	protected override void OnEnabled()
+	{
+		BindTag( "scoped", () => IsZooming );
 	}
 
 	protected override void OnParentChanged( GameObject oldParent, GameObject newParent )

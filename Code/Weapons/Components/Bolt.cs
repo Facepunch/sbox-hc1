@@ -8,6 +8,8 @@ public partial class Boltable : WeaponInputAction,
 {
 	[Property, Group( "Effects" )] public GameObject EjectionPrefab { get; set; }
 
+	[Property, Group( "Effects" )] public SoundEvent BoltReload { get; set; }
+
 	/// <summary>
 	/// Fetches the desired model renderer that we'll focus effects on like trail effects, muzzle flashes, etc.
 	/// </summary>
@@ -35,6 +37,8 @@ public partial class Boltable : WeaponInputAction,
 
 		Equipment.ViewModel?.ModelRenderer?.Set( "b_reload_bolt", true );
 
+		GameObject.PlaySound( BoltReload );
+
 		// Eject casing using GameObject / prefab
 		if ( EjectionPrefab.IsValid() )
 		{
@@ -50,5 +54,6 @@ public partial class Boltable : WeaponInputAction,
 			}
 		}
 
+		CanBolt = false;
 	}
 }
