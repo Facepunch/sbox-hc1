@@ -1,11 +1,13 @@
 
+using Sandbox.Events;
+
 namespace Facepunch;
 
 /// <summary>
 /// A weapon's viewmodel. It's responsibility is to listen to events from a weapon.
 /// It should only exist on the client for the currently possessed pawn.
 /// </summary>
-public partial class ViewModel : WeaponModel, ICameraSetup
+public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<PlayerUseEvent>
 {
 	/// <summary>
 	/// A reference to the <see cref="Equipment"/> we want to listen to.
@@ -201,6 +203,10 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 
 		ModelRenderer.Set( "reload_speed", ReloadSpeed );
 
+		ModelRenderer.Set( "b_grab", Owner.Hovered.IsValid() );
+
+		ModelRenderer.Set( "b_lower_weapon", Equipment.EquipmentFlags.HasFlag( EquipmentFlags.Lowered ) );
+
 		// Handedness
 		ModelRenderer.Set( "b_twohanded", true );
 
@@ -257,5 +263,10 @@ public partial class ViewModel : WeaponModel, ICameraSetup
 		};
 
 		ModelRenderer.Set( "firing_mode", mode );
+	}
+
+	void IGameEventHandler<PlayerUseEvent>.OnGameEvent( PlayerUseEvent e )
+	{
+		ModelRenderer.Set( "grab_action", (int)e.Object.GetGrabAction() );
 	}
 }

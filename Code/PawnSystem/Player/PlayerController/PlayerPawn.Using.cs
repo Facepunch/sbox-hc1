@@ -1,6 +1,24 @@
 ﻿using Facepunch.UI;
+using Sandbox.Events;
 
 namespace Facepunch;
+
+/// <summary>
+/// Called on the player using something, when using something
+/// </summary>
+public record PlayerUseEvent( IUse Object ) : IGameEvent;
+
+/// <summary>
+/// Grab actions that the player can perform.
+/// </summary>
+public enum GrabAction
+{
+	None = 0,
+	SweepDown,
+	SweepRight,
+	SweepLeft,
+	PushButton
+}
 
 partial class PlayerPawn
 {
@@ -19,9 +37,28 @@ partial class PlayerPawn
 	/// </summary>
 	public GameObject LastUsedObject { get; private set; }
 
+	public IUse Hovered { get; private set; }
+
+	private IEnumerable<IUse> GetUsables()
+	{
+		var hits = Scene.Trace.Ray( AimRay, UseDistance )
+			.Size( 5f )
+			.IgnoreGameObjectHierarchy( GameObject )
+			.HitTriggers()
+			.RunAll() ?? Array.Empty<SceneTraceResult>();
+
+		var usables = hits
+			.Select( x => x.GameObject.GetComponentInParent<IUse>() );
+
+		return usables;
+	}
+
 	private void UpdateUse()
 	{
 		IsUsing = Input.Down( "Use" );
+
+		var usables = GetUsables();
+		Hovered = usables.FirstOrDefault();
 
 		if ( Input.Pressed( "Use" ) )
 		{
@@ -35,21 +72,16 @@ partial class PlayerPawn
 	[Rpc.Owner]
 	private void TryUse( Ray ray )
 	{
-		var hits = Scene.Trace.Ray( ray, UseDistance )
-			.Size( 5f )
-			.IgnoreGameObjectHierarchy( GameObject )
-			.HitTriggers()
-			.RunAll() ?? Array.Empty<SceneTraceResult>();
-
-		var usable = hits
-			.Select( x => x.GameObject.GetComponentInParent<IUse>() )
-			.FirstOrDefault( x => x is not null );
+		var hits = GetUsables();
+		var usable = hits.FirstOrDefault( x => x is not null );
 
 		if ( usable.IsValid() && usable.CanUse( this ) is { } useResult )
 		{
 			if ( useResult.CanUse )
 			{
 				UpdateLastUsedObject( usable as Component );
+				Scene.Dispatch( new PlayerUseEvent( usable ) );
+
 				usable.OnUse( this );
 			}
 			else

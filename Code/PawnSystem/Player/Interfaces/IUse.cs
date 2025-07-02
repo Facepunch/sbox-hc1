@@ -14,4 +14,5 @@ public interface IUse : IValid
 {
 	public UseResult CanUse( PlayerPawn player );
 	public void OnUse( PlayerPawn player );
+	public GrabAction GetGrabAction() => GrabAction.None;
 }

@@ -66,6 +66,11 @@ public sealed class Door : Component, IUse,
 
 	private DoorState DefaultState { get; set; } = DoorState.Closed;
 
+	GrabAction IUse.GetGrabAction()
+	{
+		return State == DoorState.Open ? GrabAction.SweepRight : GrabAction.SweepLeft;
+	}
+
 	protected override void OnStart()
 	{
 		StartTransform = Transform.Local;
@@ -78,7 +83,7 @@ public sealed class Door : Component, IUse,
 		// Don't use doors already opening/closing
 		return State is DoorState.Open or DoorState.Closed;
 	}
-	
+
 	void IGameEventHandler<BetweenRoundCleanupEvent>.OnGameEvent( BetweenRoundCleanupEvent eventArgs )
 	{
 		Transform.Local = StartTransform;
@@ -89,16 +94,16 @@ public sealed class Door : Component, IUse,
 	{
 		PlaySoundRpc( resource.ResourceId );
 	}
-	
+
 	[Rpc.Broadcast]
 	private void PlaySoundRpc( int resourceId )
 	{
 		var resource = ResourceLibrary.Get<SoundEvent>( resourceId );
 		if ( resource == null ) return;
-		
+
 		var handle = Sound.Play( resource, WorldPosition );
 		if ( !handle.IsValid() ) return;
-		
+
 		// handle.Occlusion = false;
 	}
 
@@ -151,14 +156,14 @@ public sealed class Door : Component, IUse,
 
 		// If we're done finalize the state and play the sound
 		if ( time < 1f ) return;
-		
+
 		State = State == DoorState.Opening ? DoorState.Open : DoorState.Closed;
 
 		if ( Networking.IsHost )
 		{
 			if ( State == DoorState.Open && OpenFinishedSound is not null )
 				PlaySound( OpenFinishedSound );
-		
+
 			if ( State == DoorState.Closed && CloseFinishedSound is not null )
 				PlaySound( CloseFinishedSound );
 		}

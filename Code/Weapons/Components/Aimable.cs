@@ -3,11 +3,11 @@ namespace Facepunch;
 [Title( "ADS (Aim Down Sight)" ), Group( "Weapon Components" )]
 public partial class Aimable : WeaponInputAction
 {
-	[Sync, Change( nameof( OnIsAimingChanged ))] public bool IsAiming { get; set; }
+	[Sync, Change( nameof( OnIsAimingChanged ) )] public bool IsAiming { get; set; }
 
 	protected void OnIsAimingChanged( bool before, bool after )
 	{
-		if ( !Equipment.IsValid() ) 
+		if ( !Equipment.IsValid() )
 			return;
 
 		if ( after )
@@ -27,6 +27,12 @@ public partial class Aimable : WeaponInputAction
 
 	protected virtual bool CanAim()
 	{
+		if ( IsDown() && Equipment.HasFlag( EquipmentFlags.Lowered ) )
+		{
+			Equipment.SetFlag( EquipmentFlags.Lowered, false );
+			return false;
+		}
+
 		// Self checks first
 		if ( Tags.Has( "no_aiming" ) ) return false;
 		// if ( Tags.Has( "reloading" ) ) return false;
@@ -47,7 +53,7 @@ public partial class Aimable : WeaponInputAction
 		if ( !Player.IsValid() )
 			return;
 
-		if ( !Player.IsLocallyControlled ) 
+		if ( !Player.IsLocallyControlled )
 			return;
 
 		if ( !CanAim() )

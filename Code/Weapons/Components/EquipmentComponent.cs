@@ -18,6 +18,16 @@ public abstract class EquipmentComponent : Component
 
 	protected void BindTag( string tag, Func<bool> predicate ) => Equipment.BindTag( tag, predicate );
 
+	protected void SetTagFor( string tag, float time )
+	{
+		Equipment.Tags.Set( tag, true );
+
+		Invoke( time, () =>
+		{
+			Equipment.Tags.Set( tag, false );
+		} );
+	}
+
 	protected override void OnAwake()
 	{
 		// Cache the weapon on awake

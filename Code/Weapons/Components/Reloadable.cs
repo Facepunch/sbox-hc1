@@ -1,4 +1,3 @@
-using Sandbox.Audio;
 using Sandbox.Events;
 
 namespace Facepunch;
@@ -16,7 +15,7 @@ public partial class Reloadable : WeaponInputAction,
 	/// How long does it take to reload while empty?
 	/// </summary>
 	[Property] public float EmptyReloadTime { get; set; } = 2.0f;
-	
+
 	[Property] public bool SingleReload { get; set; } = false;
 
 	/// <summary>
@@ -70,6 +69,8 @@ public partial class Reloadable : WeaponInputAction,
 
 	bool CanReload()
 	{
+		if ( Input.Down( "Use" ) ) return false; // Don't reload if we're using something.
+
 		return !IsReloading && AmmoComponent.IsValid() && !AmmoComponent.IsFull;
 	}
 
@@ -123,7 +124,7 @@ public partial class Reloadable : WeaponInputAction,
 
 		Equipment.Owner?.BodyRenderer?.Set( "b_reload", true );
 	}
-	
+
 	[Rpc.Owner]
 	void CancelReload()
 	{
@@ -173,14 +174,14 @@ public partial class Reloadable : WeaponInputAction,
 	async void PlayAsyncSound( float delay, SoundEvent snd, Func<bool> playCondition = null )
 	{
 		await GameTask.DelaySeconds( delay );
-		
+
 		// Can we play this sound?
 		if ( playCondition != null && !playCondition.Invoke() )
 			return;
 
 		if ( !GameObject.IsValid() )
 			return;
-		
+
 		GameObject.PlaySound( snd );
 	}
 }

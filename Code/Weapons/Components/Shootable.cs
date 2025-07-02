@@ -567,6 +567,12 @@ public partial class Shootable : WeaponInputAction,
 
 		if ( wantsToShoot )
 		{
+			if ( Equipment.HasFlag( EquipmentFlags.Lowered ) )
+			{
+				Equipment.SetFlag( EquipmentFlags.Lowered, false );
+				return;
+			}
+
 			if ( !CanShoot() )
 			{
 				// Dry fire

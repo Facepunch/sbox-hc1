@@ -1,14 +1,23 @@
 {
   "RootObject": {
     "__guid": "14e323c4-ab96-47ff-ba89-bf990d9ce0a5",
+    "__version": 1,
     "Flags": 0,
-    "Name": "w_mp5",
+    "Name": "weapon_mp5",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
     "Tags": "player",
     "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "Facepunch.Equipment",
         "__guid": "d451cf3b-b0fb-4cdc-b1c7-29e20e592503",
+        "__enabled": true,
         "CrosshairType": "Default",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "Handedness": "Right",
@@ -30,6 +39,7 @@
       {
         "__type": "Facepunch.TagBinder",
         "__guid": "a0e506c1-9c37-4b94-829d-c05e9dc6dcc5",
+        "__enabled": true,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -41,13 +51,34 @@
     "Children": [
       {
         "__guid": "634fbee8-5495-4fe2-bf7d-d7ab75d22c66",
+        "__version": 1,
         "Flags": 0,
         "Name": "Functions",
+        "Position": "0,0,0",
+        "Rotation": "0,0,0,1",
+        "Scale": "1,1,1",
+        "Tags": "",
         "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "NetworkOrphaned": 0,
+        "OwnerTransfer": 1,
         "Components": [
+          {
+            "__type": "Facepunch.Lowerable",
+            "__guid": "c2a7fcae-9771-4139-9527-b3109447930f",
+            "__enabled": true,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
+          },
           {
             "__type": "Facepunch.WeaponAmmo",
             "__guid": "836dc3cc-8400-41de-850f-31e58afeb61b",
+            "__enabled": true,
             "Ammo": 30,
             "HasAmmo": true,
             "MaxAmmo": 30,
@@ -61,11 +92,12 @@
           {
             "__type": "Facepunch.Shootable",
             "__guid": "258e47a7-fbe5-418a-bd29-35a86ae5dde5",
+            "__enabled": true,
             "AmmoComponent": {
               "_type": "component",
               "component_id": "836dc3cc-8400-41de-850f-31e58afeb61b",
               "go": "634fbee8-5495-4fe2-bf7d-d7ab75d22c66",
-              "component_type": "HasAmmo"
+              "component_type": "WeaponAmmo"
             },
             "BaseDamage": 12,
             "BaseDamageFalloff": [
@@ -126,27 +158,27 @@
             "OnInputAction": null,
             "PenetrationThickness": 32,
             "PlayerVelocityLimit": 300,
-            "PrimaryTracer": "particles/gameplay/guns/trail/trail_smoke.vpcf",
             "RequiresAllInputActions": false,
             "RequiresHasAmmo": true,
             "RicochetMaxHits": 2,
-            "SecondaryTracer": "particles/gameplay/guns/trail/rico_trail_smoke.vpcf",
             "ShootSound": "sounds/guns/mp5/smg1_shoot.sound",
             "SupportedFireModes": [
               "Automatic",
               "Burst",
               "Semi"
             ],
+            "TracerEffect": null,
             "VelocitySpreadScale": 0.25
           },
           {
             "__type": "Facepunch.Reloadable",
             "__guid": "912f09da-66b3-4b32-9824-cd94514f07fc",
+            "__enabled": true,
             "AmmoComponent": {
               "_type": "component",
               "component_id": "836dc3cc-8400-41de-850f-31e58afeb61b",
               "go": "634fbee8-5495-4fe2-bf7d-d7ab75d22c66",
-              "component_type": "HasAmmo"
+              "component_type": "WeaponAmmo"
             },
             "EmptyReloadSounds": {
               "0": "sounds/guns/mp5/reload/mp5.move.sound",
@@ -177,6 +209,7 @@
           {
             "__type": "Facepunch.ShootRecoil",
             "__guid": "cb42a28e-d8b2-4f33-acba-2a3a4cdef920",
+            "__enabled": true,
             "HorizontalSpread": "2 -2",
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -227,6 +260,7 @@
           {
             "__type": "Facepunch.Aimable",
             "__guid": "dfdced3b-f729-47a4-a151-4caf974cafc7",
+            "__enabled": true,
             "InputActions": [
               "Attack2"
             ],
@@ -242,6 +276,7 @@
           {
             "__type": "Facepunch.ViewPunch",
             "__guid": "7b56d2e0-b645-4546-8417-6d4ce46e798f",
+            "__enabled": true,
             "AnglesOffset": "-0.5,0.1,0.5",
             "Curve": [
               {
@@ -277,19 +312,14 @@
             "OnComponentUpdate": null,
             "PositionOffset": "0.5,0.2,1"
           }
-        ]
+        ],
+        "Children": []
       }
     ],
-    "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,
@@ -303,13 +333,14 @@
         "ExcludedBodies": "",
         "IncludedBodies": ""
       }
-    }
+    },
+    "__variables": []
   },
+  "ResourceVersion": 2,
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
-  "ResourceVersion": 1,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }

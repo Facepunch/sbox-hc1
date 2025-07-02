@@ -1,4 +1,3 @@
-using Sandbox;
 using Sandbox.Events;
 
 namespace Facepunch;
@@ -6,13 +5,15 @@ namespace Facepunch;
 public record EquipmentDeployedEvent( Equipment Equipment ) : IGameEvent;
 public record EquipmentHolsteredEvent( Equipment Equipment ) : IGameEvent;
 public record EquipmentDestroyedEvent( Equipment Equipment ) : IGameEvent;
+public record EquipmentFlagChanged( Equipment Equipment, EquipmentFlags Flag, bool Value ) : IGameEvent;
 
 [Flags]
 public enum EquipmentFlags
 {
 	None = 0,
 	Aiming = 1 << 2,
-	Reloading = 1 << 3
+	Reloading = 1 << 3,
+	Lowered = 1 << 4
 }
 
 /// <summary>
@@ -82,6 +83,26 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 	/// </summary>
 	[Sync] public EquipmentFlags EquipmentFlags { get; set; }
 
+	public bool HasFlag( EquipmentFlags flag )
+	{
+		return EquipmentFlags.HasFlag( flag );
+	}
+
+	public void SetFlag( EquipmentFlags flag, bool value = true )
+	{
+		if ( value )
+			EquipmentFlags |= flag;
+		else
+			EquipmentFlags &= ~flag;
+
+		GameObject.Dispatch( new EquipmentFlagChanged( this, flag, value ) );
+	}
+
+	public void ToggleFlag( EquipmentFlags flag )
+	{
+		SetFlag( flag, !EquipmentFlags.HasFlag( flag ) );
+	}
+
 	// IDescription
 	string IDescription.DisplayName => Resource.Name;
 	// string IDescription.Icon => Resource.Icon;
@@ -89,7 +110,7 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 	/// <summary>
 	/// Is this equipment currently deployed by the player?
 	/// </summary>
-	[Sync, Change( nameof( OnIsDeployedPropertyChanged ))]
+	[Sync, Change( nameof( OnIsDeployedPropertyChanged ) )]
 	public bool IsDeployed { get; private set; }
 	private bool _wasDeployed { get; set; }
 	private bool _hasStarted { get; set; }
@@ -140,10 +161,10 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 
 		if ( !Resource.DropOnDisconnect )
 			return;
-		
+
 		var player = GameUtils.PlayerPawns.FirstOrDefault( x => x.Network.Owner == connection );
 		if ( !player.IsValid() ) return;
-		
+
 		DroppedEquipment.Create( Resource, player.WorldPosition + Vector3.Up * 32f, Rotation.Identity, this );
 	}
 
@@ -164,7 +185,7 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 			foreach ( var item in equipment )
 				item.Holster();
 		}
-		
+
 		IsDeployed = true;
 	}
 
@@ -176,7 +197,7 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 	{
 		if ( !IsDeployed )
 			return;
-		
+
 		IsDeployed = false;
 	}
 
@@ -188,7 +209,7 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 	{
 		return HoldType;
 	}
-	
+
 	private void OnIsDeployedPropertyChanged( bool oldValue, bool newValue )
 	{
 		// Conna: If `OnStart` hasn't been called yet, don't do anything. It'd be nice to have a property on
@@ -234,7 +255,7 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 
 		var parentBone = Owner.HoldGameObject;
 		var wm = Resource.WorldModelPrefab.Clone( new CloneConfig { Parent = parentBone, StartEnabled = false, Transform = global::Transform.Zero } );
-		
+
 		wm.Flags |= GameObjectFlags.NotSaved | GameObjectFlags.NotNetworked;
 		wm.Enabled = true;
 
@@ -254,7 +275,7 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 	{
 		var player = Owner;
 		if ( !player.IsValid() ) return;
-		
+
 		var resource = Resource;
 
 		DestroyViewModel();

@@ -40,15 +40,15 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 
 		var renderer = go.Components.Create<SkinnedModelRenderer>();
 		renderer.Model = worldModel;
-		
-		renderer.BodyGroups = resource.WorldModelBodyGroups;
+
+		renderer.BodyGroups |= resource.WorldModelBodyGroups;
 
 		var min = bounds.Mins;
 		var max = bounds.Maxs;
 
 		var collider = go.Components.Create<BoxCollider>();
 		collider.Scale = new Vector3( max.x - min.x, max.y - min.y, max.z - min.z );
-		collider.Center = new Vector3( 0, 0, ( max.z - min.z ) / 2 );
+		collider.Center = new Vector3( 0, 0, (max.z - min.z) / 2 );
 
 		droppedWeapon.Rigidbody = go.Components.Create<Rigidbody>();
 
@@ -93,7 +93,7 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 		if ( _isUsed ) return;
 		_isUsed = true;
 
-		if ( !player.IsValid() ) 
+		if ( !player.IsValid() )
 			return;
 
 		var currentActiveSlot = player.CurrentEquipment?.Resource.Slot ?? EquipmentSlot.Melee;
@@ -128,7 +128,7 @@ public partial class DroppedEquipment : Component, IUse, Component.ICollisionLis
 			// to specify that Transform can be changed on non-owner too (prediction.)
 			if ( player.TimeSinceLastRespawn < 2f )
 				return;
-			
+
 			if ( player.Inventory.CanTake( Resource ) != PlayerInventory.PickupResult.Pickup )
 				return;
 
