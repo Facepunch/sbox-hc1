@@ -17,15 +17,13 @@ public sealed class PlayerFootsteps : Component
 	public float GetStepFrequency()
 	{
 		if ( Player.IsSprinting ) return 0.25f;
+		if ( Player.IsCrouching || Player.IsSlowWalking ) return 0.6f;
+
 		return 0.35f;
 	}
 
 	private void Footstep()
 	{
-		// Don't make footsteps sometimes
-		if ( Player.IsCrouching || Player.IsSlowWalking )
-			return;
-
 		var tr = Scene.Trace
 			.Ray( Player.WorldPosition + Vector3.Up * 20, Player.WorldPosition + Vector3.Up * -20 )
 			.IgnoreGameObjectHierarchy( Player.GameObject )
@@ -40,6 +38,10 @@ public sealed class PlayerFootsteps : Component
 		TimeSinceStep = 0;
 
 		flipFlop = !flipFlop;
+
+		// Don't make footsteps sometimes, but keep the step info
+		if ( Player.IsCrouching || Player.IsSlowWalking )
+			return;
 
 		var sound = flipFlop ? tr.Surface.SoundCollection.FootLeft : tr.Surface.SoundCollection.FootRight;
 		if ( sound is null ) return;
