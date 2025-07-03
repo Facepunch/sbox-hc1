@@ -1430,147 +1430,156 @@
                 "Children": []
               },
               {
-                "__guid": "9bdddebb-dc8c-417e-a835-1739a4757c11",
+                "__guid": "4208a0fa-965d-493e-be09-caa64646fe97",
                 "__version": 1,
                 "Flags": 0,
-                "Name": "Camera",
-                "Position": "25.86802,-0.00000005248012,3.44311",
+                "Name": "PIP Scope",
+                "Position": "-1.197944,0,3.658524",
                 "Rotation": "0,0,0,1",
                 "Scale": "1,1,1",
-                "Tags": "maincamera",
-                "Enabled": true,
-                "NetworkMode": 2,
-                "NetworkInterpolation": true,
-                "NetworkOrphaned": 0,
-                "OwnerTransfer": 1,
-                "Components": [
-                  {
-                    "__type": "Sandbox.CameraComponent",
-                    "__guid": "4f0452ac-9fd8-4ba2-ba12-d778c18cd5e4",
-                    "__enabled": true,
-                    "BackgroundColor": "0.33333,0.46275,0.52157,1",
-                    "ClearFlags": "All",
-                    "FieldOfView": 20,
-                    "FovAxis": "Horizontal",
-                    "IsMainCamera": false,
-                    "OnComponentDestroy": null,
-                    "OnComponentDisabled": null,
-                    "OnComponentEnabled": null,
-                    "OnComponentFixedUpdate": null,
-                    "OnComponentStart": null,
-                    "OnComponentUpdate": null,
-                    "Orthographic": false,
-                    "OrthographicHeight": 1204,
-                    "Priority": -100,
-                    "RenderExcludeTags": "",
-                    "RenderTags": "",
-                    "TargetEye": "None",
-                    "Viewport": "0,0,1,1",
-                    "ZFar": 10000,
-                    "ZNear": 10
-                  },
-                  {
-                    "__type": "Sandbox.Highlight",
-                    "__guid": "7c870cfa-7550-4bcf-bb89-500e79504462",
-                    "__enabled": true,
-                    "OnComponentDestroy": null,
-                    "OnComponentDisabled": null,
-                    "OnComponentEnabled": null,
-                    "OnComponentFixedUpdate": null,
-                    "OnComponentStart": null,
-                    "OnComponentUpdate": null
-                  }
-                ],
-                "Children": []
-              },
-              {
-                "__guid": "78575a43-04de-4126-b4ee-a8f99bb97ee0",
-                "__version": 1,
-                "Flags": 0,
-                "Name": "Cube",
-                "Position": "-0.9,0,3.361837",
-                "Rotation": "0.7097083,0.02602415,-0.7035418,0.02579805",
-                "Scale": "0.015,0.015,0.015",
                 "Tags": "",
                 "Enabled": true,
                 "NetworkMode": 2,
                 "NetworkInterpolation": true,
                 "NetworkOrphaned": 0,
                 "OwnerTransfer": 1,
-                "Components": [
+                "Components": [],
+                "Children": [
                   {
-                    "__type": "Sandbox.ModelRenderer",
-                    "__guid": "284758a6-60b6-47f4-88e1-5625ff3e60f9",
-                    "__enabled": true,
-                    "BodyGroups": 18446744073709551615,
-                    "CreateAttachments": false,
-                    "MaterialGroup": null,
-                    "MaterialOverride": null,
-                    "Materials": null,
-                    "Model": "models/dev/plane.vmdl",
-                    "OnComponentDestroy": null,
-                    "OnComponentDisabled": null,
-                    "OnComponentEnabled": null,
-                    "OnComponentFixedUpdate": null,
-                    "OnComponentStart": null,
-                    "OnComponentUpdate": null,
-                    "RenderOptions": {
-                      "GameLayer": false,
-                      "OverlayLayer": true,
-                      "BloomLayer": false,
-                      "AfterUILayer": false
-                    },
-                    "RenderType": "On",
-                    "Tint": "1,1,1,1"
-                  },
-                  {
-                    "__type": "Facepunch.CameraScope",
-                    "__guid": "dbed702c-b725-4a9f-8727-53702c078766",
-                    "__enabled": true,
-                    "OnComponentDestroy": null,
-                    "OnComponentDisabled": null,
-                    "OnComponentEnabled": null,
-                    "OnComponentFixedUpdate": null,
-                    "OnComponentStart": null,
-                    "OnComponentUpdate": null,
-                    "RenderCamera": {
-                      "_type": "component",
-                      "component_id": "4f0452ac-9fd8-4ba2-ba12-d778c18cd5e4",
-                      "go": "9bdddebb-dc8c-417e-a835-1739a4757c11",
-                      "component_type": "CameraComponent"
-                    },
-                    "ReticleTexture": {
-                      "$compiler": "texture",
-                      "$source": "imagefile",
-                      "data": {
-                        "FilePath": "weapons/m700/reticle_texture.png",
-                        "MaxSize": 4096,
-                        "ConvertHeightToNormals": false,
-                        "NormalScale": 1,
-                        "Rotate": 0,
-                        "FlipVertical": false,
-                        "FlipHorizontal": false,
-                        "Padding": {
-                          "Size": "0,0",
-                          "EdgeSize": "0,0"
+                    "__guid": "12c0762b-d2b6-4e82-8929-25d710798251",
+                    "__version": 1,
+                    "Flags": 0,
+                    "Name": "Cube",
+                    "Position": "0.2899359,0.004484653,-0.2414143",
+                    "Rotation": "0.7052655,0.00005182624,-0.7089424,0.001391798",
+                    "Scale": "0.015,0.015,0.015",
+                    "Tags": "",
+                    "Enabled": true,
+                    "NetworkMode": 2,
+                    "NetworkInterpolation": true,
+                    "NetworkOrphaned": 0,
+                    "OwnerTransfer": 1,
+                    "Components": [
+                      {
+                        "__type": "Sandbox.ModelRenderer",
+                        "__guid": "01dd999e-7c34-47b2-8ccd-fdfbbb8c8ea5",
+                        "__enabled": true,
+                        "BodyGroups": 18446744073709551615,
+                        "CreateAttachments": false,
+                        "MaterialGroup": null,
+                        "MaterialOverride": "weapons/m700/3d_scope.vmat",
+                        "Materials": null,
+                        "Model": "models/dev/plane.vmdl",
+                        "OnComponentDestroy": null,
+                        "OnComponentDisabled": null,
+                        "OnComponentEnabled": null,
+                        "OnComponentFixedUpdate": null,
+                        "OnComponentStart": null,
+                        "OnComponentUpdate": null,
+                        "RenderOptions": {
+                          "GameLayer": false,
+                          "OverlayLayer": true,
+                          "BloomLayer": false,
+                          "AfterUILayer": false
                         },
-                        "Sharpen": 0,
-                        "InvertColor": false,
-                        "Blur": 0,
-                        "Brightness": 1,
-                        "Contrast": 1,
-                        "Saturation": 1,
-                        "Hue": 0,
-                        "Colorize": false,
-                        "TargetColor": "0,1,0,1",
-                        "CacheToDisk": true
+                        "RenderType": "On",
+                        "Tint": "1,1,1,1"
                       },
-                      "compiled": "textures/generated/imagefile/249db920282aebcf.vtex"
-                    },
-                    "ScopeMaterial": "weapons/m700/3d_scope.vmat"
+                      {
+                        "__type": "Facepunch.CameraScope",
+                        "__guid": "44d29d66-88ff-4d99-b715-fddf2a0ad4be",
+                        "__enabled": true,
+                        "Forward": 15,
+                        "OnComponentDestroy": null,
+                        "OnComponentDisabled": null,
+                        "OnComponentEnabled": null,
+                        "OnComponentFixedUpdate": null,
+                        "OnComponentStart": null,
+                        "OnComponentUpdate": null,
+                        "RenderCamera": {
+                          "_type": "component",
+                          "component_id": "5b1bbe52-fbc4-4a96-b597-361bd04df965",
+                          "go": "3bb42eab-3a7b-4a52-9d0c-f2529167be43",
+                          "component_type": "CameraComponent"
+                        },
+                        "ReticleTexture": {
+                          "$compiler": "texture",
+                          "$source": "imagefile",
+                          "data": {
+                            "FilePath": "weapons/m700/reticle_texture.png",
+                            "MaxSize": 4096,
+                            "ConvertHeightToNormals": false,
+                            "NormalScale": 1,
+                            "Rotate": 0,
+                            "FlipVertical": false,
+                            "FlipHorizontal": false,
+                            "Padding": {
+                              "Size": "0,0",
+                              "EdgeSize": "0,0"
+                            },
+                            "Sharpen": 0,
+                            "InvertColor": false,
+                            "Blur": 0,
+                            "Brightness": 1,
+                            "Contrast": 1,
+                            "Saturation": 1,
+                            "Hue": 0,
+                            "Colorize": false,
+                            "TargetColor": "0,1,0,1",
+                            "CacheToDisk": true
+                          },
+                          "compiled": "textures/generated/imagefile/249db920282aebcf.vtex"
+                        },
+                        "ScopeMaterial": "weapons/m700/3d_scope.vmat"
+                      }
+                    ],
+                    "Children": [
+                      {
+                        "__guid": "3bb42eab-3a7b-4a52-9d0c-f2529167be43",
+                        "__version": 1,
+                        "Flags": 0,
+                        "Name": "Camera",
+                        "Position": "-0.0004768372,-0.0001589457,-666.6652",
+                        "Rotation": "-0.7071066,0.0000001490116,0.7071069,0.0000001639128",
+                        "Scale": "66.66667,66.66667,66.66667",
+                        "Tags": "maincamera",
+                        "Enabled": true,
+                        "NetworkMode": 2,
+                        "NetworkInterpolation": true,
+                        "NetworkOrphaned": 0,
+                        "OwnerTransfer": 1,
+                        "Components": [
+                          {
+                            "__type": "Sandbox.CameraComponent",
+                            "__guid": "5b1bbe52-fbc4-4a96-b597-361bd04df965",
+                            "__enabled": true,
+                            "BackgroundColor": "0.33333,0.46275,0.52157,1",
+                            "ClearFlags": "All",
+                            "FieldOfView": 30,
+                            "FovAxis": "Horizontal",
+                            "IsMainCamera": false,
+                            "OnComponentDestroy": null,
+                            "OnComponentDisabled": null,
+                            "OnComponentEnabled": null,
+                            "OnComponentFixedUpdate": null,
+                            "OnComponentStart": null,
+                            "OnComponentUpdate": null,
+                            "Orthographic": false,
+                            "OrthographicHeight": 1204,
+                            "Priority": 1,
+                            "RenderExcludeTags": "viewmodel",
+                            "RenderTags": "",
+                            "TargetEye": "None",
+                            "Viewport": "0,0,1,1",
+                            "ZFar": 10000,
+                            "ZNear": 0.1
+                          }
+                        ],
+                        "Children": []
+                      }
+                    ]
                   }
-                ],
-                "Children": []
+                ]
               }
             ]
           }

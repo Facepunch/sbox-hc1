@@ -17,11 +17,15 @@ public class CameraScope : Component
 	[Property, JsonIgnore]
 	public Texture MyTexture { get; set; }
 
+	[Property]
+	public float Forward { get; set; } = 20;
+
 	protected override void OnEnabled()
 	{
 		Renderer.SetMaterial( ScopeMaterial );
 		MyTexture ??= Texture.CreateRenderTarget( "3d_scope", ImageFormat.RGBA8888, 512 );
 		RenderCamera.RenderTarget = MyTexture;
+		RenderCamera.GameObject.SetParent( GameObject );
 	}
 
 	protected override void OnPreRender()
@@ -33,15 +37,25 @@ public class CameraScope : Component
 		if ( isFarAway )
 			return;
 
-		RenderCamera.RenderTarget.Clear( Color.Transparent );
+		var origin = GameObject.WorldPosition;
+		var forward = RenderCamera.WorldRotation.Forward;
+		var back = RenderCamera.WorldRotation.Backward;
 
+		var tr = Scene.Trace.Ray( origin, origin + forward * Forward )
+			.IgnoreGameObjectHierarchy( Equipment?.Owner.GameObject )
+			.Radius( 1 )
+			.Run();
+
+		RenderCamera.WorldPosition = tr.EndPosition;
+
+		//DebugOverlay.Line( new Line( tr.StartPosition, tr.EndPosition ), Color.Red, 0f );
+		//DebugOverlay.Sphere( new Sphere( tr.EndPosition, 1.5f ), Color.Red, 0f );
+
+		RenderCamera.RenderTarget.Clear( Color.Transparent );
 		Renderer.SceneObject.Attributes.Set( "ReflectionTexture", MyTexture );
 
-		float fov = RenderCamera.FieldOfView;
-		Renderer.SceneObject.Attributes.Set( "ScopeFOV", fov );
-
 		// Are we aiming?
-		if ( Equipment.HasFlag( EquipmentFlags.Aiming ) )
+		if ( Equipment.IsValid() && Equipment.HasFlag( EquipmentFlags.Aiming ) )
 		{
 			if ( Input.Keyboard.Down( "uparrow" ) )
 			{
@@ -58,6 +72,9 @@ public class CameraScope : Component
 			// Dampen aiming
 			Equipment.Owner.AimDampening /= 1 - RenderCamera.FieldOfView.Remap( 10, 30, 0, 1 ) + 1;
 		}
+
+		float fov = RenderCamera.FieldOfView;
+		Renderer.SceneObject.Attributes.Set( "ScopeFOV", fov );
 
 		// Get world-space scope data
 		var scopePos = RenderCamera.WorldPosition;
