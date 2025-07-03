@@ -8,7 +8,7 @@ public enum CrosshairType
 	/// Traditional crosshair, 4 lines, 1 dot. Configurable.
 	/// </summary>
 	Default,
-	
+
 	/// <summary>
 	/// Three lines - the default without the top line.
 	/// </summary>
@@ -118,7 +118,7 @@ public partial class Crosshair : Component
 			if ( UseDynamicCrosshair )
 				gap += player.Spread * 150f * scale;
 
-			if ( player.CurrentEquipment.IsValid() && player.CurrentEquipment.EquipmentFlags.HasFlag( EquipmentFlags.Aiming ) && !isThirdPerson )
+			if ( player.CurrentEquipment.IsValid() && player.CurrentEquipment.HasTag( "aiming" ) && !isThirdPerson )
 			{
 				mainAlpha = 0;
 				linesAlpha = 0;
@@ -164,7 +164,7 @@ public partial class Crosshair : Component
 				hud.DrawCircle( center, w, color );
 			}
 		}
-		
+
 		if ( type == CrosshairType.Shotgun )
 		{
 			float scaleFactor = (1.0f - (TimeSinceAttacked / HitmarkerTime)).Clamp( 0.0f, 1.0f );
@@ -173,7 +173,7 @@ public partial class Crosshair : Component
 			size += gap;
 
 			hud.DrawCircle( center, w, color );
-			hud.DrawRect( new Rect( center - (( size / 2f ) * scale), size * scale ), Color.Transparent, new( float.MaxValue, float.MaxValue, float.MaxValue, float.MaxValue ), new( w, w, w, w ), color );
+			hud.DrawRect( new Rect( center - ((size / 2f) * scale), size * scale ), Color.Transparent, new( float.MaxValue, float.MaxValue, float.MaxValue, float.MaxValue ), new( w, w, w, w ), color );
 		}
 
 		if ( type == CrosshairType.Dot )

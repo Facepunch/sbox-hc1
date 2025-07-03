@@ -12,11 +12,11 @@ public partial class Aimable : WeaponInputAction
 
 		if ( after )
 		{
-			Equipment.EquipmentFlags |= EquipmentFlags.Aiming;
+			Equipment.SetTag( "aiming", true );
 		}
 		else
 		{
-			Equipment.EquipmentFlags &= ~EquipmentFlags.Aiming;
+			Equipment.SetTag( "aiming", false );
 		}
 	}
 
@@ -27,9 +27,9 @@ public partial class Aimable : WeaponInputAction
 
 	protected virtual bool CanAim()
 	{
-		if ( IsDown() && Equipment.HasFlag( EquipmentFlags.Lowered ) )
+		if ( IsDown() && Equipment.HasTag( "lowered" ) )
 		{
-			Equipment.SetFlag( EquipmentFlags.Lowered, false );
+			Equipment.SetTag( "lowered", false );
 			return false;
 		}
 

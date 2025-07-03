@@ -181,7 +181,7 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 		var isMoving = moveLen > 10f; // Small threshold to determine if actually moving
 
 		var wishMove = Owner.WishMove.Normal * 1f;
-		if ( Equipment.EquipmentFlags.HasFlag( EquipmentFlags.Aiming ) ) wishMove = 0;
+		if ( Equipment.HasTag( "aiming" ) ) wishMove = 0;
 
 		if ( Owner.IsSlowWalking || Owner.IsCrouching ) moveLen *= 0.5f;
 
@@ -239,7 +239,7 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 		ModelRenderer.Set( "b_sprint", Owner.IsSprinting );
 		ModelRenderer.Set( "b_grounded", Owner.IsGrounded );
 
-		var aiming = Equipment.EquipmentFlags.HasFlag( EquipmentFlags.Aiming );
+		var aiming = Equipment.HasTag( "aiming" );
 		// Ironsights
 		ModelRenderer.Set( "ironsights", aiming ? 1 : 0 );
 		ModelRenderer.Set( "ironsights_fire_scale", aiming ? IronsightsFireScale : 0f );
@@ -250,7 +250,7 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 
 		ModelRenderer.Set( "b_grab", Owner.Hovered.IsValid() );
 
-		ModelRenderer.Set( "b_lower_weapon", Equipment.EquipmentFlags.HasFlag( EquipmentFlags.Lowered ) );
+		ModelRenderer.Set( "b_lower_weapon", Equipment.HasTag( "lowered" ) );
 
 		// Handedness
 		ModelRenderer.Set( "b_twohanded", true );

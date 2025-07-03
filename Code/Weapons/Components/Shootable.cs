@@ -567,9 +567,9 @@ public partial class Shootable : WeaponInputAction,
 
 		if ( wantsToShoot )
 		{
-			if ( Equipment.HasFlag( EquipmentFlags.Lowered ) )
+			if ( Equipment.HasTag( "lowered" ) )
 			{
-				Equipment.SetFlag( EquipmentFlags.Lowered, false );
+				Equipment.SetTag( "lowered", false );
 				return;
 			}
 

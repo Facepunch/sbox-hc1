@@ -202,7 +202,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 
 		if ( Player.CurrentEquipment.IsValid() )
 		{
-			if ( Player.CurrentEquipment.EquipmentFlags.HasFlag( EquipmentFlags.Aiming ) )
+			if ( Player.CurrentEquipment.HasTag( "aiming" ) )
 			{
 				FieldOfViewOffset += Player.CurrentEquipment.AimFovOffset;
 			}

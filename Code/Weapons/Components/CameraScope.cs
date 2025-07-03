@@ -55,7 +55,7 @@ public class CameraScope : Component
 		Renderer.SceneObject.Attributes.Set( "ReflectionTexture", MyTexture );
 
 		// Are we aiming?
-		if ( Equipment.IsValid() && Equipment.HasFlag( EquipmentFlags.Aiming ) )
+		if ( Equipment.IsValid() && Equipment.HasTag( "aiming" ) )
 		{
 			if ( Input.Keyboard.Down( "uparrow" ) )
 			{

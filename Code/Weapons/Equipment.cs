@@ -5,16 +5,7 @@ namespace Facepunch;
 public record EquipmentDeployedEvent( Equipment Equipment ) : IGameEvent;
 public record EquipmentHolsteredEvent( Equipment Equipment ) : IGameEvent;
 public record EquipmentDestroyedEvent( Equipment Equipment ) : IGameEvent;
-public record EquipmentFlagChanged( Equipment Equipment, EquipmentFlags Flag, bool Value ) : IGameEvent;
-
-[Flags]
-public enum EquipmentFlags
-{
-	None = 0,
-	Aiming = 1 << 2,
-	Reloading = 1 << 3,
-	Lowered = 1 << 4
-}
+public record EquipmentTagChanged( Equipment Equipment, string Tag, bool Value ) : IGameEvent;
 
 /// <summary>
 /// An equipment component.
@@ -81,26 +72,24 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 	/// <summary>
 	/// What flags do we have?
 	/// </summary>
-	[Sync] public EquipmentFlags EquipmentFlags { get; set; }
+	[Sync] protected NetList<string> EquipmentTags { get; set; } = new();
 
-	public bool HasFlag( EquipmentFlags flag )
+	public bool HasTag( string tag )
 	{
-		return EquipmentFlags.HasFlag( flag );
+		return EquipmentTags.Contains( tag );
 	}
 
-	public void SetFlag( EquipmentFlags flag, bool value = true )
+	public void SetTag( string tag, bool value = true )
 	{
-		if ( value )
-			EquipmentFlags |= flag;
-		else
-			EquipmentFlags &= ~flag;
+		if ( value && !HasTag( tag ) ) EquipmentTags.Add( tag );
+		if ( !value && HasTag( tag ) ) EquipmentTags.Remove( tag );
 
-		GameObject.Dispatch( new EquipmentFlagChanged( this, flag, value ) );
+		GameObject.Dispatch( new EquipmentTagChanged( this, tag, value ) );
 	}
 
-	public void ToggleFlag( EquipmentFlags flag )
+	public void ToggleTag( string tag )
 	{
-		SetFlag( flag, !EquipmentFlags.HasFlag( flag ) );
+		SetTag( tag, !HasTag( tag ) );
 	}
 
 	// IDescription

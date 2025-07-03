@@ -38,9 +38,9 @@ public partial class PlayerPawn
 	public override Angles EyeAngles
 	{
 		get => _smoothEyeAngles;
-		set 
+		set
 		{
-			if (!IsProxy) _smoothEyeAngles = value;
+			if ( !IsProxy ) _smoothEyeAngles = value;
 			_rawEyeAngles = value;
 		}
 	}
@@ -111,7 +111,7 @@ public partial class PlayerPawn
 	private Vector3 _previousVelocity;
 	private bool _isTouchingLadder;
 	private Vector3 _ladderNormal;
-	
+
 	[Sync] private float _eyeHeightOffset { get; set; }
 
 	private void UpdateEyes()
@@ -152,7 +152,7 @@ public partial class PlayerPawn
 		var relative = TimeUntilAccelerationRecovered.Fraction.Clamp( 0, 1 );
 		var acceleration = GetAcceleration();
 
-		acceleration *= ( relative + AccelerationAddedScale ).Clamp( 0, 1 );
+		acceleration *= (relative + AccelerationAddedScale).Clamp( 0, 1 );
 
 		CharacterController.Acceleration = acceleration;
 	}
@@ -162,7 +162,7 @@ public partial class PlayerPawn
 		var cc = CharacterController;
 		CurrentHoldType = CurrentEquipment.IsValid() ? CurrentEquipment.GetHoldType() : AnimationHelper.HoldTypes.None;
 
-		if ( !IsLocallyControlled ) 
+		if ( !IsLocallyControlled )
 		{
 			_smoothEyeAngles = Angles.Lerp( _smoothEyeAngles, _rawEyeAngles, Time.Delta / Scene.NetworkRate );
 		}
@@ -264,29 +264,23 @@ public partial class PlayerPawn
 		cc.Move();
 	}
 
-    private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking && !HasEquipmentTag( "no_sprint" ) && ( WishMove.x > 0.2f || ( MathF.Abs( WishMove.y ) > 0.2f && WishMove.x >= 0f ) );
+	private bool WantsToSprint => Input.Down( "Run" ) && !IsSlowWalking && !HasEquipmentTag( "no_sprint" ) && (WishMove.x > 0.2f || (MathF.Abs( WishMove.y ) > 0.2f && WishMove.x >= 0f));
 	TimeSince TimeSinceSprintChanged { get; set; } = 100;
 
 	private void OnSprintChanged( bool before, bool after )
 	{
 		TimeSinceSprintChanged = 0;
 	}
-
-	public bool HasEquipmentTag( string tag )
+	public bool HasEquipmentTag( string flag )
 	{
-		return CurrentEquipment.IsValid() && CurrentEquipment.Tags.Has( tag );
-	}
-
-	public bool HasEquipmentFlag( EquipmentFlags flag )
-	{
-		return CurrentEquipment.IsValid() && CurrentEquipment.EquipmentFlags.HasFlag( flag );
+		return CurrentEquipment.IsValid() && CurrentEquipment.HasTag( flag );
 	}
 
 	private void BuildInput()
 	{
 		bool wasSprinting = IsSprinting;
 
-		IsSlowWalking = Input.Down( "Walk" ) || HasEquipmentFlag( EquipmentFlags.Aiming );
+		IsSlowWalking = Input.Down( "Walk" ) || HasEquipmentTag( "aiming" );
 		IsSprinting = WantsToSprint;
 
 		if ( wasSprinting != IsSprinting )
@@ -476,7 +470,7 @@ public partial class PlayerPawn
 		WishVelocity = 0f;
 
 		var rot = EyeAngles.WithPitch( 0f ).ToRotation();
-		
+
 		if ( WishMove.Length > 1f )
 			WishMove = WishMove.Normal;
 
@@ -527,7 +521,7 @@ public partial class PlayerPawn
 	{
 		if ( IsSlowWalking ) return Global.SlowWalkSpeed;
 		if ( IsCrouching ) return Global.CrouchingSpeed;
-		if ( IsSprinting ) return Global.SprintingSpeed - ( GetSpeedPenalty() * 0.5f );
+		if ( IsSprinting ) return Global.SprintingSpeed - (GetSpeedPenalty() * 0.5f);
 		return Global.WalkSpeed - GetSpeedPenalty();
 	}
 

@@ -39,7 +39,7 @@ public class FlatScope : WeaponInputAction
 
 		ZoomLevel = level;
 
-		Equipment.EquipmentFlags |= EquipmentFlags.Aiming;
+		Equipment.SetTag( "aiming", true );
 	}
 
 	protected void EndZoom()
@@ -51,9 +51,7 @@ public class FlatScope : WeaponInputAction
 			Sound.Play( UnzoomSound, Equipment.GameObject.WorldPosition );
 
 		ZoomLevel = 0;
-
-		Equipment.EquipmentFlags &= ~EquipmentFlags.Aiming;
-
+		Equipment.SetTag( "aiming", false );
 		AnglesLerp = new Angles();
 		BlurLerp = 1.0f;
 	}

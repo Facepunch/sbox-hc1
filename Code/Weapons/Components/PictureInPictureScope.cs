@@ -23,13 +23,13 @@ public class PictureInPictureScope : WeaponInputAction
 	public void StartZoom()
 	{
 		IsZooming = true;
-		Equipment.SetFlag( EquipmentFlags.Aiming, true );
+		Equipment.SetTag( "aiming", true );
 	}
 
 	public void EndZoom()
 	{
 		IsZooming = false;
-		Equipment.SetFlag( EquipmentFlags.Aiming, false );
+		Equipment.SetTag( "aiming", false );
 	}
 
 	protected virtual bool CanAim()

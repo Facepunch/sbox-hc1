@@ -183,7 +183,7 @@
         var equipment = Player.IsValid() && Player.CurrentEquipment.IsValid() ? Player.CurrentEquipment : null;
         if ( !equipment.IsValid() ) return 1f;
 
-        bool isAiming = Player.HasEquipmentFlag( EquipmentFlags.Aiming );
+        bool isAiming = Player.HasEquipmentTag( "aiming" );
 
         if ( !isAiming ) return 1f;
 
