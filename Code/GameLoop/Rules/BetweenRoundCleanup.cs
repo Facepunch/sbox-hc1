@@ -5,10 +5,16 @@ namespace Facepunch;
 /// <summary>
 /// Called on the host to clean up objects that shouldn't persist between rounds.
 /// </summary>
-public record BetweenRoundCleanupEvent : IGameEvent;
+public interface IRoundCleanup : ISceneEvent<IRoundCleanup>
+{
+	/// <summary>
+	/// Called when the round cleanup is dispatched.
+	/// </summary>
+	void OnRoundCleanup();
+}
 
 /// <summary>
-/// Dispatches a <see cref="BetweenRoundCleanupEvent"/> when entering this state.
+/// Dispatches a <see cref="IRoundCleanup"/> when entering this state.
 /// </summary>
 public sealed class BetweenRoundCleanup : Component,
 	IGameEventHandler<EnterStateEvent>
@@ -22,6 +28,6 @@ public sealed class BetweenRoundCleanup : Component,
 	[Rpc.Broadcast( NetFlags.HostOnly )]
 	public void Dispatch()
 	{
-		Scene.Dispatch( new BetweenRoundCleanupEvent() );
+		Scene.RunEvent<IRoundCleanup>( x => x.OnRoundCleanup() );
 	}
 }

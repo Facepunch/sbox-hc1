@@ -1,9 +1,6 @@
-using Sandbox.Events;
-
 namespace Facepunch;
 
-public sealed class Door : Component, IUse,
-	IGameEventHandler<BetweenRoundCleanupEvent>
+public sealed class Door : Component, IUse, IRoundCleanup
 {
 	/// <summary>
 	/// Animation curve to use, X is the time between 0-1 and Y is how much the door is open to its target angle from 0-1.
@@ -84,7 +81,7 @@ public sealed class Door : Component, IUse,
 		return State is DoorState.Open or DoorState.Closed;
 	}
 
-	void IGameEventHandler<BetweenRoundCleanupEvent>.OnGameEvent( BetweenRoundCleanupEvent eventArgs )
+	void IRoundCleanup.OnRoundCleanup()
 	{
 		Transform.Local = StartTransform;
 		State = DefaultState;

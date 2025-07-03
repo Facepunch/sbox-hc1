@@ -1,13 +1,11 @@
 ﻿using Facepunch;
-using Sandbox.Events;
 
 /// <summary>
-/// Destroy this object when a <see cref="BetweenRoundCleanupEvent"/> is dispatched.
+/// Destroy this object when a <see cref="IRoundCleanup"/> is dispatched.
 /// </summary>
-public sealed class DestroyBetweenRounds : Component,
-	IGameEventHandler<BetweenRoundCleanupEvent>
+public sealed class DestroyBetweenRounds : Component, IRoundCleanup
 {
-	void IGameEventHandler<BetweenRoundCleanupEvent>.OnGameEvent( BetweenRoundCleanupEvent eventArgs )
+	void IRoundCleanup.OnRoundCleanup()
 	{
 		GameObject.Destroy();
 	}

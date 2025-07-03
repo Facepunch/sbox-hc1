@@ -8,12 +8,14 @@ namespace Sandbox.Events;
 /// <summary>
 /// Interface for event payloads that can be listened for by <see cref="IGameEventHandler{T}"/>s.
 /// </summary>
+[Obsolete( "Use ISceneEvent<T> instead." )]
 public interface IGameEvent { }
 
 /// <summary>
 /// Interface for components that handle game events with a payload of type <see cref="T"/>.
 /// </summary>
 /// <typeparam name="T">Event payload type.</typeparam>
+[Obsolete( "Directly use the interface" )]
 public interface IGameEventHandler<in T>
 	where T : IGameEvent
 {
@@ -36,6 +38,7 @@ public static class GameEvent
 	/// Notifies all <see cref="IGameEventHandler{T}"/> components that are within <paramref name="root"/>,
 	/// with a payload of type <typeparamref name="T"/>.
 	/// </summary>
+	[Obsolete( "Use ISceneEvent.PostToGameObject instead." )]
 	public static void Dispatch<T>( this GameObject root, T eventArgs )
 		where T : IGameEvent
 	{
@@ -47,9 +50,9 @@ public static class GameEvent
 			: root.Components.GetAll<IGameEventHandler<T>>())
 			.ToArray();
 
-		if ( !HandlerOrderingCache.TryGetValue( typeof(T), out var ordering ) || handlers.Any( x => !ordering.ContainsKey( x.GetType() ) ) )
+		if ( !HandlerOrderingCache.TryGetValue( typeof( T ), out var ordering ) || handlers.Any( x => !ordering.ContainsKey( x.GetType() ) ) )
 		{
-			ordering = HandlerOrderingCache[typeof(T)] = GetHandlerOrdering<T>();
+			ordering = HandlerOrderingCache[typeof( T )] = GetHandlerOrdering<T>();
 		}
 
 		List<Exception>? exceptions = null;
@@ -81,7 +84,7 @@ public static class GameEvent
 
 	private static bool IsImplementingMethodName( string methodName )
 	{
-		if ( methodName == nameof(IGameEventHandler<IGameEvent>.OnGameEvent) )
+		if ( methodName == nameof( IGameEventHandler<IGameEvent>.OnGameEvent ) )
 		{
 			return true;
 		}

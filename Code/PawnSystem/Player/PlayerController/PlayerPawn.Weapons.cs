@@ -1,10 +1,6 @@
-using Sandbox.Events;
-
 namespace Facepunch;
 
-public partial class PlayerPawn :
-	IGameEventHandler<EquipmentDeployedEvent>,
-	IGameEventHandler<EquipmentHolsteredEvent>
+public partial class PlayerPawn : IEquipmentEvents
 {
 	/// <summary>
 	/// What weapon are we using?
@@ -44,14 +40,14 @@ public partial class PlayerPawn :
 		Spread = spread;
 	}
 
-	void IGameEventHandler<EquipmentDeployedEvent>.OnGameEvent( EquipmentDeployedEvent eventArgs )
+	void IEquipmentEvents.OnDeployed( Equipment e )
 	{
-		CurrentEquipment = eventArgs.Equipment;
+		CurrentEquipment = e;
 	}
 
-	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
+	void IEquipmentEvents.OnHolstered( Equipment e )
 	{
-		if ( eventArgs.Equipment == CurrentEquipment )
+		if ( e == CurrentEquipment )
 			CurrentEquipment = null;
 	}
 
@@ -84,7 +80,7 @@ public partial class PlayerPawn :
 
 	public void SetCurrentEquipment( Equipment weapon )
 	{
-		if ( weapon == CurrentEquipment ) 
+		if ( weapon == CurrentEquipment )
 			return;
 
 		ClearCurrentWeapon();

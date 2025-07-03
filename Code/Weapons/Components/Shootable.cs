@@ -13,8 +13,7 @@ public enum FireMode
 
 [Icon( "track_changes" )]
 [Title( "Bullet" ), Group( "Weapon Components" )]
-public partial class Shootable : WeaponInputAction,
-	IGameEventHandler<EquipmentHolsteredEvent>
+public partial class Shootable : WeaponInputAction
 {
 	[Property, Group( "Bullet" ), EquipmentResourceProperty] public float BaseDamage { get; set; } = 25.0f;
 	[Property, Group( "Bullet" ), EquipmentResourceProperty] public float FireRate { get; set; } = 0.2f;
@@ -631,7 +630,7 @@ public partial class Shootable : WeaponInputAction,
 		TimeSinceFireModeSwitch = 0;
 	}
 
-	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
+	protected override void OnEquipmentHolstered()
 	{
 		ClearBurst();
 	}

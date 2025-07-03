@@ -1,12 +1,10 @@
-using Sandbox.Events;
-
 namespace Facepunch;
 
 /// <summary>
 /// This means a weapon can be lowered
 /// </summary>
 [Title( "Lowerable" ), Group( "Weapon Components" )]
-public partial class Lowerable : EquipmentComponent, IGameEventHandler<EquipmentTagChanged>
+public partial class Lowerable : EquipmentComponent
 {
 	TimeSince TimeSinceLowered { get; set; } = 0;
 
@@ -18,14 +16,20 @@ public partial class Lowerable : EquipmentComponent, IGameEventHandler<Equipment
 		BindTag( "lowered", () => Equipment.HasTag( "lowered" ) );
 	}
 
-	void IGameEventHandler<EquipmentTagChanged>.OnGameEvent( EquipmentTagChanged e )
+	protected override void OnTagsChanged()
 	{
-		if ( !e.Tag.Equals( "lowered" ) )
+		base.OnTagsChanged();
+	}
+
+	protected override void OnEquipmentTagChanged( string tag, bool value )
+	{
+		if ( !tag.Equals( "lowered" ) )
 			return;
 
-		Sound.Play( Equipment.HasTag( "lowered" ) ? "player.jump.gear" : "player.walk.gear", WorldPosition );
+		Sound.Play( value ? "player.jump.gear" : "player.walk.gear", WorldPosition );
 		TimeSinceLowered = 0;
 	}
+
 
 	void ToggleLower()
 	{

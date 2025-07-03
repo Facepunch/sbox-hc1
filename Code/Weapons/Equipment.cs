@@ -1,11 +1,12 @@
-using Sandbox.Events;
-
 namespace Facepunch;
 
-public record EquipmentDeployedEvent( Equipment Equipment ) : IGameEvent;
-public record EquipmentHolsteredEvent( Equipment Equipment ) : IGameEvent;
-public record EquipmentDestroyedEvent( Equipment Equipment ) : IGameEvent;
-public record EquipmentTagChanged( Equipment Equipment, string Tag, bool Value ) : IGameEvent;
+public interface IEquipmentEvents : ISceneEvent<IEquipmentEvents>
+{
+	public void OnDeployed( Equipment e ) { }
+	public void OnHolstered( Equipment e ) { }
+	public void OnDestroyed( Equipment e ) { }
+	public void OnTagChanged( Equipment e, string tag, bool value ) { }
+}
 
 /// <summary>
 /// An equipment component.
@@ -84,7 +85,7 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 		if ( value && !HasTag( tag ) ) EquipmentTags.Add( tag );
 		if ( !value && HasTag( tag ) ) EquipmentTags.Remove( tag );
 
-		GameObject.Dispatch( new EquipmentTagChanged( this, tag, value ) );
+		IEquipmentEvents.PostToGameObject( GameObject, x => x.OnTagChanged( this, tag, value ) );
 	}
 
 	public void ToggleTag( string tag )
@@ -329,10 +330,9 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 			HasCreatedViewModel = true;
 
 		UpdateRenderMode();
-
 		CreateWorldModel();
 
-		GameObject.Root.Dispatch( new EquipmentDeployedEvent( this ) );
+		IEquipmentEvents.PostToGameObject( GameObject.Root, x => x.OnDeployed( this ) );
 	}
 
 	protected virtual void OnHolstered()
@@ -343,13 +343,13 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 
 		HasCreatedViewModel = false;
 
-		GameObject.Root.Dispatch( new EquipmentHolsteredEvent( this ) );
+		IEquipmentEvents.PostToGameObject( GameObject.Root, x => x.OnHolstered( this ) );
 	}
 
 	protected override void OnDestroy()
 	{
 		DestroyViewModel();
 
-		GameObject.Root.Dispatch( new EquipmentDestroyedEvent( this ) );
+		IEquipmentEvents.PostToGameObject( GameObject.Root, x => x.OnDestroyed( this ) );
 	}
 }
