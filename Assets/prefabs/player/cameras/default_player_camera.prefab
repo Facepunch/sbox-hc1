@@ -1,13 +1,23 @@
 {
   "RootObject": {
     "__guid": "91c92300-c9e5-4a0d-b4ae-d26a91936fc8",
+    "__version": 1,
     "Flags": 0,
     "Name": "default_player_camera",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "",
     "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "Sandbox.CameraComponent",
         "__guid": "da762119-5dde-4e71-b670-7d89847453bb",
+        "__enabled": true,
         "BackgroundColor": "0.75478,0.83828,0.87624,1",
         "ClearFlags": "All",
         "FieldOfView": 90,
@@ -32,6 +42,7 @@
       {
         "__type": "Sandbox.AudioListener",
         "__guid": "c283a749-a1b4-4d71-97cd-6cfe6e0269f0",
+        "__enabled": true,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -43,6 +54,7 @@
       {
         "__type": "Sandbox.Highlight",
         "__guid": "9a1e8dd1-ce52-4988-a0a6-2192d8401241",
+        "__enabled": true,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -53,6 +65,7 @@
       {
         "__type": "Sandbox.Bloom",
         "__guid": "aa00f6d6-044f-4303-b133-b1db76e26a95",
+        "__enabled": true,
         "__version": 1,
         "Gamma": 2.2,
         "Mode": "Additive",
@@ -69,6 +82,7 @@
       {
         "__type": "Sandbox.Tonemapping",
         "__guid": "84567d97-73e3-488c-9ec1-ecfea74f2603",
+        "__enabled": true,
         "__version": 3,
         "AutoExposureEnabled": true,
         "ExposureCompensation": 0,
@@ -87,6 +101,7 @@
       {
         "__type": "Sandbox.Sharpen",
         "__guid": "09775e98-d3bd-4fe7-b742-4888e27b545c",
+        "__enabled": true,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -98,6 +113,7 @@
       {
         "__type": "Sandbox.ChromaticAberration",
         "__guid": "a1574d00-56c9-4791-9885-9c2ce4d6d170",
+        "__enabled": true,
         "Offset": "2,3,0",
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
@@ -110,6 +126,7 @@
       {
         "__type": "Sandbox.Pixelate",
         "__guid": "fea821b4-2c14-4aa3-ab38-da30ee64a3a3",
+        "__enabled": true,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -121,6 +138,7 @@
       {
         "__type": "Facepunch.ScreenShaker",
         "__guid": "e405a983-581c-4843-b72d-bd6afa755f8f",
+        "__enabled": true,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -131,6 +149,7 @@
       {
         "__type": "Sandbox.AmbientOcclusion",
         "__guid": "9d21f25e-4845-4991-8273-82f901d917f4",
+        "__enabled": true,
         "__version": 1,
         "DenoiseMode": "Spatial",
         "FalloffRange": 0.75,
@@ -159,19 +178,30 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "Saturation": 1.05
+      },
+      {
+        "__type": "Sandbox.DepthOfField",
+        "__guid": "8508e342-b8bf-4ada-9ba3-494ca655ac72",
+        "__enabled": false,
+        "BackBlur": true,
+        "BlurSize": 30,
+        "FocalDistance": 200,
+        "FocusRange": 500,
+        "FrontBlur": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "QualityLevel": "High"
       }
     ],
     "Children": [],
-    "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,
@@ -185,13 +215,14 @@
         "ExcludedBodies": "",
         "IncludedBodies": ""
       }
-    }
+    },
+    "__variables": []
   },
+  "ResourceVersion": 2,
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
-  "ResourceVersion": 1,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }

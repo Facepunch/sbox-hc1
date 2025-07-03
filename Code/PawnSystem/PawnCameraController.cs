@@ -9,11 +9,12 @@ public partial class PawnCameraController : Component
 	public ScreenShaker ScreenShaker { get; set; }
 	public ChromaticAberration ChromaticAberration { get; set; }
 	public Pixelate Pixelate { get; set; }
+	public DepthOfField DepthOfField { get; set; }
 
 	/// <summary>
 	/// The boom for this camera.
 	/// </summary>
-	[Property] 
+	[Property]
 	public GameObject Boom { get; set; }
 
 	[Property]
@@ -34,6 +35,7 @@ public partial class PawnCameraController : Component
 			ChromaticAberration = Camera.GetOrAddComponent<ChromaticAberration>();
 			AudioListener = Camera.GetOrAddComponent<AudioListener>();
 			ScreenShaker = Camera.GetOrAddComponent<ScreenShaker>();
+			DepthOfField = Camera.GetOrAddComponent<DepthOfField>();
 
 			// Optional
 			ColorAdjustments = Camera.GetComponent<ColorAdjustments>();
