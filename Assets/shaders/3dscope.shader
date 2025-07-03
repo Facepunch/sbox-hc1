@@ -148,16 +148,7 @@ PS
 
         texColor = lerp( texColor, reticleColor, saturate( thickLineAlpha ) );
 
-        Material m = Material::From( i );
-        m.Albedo = texColor;
-        m.Normal = 1;
-        m.Roughness = 0.99;
-        m.Metalness = 0.1;
-        m.AmbientOcclusion = 1;
-
         return float4( texColor.rgb, 1 );
-
-	    return ShadingModelStandard::Shade( i, m );
     }
 
 }
