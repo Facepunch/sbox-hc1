@@ -18,6 +18,7 @@
         "__type": "Facepunch.Equipment",
         "__guid": "391a8037-b9fe-4298-9f58-2715c3f5e461",
         "__enabled": true,
+        "AimFovOffset": -30,
         "CrosshairType": "Default",
         "DeploySound": "sounds/guns/switch/weapon_switch.sound",
         "Handedness": "Right",
@@ -217,30 +218,6 @@
             "VerticalSpread": "10"
           },
           {
-            "__type": "Facepunch.FlatScope",
-            "__guid": "0a921289-3c60-4de0-9029-26fb1b17b627",
-            "__enabled": true,
-            "AngleOffsetScale": 0.01,
-            "InputActions": [
-              "Attack2"
-            ],
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null,
-            "OnInputAction": null,
-            "RequiresAllInputActions": false,
-            "ScopeOverlay": "weapons/m700/scope.vmat",
-            "UnzoomSound": "sounds/weapons/m700/m700_zoom.sound",
-            "ZoomLevels": [
-              30,
-              60
-            ],
-            "ZoomSound": "sounds/weapons/m700/m700_zoom.sound"
-          },
-          {
             "__type": "Facepunch.ViewPunch",
             "__guid": "7825e1e5-532d-4709-8785-8d823e6a7c94",
             "__enabled": true,
@@ -312,6 +289,24 @@
             "OnComponentUpdate": null,
             "OnInputAction": null,
             "RequiresAllInputActions": false
+          },
+          {
+            "__type": "Facepunch.PictureInPictureScope",
+            "__guid": "0a921289-3c60-4de0-9029-26fb1b17b627",
+            "__enabled": true,
+            "InputActions": [
+              "Attack2"
+            ],
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnInputAction": null,
+            "RequiresAllInputActions": false,
+            "UnzoomSound": "sounds/weapons/m700/m700_zoom.sound",
+            "ZoomSound": "sounds/weapons/m700/m700_zoom.sound"
           }
         ],
         "Children": []

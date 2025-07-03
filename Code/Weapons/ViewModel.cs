@@ -72,11 +72,6 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 		ApplyVelocity();
 		ApplyAnimationTransform();
 
-		if ( Owner.HasEquipmentTag( "scoped" ) )
-		{
-			LocalPosition += Vector3.Down * 50f;
-		}
-
 		var baseFov = GameSettingsSystem.Current.FieldOfView;
 
 		TargetFieldOfView = TargetFieldOfView.LerpTo( baseFov + FieldOfViewOffset, Time.Delta * 10f );
@@ -130,6 +125,8 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 		camera.LocalRotation *= bone.Rotation * scale;
 	}
 
+	Vector3 scopedOffset = 0;
+
 	void ApplyOffsets()
 	{
 		foreach ( var offset in Offsets )
@@ -138,6 +135,9 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 			WorldPosition += offset.PositionOffset;
 			WorldRotation *= offset.AngleOffset.ToRotation();
 		}
+
+		scopedOffset = scopedOffset.LerpTo( Owner.HasEquipmentTag( "scoped" ) ? (Vector3.Down * 1.36f + Vector3.Forward * 0.2f) : 0, Time.Delta * 10f );
+		LocalPosition += WorldRotation * scopedOffset;
 	}
 
 	void ApplyInertia()
@@ -244,7 +244,7 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 		ModelRenderer.Set( "ironsights", aiming ? 1 : 0 );
 		ModelRenderer.Set( "ironsights_fire_scale", aiming ? IronsightsFireScale : 0f );
 
-		ModelRenderer.Set( "speed_ironsights", 2 );
+		ModelRenderer.Set( "speed_ironsights", 1 );
 
 		ModelRenderer.Set( "reload_speed", ReloadSpeed );
 

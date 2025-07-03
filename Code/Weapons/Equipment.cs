@@ -327,6 +327,10 @@ public partial class Equipment : Component, Component.INetworkListener, IDescrip
 
 	[Sync] bool HasCreatedViewModel { get; set; } = false;
 
+
+	[Property, Group( "Extras" )]
+	public float AimFovOffset { get; set; } = -5;
+
 	protected virtual void OnDeployed()
 	{
 		if ( Owner.IsValid() && Owner.IsViewer && Owner.CameraController.Mode == CameraMode.FirstPerson )

@@ -26,7 +26,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 
 	[Property, Group( "Config" )] public bool ShouldViewBob { get; set; } = true;
 	[Property, Group( "Config" )] public float RespawnProtectionSaturation { get; set; } = 0.25f;
-	
+
 	[Property] public float ThirdPersonDistance { get; set; } = 64f;
 	[Property] public float AimFovOffset { get; set; } = -5f;
 
@@ -178,7 +178,7 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 	{
 		if ( !Player.IsValid() )
 			return;
-		
+
 		if ( !Player.CurrentEquipment.IsValid() )
 			return;
 
@@ -201,17 +201,17 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 			return;
 
 		if ( Player.CurrentEquipment.IsValid() )
-		{ 
+		{
 			if ( Player.CurrentEquipment.EquipmentFlags.HasFlag( EquipmentFlags.Aiming ) )
 			{
-				FieldOfViewOffset += AimFovOffset;
+				FieldOfViewOffset += Player.CurrentEquipment.AimFovOffset;
 			}
 		}
 
 		// deathcam, "zoom" at target.
 		if ( Player.HealthComponent.State == LifeState.Dead )
 		{
-			FieldOfViewOffset += AimFovOffset; 
+			FieldOfViewOffset += AimFovOffset;
 		}
 
 		if ( ColorAdjustments.IsValid() )
