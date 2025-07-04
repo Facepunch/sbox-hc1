@@ -24,12 +24,14 @@ public class PictureInPictureScope : WeaponInputAction
 	{
 		IsZooming = true;
 		Equipment.SetTag( "aiming", true );
+		Equipment.SetTag( "scoped", true );
 	}
 
 	public void EndZoom()
 	{
 		IsZooming = false;
 		Equipment.SetTag( "aiming", false );
+		Equipment.SetTag( "scoped", false );
 	}
 
 	protected virtual bool CanAim()
@@ -40,14 +42,7 @@ public class PictureInPictureScope : WeaponInputAction
 
 	protected override void OnDisabled()
 	{
-		base.OnDisabled();
 		EndZoom();
-	}
-
-	protected override void OnEnabled()
-	{
-		base.OnEnabled();
-		BindTag( "scoped", () => IsZooming );
 	}
 
 	protected override void OnParentChanged( GameObject oldParent, GameObject newParent )
