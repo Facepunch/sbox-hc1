@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Nodes;
-
-namespace Facepunch;
+﻿namespace Facepunch;
 
 partial class GameMode
 {
@@ -12,40 +10,24 @@ partial class GameMode
 		return GetGameModesForScene( scene );
 	}
 
-	private static bool ShouldIgnoreGameObject( JsonObject json )
-	{
-		if ( json.TryGetPropertyValue( "__Prefab", out var node ) )
-		{
-			return false;
-		}
-
-		return true;
-	}
-
 	private static IEnumerable<GameMode> GetGameModesForScene( SceneFile scene )
 	{
 		var list = new HashSet<GameMode>();
+		var meta = scene.GetMetadata( "GameModes", "" );
 
-		foreach ( var json in scene.GameObjects.Where( x => !ShouldIgnoreGameObject( x ) ) )
+		if ( !string.IsNullOrEmpty( meta ) )
 		{
-			var go = new GameObject( false );
-			go.Flags |= GameObjectFlags.NotSaved;
-			go.SetParent( null, true );
-			go.Deserialize( json );
+			var files = meta.Split( ", " );
 
-			var x = json.TryGetPropertyValue( "__Prefab", out var pathNode );
-			var path = pathNode.ToString();
-
-			if ( go.GetComponent<GameMode>( true ) is not null )
+			foreach ( var file in files )
 			{
-				var prefab = GameObject.GetPrefab( path );
-				var gm = prefab.GetComponent<GameMode>();
-				list.Add( gm );
+				var prefab = GameObject.GetPrefab( file );
+				if ( prefab.IsValid() )
+				{
+					list.Add( prefab.GetComponent<GameMode>() );
+				}
 			}
-
-			go.DestroyImmediate();
 		}
-
 		return list;
 	}
 

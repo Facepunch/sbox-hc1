@@ -1243,7 +1243,7 @@
           {
             "Id": {
               "Type": "GameObject",
-              "IdValue": "572293a6-57c5-4e0b-9be6-751e3e5953b7"
+              "IdValue": "9e5d226e-081f-42c6-8a99-fcfd9a2acfe1"
             },
             "Parent": {
               "Type": "GameObject",
@@ -1253,7 +1253,7 @@
             "ContainerProperty": "Children",
             "IsContainerArray": true,
             "Data": {
-              "__guid": "572293a6-57c5-4e0b-9be6-751e3e5953b7",
+              "__guid": "9e5d226e-081f-42c6-8a99-fcfd9a2acfe1",
               "__version": 1,
               "__Prefab": "prefabs/player/cameras/default_player_camera.prefab",
               "__PrefabInstancePatch": {
@@ -1261,22 +1261,25 @@
                   {
                     "Id": {
                       "Type": "Component",
-                      "IdValue": "8db147a2-098e-452a-b4cd-49bb571cfb44"
+                      "IdValue": "4a4e2371-a2a2-4344-97d3-892c5bfdbbba"
                     },
                     "Parent": {
                       "Type": "GameObject",
-                      "IdValue": "572293a6-57c5-4e0b-9be6-751e3e5953b7"
+                      "IdValue": "91c92300-c9e5-4a0d-b4ae-d26a91936fc8"
                     },
-                    "PreviousElement": null,
+                    "PreviousElement": {
+                      "Type": "Component",
+                      "IdValue": "8508e342-b8bf-4ada-9ba3-494ca655ac72"
+                    },
                     "ContainerProperty": "Components",
                     "IsContainerArray": true,
                     "Data": {
                       "__type": "Sandbox.CameraComponent",
-                      "__guid": "8db147a2-098e-452a-b4cd-49bb571cfb44",
+                      "__guid": "4a4e2371-a2a2-4344-97d3-892c5bfdbbba",
                       "__enabled": true,
-                      "BackgroundColor": "0.75478,0.83828,0.87624,1",
+                      "BackgroundColor": "0.33333,0.46275,0.52157,1",
                       "ClearFlags": "All",
-                      "FieldOfView": 90,
+                      "FieldOfView": 60,
                       "FovAxis": "Horizontal",
                       "IsMainCamera": true,
                       "OnComponentDestroy": null,
@@ -1287,313 +1290,13 @@
                       "OnComponentUpdate": null,
                       "Orthographic": false,
                       "OrthographicHeight": 1204,
-                      "Priority": 8,
-                      "RenderExcludeTags": "invis",
+                      "Priority": 1,
+                      "RenderExcludeTags": "",
                       "RenderTags": "",
                       "TargetEye": "None",
                       "Viewport": "0,0,1,1",
-                      "ZFar": 100000,
-                      "ZNear": 1
-                    }
-                  },
-                  {
-                    "Id": {
-                      "Type": "Component",
-                      "IdValue": "528fd3f5-e1e3-45db-9d87-85ae4427fb92"
-                    },
-                    "Parent": {
-                      "Type": "GameObject",
-                      "IdValue": "572293a6-57c5-4e0b-9be6-751e3e5953b7"
-                    },
-                    "PreviousElement": {
-                      "Type": "Component",
-                      "IdValue": "8db147a2-098e-452a-b4cd-49bb571cfb44"
-                    },
-                    "ContainerProperty": "Components",
-                    "IsContainerArray": true,
-                    "Data": {
-                      "__type": "Sandbox.AudioListener",
-                      "__guid": "528fd3f5-e1e3-45db-9d87-85ae4427fb92",
-                      "__enabled": true,
-                      "OnComponentDestroy": null,
-                      "OnComponentDisabled": null,
-                      "OnComponentEnabled": null,
-                      "OnComponentFixedUpdate": null,
-                      "OnComponentStart": null,
-                      "OnComponentUpdate": null,
-                      "UseCameraDirection": true
-                    }
-                  },
-                  {
-                    "Id": {
-                      "Type": "Component",
-                      "IdValue": "dda539c1-487d-4a50-880e-dacf2ada1300"
-                    },
-                    "Parent": {
-                      "Type": "GameObject",
-                      "IdValue": "572293a6-57c5-4e0b-9be6-751e3e5953b7"
-                    },
-                    "PreviousElement": {
-                      "Type": "Component",
-                      "IdValue": "528fd3f5-e1e3-45db-9d87-85ae4427fb92"
-                    },
-                    "ContainerProperty": "Components",
-                    "IsContainerArray": true,
-                    "Data": {
-                      "__type": "Sandbox.Highlight",
-                      "__guid": "dda539c1-487d-4a50-880e-dacf2ada1300",
-                      "__enabled": true,
-                      "OnComponentDestroy": null,
-                      "OnComponentDisabled": null,
-                      "OnComponentEnabled": null,
-                      "OnComponentFixedUpdate": null,
-                      "OnComponentStart": null,
-                      "OnComponentUpdate": null
-                    }
-                  },
-                  {
-                    "Id": {
-                      "Type": "Component",
-                      "IdValue": "2bedd4c3-c492-400a-82eb-f04244891183"
-                    },
-                    "Parent": {
-                      "Type": "GameObject",
-                      "IdValue": "572293a6-57c5-4e0b-9be6-751e3e5953b7"
-                    },
-                    "PreviousElement": {
-                      "Type": "Component",
-                      "IdValue": "dda539c1-487d-4a50-880e-dacf2ada1300"
-                    },
-                    "ContainerProperty": "Components",
-                    "IsContainerArray": true,
-                    "Data": {
-                      "__type": "Sandbox.Bloom",
-                      "__guid": "2bedd4c3-c492-400a-82eb-f04244891183",
-                      "__enabled": true,
-                      "__version": 1,
-                      "Gamma": 2.2,
-                      "Mode": "Additive",
-                      "OnComponentDestroy": null,
-                      "OnComponentDisabled": null,
-                      "OnComponentEnabled": null,
-                      "OnComponentFixedUpdate": null,
-                      "OnComponentStart": null,
-                      "OnComponentUpdate": null,
-                      "Strength": 0.15,
-                      "Threshold": 1.33,
-                      "Tint": "1,1,1,1"
-                    }
-                  },
-                  {
-                    "Id": {
-                      "Type": "Component",
-                      "IdValue": "2b127a09-e9e1-4966-b268-1109bdb9b7bd"
-                    },
-                    "Parent": {
-                      "Type": "GameObject",
-                      "IdValue": "572293a6-57c5-4e0b-9be6-751e3e5953b7"
-                    },
-                    "PreviousElement": {
-                      "Type": "Component",
-                      "IdValue": "2bedd4c3-c492-400a-82eb-f04244891183"
-                    },
-                    "ContainerProperty": "Components",
-                    "IsContainerArray": true,
-                    "Data": {
-                      "__type": "Sandbox.Tonemapping",
-                      "__guid": "2b127a09-e9e1-4966-b268-1109bdb9b7bd",
-                      "__enabled": true,
-                      "__version": 3,
-                      "AutoExposureEnabled": true,
-                      "ExposureCompensation": 0,
-                      "ExposureMethod": "RGB",
-                      "MaximumExposure": 2,
-                      "MinimumExposure": 1,
-                      "Mode": "Linear",
-                      "OnComponentDestroy": null,
-                      "OnComponentDisabled": null,
-                      "OnComponentEnabled": null,
-                      "OnComponentFixedUpdate": null,
-                      "OnComponentStart": null,
-                      "OnComponentUpdate": null,
-                      "Rate": 1
-                    }
-                  },
-                  {
-                    "Id": {
-                      "Type": "Component",
-                      "IdValue": "44d6022b-7c62-483d-90db-7e0007df66bc"
-                    },
-                    "Parent": {
-                      "Type": "GameObject",
-                      "IdValue": "572293a6-57c5-4e0b-9be6-751e3e5953b7"
-                    },
-                    "PreviousElement": {
-                      "Type": "Component",
-                      "IdValue": "2b127a09-e9e1-4966-b268-1109bdb9b7bd"
-                    },
-                    "ContainerProperty": "Components",
-                    "IsContainerArray": true,
-                    "Data": {
-                      "__type": "Sandbox.Sharpen",
-                      "__guid": "44d6022b-7c62-483d-90db-7e0007df66bc",
-                      "__enabled": true,
-                      "OnComponentDestroy": null,
-                      "OnComponentDisabled": null,
-                      "OnComponentEnabled": null,
-                      "OnComponentFixedUpdate": null,
-                      "OnComponentStart": null,
-                      "OnComponentUpdate": null,
-                      "Scale": 0.1
-                    }
-                  },
-                  {
-                    "Id": {
-                      "Type": "Component",
-                      "IdValue": "28e996f9-f597-489b-8643-3b267c91c3fa"
-                    },
-                    "Parent": {
-                      "Type": "GameObject",
-                      "IdValue": "572293a6-57c5-4e0b-9be6-751e3e5953b7"
-                    },
-                    "PreviousElement": {
-                      "Type": "Component",
-                      "IdValue": "44d6022b-7c62-483d-90db-7e0007df66bc"
-                    },
-                    "ContainerProperty": "Components",
-                    "IsContainerArray": true,
-                    "Data": {
-                      "__type": "Sandbox.ChromaticAberration",
-                      "__guid": "28e996f9-f597-489b-8643-3b267c91c3fa",
-                      "__enabled": true,
-                      "Offset": "2,3,0",
-                      "OnComponentDestroy": null,
-                      "OnComponentDisabled": null,
-                      "OnComponentEnabled": null,
-                      "OnComponentFixedUpdate": null,
-                      "OnComponentStart": null,
-                      "OnComponentUpdate": null,
-                      "Scale": 0
-                    }
-                  },
-                  {
-                    "Id": {
-                      "Type": "Component",
-                      "IdValue": "d78f407d-c339-412c-8bff-9c746155b027"
-                    },
-                    "Parent": {
-                      "Type": "GameObject",
-                      "IdValue": "572293a6-57c5-4e0b-9be6-751e3e5953b7"
-                    },
-                    "PreviousElement": {
-                      "Type": "Component",
-                      "IdValue": "28e996f9-f597-489b-8643-3b267c91c3fa"
-                    },
-                    "ContainerProperty": "Components",
-                    "IsContainerArray": true,
-                    "Data": {
-                      "__type": "Sandbox.Pixelate",
-                      "__guid": "d78f407d-c339-412c-8bff-9c746155b027",
-                      "__enabled": true,
-                      "OnComponentDestroy": null,
-                      "OnComponentDisabled": null,
-                      "OnComponentEnabled": null,
-                      "OnComponentFixedUpdate": null,
-                      "OnComponentStart": null,
-                      "OnComponentUpdate": null,
-                      "Scale": 0
-                    }
-                  },
-                  {
-                    "Id": {
-                      "Type": "Component",
-                      "IdValue": "9c9caf4e-19b3-4209-8189-7995641dfc0c"
-                    },
-                    "Parent": {
-                      "Type": "GameObject",
-                      "IdValue": "572293a6-57c5-4e0b-9be6-751e3e5953b7"
-                    },
-                    "PreviousElement": {
-                      "Type": "Component",
-                      "IdValue": "d78f407d-c339-412c-8bff-9c746155b027"
-                    },
-                    "ContainerProperty": "Components",
-                    "IsContainerArray": true,
-                    "Data": {
-                      "__type": "Facepunch.ScreenShaker",
-                      "__guid": "9c9caf4e-19b3-4209-8189-7995641dfc0c",
-                      "__enabled": true,
-                      "OnComponentDestroy": null,
-                      "OnComponentDisabled": null,
-                      "OnComponentEnabled": null,
-                      "OnComponentFixedUpdate": null,
-                      "OnComponentStart": null,
-                      "OnComponentUpdate": null
-                    }
-                  },
-                  {
-                    "Id": {
-                      "Type": "Component",
-                      "IdValue": "41f17d59-6e2e-4ca7-b793-558d4aa710a7"
-                    },
-                    "Parent": {
-                      "Type": "GameObject",
-                      "IdValue": "572293a6-57c5-4e0b-9be6-751e3e5953b7"
-                    },
-                    "PreviousElement": {
-                      "Type": "Component",
-                      "IdValue": "9c9caf4e-19b3-4209-8189-7995641dfc0c"
-                    },
-                    "ContainerProperty": "Components",
-                    "IsContainerArray": true,
-                    "Data": {
-                      "__type": "Sandbox.AmbientOcclusion",
-                      "__guid": "41f17d59-6e2e-4ca7-b793-558d4aa710a7",
-                      "__enabled": true,
-                      "__version": 1,
-                      "DenoiseMode": "Spatial",
-                      "FalloffRange": 0.75,
-                      "Intensity": 0.15,
-                      "OnComponentDestroy": null,
-                      "OnComponentDisabled": null,
-                      "OnComponentEnabled": null,
-                      "OnComponentFixedUpdate": null,
-                      "OnComponentStart": null,
-                      "OnComponentUpdate": null,
-                      "Quality": "High",
-                      "Radius": 128,
-                      "ThinCompensation": 0
-                    }
-                  },
-                  {
-                    "Id": {
-                      "Type": "Component",
-                      "IdValue": "82a7fe32-8710-4946-89f9-0b391cee61c8"
-                    },
-                    "Parent": {
-                      "Type": "GameObject",
-                      "IdValue": "572293a6-57c5-4e0b-9be6-751e3e5953b7"
-                    },
-                    "PreviousElement": {
-                      "Type": "Component",
-                      "IdValue": "41f17d59-6e2e-4ca7-b793-558d4aa710a7"
-                    },
-                    "ContainerProperty": "Components",
-                    "IsContainerArray": true,
-                    "Data": {
-                      "__type": "Sandbox.ColorAdjustments",
-                      "__guid": "82a7fe32-8710-4946-89f9-0b391cee61c8",
-                      "__enabled": false,
-                      "Brightness": 1.1,
-                      "Contrast": 1.02,
-                      "HueRotate": 0,
-                      "OnComponentDestroy": null,
-                      "OnComponentDisabled": null,
-                      "OnComponentEnabled": null,
-                      "OnComponentFixedUpdate": null,
-                      "OnComponentStart": null,
-                      "OnComponentUpdate": null,
-                      "Saturation": 1.05
+                      "ZFar": 10000,
+                      "ZNear": 10
                     }
                   }
                 ],
@@ -1666,7 +1369,21 @@
                   }
                 ],
                 "PropertyOverrides": [],
-                "MovedObjects": []
+                "MovedObjects": [
+                  {
+                    "Id": {
+                      "Type": "Component",
+                      "IdValue": "8508e342-b8bf-4ada-9ba3-494ca655ac72"
+                    },
+                    "NewParent": {
+                      "Type": "GameObject",
+                      "IdValue": "91c92300-c9e5-4a0d-b4ae-d26a91936fc8"
+                    },
+                    "NewContainerProperty": "Components",
+                    "IsNewContainerArray": true,
+                    "NewPreviousElement": null
+                  }
+                ]
               },
               "__PrefabIdToInstanceId": {
                 "91c92300-c9e5-4a0d-b4ae-d26a91936fc8": "9e5d226e-081f-42c6-8a99-fcfd9a2acfe1",
@@ -1680,7 +1397,8 @@
                 "fea821b4-2c14-4aa3-ab38-da30ee64a3a3": "a70f9c9b-7c94-4887-a368-e7908c9fee6c",
                 "e405a983-581c-4843-b72d-bd6afa755f8f": "c6c13ac2-56f6-4b08-b30a-5fc97a05ba27",
                 "9d21f25e-4845-4991-8273-82f901d917f4": "a54a22e6-f805-4ec0-b8f6-d5bf6bd5a6f7",
-                "f454dfa0-11ae-4273-98bb-4cab30eecc08": "0a6da57f-bb7b-42f5-bcd7-dd79141b69d0"
+                "f454dfa0-11ae-4273-98bb-4cab30eecc08": "0a6da57f-bb7b-42f5-bcd7-dd79141b69d0",
+                "8508e342-b8bf-4ada-9ba3-494ca655ac72": "e44ba4e8-b73b-47d0-9f5a-215f83c423b7"
               }
             }
           }
@@ -1757,6 +1475,12 @@
               "Type": "Component",
               "IdValue": "62e7124f-7d96-4d4a-b3ba-4c0ef58f6b4a"
             }
+          },
+          {
+            "Id": {
+              "Type": "Component",
+              "IdValue": "b3cfdb0b-dcd8-4ee7-945c-531d783e9395"
+            }
           }
         ],
         "PropertyOverrides": [
@@ -1775,6 +1499,14 @@
             },
             "Property": "NetworkMode",
             "Value": 1
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "71b39898-e489-4c21-85a1-7d37b7aeec54"
+            },
+            "Property": "CameraObject",
+            "Value": null
           }
         ],
         "MovedObjects": []
@@ -1811,7 +1543,8 @@
         "91d5d71c-7576-48cb-8996-eb3c468aaf59": "36118ea7-9ac6-466e-ba82-23e5ae5dc937",
         "b4ca6d36-f647-49b3-9151-8ef4c63aeddd": "5e58caa0-7ca0-4625-adc5-5760c5d8803e",
         "50de49ef-0287-435d-b570-e48047718014": "9c925fb4-543a-4a63-a8e7-22ee88672e73",
-        "4dc414cd-ed6d-4fcd-bd26-0c4c340b5301": "75b17b56-a125-47af-8b18-801f76e4d51c"
+        "4dc414cd-ed6d-4fcd-bd26-0c4c340b5301": "75b17b56-a125-47af-8b18-801f76e4d51c",
+        "b3cfdb0b-dcd8-4ee7-945c-531d783e9395": "c4260942-e00e-4015-9f20-f4bf939372ee"
       }
     },
     {
@@ -1974,6 +1707,7 @@
           "__guid": "c2f39499-5987-42f6-b5ab-eb8a330a45a4",
           "__enabled": true,
           "Center": "168.8,0,0",
+          "Elasticity": null,
           "Friction": null,
           "IsTrigger": true,
           "OnComponentDestroy": null,
@@ -1986,6 +1720,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RollingResistance": null,
           "Scale": "3000,2500,1250",
           "Static": true,
           "Surface": null,
@@ -2212,7 +1947,8 @@
     "Metadata": {
       "Title": "Edinburgh",
       "Image": "ui/maps/edinburgh.jpg",
-      "IsVisibleInMenu": "False"
+      "IsVisibleInMenu": "False",
+      "GameModes": "prefabs/game_modes/team_deathmatch.prefab"
     },
     "NavMesh": {
       "Enabled": false,
