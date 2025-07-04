@@ -6,7 +6,7 @@ namespace Facepunch;
 /// Tracks whether something has been seen by the enemy team.
 /// </summary>
 public sealed class Spottable : Component,
-	IRoundCleanup,
+	IGameEventHandler<BetweenRoundCleanupEvent>,
 	IGameEventHandler<TeamChangedEvent>
 {
 	ITeam teamComponent => GetComponent<ITeam>();
@@ -51,7 +51,7 @@ public sealed class Spottable : Component,
 		HasBeenSpotted = true;
 	}
 
-	void IRoundCleanup.OnRoundCleanup()
+	void IGameEventHandler<BetweenRoundCleanupEvent>.OnGameEvent( BetweenRoundCleanupEvent eventArgs )
 	{
 		LastSpotted = 999;
 		HasBeenSpotted = false;

@@ -1,6 +1,12 @@
 using Sandbox.Diagnostics;
+using Sandbox.Events;
 
 namespace Facepunch;
+
+public record OnPlayerRagdolledEvent : IGameEvent
+{
+	public float DestroyTime { get; set; } = 0f;
+}
 
 public partial class PlayerPawn
 {
@@ -13,7 +19,7 @@ public partial class PlayerPawn
 	/// The player's inventory, items, etc.
 	/// </summary>
 	[RequireComponent] public PlayerInventory Inventory { get; private set; }
-
+	
 	/// <summary>
 	/// How long since the player last respawned?
 	/// </summary>
@@ -99,7 +105,7 @@ public partial class PlayerPawn
 		TimeSinceLastRespawn = 0f;
 
 		ResetBody();
-		Scene.RunEvent<IPlayerEvents>( x => x.OnSpawned( this ) );
+		Scene.Dispatch( new PlayerSpawnedEvent( this ) );
 	}
 
 	[Rpc.Owner]
@@ -143,13 +149,13 @@ public partial class PlayerPawn
 		Body.GameObject.SetParent( null, true );
 		Body.GameObject.Name = $"Ragdoll ({DisplayName})";
 
-		var destroyTime = 0f;
-		Scene.RunEvent<IPlayerEvents>( x => x.OnRagdolled( this, ref destroyTime ) );
+		var ev = new OnPlayerRagdolledEvent();
+		Scene.Dispatch( ev );
 
-		if ( destroyTime > 0f )
+		if ( ev.DestroyTime > 0f )
 		{
 			var comp = Body.Components.Create<DestroyAfter>();
-			comp.Time = destroyTime;
+			comp.Time = ev.DestroyTime;
 		}
 		else
 		{

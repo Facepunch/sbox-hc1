@@ -1,3 +1,4 @@
+using Sandbox.Events;
 using System.Text.Json.Serialization;
 
 namespace Facepunch;
@@ -35,7 +36,7 @@ public class MountPoint
 		}
 
 		return true;
-	}
+	} 
 
 	public bool Unmount( Equipment equipment, PlayerPawn player )
 	{
@@ -51,9 +52,12 @@ public class MountPoint
 	}
 }
 
-public sealed class EquipmentMountPoints : Component, IEquipmentEvents
+public sealed class EquipmentMountPoints : Component,
+	IGameEventHandler<EquipmentDeployedEvent>,
+	IGameEventHandler<EquipmentHolsteredEvent>,
+	IGameEventHandler<EquipmentDestroyedEvent>
 {
-	[Property] public PlayerPawn Player { get; set; }
+	[Property] public PlayerPawn Player { get;  set; }
 
 	[Property] public List<MountPoint> MountPoints { get; set; } = new();
 
@@ -63,22 +67,22 @@ public sealed class EquipmentMountPoints : Component, IEquipmentEvents
 		return mount;
 	}
 
-	void IEquipmentEvents.OnDeployed( Equipment e )
+	void IGameEventHandler<EquipmentDeployedEvent>.OnGameEvent( EquipmentDeployedEvent eventArgs )
 	{
-		var mnt = GetMount( e );
-		mnt?.Unmount( e, Player );
+		var mnt = GetMount( eventArgs.Equipment );
+		mnt?.Unmount( eventArgs.Equipment, Player );
 	}
 
-	void IEquipmentEvents.OnHolstered( Equipment e )
+	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
 	{
-		var mnt = GetMount( e );
-		Log.Info( $"Holstering {e}, {mnt}" );
-		mnt?.Mount( e, Player );
+		var mnt = GetMount( eventArgs.Equipment );
+		Log.Info( $"Holstering {eventArgs.Equipment}, {mnt}" );
+		mnt?.Mount( eventArgs.Equipment, Player );
 	}
 
-	void IEquipmentEvents.OnDestroyed( Equipment e )
+	void IGameEventHandler<EquipmentDestroyedEvent>.OnGameEvent( EquipmentDestroyedEvent eventArgs )
 	{
-		var mnt = GetMount( e );
-		mnt?.Unmount( e, Player );
+		var mnt = GetMount( eventArgs.Equipment );
+		mnt?.Unmount( eventArgs.Equipment, Player );
 	}
 }

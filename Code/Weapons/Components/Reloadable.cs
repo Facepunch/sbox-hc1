@@ -1,7 +1,10 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 [Title( "Reload" ), Group( "Weapon Components" )]
-public partial class Reloadable : WeaponInputAction
+public partial class Reloadable : WeaponInputAction,
+	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	/// <summary>
 	/// How long does it take to reload?
@@ -55,7 +58,7 @@ public partial class Reloadable : WeaponInputAction
 		}
 	}
 
-	protected override void OnEquipmentHolstered()
+	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
 	{
 		if ( !IsProxy && IsReloading )
 		{

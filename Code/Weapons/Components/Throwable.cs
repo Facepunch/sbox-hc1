@@ -1,7 +1,10 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 [Title( "Throw Weapon" ), Group( "Weapon Components" )]
-public partial class Throwable : WeaponInputAction
+public partial class Throwable : WeaponInputAction,
+	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	[Property, EquipmentResourceProperty] public float CookTime { get; set; } = 0.25f;
 	[Property, EquipmentResourceProperty] public GameObject Prefab { get; set; }
@@ -20,11 +23,10 @@ public partial class Throwable : WeaponInputAction
 	private TimeSince TimeSinceAction { get; set; }
 	private bool HasThrownOnHost { get; set; }
 
-	protected override void OnEquipmentHolstered()
+	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
 	{
 		if ( IsProxy ) return;
 		if ( ThrowState == State.Thrown ) return;
-
 		ThrowState = State.Idle;
 	}
 
@@ -64,7 +66,7 @@ public partial class Throwable : WeaponInputAction
 			player.Inventory.RemoveWeapon( Equipment );
 			return;
 		}
-
+		
 		if ( IsProxy ) return;
 
 		if ( Input.Pressed( "Attack2" ) )
@@ -79,7 +81,7 @@ public partial class Throwable : WeaponInputAction
 			TimeSinceAction = 0;
 			return;
 		}
-
+		
 		if ( ThrowState == State.Throwing && TimeSinceAction > 0.25f )
 		{
 			Throw();
@@ -92,7 +94,7 @@ public partial class Throwable : WeaponInputAction
 	protected void Throw()
 	{
 		var player = Equipment.Owner;
-
+		
 		if ( !IsProxy )
 		{
 			var tr = Scene.Trace.Ray( new( player.AimRay.Position, player.AimRay.Forward ), 10f )

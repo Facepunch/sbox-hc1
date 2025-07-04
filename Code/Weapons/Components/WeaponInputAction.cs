@@ -1,15 +1,18 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 /// <summary>
 /// A weapon component that reacts to input actions.
 /// </summary>
-public abstract class WeaponInputAction : EquipmentComponent, IEquipmentEvents
+public abstract class WeaponInputAction : EquipmentComponent,
+	IGameEventHandler<EquipmentDeployedEvent>
 {
 	/// <summary>
 	/// What input action are we going to listen for?
 	/// </summary>
 	[Property, Category( "Base" )] public List<string> InputActions { get; set; } = new() { "Attack1" };
-
+	
 	/// <summary>
 	/// Should we perform the action when ALL input actions match, or any?
 	/// </summary>
@@ -22,7 +25,7 @@ public abstract class WeaponInputAction : EquipmentComponent, IEquipmentEvents
 
 	bool RunningWhileDeployed { get; set; }
 
-	protected override void OnEquipmentDeployed()
+	void IGameEventHandler<EquipmentDeployedEvent>.OnGameEvent( EquipmentDeployedEvent eventArgs )
 	{
 		if ( Equipment?.Owner?.IsLocallyControlled ?? false )
 		{
@@ -66,11 +69,11 @@ public abstract class WeaponInputAction : EquipmentComponent, IEquipmentEvents
 	{
 		if ( !Equipment.IsValid() )
 			return;
-
+		
 		// Don't execute weapon components on weapons that aren't deployed.
 		if ( !Equipment.IsDeployed )
 			return;
-
+		
 		if ( !Equipment.Owner.IsValid() )
 			return;
 

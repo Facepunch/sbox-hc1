@@ -3,7 +3,8 @@ using Sandbox.Events;
 
 [Icon( "yard" )]
 [Title( "Bomb Planting" ), Group( "Weapon Components" )]
-public partial class DefuseC4 : WeaponInputAction
+public partial class DefuseC4 : WeaponInputAction, 
+	IGameEventHandler<EquipmentHolsteredEvent>
 {
 	/// <summary>
 	/// How long the input must be held to plant.
@@ -121,19 +122,19 @@ public partial class DefuseC4 : WeaponInputAction
 
 		player.Inventory.RemoveWeapon( Equipment );
 		player.IsFrozen = false;
-
-		if ( !PlantedObjectPrefab.IsValid() )
+		
+		if ( !PlantedObjectPrefab.IsValid() ) 
 			return;
-
+		
 		var planted = PlantedObjectPrefab.Clone( position, rotation );
-
+		
 		// If the host leaves, we want to make the new host have authority over the bomb.
 		planted.Network.SetOrphanedMode( NetworkOrphaned.ClearOwner );
 		planted.NetworkSpawn();
 
 		Scene.Dispatch( new BombPlantedEvent( ignorePlanter ? null : player, planted, CurrentBombSite ) );
 	}
-
+	
 	[Rpc.Broadcast]
 	private void CancelPlant()
 	{
@@ -173,13 +174,13 @@ public partial class DefuseC4 : WeaponInputAction
 				CancelPlant();
 			}
 		}
-
+		
 		base.OnFixedUpdate();
 	}
 
 	protected override void OnInput()
 	{
-
+		
 	}
 
 	protected override void OnInputDown()
@@ -217,7 +218,7 @@ public partial class DefuseC4 : WeaponInputAction
 		}
 	}
 
-	protected override void OnEquipmentHolstered()
+	void IGameEventHandler<EquipmentHolsteredEvent>.OnGameEvent( EquipmentHolsteredEvent eventArgs )
 	{
 		if ( Equipment.Owner.IsValid() && Equipment.Owner.BodyRenderer.IsValid() )
 		{

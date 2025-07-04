@@ -6,8 +6,8 @@ namespace Facepunch;
 /// Track damage for every single player so we can call it back.
 /// </summary>
 public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlobalEvent>,
-	IRoundCleanup,
-	IPlayerEvents
+	IGameEventHandler<BetweenRoundCleanupEvent>,
+	IGameEventHandler<PlayerSpawnedEvent>
 {
 	[Property] public bool ClearBetweenRounds { get; set; } = true;
 	[Property] public bool ClearOnRespawn { get; set; } = false;
@@ -19,18 +19,6 @@ public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlo
 	protected void RpcRefresh()
 	{
 		Refresh();
-	}
-
-	void IPlayerEvents.OnSpawned( PlayerPawn player )
-	{
-		if ( !ClearOnRespawn ) return;
-
-		// Only include the owner
-		using ( Rpc.FilterInclude( player.Network.Owner ) )
-		{
-			// Send the refresh
-			RpcRefresh();
-		}
 	}
 
 	public List<DamageInfo> GetDamageOnMe()
@@ -154,13 +142,26 @@ public partial class DamageTracker : Component, IGameEventHandler<DamageTakenGlo
 	/// <summary>
 	/// Called between rounds.
 	/// </summary>
-	void IRoundCleanup.OnRoundCleanup()
+	/// <param name="eventArgs"></param>
+	void IGameEventHandler<BetweenRoundCleanupEvent>.OnGameEvent( BetweenRoundCleanupEvent eventArgs )
 	{
 		if ( !ClearBetweenRounds ) return;
-
+		
 		// This is called for everyone, so we don't need another RPC.
 
 		// Get rid of old data since the rounds refreshed.
 		Refresh();
+	}
+
+	void IGameEventHandler<PlayerSpawnedEvent>.OnGameEvent( PlayerSpawnedEvent eventArgs )
+	{
+		if ( !ClearOnRespawn ) return;
+
+		// Only include the owner
+		using ( Rpc.FilterInclude( eventArgs.Player.Network.Owner ) )
+		{
+			// Send the refresh
+			RpcRefresh();
+		}
 	}
 }
