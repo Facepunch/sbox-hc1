@@ -1,7 +1,5 @@
-using Sandbox;
 using Sandbox.Diagnostics;
 using Sandbox.Events;
-using System.Diagnostics.Metrics;
 
 namespace Facepunch;
 
@@ -45,12 +43,12 @@ public partial class PlayerInventory : Component
 	/// Gets the player's current weapon.
 	/// </summary>
 	private Equipment Current => Player.CurrentEquipment;
-	
+
 	public void Clear()
 	{
 		if ( !Networking.IsHost )
 			return;
-		
+
 		foreach ( var wpn in Equipment )
 		{
 			wpn.GameObject.Destroy();
@@ -144,6 +142,7 @@ public partial class PlayerInventory : Component
 		}
 
 		var wheel = Input.MouseWheel;
+		if ( Input.Keyboard.Down( "ALT" ) ) return;
 
 		// gamepad input
 		if ( Input.Pressed( "NextSlot" ) ) wheel.y = -1;
@@ -241,10 +240,10 @@ public partial class PlayerInventory : Component
 	public void Switch( Equipment equipment )
 	{
 		Assert.True( !IsProxy || Networking.IsHost );
-		
+
 		if ( !Equipment.Contains( equipment ) )
 			return;
-		
+
 		Player.SetCurrentEquipment( equipment );
 	}
 
@@ -254,7 +253,7 @@ public partial class PlayerInventory : Component
 	public void RemoveWeapon( Equipment equipment )
 	{
 		Assert.True( Networking.IsHost );
-		
+
 		if ( !Equipment.Contains( equipment ) ) return;
 
 		if ( Current == equipment )
@@ -272,7 +271,7 @@ public partial class PlayerInventory : Component
 		equipment.GameObject.Destroy();
 		equipment.Enabled = false;
 	}
-	
+
 	/// <summary>
 	/// Removes the given weapon (by its resource data) and destroys it.
 	/// </summary>
@@ -395,7 +394,7 @@ public partial class PlayerInventory : Component
 			Log.Warning( $"Attempted purchase but EquipmentData (Id: {equipmentId}) not known!" );
 			return;
 		}
-		
+
 		equipmentData.Purchase( Player );
 	}
 

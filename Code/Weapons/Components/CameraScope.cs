@@ -57,19 +57,19 @@ public class CameraScope : Component
 		// Are we aiming?
 		if ( Equipment.IsValid() && Equipment.HasTag( "aiming" ) )
 		{
-			if ( Input.Keyboard.Down( "uparrow" ) )
+			var wheel = Input.MouseWheel;
+			var wantsToZoom = Input.Keyboard.Down( "ALT" ) && !wheel.IsNearZeroLength;
+
+			if ( wantsToZoom )
 			{
-				RenderCamera.FieldOfView += Time.Delta * 15f;
+				// TODO: Configurable per weapon speed
+				RenderCamera.FieldOfView += -wheel.y * Time.Delta * 100f;
 			}
 
-			if ( Input.Keyboard.Down( "downarrow" ) )
-			{
-				RenderCamera.FieldOfView -= Time.Delta * 15f;
-			}
+			// TODO: Configurable per weapon
+			RenderCamera.FieldOfView = RenderCamera.FieldOfView.Clamp( 10, 30 );
 
-			RenderCamera.FieldOfView = Math.Clamp( RenderCamera.FieldOfView, 10f, 30f );
-
-			// Dampen aiming
+			// Dampen aiming, TODO: configurable per weapon
 			Equipment.Owner.AimDampening /= 1 - RenderCamera.FieldOfView.Remap( 10, 30, 0, 1 ) + 1;
 		}
 
