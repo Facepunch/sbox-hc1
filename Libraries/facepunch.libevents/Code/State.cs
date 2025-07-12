@@ -70,7 +70,7 @@ public sealed class StateComponent : Component
 	internal void Update()
 	{
 		OnUpdateState?.Invoke();
-		Scene.Dispatch( new UpdateStateEvent( this ) );
+		GameObject.Dispatch( new UpdateStateEvent( this ) );
 	}
 
 	internal void Leave( bool dispatch )
