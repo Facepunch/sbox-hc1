@@ -1,14 +1,23 @@
 {
   "RootObject": {
     "__guid": "a960f59e-3f74-49f7-a0e1-0d06027f6d04",
+    "__version": 1,
     "Flags": 0,
     "Name": "smoke_grenade",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
     "Tags": "grenade",
     "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "Sandbox.Rigidbody",
         "__guid": "f39d4662-7284-4a3b-96d9-64a1ca8f0be9",
+        "__enabled": true,
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
@@ -36,6 +45,7 @@
       {
         "__type": "Facepunch.SmokeGrenade",
         "__guid": "bd0a943d-9e14-456d-a557-d7a1c2fb545e",
+        "__enabled": true,
         "CanDealDamage": false,
         "ExtinguishRadius": 128,
         "FuseEffect": null,
@@ -55,7 +65,9 @@
       {
         "__type": "Sandbox.BoxCollider",
         "__guid": "570b0b54-b04f-4598-a214-1722dfcd1290",
+        "__enabled": true,
         "Center": "0,0,2.9",
+        "Elasticity": null,
         "Friction": null,
         "IsTrigger": false,
         "OnComponentDestroy": null,
@@ -68,6 +80,7 @@
         "OnObjectTriggerExit": null,
         "OnTriggerEnter": null,
         "OnTriggerExit": null,
+        "RollingResistance": 0.2,
         "Scale": "2.5,2.5,5.5",
         "Static": false,
         "Surface": "weapons/throwable/m18_smoke_grenade/smoke_grenade.surface",
@@ -76,6 +89,7 @@
       {
         "__type": "DestroyBetweenRounds",
         "__guid": "1437420e-c288-4150-a4a7-837a64cf9409",
+        "__enabled": true,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -87,17 +101,28 @@
     "Children": [
       {
         "__guid": "f106653c-183e-484e-87c4-17bdc66631b6",
+        "__version": 1,
         "Flags": 0,
         "Name": "Model",
+        "Position": "0,0,0",
+        "Rotation": "0,0,0,1",
+        "Scale": "1,1,1",
+        "Tags": "",
         "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "NetworkOrphaned": 0,
+        "OwnerTransfer": 1,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
             "__guid": "defb61e7-67c1-4591-ac39-68273e42770e",
+            "__enabled": true,
             "BodyGroups": 11,
             "CreateAttachments": false,
             "MaterialGroup": null,
             "MaterialOverride": null,
+            "Materials": null,
             "Model": "models/weapons/sbox_grenade_smoke/w_smoke_grenade.vmdl",
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -114,19 +139,14 @@
             "RenderType": "On",
             "Tint": "1,1,1,1"
           }
-        ]
+        ],
+        "Children": []
       }
     ],
-    "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,
@@ -140,15 +160,16 @@
         "ExcludedBodies": "",
         "IncludedBodies": ""
       }
-    }
+    },
+    "__variables": []
   },
+  "ResourceVersion": 2,
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
-  "ResourceVersion": 1,
   "__references": [
     "facepunch.w_smoke_grenade#71890"
   ],
-  "__version": 1
+  "__version": 2
 }

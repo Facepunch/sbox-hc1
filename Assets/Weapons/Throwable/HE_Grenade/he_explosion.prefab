@@ -1,37 +1,69 @@
 {
   "RootObject": {
     "__guid": "46dd51b8-74cd-4aec-90d9-9717388c25fe",
+    "__version": 1,
     "Flags": 0,
     "Name": "he_explosion",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "",
     "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "Facepunch.DestroyAfter",
         "__guid": "b2e54133-6592-416a-9f6a-8e83633eb2fe",
+        "__enabled": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Time": 30,
         "TimeUntilDestroy": {
-          "Relative": -2815.205,
-          "Passed": 2815.205,
+          "Absolute": 0,
+          "Relative": -803.5638,
+          "Passed": 803.5638,
           "Fraction": 1
-        }
+        },
+        "WaitForChildEffects": false
       },
       {
         "__type": "Sandbox.Audio.SoundEmitter",
         "__guid": "8d774fe2-b1f6-4ba4-96d6-24de88658310",
+        "__enabled": true,
         "AutoStart": true,
         "DestroyOnFinish": true,
         "Follow": true,
         "LifeTime": 1,
         "MixerName": "Game",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "SoundEvent": "sounds/weapons/grenade/he_grenade_explode.sound",
         "VolumeModifier": false,
         "VolumeOverTime": [
           {
-            "y": 1
+            "x": 0,
+            "y": 1,
+            "in": 0,
+            "out": 0,
+            "mode": "Mirrored"
           },
           {
             "x": 1,
-            "y": 1
+            "y": 1,
+            "in": 0,
+            "out": 0,
+            "mode": "Mirrored"
           }
         ]
       }
@@ -39,23 +71,52 @@
     "Children": [
       {
         "__guid": "b8759ea7-036b-4ba2-9aac-fcf630f22da9",
-        "Flags": 0,
-        "Name": "explosion.medium",
-        "Enabled": true,
+        "__version": 1,
         "__Prefab": "particles/explosion/explosion.medium.prefab",
-        "__PrefabVariables": {}
+        "__PrefabInstancePatch": {
+          "AddedObjects": [],
+          "RemovedObjects": [],
+          "PropertyOverrides": [],
+          "MovedObjects": []
+        },
+        "__PrefabIdToInstanceId": {
+          "46dd51b8-74cd-4aec-90d9-9717388c25fe": "b8759ea7-036b-4ba2-9aac-fcf630f22da9",
+          "6fd26423-d712-4027-a867-4041b7d0a179": "411ad5b4-231c-4910-9d73-340723104691",
+          "49a3e038-4f24-473a-adf2-e8838d253405": "4c9b3e2c-7c41-48f1-a269-25fd2ce460fe",
+          "80b92221-5334-44be-9b85-14fab86ec3d1": "ac1f72e9-d072-43aa-8523-aa4edef6d93a",
+          "160a3827-0835-4973-a7ab-e1220e701005": "79d8a900-45e6-4d7c-87b0-32fba115fea8",
+          "9a9600ba-a53e-4ca0-baa5-9c5b0c5dd888": "09edd65f-e5d8-4d02-8f69-bf7d16deb5a2",
+          "882e9e5f-cf80-4321-a63d-967fef63bd9a": "aebefca1-13cf-418a-ad76-d333df7a1c3f",
+          "c73c446e-8acb-41fe-b787-3adbe6abb75d": "c538b32d-d46a-473e-b235-b2f8214034b6",
+          "de2625a6-b4f9-4cd8-b085-1a6bc77e79ec": "59641b75-4bda-485a-8df4-029187e3e0b4",
+          "f1deac4e-6669-406f-a601-a07655a64cd5": "de7937fc-559c-4dfb-8b69-83d2a7f761b2",
+          "beb383b0-418a-49b1-86ad-9d2fcb7548ae": "769ac08d-749f-4837-a6b1-f9a535b272e5",
+          "d500726c-c1a5-44ad-891a-11b23c5044f7": "76d54864-981f-4fc1-b8ab-5a00d14fde6b",
+          "145f7533-b3f0-43d5-86b2-b8490d5a1251": "a453a38e-f961-479f-a2d2-5b5c86c9b732",
+          "70f0d4f9-efbd-4a38-9d36-c9899b5d4e7e": "3856c44f-6813-4769-9545-484ad7354cf1",
+          "103554f3-78fa-4c2b-b898-3e0758c27694": "f4dd1d1b-d970-445d-bd5d-82b68fb514af",
+          "98bd4786-2151-4d74-a6ec-bde17334b09f": "d8ae0a22-83db-4ac6-86fd-a9a537e4b05a",
+          "7e5e27e3-fd2e-4505-99d1-8aed36b6f36e": "a6104581-2699-4aa8-b200-efea3cb4be91",
+          "3c506a5c-f30a-4978-9244-53b05084e409": "665e2154-bca9-4b4d-a4a6-6d3f3e4eabf1",
+          "70e67ed3-4eda-4c12-93cd-8e2a5d7659ef": "32349201-26c2-4700-ab2e-0423cf826cce",
+          "da773c3d-18a0-4828-a9a7-e1d9b63d4ce2": "acfd53eb-4d0b-49e0-8214-2dcb7be72545",
+          "cda0305d-cf31-429f-a958-cafbb0afd155": "71888a9e-179c-4d38-8782-98f886ab346f",
+          "42c40f53-1b67-4ea1-ad4a-84c0e7afef8f": "27368fae-22da-4edb-ab00-c788ec95c047",
+          "77db0f27-720c-445b-a434-00ae1c135ff8": "3d89d164-de9f-492a-b5c9-2d77cfae5331",
+          "f5492ff1-9cc1-41b9-917b-34cca9256a05": "03081570-6645-4da3-aded-95968db98e58",
+          "2f7bda90-3691-46bc-8a70-57dc12a1230e": "d1399474-c6ff-44be-ae54-a97c3c7ca961",
+          "c63c1178-a19e-4812-baae-913c70f6537f": "1499cda3-71ed-4483-9db8-f7978e2cc5ad",
+          "9b2d8663-88f6-45b8-83c2-fdd44fae9370": "6ee8c6b9-feae-4cf1-b04d-be89e2b4b351",
+          "654354a6-aaaf-4012-9082-b9920a2e632f": "f2140c52-2d21-462e-8de3-f74a06a052a5",
+          "2ef5d023-8fda-4783-9484-e58513cc91ba": "7c6fb9af-84be-427f-bb81-fb5e8d0c9a37",
+          "5bf581d4-0359-4503-bf8a-e401f8cb2e82": "d8d808c2-7b65-4fa9-9d3b-f5249bed2d44"
+        }
       }
     ],
-    "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,
@@ -69,16 +130,16 @@
         "ExcludedBodies": "",
         "IncludedBodies": ""
       }
-    }
+    },
+    "__variables": []
   },
+  "ResourceVersion": 2,
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
-  "ResourceVersion": 1,
   "__references": [
     "facepunch.explosionmedium#78691"
   ],
-  "HasUnsavedChanges": false,
-  "__version": 1
+  "__version": 2
 }
