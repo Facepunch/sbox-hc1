@@ -125,17 +125,31 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 		camera.LocalRotation *= bone.Rotation * scale;
 	}
 
-	Vector3 scopedOffset = 0;
+	private Vector3 scopedOffset = 0;
+	private Vector3 lerpedPositionOffset;
+	private Rotation lerpedRotationOffset;
 
 	void ApplyOffsets()
 	{
+		var targetPositionOffset = Vector3.Zero;
+		var targetRotationOffset = Rotation.Identity;
+
+		// Accumulate all target offsets
 		foreach ( var offset in Offsets )
 		{
-			// Log.Info( $"Offsetting by {offset.PositionOffset}" );
-			WorldPosition += offset.PositionOffset;
-			WorldRotation *= offset.AngleOffset.ToRotation();
+			targetPositionOffset += offset.PositionOffset;
+			targetRotationOffset *= offset.AngleOffset.ToRotation();
 		}
 
+		// Smoothly interpolate position and rotation
+		lerpedPositionOffset = lerpedPositionOffset.LerpTo( targetPositionOffset, Time.Delta * 10f );
+		lerpedRotationOffset = Rotation.Lerp( lerpedRotationOffset, targetRotationOffset, Time.Delta * 10f );
+
+		// Apply the lerped offsets
+		WorldRotation *= lerpedRotationOffset;
+		WorldPosition += WorldRotation * lerpedPositionOffset;
+
+		// Keep existing scoped offset behavior
 		scopedOffset = scopedOffset.LerpTo( Owner.HasEquipmentTag( "scoped" ) ? (Vector3.Down * 1.36f + Vector3.Forward * 0.2f) : 0, Time.Delta * 10f );
 		LocalPosition += WorldRotation * scopedOffset;
 	}
