@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Facepunch;
 
 public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
@@ -15,11 +13,6 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	[Property] public GameObject Head { get; set; }
 
 	/// <summary>
-	/// A reference to the animation helper (normally on the Body GameObject)
-	/// </summary>
-	[Property] public AnimationHelper AnimationHelper { get; set; }
-
-	/// <summary>
 	/// The current character controller for this player.
 	/// </summary>
 	[RequireComponent] public CharacterController CharacterController { get; set; }
@@ -28,7 +21,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	/// The current camera controller for this player.
 	/// </summary>
 	[RequireComponent] public CameraController CameraController { get; set; }
-	
+
 	/// <summary>
 	/// The outline effect for this player.
 	/// </summary>
@@ -75,13 +68,13 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 	// IDescription
 	string IDescription.DisplayName => DisplayName;
 	Color IDescription.Color => Team.GetColor();
-	
+
 	// IAreaDamageReceiver
 	void IAreaDamageReceiver.ApplyAreaDamage( AreaDamage component )
 	{
 		var dmg = new DamageInfo( component.Attacker, component.Damage, component.Inflictor, component.WorldPosition,
 			Flags: component.DamageFlags );
-		
+
 		HealthComponent.TakeDamage( dmg );
 	}
 
@@ -109,7 +102,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 	protected override void OnUpdate()
 	{
-		if (HealthComponent.State == LifeState.Dead)
+		if ( HealthComponent.State == LifeState.Dead )
 		{
 			UpdateDead();
 		}
@@ -147,7 +140,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 			EyeAngles = Rotation.LookAt( killer.WorldPosition - WorldPosition, Vector3.Up );
 		}
 
-		if ( ( ( Input.Pressed( "attack1" ) || Input.Pressed( "attack2" ) ) && !Client.IsRespawning ) || Client.IsBot || Client.LastDamageInfo.TimeSinceEvent > DeathcamSkipTime )
+		if ( ((Input.Pressed( "attack1" ) || Input.Pressed( "attack2" )) && !Client.IsRespawning) || Client.IsBot || Client.LastDamageInfo.TimeSinceEvent > DeathcamSkipTime )
 		{
 			// Don't let players immediately switch
 			if ( Client.LastDamageInfo.TimeSinceEvent < DeathcamIgnoreInputTime ) return;

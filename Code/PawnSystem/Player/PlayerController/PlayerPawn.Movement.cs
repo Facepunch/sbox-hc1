@@ -179,24 +179,23 @@ public partial class PlayerPawn
 			CameraController.UpdateFromEyes( _smoothEyeHeight );
 		}
 
+		if ( Body.IsValid() )
 		{
+			WorldRotation = Rotation.From( 0, EyeAngles.yaw, 0 );
+			Body.UpdateRotation( Rotation.FromYaw( EyeAngles.yaw ) );
 
-			if ( Body.IsValid() )
+			foreach ( var helper in Body.AnimationHelpers )
 			{
-				Body.WorldRotation = Rotation.FromYaw( EyeAngles.yaw );
-			}
+				if ( !helper.IsValid() ) continue;
 
-			if ( AnimationHelper.IsValid() )
-			{
-				AnimationHelper.WithVelocity( cc.Velocity );
-				AnimationHelper.WithWishVelocity( WishVelocity );
-				AnimationHelper.IsGrounded = IsGrounded;
-				AnimationHelper.WithLook( EyeAngles.Forward, 1, 1, 1.0f );
-				AnimationHelper.MoveStyle = AnimationHelper.MoveStyles.Run;
-				AnimationHelper.DuckLevel = (MathF.Abs( _smoothEyeHeight ) / 32.0f);
-				AnimationHelper.HoldType = CurrentHoldType;
-				AnimationHelper.Handedness = CurrentEquipment.IsValid() ? CurrentEquipment.Handedness : AnimationHelper.Hand.Both;
-				AnimationHelper.AimBodyWeight = 0.1f;
+				helper.WithVelocity( cc.Velocity );
+				helper.WithWishVelocity( WishVelocity );
+				helper.IsGrounded = IsGrounded;
+				helper.WithLook( EyeAngles.Forward );
+				helper.MoveStyle = AnimationHelper.MoveStyles.Run;
+				helper.DuckLevel = (MathF.Abs( _smoothEyeHeight ) / 32.0f);
+				helper.HoldType = CurrentHoldType;
+				helper.Handedness = CurrentEquipment.IsValid() ? CurrentEquipment.Handedness : AnimationHelper.Hand.Both;
 			}
 		}
 
@@ -348,7 +347,12 @@ public partial class PlayerPawn
 	[Rpc.Broadcast]
 	public void BroadcastPlayerJumped()
 	{
-		AnimationHelper?.TriggerJump();
+		foreach ( var helper in Body.AnimationHelpers )
+		{
+			if ( !helper.IsValid() ) continue;
+			helper.TriggerJump();
+		}
+
 		OnJump?.Invoke();
 	}
 

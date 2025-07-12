@@ -19,7 +19,7 @@ public partial class PlayerPawn
 	/// The player's inventory, items, etc.
 	/// </summary>
 	[RequireComponent] public PlayerInventory Inventory { get; private set; }
-	
+
 	/// <summary>
 	/// How long since the player last respawned?
 	/// </summary>
@@ -174,9 +174,9 @@ public partial class PlayerPawn
 
 		PlayerBoxCollider.Enabled = true;
 
-		var outfitter = GetComponentInChildren<HumanOutfitter>();
-
-		if ( outfitter.IsValid() )
+		foreach ( var outfitter in GetComponentsInChildren<HumanOutfitter>( true ) )
+		{
 			outfitter.UpdateFromTeam( Team );
+		}
 	}
 }

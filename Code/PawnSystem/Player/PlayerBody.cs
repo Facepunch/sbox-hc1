@@ -1,10 +1,12 @@
 ﻿namespace Facepunch;
-	
+
 public partial class PlayerBody : Component
 {
 	[Property] public SkinnedModelRenderer Renderer { get; set; }
 	[Property] public ModelPhysics Physics { get; set; }
 	[Property] public PlayerPawn Player { get; set; }
+	[Property] public GameObject FirstPersonBody { get; set; }
+	[Property] public List<AnimationHelper> AnimationHelpers { get; set; } = new();
 
 	public Vector3 DamageTakenPosition { get; set; }
 	public Vector3 DamageTakenForce { get; set; }
@@ -57,6 +59,8 @@ public partial class PlayerBody : Component
 		{
 			Player.CurrentEquipment.UpdateRenderMode();
 		}
+
+		FirstPersonBody.Enabled = IsFirstPerson;
 	}
 
 	protected override void OnUpdate()
@@ -66,8 +70,14 @@ public partial class PlayerBody : Component
 
 		if ( !Player.CameraController.IsValid() )
 			return;
-		
+
 		var isWatchingThisPlayer = Client.Viewer.IsValid() && Client.Viewer.Pawn == Player;
 		Tags.Set( "viewer", isWatchingThisPlayer && Player.CameraController.Mode == CameraMode.FirstPerson );
+	}
+
+	internal void UpdateRotation( Rotation rotation )
+	{
+		WorldRotation = rotation;
+		FirstPersonBody.WorldRotation = rotation;
 	}
 }
