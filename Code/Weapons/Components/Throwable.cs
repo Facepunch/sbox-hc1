@@ -66,7 +66,7 @@ public partial class Throwable : WeaponInputAction,
 			player.Inventory.RemoveWeapon( Equipment );
 			return;
 		}
-		
+
 		if ( IsProxy ) return;
 
 		if ( Input.Pressed( "Attack2" ) )
@@ -81,8 +81,8 @@ public partial class Throwable : WeaponInputAction,
 			TimeSinceAction = 0;
 			return;
 		}
-		
-		if ( ThrowState == State.Throwing && TimeSinceAction > 0.25f )
+
+		if ( ThrowState == State.Throwing && TimeSinceAction > 0.15f )
 		{
 			Throw();
 			ThrowState = State.Thrown;
@@ -94,7 +94,7 @@ public partial class Throwable : WeaponInputAction,
 	protected void Throw()
 	{
 		var player = Equipment.Owner;
-		
+
 		if ( !IsProxy )
 		{
 			var tr = Scene.Trace.Ray( new( player.AimRay.Position, player.AimRay.Forward ), 10f )
@@ -103,13 +103,16 @@ public partial class Throwable : WeaponInputAction,
 				.Run();
 
 			var position = tr.Hit ? tr.HitPosition + tr.Normal * Equipment.Resource.WorldModel.Bounds.Size.Length : player.AimRay.Position + player.AimRay.Forward * 32f;
-			var rotation = Rotation.From( 0, player.EyeAngles.yaw + 90f, 90f );
+			position += player.EyeAngles.ToRotation().Right * 10f;
+
+			var rotation = Rotation.From( 0, player.EyeAngles.yaw + 180f, 90f );
 			var baseVelocity = player.CharacterController.Velocity;
 			var dropped = Prefab.Clone( position, rotation );
 			dropped.Tags.Set( "no_player", true );
 
 			var rb = dropped.GetComponentInChildren<Rigidbody>();
 			rb.Velocity = baseVelocity + player.AimRay.Forward * ThrowPower + Vector3.Up * 100f;
+			rb.AngularVelocity = Vector3.Random * 8.0f;
 
 			var grenade = dropped.GetComponent<BaseGrenade>();
 			if ( grenade.IsValid() )

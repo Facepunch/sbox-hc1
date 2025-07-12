@@ -39,8 +39,8 @@ public partial class ViewModel : WeaponModel, ICameraSetup, IGameEventHandler<Pl
 	[Property]
 	public float ReloadSpeed { get; set; } = 1f;
 
-	private float YawInertiaScale => 5f;
-	private float PitchInertiaScale => -5f;
+	private float YawInertiaScale => 2f;
+	private float PitchInertiaScale => -2f;
 	private bool activateInertia = false;
 	private float lastPitch;
 	private float lastYaw;
