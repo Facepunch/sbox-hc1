@@ -37,12 +37,14 @@ public sealed class BotManager : SingletonComponent<BotManager>
 		var Client = player.GetComponent<Client>();
 		Client.BotId = CurrentBotId;
 
+		var botController = player.AddComponent<BotController>();
+
 		GameNetworkManager.Instance.OnPlayerJoined( Client, Connection.Host );
 
 		CurrentBotId++;
 	}
 
-	public string GetName(int id)
+	public string GetName( int id )
 	{
 		return Names[id % Names.Length];
 	}
