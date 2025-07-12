@@ -95,7 +95,7 @@ public partial class PlayerPawn
 	/// <summary>
 	/// How quick do we wish to go (normalized)
 	/// </summary>
-	public Vector3 WishMove { get; private set; }
+	public Vector3 WishMove { get; set; }
 
 	/// <summary>
 	/// How much friction to apply to the aim eg if zooming

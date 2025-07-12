@@ -87,6 +87,14 @@
             },
             "Property": "Position",
             "Value": "176,32,2"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "eb59db6f-2e1b-4290-8ea3-98f00b7ad4bc"
+            },
+            "Property": "RespawnDelaySeconds",
+            "Value": 3
           }
         ],
         "MovedObjects": []
@@ -218,7 +226,7 @@
         "b4ca6d36-f647-49b3-9151-8ef4c63aeddd": "55ecd41a-5f65-438d-bb2e-188c2a2db674",
         "50de49ef-0287-435d-b570-e48047718014": "5f866011-914e-4194-984d-b483e7e910b0",
         "4dc414cd-ed6d-4fcd-bd26-0c4c340b5301": "596e664e-d002-4af9-b320-11e2752d0c79",
-        "b3cfdb0b-dcd8-4ee7-945c-531d783e9395": "7f0b0274-8acb-42a0-8f97-1dd010eac334"
+        "52461dff-8c5b-4890-a718-83dd58e7d80d": "40b598e8-365d-4584-ad6b-4a709f3a6848"
       }
     },
     {
@@ -2305,6 +2313,54 @@
           "OnPropTakeDamage": null,
           "StartAsleep": false,
           "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a98187bb-eb2c-4958-8dd8-cfbf6a594949",
+          "__enabled": true,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/dev/door/door_frame_single_dev.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "2a12a12d-c9ef-4583-99b5-4a26aad84184",
+          "__enabled": true,
+          "Elasticity": null,
+          "Friction": null,
+          "IsTrigger": false,
+          "Model": "models/dev/door/door_frame_single_dev.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "RollingResistance": null,
+          "Static": true,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
         }
       ],
       "Children": []
@@ -4784,6 +4840,7 @@
           "__version": 1,
           "BlendMode": "Normal",
           "FogStrength": 1,
+          "HorizontalAlignment": "Center",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -4797,7 +4854,6 @@
             "AfterUILayer": false
           },
           "Scale": 1,
-          "TextAlignment": "Center",
           "TextScope": {
             "Text": "96u",
             "TextColor": "1,1,1,1",
@@ -4830,7 +4886,8 @@
               "Color": "0,0,0,1",
               "Offset": "4,4"
             }
-          }
+          },
+          "VerticalAlignment": "Center"
         }
       ],
       "Children": []
@@ -4857,6 +4914,7 @@
           "__version": 1,
           "BlendMode": "Normal",
           "FogStrength": 1,
+          "HorizontalAlignment": "Center",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -4870,7 +4928,6 @@
             "AfterUILayer": false
           },
           "Scale": 1,
-          "TextAlignment": "Center",
           "TextScope": {
             "Text": "2048u",
             "TextColor": "1,1,1,1",
@@ -4903,7 +4960,8 @@
               "Color": "0,0,0,1",
               "Offset": "4,4"
             }
-          }
+          },
+          "VerticalAlignment": "Center"
         }
       ],
       "Children": []
@@ -4930,6 +4988,7 @@
           "__version": 1,
           "BlendMode": "Normal",
           "FogStrength": 1,
+          "HorizontalAlignment": "Center",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -4943,7 +5002,6 @@
             "AfterUILayer": false
           },
           "Scale": 1,
-          "TextAlignment": "Center",
           "TextScope": {
             "Text": "1024u",
             "TextColor": "1,1,1,1",
@@ -4976,7 +5034,8 @@
               "Color": "0,0,0,1",
               "Offset": "4,4"
             }
-          }
+          },
+          "VerticalAlignment": "Center"
         }
       ],
       "Children": []
@@ -5003,6 +5062,7 @@
           "__version": 1,
           "BlendMode": "Normal",
           "FogStrength": 1,
+          "HorizontalAlignment": "Center",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -5016,7 +5076,6 @@
             "AfterUILayer": false
           },
           "Scale": 1,
-          "TextAlignment": "Center",
           "TextScope": {
             "Text": "512u",
             "TextColor": "1,1,1,1",
@@ -5049,7 +5108,8 @@
               "Color": "0,0,0,1",
               "Offset": "4,4"
             }
-          }
+          },
+          "VerticalAlignment": "Center"
         }
       ],
       "Children": []
@@ -5076,6 +5136,7 @@
           "__version": 1,
           "BlendMode": "Normal",
           "FogStrength": 1,
+          "HorizontalAlignment": "Center",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -5089,7 +5150,6 @@
             "AfterUILayer": false
           },
           "Scale": 1,
-          "TextAlignment": "Center",
           "TextScope": {
             "Text": "256u",
             "TextColor": "1,1,1,1",
@@ -5122,7 +5182,8 @@
               "Color": "0,0,0,1",
               "Offset": "4,4"
             }
-          }
+          },
+          "VerticalAlignment": "Center"
         }
       ],
       "Children": []
@@ -5149,6 +5210,7 @@
           "__version": 1,
           "BlendMode": "Normal",
           "FogStrength": 1,
+          "HorizontalAlignment": "Center",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -5162,7 +5224,6 @@
             "AfterUILayer": false
           },
           "Scale": 1,
-          "TextAlignment": "Center",
           "TextScope": {
             "Text": "128u",
             "TextColor": "1,1,1,1",
@@ -5195,7 +5256,8 @@
               "Color": "0,0,0,1",
               "Offset": "4,4"
             }
-          }
+          },
+          "VerticalAlignment": "Center"
         }
       ],
       "Children": []
@@ -5222,6 +5284,7 @@
           "__version": 1,
           "BlendMode": "Normal",
           "FogStrength": 1,
+          "HorizontalAlignment": "Center",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -5235,7 +5298,6 @@
             "AfterUILayer": false
           },
           "Scale": 1,
-          "TextAlignment": "Center",
           "TextScope": {
             "Text": "64u",
             "TextColor": "1,1,1,1",
@@ -5268,7 +5330,8 @@
               "Color": "0,0,0,1",
               "Offset": "4,4"
             }
-          }
+          },
+          "VerticalAlignment": "Center"
         }
       ],
       "Children": []
@@ -5782,6 +5845,54 @@
           "OnPropTakeDamage": null,
           "StartAsleep": false,
           "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "341e6837-0a80-44e9-9e24-662577d691e3",
+          "__enabled": true,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/dev/door/door_frame_single_dev.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "6bfa41fe-763c-493a-9145-c166f709a12c",
+          "__enabled": true,
+          "Elasticity": null,
+          "Friction": null,
+          "IsTrigger": false,
+          "Model": "models/dev/door/door_frame_single_dev.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "RollingResistance": null,
+          "Static": true,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
         }
       ],
       "Children": []

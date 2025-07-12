@@ -186,11 +186,7 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 
 		if ( Networking.IsHost && Client.IsBot )
 		{
-			if ( BotFollowHostInput )
-			{
-				BuildWishInput();
-				BuildWishVelocity();
-			}
+			BuildWishVelocity();
 
 			// If we're a bot call these so they don't float in the air.
 			ApplyAcceleration();

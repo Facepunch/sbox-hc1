@@ -1,12 +1,23 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
 public class BotPlayerController : Component, IBotController
 {
-	[RequireComponent] public PlayerPawn Player { get; set; }
+	public StateMachineComponent StateMachine { get; set; }
+
+	public PlayerPawn Player { get; set; }
+
+	protected override void OnAwake()
+	{
+		Player = GetComponentInParent<PlayerPawn>( true );
+		StateMachine = GetComponent<StateMachineComponent>( true );
+		Enabled = false;
+	}
 
 	void IBotController.OnControl( BotController bot )
 	{
-		Player.EyeAngles = Player.EyeAngles.WithYaw( Player.EyeAngles.yaw + 25f * Time.Delta );
-		Player.EyeAngles = Player.EyeAngles.WithPitch( Player.EyeAngles.pitch - 50f * MathF.Sin( Time.Now * 2f ) * Time.Delta );
+		// Turn us on
+		StateMachine.Enabled = true;
 	}
 }
