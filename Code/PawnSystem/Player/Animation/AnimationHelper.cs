@@ -80,15 +80,10 @@ public sealed class AnimationHelper : Component
 	/// <summary>
 	/// Have the player look at this point in the world
 	/// </summary>
-	public void WithLook( Vector3 lookDirection, float eyesWeight = 1.0f, float headWeight = 1.0f, float bodyWeight = 1.0f )
+	public void WithLook( Vector3 lookDirection )
 	{
-		Target.SetLookDirection( "aim_eyes", lookDirection );
-		Target.SetLookDirection( "aim_head", lookDirection );
 		Target.SetLookDirection( "aim_body", lookDirection );
-
-		AimEyesWeight = eyesWeight;
-		AimHeadWeight = headWeight;
-		AimBodyWeight = bodyWeight;
+		Target.Set( "aim_body_weight", 1f );
 	}
 
 	public void WithVelocity( Vector3 Velocity )
@@ -133,24 +128,6 @@ public sealed class AnimationHelper : Component
 			Target.Set( "aim_body_pitch", ang.pitch );
 			Target.Set( "aim_body_yaw", ang.yaw );
 		}
-	}
-
-	public float AimEyesWeight
-	{
-		get => Target.GetFloat( "aim_eyes_weight" );
-		set => Target.Set( "aim_eyes_weight", value );
-	}
-
-	public float AimHeadWeight
-	{
-		get => Target.GetFloat( "aim_head_weight" );
-		set => Target.Set( "aim_head_weight", value );
-	}
-
-	public float AimBodyWeight
-	{
-		get => Target.GetFloat( "aim_body_weight" );
-		set => Target.Set( "aim_body_weight", value );
 	}
 
 
