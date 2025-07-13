@@ -5,6 +5,13 @@ namespace Facepunch;
 
 public partial class SimpleBotBehavior
 {
+	/// <summary>
+	/// Reaction speed bias (scale)
+	/// </summary>
+	[Property] public float ReactionSpeedBias { get; set; } = 0.5f;
+
+	[Property] public float Accuracy { get; set; } = 0.25f;
+
 	private async Task<bool> ValidateTarget( CancellationToken token )
 	{
 		const float validationInterval = 0.5f; // Check every half second
@@ -181,7 +188,7 @@ public partial class SimpleBotBehavior
 				Rotation targetRotation = Rotation.LookAt( direction.Normal );
 
 				// Adjust eye angles towards the target rotation with reaction speed bias
-				float lerpFactor = Random.Shared.Float( 0.1f, 0.25f ) * 1f;
+				float lerpFactor = Random.Shared.Float( 0.1f, 0.25f ) * ReactionSpeedBias;
 				Pawn.EyeAngles = Pawn.EyeAngles.LerpTo( targetRotation, lerpFactor );
 			}
 
@@ -216,7 +223,7 @@ public partial class SimpleBotBehavior
 					continue;
 
 				Vector3 localAimTarget = boneTransform.Position
-										 + GetRandomPointInHitbox( hitbox, 5f * (1f / MathF.Max( 0.1f, 0.1f )) )
+										 + GetRandomPointInHitbox( hitbox, 5f * (1f / MathF.Max( Accuracy, 0.1f )) )
 										 - p.BodyRenderer.WorldPosition;
 
 				return localAimTarget;
