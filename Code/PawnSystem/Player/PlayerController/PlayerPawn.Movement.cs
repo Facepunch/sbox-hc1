@@ -85,7 +85,7 @@ public partial class PlayerPawn
 	/// <summary>
 	/// How quick do we wish to go?
 	/// </summary>
-	private Vector3 WishVelocity { get; set; }
+	public Vector3 WishVelocity { get; set; }
 
 	/// <summary>
 	/// Are we on the ground?
@@ -521,7 +521,7 @@ public partial class PlayerPawn
 		return wpn.SpeedPenalty;
 	}
 
-	private float GetWishSpeed()
+	public float GetWishSpeed()
 	{
 		if ( IsSlowWalking ) return Global.SlowWalkSpeed;
 		if ( IsCrouching ) return Global.CrouchingSpeed;
