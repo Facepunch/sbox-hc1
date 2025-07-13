@@ -14,7 +14,7 @@ public abstract class Respawner : Component,
 	/// <returns></returns>
 	public int GetRespawnTime()
 	{
-		return ( RespawnDelaySeconds - Client.Local.TimeSinceRespawnStateChanged ).Clamp( 0f, RespawnDelaySeconds ).CeilToInt();
+		return (RespawnDelaySeconds - Client.Local.TimeSinceRespawnStateChanged).Clamp( 0f, RespawnDelaySeconds ).CeilToInt();
 	}
 
 	void IGameEventHandler<UpdateStateEvent>.OnGameEvent( UpdateStateEvent eventArgs )
@@ -38,10 +38,14 @@ public abstract class Respawner : Component,
 				case RespawnState.Requested:
 					player.RespawnState = RespawnState.Delayed;
 
-					using ( Rpc.FilterInclude( player.Connection ) )
+					if ( !player.IsBot )
 					{
-						GameMode.Instance.ShowToast( "Respawning...", duration: RespawnDelaySeconds );
+						using ( Rpc.FilterInclude( player.Connection ) )
+						{
+							GameMode.Instance.ShowToast( "Respawning...", duration: RespawnDelaySeconds );
+						}
 					}
+
 					break;
 
 				case RespawnState.Delayed:

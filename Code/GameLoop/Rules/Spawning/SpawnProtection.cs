@@ -23,7 +23,7 @@ public sealed class SpawnProtection : Component,
 	[Property, Sync( SyncFlags.FromHost )]
 	public float MaxDurationSeconds { get; set; } = 10f;
 
-	void IGameEventHandler<PlayerSpawnedEvent>.OnGameEvent(PlayerSpawnedEvent eventArgs )
+	void IGameEventHandler<PlayerSpawnedEvent>.OnGameEvent( PlayerSpawnedEvent eventArgs )
 	{
 		Enable( eventArgs.Player );
 	}
@@ -63,9 +63,12 @@ public sealed class SpawnProtection : Component,
 
 		player.HealthComponent.IsGodMode = true;
 
-		using ( Rpc.FilterInclude( player.Client.Connection ) )
+		if ( !player.Client.IsBot )
 		{
-			GameMode.Instance.ShowToast( "Spawn Protected", duration: MaxDurationSeconds );
+			using ( Rpc.FilterInclude( player.Client.Connection ) )
+			{
+				GameMode.Instance.ShowToast( "Spawn Protected", duration: MaxDurationSeconds );
+			}
 		}
 
 		Scene.Dispatch( new SpawnProtectionStartEvent( player ) );
@@ -73,7 +76,7 @@ public sealed class SpawnProtection : Component,
 
 	public void Disable( PlayerPawn player )
 	{
-		if ( !player.IsValid() ) 
+		if ( !player.IsValid() )
 			return;
 
 		if ( !player.Client.IsValid() )
