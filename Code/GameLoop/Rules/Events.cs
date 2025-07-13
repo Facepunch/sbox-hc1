@@ -12,6 +12,11 @@ public record PlayerConnectedEvent( Client Client ) : IGameEvent;
 public record PlayerJoinedEvent( Client Player ) : IGameEvent;
 
 /// <summary>
+/// Called on the host when a client leaves
+/// </summary>
+public record PlayerDisconnectedEvent( Client Player ) : IGameEvent;
+
+/// <summary>
 /// Called on the host when a player (re)spawns.
 /// </summary>
 public record PlayerSpawnedEvent( PlayerPawn Player ) : IGameEvent;

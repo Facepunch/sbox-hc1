@@ -1,5 +1,5 @@
-using Sandbox.Network;
 using Sandbox.Events;
+using Sandbox.Network;
 
 namespace Facepunch;
 
@@ -47,7 +47,8 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 	{
 		var Clients = Scene.GetAllComponents<Client>();
 
-		var possibleClient = Clients.FirstOrDefault( x => {
+		var possibleClient = Clients.FirstOrDefault( x =>
+		{
 			// A candidate player state has no owner.
 			return x.Connection is null && x.SteamId == channel.SteamId;
 		} );
@@ -91,6 +92,20 @@ public sealed class GameNetworkManager : SingletonComponent<GameNetworkManager>,
 		}
 
 		OnPlayerJoined( Client, channel );
+	}
+
+	void INetworkListener.OnDisconnected( Connection channel )
+	{
+		Log.Info( $"Player '{channel.DisplayName}' is disconnecting" );
+		var cl = Scene.GetAllComponents<Client>().FirstOrDefault( x => x.Connection == channel );
+
+		if ( !cl.IsValid() )
+		{
+			Log.Warning( $"No Client found for {channel.DisplayName}" );
+			return;
+		}
+
+		Scene.Dispatch( new PlayerDisconnectedEvent( cl ) );
 	}
 
 	public void OnPlayerJoined( Client Client, Connection channel )
