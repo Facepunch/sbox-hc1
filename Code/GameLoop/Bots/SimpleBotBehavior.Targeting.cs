@@ -12,6 +12,16 @@ public partial class SimpleBotBehavior
 	[Property, JsonIgnore, ReadOnly]
 	public int EnemyCount => _relevantEnemies.Count;
 
+	[Property] public float EngagementRange { get; set; } = 2048f;
+
+	private float engagementRangeSqr = 2048 * 2048;
+
+	protected override void OnStart()
+	{
+		// Cached
+		engagementRangeSqr = EngagementRange * EngagementRange;
+	}
+
 	private void FindEnemies()
 	{
 		var allPlayers = Scene.GetAllComponents<PlayerPawn>();
@@ -33,7 +43,7 @@ public partial class SimpleBotBehavior
 	{
 		return potentialEnemy != Player &&
 			   potentialEnemy.HealthComponent.Health > 0 &&
-			   potentialEnemy.WorldPosition.DistanceSquared( WorldPosition ) < 750f * 750f;
+			   potentialEnemy.WorldPosition.DistanceSquared( WorldPosition ) < engagementRangeSqr;
 	}
 
 	private bool TeamFilter( PlayerPawn potentialEnemy )
