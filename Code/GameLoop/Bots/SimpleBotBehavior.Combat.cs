@@ -242,12 +242,18 @@ public partial class SimpleBotBehavior
 	{
 		InitializeHitboxData();
 
+		if ( _cachedHitBoxSet is null )
+			return Vector3.Zero;
+
 		float totalWeight = _hitboxWeights.Values.Sum();
 
 		float randomValue = Random.Shared.Float( 0, totalWeight );
 		float cumulativeWeight = 0;
 
 		var p = _currentTarget as PlayerPawn;
+
+		if ( !p.IsValid() )
+			return Vector3.Zero;
 
 		foreach ( var hitbox in _cachedHitBoxSet.All )
 		{
