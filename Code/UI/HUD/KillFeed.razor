@@ -14,13 +14,18 @@
                         <Icon style="background-tint: @( IsMe ( entry.Attacker ) ? "black" : entry.AttackerColor.Hex); File="/ui/wings.png" size="24" />
                     }
 
+                    @if ( entry.Attacker.Contains( "BOT" ) )
+                    {
+                        <Icon style="background-tint:@entry.AttackerColor.Hex;" File="/ui/bot.png" size="24" />
+                    }
+
                     @if ( IsMe( entry.Attacker ) )
                     {
                         <label style="">@entry.Attacker</label>
                     }
                     else
                     {
-                        <label style="color:@entry.AttackerColor.Hex">@entry.Attacker</label>
+                        <label style="color:@entry.AttackerColor.Hex">@entry.Attacker.Replace("BOT", "").Trim()</label>
                     }
                 </div>
             }
@@ -41,9 +46,7 @@
                     @if ( entry.Inflictor.StartsWith( "icon:" ) )
                     {
                         <div class="icon">
-
                             <Icon class="flip" File="@entry.InflictorIcon" size="64" />
-
                         </div>
                     }
                     else
@@ -70,13 +73,19 @@
             @if ( entry.Victim is not null )
             {
                 <div class="victim @(IsMe( entry.Victim ) ? "is-me" : "")">
+
+                    @if ( entry.Victim.Contains( "BOT" ) )
+                    {
+                        <Icon style="background-tint:@entry.VictimColor.Hex;" File="/ui/bot.png" size="24" />
+                    }
+
                     @if ( IsMe( entry.Victim ) )
                     {
                         <label style="">@entry.Victim</label>
                     }
                     else
                     {
-                        <label style="color:@entry.VictimColor.Hex">@entry.Victim</label>
+                        <label style="color:@entry.VictimColor.Hex">@entry.Victim.Replace("BOT", "").Trim()</label>
                     }
                 </div>
             }

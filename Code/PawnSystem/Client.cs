@@ -1,5 +1,4 @@
-﻿using Sandbox.Diagnostics;
-using Sandbox.Events;
+﻿using Sandbox.Events;
 
 namespace Facepunch;
 
@@ -53,7 +52,7 @@ public partial class Client : Component, ITeam
 	/// The team this player is on.
 	/// </summary>
 	[Property, Group( "Setup" ), Sync( SyncFlags.FromHost ), Change( nameof( OnTeamPropertyChanged ) )]
-	
+
 	public Team Team { get; set; }
 
 	/// <summary>
@@ -65,7 +64,7 @@ public partial class Client : Component, ITeam
 	/// Is this the local player for this client
 	/// </summary>
 	public bool IsLocalPlayer => !IsProxy && !IsBot && Connection == Connection.Local;
-	
+
 	/// <summary>
 	/// Unique colour or team color of this player
 	/// </summary>
@@ -93,7 +92,7 @@ public partial class Client : Component, ITeam
 			// on join, spawn right now if we can
 			RespawnState = RespawnState.Delayed;
 		}
-		
+
 		SteamId = Connection.SteamId;
 		SteamName = Connection.DisplayName;
 	}
