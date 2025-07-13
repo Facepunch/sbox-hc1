@@ -16,11 +16,6 @@ public sealed class BotFillRule : Component,
 	/// </summary>
 	[Property] public int MinPlayerCount { get; set; } = 10;
 
-	/// <summary>
-	/// Only add bots to this team, if specified
-	/// </summary>
-	[Property] public Team TargetTeam { get; set; }
-
 	private List<Client> _addedBots = new();
 
 	void IGameEventHandler<EnterStateEvent>.OnGameEvent( EnterStateEvent eventArgs )
@@ -37,7 +32,6 @@ public sealed class BotFillRule : Component,
 		// Real player joined, potentially remove a bot
 		RemoveBot();
 
-		// Update in case we need more bots
 		UpdatePlayerCount();
 	}
 
@@ -78,18 +72,7 @@ public sealed class BotFillRule : Component,
 			return null;
 
 		// Create bot
-		botManager.AddBot();
-
-		// Get the last added bot
-		var bot = GameUtils.AllPlayers.LastOrDefault( x => x.IsBot );
-		if ( bot is null )
-			return null;
-
-		// Assign team if specified
-		if ( TargetTeam != Team.Unassigned )
-		{
-			bot.Team = TargetTeam;
-		}
+		var bot = botManager.AddBot();
 
 		return bot;
 	}

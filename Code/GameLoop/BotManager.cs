@@ -29,7 +29,7 @@ public sealed class BotManager : SingletonComponent<BotManager>
 		Names = BotNames.Shuffle().ToArray();
 	}
 
-	public void AddBot()
+	public Client AddBot()
 	{
 		var player = GameNetworkManager.Instance.ClientPrefab.Clone();
 		player.Name = $"Client (BOT)";
@@ -42,6 +42,8 @@ public sealed class BotManager : SingletonComponent<BotManager>
 		GameNetworkManager.Instance.OnPlayerJoined( Client, Connection.Host );
 
 		CurrentBotId++;
+
+		return Client;
 	}
 
 	public string GetName( int id )
