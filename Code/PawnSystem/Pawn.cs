@@ -69,6 +69,8 @@ public abstract class Pawn : Component, IRespawnable, ITeam
 	/// </summary>
 	public virtual Angles EyeAngles { get; set; }
 
+	public virtual Vector3 EyePosition => WorldPosition + Vector3.Up * 64f; // Default to 64 units above the pawn
+
 	/// <summary>
 	/// The pawn's camera. Has to have one.
 	/// </summary>
@@ -82,7 +84,7 @@ public abstract class Pawn : Component, IRespawnable, ITeam
 	/// <summary>
 	/// Possess the pawn.
 	/// </summary>
-	public void Possess() => Possess(this);
+	public void Possess() => Possess( this );
 	public static void Possess( Pawn pawn )
 	{
 		if ( pawn.IsPossessed )
@@ -106,7 +108,7 @@ public abstract class Pawn : Component, IRespawnable, ITeam
 	/// </summary>
 	public void DePossess() => DePossess( this );
 	public static void DePossess( Pawn pawn )
-	{ 
+	{
 		bool wasPossessed = pawn.IsValid() && pawn.IsPossessed;
 		Current = null;
 
