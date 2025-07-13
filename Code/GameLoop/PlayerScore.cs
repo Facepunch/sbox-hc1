@@ -83,18 +83,20 @@ public sealed class PlayerScore : Component,
 {
 	[Property] public Client Client { get; set; }
 
-	[Sync( SyncFlags.FromHost ), Property, ReadOnly, Score( "Kills" )] 
+	[Sync( SyncFlags.FromHost ), Property, ReadOnly, Score( "Kills" )]
 	public int Kills { get; set; } = 0;
 
-	[Sync( SyncFlags.FromHost ), Property, ReadOnly, Score( "Deaths" )] 
+	[Sync( SyncFlags.FromHost ), Property, ReadOnly, Score( "Deaths" )]
 	public int Deaths { get; set; } = 0;
 
-	[Sync( SyncFlags.FromHost ), Property, ReadOnly, Score( "Points" ), Order( -1 )] 
+	[Sync( SyncFlags.FromHost ), Property, ReadOnly, Score( "Points" ), Order( -1 )]
 	public int Score { get; private set; } = 0;
 
 	public void AddScore( int score, string reason = null )
 	{
 		Score += score;
+
+		if ( Client.IsBot ) return;
 
 		using ( Rpc.FilterInclude( Network.Owner ) )
 		{
@@ -158,14 +160,14 @@ public sealed class PlayerScore : Component,
 
 		var killerPlayer = GameUtils.GetPlayerFromComponent( damageInfo.Attacker );
 		var victimPlayer = GameUtils.GetPlayerFromComponent( damageInfo.Victim );
-		
+
 		if ( !victimPlayer.IsValid() ) return;
 
 		if ( !killerPlayer.IsValid() )
 		{
 			if ( victimPlayer == thisPlayer )
 				Deaths++;
-			
+
 			return;
 		}
 
