@@ -32,6 +32,7 @@ public class BotController : Component
 			return;
 
 		var controller = currentPawn.GetComponentInChildren<IBotController>( true );
+
 		if ( controller is null )
 			return;
 

@@ -17,6 +17,17 @@ public partial class PlayerPawn
 		player.HealthComponent.TakeDamage( new DamageInfo( player as Component, 10, Hitbox: HitboxTags.Head ) );
 	}
 
+
+	[DeveloperCommand( "Toggle God", "Player" )]
+	private static void Command_Add_Bot()
+	{
+		var player = Client.Local.PlayerPawn;
+		if ( player is null ) return;
+
+		player.HealthComponent.IsGodMode = !player.HealthComponent.IsGodMode;
+	}
+
+
 	[DeveloperCommand( "-10 HP (chest)", "Player" )]
 	private static void Command_HurtTenChest()
 	{
@@ -63,7 +74,7 @@ public partial class PlayerPawn
 	{
 		if ( !pawn.IsValid() )
 			return;
-		
+
 		pawn.HealthComponent.TakeDamage( new( pawn, float.MaxValue ) );
 	}
 }

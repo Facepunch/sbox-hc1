@@ -57,7 +57,6 @@ public sealed class BotManager : SingletonComponent<BotManager>
 		Instance.AddBot();
 	}
 
-
 	[DeveloperCommand( "Add 9 Bots", "Game Loop" )]
 	private static void Command_Add_Bots_Filled()
 	{
