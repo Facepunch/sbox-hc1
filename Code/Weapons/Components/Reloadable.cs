@@ -24,7 +24,7 @@ public partial class Reloadable : WeaponInputAction,
 	[Property] public WeaponAmmo AmmoComponent { get; set; }
 
 	private TimeUntil TimeUntilReload { get; set; }
-	[Sync] private bool IsReloading { get; set; }
+	[Sync] public bool IsReloading { get; set; }
 
 	protected override void OnEnabled()
 	{
@@ -45,7 +45,17 @@ public partial class Reloadable : WeaponInputAction,
 			return;
 
 		if ( !Player.IsLocallyControlled )
+		{
+			if ( Player.Client.IsBot )
+			{
+				if ( IsReloading && TimeUntilReload )
+				{
+					EndReload();
+				}
+				return;
+			}
 			return;
+		}
 
 		if ( SingleReload && IsReloading && Input.Pressed( "Attack1" ) )
 		{
@@ -89,7 +99,7 @@ public partial class Reloadable : WeaponInputAction,
 	bool _queueCancel = false;
 
 	[Rpc.Owner]
-	void StartReload()
+	public void StartReload()
 	{
 		_queueCancel = false;
 
