@@ -32,46 +32,53 @@ public class BotPlayerController : Component, IBotController
 		Enabled = false;
 	}
 
-	private Task _currentBehaviorTask;
+	private Dictionary<IBotBehavior, Task> _behaviorTasks = new();
 	private CancellationTokenSource _behaviorCts;
+
 
 	internal void UpdateBehaviors( CancellationToken token )
 	{
-		// Cancel any previous behavior
-		_behaviorCts?.Cancel();
-		_behaviorCts = CancellationTokenSource.CreateLinkedTokenSource( token );
+		// Create/update cancellation token source
+		if ( _behaviorCts == null || _behaviorCts.IsCancellationRequested )
+		{
+			_behaviorCts?.Dispose();
+			_behaviorCts = CancellationTokenSource.CreateLinkedTokenSource( token );
+		}
 
-		// Start evaluating behaviors each frame
+		// Get behaviors in priority order
 		var behaviors = GetComponents<IBotBehavior>()
 			.OrderByDescending( x => x.Priority )
 			.ToList();
 
-		// Check each behavior in priority order
-		foreach ( var behavior in behaviors )
+		// Remove any completed or cancelled tasks
+		foreach ( var kv in _behaviorTasks.ToList() )
 		{
-			var result = behavior.Update( _behaviorCts.Token );
-
-			// If this behavior wants to run and isn't complete, let it
-			if ( !result.IsCompleted || result.Result )
+			if ( kv.Value.IsCompleted || kv.Value.IsCanceled )
 			{
-				return;
+				_behaviorTasks.Remove( kv.Key );
 			}
 		}
-	}
 
-	private async Task EvaluateBehaviors( List<IBotBehavior> behaviors, CancellationToken token )
-	{
+		// Update or start behavior tasks
 		foreach ( var behavior in behaviors )
 		{
-			if ( await behavior.Update( token ) )
-				break;
+			// Skip if task is already running
+			if ( _behaviorTasks.TryGetValue( behavior, out var existingTask )
+				&& !existingTask.IsCompleted )
+				continue;
+
+			// Start new behavior task
+			var task = behavior.Update( _behaviorCts.Token );
+			_behaviorTasks[behavior] = task;
 		}
 	}
 
 	protected override void OnDisabled()
 	{
 		_behaviorCts?.Cancel();
+		_behaviorCts?.Dispose();
 		_behaviorCts = null;
+		_behaviorTasks.Clear();
 	}
 
 	/// <summary>

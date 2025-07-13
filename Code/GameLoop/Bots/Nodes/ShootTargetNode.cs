@@ -74,6 +74,8 @@ public class ShootTargetNode : BaseBehaviorNode
 		{
 			_burstCount = 0;
 			_targetBurstSize = 0;
+
+			return NodeResult.Success;
 		}
 
 		return NodeResult.Running;

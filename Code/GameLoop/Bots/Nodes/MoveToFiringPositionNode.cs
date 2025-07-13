@@ -25,27 +25,24 @@ public class MoveToFiringPositionNode : BaseBehaviorNode
 		if ( !_lastSeenTargets.ContainsKey( target ) )
 			_lastSeenTargets[target] = 0;
 
-		while ( !token.IsCancellationRequested )
+		bool canSeeTarget = CanSeeTarget( context.Pawn, target );
+		if ( canSeeTarget )
+			_lastSeenTargets[target] = 0;
+
+		if ( _timeSinceMovementUpdate > UPDATE_INTERVAL )
 		{
-			bool canSeeTarget = CanSeeTarget( context.Pawn, target );
-			if ( canSeeTarget )
-				_lastSeenTargets[target] = 0;
+			_timeSinceMovementUpdate = 0;
 
-			if ( _timeSinceMovementUpdate > UPDATE_INTERVAL )
+			if ( !canSeeTarget || _lastSeenTargets[target] > TARGET_VISIBLE_MEMORY )
 			{
-				_timeSinceMovementUpdate = 0;
-
-				if ( !canSeeTarget || _lastSeenTargets[target] > TARGET_VISIBLE_MEMORY )
-				{
-					context.MeshAgent.MoveTo( target.WorldPosition );
-				}
-				else
-				{
-					context.MeshAgent.MoveTo( target.WorldPosition + Vector3.Random * RANDOM_OFFSET );
-				}
+				context.SetData( "target_position", target.WorldPosition );
+				context.MeshAgent.MoveTo( target.WorldPosition );
 			}
-
-			await context.Task.FixedUpdate();
+			else
+			{
+				context.SetData( "target_position", target.WorldPosition + Vector3.Random * RANDOM_OFFSET );
+				context.MeshAgent.MoveTo( target.WorldPosition + Vector3.Random * RANDOM_OFFSET );
+			}
 		}
 
 		return NodeResult.Success;

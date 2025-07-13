@@ -13,7 +13,7 @@ public class AimAtTargetNode : BaseBehaviorNode
 	private readonly float _accuracy;
 	private readonly float _maxInaccuracy;
 
-	public AimAtTargetNode( float aimSpeed = 10f, float accuracy = 0.05f, float maxInaccuracy = 200f )
+	public AimAtTargetNode( float aimSpeed = 10f, float accuracy = 0.05f, float maxInaccuracy = 50f )
 	{
 		_aimSpeed = aimSpeed;
 		_accuracy = accuracy;
@@ -42,7 +42,7 @@ public class AimAtTargetNode : BaseBehaviorNode
 		// Smoothly interpolate to target rotation
 		pawn.EyeAngles = pawn.EyeAngles.LerpTo( targetRotation, Time.Delta * _aimSpeed );
 
-		return NodeResult.Running;
+		return NodeResult.Success;
 	}
 
 	private Vector3 GetAimPosition( PlayerPawn target )

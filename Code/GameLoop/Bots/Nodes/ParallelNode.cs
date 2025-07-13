@@ -10,7 +10,7 @@ namespace Facepunch;
 public class ParallelNode : BaseBehaviorNode
 {
 	private readonly IBehaviorNode[] _children;
-	private readonly bool _failFast;
+	private readonly bool _failFast = true;
 	private List<IBehaviorNode> _activeChildren = new();
 
 	public ParallelNode( params IBehaviorNode[] children )
