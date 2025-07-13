@@ -115,6 +115,10 @@ public partial class Client : Component, ITeam
 
 		GameObject.Destroy();
 
+		// Don't kick our owner
+		if ( IsBot )
+			return;
+
 		// Kick the client
 		Network.Owner.Kick( reason );
 	}
