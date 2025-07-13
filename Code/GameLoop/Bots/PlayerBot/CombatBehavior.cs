@@ -6,6 +6,8 @@ public class CombatBehavior : BaseBotBehavior, IHotloadManaged
 {
 	private IBehaviorNode _behavior;
 
+	public override int Priority => 100;
+
 	[Property]
 	public BotContext Context { get; set; }
 

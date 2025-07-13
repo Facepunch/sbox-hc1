@@ -37,17 +37,26 @@ public class BotPlayerController : Component, IBotController
 
 	internal void UpdateBehaviors( CancellationToken token )
 	{
-		// If we have an active behavior running, don't start new ones
-		if ( _currentBehaviorTask is not null && !_currentBehaviorTask.IsCompleted )
-			return;
-
 		// Cancel any previous behavior
 		_behaviorCts?.Cancel();
 		_behaviorCts = CancellationTokenSource.CreateLinkedTokenSource( token );
 
-		// Start evaluating behaviors
-		var behaviors = GetComponents<IBotBehavior>().ToList();
-		_currentBehaviorTask = EvaluateBehaviors( behaviors, _behaviorCts.Token );
+		// Start evaluating behaviors each frame
+		var behaviors = GetComponents<IBotBehavior>()
+			.OrderByDescending( x => x.Priority )
+			.ToList();
+
+		// Check each behavior in priority order
+		foreach ( var behavior in behaviors )
+		{
+			var result = behavior.Update( _behaviorCts.Token );
+
+			// If this behavior wants to run and isn't complete, let it
+			if ( !result.IsCompleted || result.Result )
+			{
+				return;
+			}
+		}
 	}
 
 	private async Task EvaluateBehaviors( List<IBotBehavior> behaviors, CancellationToken token )
