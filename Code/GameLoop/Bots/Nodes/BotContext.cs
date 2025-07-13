@@ -17,7 +17,7 @@ public interface IBehaviorNode
 }
 
 /// <summary>
-/// Base class for behavior nodes that handles common functionality like debugging
+/// Base class for behavior nodes that handles common functionality
 /// </summary>
 public abstract class BaseBehaviorNode : IBehaviorNode
 {
@@ -31,6 +31,7 @@ public abstract class BaseBehaviorNode : IBehaviorNode
 
 	protected abstract Task<NodeResult> OnEvaluate( BotContext context, CancellationToken token );
 }
+
 /// <summary>
 /// Result of node evaluation
 /// </summary>

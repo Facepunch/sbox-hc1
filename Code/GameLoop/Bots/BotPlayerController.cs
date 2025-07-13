@@ -1,4 +1,5 @@
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Facepunch;
 
@@ -31,13 +32,37 @@ public class BotPlayerController : Component, IBotController
 		Enabled = false;
 	}
 
-	internal async void UpdateBehaviors( CancellationToken token )
+	private Task _currentBehaviorTask;
+	private CancellationTokenSource _behaviorCts;
+
+	internal void UpdateBehaviors( CancellationToken token )
 	{
-		foreach ( var behavior in GetComponents<IBotBehavior>() )
+		// If we have an active behavior running, don't start new ones
+		if ( _currentBehaviorTask is not null && !_currentBehaviorTask.IsCompleted )
+			return;
+
+		// Cancel any previous behavior
+		_behaviorCts?.Cancel();
+		_behaviorCts = CancellationTokenSource.CreateLinkedTokenSource( token );
+
+		// Start evaluating behaviors
+		var behaviors = GetComponents<IBotBehavior>().ToList();
+		_currentBehaviorTask = EvaluateBehaviors( behaviors, _behaviorCts.Token );
+	}
+
+	private async Task EvaluateBehaviors( List<IBotBehavior> behaviors, CancellationToken token )
+	{
+		foreach ( var behavior in behaviors )
 		{
 			if ( await behavior.Update( token ) )
 				break;
 		}
+	}
+
+	protected override void OnDisabled()
+	{
+		_behaviorCts?.Cancel();
+		_behaviorCts = null;
 	}
 
 	/// <summary>
