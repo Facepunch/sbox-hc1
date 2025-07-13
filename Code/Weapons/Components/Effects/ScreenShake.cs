@@ -1,5 +1,4 @@
 using Sandbox.Events;
-using static Facepunch.Shootable;
 
 namespace Facepunch;
 
@@ -11,6 +10,8 @@ public class ScreenShakeOnShot : EquipmentComponent, IGameEventHandler<WeaponSho
 
 	void IGameEventHandler<WeaponShotEvent>.OnGameEvent( WeaponShotEvent eventArgs )
 	{
+		if ( !Player.IsViewer ) return;
+
 		var shake = new ScreenShake.Random( Length, Size );
 		ScreenShaker.Main?.Add( shake );
 	}
