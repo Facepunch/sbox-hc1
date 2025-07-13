@@ -10,7 +10,16 @@ public partial class SimpleBotBehavior
 	/// </summary>
 	[Property] public float ReactionSpeedBias { get; set; } = 0.5f;
 
+	/// <summary>
+	/// How accurate are we
+	/// </summary>
 	[Property] public float Accuracy { get; set; } = 0.25f;
+
+	/// <summary>
+	/// When a bot shoots, they won't keep shooting forever, they'll shoot in controllable bursts
+	/// TODO: Expose per-weapon, or have the bot dictate based on mag size, semi auto, etc..
+	/// </summary>
+	[Property] public RangedFloat BurstRange { get; set; } = new RangedFloat( 1, 5 );
 
 	private async Task<bool> ValidateTarget( CancellationToken token )
 	{
@@ -125,21 +134,51 @@ public partial class SimpleBotBehavior
 
 	private async Task<bool> HandleShooting( CancellationToken token )
 	{
+		var burstCount = 0;
+		var targetBurstSize = 0;
+		var timeSinceLastShot = 0f;
+		const float burstBreakTime = 0.5f; // Time between bursts in seconds
+
 		while ( !token.IsCancellationRequested )
 		{
-			// Can see target => shoot at it
+			// Can see target => consider shooting at it
 			if ( _lastSeenEnemies.TryGetValue( _currentTarget, out TimeSince value ) && value < 0.1f )
 			{
 				var w = Player.CurrentEquipment;
 				if ( w.IsValid() && w.GetComponentInChildren<Shootable>() is { } shootable )
 				{
-					if ( shootable.CanShoot() )
+					// If we're not in a burst, decide if we should start one
+					if ( burstCount == 0 )
+					{
+						if ( timeSinceLastShot > burstBreakTime )
+						{
+							// Start new burst
+							targetBurstSize = BurstRange.GetValue().CeilToInt();
+							burstCount = 0;
+						}
+					}
+
+					if ( burstCount < targetBurstSize && shootable.CanShoot() )
 					{
 						shootable.Shoot();
+						burstCount++;
+						timeSinceLastShot = 0f;
+					}
+					else if ( burstCount >= targetBurstSize )
+					{
+						burstCount = 0;
+						targetBurstSize = 0;
 					}
 				}
 			}
+			else
+			{
+				// Lost sight of target, reset burst
+				burstCount = 0;
+				targetBurstSize = 0;
+			}
 
+			timeSinceLastShot += Time.Delta;
 			await Task.FixedUpdate();
 		}
 
