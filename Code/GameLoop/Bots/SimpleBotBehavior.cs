@@ -117,7 +117,7 @@ public partial class SimpleBotBehavior : Component
 			}
 			catch ( Exception ex )
 			{
-				Log.Error( $"Error in bot behavior: {ex}" );
+				Log.Error( ex );
 			}
 		}
 	}

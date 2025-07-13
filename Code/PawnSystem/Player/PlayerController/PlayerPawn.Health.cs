@@ -29,9 +29,12 @@ public partial class PlayerPawn : IGameEventHandler<DamageGivenEvent>, IGameEven
 		var position = eventArgs.DamageInfo.Position;
 		var force = damageInfo.Force.IsNearZeroLength ? Random.Shared.VectorInSphere() : damageInfo.Force;
 
-		foreach ( var helper in Body.AnimationHelpers )
+		if ( Body.IsValid() && Body.AnimationHelpers is not null )
 		{
-			helper.ProceduralHitReaction( damageInfo.Damage / 100f, force );
+			foreach ( var helper in Body.AnimationHelpers )
+			{
+				helper.ProceduralHitReaction( damageInfo.Damage / 100f, force );
+			}
 		}
 
 		if ( !damageInfo.Attacker.IsValid() )

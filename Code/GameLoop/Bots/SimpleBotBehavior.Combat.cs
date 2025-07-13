@@ -91,27 +91,19 @@ public partial class SimpleBotBehavior
 			if ( !_currentTarget.IsValid() )
 				return true;
 
-			try
-			{
-				bool result = await RunParallel(
-					token,
-					ValidateTarget,
-					UpdateAim,
-					HandleMovement,
-					HandleReload,
-					HandleShooting
-				);
+			bool result = await RunParallel(
+				token,
+				ValidateTarget,
+				UpdateAim,
+				HandleMovement,
+				HandleReload,
+				HandleShooting
+			);
 
-				if ( !result && !_currentTarget.IsValid() )
-					return true;
-
-				await Task.DelayRealtimeSeconds( 0.1f );
-			}
-			catch ( Exception ex )
-			{
-				Log.Error( $"Combat behavior error: {ex}" );
+			if ( !result && !_currentTarget.IsValid() )
 				return true;
-			}
+
+			await Task.DelayRealtimeSeconds( 0.1f );
 		}
 
 		return true;
