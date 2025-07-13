@@ -1,6 +1,8 @@
+using Sandbox.Events;
+
 namespace Facepunch;
 
-public partial class PlayerPawn
+public partial class PlayerPawn : IGameEventHandler<WeaponShotEvent>
 {
 	/// <summary>
 	/// Called when the player jumps.
@@ -457,6 +459,11 @@ public partial class PlayerPawn
 		var cross = _ladderNormal * normalDot;
 		cc.Velocity = (velocity - cross) + (-normalDot * _ladderNormal.Cross( Vector3.Up.Cross( _ladderNormal ).Normal ));
 		cc.Move();
+	}
+
+	void IGameEventHandler<WeaponShotEvent>.OnGameEvent( WeaponShotEvent ev )
+	{
+		TimeSinceLastInput = 0;
 	}
 
 	private void BuildWishInput()

@@ -259,7 +259,7 @@ public partial class Shootable : WeaponInputAction,
 
 		DoShootEffects();
 
-		GameObject.Dispatch( new WeaponShotEvent() );
+		Player.GameObject.Dispatch( new WeaponShotEvent() );
 
 		for ( int i = 0; i < BulletCount; i++ )
 		{
