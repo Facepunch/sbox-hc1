@@ -70,21 +70,25 @@ public partial class SimpleBotBehavior
 		return !token.IsCancellationRequested;
 	}
 
+	private bool IsValidTarget( Pawn target )
+	{
+		if ( !target.IsValid() || target.HealthComponent.State != LifeState.Alive )
+			return false;
+		return true;
+	}
+
 	private async Task<bool> Combat( CancellationToken token )
 	{
 		_currentTarget = FindAndUpdateTarget();
 
-		if ( !_currentTarget.IsValid() )
+		if ( !IsValidTarget( _currentTarget ) )
 			return false;
-
-		var combatStartTime = Time.Now;
-		const float maxCombatTime = 30f;
 
 		while ( !token.IsCancellationRequested )
 		{
 			_currentTarget = FindAndUpdateTarget();
 
-			if ( !_currentTarget.IsValid() || Time.Now - combatStartTime > maxCombatTime )
+			if ( !_currentTarget.IsValid() )
 				return true;
 
 			try
@@ -112,6 +116,7 @@ public partial class SimpleBotBehavior
 
 		return true;
 	}
+
 	private async Task<bool> HandleReload( CancellationToken token )
 	{
 		while ( !token.IsCancellationRequested )
