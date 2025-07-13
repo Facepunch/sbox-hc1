@@ -1,5 +1,4 @@
 using Sandbox.Events;
-using static Facepunch.Shootable;
 
 namespace Facepunch;
 
@@ -31,10 +30,13 @@ public class ViewPunch : EquipmentComponent, IGameEventHandler<WeaponShotEvent>
 
 	void IGameEventHandler<WeaponShotEvent>.OnGameEvent( WeaponShotEvent eventArgs )
 	{
-		var shake = new ScreenShake.Punch( 
-			Lifetime, 
-			GetBetween( PositionOffset, MaxPositionOffset ), 
-			GetBetween( AnglesOffset, MaxAnglesOffset ), 
+		if ( !Player.IsValid() || !Player.IsViewer )
+			return;
+
+		var shake = new ScreenShake.Punch(
+			Lifetime,
+			GetBetween( PositionOffset, MaxPositionOffset ),
+			GetBetween( AnglesOffset, MaxAnglesOffset ),
 			Curve );
 
 		ScreenShaker.Main?.Add( shake );
