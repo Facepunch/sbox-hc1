@@ -1,6 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Facepunch;
 
 /// <summary>
@@ -13,7 +10,7 @@ public interface IBehaviorNode
 	/// <summary>
 	/// Evaluate this node's behavior
 	/// </summary>
-	Task<NodeResult> Evaluate( BotContext context, CancellationToken token );
+	NodeResult Evaluate( BotContext context );
 }
 
 /// <summary>
@@ -23,13 +20,13 @@ public abstract class BaseBehaviorNode : IBehaviorNode
 {
 	public virtual string Name => GetType().Name.Replace( "Node", "" );
 
-	public async Task<NodeResult> Evaluate( BotContext context, CancellationToken token )
+	public NodeResult Evaluate( BotContext context )
 	{
-		var result = await OnEvaluate( context, token );
-		return result;
+		// subclasses implement their own synchronous evaluation
+		return OnEvaluate( context );
 	}
 
-	protected abstract Task<NodeResult> OnEvaluate( BotContext context, CancellationToken token );
+	protected abstract NodeResult OnEvaluate( BotContext context );
 }
 
 /// <summary>
@@ -57,10 +54,9 @@ public class BotContext
 
 	public IReadOnlyDictionary<string, object> Blackboard => _blackboard.AsReadOnly();
 
-	public BotContext( BotPlayerController controller, TaskSource taskSource )
+	public BotContext( BotPlayerController controller )
 	{
 		Controller = controller;
-		Task = taskSource;
 	}
 
 	public void SetData<T>( string key, T value ) => _blackboard[key] = value;

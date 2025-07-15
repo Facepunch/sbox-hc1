@@ -1,30 +1,15 @@
-using Facepunch;
-using System.Threading;
-using System.Threading.Tasks;
+namespace Facepunch;
 
-public class CombatBehavior : BaseBotBehavior, IHotloadManaged
+public class CombatBehavior : BaseBotBehavior
 {
 	private IBehaviorNode _behavior;
 
-	public override int Priority => 100;
-
-	[Property]
-	public BotContext Context { get; set; }
-
-	void IHotloadManaged.Created( IReadOnlyDictionary<string, object> state )
-	{
-		OnInitialize();
-	}
-
 	protected override void OnInitialize()
 	{
-		// Build behavior tree
 		_behavior = new SequenceNode(
 			new HasVisibleEnemiesNode(),
-			new HasVisibleTeammatesNode(),
 			new SelectTargetNode(),
 			new ReloadWeaponNode(),
-
 			new ParallelNode(
 				new MoveToFiringPositionNode(),
 				new AimAtTargetNode(),
@@ -33,10 +18,27 @@ public class CombatBehavior : BaseBotBehavior, IHotloadManaged
 		);
 	}
 
-	public override async Task<bool> Update( CancellationToken token )
+	public override float Score( BotContext ctx )
 	{
-		Context = new BotContext( Controller, Task );
-		var result = await _behavior.Evaluate( Context, token );
-		return result == NodeResult.Success;
+		// Use perception data that BotPlayerController already populated
+		if ( !ctx.HasData( "visible_enemies" ) )
+			return 0f;
+
+		var enemies = ctx.GetData<List<Pawn>>( "visible_enemies" );
+		if ( enemies == null || enemies.Count == 0 )
+			return 0f;
+
+		// Simple scoring: higher when enemies are closer
+		float baseScore = 100f;
+		float closestDist = enemies.Min( e => e.WorldPosition.Distance( ctx.Pawn.WorldPosition ) );
+		float proximityBonus = MathF.Max( 0, 50f * (1f - closestDist / 1000f) );
+
+		return baseScore + proximityBonus;
+	}
+
+	public override NodeResult Update( BotContext ctx )
+	{
+		// Just run the tree using the already-populated blackboard
+		return _behavior.Evaluate( ctx );
 	}
 }

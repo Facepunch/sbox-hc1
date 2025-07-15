@@ -1,5 +1,4 @@
-using System.Threading;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace Facepunch;
 
@@ -12,6 +11,8 @@ public class BotPlayerController : Component, IBotController
 	public NavMeshAgent MeshAgent { get; set; }
 
 	public PlayerPawn Player { get; set; }
+
+
 
 	protected override void OnAwake()
 	{
@@ -32,54 +33,71 @@ public class BotPlayerController : Component, IBotController
 		Enabled = false;
 	}
 
-	private Dictionary<IBotBehavior, Task> _behaviorTasks = new();
-	private CancellationTokenSource _behaviorCts;
+	private IBotBehavior _currentBehavior;
+	private BotContext _frameContext;
 
+	private TimeSince _timeSincePerception = 0;
+	private float _perceptionInterval = 0.2f;
 
-	internal void UpdateBehaviors( CancellationToken token )
+	[Property, JsonIgnore, ReadOnly]
+	public BotContext Context => _frameContext;
+
+	internal void UpdateBehaviors()
 	{
-		// Create/update cancellation token source
-		if ( _behaviorCts == null || _behaviorCts.IsCancellationRequested )
+		// Build or reuse a context for this frame
+		if ( _frameContext == null || _frameContext.Controller != this )
+			_frameContext = new BotContext( this );
+
+		// Run perception only if interval has passed
+		if ( _timeSincePerception > _perceptionInterval )
 		{
-			_behaviorCts?.Dispose();
-			_behaviorCts = CancellationTokenSource.CreateLinkedTokenSource( token );
+			_timeSincePerception = 0;
+			var perceptionNode = new UpdatePerceptionNode();
+			perceptionNode.Evaluate( _frameContext );
 		}
 
-		// Get behaviors in priority order
-		var behaviors = GetComponents<IBotBehavior>()
-			.OrderByDescending( x => x.Priority )
+		// --- Score all behaviors using the same context ---
+		var scored = GetComponents<IBotBehavior>()
+			.Select( b => new { Behavior = b, Score = b.Score( _frameContext ) } )
+			.OrderByDescending( x => x.Score )
 			.ToList();
 
-		// Remove any completed or cancelled tasks
-		foreach ( var kv in _behaviorTasks.ToList() )
+		if ( scored.Count == 0 || scored[0].Score <= 0f )
 		{
-			if ( kv.Value.IsCompleted || kv.Value.IsCanceled )
+			_currentBehavior = null;
+			return;
+		}
+
+		var topBehavior = scored[0].Behavior;
+		var topScore = scored[0].Score;
+
+		// If a different behavior is running and a higher-scoring one appears, switch
+		if ( _currentBehavior != null && _currentBehavior != topBehavior )
+		{
+			var currentScore = _currentBehavior.Score( _frameContext );
+			if ( topScore > currentScore )
 			{
-				_behaviorTasks.Remove( kv.Key );
+				_currentBehavior = topBehavior;
 			}
 		}
 
-		// Update or start behavior tasks
-		foreach ( var behavior in behaviors )
+		// If no current behavior, pick the top-scoring one
+		if ( _currentBehavior == null )
 		{
-			// Skip if task is already running
-			if ( _behaviorTasks.TryGetValue( behavior, out var existingTask )
-				&& !existingTask.IsCompleted )
-				continue;
+			_currentBehavior = topBehavior;
+		}
 
-			// Start new behavior task
-			var task = behavior.Update( _behaviorCts.Token );
-			_behaviorTasks[behavior] = task;
+		// --- Tick the chosen behavior using the same context ---
+		if ( _currentBehavior != null )
+		{
+			var result = _currentBehavior.Update( _frameContext );
+			if ( result != NodeResult.Running && result != NodeResult.Success )
+			{
+				_currentBehavior = null;
+			}
 		}
 	}
 
-	protected override void OnDisabled()
-	{
-		_behaviorCts?.Cancel();
-		_behaviorCts?.Dispose();
-		_behaviorCts = null;
-		_behaviorTasks.Clear();
-	}
 
 	/// <summary>
 	/// Sometimes we need to synchronize the NavMeshAgent with the physics system.
@@ -103,7 +121,6 @@ public class BotPlayerController : Component, IBotController
 	void IBotController.OnControl( BotController bot )
 	{
 		SyncNavAgentWithPhysics();
-
-		UpdateBehaviors( bot.GameObject.EnabledToken );
+		UpdateBehaviors();
 	}
 }

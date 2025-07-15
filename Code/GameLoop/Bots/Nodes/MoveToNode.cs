@@ -1,6 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Facepunch;
 
 /// <summary>
@@ -17,7 +14,7 @@ public class MoveToNode : BaseBehaviorNode
 		_faceDirection = faceDirection;
 	}
 
-	protected override async Task<NodeResult> OnEvaluate( BotContext context, CancellationToken token )
+	protected override NodeResult OnEvaluate( BotContext context )
 	{
 		if ( !context.HasData( "target_position" ) )
 			return NodeResult.Failure;
@@ -29,27 +26,22 @@ public class MoveToNode : BaseBehaviorNode
 		if ( !agent.IsValid() )
 			return NodeResult.Failure;
 
-		// Start moving
+		// Step agent toward target
 		agent.MoveTo( targetPos );
 
-		// Keep checking until we arrive or get cancelled
-		while ( !token.IsCancellationRequested )
+		// Check if we've reached target
+		float distSqr = pawn.WorldPosition.DistanceSquared( targetPos );
+		if ( distSqr < _arrivalDistance * _arrivalDistance )
+			return NodeResult.Success;
+
+		// Face movement direction if desired
+		if ( _faceDirection && agent.WishVelocity.Length > 0.1f )
 		{
-			// Check if we've reached target
-			var distance = pawn.WorldPosition.DistanceSquared( targetPos );
-			if ( distance < _arrivalDistance * _arrivalDistance )
-				return NodeResult.Success;
-
-			// Face movement direction if enabled
-			if ( _faceDirection && agent.WishVelocity.Length > 0.1f )
-			{
-				var targetRot = Rotation.LookAt( agent.WishVelocity.Normal );
-				pawn.EyeAngles = pawn.EyeAngles.LerpTo( targetRot.Angles(), Time.Delta * 5f );
-			}
-
-			await context.Task.FixedUpdate();
+			var targetRot = Rotation.LookAt( agent.WishVelocity.Normal );
+			pawn.EyeAngles = pawn.EyeAngles.LerpTo( targetRot.Angles(), Time.Delta * 5f );
 		}
 
-		return NodeResult.Running; // Let parent nodes know we're still working
+		return NodeResult.Running;
 	}
 }
+

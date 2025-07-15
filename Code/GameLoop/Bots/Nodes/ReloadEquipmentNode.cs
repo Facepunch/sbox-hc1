@@ -1,6 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Facepunch;
 
 /// <summary>
@@ -9,13 +6,14 @@ namespace Facepunch;
 public class ReloadWeaponNode : BaseBehaviorNode
 {
 	private readonly bool _waitForReload;
+	private bool _waiting;
 
 	public ReloadWeaponNode( bool waitForReload = false )
 	{
 		_waitForReload = waitForReload;
 	}
 
-	protected override async Task<NodeResult> OnEvaluate( BotContext context, CancellationToken token )
+	protected override NodeResult OnEvaluate( BotContext context )
 	{
 		var weapon = context.Pawn.CurrentEquipment;
 		if ( !weapon.IsValid() )
@@ -23,32 +21,34 @@ public class ReloadWeaponNode : BaseBehaviorNode
 
 		var reloadable = weapon.GetComponentInChildren<Reloadable>();
 		if ( reloadable == null )
-			return NodeResult.Success; // Not a reloadable weapon, that's fine
+			return NodeResult.Success; // weapon doesn’t need reload
 
-		// Already reloading
+		// If currently reloading
 		if ( reloadable.IsReloading )
 		{
-			return _waitForReload
-				? NodeResult.Running
-				: NodeResult.Success;
+			if ( _waitForReload )
+			{
+				// stay running until reload completes
+				return NodeResult.Running;
+			}
+			return NodeResult.Success;
 		}
 
-		// Need to reload
+		// If ammo is out, trigger reload
 		if ( !reloadable.AmmoComponent.HasAmmo )
 		{
 			reloadable.StartReload();
 
-			// If we want to wait for reload to complete
 			if ( _waitForReload )
 			{
-				while ( !token.IsCancellationRequested && reloadable.IsReloading )
-				{
-					await context.Task.FixedUpdate();
-				}
+				// on next ticks we will sit in the above "IsReloading" path
+				_waiting = true;
+				return NodeResult.Running;
 			}
 		}
 
-		// No need to reload.
+		// Otherwise we are fine
+		_waiting = false;
 		return NodeResult.Success;
 	}
 }

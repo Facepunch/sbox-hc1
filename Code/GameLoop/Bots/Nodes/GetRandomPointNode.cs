@@ -1,6 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Facepunch;
 
 /// <summary>
@@ -9,20 +6,26 @@ namespace Facepunch;
 public class GetRandomPointNode : BaseBehaviorNode
 {
 	private const string TARGET_POSITION_KEY = "target_position";
+	private bool _hasRun;
 
-	protected override async Task<NodeResult> OnEvaluate( BotContext context, CancellationToken token )
+	protected override NodeResult OnEvaluate( BotContext context )
 	{
+		// Only pick a random point once per sequence run
+		if ( _hasRun )
+			return NodeResult.Success;
+
 		var randomPoint = Game.ActiveScene.NavMesh.GetRandomPoint();
 		if ( !randomPoint.HasValue )
 			return NodeResult.Failure;
 
 		context.SetData( TARGET_POSITION_KEY, randomPoint.Value );
-
-		await context.Task.FixedUpdate();
-
-		if ( token.IsCancellationRequested )
-			return NodeResult.Failure;
-
+		_hasRun = true;
 		return NodeResult.Success;
+	}
+
+	// Optional: reset if needed when sequence resets
+	public void Reset()
+	{
+		_hasRun = false;
 	}
 }

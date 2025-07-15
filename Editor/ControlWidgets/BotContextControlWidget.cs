@@ -61,6 +61,7 @@ public class BotContextControlWidget : ControlWidget
 			float f => f.ToString( "F2" ),
 			bool b => b.ToString(),
 			Vector3 v => v.ToString(),
+			Component c => $"{c.GameObject.ToString()}",
 			_ => obj?.ToString() ?? "null"
 		};
 	}

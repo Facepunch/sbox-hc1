@@ -1,42 +1,44 @@
-using System.Threading;
-using System.Threading.Tasks;
+﻿namespace Facepunch;
 
-namespace Facepunch;
-
-/// <summary>
-/// Executes child nodes in sequence until one fails
-/// </summary>
-public class SequenceNode : BaseBehaviorNode
+public class SequenceNode : IBehaviorNode
 {
-	private readonly IBehaviorNode[] _children;
-	private IBehaviorNode _activeChild;
+	private readonly List<IBehaviorNode> _children = new();
+	private int _currentIndex = 0;
 
-	public SequenceNode( params IBehaviorNode[] children )
+	public SequenceNode( params IBehaviorNode[] nodes )
 	{
-		_children = children;
+		_children.AddRange( nodes );
 	}
 
-	protected override async Task<NodeResult> OnEvaluate( BotContext context, CancellationToken token )
+	public NodeResult Evaluate( BotContext context )
 	{
-		foreach ( var child in _children )
+		// run current child until it succeeds or fails
+		while ( _currentIndex < _children.Count )
 		{
-			_activeChild = child;
-			var result = await child.Evaluate( context, token );
-			if ( result != NodeResult.Success )
-				return result;
+			var result = _children[_currentIndex].Evaluate( context );
+
+			if ( result == NodeResult.Running )
+			{
+				return NodeResult.Running;
+			}
+
+			if ( result == NodeResult.Failure )
+			{
+				_currentIndex = 0;
+				return NodeResult.Failure;
+			}
+
+			// success, move to next
+			_currentIndex++;
 		}
 
+		// all children succeeded
+		_currentIndex = 0;
 		return NodeResult.Success;
 	}
 
-	public override string Name
+	public void Reset()
 	{
-		get
-		{
-			if ( _activeChild != null )
-				return _activeChild.Name;
-
-			return "Sequence";
-		}
+		_currentIndex = 0;
 	}
 }

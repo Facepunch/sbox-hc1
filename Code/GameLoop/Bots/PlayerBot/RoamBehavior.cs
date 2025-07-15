@@ -1,13 +1,13 @@
-using Facepunch;
-using System.Threading;
-using System.Threading.Tasks;
+namespace Facepunch;
 
 public class RoamBehavior : BaseBotBehavior
 {
 	private IBehaviorNode _behavior;
 
-	[Property]
-	public BotContext Context { get; set; }
+	public override float Score( BotContext ctx )
+	{
+		return 10f;
+	}
 
 	protected override void OnInitialize()
 	{
@@ -18,10 +18,8 @@ public class RoamBehavior : BaseBotBehavior
 		);
 	}
 
-	public override async Task<bool> Update( CancellationToken token )
+	public override NodeResult Update( BotContext ctx )
 	{
-		Context = new BotContext( Controller, Task );
-		var result = await _behavior.Evaluate( Context, token );
-		return result == NodeResult.Success;
+		return _behavior.Evaluate( ctx );
 	}
 }

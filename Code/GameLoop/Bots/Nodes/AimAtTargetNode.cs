@@ -1,6 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Facepunch;
 
 /// <summary>
@@ -20,7 +17,7 @@ public class AimAtTargetNode : BaseBehaviorNode
 		_maxInaccuracy = maxInaccuracy;
 	}
 
-	protected override async Task<NodeResult> OnEvaluate( BotContext context, CancellationToken token )
+	protected override NodeResult OnEvaluate( BotContext context )
 	{
 		if ( !context.HasData( CURRENT_TARGET_KEY ) )
 			return NodeResult.Failure;

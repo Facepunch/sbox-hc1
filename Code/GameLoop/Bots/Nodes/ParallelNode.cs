@@ -1,6 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Facepunch;
 
 /// <summary>
@@ -11,50 +8,36 @@ public class ParallelNode : BaseBehaviorNode
 {
 	private readonly IBehaviorNode[] _children;
 	private readonly bool _failFast = true;
-	private List<IBehaviorNode> _activeChildren = new();
 
 	public ParallelNode( params IBehaviorNode[] children )
 	{
 		_children = children;
 	}
 
-	protected override async Task<NodeResult> OnEvaluate( BotContext context, CancellationToken token )
+	protected override NodeResult OnEvaluate( BotContext context )
 	{
-		_activeChildren.Clear();
+		bool anyRunning = false;
 
-		var tasks = _children.Select( x =>
+		foreach ( var child in _children )
 		{
-			_activeChildren.Add( x );
-			return x.Evaluate( context, token );
-		} ).ToList();
+			var result = child.Evaluate( context );
 
-		var results = new List<NodeResult>();
-
-		while ( tasks.Any() )
-		{
-			var completedTask = await context.Task.WhenAny( tasks );
-			var result = await completedTask;
-			tasks.Remove( completedTask );
-
-			results.Add( result );
-
-			if ( _failFast && result == NodeResult.Failure )
+			if ( result == NodeResult.Failure && _failFast )
 				return NodeResult.Failure;
+
+			if ( result == NodeResult.Running )
+				anyRunning = true;
 		}
 
-		return results.All( x => x == NodeResult.Success )
-			? NodeResult.Success
-			: NodeResult.Failure;
+		if ( anyRunning )
+			return NodeResult.Running;
+
+		// if none running and none failed, all succeeded
+		return NodeResult.Success;
 	}
 
-	public override string Name
+	public override string ToString()
 	{
-		get
-		{
-			if ( _activeChildren.Count > 0 )
-				return string.Join( "+", _activeChildren.Select( x => x.Name ) );
-
-			return "Parallel";
-		}
+		return string.Join( "+", _children.Select( c => c.ToString() ) );
 	}
 }

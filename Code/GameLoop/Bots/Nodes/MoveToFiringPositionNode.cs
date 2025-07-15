@@ -1,6 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Facepunch;
 
 public class MoveToFiringPositionNode : BaseBehaviorNode
@@ -13,7 +10,7 @@ public class MoveToFiringPositionNode : BaseBehaviorNode
 	private Dictionary<PlayerPawn, TimeSince> _lastSeenTargets = new();
 	private TimeSince _timeSinceMovementUpdate;
 
-	protected override async Task<NodeResult> OnEvaluate( BotContext context, CancellationToken token )
+	protected override NodeResult OnEvaluate( BotContext context )
 	{
 		if ( !context.HasData( CURRENT_TARGET_KEY ) )
 			return NodeResult.Failure;

@@ -16,12 +16,18 @@ public interface IBotBehavior
 	/// <summary>
 	/// Update the behavior. Return true if this behavior handled the update.
 	/// </summary>
-	Task<bool> Update( CancellationToken token );
+	NodeResult Update( BotContext context );
 
 	/// <summary>
 	/// Priority of this behavior (higher priority behaviors are checked first)
 	/// </summary>
 	int Priority { get; }
+
+	/// <summary>
+	/// Score this behavior for selection purposes.
+	/// </summary>
+	/// <returns></returns>
+	float Score( BotContext context );
 }
 
 /// <summary>
@@ -43,7 +49,9 @@ public abstract class BaseBotBehavior : Component, IBotBehavior
 
 	protected virtual void OnInitialize() { }
 
-	public abstract Task<bool> Update( CancellationToken token );
+	public abstract NodeResult Update( BotContext ctx );
+
+	public virtual float Score( BotContext ctx ) => 0f;
 
 	/// <summary>
 	/// Executes tasks in parallel with different cancellation/success modes.
