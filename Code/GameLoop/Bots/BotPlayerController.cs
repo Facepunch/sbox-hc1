@@ -44,6 +44,8 @@ public class BotPlayerController : Component, IBotController
 
 	internal void UpdateBehaviors()
 	{
+		using var _ = Sandbox.Diagnostics.Performance.Scope( "HC1::UpdateBehaviors" );
+
 		// Build or reuse a context for this frame
 		if ( _frameContext == null || _frameContext.Controller != this )
 			_frameContext = new BotContext( this );
