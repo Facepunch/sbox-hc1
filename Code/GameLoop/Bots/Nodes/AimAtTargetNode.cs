@@ -75,14 +75,23 @@ public class AimAtTargetNode : BaseBehaviorNode
 
 			if ( randomValue <= cumulativeWeight )
 			{
-
 				if ( !_currentPlayer.BodyRenderer.TryGetBoneTransform( hitbox.Bone, out var boneTransform ) )
 					continue;
 
-				var spread = 5f * (1f / MathF.Max( Accuracy, 0.1f ));
+				// Distance from bot to this hitbox center
+				var botEyePos = _currentTarget.EyePosition;
+				var hitboxWorldPos = boneTransform.Position;
+				float distance = (hitboxWorldPos - botEyePos).Length;
+
+				// Base spread (smaller = more accurate)
+				var baseSpread = 5f * (1f / MathF.Max( Accuracy, 0.1f ));
+
+				// Scale spread by distance so that close targets get smaller offsets
+				var worldSpread = baseSpread * (distance / 1000f);
+
 				var localAimTarget =
 					boneTransform.Position +
-					GetRandomPointInHitbox( hitbox, spread ) -
+					GetRandomPointInHitbox( hitbox, worldSpread ) -
 					_currentTarget.WorldPosition;
 
 				return localAimTarget;
