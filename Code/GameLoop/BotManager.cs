@@ -34,10 +34,46 @@ public sealed class BotManager : SingletonComponent<BotManager>
 		var player = GameNetworkManager.Instance.ClientPrefab.Clone();
 		player.Name = $"Client (BOT)";
 
+		// AI
+		var botController = player.AddComponent<BotController>();
+
 		var Client = player.GetComponent<Client>();
 		Client.BotId = CurrentBotId;
 
-		var botController = player.AddComponent<BotController>();
+		// Simpsons
+		var steamid = Game.Random.FromArray( [
+				76561198076731362,
+				76561198115447501,
+				76561198081295106,
+				76561198165412225,
+				76561198023414915,
+				76561198176366622,
+				76561198092430664,
+				76561198066084037,
+				76561198368894435,
+				76561198389241377,
+				76561198158965172,
+				76561198306626714,
+				76561198208716648,
+				76561198835780877,
+				76561197970331648,
+				76561198051740093,
+				76561198111069943,
+				76561198075423731,
+				76561197965588718,
+				76561197960316241,
+				76561198361294115,
+				76561197960555384,
+				76561198021354850,
+				76561198207495888,
+				76561198040673812,
+				76561198241363850,
+				76561198151921867,
+				76561198095212046,
+				76561198169445087
+		] );
+
+		Client.SteamId = (ulong)steamid;
 
 		GameNetworkManager.Instance.OnPlayerJoined( Client, Connection.Host );
 

@@ -25,7 +25,7 @@ public partial class Client : Component, ITeam
 	/// <summary>
 	/// The player's name, which might have to persist if they leave
 	/// </summary>
-	[Sync( SyncFlags.FromHost )] private string SteamName { get; set; }
+	[Sync( SyncFlags.FromHost )] public string SteamName { get; set; }
 
 	/// <summary>
 	/// The connection of this player
@@ -93,7 +93,7 @@ public partial class Client : Component, ITeam
 			RespawnState = RespawnState.Delayed;
 		}
 
-		SteamId = Connection.SteamId;
+		if ( !IsBot ) SteamId = Connection.SteamId;
 		SteamName = Connection.DisplayName;
 	}
 
