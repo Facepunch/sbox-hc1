@@ -13,7 +13,7 @@ public class AimAtTargetNode : BaseBehaviorNode
 	private Dictionary<string, float> _hitboxWeights;
 
 	// TODO: configurable skill
-	private const float Accuracy = 0.25f;
+	private const float Accuracy = 0.01f;
 
 	protected override NodeResult OnEvaluate( BotContext context )
 	{
@@ -84,7 +84,7 @@ public class AimAtTargetNode : BaseBehaviorNode
 				float distance = (hitboxWorldPos - botEyePos).Length;
 
 				// Base spread (smaller = more accurate)
-				var baseSpread = 5f * (1f / MathF.Max( Accuracy, 0.1f ));
+				var baseSpread = 5f * (1f / Accuracy);
 
 				// Scale spread by distance so that close targets get smaller offsets
 				var worldSpread = baseSpread * (distance / 1000f);

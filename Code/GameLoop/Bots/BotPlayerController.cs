@@ -37,7 +37,7 @@ public class BotPlayerController : Component, IBotController
 	private BotContext _frameContext;
 
 	private TimeSince _timeSincePerception = 0;
-	private float _perceptionInterval = 0.2f;
+	private const float _perceptionInterval = 0.5f;
 
 	[Property, JsonIgnore, ReadOnly]
 	public BotContext Context => _frameContext;
