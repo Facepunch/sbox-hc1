@@ -195,38 +195,11 @@ public partial class Shootable : WeaponInputAction,
 			Equipment.ViewModel.ModelRenderer.Set( "b_attack", true );
 	}
 
-	private Decal CreateDecal( Texture material, Vector3 pos, Vector3 normal, float rotation, float size, float depth, float destroyTime = 3f )
-	{
-		var gameObject = Scene.CreateObject();
-		gameObject.Name = $"Impact decal: {Equipment.GameObject}";
-		gameObject.WorldPosition = pos;
-		gameObject.WorldRotation = Rotation.LookAt( -normal );
-
-		// Random rotation
-		gameObject.WorldRotation *= Rotation.FromAxis( Vector3.Forward, rotation );
-
-		var decal = gameObject.Components.Create<Decal>();
-		decal.Decals.Add( new DecalDefinition()
-		{
-			ColorTexture = material,
-			Height = size,
-			Width = size
-		} );
-
-		// Clean these up between rounds
-		gameObject.Components.Create<DestroyBetweenRounds>();
-
-		// Creates a destruction component to destroy the gameobject after a while
-		gameObject.DestroyAsync( destroyTime );
-
-		return decal;
-	}
-
 	private void CreateImpactEffects( GameObject hitObject, Surface surface, Vector3 pos, Vector3 normal )
 	{
 		var impactPrefab = surface.GetBulletImpact();
 
-		if ( impactPrefab is not null )
+		if ( impactPrefab.IsValid() )
 		{
 			var impact = impactPrefab.Clone();
 			impact.WorldPosition = pos + normal;
@@ -247,15 +220,11 @@ public partial class Shootable : WeaponInputAction,
 	{
 		TimeSinceShoot = 0;
 
-		if ( AmmoComponent is not null )
-		{
+		if ( AmmoComponent.IsValid() )
 			AmmoComponent.Ammo--;
-		}
 
 		if ( CurrentFireMode == FireMode.Burst )
-		{
 			IsBurstFiring = true;
-		}
 
 		DoShootEffects();
 
@@ -316,17 +285,6 @@ public partial class Shootable : WeaponInputAction,
 		return damage * damageMultiplier;
 	}
 
-	/// <summary>
-	/// Are we nearby a position? Used for FX
-	/// </summary>
-	/// <param name="position"></param>
-	/// <returns></returns>
-	private bool IsNearby( Vector3 position )
-	{
-		if ( !Scene.Camera.IsValid() ) return false;
-		return position.DistanceSquared( Scene.Camera.WorldPosition ) < MaxEffectsPlayDistance;
-	}
-
 	protected void DryShoot()
 	{
 		TimeSinceShoot = 0f;
@@ -356,7 +314,6 @@ public partial class Shootable : WeaponInputAction,
 			.Size( radius )
 			.RunAll();
 	}
-
 
 	protected SceneTraceResult DoTraceBulletOne( Vector3 start, Vector3 end, float radius )
 	{
