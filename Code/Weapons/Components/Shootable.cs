@@ -274,7 +274,6 @@ public partial class Shootable : WeaponInputAction,
 					continue;
 
 				CreateImpactEffects( tr.GameObject, tr.Surface, tr.EndPosition, tr.Normal );
-				DoTracer( tr.StartPosition, tr.EndPosition, tr.Distance, count );
 
 				var damage = CalculateDamageFalloff( BaseDamage, tr.Distance );
 				damage = damage.CeilToInt();
@@ -326,36 +325,6 @@ public partial class Shootable : WeaponInputAction,
 	{
 		if ( !Scene.Camera.IsValid() ) return false;
 		return position.DistanceSquared( Scene.Camera.WorldPosition ) < MaxEffectsPlayDistance;
-	}
-
-	[Property]
-	public GameObject TracerEffect { get; set; }
-
-	private GameObject Tracer
-	{
-		get
-		{
-			if ( TracerEffect.IsValid() ) return TracerEffect;
-
-			return GameObject.GetPrefab( $"/weapons/common/effects/tracer_9mm.prefab" );
-		}
-	}
-
-	/// <summary>
-	/// Makes some tracers using legacy particle effects.
-	/// </summary>
-	[Rpc.Broadcast]
-	protected void DoTracer( Vector3 startPosition, Vector3 endPosition, float distance, int count )
-	{
-		if ( !IsNearby( startPosition ) && !IsNearby( endPosition ) ) return;
-
-		var origin = count == 0 ? Effector?.Muzzle?.WorldPosition ?? Equipment.WorldPosition : startPosition;
-
-		var effect = Tracer?.Clone( new CloneConfig { Transform = new Transform().WithPosition( origin ), StartEnabled = true } );
-		if ( effect.IsValid() && effect.GetComponentInChildren<Tracer>() is Tracer tracer )
-		{
-			tracer.EndPoint = endPosition;
-		}
 	}
 
 	protected void DryShoot()
