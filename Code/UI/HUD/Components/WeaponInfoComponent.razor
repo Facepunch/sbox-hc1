@@ -4,18 +4,33 @@
 
 @if ( !Player.IsValid() ) return;
 
-<root class="hud with-deadzone column">
-    @foreach ( var slotGroup in Inventory.Equipment.OrderBy( x => x.Resource.Slot ).GroupBy( x => x.Resource.Slot ) )
+<root class="hud with-deadzone flex column">
+    @if (false)
     {
-        <div class="layout group @GroupClasses( slotGroup.Key )">
-            <div class="background" />
+        @foreach (var slotGroup in Inventory.Equipment.OrderBy(x => x.Resource.Slot).GroupBy(x => x.Resource.Slot))
+        {
+            <div class="layout group @GroupClasses( slotGroup.Key )">
+                <div class="background" />
 
-            <InputHint Action="Slot@(SlotIndex(slotGroup.Key))" class="small" Size="@InputGlyphSize.Small" />
+                <InputHint Action="Slot@(SlotIndex(slotGroup.Key))" class="small" Size="@InputGlyphSize.Small" />
 
-            @foreach ( var equipment in slotGroup )
-            {
-                <EquipmentRow Equipment=@equipment/>
-            }
+                @foreach (var equipment in slotGroup)
+                {
+                    <EquipmentRow Equipment=@equipment/>
+                }
+            </div>
+        }
+
+    }
+
+    @* Battlefield Style UI *@
+    @if ( true )
+    {
+        <WeaponPanel Weapon=@Primary Class="primary" />
+        
+        <div class="row">
+            <InputHint Action=@Slot class="small" />
+            <WeaponPanel Weapon=@Secondary />
         </div>
     }
 </root>
@@ -25,6 +40,18 @@
     public PlayerPawn Player => Client.Viewer.PlayerPawn;
     public PlayerInventory Inventory => Player.Inventory;
     public Equipment CurrentEquipment => Player?.CurrentEquipment;
+
+    Equipment Primary => Inventory.Equipment.FirstOrDefault(x => x.Resource.Slot == EquipmentSlot.Primary);
+    Equipment Secondary => Inventory.Equipment.FirstOrDefault(x => x.Resource.Slot == EquipmentSlot.Secondary);
+
+    public string Slot
+    {
+        get
+        {
+            if (Player.CurrentEquipment == Primary) return "Slot2";
+            return "Slot1";
+        }
+    }
 
     public string GroupClasses( EquipmentSlot slot )
     {

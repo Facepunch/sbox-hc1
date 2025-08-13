@@ -2,7 +2,7 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-<root class="hud with-deadzone top-middle flex gap-sm justify-center row">
+<root class="flex gap-sm justify-center row">
     @if ( MyTeamPlayers is not null )
     {
         <RoundStateTeam Score="@MyTeamScore" Team="@MyTeam" Players="@MyTeamPlayers" iconPosition="Right" />
@@ -12,14 +12,14 @@
         <div class="grow"></div>        
     }
 
-    <div class="layout flex column with-background with-padding h-full align-center justify-center blur" style="min-width: 195px; height: 60px; border: 1px solid rgba( black, 0.35 )">
+    <div class="layout flex column with-background align-center justify-center blur" style="border: 1px solid rgba( black, 0.25 )">
         @if ( IconPath is { } path )
         {
             <Icon File="@path" size="64" />
         }
         else
         {
-            <label class="uppercase small slight">@Status</label>
+            @* <label class="small slight">@Status</label> *@
             @if (Time.HasValue)
             {
                 <label class="uppercase">@(Time?.ToString(@"m\:ss"))</label>

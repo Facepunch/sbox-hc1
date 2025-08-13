@@ -1,15 +1,16 @@
 ﻿@import "/UI/Styles/Theme.scss";
 
-RoundStateTeam {
-    width: 100%;
-    height: 100%;
-
+RoundStateTeam
+{
     .inner
     {
         position: relative;
+        justify-content: center;
+        align-items: center;
     }
 
-    .background {
+    .background
+    {
         position: absolute;
         top: 0;
         left: 0;
@@ -17,9 +18,15 @@ RoundStateTeam {
         bottom: 0;
     }
 
-    img.icon {
+    img.icon
+    {
         width: 32px;
         height: 32px;
         margin: 0 16px;
+    }
+
+    .team
+    {
+        min-width: 48px;
     }
 }

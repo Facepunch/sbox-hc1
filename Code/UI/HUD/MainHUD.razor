@@ -18,27 +18,20 @@
     }
 
     <canvas>
-        @if ( isValidPlayer )
-        {
-            @* <Crosshair /> *@
-
-            <div class="hud with-deadzone top-left flex column">
-                    <Minimap />
-                    <Balance />
-            </div>
-        }
-
         <Toast />
 
+        <div class="hud with-deadzone bottom-left gap-sm flex column skew-left">
+            <RoundStateDisplay />
+            <Minimap />
+        </div>
+
         @if ( isValidPlayer )
-        {
+        {   
             <EquipmentOverlay />
-            <PlayerInfo />
             <Spectating />
             <Deathcam />
             <DefuseKitDisplay />
             <DamageIndicator />
-            <RoundStateDisplay />
             <KillFeed @ref="KillFeed" />
         }
 

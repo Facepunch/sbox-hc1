@@ -3,32 +3,17 @@
 @attribute [StyleSheet]
 
 <root class="team flex @(IconPosition == IconPositions.Right ? "justify-end" : "")">
-    <div class="inner flex row gap-sm align-center with-padding blur">
+    <div class="inner flex row gap-sm align-center with-padding blur team">
         <div class="background" style="@BuildStyle()"></div>
 
         @if ( IconPosition == IconPositions.Left && !string.IsNullOrEmpty( Score ) )
         {
-            <label class="vital with-px-lg" style="min-width: 75px; height: 45px; flex-shrink: 0; text-align: center;">@Score</label>
-        }
-
-        @if ( PlayerCount <= MaxPlayers )
-        {
-            @foreach ( var values in Players )
-            {
-                <PlayerAvatar key=@values @Player=@values />
-            }
-        }
-        else
-        {
-            <div class="flex row align-center gap-sm">
-                <i class="emphasis">person</i>
-                <label class="emphasis">@Players.Count()</label>
-            </div>
+            <label>@Score</label>
         }
 
         @if ( IconPosition == IconPositions.Right && !string.IsNullOrEmpty( Score ) )
         {
-            <label class="vital with-px-lg" style="min-width: 75px; height: 45px; flex-shrink: 0; text-align: center;">@Score</label>
+            <label>@Score</label>
         }
     </div>
 </root>

@@ -152,11 +152,11 @@ public partial class Crosshair : Component
 		{
 			hud.DrawLine( center + Vector2.Left * (len + gap), center + Vector2.Left * gap, w, linesCol );
 			hud.DrawLine( center - Vector2.Left * (len + gap), center - Vector2.Left * gap, w, linesCol );
-			hud.DrawLine( center + Vector2.Up * (len + gap), center + Vector2.Up * gap, w, linesCol );
+			hud.DrawLine( center + Vector2.Down * (len + gap), center + Vector2.Down * gap, w, linesCol );
 
 			if ( type != CrosshairType.ThreeLines )
 			{
-				hud.DrawLine( center - Vector2.Up * (len + gap), center - Vector2.Up * gap, w, linesCol );
+				hud.DrawLine( center + Vector2.Up * (len + gap), center + Vector2.Up * gap, w, linesCol );
 			}
 
 			if ( UseCrosshairDot )

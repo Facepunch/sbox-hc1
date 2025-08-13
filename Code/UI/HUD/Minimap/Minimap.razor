@@ -4,7 +4,7 @@
 
 @if ( !Client.Viewer.Pawn.IsValid() ) return;
 
-<root class="with-rounding @(FullMode ? "big" : "radar")" style="border: 1px solid @(TeamColor.WithAlpha( 0.5f ).Hex)">
+<root class="radar" style="border: 1px solid rgba( black, 0.5 )">
     @if (Renderer.IsValid())
     {
         <div class="mask" style="@MapRot()">
@@ -79,15 +79,13 @@
 
     public float Zoom => 2;
 
-    // shows full map, embiggened
-    public bool FullMode => Input.Down( "score" );
     // doesn't rotate the map with the player
-    public bool FixedMode => FullMode;
+    public bool FixedMode => false;
 
     // generic
     string WorldToMap( Vector3 worldPosition )
     {
-        var position = FullMode ? Renderer.FromWorld( worldPosition ) : Renderer.FromWorldRadar( worldPosition, ViewPos, FixedMode ? 0 : ViewYaw, Zoom );
+        var position = Renderer.FromWorldRadar( worldPosition, ViewPos, FixedMode ? 0 : ViewYaw, Zoom );
         return $"left: {Length.Fraction( position.x )}; top: {Length.Fraction( position.y )};";
     }
 
@@ -134,7 +132,6 @@
 
     string MapTransform()
     {
-        if (FullMode) return "left: 0; top: 0; width: 100%; height: 100%;";
         var position = -Renderer.FromWorld(ViewPos) * Zoom;
         return $"position: absolute; left: {Length.Fraction( position.x )}; top: {Length.Fraction( position.y )}; width: {Zoom * 100}%; height: {Zoom * 100}%";
     }

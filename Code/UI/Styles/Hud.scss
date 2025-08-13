@@ -1,31 +1,38 @@
-.hud {
-    &.fill {
+.hud
+{
+    &.fill
+    {
         position: absolute;
         width: 100%;
         height: 100%;
     }
 
-    &.with-deadzone {
+    &.with-deadzone
+    {
         margin: $safe-zone-x $safe-zone-y;
     }
 
-    &.with-deadzone-padding {
+    &.with-deadzone-padding
+    {
         padding: $safe-zone-x $safe-zone-y;
     }
 
-    &.bottom-left {
+    &.bottom-left
+    {
         position: absolute;
         left: 0;
         bottom: 0;
     }
 
-    &.top-left {
+    &.top-left
+    {
         position: absolute;
         left: 0;
         top: 0;
     }
 
-    &.top-middle {
+    &.top-middle
+    {
         position: absolute;
         top: 0;
         width: 100%;
@@ -33,40 +40,51 @@
         align-items: center;
     }
 
-    &.top-right {
+    &.top-right
+    {
         position: absolute;
         right: 0;
         top: 0;
     }
 
-    &.bottom-right {
+    &.bottom-right
+    {
         position: absolute;
         right: 0;
         bottom: 0;
     }
 
-    &.bottom-middle {
+    &.bottom-middle
+    {
         bottom: 0;
         position: absolute;
     }
 
-    &.middle-right {
+    &.middle-right
+    {
         position: absolute;
         right: 0;
         top: 50%;
         transform: translateY( -50% );
     }
 
-    &.middle-left {
+    &.middle-left
+    {
         position: absolute;
         left: 0;
     }
 
-    &.middle {
+    &.middle
+    {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate( -50% -50% );
+    }
+
+    &.skew-left
+    {
+        transform: skewY( -2deg );
     }
 }
 

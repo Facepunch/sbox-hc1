@@ -3,17 +3,12 @@
 WeaponInfoComponent
 {
     gap: 0px;
-    flex-direction: column-reverse;
     justify-content: center;
     flex-grow: 0;
     position: relative;
     align-items: flex-end;
-    right: -42px;
+    transform: skewY( 1deg );
 
-    WeaponViewer
-    {
-        opacity: 0.75;
-    }
 
     .group
     {
@@ -40,6 +35,90 @@ WeaponInfoComponent
             {
                 opacity: 1;
             }
+        }
+    }
+
+    gap: 4px;
+
+    .weapon
+    {
+        background-color: $background;
+        backdrop-filter: blur( 15px );
+        justify-content: space-between;
+        padding: 0px 16px;
+        border: 0.75px solid rgba( black, 0.25 );
+
+        .ammo
+        {
+            gap: 2px;
+
+            .main
+            {
+                font-family: $main-font;
+                font-size: 40px;
+                color: white;
+                text-shadow: 0px 0px 3px rgba( black, 0.5 );
+            }
+
+            .backup
+            {
+                font-family: $main-font;
+                font-size: 16px;
+                color: rgba( white, 0.5 );
+                text-shadow: 0px 0px 3px rgba( black, 0.5 );
+                padding-top: 8px;
+            }
+        }
+
+        &.primary
+        {
+            width: 320px;
+            height: 64px;
+
+            .image
+            {
+                width: 128px;
+                height: 128px;
+            }
+        }
+
+        &.secondary
+        {
+            width: 256px;
+            height: 38px;
+
+            .ammo
+            {
+                .main
+                {
+                    font-size: 16px;
+                }
+
+                .backup
+                {
+                    padding-top: 0px;
+                }
+            }
+        }
+
+        align-items: center;
+        gap: 8px;
+
+        .icon
+        {
+            align-items: center;
+            width: 96px;
+            height: 64px;
+        }
+
+        .image
+        {
+            position: absolute;
+            width: 96px;
+            height: 96px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
     }
 

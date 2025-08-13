@@ -1,0 +1,36 @@
+@namespace Facepunch.UI
+@inherits Panel
+
+<root class="weapon row @Class">
+    @if ( Weapon.IsValid() )
+    {
+        @if ( !string.IsNullOrEmpty( Weapon.Resource.Icon ) )
+        {
+            <div class="icon">
+                <div class="image" style="background-image:url(@Weapon.Resource.Icon);" />
+            </div>
+        }
+
+        @if ( Ammo.IsValid() )
+        {
+            <div class="ammo">
+                <label class="main">@Ammo.Ammo</label>
+                <label class="backup">/@(Ammo.MaxAmmo)</label>
+            </div>
+        }
+    }
+</root>
+
+@code {
+    public Equipment Weapon { get; set; }
+    public WeaponAmmo Ammo => Weapon.GetComponentInChildren<WeaponAmmo>();
+
+    public string Class { get; set; } = "secondary";
+
+    protected override int BuildHash()
+    {
+        if ( !Weapon.IsValid() ) return 0;
+
+        return HashCode.Combine( Ammo.IsValid() ? Ammo.Ammo : 0, Ammo.IsValid() ? Ammo.MaxAmmo : 0);
+    }
+}

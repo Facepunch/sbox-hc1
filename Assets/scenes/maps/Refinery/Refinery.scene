@@ -312,7 +312,7 @@
           {
             "Id": {
               "Type": "Component",
-              "IdValue": "b3cfdb0b-dcd8-4ee7-945c-531d783e9395"
+              "IdValue": "0fa7580a-6a07-4220-9710-df1bdee91d8f"
             }
           }
         ],
@@ -369,7 +369,7 @@
         "b4ca6d36-f647-49b3-9151-8ef4c63aeddd": "8fdd2430-5a09-4ad3-86c6-ef3defc381dc",
         "50de49ef-0287-435d-b570-e48047718014": "7d2935f8-58c3-45bc-853e-8d749c017464",
         "4dc414cd-ed6d-4fcd-bd26-0c4c340b5301": "b967b239-e19d-4317-9a35-9019c62de79a",
-        "b3cfdb0b-dcd8-4ee7-945c-531d783e9395": "ec5c7abf-3e7e-4703-89d4-19baa3b62d9b"
+        "0fa7580a-6a07-4220-9710-df1bdee91d8f": "638c9de9-1762-441b-b732-582f1ab916dc"
       }
     },
     {
@@ -723,7 +723,9 @@
         "e202fa43-68f7-4d19-8046-f39ed2edd444": "cf242935-a06d-41d6-9fc8-c51d27659e47",
         "45d2f9c1-e34d-4756-807d-b5197dfc0e92": "6787b643-b169-4907-81c1-d1eb34ae0bb9",
         "35f22135-8476-417b-b33c-fea8b2524a75": "75662f20-64e8-4f57-ad82-3e8b68d565aa",
-        "ec32f16b-5053-4522-8948-4eaef65a809a": "2feefd1c-04aa-43ef-9dc9-2eaab3f2b078"
+        "ec32f16b-5053-4522-8948-4eaef65a809a": "2feefd1c-04aa-43ef-9dc9-2eaab3f2b078",
+        "7e1e5a0a-7cef-4388-aa2f-44ac5088662e": "9b05969b-cc42-4ab6-b756-caf3539db66d",
+        "49fc0437-6e51-4ea0-9057-09e41e1b1c77": "48c194cf-c27c-42bf-b1ed-bb7607eb3547"
       }
     },
     {
@@ -7649,12 +7651,12 @@
               "0.0007324219,173.3843"
             ],
             "MaterialIndex": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
             ],
             "EdgeFlags": [
               0,
@@ -7683,7 +7685,6 @@
               0
             ],
             "Materials": [
-              "materials/dev/reflectivity_30.vmat",
               "materials/tools/toolsinvisibleladder.vmat"
             ]
           },
@@ -8117,6 +8118,80 @@
               "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "33bfb6f2-2c49-40a0-a096-457d2801fc40",
+              "__enabled": true,
+              "AnimationGraph": null,
+              "BodyGroups": 18446744073709551615,
+              "BoneMergeTarget": null,
+              "CreateAttachments": false,
+              "CreateBoneObjects": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": null,
+              "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "Morphs": {},
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Parameters": {
+                "bools": {},
+                "ints": {},
+                "floats": {},
+                "vectors": {},
+                "rotations": {}
+              },
+              "PlaybackRate": 1,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Sequence": {
+                "Name": null,
+                "Looping": true,
+                "Blending": false
+              },
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            },
+            {
+              "__type": "Sandbox.ModelPhysics",
+              "__guid": "fa6f9ee0-78dd-4b68-9cbc-f5c17114883b",
+              "__enabled": true,
+              "IgnoreRoot": false,
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
+              "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "MotionEnabled": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Renderer": {
+                "_type": "component",
+                "component_id": "33bfb6f2-2c49-40a0-a096-457d2801fc40",
+                "go": "9c9945fd-a42f-4104-8d16-50c13a12d854",
+                "component_type": "SkinnedModelRenderer"
+              },
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
             }
           ],
           "Children": []
@@ -8155,6 +8230,80 @@
               "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "d569d01b-916c-4ecf-97f1-04e3e4e76ba8",
+              "__enabled": true,
+              "AnimationGraph": null,
+              "BodyGroups": 18446744073709551615,
+              "BoneMergeTarget": null,
+              "CreateAttachments": false,
+              "CreateBoneObjects": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": null,
+              "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "Morphs": {},
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Parameters": {
+                "bools": {},
+                "ints": {},
+                "floats": {},
+                "vectors": {},
+                "rotations": {}
+              },
+              "PlaybackRate": 1,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Sequence": {
+                "Name": null,
+                "Looping": true,
+                "Blending": false
+              },
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            },
+            {
+              "__type": "Sandbox.ModelPhysics",
+              "__guid": "a48c16e7-2fd1-4f5b-a0f7-57a6ee05d205",
+              "__enabled": true,
+              "IgnoreRoot": false,
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
+              "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "MotionEnabled": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Renderer": {
+                "_type": "component",
+                "component_id": "d569d01b-916c-4ecf-97f1-04e3e4e76ba8",
+                "go": "bb841798-62c9-4a00-bbb4-5448f9ed93d7",
+                "component_type": "SkinnedModelRenderer"
+              },
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
             }
           ],
           "Children": []
@@ -8193,6 +8342,80 @@
               "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "79a7fca1-3ef3-4e1b-bd65-f196d0bb6cbe",
+              "__enabled": true,
+              "AnimationGraph": null,
+              "BodyGroups": 18446744073709551615,
+              "BoneMergeTarget": null,
+              "CreateAttachments": false,
+              "CreateBoneObjects": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": null,
+              "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "Morphs": {},
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Parameters": {
+                "bools": {},
+                "ints": {},
+                "floats": {},
+                "vectors": {},
+                "rotations": {}
+              },
+              "PlaybackRate": 1,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Sequence": {
+                "Name": null,
+                "Looping": true,
+                "Blending": false
+              },
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            },
+            {
+              "__type": "Sandbox.ModelPhysics",
+              "__guid": "0ab16b21-f658-44a5-8525-f689c45025cf",
+              "__enabled": true,
+              "IgnoreRoot": false,
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
+              "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "MotionEnabled": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Renderer": {
+                "_type": "component",
+                "component_id": "79a7fca1-3ef3-4e1b-bd65-f196d0bb6cbe",
+                "go": "20781b72-2de8-4700-8b2b-eda5e0bd6c6d",
+                "component_type": "SkinnedModelRenderer"
+              },
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
             }
           ],
           "Children": []
@@ -8231,6 +8454,80 @@
               "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "f4759e20-d0d8-4b34-9244-8dcf58072dac",
+              "__enabled": true,
+              "AnimationGraph": null,
+              "BodyGroups": 18446744073709551615,
+              "BoneMergeTarget": null,
+              "CreateAttachments": false,
+              "CreateBoneObjects": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": null,
+              "Model": "models/player/ct_side/ct_side_riot_player/ct_side_riot_player.vmdl",
+              "Morphs": {},
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Parameters": {
+                "bools": {},
+                "ints": {},
+                "floats": {},
+                "vectors": {},
+                "rotations": {}
+              },
+              "PlaybackRate": 1,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Sequence": {
+                "Name": null,
+                "Looping": true,
+                "Blending": false
+              },
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            },
+            {
+              "__type": "Sandbox.ModelPhysics",
+              "__guid": "57df733e-fb53-4edb-91f4-325d483d0047",
+              "__enabled": true,
+              "IgnoreRoot": false,
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
+              "Model": "models/player/ct_side/ct_side_riot_player/ct_side_riot_player.vmdl",
+              "MotionEnabled": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Renderer": {
+                "_type": "component",
+                "component_id": "f4759e20-d0d8-4b34-9244-8dcf58072dac",
+                "go": "59f14382-d97d-40c0-8b86-9a0a475dcbed",
+                "component_type": "SkinnedModelRenderer"
+              },
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
             }
           ],
           "Children": []
@@ -8269,6 +8566,80 @@
               "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "afb3cb6b-910b-42bf-a4a2-4c570601bcf4",
+              "__enabled": true,
+              "AnimationGraph": null,
+              "BodyGroups": 18446744073709551615,
+              "BoneMergeTarget": null,
+              "CreateAttachments": false,
+              "CreateBoneObjects": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": null,
+              "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "Morphs": {},
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Parameters": {
+                "bools": {},
+                "ints": {},
+                "floats": {},
+                "vectors": {},
+                "rotations": {}
+              },
+              "PlaybackRate": 1,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Sequence": {
+                "Name": null,
+                "Looping": true,
+                "Blending": false
+              },
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            },
+            {
+              "__type": "Sandbox.ModelPhysics",
+              "__guid": "c3e16236-03e6-4395-a7a6-ad48c58fe4bf",
+              "__enabled": true,
+              "IgnoreRoot": false,
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
+              "Model": "models/player/ct_side/ct_side_player_01/ct_side_player_01_v2.vmdl",
+              "MotionEnabled": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Renderer": {
+                "_type": "component",
+                "component_id": "afb3cb6b-910b-42bf-a4a2-4c570601bcf4",
+                "go": "0a46b66e-edb8-4bd8-a9c2-7186dcd2bc50",
+                "component_type": "SkinnedModelRenderer"
+              },
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
             }
           ],
           "Children": []
@@ -8307,6 +8678,80 @@
               "OnPropTakeDamage": null,
               "StartAsleep": false,
               "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "bd694519-9ba9-4008-a6ba-758287cbdeda",
+              "__enabled": true,
+              "AnimationGraph": null,
+              "BodyGroups": 18446744073709551615,
+              "BoneMergeTarget": null,
+              "CreateAttachments": false,
+              "CreateBoneObjects": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": null,
+              "Model": "models/player/ct_side/ct_side_riot_player/ct_side_riot_player.vmdl",
+              "Morphs": {},
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Parameters": {
+                "bools": {},
+                "ints": {},
+                "floats": {},
+                "vectors": {},
+                "rotations": {}
+              },
+              "PlaybackRate": 1,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Sequence": {
+                "Name": null,
+                "Looping": true,
+                "Blending": false
+              },
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            },
+            {
+              "__type": "Sandbox.ModelPhysics",
+              "__guid": "56325716-5797-4a13-92da-cd55a8e407fb",
+              "__enabled": true,
+              "IgnoreRoot": false,
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
+              "Model": "models/player/ct_side/ct_side_riot_player/ct_side_riot_player.vmdl",
+              "MotionEnabled": true,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Renderer": {
+                "_type": "component",
+                "component_id": "bd694519-9ba9-4008-a6ba-758287cbdeda",
+                "go": "4ca89ad1-7ca5-4969-be31-2ed7f2d2906f",
+                "component_type": "SkinnedModelRenderer"
+              },
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
             }
           ],
           "Children": []
@@ -10199,6 +10644,7 @@
               "__version": 1,
               "BlendMode": "Normal",
               "FogStrength": 1,
+              "HorizontalAlignment": "Center",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
@@ -10212,7 +10658,6 @@
                 "AfterUILayer": false
               },
               "Scale": 0.3,
-              "TextAlignment": "Center",
               "TextScope": {
                 "Text": "Cubby",
                 "TextColor": "0.45103,0.47149,0.5297,1",
@@ -10223,6 +10668,7 @@
                 "LineHeight": 1,
                 "LetterSpacing": 0,
                 "WordSpacing": 0,
+                "FilterMode": "Point",
                 "Outline": {
                   "Enabled": false,
                   "Size": 4,
@@ -10245,7 +10691,8 @@
                   "Color": "0,0,0,1",
                   "Offset": "4,4"
                 }
-              }
+              },
+              "VerticalAlignment": "Center"
             }
           ],
           "Children": [
@@ -10271,6 +10718,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -10284,7 +10732,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.8,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "WAREHOUSE",
                     "TextColor": "0.45103,0.47149,0.5297,1",
@@ -10295,6 +10742,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -10317,7 +10765,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -10344,6 +10793,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -10357,7 +10807,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.5,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "WAREHOUSE",
                     "TextColor": "0.45103,0.47149,0.5297,1",
@@ -10368,6 +10817,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -10390,7 +10840,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -10417,6 +10868,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -10430,7 +10882,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.5,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "ELBOW",
                     "TextColor": "1,1,1,1",
@@ -10441,6 +10892,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -10463,7 +10915,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -10490,6 +10943,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -10503,7 +10957,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "VAN",
                     "TextColor": "1,1,1,1",
@@ -10514,6 +10967,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -10536,7 +10990,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -10563,6 +11018,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -10576,7 +11032,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "GATE",
                     "TextColor": "0.68037,0.70979,0.7907,1",
@@ -10587,6 +11042,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -10609,7 +11065,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -10636,6 +11093,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -10649,7 +11107,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.63,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "A SITE",
                     "TextColor": "0.68037,0.70979,0.7907,1",
@@ -10660,6 +11117,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -10682,7 +11140,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -10709,6 +11168,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -10722,7 +11182,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.5,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "LEDGE",
                     "TextColor": "0.68037,0.70979,0.7907,1",
@@ -10733,6 +11192,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -10755,7 +11215,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -10782,6 +11243,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -10795,7 +11257,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.5,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "LEDGE",
                     "TextColor": "1,1,1,1",
@@ -10806,6 +11267,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -10828,7 +11290,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -10855,6 +11318,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -10868,7 +11332,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.5,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "A CONNECTOR",
                     "TextColor": "1,1,1,1",
@@ -10879,6 +11342,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -10901,7 +11365,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -10928,6 +11393,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -10941,7 +11407,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.5,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "A CONNECTOR",
                     "TextColor": "0.67442,0.67442,0.67442,1",
@@ -10952,6 +11417,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -10974,7 +11440,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11001,6 +11468,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11014,7 +11482,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.4,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "CATWALK",
                     "TextColor": "1,1,1,1",
@@ -11025,6 +11492,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11047,7 +11515,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11074,6 +11543,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11087,7 +11557,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.4,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "CATWALK",
                     "TextColor": "0.88372,0.91473,1,1",
@@ -11098,6 +11567,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11120,7 +11590,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11147,6 +11618,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11160,7 +11632,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.4,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "CATWALK",
                     "TextColor": "0.88372,0.91473,1,1",
@@ -11171,6 +11642,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11193,7 +11665,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11220,6 +11693,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11233,7 +11707,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.4,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "LOWER MID",
                     "TextColor": "0.68037,0.70979,0.7907,1",
@@ -11244,6 +11717,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11266,7 +11740,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11293,6 +11768,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11306,7 +11782,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.4,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "MID",
                     "TextColor": "0.68037,0.70979,0.7907,1",
@@ -11317,6 +11792,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11339,7 +11815,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11366,6 +11843,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11379,7 +11857,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.4,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "MID",
                     "TextColor": "0.68037,0.70979,0.7907,1",
@@ -11390,6 +11867,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11412,7 +11890,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11439,6 +11918,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11452,7 +11932,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.5,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "RAMP",
                     "TextColor": "1,1,1,1",
@@ -11463,6 +11942,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11485,7 +11965,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11512,6 +11993,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11525,7 +12007,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "BOOST",
                     "TextColor": "1,1,1,1",
@@ -11536,6 +12017,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11558,7 +12040,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11585,6 +12068,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11598,7 +12082,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "BOOTH",
                     "TextColor": "0.67907,0.67907,0.67907,1",
@@ -11609,6 +12092,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11631,7 +12115,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11658,6 +12143,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11671,7 +12157,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.55,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "B SITE",
                     "TextColor": "0.83256,0.83256,0.83256,1",
@@ -11682,6 +12167,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11704,7 +12190,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11731,6 +12218,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11744,7 +12232,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "HEAVEN",
                     "TextColor": "0.67907,0.67907,0.67907,1",
@@ -11755,6 +12242,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11777,7 +12265,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11804,6 +12293,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11817,7 +12307,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "GUTTER",
                     "TextColor": "0.94419,0.94419,0.94419,1",
@@ -11828,6 +12317,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11850,7 +12340,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11877,6 +12368,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11890,7 +12382,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "GUTTER",
                     "TextColor": "0.67907,0.67907,0.67907,1",
@@ -11901,6 +12392,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11923,7 +12415,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -11950,6 +12443,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -11963,7 +12457,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "OFFICES",
                     "TextColor": "0.38605,0.38605,0.38605,1",
@@ -11974,6 +12467,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -11996,7 +12490,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12023,6 +12518,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12036,7 +12532,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "OFFICES",
                     "TextColor": "1,1,1,1",
@@ -12047,6 +12542,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12069,7 +12565,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12096,6 +12593,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12109,7 +12607,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "ANARCHIST \nSPAWN",
                     "TextColor": "0.72558,0.72558,0.72558,1",
@@ -12120,6 +12617,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12142,7 +12640,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12169,6 +12668,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12182,7 +12682,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "TUNNEL",
                     "TextColor": "0.38605,0.38605,0.38605,1",
@@ -12193,6 +12692,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12215,7 +12715,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12242,6 +12743,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12255,7 +12757,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "TUNNEL",
                     "TextColor": "0.38605,0.38605,0.38605,1",
@@ -12266,6 +12767,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12288,7 +12790,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12315,6 +12818,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12328,7 +12832,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "OFFICES",
                     "TextColor": "0.38605,0.38605,0.38605,1",
@@ -12339,6 +12842,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12361,7 +12865,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12388,6 +12893,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12401,7 +12907,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "BACKDOORS",
                     "TextColor": "0.77674,0.77674,0.77674,1",
@@ -12412,6 +12917,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12434,7 +12940,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12461,6 +12968,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12474,7 +12982,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "BACKDOORS",
                     "TextColor": "0.55349,0.55349,0.55349,1",
@@ -12485,6 +12992,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12507,7 +13015,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12534,6 +13043,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12547,7 +13057,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "HEAVEN",
                     "TextColor": "0.56279,0.56279,0.56279,1",
@@ -12558,6 +13067,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12580,7 +13090,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12607,6 +13118,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12620,7 +13132,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "BOOTH",
                     "TextColor": "0.63721,0.63721,0.63721,1",
@@ -12631,6 +13142,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12653,7 +13165,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12680,6 +13193,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12693,7 +13207,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.31,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "SECURITY \nSPAWN",
                     "TextColor": "1,1,1,1",
@@ -12704,6 +13217,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12726,7 +13240,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12753,6 +13268,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12766,7 +13282,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.39,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "SECURITY \nSPAWN",
                     "TextColor": "1,1,1,1",
@@ -12777,6 +13292,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12799,7 +13315,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12826,6 +13343,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12839,7 +13357,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.34,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "ELBOW",
                     "TextColor": "1,1,1,1",
@@ -12850,6 +13367,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12872,7 +13390,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12899,6 +13418,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12912,7 +13432,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.13,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "SITE RULES",
                     "TextColor": "1,1,1,1",
@@ -12923,6 +13442,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -12945,7 +13465,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -12972,6 +13493,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -12985,7 +13507,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.23,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "PLACEHOLDER",
                     "TextColor": "0.85581,0.85581,0.85581,1",
@@ -12996,6 +13517,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -13018,7 +13540,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -13045,6 +13568,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -13058,7 +13582,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.8,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "MID",
                     "TextColor": "0.68037,0.70979,0.7907,1",
@@ -13069,6 +13592,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -13091,7 +13615,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -13118,6 +13643,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -13131,7 +13657,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "LOWER GATE",
                     "TextColor": "0.68037,0.70979,0.7907,1",
@@ -13142,6 +13667,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -13164,7 +13690,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -13191,6 +13718,7 @@
                   "__version": 1,
                   "BlendMode": "Normal",
                   "FogStrength": 1,
+                  "HorizontalAlignment": "Center",
                   "OnComponentDestroy": null,
                   "OnComponentDisabled": null,
                   "OnComponentEnabled": null,
@@ -13204,7 +13732,6 @@
                     "AfterUILayer": false
                   },
                   "Scale": 0.3,
-                  "TextAlignment": "Center",
                   "TextScope": {
                     "Text": "LOWER",
                     "TextColor": "0.4961,0.50892,0.54419,1",
@@ -13215,6 +13742,7 @@
                     "LineHeight": 1,
                     "LetterSpacing": 0,
                     "WordSpacing": 0,
+                    "FilterMode": "Point",
                     "Outline": {
                       "Enabled": false,
                       "Size": 4,
@@ -13237,7 +13765,8 @@
                       "Color": "0,0,0,1",
                       "Offset": "4,4"
                     }
-                  }
+                  },
+                  "VerticalAlignment": "Center"
                 }
               ],
               "Children": []
@@ -13258,7 +13787,7 @@
       "GameModes": "prefabs/game_modes/bomb_defusal.prefab, prefabs/game_modes/team_deathmatch.prefab"
     },
     "NavMesh": {
-      "Enabled": false,
+      "Enabled": true,
       "IncludeStaticBodies": true,
       "IncludeKeyframedBodies": true,
       "EditorAutoUpdate": true,
