@@ -26,6 +26,11 @@
     @* Battlefield Style UI *@
     @if ( true )
     {
+        @foreach ( var weapon in OtherWeapons )
+        {
+            <WeaponPanel Weapon=@weapon Class="other" />
+        }
+
         <WeaponPanel Weapon=@Primary Class="primary" />
         
         <div class="row">
@@ -43,6 +48,17 @@
 
     Equipment Primary => Inventory.Equipment.FirstOrDefault(x => x.Resource.Slot == EquipmentSlot.Primary);
     Equipment Secondary => Inventory.Equipment.FirstOrDefault(x => x.Resource.Slot == EquipmentSlot.Secondary);
+
+    public List<Equipment> OtherWeapons {
+        get
+        {
+            if ( !Player.IsValid() ) return new List<Equipment>();
+            return Inventory.Equipment
+                .Where(x => x.Resource.Slot != EquipmentSlot.Primary && x.Resource.Slot != EquipmentSlot.Secondary && x.Resource.Slot != EquipmentSlot.Melee)
+                .OrderBy(x => x.Resource.Slot)
+                .ToList();
+        }
+    }
 
     public string Slot
     {

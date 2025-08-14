@@ -1,7 +1,6 @@
 @import "/UI/Styles/Theme.scss";
 
-WeaponInfoComponent
-{
+WeaponInfoComponent {
     gap: 0px;
     justify-content: center;
     flex-grow: 0;
@@ -10,8 +9,7 @@ WeaponInfoComponent
     transform: skewY( 1deg );
 
 
-    .group
-    {
+    .group {
         position: relative;
         flex-direction: row-reverse;
         margin: 0px 16px;
@@ -19,8 +17,7 @@ WeaponInfoComponent
         padding-bottom: 8px;
         right: 0;
 
-        > .background
-        {
+        > .background {
             top: -2px;
             position: absolute;
             width: 100%;
@@ -29,10 +26,8 @@ WeaponInfoComponent
             background: linear-gradient( to right, rgba( black, 0.0 ), rgba( black, 0.9 ) );
         }
 
-        &.active
-        {
-            > .background
-            {
+        &.active {
+            > .background {
                 opacity: 1;
             }
         }
@@ -40,28 +35,24 @@ WeaponInfoComponent
 
     gap: 4px;
 
-    .weapon
-    {
+    .weapon {
         background-color: $background;
         backdrop-filter: blur( 15px );
         justify-content: space-between;
         padding: 0px 16px;
         border: 0.75px solid rgba( black, 0.25 );
 
-        .ammo
-        {
+        .ammo {
             gap: 2px;
 
-            .main
-            {
+            .main {
                 font-family: $main-font;
                 font-size: 40px;
                 color: white;
                 text-shadow: 0px 0px 3px rgba( black, 0.5 );
             }
 
-            .backup
-            {
+            .backup {
                 font-family: $main-font;
                 font-size: 16px;
                 color: rgba( white, 0.5 );
@@ -70,49 +61,58 @@ WeaponInfoComponent
             }
         }
 
-        &.primary
-        {
+        &.primary {
             width: 320px;
             height: 64px;
 
-            .image
-            {
+            .image {
                 width: 128px;
                 height: 128px;
             }
         }
 
-        &.secondary
-        {
+        &.secondary {
             width: 256px;
             height: 38px;
 
-            .ammo
-            {
-                .main
-                {
+            .ammo {
+                .main {
                     font-size: 16px;
                 }
 
-                .backup
-                {
+                .backup {
                     padding-top: 0px;
                 }
+            }
+        }
+
+        &.other {
+            height: 38px;
+            width: 48px;
+            align-items: center;
+
+            .icon {
+                align-items: center;
+                width: 32px;
+                height: 32px;
+            }
+
+            .image {
+                width: 32px;
+                height: 32px;
             }
         }
 
         align-items: center;
         gap: 8px;
 
-        .icon
-        {
+        .icon {
             align-items: center;
             width: 96px;
             height: 64px;
         }
 
-        .image
-        {
+        .image {
             position: absolute;
             width: 96px;
             height: 96px;
@@ -122,8 +122,7 @@ WeaponInfoComponent
         }
     }
 
-    InputHint
-    {
+    InputHint {
         padding-left: 32px;
         padding-right: 32px;
     }
