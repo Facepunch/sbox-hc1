@@ -210,7 +210,14 @@ public sealed partial class PlayerPawn : Pawn, IDescription, IAreaDamageReceiver
 		UpdateRecoilAndSpread();
 		ApplyAcceleration();
 
-		ApplyMovement();
+		if ( IsInVehicle )
+		{
+			ApplyVehicle();
+		}
+		else
+		{
+			ApplyMovement();
+		}
 	}
 
 	[Sync( SyncFlags.FromHost )] public bool InPlayArea { get; set; } = true;

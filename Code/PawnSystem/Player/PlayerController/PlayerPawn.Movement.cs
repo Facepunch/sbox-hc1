@@ -183,21 +183,44 @@ public partial class PlayerPawn : IGameEventHandler<WeaponShotEvent>
 
 		if ( Body.IsValid() )
 		{
-			WorldRotation = Rotation.From( 0, EyeAngles.yaw, 0 );
-			Body.UpdateRotation( Rotation.FromYaw( EyeAngles.yaw ) );
-
-			foreach ( var helper in Body.AnimationHelpers )
+			if ( IsInVehicle )
 			{
-				if ( !helper.IsValid() ) continue;
+				if ( Body.IsValid() )
+				{
+					Body.Transform.Local = new Transform();
+				}
 
-				helper.WithVelocity( cc.Velocity );
-				helper.WithWishVelocity( WishVelocity );
-				helper.IsGrounded = IsGrounded;
-				helper.WithLook( EyeAngles.Forward );
-				helper.MoveStyle = AnimationHelper.MoveStyles.Run;
-				helper.DuckLevel = (MathF.Abs( _smoothEyeHeight ) / 32.0f);
-				helper.HoldType = CurrentHoldType;
-				helper.Handedness = CurrentEquipment.IsValid() ? CurrentEquipment.Handedness : AnimationHelper.Hand.Both;
+				foreach ( var helper in Body.AnimationHelpers )
+				{
+					if ( !helper.IsValid() ) continue;
+
+					helper.WithVelocity( 0 );
+					helper.WithWishVelocity( 0 );
+					helper.IsGrounded = true;
+					helper.WithLook( EyeAngles.Forward );
+					helper.MoveStyle = AnimationHelper.MoveStyles.Run;
+					helper.DuckLevel = 1f;
+					helper.HoldType = AnimationHelper.HoldTypes.HoldItem;
+				}
+			}
+			else
+			{
+				WorldRotation = Rotation.From( 0, EyeAngles.yaw, 0 );
+				Body.UpdateRotation( Rotation.FromYaw( EyeAngles.yaw ) );
+
+				foreach ( var helper in Body.AnimationHelpers )
+				{
+					if ( !helper.IsValid() ) continue;
+
+					helper.WithVelocity( cc.Velocity );
+					helper.WithWishVelocity( WishVelocity );
+					helper.IsGrounded = IsGrounded;
+					helper.WithLook( EyeAngles.Forward );
+					helper.MoveStyle = AnimationHelper.MoveStyles.Run;
+					helper.DuckLevel = (MathF.Abs( _smoothEyeHeight ) / 32.0f);
+					helper.HoldType = CurrentHoldType;
+					helper.Handedness = CurrentEquipment.IsValid() ? CurrentEquipment.Handedness : AnimationHelper.Hand.Both;
+				}
 			}
 		}
 

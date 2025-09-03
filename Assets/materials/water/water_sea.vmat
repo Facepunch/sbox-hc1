@@ -2,7 +2,7 @@
 
 Layer0
 {
-	shader "shaders/hc1water.shader"
+	shader "shaders/water_simple.shader"
 
 	//---- Rendering ----
 	F_DO_NOT_CAST_SHADOWS 1
@@ -10,39 +10,28 @@ Layer0
 	//---- Fog ----
 	g_bFogEnabled "1"
 
-	//---- General ----
-	g_bPlanarReflections "0"
-	g_flScale "10.000"
-	g_flSpeedA "[0.010 -0.010]"
-	g_flSpeedB "[-0.010 0.010]"
-	g_vColor "[0.117647 0.137255 0.160784 0.000000]"
-	g_vDeepColor "[0.062745 0.062745 0.086275 1.000000]"
-	NormalMapA "materials/water/water2_normal.jpg"
-	NormalMapB "materials/water/water1_normal.jpg"
-
 	//---- Material ----
-	g_flMetallic "0.303"
-	g_flNormalScale "0.227"
-	g_flOpacity "0.000"
-	g_flRoughness "0.216"
-	g_flTilingScale "10.251"
 	g_flTintColor "[1.000000 1.000000 1.000000 0.000000]"
 	TextureColor "materials/default/default_color.tga"
 	TextureNormal "[0.501961 0.501961 1.000000 0.000000]"
 	TextureTintMask "materials/default/default.tga"
 	TextureTranslucency "materials/default/default_trans.tga"
 
-	//---- Vertex Animation ----
-	g_flWaveFrequency "0.845"
-	g_flWaveHeight "5.224"
-	g_flWaveSpeed "1.414"
+	//---- Refraction ----
+	RefractionNormalScale "0.500"
+	Translucency "1.000"
+
+	//---- Tweaks ----
+	g_fAmbientOcclusion "0.500"
+	g_fMetalness "0.850"
+	g_fRoughness "0.020"
+	NormalScale "0.500"
 
 	//---- Water ----
-	g_flShorelineFeatheringScale "8.190"
-	g_flWaterDepthScale "16.641"
+	Refraction "1.000"
 
-	DynamicParams
-	{
-		g_bPlanarReflections "PlanarReflections"
-	}
+	//---- Wave ----
+	BigWaveScale "100.000"
+	BigWaveSize "0.500"
+	BigWaveTime "1.000"
 }

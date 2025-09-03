@@ -72,7 +72,14 @@ public sealed class CameraController : PawnCameraController, IGameEventHandler<D
 
 	private void UpdateRotation()
 	{
-		Boom.WorldRotation = Player.EyeAngles.ToRotation();
+		if ( Player.IsInVehicle )
+		{
+			Boom.Transform.Local = Boom.Transform.Local.WithRotation( Player.EyeAngles.ToRotation() );
+		}
+		else
+		{
+			Boom.WorldRotation = Player.EyeAngles.ToRotation();
+		}
 	}
 
 	public override void SetActive( bool isActive )

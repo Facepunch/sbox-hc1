@@ -1,0 +1,86 @@
+{
+  "RootObject": {
+    "__guid": "b8ecd362-c345-47ea-93ad-dc4fd7940528",
+    "__version": 1,
+    "Flags": 0,
+    "Name": "jeep_fire",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "particles",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
+    "Components": [
+      {
+        "__type": "DestroyBetweenRounds",
+        "__guid": "280d1089-68c9-42cf-9d05-8a4894257600",
+        "__enabled": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "f3d7fbd9-6c61-499c-9f4a-7711e52b0b07",
+        "__version": 1,
+        "__Prefab": "effects/fire_fast.prefab",
+        "__PrefabInstancePatch": {
+          "AddedObjects": [],
+          "RemovedObjects": [],
+          "PropertyOverrides": [
+            {
+              "Target": {
+                "Type": "GameObject",
+                "IdValue": "e735a472-e4ad-4c9b-be5f-0d0db6106b6c"
+              },
+              "Property": "Tags",
+              "Value": ""
+            }
+          ],
+          "MovedObjects": []
+        },
+        "__PrefabIdToInstanceId": {
+          "e735a472-e4ad-4c9b-be5f-0d0db6106b6c": "f3d7fbd9-6c61-499c-9f4a-7711e52b0b07",
+          "239249c6-0cf7-4f2e-b290-292d5c4b3765": "fdbd5ae5-fc62-4411-b641-1915aaa9f30f",
+          "c4b193fc-ba6b-429a-a473-630f33a83a79": "b16a6cf7-477e-4da3-a7d2-c62a24d94da0",
+          "cf31d1fe-e564-4b17-b163-c975f36d61f0": "a1ab9383-a870-4e7a-88b1-d709ca1e30fe"
+        }
+      }
+    ],
+    "__properties": {
+      "NetworkInterpolation": true,
+      "TimeScale": 1,
+      "WantsSystemScene": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    },
+    "__variables": []
+  },
+  "ResourceVersion": 2,
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "__references": [
+    "facepunch.fire_particle_fast#60123"
+  ],
+  "__version": 2
+}
